@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.34301.259
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contasis", "Contasis\Contasis.csproj", "{871A6E9F-EDC4-436C-9857-89BB9384431F}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Integrador", "Integrador\Integrador.vdproj", "{01079694-FE8D-491D-BD95-78E84568692B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{871A6E9F-EDC4-436C-9857-89BB9384431F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{871A6E9F-EDC4-436C-9857-89BB9384431F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{871A6E9F-EDC4-436C-9857-89BB9384431F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01079694-FE8D-491D-BD95-78E84568692B}.Debug|Any CPU.ActiveCfg = Debug
+		{01079694-FE8D-491D-BD95-78E84568692B}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
