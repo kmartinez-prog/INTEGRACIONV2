@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="timer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>118, 17</value>
+  </metadata>
+  <metadata name="timer3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>219, 17</value>
+  </metadata>
+  <metadata name="timer4.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>320, 17</value>
+  </metadata>
+  <data name="txtxcrearfuncion.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION tablas_negocio_online()
+  RETURNS void AS
+$BODY$
+BEGIN 
+
+CREATE TABLE cg_empemisor(
+	ccodrucemisor char (15) NOT NULL,
+	cdesrucemisor char (200) NULL,
+	flgActivo bit NULL,
+PRIMARY KEY  (ccodrucemisor) );
+
+CREATE TABLE cg_empresa(
+	ccodrucemisor char(15) NULL,
+	ccod_empresa char (3) NULL,
+	nomempresa char (80) NULL,
+PRIMARY KEY  (ccodrucemisor,ccod_empresa) );
+
+
+create sequence sec_id_log minvalue 1 maxvalue 9999999999 increment by 1 ;
+CREATE TABLE cg_log(
+	id int DEFAULT nextval('sec_id_log'::regclass),
+	tipo_error text NULL,
+	error_mensaje text NULL,
+	fechahora date NULL,
+PRIMARY KEY  (id) );
+
+
+CREATE TABLE cg_modulos(
+	ccodmod char(10) NULL,
+	cdesmod char(100) NULL
+) ;
+
+
+CREATE TABLE cg_usuario(
+	ccodusu char(10) NOT NULL,
+	cdesusu char(60) NOT NULL,
+	password char(250) NOT NULL,
+	fec_ultacceso date NULL,
+PRIMARY KEY(ccodusu));
+
+CREATE TABLE cg_usuario_acceso(
+	ccodusu char(10) NOT NULL,
+	ccodmod char(10) NOT NULL,
+	flgacceso numeric(1, 0) NULL
+);
+
+
+CREATE TABLE configuracion(
+	ccod_empresa char(3) NULL,
+	cper char(4) NULL,
+	crazemp char(100) NULL,
+	crucemp char(15) NULL,
+	cEntidad char(3) NULL,
+	csub1_vta char(3) NULL,
+	clreg1_vta char(20) NULL,
+	csub2_vta char(3) NULL,
+	clreg2_vta char(20) NULL,
+	cconts_vta char(20) NULL,
+	ccontd_vta char(20) NULL,
+	cfefec_vta char(4) NULL,
+	ctares_vta numeric(1, 0) NULL,
+	ctaimp_vta numeric(1, 0) NULL,
+	Ctaact_vta numeric(1, 0) NULL,
+	asientos_vta numeric(1, 0) NULL,
+	csub1_com char(3) NULL,
+	clreg1_com char(20) NULL,
+	csub2_com char(3) NULL,
+	clreg2_com char(20) NULL,
+	cconts_com char(20) NULL,
+	ccontd_com char(20) NULL,
+	cfefec_com char(4) NULL,
+	ctares_com numeric(1, 0) NULL,
+	ctaimp_com numeric(1, 0) NULL,
+	Ctapas_com numeric(1, 0) NULL,
+	asientos_com numeric(1, 0) NULL,
+	cTipo char(2) NULL,
+	cEnt_anula char(15) NULL
+);
+
+create sequence sec_id_compras minvalue 1 maxvalue 9999999999 increment by 1 ;
+CREATE TABLE fin_compras(
+	 idcompras   int  DEFAULT nextval('sec_id_compras'::regclass),
+	 ccodrucemisor   char (15) NULL,
+	 ccod_empresa   char (3) NULL,
+	 cper   char (4) NULL,
+	 cmes   char (2) NULL,
+	 ffechadoc   date  NULL,
+	 fechaven   date  NULL,
+	 ccoddoc   nchar (2) NULL,
+	 ccoddas   nchar (3) NULL,
+	 cyeardas   nchar (4) NULL,
+	 cserie   nchar (20) NULL,
+	 cnumero   nchar (20) NULL,
+	 ccodenti   nchar (11) NULL,
+	 cdesenti   nchar (100) NULL,
+	 ctipdoc   nchar (1) NULL,
+	 ccodruc   nchar (15) NULL,
+	 crazsoc   nchar (100) NULL,
+	 ccodclas   nchar (1) NULL,
+	 nbase1   numeric (15, 2) NULL,
+	 nigv1   numeric (15, 2) NULL,
+	 nbase2   numeric (15, 2) NULL,
+	 nigv2   numeric (15, 2) NULL,
+	 nbase3   numeric (15, 2) NULL,
+	 nigv3   numeric (15, 2) NULL,
+	 nina   numeric (15, 2) NULL,
+	 nisc   numeric (15, 2) NULL,
+	 nicbper   numeric (15, 2) NULL,
+	 nexo   numeric (15, 2) NULL,
+	 ntots   numeric (15, 2) NULL,
+	 cdocnodom   nchar (20) NULL,
+	 cnumdere   nchar (15) NULL,
+	 ffecre   date  NULL,
+	 ntc   numeric (10, 6) NULL,
+	 freffec   date  NULL,
+	 crefdoc   nchar (2) NULL,
+	 crefser   nchar (6) NULL,
+	 crefnum   nchar (13) NULL,
+	 cmreg   nchar (1) NULL,
+	 ndolar   numeric (15, 2) NULL,
+	 ffechaven2   date  NULL,
+	 ccond   nchar (3) NULL,
+	 cctabase   nchar (10) NULL,
+	 cctaicbper   nchar (10) NULL,
+	 cctaotrib   nchar (10) NULL,
+	 cctatot   nchar (10) NULL,
+	 ccodcos   nchar (9) NULL,
+	 ccodcos2   nchar (9) NULL,
+	 nresp   numeric (1, 0) NULL,
+	 nporre   numeric (5, 2) NULL,
+	 nimpres   numeric (15, 2) NULL,
+	 cserre   nchar (6) NULL,
+	 cnumre   nchar (13) NULL,
+	 ffecre2   date  NULL,
+	 ccodpresu   nchar (10) NULL,
+	 nigv   numeric (5, 2) NULL,
+	 cglosa   nchar (50) NULL,
+	 nperdenre   numeric (15, 2) NULL,
+	 nbaseres   numeric (15, 2) NULL,
+	 cigvxacre   nchar (1) NULL,
+	 created_at   date  NULL,
+	 updated_at   date  NULL,
+	 estado   varchar (255) NULL,
+	 en_ambiente_de   varchar (255) NULL,
+	 es_con_migracion   numeric (1, 0) NULL,
+	 ccodcos3   nchar (15) NULL,
+	 obserror   text  NULL,
+PRIMARY KEY (idcompras) );
+
+
+create sequence sec_id_ventas minvalue 1 maxvalue 9999999999 increment by 1 ;
+CREATE TABLE fin_ventas(
+	 idventas   int   DEFAULT nextval('sec_id_ventas'::regclass),
+	 ccodrucemisor   char (15) NULL,
+	 ccod_empresa   char (3) NULL,
+	 cper   char (4) NULL,
+	 cmes   char (2) NULL,
+	 ffechadoc   date  NULL,
+	 ffechaven   date  NULL,
+	 ccoddoc   nchar (2) NULL,
+	 cserie   nchar (20) NULL,
+	 cnumero   nchar (20) NULL,
+	 codenti   nchar (11) NULL,
+	 cdesenti   nchar (100) NULL,
+	 ctipodoc   nchar (1) NULL,
+	 ccodruc   nchar (15) NULL,
+	 crazsoc   nchar (100) NULL,
+	 nbase2   numeric (15, 2) NULL,
+	 nbase1   numeric (15, 2) NULL,
+	 nexo   numeric (15, 2) NULL,
+	 nina   numeric (15, 2) NULL,
+	 nisc   numeric (15, 2) NULL,
+	 nigv1   numeric (15, 2) NULL,
+	 nicbpers   numeric (15, 2) NULL,
+	 nbase3   numeric (15, 2) NULL,
+	 ntots   numeric (15, 2) NULL,
+	 ntc   numeric (10, 6) NULL,
+	 freffec   date  NULL,
+	 crefdoc   nchar (2) NULL,
+	 crefser   char (6) NULL,
+	 crefnum   nchar (13) NULL,
+	 cmreg   nchar (1) NULL,
+	 ndolar   numeric (15, 2) NULL,
+	 ffechaven2   date  NULL,
+	 ccond   nchar (3) NULL,
+	 ccodcos   nchar (9) NULL,
+	 ccodcos2   nchar (9) NULL,
+	 cctabase   nchar (20) NULL,
+	 cctaicbper   nchar (20) NULL,
+	 cctaotrib   nchar (20) NULL,
+	 cctatot   nchar (20) NULL,
+	 nresp   numeric (1, 0) NULL,
+	 nporre   numeric (5, 2) NULL,
+	 nimpres   numeric (15, 2) NULL,
+	 cserre   nchar (6) NULL,
+	 cnumre   nchar (13) NULL,
+	 ffecre   date  NULL,
+	 ccodpresu   nchar (10) NULL,
+	 nigv   numeric (5, 2) NULL,
+	 cglosa   nchar (80) NULL,
+	 ccodpago   nchar (3) NULL,
+	 nperdenre   numeric (1, 0) NULL,
+	 nbaseres   numeric (15, 2) NULL,
+	 cctaperc   nchar (20) NULL,
+	 created_at   date  NULL,
+	 updated_at   date  NULL,
+	 estado   varchar (255) NULL,
+	 en_ambiente_de   varchar (255) NULL,
+	 es_con_migracion   numeric (1, 0) NULL,
+	 ccodcos3   nchar (15) NULL,
+	 obserror   text  NULL,
+PRIMARY KEY (idventas));
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE</value>
+  </data>
+  <metadata name="timer5.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>421, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAICAAAAEAIACoEAAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMtQAQDLUAEOy1ABRstQAZHLUAHPy1AB9ctQ
+        Af/LUAH/y1AB/8tQAf/MUQH1zFEB0MxRAZbMUQFKy1ABD8xRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMtQAQDLUAEMy1ABVMtQAbbLUAHvy1AB/stQ
+        Af/LUAH/zVIB/85UAv/PVgL/0FgC/9BYAv/QWAP/0FgD/9BYA/DRWQO50loDWdJbAw3SWwMAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMtQAQDLUAEAy1ABL8tQAanLUAH2y1AB/8tQ
+        Af/MUQH/zlQC/9BYAv/SWgP/0lsD/9JbA//SWwP/0lsD/9JbA//SWwP/0lsD/9NaAv/UWgL31FkCrddY
+        ATL/KAAA4FAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADLUAEAy1ABAstQAVDLUAHYy1AB/8tQ
+        Af/LUAH/zlQC/9FYA//SWwP/0lsD/9JbA//SWwP/0lsD/9JbA//SWwP/1FoD/9VcA//OYgj/w2oM/7dx
+        D/+5bg7/wWgK3MhiB1TyPwAC2lQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAy1ABAMtQAQHLUAFdy1AB6ctQ
+        Af/LUAH/zFEB/89WAv/SWwP/0lsD/9JbA//SWwP/0lsD/9JbA//SWwP/1V0D/9hjBv/GdhL/mJUh/2mu
+        L/9NuzX/Q782/0K9N/9OtTL/X6gs6ku0MV0A91YCMMM7AAAAAAAAAAAAAAAAAMtQAQDLUAEAy1ABS8tQ
+        AejLUAH/y1AB/8xRAv/QWAP/0lsD/9JbA//SWwP/0lsD/9JbA//SWwP/1F0D/9tjBf/Vcg7/opck/166
+        Nf83yTv/Lso7/y/JO/8wyDv/MMc8/y/HO/8wxjz/MMQ66TDDO1MwxT4AMMI5AAAAAAAAAAAAy1ABAMtQ
+        ASjLUAHTy1AB/8tQAf/MUQH/0FgD/9JbA//SWwP/0lsD/9JbA//SWwP/0lsD/9ZfBP/gaAf/13QP/46d
+        K/9OvDn/Msg7/zDJOv8wyTr/Mcg7/zHHOv8xxjv/McY6/zHFO/8wxDr/MMM62DDCOS4wwjkAAAAAAMtQ
+        AQDLUAEHy1ABnctQAf/LUAH/y1EB/9BXAv/SWwP/0lsD/9JbA//SWwP/0lsD/9JbA//XYQX/4msJ/+Nu
+        DP+fkiX/VrQ4/zO8Of8wvzr/MMM6/zDGOv8xyDv/Mcc6/zHGO/8xxjr/McU7/zDEOv8wwzr/MMI5pTHB
+        OwoxwTsAy1ABAMtQAUXLUAHwy1AB/8tQAf/PVQP/0lsD/9JbA//SWwP/0lsD/9JbA//SWwP/12AF/+Jr
+        Cv/mbA3/yHwZ/2utNP8/uzn/ML86/zHAOv8xwDr/MMI6/zDFO/8xxzv/McY7/zHGOv8xxTv/MMQ6/zDD
+        Ov8wwjrzMcE7TTHBOwDLUAEIy1ABpctQAf/LUAH/zFIB/9FaA//SWwP/0lsD/9JbA//SWwP/0lsD/9Vd
+        BP/haQr/5WwP/+VrEP+ZlSX/Urk3/zW/Of8xwTr/MMI6/zDDOv8wxDv/McU6/zHGO/8xxjv/McY6/zHF
+        O/8wxDr/MMM6/zDCOv8xwTqsMb84CstQATbLUAHly1AB/8tQAf/PVwL/0lsD/9JbA//SWwP/0lsD/9Jb
+        A//SWwP/3WUK/+VrEP/maw7/3HAQ/HWpL+pGvjnnMsI67zDDOvwwxDv/McU7/zHFO/8xxjv/Mcc7/zHH
+        O/8xxjr/McU7/zDEOv8wwzr/MMI6/zHAOukxwDk7y1ABdstQAf3LUAH/zFIC/9FaA//SWwP/0lsD/9Jb
+        A//SWwP/0lsC/9dfBf/kag3/5WsN/+VqDf/ibA/Wh54pOjzDOigwwzo3MMQ6XDHFO5sxxjvfMcc7/jHI
+        O/8wyTr/Mck6/zHJO/8xxTv/MMQ6/zDDOv8wwjr/McA6/jHAOYLLUAGwy1AB/8tQAf/OVQL/0lsD/9Jb
+        Av/SWwL/01wB/9NcAP/TXAD/3WUH/+VrDf/lag3/5moN/+ZpDsPmaA4P5mgOAAAAAAAxxjsAMcY7AzHH
+        OygxyDuNMMk67THKOv8xyzv/Mcs7/zHIO/8wxDr/MMM6/zDCOv8xwDr/McA6vstQAdbLUAH/y1AB/9FY
+        Af/TXAD/01wA/9NcAP/TXAD/01wA/9VdAf/iaAv/5moO/+ZpDv/maBD/5mgSxeZoEhDmaBIAAAAAAAAA
+        AAAAAAAAMMo5AC/JOQQxyjtRMcs73DHMO/8xzTv/Mcw7/zDGOv8wwzr/MMI6/zHAOv8xvzrly1AB68tQ
+        Af/MUQH/0loA/9NcAP/TXAD/01wA/9NcAP/TXAH/2GAF/+VpD//maRH/5mgS/+ZoE//mZxPa5mcTHOZn
+        EwAAAAAAAAAAAAAAAAAAAAAAMcs6ADHRPAAxzDtEMc073zHOPP8xzjv/Mck7/zDDOv8wwjr/McA6/zG/
+        OvvLUAH5y1AB/81TAf/TWwD/01wB/9NcAf/TXAL/010D/9NdA//bYgn/5mkS/+ZoE//maBP/5mcT/+Zm
+        FPPmZhRE5mYUAAAAAAAAAAAAAAAAAAAAAAAAAAAAMc06ADHTPQAxzjxeMc879DHPO/8xzTz/MMQ6/zDC
+        Ov8xwDr/Mb86/8tQAfTLUAH/zlQB/9NcAv/TXQP/010D/9NdA//TXQP/010D/91jC//maBP/5mcS/+Zn
+        Ev/mZhT/5mYV/+dlFpPoYhwD52QYAAAAAAAAAAAAAAAAAAAAAAAAAAAAMc86ADHPOgky0DymMtA8/zLP
+        PP8xxjr/MME6/zHAOv8xvzr/y1AB5stQAf/OVQL/010D/9NdA//TXQP/010D/9NdAv/TXQH/3WMK/+Zn
+        Ev/mZxP/5mYU/+dlFf/nZBf/52QX5edjFzjnYxcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMtA7ADLQ
+        O0Qy0TvyMtE7/zHIOv8wwTr/McA6/zG/OvbLUAHLy1AB/85VAv/TXQL/010C/9NeAf/TXgD/014A/9Ne
+        AP/dYgn/5mYU/+ZmFf/nZRb/52QY/+dkF//nYxb/6GMWt+hiGBjoYhgAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAy0TsAMtE7DzLRPMMy0Tz/Mck7/zDBOv8xwDr/Mb862stQAZ3LUAH/zVQB/9NeAP/TXgD/014A/9Ne
+        AP/TXgD/014A/9thCf/nZRX/52UX/+dkF//nZBb/6GMW/+hjF//oYhf+6GAWp+hdEx3oXhMA62IdAAAA
+        AAAAAAAAAAAAADLRQQAv1DkAMdI8kTHSPP8xyjv/MME6/zHAOv8xwDquy1ABXctQAffNUwH/010A/9Ne
+        Af/TXgH/014C/9NeAv/TXgL/2GAI/+ZkFv/nZBb/52MV/+hjFv/oYhf/6GEY/+hfFv/oXRP+6VsOxelX
+        ClDpVAoM6VUMAAAAAAAAAAAAAAAAADLRPAAw0zxuMdI8/zHJO/8wwTr/McA6+zHAOW3LUAEgy1AB08xR
+        Af/SXAP/018D/9NfA//TXwL/018C/9NfAv/VYAT/5GMT/+hjFv/oYxf/6GEY/+hgF//pXhT/6VwR/+la
+        Df/pVwv/6VQJ8+lRB7npTQV06EoESelHATvpQwE+8TkAVpOFHa01zzv/MMg7/zDBOv8xwDrcMcA5KstQ
+        AQDLUAGFy1AB/9BaAv/TXwL/018C/9NfAv/TXwL/018C/9NfAv/gYQ7/6GIX/+hhF//oXxX/6V4S/+lb
+        EP/pWA7/6VYM/+lTCf/pUQb/6U4E/+hLBP/pRwL36UQB8OhBAfLrOwD7rG0U/zPPO/8wxjv/MME6/zHB
+        OpMxvjUDy1ABAMtQASrLUAHezlYC/9NfAv/TXwL/018C/9RfAf/UYAH/1GAB/9lgCP/nYBb/6V8U/+lc
+        Ev/pWhD/6VcO/+lUC//pUgj/6U8F/+lNA//pSQL/6UYC/+lDAf/oQAD/6DwA/+s2AP+Zexr/MM88/zDD
+        Ov8wwjrlMcE7NTHBOwDLUAEAy1ABAMtQAXfMUgH8010B/9RgAf/UYAL/1GAC/9RgA//UYAT/1WAF/+Fe
+        Dv/pWxH/6VkP/+lWDP/pVAj/6VEG/+lOBP/pSwL/6UgC/+lEAv/oQQH/6D4A/+g6AP/oNgD/5jQA/3aX
+        Jf8uzDz/MMM6/TDCOYEywD0CMcE7AAAAAADLUAEAy1ABE8tQAbDQWAL/1GAE/9RgBf/UYAX/1GAE/9Rh
+        A//UYQL/12AE/+ZZC//pVQr/6VIH/+lPBf/pTQP/6UoD/+lGAv/pQwH/6EAA/+g8AP/oOQD/6DUA/+kv
+        AP/RQwf/TLgz/y/HO/8wwzu4MMI5FjDCOQAAAAAAAAAAAAAAAADLUAEAyk8BKM1TAsfTXgP/1GEC/9Rh
+        Av/UYQH/1GEB/9RhAf/UYQH/2lwD/+dSBf/pTgX/6UsD/+lIAv/pRQH/6EIB/+g+AP/oOwD/6DcA/+gz
+        AP/nLwD/6SkA/5l0Gf8zyTv/MMQ60DDDOy8wwzsAAAAAAAAAAAAAAAAAAAAAAMtQAQDLUQEAy08BL89Y
+        AcfUYAH/1GEB/9RhAf/UYQH/1GEB/9RhAf/UYQH/21oB/+dMAf/pRgH/6UMB/+hAAP/oPQD/6DkA/+g1
+        AP/oMQD/5y0A/+onAP/JRAr/TbUy/y/HPNAxxDo4MsQ8ADDDOwAAAAAAAAAAAAAAAAAAAAAAAAAAAMNC
+        AADSXAEAzVQBJ9JeAa/UYQH71GEB/9RiAf/UYgH/1GIB/9RiAv/UYgP/2lkC/+RHAf/oPgD/6DsA/+g3
+        AP/oMwD/6C8A/+grAP/qJQD/2DMF/2qaKP0vyTu5McQ7LzDFOgAyxDwAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAADWZQAA018BEdRiAHTUYgLe1GID/9RiA//UYgT/1GIE/9RiA//UYwL/110B/99M
+        AP/mOwD/6DEA/+gsAP/oKQD/6SQA/9czBf98hyHmMsg7gi7HOxcwxjsAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADUYgQA1GIEAdRiBCnUYgSE1GID0tRjAvfUYwH/1WMA/9Vj
+        AP/VYwD/1WMA/9hbAP/eSwH/4zoC/+YrAfraLgTcj3UckzLKOjQQ3kYDJM8/AAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1GIEANRiBQLUYwAe1WMAWtVj
+        AJnVYwDG1WMA4tVjAO7VYwHu1WQD59VkBM7WYASm204DacFNCike40MESL81AAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAA/4AB//4AAH/4AAAf8AAAD+AAAAfgAAAHwAAAA4AAAAGAAAABAAAAAAAA
+        AAAAAAAAAADgAAAA+AAAAP4AAAD/AAAAfwAAAH+AAAA/gAAAH8AAAAfAAAAAAAAAAACAAAABgAAAAcAA
+        AAPgAAAH8AAAD/gAAB/8AAA//gAAf/+AAf8=
+</value>
+  </data>
+</root>

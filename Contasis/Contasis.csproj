@@ -1,0 +1,517 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{871A6E9F-EDC4-436C-9857-89BB9384431F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Contasis</RootNamespace>
+    <AssemblyName>Integracion</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <PublishUrl>C:\CEO_DESARROLLO_NET\repos\daniel\kmartinez-prog\INTEGRACION\Contasis\publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>Contasis Corp</ProductName>
+    <PublisherName>Contasis Corp</PublisherName>
+    <SuiteName>Contasis Corp</SuiteName>
+    <ApplicationRevision>82</ApplicationRevision>
+    <ApplicationVersion>2024.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Contasis.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>7D82419F3EA7D39D0FF7B61B501258B5B30F3E61</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Contasis_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ExcelDataReader, Version=3.7.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.3.7.0\lib\net462\ExcelDataReader.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDataReader.DataSet, Version=3.7.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.DataSet.3.7.0\lib\net462\ExcelDataReader.DataSet.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.8.0.0\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Npgsql, Version=8.0.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.8.0.3\lib\netstandard2.0\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.8.0.0\lib\net462\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.8.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.8.0.0\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Channels.8.0.0\lib\net462\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Clase\Class1.cs" />
+    <Compile Include="Clase\ConexionPostgreslContasis.cs" />
+    <Compile Include="Clase\ConexionSql.cs" />
+    <Compile Include="Clase\Cuentas.cs" />
+    <Compile Include="Clase\CuentasPropiedad.cs" />
+    <Compile Include="Clase\datosPostgrelEmpresa.cs" />
+    <Compile Include="Clase\datosSqlUsu.cs" />
+    <Compile Include="Clase\EmpresaPropiedades.cs" />
+    <Compile Include="Clase\Empresas.cs" />
+    <Compile Include="Clase\Inicio.cs" />
+    <Compile Include="Clase\LeerUsuarios.cs" />
+    <Compile Include="Clase\ruc.cs" />
+    <Compile Include="Clase\rucemisor.cs" />
+    <Compile Include="Clase\rucpropiedades.cs" />
+    <Compile Include="Clase\usuario.cs" />
+    <Compile Include="Clase\usuarioPropiedad.cs" />
+    <Compile Include="Conexion.cs" />
+    <Compile Include="ConexionConta.cs" />
+    <Compile Include="ConexionPostgrelSql.cs" />
+    <Compile Include="FrmEliminarruc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEliminarruc.Designer.cs">
+      <DependentUpon>FrmEliminarruc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRuceditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRuceditor.Designer.cs">
+      <DependentUpon>FrmRuceditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmrucemisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmrucemisor.Designer.cs">
+      <DependentUpon>frmrucemisor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAccesoUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAccesoUsuario.Designer.cs">
+      <DependentUpon>FrmAccesoUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmBuscarCuenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBuscarCuenta.Designer.cs">
+      <DependentUpon>FrmBuscarCuenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmBuscarEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBuscarEmpresa.Designer.cs">
+      <DependentUpon>FrmBuscarEmpresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAyuda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAyuda.Designer.cs">
+      <DependentUpon>FrmAyuda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEliminarEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEliminarEmpresa.Designer.cs">
+      <DependentUpon>FrmEliminarEmpresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEliminarUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEliminarUsuario.Designer.cs">
+      <DependentUpon>FrmEliminarUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEmpresas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEmpresas.Designer.cs">
+      <DependentUpon>FrmEmpresas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEstructura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEstructura.Designer.cs">
+      <DependentUpon>FrmEstructura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmExportarUsuariocs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmExportarUsuariocs.Designer.cs">
+      <DependentUpon>FrmExportarUsuariocs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmInconsistencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInconsistencia.Designer.cs">
+      <DependentUpon>FrmInconsistencia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmInconsistenciasCompras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInconsistenciasCompras.Designer.cs">
+      <DependentUpon>FrmInconsistenciasCompras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmIntegradorConta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmIntegradorConta.Designer.cs">
+      <DependentUpon>FrmIntegradorConta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmModificarEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmModificarEmpresa.Designer.cs">
+      <DependentUpon>FrmModificarEmpresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmUsuarios.Designer.cs">
+      <DependentUpon>FrmUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmUsuedit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmUsuedit.Designer.cs">
+      <DependentUpon>FrmUsuedit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrRegistrarConexion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrRegistrarConexion.Designer.cs">
+      <DependentUpon>FrRegistrarConexion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCrearTablas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCrearTablas.Designer.cs">
+      <DependentUpon>FrmCrearTablas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrRegistrarConexionDestino.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrRegistrarConexionDestino.Designer.cs">
+      <DependentUpon>FrRegistrarConexionDestino.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Principal.Designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ruc_postgres.cs" />
+    <Compile Include="Servidor.cs" />
+    <Compile Include="ServidorUni.cs" />
+    <Compile Include="usuario_postgres.cs" />
+    <EmbeddedResource Include="FrmEliminarruc.resx">
+      <DependentUpon>FrmEliminarruc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRuceditor.resx">
+      <DependentUpon>FrmRuceditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmrucemisor.resx">
+      <DependentUpon>frmrucemisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAccesoUsuario.resx">
+      <DependentUpon>FrmAccesoUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmBuscarCuenta.resx">
+      <DependentUpon>FrmBuscarCuenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmBuscarEmpresa.resx">
+      <DependentUpon>FrmBuscarEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAyuda.resx">
+      <DependentUpon>FrmAyuda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEliminarEmpresa.resx">
+      <DependentUpon>FrmEliminarEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEliminarUsuario.resx">
+      <DependentUpon>FrmEliminarUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEmpresas.resx">
+      <DependentUpon>FrmEmpresas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEstructura.resx">
+      <DependentUpon>FrmEstructura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmExportarUsuariocs.resx">
+      <DependentUpon>FrmExportarUsuariocs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmInconsistencia.resx">
+      <DependentUpon>FrmInconsistencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmInconsistenciasCompras.resx">
+      <DependentUpon>FrmInconsistenciasCompras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmIntegradorConta.resx">
+      <DependentUpon>FrmIntegradorConta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmModificarEmpresa.resx">
+      <DependentUpon>FrmModificarEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmUsuarios.resx">
+      <DependentUpon>FrmUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmUsuedit.resx">
+      <DependentUpon>FrmUsuedit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrRegistrarConexion.resx">
+      <DependentUpon>FrRegistrarConexion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCrearTablas.resx">
+      <DependentUpon>FrmCrearTablas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrRegistrarConexionDestino.resx">
+      <DependentUpon>FrRegistrarConexionDestino.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Contasis_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Contasis.ico" />
+    <Content Include="Imagen\1. Icono - Empresas.png" />
+    <Content Include="Imagen\1. Icono Boton - Salir.png" />
+    <Content Include="Imagen\2. Icono - Acceso a Usuarios.png" />
+    <Content Include="Imagen\2. Icono Boton - Eliminar.png" />
+    <Content Include="Imagen\3. Icono - Origen de datos.png" />
+    <Content Include="Imagen\3. Icono Boton - Modificar.png" />
+    <Content Include="Imagen\4. Icono - Estructura de datos.png" />
+    <Content Include="Imagen\4. Icono Boton - Nuevo.png" />
+    <Content Include="Imagen\5. Icono - Salir.png" />
+    <Content Include="Imagen\5. Icono Boton - Aceptar.png" />
+    <Content Include="Imagen\6. Icono Boton - Excel.png" />
+    <Content Include="Imagen\7. Icono Boton - Permisos.png" />
+    <Content Include="Imagen\8. Icono Boton - Buscar.png" />
+    <Content Include="Imagen\9. Icono Boton - Grabar.png" />
+    <Content Include="Imagen\Aceptar.jpg" />
+    <Content Include="Imagen\ayuda2.jpg" />
+    <Content Include="Imagen\ayuda3.jpg" />
+    <Content Include="Imagen\ayuda4.jpg" />
+    <Content Include="Imagen\AZULINGRESO.jpg" />
+    <Content Include="Imagen\AZULSALIR.jpg" />
+    <Content Include="Imagen\Background.png" />
+    <Content Include="Imagen\Candado.png" />
+    <Content Include="Imagen\comercial32.ico" />
+    <Content Include="Imagen\comercial64.ico" />
+    <Content Include="Imagen\Conectar.jpg" />
+    <Content Include="Imagen\Conectar1.jpg" />
+    <Content Include="Imagen\Contasis.ico" />
+    <Content Include="Imagen\Datos25.jpg" />
+    <Content Include="Imagen\Empresa.jpg" />
+    <None Include="Imagen\Empresas.jpg" />
+    <Content Include="Imagen\Estructura25.jpg" />
+    <Content Include="Imagen\excelOil.ico" />
+    <Content Include="Imagen\file_apply.ico" />
+    <Content Include="Imagen\file_cabcel.ico" />
+    <Content Include="Imagen\file_del.ico" />
+    <Content Include="Imagen\file_find.ico" />
+    <Content Include="Imagen\file_lock.ico" />
+    <Content Include="Imagen\file_locked.ico" />
+    <Content Include="Imagen\filtro.ico" />
+    <Content Include="Imagen\find.ico" />
+    <Content Include="Imagen\FraseLogin.jpg" />
+    <Content Include="Imagen\icono buscar.jpg" />
+    <Content Include="Imagen\icono eliminar.jpg" />
+    <Content Include="Imagen\icono excel.jpg" />
+    <Content Include="Imagen\icono Grabar.png" />
+    <Content Include="Imagen\icono modificar.jpg" />
+    <Content Include="Imagen\icono nuevo.jpg" />
+    <Content Include="Imagen\icono salir.jpg" />
+    <Content Include="Imagen\icono-rojo.png" />
+    <Content Include="Imagen\ImgConfi.png" />
+    <Content Include="Imagen\ImgDatabase.png" />
+    <Content Include="Imagen\ImgTablas.png" />
+    <Content Include="Imagen\lgoin2.jpg" />
+    <Content Include="Imagen\LOGIN.png" />
+    <Content Include="Imagen\login11.jpg" />
+    <Content Include="Imagen\LoginIngresar.jpg" />
+    <Content Include="Imagen\Logo - Contasis.png" />
+    <Content Include="Imagen\quit.jpg" />
+    <Content Include="Imagen\quit1.jpg" />
+    <Content Include="Imagen\QuitSalir.jpg" />
+    <Content Include="Imagen\registrar.jpg" />
+    <Content Include="Imagen\registrar1.jpg" />
+    <Content Include="Imagen\Salida25.jpg" />
+    <Content Include="Imagen\usuario_25.jpg" />
+    <Content Include="Imagen\_COMERCIAL-SQL-PANEL.png" />
+    <None Include="Resources\_COMERCIAL-SQL-PANEL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Formulario\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

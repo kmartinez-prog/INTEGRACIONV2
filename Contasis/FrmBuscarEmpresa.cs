@@ -1,0 +1,185 @@
+﻿using Npgsql;
+using System;
+using System.Windows.Forms;
+
+namespace Contasis
+{
+    public partial class FrmBuscarEmpresa : Form
+    {
+        public FrmBuscarEmpresa()
+        {
+            InitializeComponent();
+            txtbuscar.CharacterCasing = CharacterCasing.Upper;
+        }
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+        private void btncerrar_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            this.Close();
+            
+            
+        }
+        private void FrmBuscarEmpresa_Load(object sender, EventArgs e)
+        {
+            this.cargar();
+            Cmbseleccion.SelectedIndex = 0;
+        }
+        private void cargar()
+        {
+
+            NpgsqlConnection cone = new NpgsqlConnection();
+            string text01 = "select ccodemp as Cod_emp,cdesemp as Empresa from  cg_contasis order by ccodemp";
+            cone = Clase.ConexionPostgreslContasis.Instancial().establecerconexion();
+            NpgsqlCommand cmdp = new NpgsqlCommand(text01, cone);
+            cone.Open();
+            NpgsqlDataReader grilla = cmdp.ExecuteReader();
+            while (grilla.Read())
+            {
+                dataGridView1.Rows.Add(grilla[0], grilla[1]);
+
+            }
+            
+            grilla.Close();
+
+
+        }
+        private void btnnuevo_Click(object sender, EventArgs e)
+        {
+            seleccionar();
+        }
+        private void seleccionar()
+        {
+            if (Properties.Settings.Default.cadenaPostPrincipal == "")
+            {
+                try
+                {
+
+                    string valor1 = "";
+                    Clase.empresaPropiedades obj = new Clase.empresaPropiedades();
+                    obj.codempresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value);
+                    obj.empresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[1].Value);
+                    Clase.Empresas ds1 = new Clase.Empresas();
+                    valor1 = ds1.obtenerempresa(obj);
+                    if (valor1.Equals("Grabado"))
+                    {
+                        FrmEmpresas.instance.grilla1();
+                        MessageBox.Show("Registro grabado en tabla Empresa desde el Contasis Financiero.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Empresa ya fue registrada, seleccionar otra empresa.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("error : " + ex.Message, "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                try
+                {
+
+                    string valor1 = "";
+                    Clase.empresaPropiedades obj = new Clase.empresaPropiedades();
+                    obj.codempresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value);
+                    obj.empresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[1].Value);
+                    Clase.Empresas ds1 = new Clase.Empresas();
+                    valor1 = ds1.obtenerempresa_postgres(obj);
+                    if (valor1.Equals("Grabado"))
+                    {
+                        FrmEmpresas.instance.grilla1();
+                        MessageBox.Show("Registro grabado en tabla Empresa desde el Contasis Financiero.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Empresa ya fue registrada, seleccionar otra empresa.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("error : " + ex.Message, "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+
+            }
+
+
+
+
+        }
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            seleccionar();
+        }
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+        }
+        private void Cmbseleccion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtbuscar.Text = "";
+            this.cargar();
+            txtbuscar.Focus(); 
+        }
+        private void cargar_codigo(string valor)
+        {
+             NpgsqlConnection cone = new NpgsqlConnection();
+            cone = Clase.ConexionPostgreslContasis.Instancial().establecerconexion();
+            NpgsqlCommand cmdp = new NpgsqlCommand(valor, cone);
+            cone.Open();
+            NpgsqlDataReader grilla = cmdp.ExecuteReader();
+            dataGridView1.Rows.Clear(); 
+
+            while (grilla.Read())
+            {
+                dataGridView1.Rows.Add(grilla[0], grilla[1]);
+            }
+            grilla.Close();
+
+
+        }
+        private void txtbuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (Cmbseleccion.SelectedIndex == 0)
+                {
+                    string query1 = "select ccodemp as Cod_emp,cdesemp as Empresa from  cg_contasis where ccodemp like '%" + txtbuscar.Text + "%' order by ccodemp";
+                    this.cargar_codigo(query1);
+                    dataGridView1.Focus(); 
+                }
+                else
+                {
+                    string query1 = "select ccodemp as Cod_emp,cdesemp as Empresa from  cg_contasis where  cdesemp like '%" + txtbuscar.Text + "%' order by ccodemp";
+                    this.cargar_codigo(query1);
+                    dataGridView1.Focus();
+                }
+                
+            }
+        }
+
+        private void FrmBuscarEmpresa_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+                this.Hide();
+            }
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+
+            if (keyData == (Keys.Escape))
+            {
+                Close();
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+    }
+}
