@@ -22,6 +22,8 @@ namespace Contasis
         FrmRucemisor master8;
         FrRegistrarConexionDestino master9;
 
+        FrmConfigurarServicio master10;
+
 
         public static Principal instance = null;
         public Principal(string valor)
@@ -395,5 +397,31 @@ namespace Contasis
             master9 = null;
         }
 
+        private void servicioDeIntegraciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form OpenForm in Application.OpenForms)
+            {
+                if (OpenForm.Name == "master10")
+                { }
+                else
+                {
+                    master10 = null;
+                }
+
+            }
+
+            if (master10 == null)
+            {
+                master10 = new FrmConfigurarServicio();
+                ///master6.MdiParent = this;
+                master10.ShowDialog();
+                master10.FormClosed += new FormClosedEventHandler(CerrarConfiguracionServicio);
+
+            }
+        }
+        void CerrarConfiguracionServicio(object sender, EventArgs e)
+        {
+            master10 = null;
+        }
     }
 }

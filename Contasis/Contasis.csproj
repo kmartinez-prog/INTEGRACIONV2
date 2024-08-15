@@ -138,6 +138,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -183,6 +184,12 @@
     <Compile Include="Conexion.cs" />
     <Compile Include="ConexionConta.cs" />
     <Compile Include="ConexionPostgrelSql.cs" />
+    <Compile Include="FrmConfigurarServicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmConfigurarServicio.Designer.cs">
+      <DependentUpon>FrmConfigurarServicio.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmEliminarruc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -332,6 +339,9 @@
     <Compile Include="Servidor.cs" />
     <Compile Include="ServidorUni.cs" />
     <Compile Include="usuario_postgres.cs" />
+    <EmbeddedResource Include="FrmConfigurarServicio.resx">
+      <DependentUpon>FrmConfigurarServicio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmEliminarruc.resx">
       <DependentUpon>FrmEliminarruc.cs</DependentUpon>
     </EmbeddedResource>
