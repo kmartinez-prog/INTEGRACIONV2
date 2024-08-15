@@ -74,13 +74,41 @@ namespace Contasis
                     conexion.Open();
                     NpgsqlCommand command1 = new NpgsqlCommand(txtxcrearfuncion.Text, conexion);
                     command1.ExecuteNonQuery();
-
                     
-                    
-
-                    string ejecutar = "select * from tablas_negocio_online();";
-                    NpgsqlCommand command2 = new NpgsqlCommand(ejecutar, conexion);
+                    string ejecutar2 = "select * from tablas_negocio_online();";
+                    NpgsqlCommand command2 = new NpgsqlCommand(ejecutar2, conexion);
                     command2.ExecuteNonQuery();
+
+
+
+                    timer2.Enabled = true;
+                    string ejecutar3 = txtventa1.Text;
+                    NpgsqlCommand command3 = new NpgsqlCommand(ejecutar3, conexion);
+                    command3.ExecuteNonQuery();
+                    timer2.Enabled = false;
+
+                    timer3.Enabled = true;
+                    string ejecutar4 = txtventa2.Text;
+                    NpgsqlCommand command4 = new NpgsqlCommand(ejecutar4, conexion);
+                    command4.ExecuteNonQuery();
+                    timer3.Enabled = false;
+
+
+                    timer4.Enabled = true;
+                    string ejecutar5 = txtcompras1.Text;
+                    NpgsqlCommand command5 = new NpgsqlCommand(ejecutar5, conexion);
+                    command5.ExecuteNonQuery();
+                    timer4.Enabled = false;
+
+
+                    timer1.Enabled =true;
+                    string ejecutar6 = txtcompras2.Text;
+                    NpgsqlCommand command6 = new NpgsqlCommand(ejecutar6, conexion);
+                    command5.ExecuteNonQuery();
+                    timer1.Enabled = false;
+
+
+
                     conexion.Close();
                     timer5.Stop();
                     timer5.Enabled = false;

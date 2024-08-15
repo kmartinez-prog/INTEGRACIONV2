@@ -10,5 +10,6 @@ namespace Contasis.Clase
     {
         public string codempresa { get; set; }
         public string empresa { get; set; }
+        public string ruc { get; set; }
     }
 }

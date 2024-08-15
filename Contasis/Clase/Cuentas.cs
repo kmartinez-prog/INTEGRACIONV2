@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using Npgsql;
 
 
 namespace Contasis.Clase
@@ -250,17 +251,18 @@ namespace Contasis.Clase
             string cadena = "";
 
             DataTable Tabla = new DataTable();
-            SqlConnection cone = new SqlConnection();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
 
             try
             {
 
                 string query0 = "SELECT CPER FROM CONFIGURACION WHERE CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
-                SqlCommand commando = new SqlCommand(query0, cone);
+                NpgsqlCommand cmdp = new NpgsqlCommand(query0, conexion);
                 DataTable dt = new DataTable();
-                cone.Open();
-                SqlDataAdapter data = new SqlDataAdapter(commando);
+                NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
+                
                 data.Fill(dt);
 
                 if (Objet.CTIPO == "01")
@@ -287,10 +289,8 @@ namespace Contasis.Clase
                           " asientos_vta =" + Objet.ASIENTOS_vta + "," +
                           " cEnt_anula ='" + Objet.CENT_ANULA + "' " +
                           " where CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
-                        cone = ConexionSql.Instancial().establecerconexion();
-                        SqlCommand commando2 = new SqlCommand(query1, cone);
-                        cone.Open();
-                        cadena = commando2.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
+                        NpgsqlCommand cmdp1 = new NpgsqlCommand(query1, conexion);
+                        cadena = cmdp1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
 
                     }
 
@@ -318,10 +318,8 @@ namespace Contasis.Clase
                            "" + Objet.ASIENTOS_vta + "," +
                            "'" + Objet.CTIPO + "'," +
                            "'" + Objet.CENT_ANULA + "')";
-                        cone = ConexionSql.Instancial().establecerconexion();
-                        SqlCommand commando1 = new SqlCommand(query, cone);
-                        cone.Open();
-                        cadena = commando1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
+                        NpgsqlCommand cmdp1 = new NpgsqlCommand(query, conexion);
+                        cadena = cmdp1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
 
                     }
                 }
@@ -350,10 +348,8 @@ namespace Contasis.Clase
                           " asientos_com =" + Objet.ASIENTOS_com + "," +
                           " cEnt_anula ='" + Objet.CENT_ANULA + "' " +
                           " where CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
-                        cone = ConexionSql.Instancial().establecerconexion();
-                        SqlCommand commando2 = new SqlCommand(query1, cone);
-                        cone.Open();
-                        cadena = commando2.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
+                        NpgsqlCommand cmdp1 = new NpgsqlCommand(query1, conexion);
+                        cadena = cmdp1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
 
                     }
 
@@ -381,10 +377,8 @@ namespace Contasis.Clase
                            "" + Objet.ASIENTOS_com + "," +
                            "'" + Objet.CTIPO + "'," +
                            "'" + Objet.CENT_ANULA + "')";
-                        cone = ConexionSql.Instancial().establecerconexion();
-                        SqlCommand commando1 = new SqlCommand(query, cone);
-                        cone.Open();
-                        cadena = commando1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
+                        NpgsqlCommand cmdp1 = new NpgsqlCommand(query, conexion);
+                        cadena = cmdp1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
 
                     }
                 }
@@ -398,9 +392,9 @@ namespace Contasis.Clase
             }
             finally
             {
-                if (cone.State == ConnectionState.Open)
+                if (conexion.State == ConnectionState.Open)
                 {
-                    cone.Close();
+                    conexion.Close();
                 }
 
             }
@@ -410,20 +404,20 @@ namespace Contasis.Clase
         {
             string xempresa = mEmpresa;
             string xPeriodo = mPeriodo;
-
-            SqlDataReader carga;
+            NpgsqlDataReader carga;
             DataTable Grilla = new DataTable();
-            SqlConnection cone = new SqlConnection();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+
             try
             {
                 string query = "SELECT CCOD_EMPRESA as EMPRESA,cper AS PERIODO,crazemp AS RAZON,crucemp AS RUC," +
                 "cEntidad AS ENTIDAD_VENTA ,csub1_vta,clreg1_vta,csub2_vta,clreg2_vta,cconts_vta,ccontd_vta,cfefec_vta" +
                 ",ctares_vta AS RESULTADO,ctaimp_vta AS IMPUESTOS,Ctaact_vta ACTIVO_VTA, asientos_vta AS ASIENTO_VTA, cTipo AS TIPO,cEnt_anula as ENT_ANULADO " +
                 "FROM CONFIGURACION where CCOD_EMPRESA='" + xempresa + "' and cper='" + xPeriodo + "' and   ctipo = '01' order by cper desc";
-                cone = ConexionSql.Instancial().establecerconexion();
-                SqlCommand commando = new SqlCommand(query, cone);
-                cone.Open();
-                carga = commando.ExecuteReader();
+                NpgsqlCommand cmdp1 = new NpgsqlCommand(query, conexion);
+                carga = cmdp1.ExecuteReader();
                 Grilla.Load(carga);
                 return Grilla;
             }
@@ -433,9 +427,9 @@ namespace Contasis.Clase
             }
             finally
             {
-                if (cone.State == ConnectionState.Open)
+                if (conexion.State == ConnectionState.Open)
                 {
-                    cone.Close();
+                    conexion.Close();
                 }
 
             }
@@ -446,19 +440,19 @@ namespace Contasis.Clase
             string xempresa = mEmpresa;
             string xPeriodo = mPeriodo;
 
-            SqlDataReader carga;
+            NpgsqlDataReader carga;
             DataTable Grilla = new DataTable();
-            SqlConnection cone = new SqlConnection();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
             try
             {
                 string query = "SELECT CCOD_EMPRESA as EMPRESA,cper AS PERIODO,crazemp AS RAZON,crucemp AS RUC," +
                 "cEntidad AS ENTIDAD_COMPRA,csub1_com,clreg1_com,csub2_com ,clreg2_com,cconts_com,ccontd_com" +
                 ",cfefec_com,ctares_com AS RESULTADO_COM,ctaimp_com AS IMPUESTOS_COM ,Ctapas_com AS ACTIVO_COM ,asientos_com as ASIENTO_COM," +
                 "cTipo AS TIPO,cEnt_anula as ENT_ANULADO  FROM CONFIGURACION where  CCOD_EMPRESA='" + xempresa + "' and cper='" + xPeriodo + "' and    ctipo = '02' order by cper desc";
-                cone = ConexionSql.Instancial().establecerconexion();
-                SqlCommand commando = new SqlCommand(query, cone);
-                cone.Open();
-                carga = commando.ExecuteReader();
+                NpgsqlCommand cmdp1 = new NpgsqlCommand(query, conexion);
+                carga = cmdp1.ExecuteReader();
                 Grilla.Load(carga);
                 return Grilla;
             }
@@ -468,9 +462,9 @@ namespace Contasis.Clase
             }
             finally
             {
-                if (cone.State == ConnectionState.Open)
+                if (conexion.State == ConnectionState.Open)
                 {
-                    cone.Close();
+                    conexion.Close();
                 }
 
             }

@@ -1,4 +1,5 @@
 ﻿using Npgsql;
+using System.Data;
 using System;
 using System.Windows.Forms;
 
@@ -6,10 +7,13 @@ namespace Contasis
 {
     public partial class FrmBuscarEmpresa : Form
     {
-        public FrmBuscarEmpresa()
+        string rucemisor;
+
+        public FrmBuscarEmpresa(string rucunico)
         {
             InitializeComponent();
             txtbuscar.CharacterCasing = CharacterCasing.Upper;
+            rucemisor = rucunico.Trim();
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -55,13 +59,53 @@ namespace Contasis
             {
                 try
                 {
-
+                    DataTable Tabla = new DataTable();
                     string valor1 = "";
+                    string cadenanew = "";
+                    string empresa = "";
+                    string cadena = "";
                     Clase.empresaPropiedades obj = new Clase.empresaPropiedades();
                     obj.codempresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value);
                     obj.empresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[1].Value);
+
+                    cadena = Properties.Settings.Default.cadenaPost;
+                    empresa = "contasis_" + obj.empresa.Trim();
+                    cadenanew = cadena.Replace("contasis","contasis_"+obj.codempresa.Trim());
+
+                    
+                    try
+                    {
+                        NpgsqlConnection cone1 = new NpgsqlConnection();
+                        string text01 = "SELECT crucemp as ruc FROM cg_emppro order by cper desc limit 1";
+                        cone1 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(cadenanew);
+                        cone1.Open();
+                        NpgsqlCommand cmdp = new NpgsqlCommand(text01, cone1);
+                        NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
+                        NpgsqlDataReader leer = cmdp.ExecuteReader();
+                        if (leer.Read())
+                        {
+                            obj.ruc = Convert.ToString(leer["ruc"]);
+                        }
+                        if (obj.ruc.Trim() == rucemisor.Trim())
+                        { }
+                        else
+                        {
+                            MessageBox.Show("ruc emisor no coincide con ruc de empresa seleccionada."  , "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
+
+                        cone1.Close();
+                        
+                    }
+
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show("error : " + ex.Message, "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                     Clase.Empresas ds1 = new Clase.Empresas();
-                    valor1 = ds1.obtenerempresa(obj);
+                        valor1 = ds1.obtenerempresa(obj);
                     if (valor1.Equals("Grabado"))
                     {
                         FrmEmpresas.instance.grilla1();
@@ -85,9 +129,44 @@ namespace Contasis
                 {
 
                     string valor1 = "";
+                    string cadenanew = "";
+                    string empresa = "";
+                    string cadena = "";
+
+
                     Clase.empresaPropiedades obj = new Clase.empresaPropiedades();
                     obj.codempresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value);
                     obj.empresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[1].Value);
+
+
+
+
+                    cadena = Properties.Settings.Default.cadenaPost;
+                    empresa = "contasis_" + obj.empresa.Trim();
+                    cadenanew = cadena.Replace("contasis", "contasis_" + obj.codempresa.Trim());
+                    try
+                    {
+                        NpgsqlConnection cone1 = new NpgsqlConnection();
+                        string text01 = "SELECT crucemp as ruc FROM cg_emppro order by cper desc limit 1";
+                        cone1 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(cadenanew);
+                        cone1.Open();
+                        NpgsqlCommand cmdp = new NpgsqlCommand(text01, cone1);
+                        NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
+                        NpgsqlDataReader leer = cmdp.ExecuteReader();
+                        if (leer.Read())
+                        {
+                            obj.ruc = Convert.ToString(leer["ruc"]);
+                        }
+                        cone1.Close();
+                        
+                    }
+
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show("error : " + ex.Message, "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
                     Clase.Empresas ds1 = new Clase.Empresas();
                     valor1 = ds1.obtenerempresa_postgres(obj);
                     if (valor1.Equals("Grabado"))

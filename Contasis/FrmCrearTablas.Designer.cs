@@ -64,6 +64,10 @@ namespace Contasis
             this.txtopcion2 = new System.Windows.Forms.TextBox();
             this.txtxcrearfuncion = new System.Windows.Forms.TextBox();
             this.timer5 = new System.Windows.Forms.Timer(this.components);
+            this.txtventa1 = new System.Windows.Forms.TextBox();
+            this.txtventa2 = new System.Windows.Forms.TextBox();
+            this.txtcompras1 = new System.Windows.Forms.TextBox();
+            this.txtcompras2 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -370,12 +374,56 @@ namespace Contasis
             // 
             this.timer5.Tick += new System.EventHandler(this.timer5_Tick);
             // 
+            // txtventa1
+            // 
+            this.txtventa1.Location = new System.Drawing.Point(907, 26);
+            this.txtventa1.Multiline = true;
+            this.txtventa1.Name = "txtventa1";
+            this.txtventa1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtventa1.Size = new System.Drawing.Size(209, 336);
+            this.txtventa1.TabIndex = 28;
+            this.txtventa1.Text = resources.GetString("txtventa1.Text");
+            // 
+            // txtventa2
+            // 
+            this.txtventa2.Location = new System.Drawing.Point(1122, 26);
+            this.txtventa2.Multiline = true;
+            this.txtventa2.Name = "txtventa2";
+            this.txtventa2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtventa2.Size = new System.Drawing.Size(209, 336);
+            this.txtventa2.TabIndex = 29;
+            this.txtventa2.Text = resources.GetString("txtventa2.Text");
+            // 
+            // txtcompras1
+            // 
+            this.txtcompras1.Location = new System.Drawing.Point(1346, 26);
+            this.txtcompras1.Multiline = true;
+            this.txtcompras1.Name = "txtcompras1";
+            this.txtcompras1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtcompras1.Size = new System.Drawing.Size(209, 336);
+            this.txtcompras1.TabIndex = 30;
+            this.txtcompras1.Text = resources.GetString("txtcompras1.Text");
+            // 
+            // txtcompras2
+            // 
+            this.txtcompras2.Location = new System.Drawing.Point(1561, 26);
+            this.txtcompras2.Multiline = true;
+            this.txtcompras2.Name = "txtcompras2";
+            this.txtcompras2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtcompras2.Size = new System.Drawing.Size(209, 336);
+            this.txtcompras2.TabIndex = 31;
+            this.txtcompras2.Text = resources.GetString("txtcompras2.Text");
+            // 
             // FrmCrearTablas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(628, 369);
+            this.Controls.Add(this.txtcompras2);
+            this.Controls.Add(this.txtcompras1);
+            this.Controls.Add(this.txtventa2);
+            this.Controls.Add(this.txtventa1);
             this.Controls.Add(this.txtxcrearfuncion);
             this.Controls.Add(this.txtopcion2);
             this.Controls.Add(this.txtopcion1);
@@ -438,5 +486,9 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtopcion2;
         private System.Windows.Forms.TextBox txtxcrearfuncion;
         public System.Windows.Forms.Timer timer5;
+        private System.Windows.Forms.TextBox txtventa1;
+        private System.Windows.Forms.TextBox txtventa2;
+        private System.Windows.Forms.TextBox txtcompras1;
+        private System.Windows.Forms.TextBox txtcompras2;
     }
 }

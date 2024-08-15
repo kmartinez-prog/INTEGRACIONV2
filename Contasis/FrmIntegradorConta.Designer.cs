@@ -35,7 +35,6 @@ namespace Contasis
             this.cmbrucemisor = new System.Windows.Forms.ComboBox();
             this.txtestado = new System.Windows.Forms.TextBox();
             this.txtrazon = new System.Windows.Forms.TextBox();
-            this.txtruc = new System.Windows.Forms.TextBox();
             this.txtperiodo = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.cmbperiodo = new System.Windows.Forms.ComboBox();
@@ -47,6 +46,7 @@ namespace Contasis
             this.label23 = new System.Windows.Forms.Label();
             this.dataGridView_venta = new System.Windows.Forms.DataGridView();
             this.txtCFEFEC = new System.Windows.Forms.TextBox();
+            this.txtruc = new System.Windows.Forms.TextBox();
             this.txtCCONTD = new System.Windows.Forms.TextBox();
             this.txtCCONTS = new System.Windows.Forms.TextBox();
             this.txtCLREG2 = new System.Windows.Forms.TextBox();
@@ -142,11 +142,12 @@ namespace Contasis
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(622, 504);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(16, 6);
+            this.label25.Location = new System.Drawing.Point(16, -72);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(130, 15);
             this.label25.TabIndex = 10;
@@ -156,7 +157,7 @@ namespace Contasis
             // 
             this.cmbrucemisor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbrucemisor.FormattingEnabled = true;
-            this.cmbrucemisor.Location = new System.Drawing.Point(16, 24);
+            this.cmbrucemisor.Location = new System.Drawing.Point(16, -54);
             this.cmbrucemisor.Name = "cmbrucemisor";
             this.cmbrucemisor.Size = new System.Drawing.Size(226, 21);
             this.cmbrucemisor.TabIndex = 1;
@@ -176,13 +177,6 @@ namespace Contasis
             this.txtrazon.Size = new System.Drawing.Size(143, 20);
             this.txtrazon.TabIndex = 8;
             // 
-            // txtruc
-            // 
-            this.txtruc.Location = new System.Drawing.Point(428, 8);
-            this.txtruc.Name = "txtruc";
-            this.txtruc.Size = new System.Drawing.Size(107, 21);
-            this.txtruc.TabIndex = 7;
-            // 
             // txtperiodo
             // 
             this.txtperiodo.Location = new System.Drawing.Point(425, -82);
@@ -194,7 +188,7 @@ namespace Contasis
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(479, 6);
+            this.label22.Location = new System.Drawing.Point(248, 6);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(114, 15);
             this.label22.TabIndex = 5;
@@ -204,7 +198,7 @@ namespace Contasis
             // 
             this.cmbperiodo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbperiodo.FormattingEnabled = true;
-            this.cmbperiodo.Location = new System.Drawing.Point(479, 24);
+            this.cmbperiodo.Location = new System.Drawing.Point(248, 24);
             this.cmbperiodo.Name = "cmbperiodo";
             this.cmbperiodo.Size = new System.Drawing.Size(121, 21);
             this.cmbperiodo.TabIndex = 3;
@@ -320,6 +314,13 @@ namespace Contasis
             this.txtCFEFEC.TextChanged += new System.EventHandler(this.txtCFEFEC_TextChanged);
             this.txtCFEFEC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCFEFEC_KeyDown);
             this.txtCFEFEC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCFEFEC_KeyPress);
+            // 
+            // txtruc
+            // 
+            this.txtruc.Location = new System.Drawing.Point(428, -138);
+            this.txtruc.Name = "txtruc";
+            this.txtruc.Size = new System.Drawing.Size(107, 21);
+            this.txtruc.TabIndex = 7;
             // 
             // txtCCONTD
             // 
@@ -874,7 +875,7 @@ namespace Contasis
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(247, 6);
+            this.label1.Location = new System.Drawing.Point(16, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(121, 15);
             this.label1.TabIndex = 1;
@@ -884,7 +885,7 @@ namespace Contasis
             // 
             this.cmbempresas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbempresas.FormattingEnabled = true;
-            this.cmbempresas.Location = new System.Drawing.Point(247, 24);
+            this.cmbempresas.Location = new System.Drawing.Point(16, 24);
             this.cmbempresas.Name = "cmbempresas";
             this.cmbempresas.Size = new System.Drawing.Size(228, 21);
             this.cmbempresas.TabIndex = 2;
