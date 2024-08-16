@@ -104,7 +104,8 @@ namespace Contasis.Clase
 
         try
         {
-                string query = "Insert into CG_EMPRESA(CCOD_EMPRESA,NOMEMPRESA) values(" +
+                string query = "Insert into CG_EMPRESA(ccodrucemisor,CCOD_EMPRESA,NOMEMPRESA) values(" +
+                    "'" + Objet.ruc + "', " +
                     "'" + Objet.codempresa + "', " +
                     "'" + Objet.empresa + "')";
                 cone = ConexionSql.Instancial().establecerconexion();
@@ -285,9 +286,10 @@ namespace Contasis.Clase
 
             try
             {
-                string query = "Insert into cg_empresa(ccod_empresa,nomempresa) values(" +
-                    "'" + Objet.codempresa + "', " +
-                    "'" + Objet.empresa + "')";
+                string query = "Insert into CG_EMPRESA(ccodrucemisor,CCOD_EMPRESA,NOMEMPRESA) values(" +
+                                    "'" + Objet.ruc + "', " +
+                                    "'" + Objet.codempresa + "', " +
+                                    "'" + Objet.empresa + "')";
                 NpgsqlCommand cmdp = new NpgsqlCommand(query, conexion);
                 cadena = cmdp.ExecuteNonQuery() == 1 ? "Grabado" : "No se grabo";
 

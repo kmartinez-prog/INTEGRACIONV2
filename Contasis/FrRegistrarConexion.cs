@@ -142,12 +142,12 @@ namespace Contasis
                                                 {
                                                     String str1;
                                                     str1 = "Create Table conexiones(Id int Identity(1,1)," +
-                                                           "cTipoBase Char(50),cubicacion Char(50),cServidor char(50),cUsuario Char(50)," +
-                                                           "cClave text,cPuerto char(50),cBase char(50)," +
-                                                           "cEsquema Varchar(250),cCadena character(500), fFechaCreacion DateTime Default Getdate()," +
+                                                           "cTipoBase Char(250),cubicacion Char(250),cServidor text,cUsuario Char(250)," +
+                                                           "cClave text,cPuerto char(50),cBase char(250)," +
+                                                           "cEsquema Varchar(250),cCadena text, fFechaCreacion DateTime Default Getdate()," +
                                                            "fFechaModificacion Datetime, cUsuarioCre char(35),cUsuarioModi char(35))";
 
-                                                    SqlCommand myCommand1 = new SqlCommand(str1, connection1);
+                                                SqlCommand myCommand1 = new SqlCommand(str1, connection1);
                                                     try
                                                     {
                                                         myCommand1.ExecuteNonQuery();
@@ -270,9 +270,9 @@ namespace Contasis
                                 {
                                     string text04 = "create sequence sec_id_conexion minvalue 1 maxvalue 9999999999 increment by 1 ;" +
                                     "Create Table conexiones(id int default nextval('sec_id_conexion')," +
-                                    "ctipobase Char(50), cubicacion Char(50),cservidor char(50), cusuario Char(50)," +
-                                    "cclave text, cpuerto char(50), cbase char(50)," +
-                                    "cesquema Varchar(250), ccadena character(500), fFechacreacion timestamp," +
+                                    "ctipobase Char(250), cubicacion Char(250),cservidor text, cusuario Char(250)," +
+                                    "cclave text, cpuerto char(50), cbase char(250)," +
+                                    "cesquema Varchar(250), ccadena text, fFechacreacion timestamp," +
                                     "ffechamodificacion timestamp, cusuarioCre char(35), cusuariomodi char(35));";
                                     NpgsqlCommand cmdp4 = new NpgsqlCommand(text04, conexionNew);
                                     cmdp4.ExecuteNonQuery();

@@ -12,22 +12,21 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Net;
 using Npgsql;
+
 namespace Contasis
 {
-    public partial class FrRegistrarConexionDestino : Form
-    
+    public partial class FrRegistrarConexionNube : Form
     {
-
-        public FrRegistrarConexionDestino()
+        public FrRegistrarConexionNube()
         {
             InitializeComponent();
         }
 
-      
-        private void Form1_Load(object sender, EventArgs e)
+        private void FrRegistrarConexionNube_Load(object sender, EventArgs e)
         {
             /*** Jalo automatico servidor **/
-            txtServidor.Text = Dns.GetHostName();
+            txtServidor.Text = "";
+            ///txtServidor.Text = Dns.GetHostName();
             lblEstado.Text = "";
             cmbOrigen.Focus();
         }
@@ -57,14 +56,168 @@ namespace Contasis
 
         }
 
-        
 
-        private void BtnSalir_Click_1(object sender, EventArgs e)
+
+        private void cmbOrigen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbOrigen.SelectedIndex == 0)
+            {
+                txtServidor.Text = "";
+                label4.Visible = true;
+                txtpuerto.Visible = true;
+                txtpuerto.Text = "";
+
+                txtServidor.Enabled = true;
+                txtpuerto.Enabled = true;
+                Txtusuario.Enabled = true;
+                txtClave.Enabled = true;
+                //// cmbBase.Enabled = true;
+                cmbEsquema.Enabled = true;
+                txtcadena.Enabled = true;
+                btnValidar.Enabled = true;
+
+                
+                txtbase.Text = "";
+
+                txtServidor.Text = "";
+                txtpuerto.Text = "";
+                Txtusuario.Text = "";
+                txtClave.Text = "";
+                
+                cmbEsquema.Enabled = false;
+                txtcadena.Enabled = true;
+                lblEstado.Text = "";
+                txtcadena.Text = "";
+            }
+            else
+            {
+                txtServidor.Text = Dns.GetHostName();
+
+                label4.Visible = true;
+                txtpuerto.Visible = true;
+                txtpuerto.Text = "";
+                txtServidor.Enabled = true;
+                Txtusuario.Enabled = true;
+                txtClave.Enabled = true;
+                cmbEsquema.Enabled = true;
+                txtcadena.Enabled = true;
+                btnValidar.Enabled = true;
+
+                Txtusuario.Text = "";
+                txtClave.Text = "";
+                txtbase.Text = "";
+                
+                
+                cmbEsquema.Enabled = false;
+                txtcadena.Enabled = true;
+                txtcadena.Text = "";
+                lblEstado.Text = "";
+            }
+
+        }
+
+        public void captura2()
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(Properties.Settings.Default.cadenaSql);
+                connection.Open();
+                var command = new System.Data.SqlClient.SqlCommand();
+                command.Connection = connection;
+                command.CommandType = CommandType.Text;
+                command.CommandText = "SELECT cCadena  FROM CONEXIONES where ctipoBase like '%PostgreSQL%'";
+                var adapter = new System.Data.SqlClient.SqlDataAdapter(command);
+                var dataset = new DataSet();
+                adapter.Fill(dataset);
+                textBox1.Text = dataset.Tables[0].Rows[0][0].ToString();
+
+                using (StreamWriter outputfile = new StreamWriter("C:\\Users\\Public\\Documents\\pos.txt"))
+                {
+                    outputfile.WriteLine(textBox1.Text);
+                }
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+            }
+
+
+
+        }
+        public void captura4()
+        {
+            try
+            {
+                NpgsqlConnection conexionNew = new NpgsqlConnection();
+                conexionNew.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                conexionNew.Open();
+                var command = new NpgsqlCommand();
+                command.Connection = conexionNew;
+                command.CommandType = CommandType.Text;
+                command.CommandText = "select  ccadena  from conexiones where cbase like 'contasis%'";
+                var adapter = new NpgsqlDataAdapter(command);
+                var dataset = new DataSet();
+                adapter.Fill(dataset);
+                textBox1.Text = dataset.Tables[0].Rows[0][0].ToString();
+                using (StreamWriter outputfile = new StreamWriter("C:\\Users\\Public\\Documents\\pos.txt"))
+                {
+                    outputfile.WriteLine(textBox1.Text);
+                }
+
+
+                conexionNew.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+            }
+        }
+
+
+        private void BtnSalir_Click(object sender, EventArgs e)
         {
             this.Hide();
             this.Close();
         }
-        private void btnValidar_Click_1(object sender, EventArgs e)
+
+        public void captura5()
+        {
+            try
+            {
+                NpgsqlConnection conexionNew = new NpgsqlConnection();
+                conexionNew.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                conexionNew.Open();
+                var command = new NpgsqlCommand();
+                command.Connection = conexionNew;
+                command.CommandType = CommandType.Text;
+                command.CommandText = "select  ccadena  from conexiones where cubicacion like 'WEB%'";
+                var adapter = new NpgsqlDataAdapter(command);
+                var dataset = new DataSet();
+                adapter.Fill(dataset);
+                textBox1.Text = dataset.Tables[0].Rows[0][0].ToString();
+                using (StreamWriter outputfile = new StreamWriter("C:\\Users\\Public\\Documents\\WEB.txt"))
+                {
+                    outputfile.WriteLine(textBox1.Text);
+                }
+
+
+                conexionNew.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+            }
+        }
+
+
+
+        private void btnValidar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(cmbOrigen.Text))
             {
@@ -193,17 +346,17 @@ namespace Contasis
                         
                     ***/
                     case 0: /** Sql Postgrel **/
-                    { 
-                        string estadoconepos;
-                        txtcadena.Text = "server=" + txtServidor.Text + "; port=" + txtpuerto.Text + ";user id=" + Txtusuario.Text + ";password=" + txtClave.Text + ";database=contasis;";
+                        {
+                            string estadoconepos;
+                            txtcadena.Text = "server=" + txtServidor.Text + "; port=" + txtpuerto.Text + ";user id=" + Txtusuario.Text + ";password=" + txtClave.Text + ";database="+txtbase.Text+";";
                             Clase.esconder esconde1 = new Clase.esconder();
                             String str3;
                             string valor1 = cmbOrigen.Text;
                             string valor2 = txtServidor.Text;
                             string valor3 = txtpuerto.Text;
                             string valor4 = Txtusuario.Text;
-                            string valor6 = "contasis";
-                            string valor9 = "DESTINO";
+                            string valor6 = txtbase.Text;
+                            string valor9 = "WEB";
                             string valor5 = esconde1.Ocultar(txtClave.Text);
                             string valor7 = esconde1.Ocultar(txtcadena.Text);
                             string valor8 = Properties.Settings.Default.Usuario;
@@ -212,12 +365,12 @@ namespace Contasis
                             if (Properties.Settings.Default.cadenaPostPrincipal == "")
                             {
                                 ConexionPostgrelSql objetconexionPls = new ConexionPostgrelSql();
-                                estadoconepos = objetconexionPls.crearCadena(txtcadena.Text);
-                                
+                                estadoconepos = objetconexionPls.crearCadena(Properties.Settings.Default.cadenaSql);
+
                                 SqlConnection connection2 = new SqlConnection(Properties.Settings.Default.cadenaSql);
                                 connection2.Open();
 
-                                String verifica2 = "select * from conexiones where cCadena ='" + txtcadena.Text.Trim() + "'";
+                                String verifica2 = "select * from conexiones where cCadena ='" + Properties.Settings.Default.cadenaSql.Trim() + "'";
                                 SqlCommand comando01 = new SqlCommand(verifica2, connection2);
                                 {
                                     DataTable dt2 = new DataTable();
@@ -244,11 +397,11 @@ namespace Contasis
                                                 txtpuerto.Enabled = false;
                                                 Txtusuario.Enabled = false;
                                                 txtClave.Enabled = false;
-                                                cmbBase.Enabled = false;
+                                                txtbase.Enabled = false;
                                                 cmbEsquema.Enabled = false;
                                                 txtcadena.Enabled = false;
                                                 btnValidar.Enabled = false;
-                                                
+
                                                 MessageBox.Show("Conexion registrada correctamente", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                                 Principal.instance.txtcontrol.Text = "1";
                                                 this.captura2();
@@ -265,11 +418,11 @@ namespace Contasis
                             else
                             {
                                 ConexionPostgrelSql objetconexionPls = new ConexionPostgrelSql();
-                                estadoconepos = objetconexionPls.crearCadena(txtcadena.Text);
+                                estadoconepos = objetconexionPls.crearCadena(Properties.Settings.Default.cadenaPostPrincipal);
                                 try
                                 {
                                     NpgsqlConnection conexion = new NpgsqlConnection();
-                                    conexion.ConnectionString = txtcadena.Text.Trim();
+                                    conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal.Trim();
                                     conexion.Open();
                                     string text01 = "select distinct datname from pg_database where datname='bdintegradorcontasis'";
                                     NpgsqlCommand cmdp = new NpgsqlCommand(text01, conexion);
@@ -280,9 +433,7 @@ namespace Contasis
                                     if (dt.Rows.Count > 0)
                                     {
                                         lblEstado.Text = "ya existe esta base de datos en el PostgrelSql";
-                                    }
-                                    else
-                                    {
+                                    
                                         String verifica2 = "select * from conexiones where cCadena ='" + txtcadena.Text.Trim() + "'";
                                         NpgsqlCommand command = new NpgsqlCommand(verifica2, conexion);
                                         DataTable dt2 = new DataTable();
@@ -294,6 +445,7 @@ namespace Contasis
                                             return;
                                         }
                                         else
+
                                         {
                                             str3 = "Insert Into Conexiones(cTipoBase,cServidor,cUsuario,cClave,cPuerto,cBase,cubicacion,cCadena,cUsuarioCre) " +
                                             "values('" + valor1 + "','" + valor2 + "','" + valor4 + "','" + valor5 + "','" + valor3 + "','" + valor6 + "','" + valor9 + "','" + valor7 + "','" + valor8 + "')";
@@ -308,7 +460,7 @@ namespace Contasis
                                             txtpuerto.Enabled = false;
                                             Txtusuario.Enabled = false;
                                             txtClave.Enabled = false;
-                                            cmbBase.Enabled = false;
+                                            txtbase.Enabled = false;
                                             cmbEsquema.Enabled = false;
                                             txtcadena.Enabled = false;
                                             btnValidar.Enabled = false;
@@ -332,134 +484,9 @@ namespace Contasis
                             break;
                         }
 
-                        
+
                 }
             }
-        }
-
-        private void cmbOrigen_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbOrigen.SelectedIndex == 1)
-            {
-                txtServidor.Text = "";
-                label4.Visible = true;
-                txtpuerto.Visible = true;
-                txtpuerto.Text = "";
-
-                txtServidor.Enabled = true;
-                txtpuerto.Enabled = true;
-                Txtusuario.Enabled = true;
-                txtClave.Enabled = true;
-                //// cmbBase.Enabled = true;
-                cmbEsquema.Enabled = true;
-                txtcadena.Enabled = true;
-                btnValidar.Enabled = true;
-
-                cmbBase.Items.Clear();
-                cmbBase.Text = "";
-
-                txtServidor.Text = "";
-                txtpuerto.Text = "";
-                Txtusuario.Text = "";
-                txtClave.Text = "";
-                cmbBase.Enabled = false;
-                cmbEsquema.Enabled = false;
-                txtcadena.Enabled = true;
-                lblEstado.Text = "";
-                txtcadena.Text = "";
-            }
-            else
-            {
-                txtServidor.Text = Dns.GetHostName();
-
-                label4.Visible = false;
-                txtpuerto.Visible = false;
-                txtpuerto.Text = "";
-                txtServidor.Enabled = true;
-                Txtusuario.Enabled = true;
-                txtClave.Enabled = true;
-                cmbEsquema.Enabled = true;
-                txtcadena.Enabled = true;
-                btnValidar.Enabled = true;
-
-                Txtusuario.Text = "";
-                txtClave.Text = "";
-                cmbBase.Items.Clear();
-                cmbBase.Text = "";
-                cmbBase.Enabled = false;
-                cmbEsquema.Enabled = false;
-                txtcadena.Enabled = true;
-                txtcadena.Text = "";
-                lblEstado.Text = "";
-            }
-
-        }
-
-        public void captura2()
-        {
-            try
-            {
-                SqlConnection connection = new SqlConnection(Properties.Settings.Default.cadenaSql);
-                connection.Open();
-                var command = new System.Data.SqlClient.SqlCommand();
-                command.Connection = connection;
-                command.CommandType = CommandType.Text;
-                command.CommandText = "SELECT cCadena  FROM CONEXIONES where ctipoBase like '%PostgreSQL%'";
-                var adapter = new System.Data.SqlClient.SqlDataAdapter(command);
-                var dataset = new DataSet();
-                adapter.Fill(dataset);
-                textBox1.Text = dataset.Tables[0].Rows[0][0].ToString();
-
-                using (StreamWriter outputfile = new StreamWriter("C:\\Users\\Public\\Documents\\pos.txt"))
-                {
-                    outputfile.WriteLine(textBox1.Text);
-                }
-
-
-                connection.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
-            }
-
-
-
-        }
-        public void captura4()
-        {
-            try
-            {
-                NpgsqlConnection conexionNew = new NpgsqlConnection();
-                conexionNew.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
-                conexionNew.Open();
-                var command = new NpgsqlCommand();
-                command.Connection = conexionNew;
-                command.CommandType = CommandType.Text;
-                command.CommandText = "select  ccadena  from conexiones where cbase like 'contasis%'";
-                var adapter = new NpgsqlDataAdapter(command);
-                var dataset = new DataSet();
-                adapter.Fill(dataset);
-                textBox1.Text = dataset.Tables[0].Rows[0][0].ToString();
-                using (StreamWriter outputfile = new StreamWriter("C:\\Users\\Public\\Documents\\pos.txt"))
-                {
-                    outputfile.WriteLine(textBox1.Text);
-                }
-
-
-                conexionNew.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
-            }
-        }
-
-        private void FrRegistrarConexionDestino_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -207,6 +207,7 @@ namespace Contasis
             if (File.Exists(ubicacion))
             {
                 this.conexiones();
+                this.conexion0();
                 control2 = "1";
             }
             else
@@ -230,6 +231,7 @@ namespace Contasis
                 this.llenarcombo();
                 this.captura1();
                 this.captura2();
+                
                 return;
             }
 
@@ -250,6 +252,8 @@ namespace Contasis
             if (File.Exists(ubicacion))
             {
                 this.conexion2();
+                this.conexion0();
+
                 control2 = "1";
             }
             else
@@ -306,6 +310,9 @@ namespace Contasis
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
+            Properties.Settings.Default.cadenaweb = "";
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
 
 
 
@@ -550,6 +557,30 @@ namespace Contasis
 
 
         }
+
+        public void conexion0()
+        {
+            try
+            {
+                FileStream x = File.OpenRead("C:\\Users\\Public\\Documents\\WEB.txt");
+
+
+                string cadenaweb = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\WEB.txt");
+
+                cadenaweb = Mostrar(cadenaweb);
+
+
+                Properties.Settings.Default.cadenaweb = cadenaweb;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+            catch (Exception e)
+            { 
+            ///MessageBox.Show("No existe archivo de ruta web." ,"Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+        }
+
         public void existetablausuario()
         {
             SqlConnection connection = new SqlConnection(Properties.Settings.Default.cadenaSql);

@@ -83,7 +83,7 @@ namespace Contasis
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(10, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(130, 15);
+            this.lblTitle.Size = new System.Drawing.Size(158, 18);
             this.lblTitle.TabIndex = 34;
             this.lblTitle.Text = "Base de Datos Origen:";
             // 
@@ -97,7 +97,7 @@ namespace Contasis
             // btnIniciar
             // 
             this.btnIniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIniciar.Image = global::Contasis.Properties.Resources._14;
+            this.btnIniciar.Image = global::Contasis.Properties.Resources._3__Icono___Origen_de_datos;
             this.btnIniciar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnIniciar.Location = new System.Drawing.Point(12, 64);
             this.btnIniciar.Name = "btnIniciar";
@@ -110,7 +110,7 @@ namespace Contasis
             // btnDetener
             // 
             this.btnDetener.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDetener.Image = global::Contasis.Properties.Resources._14;
+            this.btnDetener.Image = global::Contasis.Properties.Resources._2__Icono_Boton___Eliminar;
             this.btnDetener.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDetener.Location = new System.Drawing.Point(139, 64);
             this.btnDetener.Name = "btnDetener";
@@ -123,7 +123,7 @@ namespace Contasis
             // btnEstado
             // 
             this.btnEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEstado.Image = global::Contasis.Properties.Resources._14;
+            this.btnEstado.Image = global::Contasis.Properties.Resources._5__Icono_Boton___Aceptar;
             this.btnEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEstado.Location = new System.Drawing.Point(266, 64);
             this.btnEstado.Name = "btnEstado";
@@ -139,7 +139,7 @@ namespace Contasis
             this.chkGenerarDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkGenerarDatos.Location = new System.Drawing.Point(10, 31);
             this.chkGenerarDatos.Name = "chkGenerarDatos";
-            this.chkGenerarDatos.Size = new System.Drawing.Size(173, 19);
+            this.chkGenerarDatos.Size = new System.Drawing.Size(206, 22);
             this.chkGenerarDatos.TabIndex = 39;
             this.chkGenerarDatos.Text = "¿Generar datos en origen?";
             this.chkGenerarDatos.UseVisualStyleBackColor = true;
@@ -150,7 +150,7 @@ namespace Contasis
             this.lblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstado.Location = new System.Drawing.Point(10, 121);
             this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(11, 15);
+            this.lblEstado.Size = new System.Drawing.Size(13, 18);
             this.lblEstado.TabIndex = 40;
             this.lblEstado.Text = "-";
             // 

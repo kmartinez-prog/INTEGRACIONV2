@@ -15,12 +15,21 @@ namespace Contasis
 {
     public partial class FrmConfigurarServicio : Form
     {
+        string tipoBD = "SQLSERVER";
+        string conexionSQL = Properties.Settings.Default.cadenaSql;
 
         private string serviceName = "Integrador contasis corp";
 
         public FrmConfigurarServicio()
         {
-            InitializeComponent();
+           InitializeComponent();
+           
+            if (conexionSQL == "")
+            {
+                tipoBD = "POSTGRES";
+                conexionSQL = Properties.Settings.Default.cadenaPostPrincipal;
+            }
+            lblTitle.Text = "Base de datos origen: "+tipoBD.Trim();
         }
 
         private void FrmConfigurarServicio_KeyDown(object sender, KeyEventArgs e)
@@ -45,14 +54,7 @@ namespace Contasis
 
         private void btnIniciar_Click(object sender, EventArgs e)
         {
-            string tipoBD = "SQLSERVER";
-            string conexionSQL = Properties.Settings.Default.cadenaPostPrincipal;
-            if(conexionSQL == "")
-            {
-                tipoBD = "POSTGRES";
-                conexionSQL = Properties.Settings.Default.cadenaSql;
-            }
-
+           
             string generar = chkGenerarDatos.Checked ? "S" : "N";
             string arguments = $"start {serviceName} \"{conexionSQL}\" \"{tipoBD}\" \"{generar}\"";
             lblEstado.Text = conexionSQL;
@@ -76,7 +78,7 @@ namespace Contasis
             {
                 lblEstado.Text = $"Error al solicitar permisos elevados: {ex.Message}";
             }
-            lblEstado.Text += "\n"+conexionSQL;
+          /////  lblEstado.Text += "\n"+conexionSQL;
         }
 
         private void btnDetener_Click(object sender, EventArgs e)

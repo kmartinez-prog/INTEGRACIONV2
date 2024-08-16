@@ -322,6 +322,12 @@
     <Compile Include="FrRegistrarConexionDestino.Designer.cs">
       <DependentUpon>FrRegistrarConexionDestino.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrRegistrarConexionNube.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrRegistrarConexionNube.Designer.cs">
+      <DependentUpon>FrRegistrarConexionNube.cs</DependentUpon>
+    </Compile>
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -407,6 +413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrRegistrarConexionDestino.resx">
       <DependentUpon>FrRegistrarConexionDestino.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrRegistrarConexionNube.resx">
+      <DependentUpon>FrRegistrarConexionNube.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>

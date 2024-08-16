@@ -177,7 +177,6 @@ namespace Contasis
             this.cmbOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbOrigen.FormattingEnabled = true;
             this.cmbOrigen.Items.AddRange(new object[] {
-            "Microsoft SQL Server",
             "PostgreSQL"});
             this.cmbOrigen.Location = new System.Drawing.Point(165, 134);
             this.cmbOrigen.Name = "cmbOrigen";
@@ -334,6 +333,7 @@ namespace Contasis
             this.Name = "FrRegistrarConexionDestino";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registrar conexión de Destino";
+            this.Load += new System.EventHandler(this.FrRegistrarConexionDestino_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

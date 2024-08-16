@@ -157,8 +157,17 @@ namespace Contasis
                         {
                             obj.ruc = Convert.ToString(leer["ruc"]);
                         }
+                        if (obj.ruc.Trim() == rucemisor.Trim())
+                        { }
+                        else
+                        {
+                            MessageBox.Show("ruc emisor no coincide con ruc de empresa seleccionada.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return;
+                        }
+
+
                         cone1.Close();
-                        
+
                     }
 
                     catch (Exception ex)

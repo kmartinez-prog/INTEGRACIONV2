@@ -1330,7 +1330,7 @@ namespace Contasis
                     if (txtestado.Text.Trim() == "CERRADO")
                     {
                         MessageBox.Show("Periodo no puede ser seleccionar por estar cerrado.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        
+
                         return;
                     }
                 }
@@ -1349,31 +1349,57 @@ namespace Contasis
 
                 try
                 {
-
-                    string query0 = "SELECT * FROM CONFIGURACION WHERE CPER='" + txtperiodo.Text + "' AND CCOD_EMPRESA='" + cmbempresas.Text.Substring(0, 3) + "'";
-                    cone = Clase.ConexionSql.Instancial().establecerconexion();
-                    SqlCommand commando = new SqlCommand(query0, cone);
-                    DataTable dt = new DataTable();
-                    cone.Open();
-                    SqlDataAdapter data = new SqlDataAdapter(commando);
-                    data.Fill(dt);
-
-
-                    if (dt.Rows.Count > 0)
+                    if (Properties.Settings.Default.cadenaPostPrincipal == "")
                     {
-                        this.Mostrar_registros_ventas();
-                        this.Mostrar_registros_compras();
 
+                        string query0 = "SELECT * FROM CONFIGURACION WHERE CPER='" + txtperiodo.Text + "' AND CCOD_EMPRESA='" + cmbempresas.Text.Substring(0, 3) + "'";
+                        cone = Clase.ConexionSql.Instancial().establecerconexion();
+                        SqlCommand commando = new SqlCommand(query0, cone);
+                        DataTable dt = new DataTable();
+                        cone.Open();
+                        SqlDataAdapter data = new SqlDataAdapter(commando);
+                        data.Fill(dt);
+
+
+                        if (dt.Rows.Count > 0)
+                        {
+                            this.Mostrar_registros_ventas();
+                            this.Mostrar_registros_compras();
+                        }
+
+                        else
+                        {
+                            this.carga2();
+                        }
 
                     }
-
                     else
                     {
-                        this.carga2();
+                        
+                        NpgsqlConnection conexion = new NpgsqlConnection();
+                        conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                        conexion.Open();
+                        string query0 = "SELECT * FROM CONFIGURACION WHERE CPER='" + txtperiodo.Text + "' AND CCOD_EMPRESA='" + cmbempresas.Text.Substring(0, 3) + "'";
+                        NpgsqlCommand cmdp = new NpgsqlCommand(query0, conexion);
+                        DataTable dt = new DataTable();
+                        NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
+                        data.Fill(dt);
+                        if (dt.Rows.Count > 0)
+                        {
+                            this.Mostrar_registros_ventas();
+                            this.Mostrar_registros_compras();
+                        }
+
+                        else
+                        {
+                            this.carga2();
+                        }
+
 
                     }
-
                 }
+
+
                 catch (Exception ex1)
                 {
                     MessageBox.Show(ex1.ToString());
@@ -1387,6 +1413,10 @@ namespace Contasis
                     }
 
                 }
+            
+
+
+
             }
             
         }

@@ -71,7 +71,7 @@ namespace Contasis
                     dataGridView1.Columns[0].ReadOnly = true;
                     dataGridView1.Columns[1].HeaderText = "EMPRESAS";
                     dataGridView1.Columns[1].MinimumWidth = 50;
-                    dataGridView1.Columns[1].Width = 410;
+                    dataGridView1.Columns[1].Width = 405;
                     dataGridView1.Columns[1].ReadOnly = true;
                     dataGridView1.Font = new Font("Arial", 8, FontStyle.Regular);
                     dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -100,7 +100,7 @@ namespace Contasis
                     dataGridView1.Columns[0].ReadOnly = true;
                     dataGridView1.Columns[1].HeaderText = "EMPRESAS";
                     dataGridView1.Columns[1].MinimumWidth = 50;
-                    dataGridView1.Columns[1].Width = 415;
+                    dataGridView1.Columns[1].Width = 405;
                     dataGridView1.Columns[1].ReadOnly = true;
                     dataGridView1.Font = new Font("Arial", 8, FontStyle.Regular);
                     dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -298,6 +298,7 @@ namespace Contasis
         private void cmbrucemisor_SelectedIndexChanged(object sender, EventArgs e)
         {
             rucemisor = cmbrucemisor.Text.Trim().Substring(0, 11);
+            /////MessageBox.Show(rucemisor);
         }
     }
 }

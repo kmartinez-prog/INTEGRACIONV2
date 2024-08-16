@@ -21,8 +21,8 @@ namespace Contasis
         FrmAyuda master7;
         FrmRucemisor master8;
         FrRegistrarConexionDestino master9;
-
         FrmConfigurarServicio master10;
+        FrRegistrarConexionNube master11;
 
 
         public static Principal instance = null;
@@ -423,5 +423,34 @@ namespace Contasis
         {
             master10 = null;
         }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            foreach (Form OpenForm in Application.OpenForms)
+            {
+                if (OpenForm.Name == "master11")
+                { }
+                else
+                {
+                    master11 = null;
+                }
+
+            }
+
+            if (master11 == null)
+            {
+                master11 = new FrRegistrarConexionNube();
+                ///master6.MdiParent = this;
+                master11.ShowDialog();
+                master11.FormClosed += new FormClosedEventHandler(CerrarConfiguracionServicionube);
+
+            }
+        }
+        void CerrarConfiguracionServicionube(object sender, EventArgs e)
+        {
+            master11 = null;
+        }
+
+
     }
 }
