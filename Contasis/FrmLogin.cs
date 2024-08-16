@@ -323,7 +323,7 @@ namespace Contasis
                 if (control=="0" || control=="")
                         {
 
-                            MessageBox.Show("Bienvenido al Sistema de Integración por primera vez.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ////MessageBox.Show("Bienvenido al Sistema de Integración por primera vez.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             control = "0";
                             txtfrase.Text = "contasis";
                         }

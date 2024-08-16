@@ -102,9 +102,17 @@ namespace Contasis
 
 
                     timer1.Enabled =true;
+                    
                     string ejecutar6 = txtcompras2.Text;
                     NpgsqlCommand command6 = new NpgsqlCommand(ejecutar6, conexion);
                     command5.ExecuteNonQuery();
+
+                    string ejecutar7 = soloventasonline.Text;
+                    NpgsqlCommand command7 = new NpgsqlCommand(ejecutar7, conexion);
+                    command5.ExecuteNonQuery();
+
+
+
                     timer1.Enabled = false;
 
 

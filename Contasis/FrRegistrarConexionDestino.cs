@@ -216,13 +216,11 @@ namespace Contasis
                                 
                                 SqlConnection connection2 = new SqlConnection(Properties.Settings.Default.cadenaSql);
                                 connection2.Open();
-
                                 String verifica2 = "select * from conexiones where cCadena ='" + txtcadena.Text.Trim() + "'";
                                 SqlCommand comando01 = new SqlCommand(verifica2, connection2);
                                 {
                                     DataTable dt2 = new DataTable();
                                     SqlDataAdapter da2 = new SqlDataAdapter(comando01);
-
                                     da2.Fill(dt2);
                                     if (dt2.Rows.Count > 0)
                                     {
@@ -324,11 +322,6 @@ namespace Contasis
                                     MessageBox.Show(ex1.ToString(), "Contasis Corp. No se grabo las Credenciales en tabla del Postgrel", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                 }
                             }
-
-
-
-
-
                             break;
                         }
 

@@ -68,6 +68,7 @@ namespace Contasis
             this.txtventa2 = new System.Windows.Forms.TextBox();
             this.txtcompras1 = new System.Windows.Forms.TextBox();
             this.txtcompras2 = new System.Windows.Forms.TextBox();
+            this.soloventasonline = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -410,16 +411,27 @@ namespace Contasis
             this.txtcompras2.Multiline = true;
             this.txtcompras2.Name = "txtcompras2";
             this.txtcompras2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtcompras2.Size = new System.Drawing.Size(10, 336);
+            this.txtcompras2.Size = new System.Drawing.Size(142, 336);
             this.txtcompras2.TabIndex = 31;
             this.txtcompras2.Text = resources.GetString("txtcompras2.Text");
+            // 
+            // soloventasonline
+            // 
+            this.soloventasonline.Location = new System.Drawing.Point(1727, 26);
+            this.soloventasonline.Multiline = true;
+            this.soloventasonline.Name = "soloventasonline";
+            this.soloventasonline.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.soloventasonline.Size = new System.Drawing.Size(142, 336);
+            this.soloventasonline.TabIndex = 32;
+            this.soloventasonline.Text = resources.GetString("soloventasonline.Text");
             // 
             // FrmCrearTablas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(633, 369);
+            this.ClientSize = new System.Drawing.Size(627, 369);
+            this.Controls.Add(this.soloventasonline);
             this.Controls.Add(this.txtcompras2);
             this.Controls.Add(this.txtcompras1);
             this.Controls.Add(this.txtventa2);
@@ -490,5 +502,6 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtventa2;
         private System.Windows.Forms.TextBox txtcompras1;
         private System.Windows.Forms.TextBox txtcompras2;
+        private System.Windows.Forms.TextBox soloventasonline;
     }
 }

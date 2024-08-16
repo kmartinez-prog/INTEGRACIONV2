@@ -611,6 +611,174 @@ $BODY$
 ALTER FUNCTION fn_compras_envio_resultado(text)
   OWNER TO postgres;</value>
   </data>
+  <data name="soloventasonline.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fn_integracion_ventas_importar(
+    OUT resultado text,
+    IN p_datos text,
+    IN p_cod_emp text)
+  RETURNS text AS
+$BODY$
+DECLARE
+    v_data json;
+BEGIN 
+
+    v_data:=p_datos::json;
+    p_datos=null;
+    -- nuevos
+    INSERT INTO fin_ventas(
+        idventas, ccodrucemisor,
+        ccod_empresa, cper, cmes, -- generados
+        ffechadoc, ffechaven, ccoddoc, cserie, cnumero, codenti, cdesenti, ctipodoc, 
+        ccodruc, crazsoc, nbase2, nbase1, nexo, nina, nisc, nigv1, nicbpers, 
+        nbase3, ntots, ntc, freffec, crefdoc, crefser, crefnum, cmreg, 
+        ndolar, ffechaven2, ccond, ccodcos, ccodcos2, cctabase, cctaicbper, 
+        cctaotrib, cctatot, nresp, nporre, nimpres, cserre, cnumre, ffecre, 
+        ccodpresu, nigv, cglosa, ccodpago, nperdenre, nbaseres, cctaperc, 
+        created_at, updated_at, estado, en_ambiente_de, es_con_migracion, 
+        ccodcos3
+    ) 
+    SELECT
+        t.idventas, t.ccodrucemisor, p_cod_emp,
+        extract(year from to_date(t.ffechadoc, 'DD/MM/YYYY'))::text, lpad(extract(month from to_date(t.ffechadoc, 'DD/MM/YYYY'))::text, 2, '0'),
+        to_date(t.ffechadoc, 'DD/MM/YYYY'), case when coalesce(t.ffechaven, '')='' then null else to_date(t.ffechaven, 'DD/MM/YYYY') end,
+        trim(t.ccoddoc) as ccoddoc,
+        trim(t.cserie) as cserie,
+        trim(t.cnumero) as cnumero,
+        trim(t.ccodenti) as ccodenti,
+        trim(t.cdesenti) as cdesenti,
+        trim(t.ctipdoc) as ctipdoc,
+        trim(t.ccodruc) as ccodruc,
+        trim(t.crazsoc) as razsoc,
+
+        case when trim(coalesce(t.nbase2, '')) = '' then null else t.nbase2::numeric end as nbase2,
+        case when trim(coalesce(t.nbase1, '')) = '' then null else t.nbase1::numeric end as nbase1,
+        case when trim(coalesce(t.nexo, '')) = '' then null else t.nexo::numeric end as nexo,
+        case when trim(coalesce(t.nina, '')) = '' then null else t.nina::numeric end as nina,
+        case when trim(coalesce(t.nisc, '')) = '' then null else t.nisc::numeric end as nisc,
+        case when trim(coalesce(t.nigv1, '')) = '' then null else t.nigv1::numeric end as nigv1,
+        case when trim(coalesce(t.nicbpers, '')) = '' then null else t.nicbpers::numeric end as nicbpers,
+        case when trim(coalesce(t.nbase3, '')) = '' then null else t.nbase3::numeric end as nbase3,
+        case when trim(coalesce(t.ntots, '')) = '' then null else t.ntots::numeric end as ntots,
+        case when trim(coalesce(t.ntc, '')) = '' then null else t.ntc::numeric end as ntc,
+        
+        case when coalesce(t.freffec, '')='' then null else to_date(t.freffec, 'DD/MM/YYYY') end,
+       
+        trim(t.crefdoc) as crefdoc,
+        trim(t.crefser) as crefser,
+        trim(t.crefnum) as crefnum,
+        trim(t.cmreg) as cmreg,
+
+
+        case when trim(coalesce(t.ndolar, '')) = '' then null else t.ndolar::numeric end as ndolar,
+        
+        case when coalesce(t.ffechaven2, '')='' then null else to_date(t.ffechaven2, 'DD/MM/YYYY') end,
+
+        trim(t.ccond) as ccond,
+        trim(t.ccodcos) as codcos,
+        trim(t.ccodcos2) as codcos2,
+        trim(t.cctabase) as cctabase,
+        trim(t.cctaicbper) as cctaicbper,
+        trim(t.cctaotrib) as cctaotrib,
+        trim(t.cctatot) as cctatot,
+
+
+        case when trim(coalesce(t.nresp, '')) = '' then null else t.nresp::numeric end as nresp,
+        case when trim(coalesce(t.nporre, '')) = '' then null else t.nporre::numeric end as nporre,
+        case when trim(coalesce(t.nimpres, '')) = '' then null else t.nimpres::numeric end as nimpres,
+
+        trim(t.cserre), trim(t.cnumre),
+        case when coalesce(t.ffecre, '')='' then null else to_date(t.ffecre, 'DD/MM/YYYY') end,
+        
+        trim(t.ccodpresu), case when trim(coalesce(t.nigv, '')) = '' then null else t.nigv::numeric end as nigv,
+        trim(t.cglosa), trim(t.ccodpago),
+
+        case when trim(coalesce(t.nperdenre, '')) = '' then null else t.nperdenre::numeric end as nperdenre,
+        case when trim(coalesce(t.nbaseres, '')) = '' then null else t.nbaseres::numeric end as nbaseres,
+        trim(t.cctaperc),
+        t.created_at::date, t.updated_at::date,
+        trim(t.estado),
+        trim(t.en_ambiente_de),
+        case when t.estado='ACEPTADO' then 0 else 3 end, trim(t.ccodcos3)
+    FROM json_to_recordset(v_data)
+    as t(
+        idventas integer,
+        ccodrucemisor character varying(30),
+        ffechadoc character varying(30),
+        ffechaven character varying(30),
+        ccoddoc character varying(15),
+        cserie character varying(20),
+        cnumero character varying(20),
+        ccodenti character varying(15),
+        cdesenti character varying(100),
+        ctipdoc character varying(15),
+        ccodruc character varying(20),
+        crazsoc text,
+        nbase2 character varying(50),
+        nbase1 character varying(50),
+        nexo character varying(50),
+        nina character varying(50),
+        nisc character varying(50),
+        nigv1 character varying(50),
+        nicbpers character varying(50),
+        nbase3 character varying(50),
+        ntots character varying(50),
+        ntc character varying(50),
+        freffec character varying(30),
+        crefdoc character varying(50),
+        crefser character varying(20),
+        crefnum character varying(20),
+        cmreg character varying(10),
+        ndolar character varying(50),
+        ffechaven2 character varying(30),
+        ccond character varying(15),
+        ccodcos character varying(15),
+        ccodcos2 character varying(15),
+        cctabase text,
+        cctaicbper text,
+        cctaotrib text,
+        cctatot text,
+        nresp text,
+        nporre text,
+        nimpres text,
+        cserre text,
+        cnumre text,
+        ffecre text,
+        ccodpresu character varying(20),
+        nigv character varying(20),
+        cglosa text,
+        ccodpago character varying(20),
+        nperdenre character varying(20),
+        nbaseres character varying(20),
+        cctaperc character varying(20),
+        created_at timestamp, updated_at timestamp,
+        estado character varying(255),
+        en_ambiente_de character varying(255),
+        es_con_migracion boolean,
+        ccodcos3 character varying(15)
+    )
+    left join fin_ventas v on t.idventas=v.idventas
+    where v.idventas is null;
+
+    -- update (solo campo migracion)
+    update fin_ventas v
+    set es_con_migracion=case when t.estado='ACEPTADO' then 0 else 3 end
+    from json_to_recordset(v_data)
+    as t ( idventas integer, estado character varying(255), es_con_migracion boolean )    
+    where v.idventas=t.idventas;
+
+    -- resultado de confirmacion.
+    select json_agg(json_build_object('idventas', idventas, 'es_con_migracion', es_con_migracion))::text
+    from json_to_recordset(v_data)
+    as t ( idventas integer, es_con_migracion boolean )
+    into resultado;
+    
+end;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION fn_integracion_ventas_importar(text, text)
+  OWNER TO postgres;</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
