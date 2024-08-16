@@ -61,7 +61,7 @@ namespace Contasis
                         "ccoddoc nchar(2) NULL," +
                         "cserie nchar(20) NULL," +
                         "cnumero nchar(20) NULL," +
-                        "codenti nchar(11) NULL," +
+                        "ccodenti nchar(11) NULL," +
                         "cdesenti nchar(100) NULL," +
                         "ctipodoc nchar(1) NULL," +
                         "ccodruc nchar(15) NULL," +
@@ -668,7 +668,7 @@ namespace Contasis
                                 "		 ltrim(rtrim(ccoddoc)) as ccoddoc,  \n" +
                                 "		 ltrim(rtrim(cserie)) as cserie,  \n" +
                                 "		 ltrim(rtrim(cnumero)) as cnumero,  \n" +
-                                "		 ltrim(rtrim(codenti)) as codenti,  \n" +
+                                "		 ltrim(rtrim(ccodenti)) as ccodenti,  \n" +
                                 "		 ltrim(rtrim(cdesenti)) as cdesenti, \n " +
                                 "		 ltrim(rtrim(ctipodoc)) as ctipodoc,  \n" +
                                 "		 ltrim(rtrim(ccodruc)) as ccodruc,  \n" +

@@ -7152,7 +7152,7 @@ BEGIN
 	-- Validaciones fin_ventas
 	-- Insetandoi entidades 	
 	insert into cg_entidad (ccodenti, cdesenti, ccodtipent) 
-	select distinct codenti, cdesenti, ccodtipent from fin_ventas where codenti not in (select ccodenti from cg_entidad); 
+	select distinct ccodenti, cdesenti, ccodtipent from fin_ventas where ccodenti not in (select ccodenti from cg_entidad); 
 	-- insertando entidades tributarias 
 	insert into cg_entitrib (ccodruc,crazsoc,ctipdoc,CNATJUR,ccodtipent) 
 	select DISTINCT ccodruc,crazsoc,ctipodoc,case 
@@ -7312,7 +7312,7 @@ BEGIN
 				    flaganalo, flaganalt, flagccosb, flagccoso, flagccost, flagpresub, 
 				    flagpresuo, flagpresut, nasiento, 
 				    nicbpers, cctaicbper)
-			SELECT      a.cper,a.cmes,ffechadoc, ffechaven, ccoddoc,cserie, cnumero, codenti, cdesenti, 
+			SELECT      a.cper,a.cmes,ffechadoc, ffechaven, ccoddoc,cserie, cnumero, ccodenti, cdesenti, 
 				    ctipodoc, ccodruc,crazsoc,  nbase2,nbase1, nexo,nina, nisc,
 				    nigv1,nbase3,ntots,ntc,freffec, crefdoc, crefser, crefnum, 
 				    cmreg, ndolar, ffechaven2, ccond,  ccodcos, ccodcos2, cctabase, 
