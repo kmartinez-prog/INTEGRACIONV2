@@ -44,6 +44,7 @@ namespace Contasis
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Azure;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.txtestado);
             this.panel1.Controls.Add(this.label3);
@@ -113,7 +114,7 @@ namespace Contasis
             this.BtnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnActualizar.Image = global::Contasis.Properties.Resources._9__Icono_Boton___Grabar;
             this.BtnActualizar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnActualizar.Location = new System.Drawing.Point(206, 144);
+            this.BtnActualizar.Location = new System.Drawing.Point(206, 151);
             this.BtnActualizar.Name = "BtnActualizar";
             this.BtnActualizar.Size = new System.Drawing.Size(100, 32);
             this.BtnActualizar.TabIndex = 4;
@@ -127,7 +128,7 @@ namespace Contasis
             this.btncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btncerrar.Image = global::Contasis.Properties.Resources._11;
             this.btncerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btncerrar.Location = new System.Drawing.Point(313, 144);
+            this.btncerrar.Location = new System.Drawing.Point(313, 151);
             this.btncerrar.Name = "btncerrar";
             this.btncerrar.Size = new System.Drawing.Size(100, 32);
             this.btncerrar.TabIndex = 5;

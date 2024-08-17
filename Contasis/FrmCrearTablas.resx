@@ -294,7 +294,7 @@ CREATE TABLE fin_ventas(
 	 cnumero   nchar (20) NULL,
 	 ccodenti   nchar (11) NULL,
 	 cdesenti   nchar (100) NULL,
-	 ctipodoc   nchar (1) NULL,
+	 ctipdoc   nchar (1) NULL,
 	 ccodruc   nchar (15) NULL,
 	 crazsoc   nchar (100) NULL,
 	 nbase2   numeric (15, 2) NULL,
@@ -387,7 +387,7 @@ BEGIN
             trim(cnumero) AS cnumero,  
             trim(ccodenti) AS ccodenti,  
             trim(cdesenti) AS cdesenti, 
-            trim(ctipodoc) AS ctipodoc,  
+            trim(ctipdoc) AS ctipdoc,  
             trim(ccodruc) AS ccodruc,  
             trim(crazsoc) AS crazsoc,  
             coalesce(nbase2, 0.00) as nbase2,   
@@ -451,12 +451,7 @@ ALTER FUNCTION fn_ventas_envio(character, character)
   OWNER TO postgres;</value>
   </data>
   <data name="txtventa2.Text" xml:space="preserve">
-    <value>
--- Function: fn_ventas_envio_resultado(text)
-
--- DROP FUNCTION fn_ventas_envio_resultado(text);
-
-CREATE OR REPLACE FUNCTION fn_ventas_envio_resultado(p_datos text)
+    <value>CREATE OR REPLACE FUNCTION fn_ventas_envio_resultado(p_datos text)
   RETURNS void AS
 $BODY$
 DECLARE
@@ -478,12 +473,7 @@ ALTER FUNCTION fn_ventas_envio_resultado(text)
   OWNER TO postgres;</value>
   </data>
   <data name="txtcompras1.Text" xml:space="preserve">
-    <value>
--- Function: fn_compras_envio(character, character)
-
--- DROP FUNCTION fn_compras_envio(character, character);
-
-CREATE OR REPLACE FUNCTION fn_compras_envio(
+    <value>CREATE OR REPLACE FUNCTION fn_compras_envio(
     OUT resultado text,
     IN p_ruc_emisor character,
     IN p_empresa character)

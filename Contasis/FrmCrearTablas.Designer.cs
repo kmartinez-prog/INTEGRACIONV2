@@ -151,6 +151,7 @@ namespace Contasis
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(592, 198);
             this.panel2.TabIndex = 20;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // lblindex
             // 
@@ -421,7 +422,7 @@ namespace Contasis
             this.soloventasonline.Multiline = true;
             this.soloventasonline.Name = "soloventasonline";
             this.soloventasonline.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.soloventasonline.Size = new System.Drawing.Size(142, 336);
+            this.soloventasonline.Size = new System.Drawing.Size(93, 336);
             this.soloventasonline.TabIndex = 32;
             this.soloventasonline.Text = resources.GetString("soloventasonline.Text");
             // 
@@ -430,7 +431,7 @@ namespace Contasis
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(627, 369);
+            this.ClientSize = new System.Drawing.Size(636, 369);
             this.Controls.Add(this.soloventasonline);
             this.Controls.Add(this.txtcompras2);
             this.Controls.Add(this.txtcompras1);

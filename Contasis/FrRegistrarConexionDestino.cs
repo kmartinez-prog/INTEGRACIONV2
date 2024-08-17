@@ -216,7 +216,7 @@ namespace Contasis
                                 
                                 SqlConnection connection2 = new SqlConnection(Properties.Settings.Default.cadenaSql);
                                 connection2.Open();
-                                String verifica2 = "select * from conexiones where cCadena ='" + txtcadena.Text.Trim() + "'";
+                                String verifica2 = "select * from conexiones where cast(cCadena as varchar(5000)) ='" + txtcadena.Text.Trim() + "'";
                                 SqlCommand comando01 = new SqlCommand(verifica2, connection2);
                                 {
                                     DataTable dt2 = new DataTable();
@@ -239,7 +239,7 @@ namespace Contasis
                                                 myCommand3.ExecuteNonQuery();
                                                 cmbOrigen.Enabled = false;
                                                 txtServidor.Enabled = false;
-                                                txtpuerto.Enabled = false;
+                                                
                                                 Txtusuario.Enabled = false;
                                                 txtClave.Enabled = false;
                                                 cmbBase.Enabled = false;
@@ -303,7 +303,7 @@ namespace Contasis
 
                                             cmbOrigen.Enabled = false;
                                             txtServidor.Enabled = false;
-                                            txtpuerto.Enabled = false;
+                                            
                                             Txtusuario.Enabled = false;
                                             txtClave.Enabled = false;
                                             cmbBase.Enabled = false;
@@ -332,7 +332,7 @@ namespace Contasis
 
         private void cmbOrigen_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbOrigen.SelectedIndex == 1)
+            if (cmbOrigen.SelectedIndex == 0)
             {
                 txtServidor.Text = "";
                 label4.Visible = true;

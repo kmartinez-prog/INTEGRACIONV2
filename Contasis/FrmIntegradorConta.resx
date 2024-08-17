@@ -118,11 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="txtguardarcompras.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION func_guardar_fin_compras(
-    OUT resultado text,
-    IN pjson text)
-  RETURNS text AS
-$BODY$
+    <value>CREATE OR REPLACE FUNCTION public.func_guardar_fin_compras(
+	OUT resultado text,
+	pjson text)
+    RETURNS text
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+
 declare 
 	a_json json;
 begin
@@ -256,18 +260,22 @@ begin
     from fin_compras fc
     into resultado;
 end; 
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
-ALTER FUNCTION func_guardar_fin_compras(text)
-  OWNER TO postgres;</value>
+$BODY$;
+
+ALTER FUNCTION public.func_guardar_fin_compras(text)
+    OWNER TO postgres;
+</value>
   </data>
   <data name="txtguardarventas.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION func_guardar_fin_ventas(
-    OUT resultado text,
-    IN pjson text)
-  RETURNS text AS
-$BODY$
+    <value>CREATE OR REPLACE FUNCTION public.func_guardar_fin_ventas(
+	OUT resultado text,
+	pjson text)
+    RETURNS text
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+
 declare 
 	a_json json;
 begin
@@ -293,7 +301,7 @@ begin
         idventas, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodori_p, 
         ccodsu_p, ccodcue_ps, ccodcue_pd, ccodflu, flgctares, flgctaimp, 
         flgctaact, flggencomp, ccodtipent, ffechadoc, ffechaven, ccoddoc, 
-        cserie, cnumero, codenti, cdesenti, ctipodoc, ccodruc, crazsoc, 
+        cserie, cnumero, ccodenti, cdesenti, ctipodoc, ccodruc, crazsoc, 
         nbase2, nbase1, nexo, nina, nisc, nigv1, nicbpers, nbase3, ntots, 
         ntc, freffec, crefdoc, crefser, crefnum, cmreg, ndolar, ffechaven2, 
         ccond, ccodcos, ccodcos2, cctabase, cctaicbper, cctaotrib, cctatot, 
@@ -306,7 +314,7 @@ begin
         idventas, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodori_p, 
         ccodsu_p, ccodcue_ps, ccodcue_pd, ccodflu, flgctares, flgctaimp, 
         flgctaact, flggencomp, ccodtipent,ffechadoc, ffechaven, ccoddoc, 
-        lpad(trim(coalesce(cserie,'')),20,'0') as cserie, lpad(trim(coalesce(cnumero,'')),20,'0') as cnumero, trim(codenti) as codenti, cdesenti, ctipodoc, trim(ccodruc) as ccodruc, crazsoc, 
+        lpad(trim(coalesce(cserie,'')),20,'0') as cserie, lpad(trim(coalesce(cnumero,'')),20,'0') as cnumero, trim(ccodenti) as ccodenti, cdesenti, ctipodoc, trim(ccodruc) as ccodruc, crazsoc, 
         coalesce(nbase2,0.00) as nbase2, coalesce(nbase1,0.00) as nbase1, coalesce(nexo,0.00) as nexo, coalesce(nina,0.00) as nina, coalesce(nisc,0.00) as nisc,
         coalesce(nigv1,0.00) as nigv1, coalesce(nicbpers,0.00) as nicbpers, coalesce(nbase3,0.00) as nbase3, coalesce(ntots,0.00) as ntots, 
         coalesce(ntc,0.00) as ntc,  case when freffec='' then null else freffec::date end freffec      , coalesce(crefdoc,'') as crefdoc, coalesce(crefser,'') as crefser, coalesce(crefnum,''), coalesce(cmreg,'') cmreg, ndolar, 
@@ -341,7 +349,7 @@ begin
         ccoddoc character(2),
         cserie character(20),
         cnumero character(20),
-        codenti character(11),
+        ccodenti character(11),
         cdesenti character(100),
         ctipodoc character(1),
         ccodruc character(15),
@@ -427,8 +435,10 @@ begin
 
     
 end; 
-$BODY$
-  LANGUAGE plpgsql VOLATILE</value>
+$BODY$;
+
+ALTER FUNCTION public.func_guardar_fin_ventas(text)
+    OWNER TO postgres;</value>
   </data>
   <data name="txtanulacioncompras.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION func_guardar_integracion_anuladoc(pxml xml)
@@ -537,13 +547,13 @@ BEGIN
 	select distinct ccodenti, cdesenti, ccodtipent from fin_compras where ccodenti not in (select ccodenti from cg_entidad); 
 	-- insertando entidades tributarias 
 	Insert into cg_entitrib (ccodruc,crazsoc,ctipdoc,CNATJUR,ccodtipent) 
-	select DISTINCT ccodruc,crazsoc,ctipodoc,case 
-	when ctipodoc='1' and Length(ltrim(ccodruc))=8 then '1'
-	when ctipodoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='10' then '1'
-	when ctipodoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
-	when ctipodoc='0' and Length(ltrim(ccodruc))=15  then '3'
-	when ctipodoc='7' and Length(ltrim(ccodruc))=12  then '1'
-	when ctipodoc='4' and Length(ltrim(ccodruc))=12  then '1'
+	select DISTINCT ccodruc,crazsoc,ctipdoc,case 
+	when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
+	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='10' then '1'
+	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
+	when ctipdoc='0' and Length(ltrim(ccodruc))=15  then '3'
+	when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
+	when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
 	END ::CHAR(1) AS CNATJUR,ccodtipent   FROM FIN_COMPRAS
 	WHERE ccodruc not in (select ccodruc from cg_entitrib); 
 	
@@ -7099,6 +7109,9 @@ $BODY$
 $BODY$
 DECLARE 
 
+
+SELECT *  FROM FIN_VENTAS	
+
 	    RW RECORD;
 	    rwperproceso record; 
 	    rwemp record; 
@@ -7156,12 +7169,12 @@ BEGIN
 	-- insertando entidades tributarias 
 	insert into cg_entitrib (ccodruc,crazsoc,ctipdoc,CNATJUR,ccodtipent) 
 	select DISTINCT ccodruc,crazsoc,ctipodoc,case 
-	when ctipodoc='1' and Length(ltrim(ccodruc))=8 then '1'
-	when ctipodoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='10' then '1'
-	when ctipodoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
-	when ctipodoc='0' and Length(ltrim(ccodruc))=15  then '3'
-	when ctipodoc='7' and Length(ltrim(ccodruc))=12  then '1'
-	when ctipodoc='4' and Length(ltrim(ccodruc))=12  then '1'
+	when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
+	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='10' then '1'
+	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
+	when ctipdoc='0' and Length(ltrim(ccodruc))=15  then '3'
+	when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
+	when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
 	 END ::CHAR(1) AS CNATJUR,ccodtipent   FROM FIN_VENTAS
 	 WHERE crazsoc NOT LIKE('%ANULAD%') AND    ccodruc not in (select ccodruc from cg_entitrib); 
 
@@ -7313,7 +7326,7 @@ BEGIN
 				    flagpresuo, flagpresut, nasiento, 
 				    nicbpers, cctaicbper)
 			SELECT      a.cper,a.cmes,ffechadoc, ffechaven, ccoddoc,cserie, cnumero, ccodenti, cdesenti, 
-				    ctipodoc, ccodruc,crazsoc,  nbase2,nbase1, nexo,nina, nisc,
+				    ctipdoc, ccodruc,crazsoc,  nbase2,nbase1, nexo,nina, nisc,
 				    nigv1,nbase3,ntots,ntc,freffec, crefdoc, crefser, crefnum, 
 				    cmreg, ndolar, ffechaven2, ccond,  ccodcos, ccodcos2, cctabase, 
 				    cctaotrib,cctatot,nresp,nporre,nimpres,cserre,cnumre,ffecre,
