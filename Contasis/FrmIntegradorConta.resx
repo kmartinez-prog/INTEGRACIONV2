@@ -301,7 +301,7 @@ begin
         idventas, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodori_p, 
         ccodsu_p, ccodcue_ps, ccodcue_pd, ccodflu, flgctares, flgctaimp, 
         flgctaact, flggencomp, ccodtipent, ffechadoc, ffechaven, ccoddoc, 
-        cserie, cnumero, ccodenti, cdesenti, ctipodoc, ccodruc, crazsoc, 
+        cserie, cnumero, ccodenti, cdesenti, ctipdoc, ccodruc, crazsoc, 
         nbase2, nbase1, nexo, nina, nisc, nigv1, nicbpers, nbase3, ntots, 
         ntc, freffec, crefdoc, crefser, crefnum, cmreg, ndolar, ffechaven2, 
         ccond, ccodcos, ccodcos2, cctabase, cctaicbper, cctaotrib, cctatot, 
@@ -314,7 +314,7 @@ begin
         idventas, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodori_p, 
         ccodsu_p, ccodcue_ps, ccodcue_pd, ccodflu, flgctares, flgctaimp, 
         flgctaact, flggencomp, ccodtipent,ffechadoc, ffechaven, ccoddoc, 
-        lpad(trim(coalesce(cserie,'')),20,'0') as cserie, lpad(trim(coalesce(cnumero,'')),20,'0') as cnumero, trim(ccodenti) as ccodenti, cdesenti, ctipodoc, trim(ccodruc) as ccodruc, crazsoc, 
+        lpad(trim(coalesce(cserie,'')),20,'0') as cserie, lpad(trim(coalesce(cnumero,'')),20,'0') as cnumero, trim(ccodenti) as ccodenti, cdesenti, ctipdoc, trim(ccodruc) as ccodruc, crazsoc, 
         coalesce(nbase2,0.00) as nbase2, coalesce(nbase1,0.00) as nbase1, coalesce(nexo,0.00) as nexo, coalesce(nina,0.00) as nina, coalesce(nisc,0.00) as nisc,
         coalesce(nigv1,0.00) as nigv1, coalesce(nicbpers,0.00) as nicbpers, coalesce(nbase3,0.00) as nbase3, coalesce(ntots,0.00) as ntots, 
         coalesce(ntc,0.00) as ntc,  case when freffec='' then null else freffec::date end freffec      , coalesce(crefdoc,'') as crefdoc, coalesce(crefser,'') as crefser, coalesce(crefnum,''), coalesce(cmreg,'') cmreg, ndolar, 
@@ -351,7 +351,7 @@ begin
         cnumero character(20),
         ccodenti character(11),
         cdesenti character(100),
-        ctipodoc character(1),
+        ctipdoc character(1),
         ccodruc character(15),
         crazsoc character(100),
         nbase2 numeric(15,2),
@@ -4173,8 +4173,7 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
 ALTER FUNCTION fin_registro_compras_integracion_estandar(character, character, character, character, integer, integer, integer, integer, integer, character, character, character, character, character, character, character, character, character, character, character, integer, character)
-  OWNER TO postgres;
-</value>
+  OWNER TO postgres;</value>
   </data>
   <data name="txtasientoventas2.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION fin_registro_ventas_integracion_estandar(
@@ -7168,7 +7167,7 @@ BEGIN
 	select distinct ccodenti, cdesenti, ccodtipent from fin_ventas where ccodenti not in (select ccodenti from cg_entidad); 
 	-- insertando entidades tributarias 
 	insert into cg_entitrib (ccodruc,crazsoc,ctipdoc,CNATJUR,ccodtipent) 
-	select DISTINCT ccodruc,crazsoc,ctipodoc,case 
+	select DISTINCT ccodruc,crazsoc,ctipdoc,case 
 	when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
 	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='10' then '1'
 	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'

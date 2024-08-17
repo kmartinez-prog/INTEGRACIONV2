@@ -1803,7 +1803,7 @@ namespace Contasis
                     "ccodori CHAR(3),ccodsu CHAR(2),ccodori_P CHAR(3),ccodsu_P CHAR(2),ccodcue_ps CHAR(20),ccodcue_pd CHAR(20) ,ccodflu CHAR(4)," +
                     "flgctares numeric(1),flgctaimp numeric(1),flgctaact numeric(1),flggencomp numeric(1), ccodtipent char(3)," +
                     "ffechadoc date NULL,ffechaven date NULL,ccoddoc nchar(2) NULL,cserie nchar(20) NULL,cnumero nchar(20) NULL," +
-                    "ccodenti nchar(11) NULL,cdesenti nchar(100) NULL,ctipodoc nchar(1) NULL,ccodruc nchar(15) NULL,crazsoc nchar(100) NULL," +
+                    "ccodenti nchar(11) NULL,cdesenti nchar(100) NULL,ctipdoc nchar(1) NULL,ccodruc nchar(15) NULL,crazsoc nchar(100) NULL," +
                     "nbase2 numeric(15, 2) NULL,nbase1 numeric(15, 2) NULL,	nexo numeric(15, 2) NULL,nina numeric(15, 2) NULL,nisc numeric(15, 2) NULL," +
                     "nigv1 numeric(15, 2) NULL,nicbpers numeric(15, 2) NULL,nbase3 numeric(15, 2) NULL,ntots numeric(15, 2) NULL,ntc numeric(10, 6) NULL," +
                     "freffec timestamp NULL,crefdoc nchar(2) NULL,crefser char(6) NULL,crefnum nchar(13) NULL,cmreg nchar(1) NULL,ndolar numeric(15, 2) NULL," +
