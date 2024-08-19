@@ -104,6 +104,26 @@ namespace Contasis
             toolStripStatusLabel1.Text = "Fecha Actual : "+DateTime.Now.ToLongDateString();
             toolStripStatusLabel2.Text = "| Hora Actual : " + DateTime.Now.ToString("hh:mm:ss");
             toolStripStatusLabel4.Text = "| Usuario Actual : " + Properties.Settings.Default.Usuario;
+            toolStripStatusLabel5.Text = "| Conexion origen :  ";
+
+
+            if (string.IsNullOrEmpty(Properties.Settings.Default.cadenaPostPrincipal))
+            {
+                
+            }
+            else
+            {
+                toolStripStatusLabel5.Text = "| Conexion origen : PostgresSQL ";
+            }
+            if (Properties.Settings.Default.cadenaSql == "")
+            {
+            }
+            else
+            {
+                toolStripStatusLabel5.Text = "| Conexion origen : SQL SERVER ";
+            }
+
+
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -451,6 +471,9 @@ namespace Contasis
             master11 = null;
         }
 
+        private void toolStripStatusLabel5_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

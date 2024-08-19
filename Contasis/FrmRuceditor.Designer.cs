@@ -64,6 +64,7 @@ namespace Contasis
             this.txtestado.Name = "txtestado";
             this.txtestado.Size = new System.Drawing.Size(42, 20);
             this.txtestado.TabIndex = 3;
+            this.txtestado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtestado_KeyPress);
             // 
             // label3
             // 
@@ -98,6 +99,7 @@ namespace Contasis
             this.txtruc.Name = "txtruc";
             this.txtruc.Size = new System.Drawing.Size(124, 20);
             this.txtruc.TabIndex = 1;
+            this.txtruc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtruc_KeyPress);
             // 
             // lblcodigo
             // 

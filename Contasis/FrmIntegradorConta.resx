@@ -118,18 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="txtguardarcompras.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION public.func_guardar_fin_compras(
-	OUT resultado text,
-	pjson text)
-    RETURNS text
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE PARALLEL UNSAFE
-AS $BODY$
-
+    <value>CREATE OR REPLACE FUNCTION func_guardar_fin_compras(
+    OUT resultado text,
+    IN pjson text)
+  RETURNS text AS
+$BODY$
 declare 
 	a_json json;
 begin
+
 
     -- 0. Truncar tabla
     truncate table fin_compras;
@@ -259,22 +256,23 @@ begin
     ))::text
     from fin_compras fc
     into resultado;
-end; 
-$BODY$;
 
-ALTER FUNCTION public.func_guardar_fin_compras(text)
-    OWNER TO postgres;
+
+    
+end; 
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION func_guardar_fin_ventas(text)
+  OWNER TO postgres;
 </value>
   </data>
   <data name="txtguardarventas.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION public.func_guardar_fin_ventas(
 	OUT resultado text,
 	pjson text)
-    RETURNS text
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE PARALLEL UNSAFE
-AS $BODY$
+    RETURNS text AS
+$BODY$
 
 declare 
 	a_json json;
@@ -435,10 +433,12 @@ begin
 
     
 end; 
-$BODY$;
-
-ALTER FUNCTION public.func_guardar_fin_ventas(text)
-    OWNER TO postgres;</value>
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION func_guardar_fin_ventas(text)
+  OWNER TO postgres;
+</value>
   </data>
   <data name="txtanulacioncompras.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION func_guardar_integracion_anuladoc(pxml xml)
@@ -7108,8 +7108,6 @@ $BODY$
 $BODY$
 DECLARE 
 
-
-SELECT *  FROM FIN_VENTAS	
 
 	    RW RECORD;
 	    rwperproceso record; 

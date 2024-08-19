@@ -22,7 +22,7 @@ namespace Contasis
             String strfventas;
             if (cadena == "")
             {
-                MessageBox.Show("No se realizo la conexion, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se realizo la conexión, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
@@ -35,7 +35,7 @@ namespace Contasis
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se establec la conexion : " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No se establece la conexión : " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -138,7 +138,7 @@ namespace Contasis
             cadena = _cadena;
             if (cadena == "")
             {
-                MessageBox.Show("No se establec la conexion, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se establece la conexión, ingrese las credenciales.", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
@@ -151,7 +151,7 @@ namespace Contasis
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se establec la conexion revise  usuario y clave " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se establece la conexión revise  usuario y clave " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 /** aca vamos a Verificar si Existe la tabla Contasis    **/
@@ -215,7 +215,7 @@ namespace Contasis
             cadena = _cadena;
             if (cadena == "")
             {
-                MessageBox.Show("No se establec la conexion, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se establece la conexión, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
@@ -234,7 +234,7 @@ namespace Contasis
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se establec la conexion revise sus credenciales " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se establece la conexión revise sus credenciales " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             /** aca vamos a Verificar si Existe la tabla Contasis    **/
@@ -443,7 +443,7 @@ namespace Contasis
             cadena = _cadena;
             if (cadena == "")
             {
-                MessageBox.Show("No se establec la conexion, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se establece la conexión, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
@@ -461,7 +461,7 @@ namespace Contasis
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se establec la conexion : " + ex.Message, "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se establece la conexión : " + ex.Message, "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 /** aca vamos a Verificar si Existe la tabla Contasis    **/

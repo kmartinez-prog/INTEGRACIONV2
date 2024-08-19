@@ -30,7 +30,7 @@ namespace Contasis
             if (string.IsNullOrWhiteSpace(cmbOrigen.Text))
             {
                 cmbOrigen.Focus();
-                MessageBox.Show("Debe de selecionar el tipo de conexion donde se crean la Base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe de selecionar el tipo de conexión donde se crean la Base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             else
@@ -106,7 +106,6 @@ namespace Contasis
                                     connection1.Open();
                                     String verifica = "SELECT * FROM SYSDATABASES WHERE NAME='bdintegradorContasis'";
                                     SqlCommand comando = new SqlCommand(verifica, connection1);
-
                                     DataTable dt = new DataTable();
                                     SqlDataAdapter da = new SqlDataAdapter(comando);
 
@@ -169,7 +168,10 @@ namespace Contasis
                                                         str2 = "Insert Into Conexiones(cTipoBase,cServidor,cUsuario,cClave,cPuerto,cBase,cubicacion,cCadena,cUsuarioCre) " +
                                                             "values('" + valor01 + "','" + valor02 + "','" + valor04 + "','" + valor05 + "','" + valor03 + "','" + valor06 + "','" + valor09 + "','" + valor07 + "','" + valor08 + "')";
                                                         SqlCommand myCommand2 = new SqlCommand(str2, connection1);
-                                                        Properties.Settings.Default.cadenaSql = txtcadena.Text;
+
+                                                    MessageBox.Show("Conexión registrada correctamente.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                                    Properties.Settings.Default.cadenaSql = txtcadena.Text;
                                                         Properties.Settings.Default.Save();
                                                         Properties.Settings.Default.Reload();
 
@@ -286,7 +288,7 @@ namespace Contasis
                                     string malor5 = esconde1.Ocultar(txtClave.Text);
                                     string malor7 = esconde1.Ocultar(conexionnewpos);
                                     string malor8 = Properties.Settings.Default.Usuario;
-                                    string malor9 = "DESTINO";
+                                    string malor9 = "ORIGEN";
                                     str33 = "Insert Into conexiones(ctipobase,cservidor,cusuario,cclave,cpuerto,cbase,cubicacion,ccadena,cusuariocre) " +
                                    "values('" + malor1 + "','" + malor2 + "','" + malor4 + "','" + malor5 + "','" + malor3 + "','" + malor6 + "','" + malor9 + "','" + malor7 + "','" + malor8 + "')";
                                     NpgsqlCommand cmdp5 = new NpgsqlCommand(str33, conexionNew);
@@ -307,7 +309,7 @@ namespace Contasis
                                         txtcadena.Enabled = false;
                                         btnValidar.Enabled = false;
                                         btnGrabar.Enabled = false;
-                                        MessageBox.Show("Conexion registrada correctamente", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                        MessageBox.Show("Conexión registrada correctamente.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         Principal.instance.txtcontrol.Text = "1";
                                         txtcadena.Text = conexionnewpos;
                                         btnGrabar.Enabled = true;
@@ -465,7 +467,7 @@ namespace Contasis
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no existe información de conexión a empresa " , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
         }
@@ -494,7 +496,7 @@ namespace Contasis
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no existe información de conexión a empresa "  , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
 
@@ -502,7 +504,10 @@ namespace Contasis
 
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
     }
 
 

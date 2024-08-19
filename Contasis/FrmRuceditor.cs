@@ -210,5 +210,21 @@ namespace Contasis
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+        private void txtruc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if  (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                {
+                e.Handled = true;
+            }
+        }
+
+        private void txtestado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

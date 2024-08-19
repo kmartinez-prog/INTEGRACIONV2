@@ -51,7 +51,7 @@ namespace Contasis
                     cmbrucemisor.Items.Clear();
                     if (dataset.Tables.Count == 0)
                     {
-                        MessageBox.Show("No existe datos de ruc emisor para  seleccionar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("No existe datos el ruc emisor para seleccionar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         this.Close();
                     }
                     else
@@ -899,7 +899,7 @@ namespace Contasis
             try
             {
                 NpgsqlConnection cone1 = new NpgsqlConnection();
-                string text02 = "SELECT CONCAT(LTRIM(CCODTIPENT),'-',LTRIM(CDESTIPENT)) ::CHARACTER(80)AS ENTIDAD FROM cg_tipentidad";
+                string text02 = "SELECT CONCAT(LTRIM(CCODTIPENT),' ',LTRIM(CDESTIPENT)) ::CHARACTER(80)AS ENTIDAD FROM cg_tipentidad";
                 cone1 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
                 NpgsqlCommand cmdp2 = new NpgsqlCommand(text02, cone1);
                 cone1.Open();
@@ -919,7 +919,7 @@ namespace Contasis
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error no Existe entidades " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no Existe entidades." , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 cmbperiodo.Items.Clear();
             }
 
@@ -1488,7 +1488,7 @@ namespace Contasis
             try
             {
                 NpgsqlConnection cone1 = new NpgsqlConnection();
-                string text02 = "SELECT CONCAT(LTRIM(CCODTIPENT),'-',LTRIM(CDESTIPENT)) ::CHARACTER(80)AS ENTIDAD FROM cg_tipentidad WHERE CCODTIPENT='"+valor+"'";
+                string text02 = "SELECT CONCAT(LTRIM(CCODTIPENT),' ',LTRIM(CDESTIPENT)) ::CHARACTER(80)AS ENTIDAD FROM cg_tipentidad WHERE CCODTIPENT='"+valor+"'";
                 cone1 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
                 NpgsqlCommand cmdp2 = new NpgsqlCommand(text02, cone1);
                 cone1.Open();
@@ -1514,7 +1514,7 @@ namespace Contasis
             try
             {
                 NpgsqlConnection cone1 = new NpgsqlConnection();
-                string text02 = "select concat(CCODRUC,'-',LTRIM(CRAZSOC))  ::char(60) as CODIGO  from cg_entitrib where NUTIANU=1";
+                string text02 = "select concat(CCODRUC,' ',LTRIM(CRAZSOC))  ::char(60) as CODIGO  from cg_entitrib where NUTIANU=1";
                 cone1 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
                     NpgsqlCommand comando3 = new NpgsqlCommand(text02, cone1);
                     cone1.Open();
@@ -1545,7 +1545,7 @@ namespace Contasis
             try
             {
                 NpgsqlConnection cone1 = new NpgsqlConnection();
-                string text02 = "select concat(CCODRUC,'-',LTRIM(CRAZSOC))  ::char(60) as CODIGO  from cg_entitrib where NUTIANU = 1 and CCODRUC = '" + valor + "'";
+                string text02 = "select concat(CCODRUC,' ',LTRIM(CRAZSOC))  ::char(60) as CODIGO  from cg_entitrib where NUTIANU = 1 and CCODRUC = '" + valor + "'";
                 cone1 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
                 NpgsqlCommand cmdp2 = new NpgsqlCommand(text02, cone1);
                 cone1.Open();

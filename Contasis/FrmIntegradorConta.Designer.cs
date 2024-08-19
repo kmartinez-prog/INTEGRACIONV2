@@ -35,6 +35,7 @@ namespace Contasis
             this.cmbrucemisor = new System.Windows.Forms.ComboBox();
             this.txtestado = new System.Windows.Forms.TextBox();
             this.txtrazon = new System.Windows.Forms.TextBox();
+            this.txtruc = new System.Windows.Forms.TextBox();
             this.txtperiodo = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.cmbperiodo = new System.Windows.Forms.ComboBox();
@@ -46,7 +47,6 @@ namespace Contasis
             this.label23 = new System.Windows.Forms.Label();
             this.dataGridView_venta = new System.Windows.Forms.DataGridView();
             this.txtCFEFEC = new System.Windows.Forms.TextBox();
-            this.txtruc = new System.Windows.Forms.TextBox();
             this.txtCCONTD = new System.Windows.Forms.TextBox();
             this.txtCCONTS = new System.Windows.Forms.TextBox();
             this.txtCLREG2 = new System.Windows.Forms.TextBox();
@@ -111,6 +111,8 @@ namespace Contasis
             this.txtasientoventas2 = new System.Windows.Forms.TextBox();
             this.txtasientoventas1 = new System.Windows.Forms.TextBox();
             this.BtnSalir = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -132,6 +134,7 @@ namespace Contasis
             this.panel1.Controls.Add(this.cmbrucemisor);
             this.panel1.Controls.Add(this.txtestado);
             this.panel1.Controls.Add(this.txtrazon);
+            this.panel1.Controls.Add(this.txtruc);
             this.panel1.Controls.Add(this.txtperiodo);
             this.panel1.Controls.Add(this.label22);
             this.panel1.Controls.Add(this.cmbperiodo);
@@ -176,6 +179,14 @@ namespace Contasis
             this.txtrazon.Name = "txtrazon";
             this.txtrazon.Size = new System.Drawing.Size(143, 20);
             this.txtrazon.TabIndex = 8;
+            // 
+            // txtruc
+            // 
+            this.txtruc.Enabled = false;
+            this.txtruc.Location = new System.Drawing.Point(474, 91);
+            this.txtruc.Name = "txtruc";
+            this.txtruc.Size = new System.Drawing.Size(107, 20);
+            this.txtruc.TabIndex = 7;
             // 
             // txtperiodo
             // 
@@ -243,11 +254,11 @@ namespace Contasis
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.label26);
             this.panel2.Controls.Add(this.cmbanuladosventas);
             this.panel2.Controls.Add(this.label23);
             this.panel2.Controls.Add(this.dataGridView_venta);
             this.panel2.Controls.Add(this.txtCFEFEC);
-            this.panel2.Controls.Add(this.txtruc);
             this.panel2.Controls.Add(this.txtCCONTD);
             this.panel2.Controls.Add(this.txtCCONTS);
             this.panel2.Controls.Add(this.txtCLREG2);
@@ -314,13 +325,6 @@ namespace Contasis
             this.txtCFEFEC.TextChanged += new System.EventHandler(this.txtCFEFEC_TextChanged);
             this.txtCFEFEC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCFEFEC_KeyDown);
             this.txtCFEFEC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCFEFEC_KeyPress);
-            // 
-            // txtruc
-            // 
-            this.txtruc.Location = new System.Drawing.Point(428, -138);
-            this.txtruc.Name = "txtruc";
-            this.txtruc.Size = new System.Drawing.Size(107, 21);
-            this.txtruc.TabIndex = 7;
             // 
             // txtCCONTD
             // 
@@ -568,6 +572,7 @@ namespace Contasis
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel4.Controls.Add(this.label27);
             this.panel4.Controls.Add(this.cmbanuladoscompras);
             this.panel4.Controls.Add(this.label24);
             this.panel4.Controls.Add(this.dataGridView1);
@@ -998,11 +1003,29 @@ namespace Contasis
             this.BtnSalir.UseVisualStyleBackColor = true;
             this.BtnSalir.Click += new System.EventHandler(this.BtnSalir_Click_1);
             // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(360, 7);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(77, 15);
+            this.label26.TabIndex = 28;
+            this.label26.Text = "Ruc Emisor :";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(363, 9);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(77, 15);
+            this.label27.TabIndex = 39;
+            this.label27.Text = "Ruc Emisor :";
+            // 
             // FrmIntegradorConta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(652, 555);
+            this.ClientSize = new System.Drawing.Size(650, 555);
             this.Controls.Add(this.txtasientoventas2);
             this.Controls.Add(this.txtasientoventas1);
             this.Controls.Add(this.txtasientocompas2);
@@ -1129,5 +1152,7 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtestado;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.ComboBox cmbrucemisor;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
     }
 }

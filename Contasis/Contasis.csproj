@@ -182,6 +182,8 @@
     <Compile Include="Clase\rucpropiedades.cs" />
     <Compile Include="Clase\usuario.cs" />
     <Compile Include="Clase\usuarioPropiedad.cs" />
+    <Compile Include="Clase\Ventas_inconsistencias.cs" />
+    <Compile Include="Clase\ventas_propiedades.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="ConexionConta.cs" />
     <Compile Include="ConexionPostgrelSql.cs" />

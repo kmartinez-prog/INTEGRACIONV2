@@ -35,7 +35,7 @@ namespace Contasis
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column01 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idventas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column02 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column03 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column04 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,12 +84,15 @@ namespace Contasis
             this.Column047 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column048 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column049 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ccodrucemisor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.BtnSalir = new System.Windows.Forms.Button();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -137,7 +140,7 @@ namespace Contasis
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column01,
+            this.idventas,
             this.Column02,
             this.Column03,
             this.Column04,
@@ -185,21 +188,22 @@ namespace Contasis
             this.Column046,
             this.Column047,
             this.Column048,
-            this.Column049});
+            this.Column049,
+            this.ccodrucemisor});
             this.dataGridView1.Location = new System.Drawing.Point(23, 80);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(1429, 524);
+            this.dataGridView1.Size = new System.Drawing.Size(1429, 546);
             this.dataGridView1.TabIndex = 16;
             // 
-            // Column01
+            // idventas
             // 
-            this.Column01.HeaderText = "ID VENTAS";
-            this.Column01.MinimumWidth = 6;
-            this.Column01.Name = "Column01";
-            this.Column01.ReadOnly = true;
-            this.Column01.Width = 125;
+            this.idventas.HeaderText = "ID VENTAS";
+            this.idventas.MinimumWidth = 6;
+            this.idventas.Name = "idventas";
+            this.idventas.ReadOnly = true;
+            this.idventas.Width = 125;
             // 
             // Column02
             // 
@@ -585,6 +589,14 @@ namespace Contasis
             this.Column049.ReadOnly = true;
             this.Column049.Width = 125;
             // 
+            // ccodrucemisor
+            // 
+            this.ccodrucemisor.HeaderText = "RUCEMISOR";
+            this.ccodrucemisor.MinimumWidth = 6;
+            this.ccodrucemisor.Name = "ccodrucemisor";
+            this.ccodrucemisor.ReadOnly = true;
+            this.ccodrucemisor.Width = 125;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Contasis.Properties.Resources.Logo___Contasis;
@@ -619,11 +631,23 @@ namespace Contasis
             this.BtnSalir.UseVisualStyleBackColor = true;
             this.BtnSalir.Click += new System.EventHandler(this.BtnSalir_Click);
             // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(20, 97);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.RowHeadersWidth = 51;
+            this.dataGridView2.Size = new System.Drawing.Size(1429, 482);
+            this.dataGridView2.TabIndex = 18;
+            // 
             // FrmInconsistencia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1474, 772);
+            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
@@ -642,6 +666,7 @@ namespace Contasis
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -654,7 +679,8 @@ namespace Contasis
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column01;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idventas;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column02;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column03;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column04;
@@ -703,6 +729,7 @@ namespace Contasis
         private System.Windows.Forms.DataGridViewTextBoxColumn Column047;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column048;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column049;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ccodrucemisor;
+        private System.Windows.Forms.DataGridView dataGridView2;
     }
 }

@@ -26,7 +26,7 @@ namespace Contasis
                 conex.Open();
                 
 
-                MessageBox.Show("Validando Conexion  para Crear Base de Datos y guardar las credenciales.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Validando Conexión para Crear Base de Datos y guardar las credenciales.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 /**** ***/
                 string rutas = "SELECT top 1 replace(filename,NAME+'.mdf','') as ruta  FROM SYSDATABASES";
@@ -84,7 +84,7 @@ namespace Contasis
             }
             catch (Exception ex)
             {
-                MessageBox.Show("No se establec la conexion por error de credenciales" , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se establecio la conexión por error de credenciales" , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 }

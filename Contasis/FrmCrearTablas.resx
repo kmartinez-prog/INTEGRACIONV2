@@ -575,12 +575,7 @@ ALTER FUNCTION fn_compras_envio(character, character)
   OWNER TO postgres;</value>
   </data>
   <data name="txtcompras2.Text" xml:space="preserve">
-    <value>
--- Function: fn_compras_envio_resultado(text)
-
--- DROP FUNCTION fn_compras_envio_resultado(text);
-
-CREATE OR REPLACE FUNCTION fn_compras_envio_resultado(p_datos text)
+    <value>CREATE OR REPLACE FUNCTION fn_compras_envio_resultado(p_datos text)
   RETURNS void AS
 $BODY$
 DECLARE
@@ -597,17 +592,13 @@ BEGIN
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
-  COST 100;
-ALTER FUNCTION fn_compras_envio_resultado(text)
-  OWNER TO postgres;</value>
+  COST 100;</value>
   </data>
   <data name="soloventasonline.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION fn_integracion_ventas_importar(
-    OUT resultado text,
-    IN p_datos text,
-    IN p_cod_emp text)
-  RETURNS text AS
-$BODY$
+    <value>CREATE OR REPLACE FUNCTION public.fn_integracion_ventas_importar(OUT resultado text, p_datos text, p_cod_emp text)
+ RETURNS text
+ LANGUAGE plpgsql
+AS $function$
 DECLARE
     v_data json;
 BEGIN 
@@ -618,7 +609,7 @@ BEGIN
     INSERT INTO fin_ventas(
         idventas, ccodrucemisor,
         ccod_empresa, cper, cmes, -- generados
-        ffechadoc, ffechaven, ccoddoc, cserie, cnumero, codenti, cdesenti, ctipodoc, 
+        ffechadoc, ffechaven, ccoddoc, cserie, cnumero, ccodenti, cdesenti, ctipdoc, 
         ccodruc, crazsoc, nbase2, nbase1, nexo, nina, nisc, nigv1, nicbpers, 
         nbase3, ntots, ntc, freffec, crefdoc, crefser, crefnum, cmreg, 
         ndolar, ffechaven2, ccond, ccodcos, ccodcos2, cctabase, cctaicbper, 
@@ -763,11 +754,8 @@ BEGIN
     into resultado;
     
 end;
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
-ALTER FUNCTION fn_integracion_ventas_importar(text, text)
-  OWNER TO postgres;</value>
+$function$
+;</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

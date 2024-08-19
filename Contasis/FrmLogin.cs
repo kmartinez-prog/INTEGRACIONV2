@@ -515,46 +515,82 @@ namespace Contasis
         }
         public void conexiones()
         {
-            string cadenaSql = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\SQL.txt");
-            string cadenaPostgrel = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\pos.txt");
-            
+            string ubicacion = @"C:\\Users\\Public\\Documents\\SQL.txt";
+            if (File.Exists(ubicacion))
+            {
+                string cadenaSql = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\SQL.txt");
+                cadenaSql = Mostrar(cadenaSql);
+                Properties.Settings.Default.cadenaSql = cadenaSql;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+            else
+            {
+                Properties.Settings.Default.cadenaSql = "";
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
 
-            cadenaSql = Mostrar(cadenaSql);
-            cadenaPostgrel = Mostrar(cadenaPostgrel);
+            }
 
-            Properties.Settings.Default.cadenaSql = cadenaSql;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-
-            Properties.Settings.Default.cadenaPost = cadenaPostgrel;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-
-            Properties.Settings.Default.cadenaPostPrincipal = "";
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            string ubicacion2 = @"C:\Users\Public\Documents\pos.txt";
+            if (File.Exists(ubicacion2))
+            {
+                string cadenaPostgrel = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\pos.txt");
+                cadenaPostgrel = Mostrar(cadenaPostgrel);
+                Properties.Settings.Default.cadenaPost = cadenaPostgrel;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+            else
+            {
+                Properties.Settings.Default.cadenaPost = "";
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
 
         }
         public void conexion2()
         {
-            string cadenaPostgrelPrincipal = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\PostgreSQL.txt");
-            string cadenaPostgrel = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\pos.txt");
-            cadenaPostgrelPrincipal= Mostrar(cadenaPostgrelPrincipal);
-            cadenaPostgrel = Mostrar(cadenaPostgrel);
 
             Properties.Settings.Default.cadenaSql = "";
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
-            Properties.Settings.Default.cadenaPostPrincipal = cadenaPostgrelPrincipal;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            string ubicacion = @"C:\Users\Public\Documents\PostgreSQL.txt";
+            if (File.Exists(ubicacion))
+            {
+                string cadenaPostgrelPrincipal = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\PostgreSQL.txt");
+                
+                cadenaPostgrelPrincipal = Mostrar(cadenaPostgrelPrincipal);
+                Properties.Settings.Default.cadenaPostPrincipal = cadenaPostgrelPrincipal;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+            else
+            {
+                Properties.Settings.Default.cadenaPostPrincipal = "";
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
 
 
-            Properties.Settings.Default.cadenaPost = cadenaPostgrel;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            string ubicacion2 = @"C:\Users\Public\Documents\pos.txt";
+            if (File.Exists(ubicacion2))
+            {
+                string cadenaPostgrel = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\pos.txt");
 
+                cadenaPostgrel = Mostrar(cadenaPostgrel);
+
+                Properties.Settings.Default.cadenaPost = cadenaPostgrel;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+            else
+            {
+                Properties.Settings.Default.cadenaPostPrincipal = "";
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
 
         }
 

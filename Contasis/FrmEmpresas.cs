@@ -227,7 +227,7 @@ namespace Contasis
                     cmbrucemisor.Items.Clear();
                     if (dataset.Tables.Count == 0)
                     {
-                        MessageBox.Show("No existe datos de ruc emisor para  seleccionar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("No existe ningún ruc emisor registrado.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         this.Close();
                     }
                     else
@@ -263,7 +263,7 @@ namespace Contasis
                     cmbrucemisor.Items.Clear();
                     if (dataset.Tables.Count == 0)
                     {
-                        MessageBox.Show("No existe datos de ruc emisor para  seleccionar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("No existe ningún ruc emisor registrado.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         this.Close();
                     }
                     else
@@ -287,7 +287,7 @@ namespace Contasis
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error no Existe Informacion de  empresa, favor en registrar una empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("No Existe información de  empresa, favor en registrar empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 this.Close();
             }
 

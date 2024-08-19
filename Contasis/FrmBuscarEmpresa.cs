@@ -39,6 +39,7 @@ namespace Contasis
             NpgsqlCommand cmdp = new NpgsqlCommand(text01, cone);
             cone.Open();
             NpgsqlDataReader grilla = cmdp.ExecuteReader();
+            dataGridView1.Rows.Clear();
             while (grilla.Read())
             {
                 dataGridView1.Rows.Add(grilla[0], grilla[1]);

@@ -38,6 +38,7 @@ namespace Contasis
             this.accesoAUsuariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.origenDeDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.estructuraDeDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.servicioDeIntegraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,7 +62,7 @@ namespace Contasis
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.txtcontrol = new System.Windows.Forms.TextBox();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -137,6 +138,14 @@ namespace Contasis
             this.toolStripMenuItem3.Size = new System.Drawing.Size(244, 26);
             this.toolStripMenuItem3.Text = "&Destino de datos";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Image = global::Contasis.Properties.Resources._32;
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(244, 26);
+            this.toolStripMenuItem4.Text = "Fuente Datos (Externo)";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // estructuraDeDatosToolStripMenuItem
             // 
@@ -308,7 +317,8 @@ namespace Contasis
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
-            this.toolStripStatusLabel4});
+            this.toolStripStatusLabel4,
+            this.toolStripStatusLabel5});
             this.statusStrip1.Location = new System.Drawing.Point(0, 639);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1316, 29);
@@ -322,13 +332,12 @@ namespace Contasis
             this.txtcontrol.Size = new System.Drawing.Size(112, 20);
             this.txtcontrol.TabIndex = 4;
             // 
-            // toolStripMenuItem4
+            // toolStripStatusLabel5
             // 
-            this.toolStripMenuItem4.Image = global::Contasis.Properties.Resources._32;
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(244, 26);
-            this.toolStripMenuItem4.Text = "Fuente Datos (Externo)";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(151, 23);
+            this.toolStripStatusLabel5.Text = "toolStripStatusLabel5";
+            this.toolStripStatusLabel5.Click += new System.EventHandler(this.toolStripStatusLabel5_Click);
             // 
             // Principal
             // 
@@ -398,5 +407,6 @@ namespace Contasis
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem servicioDeIntegraciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
     }
 }
