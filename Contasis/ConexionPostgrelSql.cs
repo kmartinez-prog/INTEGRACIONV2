@@ -31,7 +31,7 @@ namespace Contasis
                 Properties.Settings.Default.Reload();
                 conex.Close();
             }
-            catch (NpgsqlException e)
+            catch 
             {
                 resultado = "0";
                 Properties.Settings.Default.cadenaPost = "";

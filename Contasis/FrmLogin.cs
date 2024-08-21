@@ -96,7 +96,7 @@ namespace Contasis
                 }
                 connection.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no Existe Informacion en la tabla usuario, use clave inicial."  , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
@@ -129,7 +129,7 @@ namespace Contasis
                 }
                 conexionNew.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no Existe Informacion en la tabla usuario, use clave inicial.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
@@ -157,7 +157,7 @@ namespace Contasis
                 }
                 connection.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no Existe Informacion de conexion a empresa." , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
@@ -185,7 +185,7 @@ namespace Contasis
                 }
                 conexionNew.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no Existe Informacion de conexion a empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
@@ -610,7 +610,7 @@ namespace Contasis
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
             }
-            catch (Exception e)
+            catch 
             { 
             ///MessageBox.Show("No existe archivo de ruta web." ,"Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }

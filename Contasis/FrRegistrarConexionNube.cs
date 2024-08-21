@@ -409,7 +409,7 @@ namespace Contasis
                                     da2.Fill(dt2);
                                     if (dt2.Rows.Count > 0)
                                     {
-                                        lblEstado.Text = "Se detecta que ya existen esas credenciales guardadas para el PostgrelSql";
+                                        lblEstado.Text = "Se detecta que ya existe esa credencial guardadas para el PostgrelSql";
                                         return;
                                     }
                                     else
@@ -431,11 +431,11 @@ namespace Contasis
                                                 txtcadena.Enabled = false;
                                                 btnValidar.Enabled = false;
                                             MessageBox.Show("Conexión registrada correctamente.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            
-                                                Principal.instance.txtcontrol.Text = "1";
+                                            lblEstado.Text = "Conexion valida y guardada en base del PostgrelSql";
+                                            Principal.instance.txtcontrol.Text = "1";
                                                 this.captura5();
                                             }
-                                            catch (System.Exception ex1)
+                                            catch 
                                             {
                                                 MessageBox.Show("No se grabo las Credenciales en tabla del Postgrel", "Contasis Corp.",  MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                             }
@@ -495,7 +495,7 @@ namespace Contasis
                                             btnValidar.Enabled = false;
                                             conexion.Close();
                                             MessageBox.Show("Conexión registrada correctamente.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            
+                                            lblEstado.Text = "Conexion valida y guardada en base del PostgrelSql";
                                             Principal.instance.txtcontrol.Text = "1";
                                             this.captura5();
                                         }

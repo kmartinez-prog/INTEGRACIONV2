@@ -15,8 +15,8 @@ namespace Contasis
     public partial class FrmIntegradorConta : Form
     {
         String xCodempresa;
-        string rucemisor;
-        string rucempresa;
+        String rucemisor;
+        
         
         public static FrmIntegradorConta  instance = null;
         
@@ -109,7 +109,7 @@ namespace Contasis
 
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no Existe Informacion de  empresa, favor en registrar una empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 this.Close();
@@ -192,7 +192,7 @@ namespace Contasis
 
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no Existe Informacion de  empresa, favor en registrar una empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 this.Close();
@@ -353,7 +353,7 @@ namespace Contasis
                     /* FrmUsuarios.instance.grilla1();*/
 
                 }
-                catch (Exception ex)
+                catch 
                 {
                     MessageBox.Show("revise, todos los campos debe de ser llenados correctamente.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -483,7 +483,7 @@ namespace Contasis
                     /* FrmUsuarios.instance.grilla1();*/
 
                 }
-                catch (Exception ex)
+                catch 
                 {
                     MessageBox.Show("revise, todos los campos debe de ser llenados correctamente.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -622,7 +622,7 @@ namespace Contasis
                     /* FrmUsuarios.instance.grilla1();*/
 
                 }
-                catch (Exception ex)
+                catch 
                 {
                     MessageBox.Show("revise, todos los campos debe de ser llenados correctamente.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -752,7 +752,7 @@ namespace Contasis
                     /* FrmUsuarios.instance.grilla1();*/
 
                 }
-                catch (Exception ex)
+                catch 
                 {
                     MessageBox.Show("revise, todos los campos debe de ser llenados correctamente.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -917,7 +917,7 @@ namespace Contasis
                 }
                 grilla2.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no Existe entidades." , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 cmbperiodo.Items.Clear();
@@ -1334,7 +1334,7 @@ namespace Contasis
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch 
                 {
                     MessageBox.Show("Error en la consulta de periodos en contasis.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
@@ -1533,7 +1533,7 @@ namespace Contasis
                     grilla3.Close();
                 }
 
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no existen en Entidades anulados ","Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 cmbperiodo.Items.Clear();
@@ -2493,7 +2493,7 @@ namespace Contasis
         }
         private void cmbrucemisor_SelectedIndexChanged(object sender, EventArgs e)
         {
-         ///////   rucemisor = cmbrucemisor.Text.Trim().Substring(0,11);
+         rucemisor = cmbrucemisor.Text.Trim().Substring(0,11);
             
         }
 

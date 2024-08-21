@@ -41,6 +41,7 @@ namespace Contasis
             this.btnEstado = new System.Windows.Forms.Button();
             this.chkGenerarDatos = new System.Windows.Forms.CheckBox();
             this.lblEstado = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BtnSalir
@@ -48,7 +49,7 @@ namespace Contasis
             this.BtnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSalir.Image = global::Contasis.Properties.Resources._14;
             this.BtnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSalir.Location = new System.Drawing.Point(266, 149);
+            this.BtnSalir.Location = new System.Drawing.Point(266, 150);
             this.BtnSalir.Name = "BtnSalir";
             this.BtnSalir.Size = new System.Drawing.Size(110, 44);
             this.BtnSalir.TabIndex = 28;
@@ -154,11 +155,25 @@ namespace Contasis
             this.lblEstado.TabIndex = 40;
             this.lblEstado.Text = "-";
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = global::Contasis.Properties.Resources._3__Icono___Origen_de_datos;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(10, 150);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(178, 44);
+            this.button1.TabIndex = 41;
+            this.button1.Text = "Generar archivo inicialización";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FrmConfigurarServicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(388, 205);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.chkGenerarDatos);
             this.Controls.Add(this.btnEstado);
@@ -196,5 +211,6 @@ namespace Contasis
         private System.Windows.Forms.Button btnEstado;
         private System.Windows.Forms.CheckBox chkGenerarDatos;
         private System.Windows.Forms.Label lblEstado;
+        private System.Windows.Forms.Button button1;
     }
 }

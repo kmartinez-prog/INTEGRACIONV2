@@ -173,7 +173,7 @@ namespace Contasis
             this.btnValidar.Name = "btnValidar";
             this.btnValidar.Size = new System.Drawing.Size(148, 32);
             this.btnValidar.TabIndex = 37;
-            this.btnValidar.Text = "Testear Conexion";
+            this.btnValidar.Text = "Testear Conexión";
             this.btnValidar.UseVisualStyleBackColor = true;
             this.btnValidar.Click += new System.EventHandler(this.btnValidar_Click);
             // 

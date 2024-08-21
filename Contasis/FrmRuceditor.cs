@@ -65,7 +65,7 @@ namespace Contasis
             txtruc.Clear();
             txtempresa.Clear();
             txtestado.Clear();
-            txtruc.Focus();
+            
         }
 
         private void BtnActualizar_Click(object sender, EventArgs e)
@@ -139,10 +139,10 @@ namespace Contasis
                             MessageBox.Show("No se puedo regitrar este ruc emisor", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         FrmRucemisor.instance.grilla1();
+
+                        this.Hide();
+                        this.Close();
                     }
-
-
-
 
                 }
                 catch (Exception ex)
@@ -197,6 +197,7 @@ namespace Contasis
 
 
             }
+            
 
 
         }
@@ -213,6 +214,7 @@ namespace Contasis
 
         private void txtruc_KeyPress(object sender, KeyPressEventArgs e)
         {
+            
             if  (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 {
                 e.Handled = true;
@@ -224,6 +226,48 @@ namespace Contasis
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
+            }
+
+           
+        }
+
+     
+        private void txtruc_Validated(object sender, EventArgs e)
+        {
+           /// if (txtruc.Text.Length < 11)
+            ////{
+////                MessageBox.Show("Debe de ingresar un ruc de 11 digitos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+    ///            txtruc.Text = "";
+       ///         txtruc.Focus();
+          ///     }
+
+
+            if (txtruc.Text.Substring(0, 2) == "10")
+            {            }
+            else
+            {
+                if (txtruc.Text.Substring(0, 2) == "20")
+                { }
+                else
+                {
+                    MessageBox.Show("Ruc no valido, debe de comenzar con 20 ó 10.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    txtruc.Text = "";
+                    txtruc.Focus();
+                }
+            }
+
+        }
+
+
+        private void txtestado_Validated(object sender, EventArgs e)
+        {
+            if (txtestado.Text== "1" || txtestado.Text== "0")
+            { }
+            else
+            {
+                MessageBox.Show("Valor permitido 0 no activo y 1 activo.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtestado.Text = "";
+                txtestado.Focus();
             }
         }
     }

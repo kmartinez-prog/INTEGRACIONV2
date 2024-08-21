@@ -43,6 +43,7 @@ namespace Contasis
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label26 = new System.Windows.Forms.Label();
             this.cmbanuladosventas = new System.Windows.Forms.ComboBox();
             this.label23 = new System.Windows.Forms.Label();
             this.dataGridView_venta = new System.Windows.Forms.DataGridView();
@@ -72,6 +73,7 @@ namespace Contasis
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label12 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label27 = new System.Windows.Forms.Label();
             this.cmbanuladoscompras = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -111,8 +113,6 @@ namespace Contasis
             this.txtasientoventas2 = new System.Windows.Forms.TextBox();
             this.txtasientoventas1 = new System.Windows.Forms.TextBox();
             this.BtnSalir = new System.Windows.Forms.Button();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -282,6 +282,16 @@ namespace Contasis
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(558, 398);
             this.panel2.TabIndex = 0;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.ForeColor = System.Drawing.Color.Blue;
+            this.label26.Location = new System.Drawing.Point(360, 7);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(77, 15);
+            this.label26.TabIndex = 28;
+            this.label26.Text = "Ruc Emisor :";
             // 
             // cmbanuladosventas
             // 
@@ -601,6 +611,15 @@ namespace Contasis
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(559, 398);
             this.panel4.TabIndex = 2;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(363, 9);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(77, 15);
+            this.label27.TabIndex = 39;
+            this.label27.Text = "Ruc Emisor :";
             // 
             // cmbanuladoscompras
             // 
@@ -1003,29 +1022,11 @@ namespace Contasis
             this.BtnSalir.UseVisualStyleBackColor = true;
             this.BtnSalir.Click += new System.EventHandler(this.BtnSalir_Click_1);
             // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(360, 7);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(77, 15);
-            this.label26.TabIndex = 28;
-            this.label26.Text = "Ruc Emisor :";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(363, 9);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(77, 15);
-            this.label27.TabIndex = 39;
-            this.label27.Text = "Ruc Emisor :";
-            // 
             // FrmIntegradorConta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(650, 555);
+            this.ClientSize = new System.Drawing.Size(642, 555);
             this.Controls.Add(this.txtasientoventas2);
             this.Controls.Add(this.txtasientoventas1);
             this.Controls.Add(this.txtasientocompas2);
@@ -1043,7 +1044,7 @@ namespace Contasis
             this.MinimizeBox = false;
             this.Name = "FrmIntegradorConta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Configuracion de Cuentas Modulo Financiero";
+            this.Text = "Configuración de Cuentas Modulo Financiero";
             this.Load += new System.EventHandler(this.FrmIntegradorConta_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmIntegradorConta_KeyDown);
             this.panel1.ResumeLayout(false);

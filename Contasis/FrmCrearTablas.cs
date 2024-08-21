@@ -51,7 +51,7 @@ namespace Contasis
         {
             if (rbfinanciero.Checked == true)
             {
-                MessageBox.Show("Se crean las tablas y index para Financiero ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Se crean las tablas y index para Financiero ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (txtopcion1.Text == "0")
                 {
                     crearfinanciero objetconexion = new crearfinanciero();
@@ -125,7 +125,7 @@ namespace Contasis
 
                     timer5.Stop();
                     timer5.Enabled = false;
-                    MessageBox.Show("Proceso terminado, se ha crear las tablas y funciones en PostgresSql", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Proceso terminado, Se ha creador las tablas y funciones en el postgresql.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
 
@@ -134,7 +134,7 @@ namespace Contasis
 
             if (rbcomercial.Checked == true)
             {
-                MessageBox.Show("Se crean las tablas y index para Comercial ", "NO EXISTE Proceso en Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Se crean las tablas y index para Comercial. ", "Contasis Corp. <<no activo>>", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
             }
 
@@ -203,7 +203,7 @@ namespace Contasis
             {
 
                 timer4.Enabled = false;
-                MessageBox.Show("Proceso Terminado para Financiero Sql", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Proceso Terminado para Financiero Sql", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             

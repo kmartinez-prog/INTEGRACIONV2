@@ -21,15 +21,15 @@ namespace Contasis.Clase
             try
             {
                 string query = "SELECT  ccodrucemisor ,idventas"+
-                ", ccod_empresa, ffechadoc, ffechaven, ccoddoc"+
+                ", ccod_empresa, convert(varchar,ffechadoc,103) as ffechadoc, convert(varchar,[ffechaven],103) as ffechaven, ccoddoc" +
                 ", cserie, cnumero, ccodenti, cdesenti " +
                 ", ctipdoc, ccodruc, crazsoc, nbase2, nbase1 " +
                 ", nexo, nina, nisc, nigv1, nicbpers, nbase3 " +
-                ", ntots, ntc, freffec, crefdoc, crefser, crefnum " +
-                ", cmreg, ndolar, ffechaven2, ccond, ccodcos, ccodcos2 " +
+                ", ntots, ntc, convert(varchar,freffec,103) as freffec, crefdoc, crefser, crefnum " +
+                ", cmreg, ndolar, convert(varchar,ffechaven2,103) as ffechaven2, ccond, ccodcos, ccodcos2 " +
                 ", cctabase, cctaicbper, cctaotrib, cctatot, nresp " +
-                ", nporre, nimpres, cserre, cnumre, ffecre, ccodpresu " +
-                ", nigv, cglosa, ccodpago, nperdenre, nbaseres, cctaperc, " +
+                ", nporre, nimpres, cserre, cnumre, convert(varchar,ffecre,103) as ffecre, ccodpresu " +
+                ", nigv,  ccodpago, nperdenre, nbaseres, cctaperc, " +
                 " obserror " +
                 "  FROM fin_ventas where es_con_migracion not in(0,1)";
                 cone = ConexionSql.Instancial().establecerconexion();

@@ -33,7 +33,7 @@ namespace Contasis
                 {
                     conex.Open();
                 }
-                catch (Exception ex)
+                catch 
                 {
                     MessageBox.Show("No se establece la conexión : " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -149,7 +149,7 @@ namespace Contasis
                 {
                     conex1.Open();
                 }
-                catch (Exception ex)
+                catch 
                 {
                     MessageBox.Show("No se establece la conexión revise  usuario y clave " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -232,7 +232,7 @@ namespace Contasis
             {
                 conex2.Open();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("No se establece la conexión revise sus credenciales " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -764,7 +764,7 @@ namespace Contasis
                         {
                             myCommand33.ExecuteNonQuery();
                         }
-                        catch (System.Exception ex)
+                        catch 
                         {
                             MessageBox.Show("Ya existe el procedimiento de envio resultados de  ventas", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         }
@@ -800,7 +800,7 @@ namespace Contasis
                         {
                             myCommand34.ExecuteNonQuery();
                         }
-                        catch (System.Exception ex)
+                        catch 
                         {
                             MessageBox.Show("Ya existe el procedimiento de envio resultados de  compras", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         }

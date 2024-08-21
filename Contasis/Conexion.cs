@@ -72,7 +72,7 @@ namespace Contasis
                                     MessageBox.Show("Base de datos ha sido creado <<bdintegradorContasis>>", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                     conex.Close();
                                 }
-                                catch (System.Exception ex)
+                                catch 
                                 {
                                     MessageBox.Show("No se puede realizar la creación de la base de datos, posible permisos de usuario que se ha logeado.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                 }
@@ -82,7 +82,7 @@ namespace Contasis
                     }
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("No se establecio la conexión por error de credenciales" , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

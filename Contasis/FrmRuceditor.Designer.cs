@@ -55,7 +55,7 @@ namespace Contasis
             this.panel1.Location = new System.Drawing.Point(3, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(416, 134);
-            this.panel1.TabIndex = 5;
+            this.panel1.TabIndex = 4;
             // 
             // txtestado
             // 
@@ -65,6 +65,7 @@ namespace Contasis
             this.txtestado.Size = new System.Drawing.Size(42, 20);
             this.txtestado.TabIndex = 3;
             this.txtestado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtestado_KeyPress);
+            this.txtestado.Validated += new System.EventHandler(this.txtestado_Validated);
             // 
             // label3
             // 
@@ -82,6 +83,7 @@ namespace Contasis
             this.txtempresa.Name = "txtempresa";
             this.txtempresa.Size = new System.Drawing.Size(320, 20);
             this.txtempresa.TabIndex = 2;
+
             // 
             // label2
             // 
@@ -99,7 +101,10 @@ namespace Contasis
             this.txtruc.Name = "txtruc";
             this.txtruc.Size = new System.Drawing.Size(124, 20);
             this.txtruc.TabIndex = 1;
+         
+          
             this.txtruc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtruc_KeyPress);
+            this.txtruc.Validated += new System.EventHandler(this.txtruc_Validated);
             // 
             // lblcodigo
             // 
@@ -119,7 +124,7 @@ namespace Contasis
             this.BtnActualizar.Location = new System.Drawing.Point(206, 151);
             this.BtnActualizar.Name = "BtnActualizar";
             this.BtnActualizar.Size = new System.Drawing.Size(100, 32);
-            this.BtnActualizar.TabIndex = 4;
+            this.BtnActualizar.TabIndex = 5;
             this.BtnActualizar.Text = "Grabar";
             this.BtnActualizar.UseVisualStyleBackColor = false;
             this.BtnActualizar.Click += new System.EventHandler(this.BtnActualizar_Click);
@@ -133,7 +138,7 @@ namespace Contasis
             this.btncerrar.Location = new System.Drawing.Point(313, 151);
             this.btncerrar.Name = "btncerrar";
             this.btncerrar.Size = new System.Drawing.Size(100, 32);
-            this.btncerrar.TabIndex = 5;
+            this.btncerrar.TabIndex = 7;
             this.btncerrar.Text = "Salir";
             this.btncerrar.UseVisualStyleBackColor = false;
             this.btncerrar.Click += new System.EventHandler(this.btncerrar_Click);

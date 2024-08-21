@@ -30,7 +30,7 @@ namespace Contasis
         {
             InitializeComponent();
             
-            txtcontrol.Text = "1";
+            txtcontrol.Text = valor;
 
             instance = this;
         }

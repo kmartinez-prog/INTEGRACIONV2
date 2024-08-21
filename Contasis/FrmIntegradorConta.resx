@@ -679,10 +679,7 @@ BEGIN
 		  */
 
 
-
-
-
-			
+	
 
 		
 		
@@ -740,7 +737,7 @@ BEGIN
 				   ctipdoc, ccodruc, 
 			       crazsoc, ccodclas, nbase1, nigv1, nbase2, nigv2, nbase3, nigv3, 
 			       nina, nisc, nexo, ntots, cdocnodom, cnumdere, ffecre, ntc, freffec, 
-			       crefdoc, crefser, crefnum, cmreg, ndolar, ffechaven2, ccond, 
+			       crefdoc, crefser, crefnum, cmreg, ndolar, ffechaven2,upper(ccond) as ccond, 
 			       cctabase, cctaotrib, cctatot, ccodcos, ccodcos2, nresp, nporre, 
 			       nimpres, cserre, cnumre, ffecre2, ccodpresu, nigv, cglosa, nperdenre, 
 			       nbaseres, 1 as incomp,		       
@@ -874,7 +871,8 @@ BEGIN
 	
 END; 
 $BODY$
-  LANGUAGE plpgsql VOLATILE</value>
+  LANGUAGE plpgsql VOLATILE
+</value>
   </data>
   <data name="txtasientocompas2.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION fin_registro_compras_integracion_estandar(
@@ -7200,42 +7198,69 @@ BEGIN
 
 		
 		-- Validar cctabase,cctaicbper cctaotrib, cctatot, ccodcos, ccodcos2,	
-		Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Codigo de Presupuesto no debe estar vacio, la cuenta obliga'), resultado_migracion = 2  
-		where  fin_ventas.ccodpresu='' and fin_ventas.cctabase in (select ccodcue  from cf_plan where cf_plan.cper=rwperproceso.cperproceso and cf_plan.nafepre=1 );
+		Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Codigo de Presupuesto no debe estar vacio, la cuenta obliga'), 
+		resultado_migracion = 2  
+		where  fin_ventas.ccodpresu='' and fin_ventas.cctabase in 
+		(select ccodcue  from cf_plan where cf_plan.cper=rwperproceso.cperproceso and cf_plan.nafepre=1 );
 
-		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE IMPONIBLE NO EXISTE '), resultado_migracion = 2  
-		where fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.es_con_migracion=0 and  idventas not in(
-		Select idventas From fin_ventas inner join cf_plan on
+
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE IMPONIBLE NO EXISTE '), 
+		resultado_migracion = 2  
+		where fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.es_con_migracion=0 and  
+		concat(ccoddoc,cserie,cnumero,ccodruc) not in(
+		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc) From fin_ventas inner join cf_plan on
 			fin_ventas.cper=cf_plan.cper and 
-			fin_ventas.cctabase=cf_plan.ccodcue where fin_ventas.cper=rwperproceso.cperproceso); 
+			fin_ventas.cctabase=cf_plan.ccodcue where fin_ventas.cper=rwperproceso.cperproceso group by concat(ccoddoc,cserie,cnumero,ccodruc)); 
+
+
 
 		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE ICBPER NO EXISTE '),  resultado_migracion = 2 
-		where  fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.es_con_migracion=0  and  fin_ventas.cctaicbper&lt;&gt;' '  AND idventas not in(
-		Select idventas From fin_ventas inner join cf_plan on
+		where  fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.es_con_migracion=0  and  fin_ventas.cctaicbper&lt;&gt;' '  
+		AND concat(ccoddoc,cserie,cnumero,ccodruc)  not in(
+		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc)  From fin_ventas inner join cf_plan on
 		fin_ventas.cper=cf_plan.cper and 
-		fin_ventas.cctaicbper=cf_plan.ccodcue  WHERE  fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.cctaicbper&lt;&gt;' '  );
+		fin_ventas.cctaicbper=cf_plan.ccodcue  WHERE  fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.cctaicbper&lt;&gt;' ' group by concat(ccoddoc,cserie,cnumero,ccodruc) );
 
-		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE OTROS TRIBUTOS Y CARGOS NO EXISTE ') ,  resultado_migracion = 2 
-		where fin_ventas.cper=rwperproceso.cperproceso and  es_con_migracion=0 and fin_ventas.cctaotrib&lt;&gt;' ' AND idventas not in(
-		Select idventas From fin_ventas inner join cf_plan on
+
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE OTROS TRIBUTOS Y CARGOS NO EXISTE ') ,  
+		resultado_migracion = 2 
+		where fin_ventas.cper=rwperproceso.cperproceso and  es_con_migracion=0 and fin_ventas.cctaotrib&lt;&gt;' ' 
+		AND concat(ccoddoc,cserie,cnumero,ccodruc) not in(
+		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc) From fin_ventas inner join cf_plan on
 			fin_ventas.cper=cf_plan.cper and 
-			fin_ventas.cctaotrib=cf_plan.ccodcue  WHERE  fin_ventas.cper=rwperproceso.cperproceso  and fin_ventas.cctaotrib&lt;&gt;' ');
+			fin_ventas.cctaotrib=cf_plan.ccodcue  WHERE  fin_ventas.cper=rwperproceso.cperproceso  and fin_ventas.cctaotrib&lt;&gt;' ' group by concat(ccoddoc,cserie,cnumero,ccodruc));
+
+
+
+
 
 		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE TOTAL NO EXISTE '),  resultado_migracion = 2 
-		where fin_ventas.cper=rwperproceso.cperproceso and  es_con_migracion=0 and  idventas not in(
-		Select idventas From fin_ventas inner join cf_plan on
+		where fin_ventas.cper=rwperproceso.cperproceso and  es_con_migracion=0 and  concat(ccoddoc,cserie,cnumero,ccodruc) 
+		not in(
+		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc)  From fin_ventas inner join cf_plan on
 			fin_ventas.cper=cf_plan.cper and 
-			fin_ventas.cctatot=cf_plan.ccodcue WHERE  fin_ventas.cper=rwperproceso.cperproceso); 
+			fin_ventas.cctatot=cf_plan.ccodcue 
+			WHERE  fin_ventas.cper=rwperproceso.cperproceso
+			group by concat(ccoddoc,cserie,cnumero,ccodruc)); 
+
+
+
 
 		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTRO DE COSTO NO EXISTE ') ,  resultado_migracion = 2 
-		where  fin_ventas.cper=rwperproceso.cperproceso and   fin_ventas.es_con_migracion=0 and  fin_ventas.ccodcos&lt;&gt;' ' AND idventas not in(
-		Select idventas From fin_ventas inner join CG_COSTOS on
-		fin_ventas.ccodcos=CG_COSTOS.ccodcos  WHERE  fin_ventas.cper=rwperproceso.cperproceso); 
+		where  fin_ventas.cper=rwperproceso.cperproceso and  fin_ventas.es_con_migracion=0
+		and concat(ccoddoc,cserie,cnumero,ccodruc)  in(
+		SELECT DISTINCT concat(ccoddoc,cserie,cnumero,ccodruc) 
+		FROM FIN_VENTAS V LEFT JOIN CG_COSTOS C ON
+		LTRIM(V.ccodcos)=LTRIM(C.ccodcos)
+		where cper=rwperproceso.cperproceso and  V.ccodcos&lt;&gt;'' AND coalesce(C.ccodcos,'ERROR')='ERROR'); 
 
 		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 NO EXISTE ') ,  resultado_migracion = 2 
-		where  fin_ventas.cper=rwperproceso.cperproceso and   fin_ventas.es_con_migracion=0 and  fin_ventas.ccodcos2&lt;&gt;' ' and idventas not in(
-		Select idventas From fin_ventas inner join CG_COSTOS2 on
-		fin_ventas.ccodcos2=CG_COSTOS2.ccodcos2  WHERE  fin_ventas.cper=rwperproceso.cperproceso); 
+		where  fin_ventas.cper=rwperproceso.cperproceso and  fin_ventas.es_con_migracion=0
+		and concat(ccoddoc,cserie,cnumero,ccodruc)  in(
+		SELECT DISTINCT concat(ccoddoc,cserie,cnumero,ccodruc) 
+		FROM FIN_VENTAS V LEFT JOIN CG_COSTOS2 C ON
+		LTRIM(V.ccodcos2)=LTRIM(C.ccodcos2)
+		where cper=rwperproceso.cperproceso and  V.ccodcos2&lt;&gt;'' AND coalesce(C.ccodcos2,'ERROR')='ERROR'); 
 
 		varcentro2=0;
 		if varcentro2=1  then	
@@ -7325,7 +7350,7 @@ BEGIN
 			SELECT      a.cper,a.cmes,ffechadoc, ffechaven, ccoddoc,cserie, cnumero, ccodenti, cdesenti, 
 				    ctipdoc, ccodruc,crazsoc,  nbase2,nbase1, nexo,nina, nisc,
 				    nigv1,nbase3,ntots,ntc,freffec, crefdoc, crefser, crefnum, 
-				    cmreg, ndolar, ffechaven2, ccond,  ccodcos, ccodcos2, cctabase, 
+				    cmreg, ndolar, ffechaven2,upper(ccond)  as ccond,  ccodcos, ccodcos2, cctabase, 
 				    cctaotrib,cctatot,nresp,nporre,nimpres,cserre,cnumre,ffecre,
 			            ccodpresu, nigv,cglosa,ccodpago,nperdenre,nbaseres,cctaperc,
                                     case when cmreg = 'S' then ccodcue_ps else  ccodcue_pd end as cctacobra,b.NANACUE as flaganalb,    
@@ -7435,7 +7460,7 @@ BEGIN
 				       nigv3s=0.00, ninas=0.00, nexos=0.00, niscs=0.00, nivabases=0.00, nivaimps=0.00, 
 				       ntots=0.00, nbase1d=0.00, nigv1d=0.00, nbase2d=0.00, nigv2d=0.00, nbase3d=0.00, 
 				       nigv3d=0.00, ninad=0.00, nexod=0.00, niscd=0.00, nivabased=0.00, nivaimpd=0.00, 
-				       ntotd=0.00
+				       ntotd=0.00,cmesc=''
 				where cper = rwanuladoc.cper and cmes = rwanuladoc.cmes and  ccodori = rwanuladoc.ccodori and nasiento = rwanuladoc.nasiento  ; 
 			end loop; 
 
@@ -7455,7 +7480,10 @@ BEGIN
 	
 END; 
 $BODY$
-  LANGUAGE plpgsql VOLATILE</value>
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION fin_ventas_integracion_principal()
+  OWNER TO postgres;</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

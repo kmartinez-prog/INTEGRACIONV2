@@ -192,14 +192,14 @@ namespace Contasis
                                                             btnGrabar.Focus();
 
                                                         }
-                                                        catch (System.Exception ex1)
+                                                        catch 
                                                         {
                                                             MessageBox.Show("Error, favor revise", "Contasis Corp. No se grabo las Credenciales en tabla", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                                         }
                                                         connection1.Close();
 
                                                     }
-                                                    catch (System.Exception ex)
+                                                    catch
                                                     {
                                                         MessageBox.Show("Tablas no se pudo crear.", "Contasis Corp. No se pudo crear Tabla de conexiones", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                                     }
@@ -209,7 +209,7 @@ namespace Contasis
 
                                     }
                                 }
-                                catch (System.Exception ex)
+                                catch 
                                 {
                                     MessageBox.Show("Revise las credenciales.", "Contasis Corp. - Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                 }
@@ -254,7 +254,7 @@ namespace Contasis
                                     string text02 = "create database bdintegradorcontasis;";
                                     NpgsqlCommand cmdp2 = new NpgsqlCommand(text02, conexion);
                                     cmdp2.ExecuteNonQuery();
-                                    MessageBox.Show("Se ha creado la base de datos con existo.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show("Se ha creado la base de datos con exito.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     conexion.Close();
                                     NpgsqlConnection conexionNew = new NpgsqlConnection();
                                     conexionNew.ConnectionString = conexionnewpos.Trim();
@@ -309,7 +309,9 @@ namespace Contasis
                                         txtcadena.Enabled = false;
                                         btnValidar.Enabled = false;
                                         btnGrabar.Enabled = false;
+
                                         MessageBox.Show("Conexión registrada correctamente.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    
                                         Principal.instance.txtcontrol.Text = "1";
                                         txtcadena.Text = conexionnewpos;
                                         btnGrabar.Enabled = true;
@@ -378,6 +380,7 @@ namespace Contasis
                 String parametercadena = txtcadena.Text;
                 FrmCrearTablas frm = new FrmCrearTablas(parametercadena,opcion, 0);
                 frm.Show();
+            this.btnGrabar.Enabled = false;
             
 
         }
@@ -465,7 +468,7 @@ namespace Contasis
 
                 connection.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no existe información de conexión a empresa " , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
@@ -494,7 +497,7 @@ namespace Contasis
 
                 conexionNew.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no existe información de conexión a empresa "  , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 

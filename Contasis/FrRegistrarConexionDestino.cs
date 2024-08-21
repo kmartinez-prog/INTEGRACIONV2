@@ -69,7 +69,7 @@ namespace Contasis
             if (string.IsNullOrWhiteSpace(cmbOrigen.Text))
             {
                 cmbOrigen.Focus();
-                MessageBox.Show("Debe de selecionar el tipo de conexion donde se crean la Base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe de selecionar el tipo de conexión donde se crean la Base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             else
@@ -246,9 +246,9 @@ namespace Contasis
                                                 txtcadena.Enabled = false;
                                                 btnValidar.Enabled = false;
                                             MessageBox.Show("Conexión registrada correctamente.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            
-                                                Principal.instance.txtcontrol.Text = "1";
-                                                this.captura4();
+                                            lblEstado.Text = "Conexión registrada correctamente para el PostgrelSql";
+                                            Principal.instance.txtcontrol.Text = "1";
+                                            this.captura2();
                                             }
                                             catch (System.Exception ex1)
                                             {
@@ -314,6 +314,7 @@ namespace Contasis
                                             Properties.Settings.Default.Save();
                                             Properties.Settings.Default.Reload();
                                             MessageBox.Show("Conexión registrada correctamente.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            lblEstado.Text = "Conexión registrada correctamente para el PostgrelSql";
                                             cmbOrigen.Enabled = false;
                                             txtServidor.Enabled = false;
 
@@ -335,19 +336,11 @@ namespace Contasis
                                         MessageBox.Show( "No existe Base de datos en Postgrel.","Contasis Corpo.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                     }
 
-
-
-
-
                                 }
                                 catch (System.Exception ex1)
                                 {
                                     MessageBox.Show(ex1.ToString(), "Contasis Corp. No se grabo las Credenciales en tabla del Postgrel", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                 }
-
-
-
-
                             }
                             break;
                                  }
@@ -440,7 +433,7 @@ namespace Contasis
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no Existe Información de conexión a empresa." + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
 
@@ -451,28 +444,31 @@ namespace Contasis
         {
             try
             {
-                NpgsqlConnection conexionNew = new NpgsqlConnection();
-                conexionNew.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
-                conexionNew.Open();
-                var command = new NpgsqlCommand();
-                command.Connection = conexionNew;
-                command.CommandType = CommandType.Text;
-                command.CommandText = "select  ccadena  from conexiones where cbase like 'contasis%'";
-                var adapter = new NpgsqlDataAdapter(command);
-                var dataset = new DataSet();
-                adapter.Fill(dataset);
-                textBox1.Text = dataset.Tables[0].Rows[0][0].ToString();
-                using (StreamWriter outputfile = new StreamWriter("C:\\Users\\Public\\Documents\\pos.txt"))
+                if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                { }
+                else
                 {
-                    outputfile.WriteLine(textBox1.Text);
+                    NpgsqlConnection conexionNew = new NpgsqlConnection();
+                    conexionNew.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                    conexionNew.Open();
+                    var command = new NpgsqlCommand();
+                    command.Connection = conexionNew;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "select  ccadena  from conexiones where cbase like 'contasis%'";
+                    var adapter = new NpgsqlDataAdapter(command);
+                    var dataset = new DataSet();
+                    adapter.Fill(dataset);
+                    textBox1.Text = dataset.Tables[0].Rows[0][0].ToString();
+                    using (StreamWriter outputfile = new StreamWriter("C:\\Users\\Public\\Documents\\pos.txt"))
+                    {
+                        outputfile.WriteLine(textBox1.Text);
+                    }
+                    conexionNew.Close();
                 }
-
-
-                conexionNew.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no Existe Información de conexión a empresa." + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
         }

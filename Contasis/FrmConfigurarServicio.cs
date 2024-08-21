@@ -9,6 +9,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 using Npgsql;
 
 namespace Contasis
@@ -18,7 +19,7 @@ namespace Contasis
         string tipoBD = "SQLSERVER";
         string conexionSQL = Properties.Settings.Default.cadenaSql;
 
-        private string serviceName = "Integrador contasis corp";
+        private string serviceName = "IntegradorOnline";
 
         public FrmConfigurarServicio()
         {
@@ -133,6 +134,36 @@ namespace Contasis
                 UseShellExecute = true,
                 CreateNoWindow = true
             };
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            string ocultarsql;
+            try
+            {
+                Clase.esconder ocultar = new Clase.esconder();
+                ocultarsql = ocultar.Ocultar(conexionSQL);
+
+
+
+                string pathBase = Application.StartupPath + "/service";
+                if (!Directory.Exists(pathBase))
+                {
+                    Directory.CreateDirectory(pathBase);
+                }
+                string pathFile = Path.Combine(pathBase, "initservice.bat");
+
+                string generar = chkGenerarDatos.Checked ? "S" : "N";
+                string command = $"sc start {serviceName} \"{ocultarsql}\" \"{tipoBD}\" \"{generar}\"";
+                File.WriteAllText(pathFile, command);
+
+                Process.Start(pathBase);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al crear archivo para iniciar servicio: " + ex.Message);
+            }
         }
     }
 }

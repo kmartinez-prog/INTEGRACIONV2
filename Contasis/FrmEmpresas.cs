@@ -82,7 +82,7 @@ namespace Contasis
                         this.dataGridView1.Refresh();
                     }
                 }
-                catch (Exception ex)
+                catch 
                 {
 
                     MessageBox.Show("Error, no se encuentras las tablas.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -111,7 +111,7 @@ namespace Contasis
                         this.dataGridView1.Refresh();
                     }
                 }
-                catch (Exception ex)
+                catch 
                 {
 
                     MessageBox.Show("Error, no se encuentras las tablas.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -285,7 +285,7 @@ namespace Contasis
 
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("No Existe información de  empresa, favor en registrar empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 this.Close();

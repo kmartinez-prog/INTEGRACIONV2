@@ -74,7 +74,7 @@
     <ManifestKeyFile>Contasis_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -307,6 +307,12 @@
     <Compile Include="FrmUsuedit.Designer.cs">
       <DependentUpon>FrmUsuedit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frm_ventasEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_ventasEditor.Designer.cs">
+      <DependentUpon>Frm_ventasEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrRegistrarConexion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -407,6 +413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmUsuedit.resx">
       <DependentUpon>FrmUsuedit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_ventasEditor.resx">
+      <DependentUpon>Frm_ventasEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrRegistrarConexion.resx">
       <DependentUpon>FrRegistrarConexion.cs</DependentUpon>
