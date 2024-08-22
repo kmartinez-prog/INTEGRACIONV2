@@ -55,9 +55,6 @@ namespace Contasis
             }
 
         }
-
-
-
         private void cmbOrigen_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbOrigen.SelectedIndex == 0)
@@ -115,7 +112,6 @@ namespace Contasis
             }
 
         }
-
         public void captura2()
         {
             try
@@ -139,21 +135,14 @@ namespace Contasis
 
                 connection.Close();
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show("Error no Existe Información de conexión a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no Existe Información de conexión a empresa." , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
-
-
-
         }
         public void captura4()
         {
-
-
-
-
             try
             {
                 NpgsqlConnection conexionNew = new NpgsqlConnection();
@@ -173,22 +162,17 @@ namespace Contasis
                 }
                 conexionNew.Close();
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show("Error no Existe Información de conexión a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no Existe Información de conexión a empresa." , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
         }
-
-
-
-
         private void BtnSalir_Click(object sender, EventArgs e)
         {
             this.Hide();
             this.Close();
         }
-
         public void captura5()
         {
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
@@ -214,9 +198,9 @@ namespace Contasis
 
                     connection.Close();
                 }
-                catch (Exception ex)
+                catch 
                 {
-                    MessageBox.Show("Error no Existe Información de conexión a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("Error no Existe Información de conexión a empresa." , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
             }
             else
@@ -243,13 +227,10 @@ namespace Contasis
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error no Existe Información de conexión a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no Existe Información de conexión a empresa." + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
         }
-
-
-
         private void btnValidar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(cmbOrigen.Text))
@@ -276,109 +257,8 @@ namespace Contasis
                 int opcion = cmbOrigen.SelectedIndex;
                 switch (opcion)
                 {
-                    /***
-                        case 0: /** Sql server 
-                            {
-                                txtcadena.Text = "Data Source=" + txtServidor.Text + ";Initial Catalog=Master;user id=" + Txtusuario.Text + ";password=" + txtClave.Text + "";
-                                Establecerconexion objetconexion = new Establecerconexion();
-                                objetconexion.crearCadena(txtcadena.Text);
-                                SqlConnection c = new SqlConnection(txtcadena.Text);
-                                try
-                                {
-
-
-                                    Establecerconexion objetconexion1 = new Establecerconexion();
-                                    objetconexion1.crearCadena(txtcadena.Text);
-                                    SqlConnection connection1 = new SqlConnection(txtcadena.Text);
-                                    connection1.Open();
-                                    String verifica = "SELECT * FROM SYSDATABASES WHERE NAME='bdintegradorContasis'";
-                                    SqlCommand comando = new SqlCommand(verifica, connection1);
-
-                                    DataTable dt = new DataTable();
-                                    SqlDataAdapter da = new SqlDataAdapter(comando);
-
-                                    da.Fill(dt);
-                                    if (dt.Rows.Count > 0)
-                                    {
-                                        btnValidar.Enabled = true;
-                                        lblEstado.Text = "Ya Existe la base de datos <<bdintegradorContasis>> en el SQL";
-
-                                        String verifica1 = "SELECT * FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME ='Conexiones'";
-                                        SqlCommand comando00 = new SqlCommand(verifica1, connection1);
-                                        DataTable dt2 = new DataTable();
-                                        SqlDataAdapter da2 = new SqlDataAdapter(comando00);
-                                        da2.Fill(dt2);
-                                        if (dt2.Rows.Count > 0)
-                                        {
-                                        }
-                                        else
-                                        {
-                                            try
-                                            {
-                                                String verifica2 = "select * from conexiones where cCadena ='" + txtcadena.Text.Trim() + "'";
-                                                SqlCommand comando01 = new SqlCommand(verifica1, connection1);
-                                                DataTable dt3 = new DataTable();
-                                                SqlDataAdapter da3 = new SqlDataAdapter(comando01);
-                                                da3.Fill(dt3);
-                                                if (dt3.Rows.Count > 0)
-                                                {
-                                                    lblEstado.Text = "Se detecta que ya existe la credencial  para el PostgrelSql";
-                                                    return;
-                                                }
-                                                else
-                                                {
-                                                    String str2;
-                                                    string valor01 = cmbOrigen.Text;
-                                                    string valor02 = txtServidor.Text;
-                                                    string valor03 = txtpuerto.Text;
-                                                    string valor04 = Txtusuario.Text;
-                                                    string valor06 = cmbBase.Text;
-                                                    string valor08 = Properties.Settings.Default.Usuario;
-                                                    string valor09 = "DESTINO";
-                                                    Clase.esconder ocultar = new Clase.esconder();
-                                                    string valor05 = ocultar.Ocultar(txtClave.Text);
-                                                    string valor07 = ocultar.Ocultar(txtcadena.Text);
-
-                                                    str2 = "Insert Into Conexiones(cTipoBase,cServidor,cUsuario,cClave,cPuerto,cBase,cubicacion,cCadena,cUsuarioCre) " +
-                                                        "values('" + valor01 + "','" + valor02 + "','" + valor04 + "','" + valor05 + "','" + valor03 + "','" + valor06 + "','" + valor09 + "','" + valor07 + "','" + valor08 + "')";
-                                                    SqlCommand myCommand2 = new SqlCommand(str2, connection1);
-                                                    myCommand2.ExecuteNonQuery();
-                                                    connection1.Close();
-                                                    Properties.Settings.Default.cadenaSql = txtcadena.Text;
-                                                    Properties.Settings.Default.Save();
-                                                    Properties.Settings.Default.Reload();
-                                                    cmbOrigen.Text = "";
-                                                    txtServidor.Text = "";
-                                                    txtpuerto.Text = "";
-                                                    Txtusuario.Text = "";
-                                                    txtClave.Text = "";
-                                                    cmbEsquema.Enabled = false;
-                                                    txtcadena.Enabled = false;
-                                                }
-
-                                            }
-                                            catch (System.Exception ex1)
-                                            {
-                                                MessageBox.Show("Error, favor revise", "Contasis Corp. No se grabo las Credenciales en tabla", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                                            }
-                                        }
-                                     }
-
-                                
-                                }
-                                catch (System.Exception ex)
-                                {
-                                    MessageBox.Show("Revise las credenciales.", "Contasis Corp. - Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                                }
-                                c.Close();
-                                lblEstado.Text = "Registro de Credenciales Sql Server grabadas";
-                                Principal.instance.txtcontrol.Text = "1";
-                            
-                                break;
-                            }   
-                        
-                    ***/
-                    case 0: /** Sql Postgrel **/
+                  
+                    case 0: /** Postgrel **/
                         {
                             
                             txtcadena.Text = "server=" + txtServidor.Text + "; port=" + txtpuerto.Text + ";user id=" + Txtusuario.Text + ";password=" + txtClave.Text + ";database="+txtbase.Text+";";
@@ -409,7 +289,7 @@ namespace Contasis
                                     da2.Fill(dt2);
                                     if (dt2.Rows.Count > 0)
                                     {
-                                        lblEstado.Text = "Se detecta que ya existe esa credencial guardadas para el PostgrelSql";
+                                        lblEstado.Text = "Se detecta que existe esa credencial guardada en el PostgrelSql.";
                                         return;
                                     }
                                     else
@@ -431,13 +311,13 @@ namespace Contasis
                                                 txtcadena.Enabled = false;
                                                 btnValidar.Enabled = false;
                                             MessageBox.Show("Conexión registrada correctamente.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            lblEstado.Text = "Conexion valida y guardada en base del PostgrelSql";
+                                            lblEstado.Text = "Conexion valida y guardada en base del PostgrelSql.";
                                             Principal.instance.txtcontrol.Text = "1";
                                                 this.captura5();
                                             }
                                             catch 
                                             {
-                                                MessageBox.Show("No se grabo las Credenciales en tabla del Postgrel", "Contasis Corp.",  MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                                MessageBox.Show("No se grabo las credenciales en el Postgrel.", "Contasis Corp.",  MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                             }
                                         
                                         connection2.Close();
@@ -460,7 +340,7 @@ namespace Contasis
 
                                     if (dt.Rows.Count > 0)
                                     {
-                                        lblEstado.Text = "ya existe esta base de datos en el PostgrelSql";
+                                        lblEstado.Text = "ya existe esta base de datos en el PostgrelSql.";
                                     
                                         String verifica2 = "select * from conexiones where cCadena ='" + txtcadena.Text.Trim() + "'";
                                         NpgsqlCommand command = new NpgsqlCommand(verifica2, conexion);
@@ -469,7 +349,7 @@ namespace Contasis
                                         data2.Fill(dt2);
                                         if (dt2.Rows.Count > 0)
                                         {
-                                            lblEstado.Text = "Se detecta que ya existe la credencial  para el PostgrelSql";
+                                            lblEstado.Text = "Se detecta que ya existe la credencial en el PostgrelSql";
                                             return;
                                         }
                                         else
@@ -495,22 +375,18 @@ namespace Contasis
                                             btnValidar.Enabled = false;
                                             conexion.Close();
                                             MessageBox.Show("Conexión registrada correctamente.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                            lblEstado.Text = "Conexion valida y guardada en base del PostgrelSql";
+                                            lblEstado.Text = "Conexión valida y guardada en base del PostgrelSql.";
+                                            
                                             Principal.instance.txtcontrol.Text = "1";
                                             this.captura5();
                                         }
                                     }
                                 }
-                                catch (System.Exception ex1)
+                                catch 
                                 {
-                                    MessageBox.Show(ex1.ToString(), "Contasis Corp. No se grabo las credenciales en tabla del Postgrel", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                    MessageBox.Show("No se grabo las credenciales en tabla del Postgrel.", "Contasis Corp.",MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                 }
                             }
-
-
-
-
-
                             break;
                         }
 

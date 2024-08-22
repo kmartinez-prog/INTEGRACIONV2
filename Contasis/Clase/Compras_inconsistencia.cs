@@ -10,9 +10,8 @@ using Npgsql;
 
 namespace Contasis.Clase
 {
-    class Ventas_inconsistencias
-    {
-        /*******************************************************************************************************/
+    class Compras_inconsistencia
+    {  /*******************************************************************************************************/
         public DataTable listassql(Clase.ventas_propiedades Objet)
         {
             SqlDataReader carga;
@@ -20,7 +19,7 @@ namespace Contasis.Clase
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "SELECT  ccodrucemisor ,idventas"+
+                string query = "SELECT  ccodrucemisor ,idventas" +
                 ", ccod_empresa, convert(varchar,ffechadoc,103) as ffechadoc, convert(varchar,[ffechaven],103) as ffechaven, ccoddoc" +
                 ", cserie, cnumero, ccodenti, cdesenti " +
                 ", ctipdoc, ccodruc, crazsoc, nbase2, nbase1 " +
@@ -31,7 +30,7 @@ namespace Contasis.Clase
                 ", nporre, nimpres, cserre, cnumre, convert(varchar,ffecre,103) as ffecre, ccodpresu " +
                 ", nigv,  ccodpago, nperdenre, nbaseres, cctaperc, " +
                 " obserror " +
-                "  FROM fin_ventas where es_con_migracion not in(0,1,4)";
+                "  FROM fin_compras where es_con_migracion not in(0,1,4)";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
@@ -59,11 +58,11 @@ namespace Contasis.Clase
             conexion.Open();
             NpgsqlDataReader carga;
             DataTable grilla = new DataTable();
-            ;            
+            ;
             try
             {
                 string query = "SELECT  ccodrucemisor ,idventas" +
-                ", ccod_empresa, to_char(ffechadoc,'dd/mm/yyyy')::char(10) as ffechadoc,"+
+                ", ccod_empresa, to_char(ffechadoc,'dd/mm/yyyy')::char(10) as ffechadoc," +
                 " to_char(ffechaven,'dd/mm/yyyy')::char(10) as ffechaven, ccoddoc" +
                 ", cserie, cnumero, ccodenti, cdesenti " +
                 ", ctipdoc, ccodruc, crazsoc, nbase2, nbase1 " +
@@ -74,7 +73,7 @@ namespace Contasis.Clase
                 ", nporre, nimpres, cserre, cnumre, to_char(ffecre,'dd/mm/yyyy')::char(10) as ffecre, ccodpresu " +
                 ", nigv, cglosa, ccodpago, nperdenre, nbaseres, cctaperc, " +
                 " obserror " +
-                "  FROM fin_ventas where resultado_migracion not in(0,1,4)";
+                "  FROM fin_compras where resultado_migracion not in(0,1,4)";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();
                 grilla.Load(carga);

@@ -151,7 +151,6 @@ namespace Contasis
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(592, 198);
             this.panel2.TabIndex = 20;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // lblindex
             // 
@@ -364,7 +363,7 @@ namespace Contasis
             // 
             // txtxcrearfuncion
             // 
-            this.txtxcrearfuncion.Location = new System.Drawing.Point(675, 26);
+            this.txtxcrearfuncion.Location = new System.Drawing.Point(647, 26);
             this.txtxcrearfuncion.Multiline = true;
             this.txtxcrearfuncion.Name = "txtxcrearfuncion";
             this.txtxcrearfuncion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -378,7 +377,7 @@ namespace Contasis
             // 
             // txtventa1
             // 
-            this.txtventa1.Location = new System.Drawing.Point(907, 26);
+            this.txtventa1.Location = new System.Drawing.Point(861, 26);
             this.txtventa1.Multiline = true;
             this.txtventa1.Name = "txtventa1";
             this.txtventa1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -388,7 +387,7 @@ namespace Contasis
             // 
             // txtventa2
             // 
-            this.txtventa2.Location = new System.Drawing.Point(1122, 26);
+            this.txtventa2.Location = new System.Drawing.Point(1075, 26);
             this.txtventa2.Multiline = true;
             this.txtventa2.Name = "txtventa2";
             this.txtventa2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -398,7 +397,7 @@ namespace Contasis
             // 
             // txtcompras1
             // 
-            this.txtcompras1.Location = new System.Drawing.Point(1346, 26);
+            this.txtcompras1.Location = new System.Drawing.Point(1288, 26);
             this.txtcompras1.Multiline = true;
             this.txtcompras1.Name = "txtcompras1";
             this.txtcompras1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -431,7 +430,7 @@ namespace Contasis
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(639, 369);
+            this.ClientSize = new System.Drawing.Size(628, 369);
             this.Controls.Add(this.soloventasonline);
             this.Controls.Add(this.txtcompras2);
             this.Controls.Add(this.txtcompras1);
@@ -452,7 +451,6 @@ namespace Contasis
             this.MinimizeBox = false;
             this.Name = "FrmCrearTablas";
             this.Text = "Creador de tablas en la parte del Cliente";
-            this.Load += new System.EventHandler(this.FrmCrearTablas_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCrearTablas_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

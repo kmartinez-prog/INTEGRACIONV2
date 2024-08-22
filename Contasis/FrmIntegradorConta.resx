@@ -493,7 +493,10 @@ $BODY$
   LANGUAGE plpgsql VOLATILE</value>
   </data>
   <data name="txtasientocompas1.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION fin_compras_integracion_principal()
+    <value>select Drop_si_existe_function_postgres('fin_compras_integracion_principal'); 
+
+
+CREATE OR REPLACE FUNCTION fin_compras_integracion_principal()
   RETURNS void AS
 $BODY$
 DECLARE 
@@ -702,7 +705,7 @@ BEGIN
 			end loop;
 
 			VCMAXASIENTO_p = 'SELECT NORIMES' || cast(rw.cmes as integer)::char(2) || ' AS NORIGEN FROM CF_ORIGENL WHERE CPER = ''' || rw.cper || ''' AND CCODORI = ''' || rw.ccodori_p ||'''' ;
-			for rw2 in EXECUTE VCMAXASIENTO	loop
+			for rw2 in EXECUTE VCMAXASIENTO_p loop
 				varmaxcob  = coalesce(RW2.NORIGEN,0);---- + 1; -- RW2.NORIGEN + 1;
 			end loop;
 
@@ -872,7 +875,9 @@ BEGIN
 END; 
 $BODY$
   LANGUAGE plpgsql VOLATILE
-</value>
+  COST 100;
+ALTER FUNCTION fin_compras_integracion_principal()
+  OWNER TO postgres;</value>
   </data>
   <data name="txtasientocompas2.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION fin_registro_compras_integracion_estandar(
@@ -4174,7 +4179,12 @@ ALTER FUNCTION fin_registro_compras_integracion_estandar(character, character, c
   OWNER TO postgres;</value>
   </data>
   <data name="txtasientoventas2.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION fin_registro_ventas_integracion_estandar(
+    <value>
+select Drop_si_existe_function_postgres('fin_registro_ventas_integracion_estandar'); 
+
+
+
+CREATE OR REPLACE FUNCTION fin_registro_ventas_integracion_estandar(
     varper character,
     varmes character,
     varori character,
@@ -6572,339 +6582,339 @@ $BODY$
 
 			IF VARSOLOVENTA = 0 THEN
 			BEGIN
-			RAISE NOTICE 'ENTRO AL PRCOCESO tmpregcv3 ';
+				RAISE NOTICE 'ENTRO AL PRCOCESO tmpregcv3 ';
 
-			INSERT INTO tmpregcv3(
-			SELECT  
-			VARPER AS CPER, 
-			VARMES AS CMES, 
-			VARORICOB AS CCODORI,
-			NASIENTO + varmaxCOB AS NASIENTO , 
-			1 AS nidlin , 
-			NTC, 
-			CCTACOBRA AS CCODCUE, 
-			(CASE WHEN NTOTS &gt;= 0 THEN (CASE WHEN CMREG = 'S' THEN ABS(NTOTS) ELSE  ABS(NDOLAR) END) ELSE 0.00 END)::numeric(13,2) AS NDEBE,
-			(CASE WHEN NTOTS &lt;  0 THEN (CASE WHEN CMREG = 'S' THEN ABS(NTOTS) ELSE  ABS(NDOLAR) END) ELSE 0.00 END)::numeric(13,2) AS NHABER,
-			CGLOSA,
-			(CASE WHEN NTOTS &gt;= 0 THEN ABS(NTOTS) ELSE 0.00 END)::numeric(15,2) AS NDEBES, 
-			(CASE WHEN NTOTS &lt; 0 THEN ABS(NTOTS) ELSE 0.00 END)::numeric(15,2) AS NHABERS,
-			(CASE WHEN NTOTS &gt;= 0 THEN (CASE WHEN CMREG = 'D' THEN ABS(NDOLAR) ELSE ABS(ROUND(NTOTS/NTC,2)) END) ELSE 0.00 END)::numeric(15,2) AS NDEBED,
-			(CASE WHEN NTOTS &lt;  0 THEN (CASE WHEN CMREG = 'D' THEN ABS(NDOLAR) ELSE ABS(ROUND(NTOTS/NTC,2)) END) ELSE 0.00 END)::numeric(15,2) AS NHABERD,
-			(' ')::VARCHAR(1) AS CDES,
-			('   ')::VARCHAR(3) AS CDESTINO,
-			(0)::NUMERIC(1,0) AS NDIFAUTO, 
-			(0)::NUMERIC(1,0) AS NAJUSAUTO, 
-			(' ')::VARCHAR(1) AS CREGIS,
-			(0)::NUMERIC(1,0) AS NCOMP ,
-			CCODDOC, 
-			CSERIE,
-			CNUMERO, 
-			CNUMFIN,
-			FFECHADOC, 			 
-			CCODRUC, 
-			CCODENTI, 
-			FFECHAVEN,
-			(0.00)::NUMERIC(13,2) AS NBASE1, 
-			(0.00)::NUMERIC(13,2) AS NIGV1, 
-			(0.00)::NUMERIC(13,2) AS NBASE2, 
-			(0.00)::NUMERIC(13,2) AS NIGV2, 
-			(0.00)::NUMERIC(13,2) AS NBASE3, 
-			(0.00)::NUMERIC(13,2) AS NIGV3, 
-			(0.00)::NUMERIC(13,2) AS NINA, 
-			(0.00)::NUMERIC(13,2) AS NEXO, 
-			(0.00)::NUMERIC(13,2) AS NISC, 
-			(0.00)::NUMERIC(13,2) AS NIVABASE, 
-			(0.00)::NUMERIC(13,2) AS NIVAIMP, 
-			(0.00)::NUMERIC(13,2) AS NTOT, 
-			(0.00)::NUMERIC(13,2) AS NBASE1S, 
-			(0.00)::NUMERIC(13,2) AS NIGV1S, 
-			(0.00)::NUMERIC(13,2) AS NBASE2S, 
-			(0.00)::NUMERIC(13,2) AS NIGV2S, 
-			(0.00)::NUMERIC(13,2) AS NBASE3S, 
-			(0.00)::NUMERIC(13,2) AS NIGV3S, 
-			(0.00)::NUMERIC(13,2) AS NINAS, 
-			(0.00)::NUMERIC(13,2) AS NEXOS, 
-			(0.00)::NUMERIC(13,2) AS NISCS, 
-			(0.00)::NUMERIC(13,2) AS NIVABASES, 
-			(0.00)::NUMERIC(13,2) AS NIVAIMPS, 
-			(0.00)::NUMERIC(13,2) AS NTOTS, 
-			(0.00)::NUMERIC(13,2) AS NBASE1D, 
-			(0.00)::NUMERIC(13,2) AS NIGV1D, 
-			(0.00)::NUMERIC(13,2) AS NBASE2D, 
-			(0.00)::NUMERIC(13,2) AS NIGV2D, 
-			(0.00)::NUMERIC(13,2) AS NBASE3D, 
-			(0.00)::NUMERIC(13,2) AS NIGV3D, 
-			(0.00)::NUMERIC(13,2) AS NINAD, 
-			(0.00)::NUMERIC(13,2) AS NEXOD,
-			(0.00)::NUMERIC(13,2) AS NISCD, 
-			(0.00)::NUMERIC(13,2) AS NIVABASED, 
-			(0.00)::NUMERIC(13,2) AS NIVAIMPD, 
-			(0.00)::NUMERIC(13,2) AS NTOTD,
-			(CASE WHEN FLAGANALCOB=3 OR FLAGANALCOB = 4 THEN VARCCODFLU ELSE '    ' END)::VARCHAR(4) AS CCODFLU,
-			(CASE WHEN FLAGANALCOB=3 OR FLAGANALCOB = 4 THEN '008' ELSE '   ' END)::VARCHAR(3) AS CCODPAGO,
-			(' ')::VARCHAR(9) AS CCODCOS,
-			(' ')::VARCHAR(9) AS CCODCOS2,
-			(' ')::VARCHAR(10) AS CCODPRESU,
-			(' ')::VARCHAR(4) AS CCODCAM, 
-			(' ')::VARCHAR(4) AS CCODCAM2, 
-			(' ')::VARCHAR(2) AS ccodecpntribcol, 
-			(' ')::VARCHAR(2) AS ccodecpnniifcol, 
-			(' ')::VARCHAR(80) AS CGLOSA2,
-			(' ')::VARCHAR(2)  AS CMESC,
-			(' ')::VARCHAR(1) AS CMREG,  
-			(' ')::VARCHAR(4) AS CCODOCON,
-			(0.00)::NUMERIC(1,0) AS NDIFERIDO, 
-			CAST(NULL AS DATE) AS FFECHADIF,
-			(0)::NUMERIC(1,0) AS NRESP,
-			(' ')::VARCHAR(2) AS ccodpps, 
-			(' ')::VARCHAR(5) AS ccodpds,
-			(' ')::VARCHAR(1) AS CREGISRE, 
-			(0.00)::NUMERIC(1,0) AS nperdenre, 
-			(0.00)::NUMERIC(1,0)AS nporre, 
-			CAST(NULL AS DATE) AS FFECRE, 				
-			(' ')::VARCHAR(6)  AS CSERRE, 
-			(' ')::VARCHAR(13) AS CNUMRE, 
-			(' ')::VARCHAR(15) AS CNUMDERE,
-			(0.00)::NUMERIC(10,6) AS NTCRE,
-			(0.00)::NUMERIC(15,2) AS NBASERES,
-			(0.00)::NUMERIC(15,2) AS nbasered,
-			(0.00)::NUMERIC(15,2) AS nimpres,
-			(0.00) AS nimpred,
-			(' ')::VARCHAR(8) AS cpdbdetcod, 
-			(' ')::VARCHAR(2) AS ccodretran, 
-			(' ')::VARCHAR(2) AS ccodtopdet, 
-			(0)::NUMERIC(1,0) AS npagdetra, 
-			(' ')::VARCHAR(20) AS cdocnodom, 
-			(' ')::VARCHAR(2) AS crefdoc, 
-			CAST(NULL AS DATE) AS freffec,
-			(' ')::VARCHAR(10) AS crefser, 
-			(' ')::VARCHAR(13) AS crefnum, 
-			(' ')::VARCHAR(3) AS ccoddas, 
-			(' ')::VARCHAR(4) AS cyeardas, 
-			(' ')::VARCHAR(6) AS ccorrdas, 
-			CAST(NULL AS DATE) AS ffembdas, 
-			CAST(NULL AS DATE) AS ffregdas, 
-			(0.00)::NUMERIC(15,2)  AS nfobdas, 
-			(0.00)::NUMERIC(15,2)  AS nfobdad, 
-			(0.00)::NUMERIC(6,0)  AS nlecorre, 
-			('1')::VARCHAR(1) AS clecvesta, 
-			VARMES AS clecvmes, 
-			VARPER  AS clecvper, 
-			('1')::VARCHAR(1) AS cledmcesta, 
-			VARMES as cledmcmes, 
-			VARPER as cledmcper, 
-			(0.00)::NUMERIC(6,0) AS nlecorrere, 
-			(0.00)::NUMERIC(1,0) as nautamo, 
-			CAST(NULL AS DATE) as ffec_dc, 
-			(' ')::VARCHAR(2) AS cdoc_dc, 
-			(' ')::VARCHAR(20) AS cser_dc, 
-			(' ')::VARCHAR(20) AS cnum_dc, 
-			(' ')::VARCHAR(20) AS ccodisc,
-			00.00 AS nporisc,  		
-			(' ')::VARCHAR(1) AS CCODCLAS, 
-			(' ')::VARCHAR(2) AS ccodtipren, 
-			(' ')::VARCHAR(2) AS cdoc_nd, 
-			(' ')::VARCHAR(20) AS cser_nd, 
-			(' ')::VARCHAR(20) AS cnum_nd, 
-			(0.00)::NUMERIC(15,2) AS nrenbru_nd, 
-			(0.00)::NUMERIC(15,2) AS nrennet_nd, 
-			(0.00)::NUMERIC(15,2) AS nimpret_nd, 
-			(0.00)::NUMERIC(15,2) AS ndedcos_nd, 
-			(0.00)::NUMERIC(15,2) AS ntasret_nd, 
-			('1')::VARCHAR(3)  AS ccodmon, 
-			(0.00)::NUMERIC(5,3) AS ntc_nd, 
-			(0.00)::NUMERIC(1,0) AS nintext,
-			(0.00)::NUMERIC(13,2) AS NICBPERS,
-			(' ')::VARCHAR(20) AS cctaicbper,	
-			(0.00)::NUMERIC(13,2) AS NICBPER,
-			(0.00)::NUMERIC(13,2) AS NICBPERD ,
-			(0.00)::NUMERIC(5,2) AS nigv
-			FROM 
-			(select z.*, P.NANACUE AS FLAGANALCOB, P.Nafecos AS FLAGCCOSCOB, P.Nafepre AS FLAGPRESUCOB, ROW_NUMBER () OVER (ORDER BY Z.CCODDOC, Z.CSERIE, Z.CNUMERO)::NUMERIC(6,0) AS  NASIENTO 
-			from(select CCODRUC,CCODENTI,CCODDOC,CSERIE,CNUMERO,CNUMFIN,FFECHADOC,FFECHAVEN,ntc,cctatot,cctacobra,cmreg,nigv,cglosa,sum(ntots) ntots, sum(ndolar) ndolar, sum(nimpres) nimpres
-			from cf_regven_integra
-			WHERE CCOND = 'CON' AND NTOTS &lt;&gt; 0
-			group by CCODRUC,CCODENTI,CCODDOC,CSERIE,CNUMERO,CNUMFIN,FFECHADOC,FFECHAVEN,ntc,cctatot,cctacobra,cmreg,nigv,cglosa) Z
-			inner join CF_PLAN  P
-			ON Z.CCTACOBRA = P.CCODCUE AND P.CPER = VARPER ) C
+				INSERT INTO tmpregcv3(
+				SELECT  
+				VARPER AS CPER, 
+				VARMES AS CMES, 
+				VARORICOB AS CCODORI,
+				NASIENTO + varmaxCOB AS NASIENTO , 
+				1 AS nidlin , 
+				NTC, 
+				CCTACOBRA AS CCODCUE, 
+				(CASE WHEN NTOTS &gt;= 0 THEN (CASE WHEN CMREG = 'S' THEN ABS(NTOTS) ELSE  ABS(NDOLAR) END) ELSE 0.00 END)::numeric(13,2) AS NDEBE,
+				(CASE WHEN NTOTS &lt;  0 THEN (CASE WHEN CMREG = 'S' THEN ABS(NTOTS) ELSE  ABS(NDOLAR) END) ELSE 0.00 END)::numeric(13,2) AS NHABER,
+				CGLOSA,
+				(CASE WHEN NTOTS &gt;= 0 THEN ABS(NTOTS) ELSE 0.00 END)::numeric(15,2) AS NDEBES, 
+				(CASE WHEN NTOTS &lt; 0 THEN ABS(NTOTS) ELSE 0.00 END)::numeric(15,2) AS NHABERS,
+				(CASE WHEN NTOTS &gt;= 0 THEN (CASE WHEN CMREG = 'D' THEN ABS(NDOLAR) ELSE ABS(ROUND(NTOTS/NTC,2)) END) ELSE 0.00 END)::numeric(15,2) AS NDEBED,
+				(CASE WHEN NTOTS &lt;  0 THEN (CASE WHEN CMREG = 'D' THEN ABS(NDOLAR) ELSE ABS(ROUND(NTOTS/NTC,2)) END) ELSE 0.00 END)::numeric(15,2) AS NHABERD,
+				(' ')::VARCHAR(1) AS CDES,
+				('   ')::VARCHAR(3) AS CDESTINO,
+				(0)::NUMERIC(1,0) AS NDIFAUTO, 
+				(0)::NUMERIC(1,0) AS NAJUSAUTO, 
+				(' ')::VARCHAR(1) AS CREGIS,
+				(0)::NUMERIC(1,0) AS NCOMP ,
+				CCODDOC, 
+				CSERIE,
+				CNUMERO, 
+				CNUMFIN,
+				FFECHADOC, 			 
+				CCODRUC, 
+				CCODENTI, 
+				FFECHAVEN,
+				(0.00)::NUMERIC(13,2) AS NBASE1, 
+				(0.00)::NUMERIC(13,2) AS NIGV1, 
+				(0.00)::NUMERIC(13,2) AS NBASE2, 
+				(0.00)::NUMERIC(13,2) AS NIGV2, 
+				(0.00)::NUMERIC(13,2) AS NBASE3, 
+				(0.00)::NUMERIC(13,2) AS NIGV3, 
+				(0.00)::NUMERIC(13,2) AS NINA, 
+				(0.00)::NUMERIC(13,2) AS NEXO, 
+				(0.00)::NUMERIC(13,2) AS NISC, 
+				(0.00)::NUMERIC(13,2) AS NIVABASE, 
+				(0.00)::NUMERIC(13,2) AS NIVAIMP, 
+				(0.00)::NUMERIC(13,2) AS NTOT, 
+				(0.00)::NUMERIC(13,2) AS NBASE1S, 
+				(0.00)::NUMERIC(13,2) AS NIGV1S, 
+				(0.00)::NUMERIC(13,2) AS NBASE2S, 
+				(0.00)::NUMERIC(13,2) AS NIGV2S, 
+				(0.00)::NUMERIC(13,2) AS NBASE3S, 
+				(0.00)::NUMERIC(13,2) AS NIGV3S, 
+				(0.00)::NUMERIC(13,2) AS NINAS, 
+				(0.00)::NUMERIC(13,2) AS NEXOS, 
+				(0.00)::NUMERIC(13,2) AS NISCS, 
+				(0.00)::NUMERIC(13,2) AS NIVABASES, 
+				(0.00)::NUMERIC(13,2) AS NIVAIMPS, 
+				(0.00)::NUMERIC(13,2) AS NTOTS, 
+				(0.00)::NUMERIC(13,2) AS NBASE1D, 
+				(0.00)::NUMERIC(13,2) AS NIGV1D, 
+				(0.00)::NUMERIC(13,2) AS NBASE2D, 
+				(0.00)::NUMERIC(13,2) AS NIGV2D, 
+				(0.00)::NUMERIC(13,2) AS NBASE3D, 
+				(0.00)::NUMERIC(13,2) AS NIGV3D, 
+				(0.00)::NUMERIC(13,2) AS NINAD, 
+				(0.00)::NUMERIC(13,2) AS NEXOD,
+				(0.00)::NUMERIC(13,2) AS NISCD, 
+				(0.00)::NUMERIC(13,2) AS NIVABASED, 
+				(0.00)::NUMERIC(13,2) AS NIVAIMPD, 
+				(0.00)::NUMERIC(13,2) AS NTOTD,
+				(CASE WHEN FLAGANALCOB=3 OR FLAGANALCOB = 4 THEN VARCCODFLU ELSE '    ' END)::VARCHAR(4) AS CCODFLU,
+				(CASE WHEN FLAGANALCOB=3 OR FLAGANALCOB = 4 THEN '008' ELSE '   ' END)::VARCHAR(3) AS CCODPAGO,
+				(' ')::VARCHAR(9) AS CCODCOS,
+				(' ')::VARCHAR(9) AS CCODCOS2,
+				(' ')::VARCHAR(10) AS CCODPRESU,
+				(' ')::VARCHAR(4) AS CCODCAM, 
+				(' ')::VARCHAR(4) AS CCODCAM2, 
+				(' ')::VARCHAR(2) AS ccodecpntribcol, 
+				(' ')::VARCHAR(2) AS ccodecpnniifcol, 
+				(' ')::VARCHAR(80) AS CGLOSA2,
+				(' ')::VARCHAR(2)  AS CMESC,
+				(' ')::VARCHAR(1) AS CMREG,  
+				(' ')::VARCHAR(4) AS CCODOCON,
+				(0.00)::NUMERIC(1,0) AS NDIFERIDO, 
+				CAST(NULL AS DATE) AS FFECHADIF,
+				(0)::NUMERIC(1,0) AS NRESP,
+				(' ')::VARCHAR(2) AS ccodpps, 
+				(' ')::VARCHAR(5) AS ccodpds,
+				(' ')::VARCHAR(1) AS CREGISRE, 
+				(0.00)::NUMERIC(1,0) AS nperdenre, 
+				(0.00)::NUMERIC(1,0)AS nporre, 
+				CAST(NULL AS DATE) AS FFECRE, 				
+				(' ')::VARCHAR(6)  AS CSERRE, 
+				(' ')::VARCHAR(13) AS CNUMRE, 
+				(' ')::VARCHAR(15) AS CNUMDERE,
+				(0.00)::NUMERIC(10,6) AS NTCRE,
+				(0.00)::NUMERIC(15,2) AS NBASERES,
+				(0.00)::NUMERIC(15,2) AS nbasered,
+				(0.00)::NUMERIC(15,2) AS nimpres,
+				(0.00) AS nimpred,
+				(' ')::VARCHAR(8) AS cpdbdetcod, 
+				(' ')::VARCHAR(2) AS ccodretran, 
+				(' ')::VARCHAR(2) AS ccodtopdet, 
+				(0)::NUMERIC(1,0) AS npagdetra, 
+				(' ')::VARCHAR(20) AS cdocnodom, 
+				(' ')::VARCHAR(2) AS crefdoc, 
+				CAST(NULL AS DATE) AS freffec,
+				(' ')::VARCHAR(10) AS crefser, 
+				(' ')::VARCHAR(13) AS crefnum, 
+				(' ')::VARCHAR(3) AS ccoddas, 
+				(' ')::VARCHAR(4) AS cyeardas, 
+				(' ')::VARCHAR(6) AS ccorrdas, 
+				CAST(NULL AS DATE) AS ffembdas, 
+				CAST(NULL AS DATE) AS ffregdas, 
+				(0.00)::NUMERIC(15,2)  AS nfobdas, 
+				(0.00)::NUMERIC(15,2)  AS nfobdad, 
+				(0.00)::NUMERIC(6,0)  AS nlecorre, 
+				('1')::VARCHAR(1) AS clecvesta, 
+				VARMES AS clecvmes, 
+				VARPER  AS clecvper, 
+				('1')::VARCHAR(1) AS cledmcesta, 
+				VARMES as cledmcmes, 
+				VARPER as cledmcper, 
+				(0.00)::NUMERIC(6,0) AS nlecorrere, 
+				(0.00)::NUMERIC(1,0) as nautamo, 
+				CAST(NULL AS DATE) as ffec_dc, 
+				(' ')::VARCHAR(2) AS cdoc_dc, 
+				(' ')::VARCHAR(20) AS cser_dc, 
+				(' ')::VARCHAR(20) AS cnum_dc, 
+				(' ')::VARCHAR(20) AS ccodisc,
+				00.00 AS nporisc,  		
+				(' ')::VARCHAR(1) AS CCODCLAS, 
+				(' ')::VARCHAR(2) AS ccodtipren, 
+				(' ')::VARCHAR(2) AS cdoc_nd, 
+				(' ')::VARCHAR(20) AS cser_nd, 
+				(' ')::VARCHAR(20) AS cnum_nd, 
+				(0.00)::NUMERIC(15,2) AS nrenbru_nd, 
+				(0.00)::NUMERIC(15,2) AS nrennet_nd, 
+				(0.00)::NUMERIC(15,2) AS nimpret_nd, 
+				(0.00)::NUMERIC(15,2) AS ndedcos_nd, 
+				(0.00)::NUMERIC(15,2) AS ntasret_nd, 
+				('1')::VARCHAR(3)  AS ccodmon, 
+				(0.00)::NUMERIC(5,3) AS ntc_nd, 
+				(0.00)::NUMERIC(1,0) AS nintext,
+				(0.00)::NUMERIC(13,2) AS NICBPERS,
+				(' ')::VARCHAR(20) AS cctaicbper,	
+				(0.00)::NUMERIC(13,2) AS NICBPER,
+				(0.00)::NUMERIC(13,2) AS NICBPERD ,
+				(0.00)::NUMERIC(5,2) AS nigv
+				FROM 
+				(select z.*, P.NANACUE AS FLAGANALCOB, P.Nafecos AS FLAGCCOSCOB, P.Nafepre AS FLAGPRESUCOB, ROW_NUMBER () OVER (ORDER BY Z.CCODDOC, Z.CSERIE, Z.CNUMERO)::NUMERIC(6,0) AS  NASIENTO 
+				from(select CCODRUC,CCODENTI,CCODDOC,CSERIE,CNUMERO,CNUMFIN,FFECHADOC,FFECHAVEN,ntc,cctatot,cctacobra,cmreg,nigv,cglosa,sum(ntots) ntots, sum(ndolar) ndolar, sum(nimpres) nimpres
+				from cf_regven_integra
+				WHERE CCOND = 'CON' AND NTOTS &lt;&gt; 0
+				group by CCODRUC,CCODENTI,CCODDOC,CSERIE,CNUMERO,CNUMFIN,FFECHADOC,FFECHAVEN,ntc,cctatot,cctacobra,cmreg,nigv,cglosa) Z
+				inner join CF_PLAN  P
+				ON Z.CCTACOBRA = P.CCODCUE AND P.CPER = VARPER ) C
 
-			--order by nasiento 
+				--order by nasiento 
 
-			/*
-			(SELECT 
-			R.*, P.NANACUE AS FLAGANALCOB, P.Nafecos AS FLAGCCOSCOB, P.Nafepre AS FLAGPRESUCOB, 
-			ROW_NUMBER () OVER (ORDER BY CCODDOC, CSERIE, CNUMERO)::NUMERIC(6,0) AS  NASIENTOCOB 
-			FROM cf_regven_integra R 
-			INNER JOIN CF_PLAN  P 
-			ON R.CCTACOBRA = P.CCODCUE AND P.CPER = VARPER 
-			WHERE ccond = 'CON' AND NTOTS&lt;&gt;0) C
-			*/
+				/*
+				(SELECT 
+				R.*, P.NANACUE AS FLAGANALCOB, P.Nafecos AS FLAGCCOSCOB, P.Nafepre AS FLAGPRESUCOB, 
+				ROW_NUMBER () OVER (ORDER BY CCODDOC, CSERIE, CNUMERO)::NUMERIC(6,0) AS  NASIENTOCOB 
+				FROM cf_regven_integra R 
+				INNER JOIN CF_PLAN  P 
+				ON R.CCTACOBRA = P.CCODCUE AND P.CPER = VARPER 
+				WHERE ccond = 'CON' AND NTOTS&lt;&gt;0) C
+				*/
 
-			UNION ALL 
-			SELECT 
-			VARPER AS CPER, 
-			VARMES AS CMES, 
-			VARORICOB AS CCODORI,
-			NASIENTO + varmaxCOB AS NASIENTO , 
-			2 AS nidlin , 
-			NTC, 
-			CCTATOT AS CCODCUE, 
-			(CASE WHEN NTOTS  &lt; 0 THEN (CASE WHEN CMREG = 'S' THEN ABS(NTOTS) ELSE  ABS(NDOLAR) END) ELSE 0.00 END)::numeric(13,2) AS NDEBE,
-			(CASE WHEN NTOTS &gt;= 0 THEN (CASE WHEN CMREG = 'S' THEN ABS(NTOTS) ELSE  ABS(NDOLAR) END) ELSE 0.00 END)::numeric(13,2) AS NHABER,
-			CGLOSA,
-			(CASE WHEN NTOTS &lt;  0 THEN ABS(NTOTS) ELSE 0.00 END)::numeric(15,2) AS NDEBES, 
-			(CASE WHEN NTOTS &gt;= 0 THEN ABS(NTOTS) ELSE 0.00 END)::numeric(15,2) AS NHABERS,
-			(CASE WHEN NTOTS &lt;  0 THEN (CASE WHEN CMREG = 'D' THEN ABS(NDOLAR) ELSE ABS(ROUND(NTOTS/NTC,2)) END) ELSE 0.00 END)::numeric(15,2) AS NDEBED,
-			(CASE WHEN NTOTS &gt;= 0 THEN (CASE WHEN CMREG = 'D' THEN ABS(NDOLAR) ELSE ABS(ROUND(NTOTS/NTC,2)) END) ELSE 0.00 END)::numeric(15,2) AS NHABERD,
-			(' ')::VARCHAR(1) AS CDES,
-			('   ')::VARCHAR(3) AS CDESTINO,
-			(0)::NUMERIC(1,0) AS NDIFAUTO, 
-			(0)::NUMERIC(1,0) AS NAJUSAUTO, 
-			(' ')::VARCHAR(1) AS CREGIS,
-			(0)::NUMERIC(1,0) AS NCOMP ,
-			CCODDOC, 
-			CSERIE,
-			CNUMERO, 
-			CNUMFIN,
-			FFECHADOC, 			 
-			CCODRUC, 
-			CCODENTI, 
-			FFECHAVEN,
-			(0.00)::NUMERIC(13,2) AS NBASE1, 
-			(0.00)::NUMERIC(13,2) AS NIGV1, 
-			(0.00)::NUMERIC(13,2) AS NBASE2, 
-			(0.00)::NUMERIC(13,2) AS NIGV2, 
-			(0.00)::NUMERIC(13,2) AS NBASE3, 
-			(0.00)::NUMERIC(13,2) AS NIGV3, 
-			(0.00)::NUMERIC(13,2) AS NINA, 
-			(0.00)::NUMERIC(13,2) AS NEXO, 
-			(0.00)::NUMERIC(13,2) AS NISC, 
-			(0.00)::NUMERIC(13,2) AS NIVABASE, 
-			(0.00)::NUMERIC(13,2) AS NIVAIMP, 
-			(0.00)::NUMERIC(13,2) AS NTOT, 
-			(0.00)::NUMERIC(13,2) AS NBASE1S, 
-			(0.00)::NUMERIC(13,2) AS NIGV1S, 
-			(0.00)::NUMERIC(13,2) AS NBASE2S, 
-			(0.00)::NUMERIC(13,2) AS NIGV2S, 
-			(0.00)::NUMERIC(13,2) AS NBASE3S, 
-			(0.00)::NUMERIC(13,2) AS NIGV3S, 
-			(0.00)::NUMERIC(13,2) AS NINAS, 
-			(0.00)::NUMERIC(13,2) AS NEXOS, 
-			(0.00)::NUMERIC(13,2) AS NISCS, 
-			(0.00)::NUMERIC(13,2) AS NIVABASES, 
-			(0.00)::NUMERIC(13,2) AS NIVAIMPS, 
-			(0.00)::NUMERIC(13,2) AS NTOTS,
-			(0.00)::NUMERIC(13,2) AS NBASE1D, 
-			(0.00)::NUMERIC(13,2) AS NIGV1D, 
-			(0.00)::NUMERIC(13,2) AS NBASE2D, 
-			(0.00)::NUMERIC(13,2) AS NIGV2D, 
-			(0.00)::NUMERIC(13,2) AS NBASE3D, 
-			(0.00)::NUMERIC(13,2) AS NIGV3D, 
-			(0.00)::NUMERIC(13,2) AS NINAD, 
-			(0.00)::NUMERIC(13,2) AS NEXOD,
-			(0.00)::NUMERIC(13,2) AS NISCD, 
-			(0.00)::NUMERIC(13,2) AS NIVABASED, 
-			(0.00)::NUMERIC(13,2) AS NIVAIMPD, 
-			(0.00)::NUMERIC(13,2) AS NTOTD,
-			(CASE WHEN FLAGANALT=3 OR FLAGANALT = 4 THEN VARCCODFLU ELSE '    ' END)::VARCHAR(4) AS CCODFLU,
-			(CASE WHEN FLAGANALT=3 OR FLAGANALT = 4 THEN '008' ELSE '   ' END)::VARCHAR(3) AS CCODPAGO,
-			(' ')::VARCHAR(9) AS CCODCOS	,
-			(' ')::VARCHAR(9) AS CCODCOS2,
-			(' ')::VARCHAR(10) AS CCODPRESU,
-			(' ')::VARCHAR(4) AS CCODCAM, 
-			(' ')::VARCHAR(4) AS CCODCAM2, 
-			(' ')::VARCHAR(2) AS ccodecpntribcol, 
-			(' ')::VARCHAR(2) AS ccodecpnniifcol, 
-			(' ')::VARCHAR(80) AS CGLOSA2,
-			(CASE WHEN VARSOLOVENTA=1 THEN ' ' ELSE (CASE WHEN FLAGANALT=2 THEN (CASE WHEN CCOND='CON' THEN VARMES ELSE ' ' END) ELSE  ' ' END)  END)::VARCHAR(2)  AS CMESC,
-			(CASE WHEN FLAGANALT=2 THEN cmreg ELSE '' END)::VARCHAR(1) AS CMREG,  
-			(' ')::VARCHAR(4) AS CCODOCON,
-			(0.00)::NUMERIC(1,0) AS NDIFERIDO, 
-			CAST(NULL AS DATE) AS FFECHADIF,
-			(0)::NUMERIC(1,0) AS NRESP,
-			(' ')::VARCHAR(2) AS ccodpps, 
-			(' ')::VARCHAR(5) AS ccodpds,
-			(' ')::VARCHAR(1) AS CREGISRE, 
-			(0.00)::NUMERIC(1,0) AS nperdenre, 
-			(0.00)::NUMERIC(1,0)AS nporre, 
-			CAST(NULL AS DATE) AS FFECRE, 				
-			(' ')::VARCHAR(6)  AS CSERRE, 
-			(' ')::VARCHAR(13) AS CNUMRE, 
-			(' ')::VARCHAR(15) AS CNUMDERE,
-			(CASE WHEN FLAGANALT = 2 THEN (CASE WHEN nimpres&lt;&gt;0 THEN ntc ELSE 0.00 END) ELSE 0.00 END)::NUMERIC(10,6) AS NTCRE,
-			(CASE WHEN FLAGANALT = 2 THEN (CASE WHEN nimpres&lt;&gt;0 THEN ntots ELSE 0.00 END) ELSE 0.00 END)::NUMERIC(15,2) AS NBASERES,
-			(CASE WHEN FLAGANALT = 2 THEN (CASE WHEN nimpres&lt;&gt;0 THEN (CASE WHEN cmreg = 'S' THEN ROUND(NTOTS/NTC,2) ELSE NDOLAR END) ELSE 0.00 END) ELSE 0.00 END)::NUMERIC(15,2) AS nbasered,
-			(CASE WHEN FLAGANALT = 2 THEN (CASE WHEN NIMPRES&lt;&gt;0 THEN nimpres ELSE 0.00 END) ELSE 0.00 END)::NUMERIC(15,2) AS nimpres,
-			(CASE WHEN FLAGANALT = 2 THEN (CASE WHEN NIMPRES&lt;&gt;0 THEN ROUND(NIMPRES/NTC,2) ELSE 0.00 END) ELSE 0.00 END)::NUMERIC(15,2) AS nimpred,
-			(' ')::VARCHAR(8) AS cpdbdetcod, 
-			(' ')::VARCHAR(2) AS ccodretran, 
-			(' ')::VARCHAR(2) AS ccodtopdet, 
-			(0)::NUMERIC(1,0) AS npagdetra, 
-			(' ')::VARCHAR(20) AS cdocnodom, 
-			(' ')::VARCHAR(2) AS crefdoc, 
-			CAST(NULL AS DATE) AS freffec,
-			(' ')::VARCHAR(10) AS crefser, 
-			(' ')::VARCHAR(13) AS crefnum, 
-			(' ')::VARCHAR(3) AS ccoddas, 
-			(' ')::VARCHAR(4) AS cyeardas, 
-			(' ')::VARCHAR(6) AS ccorrdas, 
-			CAST(NULL AS DATE) AS ffembdas, 
-			CAST(NULL AS DATE) AS ffregdas, 
-			(0.00)::NUMERIC(15,2)  AS nfobdas, 
-			(0.00)::NUMERIC(15,2)  AS nfobdad, 
-			(0.00)::NUMERIC(6,0)  AS nlecorre, 
-			('1')::VARCHAR(1) AS clecvesta, 
-			VARMES AS clecvmes, 
-			VARPER  AS clecvper, 
-			('1')::VARCHAR(1) AS cledmcesta, 
-			VARMES as cledmcmes, 
-			VARPER as cledmcper, 
-			(0.00)::NUMERIC(6,0) AS nlecorrere, 
-			(0.00)::NUMERIC(1,0) as nautamo, 
-			FFECHADOC as ffec_dc, 
-			CCODDOC::VARCHAR(2) AS cdoc_dc, 
-			CSERIE::VARCHAR(20) AS cser_dc, 
-			CNUMERO::VARCHAR(20) AS cnum_dc, 
-			(' ')::VARCHAR(20) AS ccodisc,
-			00.00 AS nporisc,  		
-			(' ')::VARCHAR(1) AS CCODCLAS, 
-			(' ')::VARCHAR(2) AS ccodtipren, 
-			(' ')::VARCHAR(2) AS cdoc_nd, 
-			(' ')::VARCHAR(20) AS cser_nd, 
-			(' ')::VARCHAR(20) AS cnum_nd, 
-			(0.00)::NUMERIC(15,2) AS nrenbru_nd, 
-			(0.00)::NUMERIC(15,2) AS nrennet_nd, 
-			(0.00)::NUMERIC(15,2) AS nimpret_nd, 
-			(0.00)::NUMERIC(15,2) AS ndedcos_nd, 
-			(0.00)::NUMERIC(15,2) AS ntasret_nd, 
-			('1')::VARCHAR(3)  AS ccodmon, 
-			(0.00)::NUMERIC(5,3) AS ntc_nd, 
-			(0.00)::NUMERIC(1,0) AS nintext,
-			(0.00)::NUMERIC(13,2) AS NICBPERS,
-			(' ')::VARCHAR(20) AS cctaicbper,	
-			(0.00)::NUMERIC(13,2) AS NICBPER,
-			(0.00)::NUMERIC(13,2) AS NICBPERD,
-			(0.00)::NUMERIC(5,2) as nigv
-			FROM 
-			(select z.*, P.NANACUE AS FLAGANALT, P.Nafecos AS FLAGCCOST, P.Nafepre AS FLAGPRESUT, ROW_NUMBER () OVER (ORDER BY Z.CCODDOC, Z.CSERIE, Z.CNUMERO)::NUMERIC(6,0) AS  NASIENTO
-			from(select CCODRUC,CCODENTI,CCODDOC,CSERIE,CNUMERO,CNUMFIN,FFECHADOC,FFECHAVEN,ntc,cctatot,cctacobra,cmreg,nigv,cglosa,CCOND,sum(ntots) ntots, sum(ndolar) ndolar, sum(nimpres) nimpres
-			from cf_regven_integra
-			WHERE CCOND = 'CON' AND NTOTS &lt;&gt; 0
-			group by CCODRUC,CCODENTI,CCODDOC,CSERIE,CNUMERO,CNUMFIN,FFECHADOC,FFECHAVEN,ntc,cctatot,cctacobra,cmreg,nigv,cglosa,CCOND) Z
-			inner join CF_PLAN  P 
-			ON Z.CCTATOT = P.CCODCUE AND P.CPER = VARPER) C
+				UNION ALL 
+				SELECT 
+				VARPER AS CPER, 
+				VARMES AS CMES, 
+				VARORICOB AS CCODORI,
+				NASIENTO + varmaxCOB AS NASIENTO , 
+				2 AS nidlin , 
+				NTC, 
+				CCTATOT AS CCODCUE, 
+				(CASE WHEN NTOTS  &lt; 0 THEN (CASE WHEN CMREG = 'S' THEN ABS(NTOTS) ELSE  ABS(NDOLAR) END) ELSE 0.00 END)::numeric(13,2) AS NDEBE,
+				(CASE WHEN NTOTS &gt;= 0 THEN (CASE WHEN CMREG = 'S' THEN ABS(NTOTS) ELSE  ABS(NDOLAR) END) ELSE 0.00 END)::numeric(13,2) AS NHABER,
+				CGLOSA,
+				(CASE WHEN NTOTS &lt;  0 THEN ABS(NTOTS) ELSE 0.00 END)::numeric(15,2) AS NDEBES, 
+				(CASE WHEN NTOTS &gt;= 0 THEN ABS(NTOTS) ELSE 0.00 END)::numeric(15,2) AS NHABERS,
+				(CASE WHEN NTOTS &lt;  0 THEN (CASE WHEN CMREG = 'D' THEN ABS(NDOLAR) ELSE ABS(ROUND(NTOTS/NTC,2)) END) ELSE 0.00 END)::numeric(15,2) AS NDEBED,
+				(CASE WHEN NTOTS &gt;= 0 THEN (CASE WHEN CMREG = 'D' THEN ABS(NDOLAR) ELSE ABS(ROUND(NTOTS/NTC,2)) END) ELSE 0.00 END)::numeric(15,2) AS NHABERD,
+				(' ')::VARCHAR(1) AS CDES,
+				('   ')::VARCHAR(3) AS CDESTINO,
+				(0)::NUMERIC(1,0) AS NDIFAUTO, 
+				(0)::NUMERIC(1,0) AS NAJUSAUTO, 
+				(' ')::VARCHAR(1) AS CREGIS,
+				(0)::NUMERIC(1,0) AS NCOMP ,
+				CCODDOC, 
+				CSERIE,
+				CNUMERO, 
+				CNUMFIN,
+				FFECHADOC, 			 
+				CCODRUC, 
+				CCODENTI, 
+				FFECHAVEN,
+				(0.00)::NUMERIC(13,2) AS NBASE1, 
+				(0.00)::NUMERIC(13,2) AS NIGV1, 
+				(0.00)::NUMERIC(13,2) AS NBASE2, 
+				(0.00)::NUMERIC(13,2) AS NIGV2, 
+				(0.00)::NUMERIC(13,2) AS NBASE3, 
+				(0.00)::NUMERIC(13,2) AS NIGV3, 
+				(0.00)::NUMERIC(13,2) AS NINA, 
+				(0.00)::NUMERIC(13,2) AS NEXO, 
+				(0.00)::NUMERIC(13,2) AS NISC, 
+				(0.00)::NUMERIC(13,2) AS NIVABASE, 
+				(0.00)::NUMERIC(13,2) AS NIVAIMP, 
+				(0.00)::NUMERIC(13,2) AS NTOT, 
+				(0.00)::NUMERIC(13,2) AS NBASE1S, 
+				(0.00)::NUMERIC(13,2) AS NIGV1S, 
+				(0.00)::NUMERIC(13,2) AS NBASE2S, 
+				(0.00)::NUMERIC(13,2) AS NIGV2S, 
+				(0.00)::NUMERIC(13,2) AS NBASE3S, 
+				(0.00)::NUMERIC(13,2) AS NIGV3S, 
+				(0.00)::NUMERIC(13,2) AS NINAS, 
+				(0.00)::NUMERIC(13,2) AS NEXOS, 
+				(0.00)::NUMERIC(13,2) AS NISCS, 
+				(0.00)::NUMERIC(13,2) AS NIVABASES, 
+				(0.00)::NUMERIC(13,2) AS NIVAIMPS, 
+				(0.00)::NUMERIC(13,2) AS NTOTS,
+				(0.00)::NUMERIC(13,2) AS NBASE1D, 
+				(0.00)::NUMERIC(13,2) AS NIGV1D, 
+				(0.00)::NUMERIC(13,2) AS NBASE2D, 
+				(0.00)::NUMERIC(13,2) AS NIGV2D, 
+				(0.00)::NUMERIC(13,2) AS NBASE3D, 
+				(0.00)::NUMERIC(13,2) AS NIGV3D, 
+				(0.00)::NUMERIC(13,2) AS NINAD, 
+				(0.00)::NUMERIC(13,2) AS NEXOD,
+				(0.00)::NUMERIC(13,2) AS NISCD, 
+				(0.00)::NUMERIC(13,2) AS NIVABASED, 
+				(0.00)::NUMERIC(13,2) AS NIVAIMPD, 
+				(0.00)::NUMERIC(13,2) AS NTOTD,
+				(CASE WHEN FLAGANALT=3 OR FLAGANALT = 4 THEN VARCCODFLU ELSE '    ' END)::VARCHAR(4) AS CCODFLU,
+				(CASE WHEN FLAGANALT=3 OR FLAGANALT = 4 THEN '008' ELSE '   ' END)::VARCHAR(3) AS CCODPAGO,
+				(' ')::VARCHAR(9) AS CCODCOS	,
+				(' ')::VARCHAR(9) AS CCODCOS2,
+				(' ')::VARCHAR(10) AS CCODPRESU,
+				(' ')::VARCHAR(4) AS CCODCAM, 
+				(' ')::VARCHAR(4) AS CCODCAM2, 
+				(' ')::VARCHAR(2) AS ccodecpntribcol, 
+				(' ')::VARCHAR(2) AS ccodecpnniifcol, 
+				(' ')::VARCHAR(80) AS CGLOSA2,
+				(CASE WHEN VARSOLOVENTA=1 THEN ' ' ELSE (CASE WHEN FLAGANALT=2 THEN (CASE WHEN CCOND='CON' THEN VARMES ELSE ' ' END) ELSE  ' ' END)  END)::VARCHAR(2)  AS CMESC,
+				(CASE WHEN FLAGANALT=2 THEN cmreg ELSE '' END)::VARCHAR(1) AS CMREG,  
+				(' ')::VARCHAR(4) AS CCODOCON,
+				(0.00)::NUMERIC(1,0) AS NDIFERIDO, 
+				CAST(NULL AS DATE) AS FFECHADIF,
+				(0)::NUMERIC(1,0) AS NRESP,
+				(' ')::VARCHAR(2) AS ccodpps, 
+				(' ')::VARCHAR(5) AS ccodpds,
+				(' ')::VARCHAR(1) AS CREGISRE, 
+				(0.00)::NUMERIC(1,0) AS nperdenre, 
+				(0.00)::NUMERIC(1,0)AS nporre, 
+				CAST(NULL AS DATE) AS FFECRE, 				
+				(' ')::VARCHAR(6)  AS CSERRE, 
+				(' ')::VARCHAR(13) AS CNUMRE, 
+				(' ')::VARCHAR(15) AS CNUMDERE,
+				(CASE WHEN FLAGANALT = 2 THEN (CASE WHEN nimpres&lt;&gt;0 THEN ntc ELSE 0.00 END) ELSE 0.00 END)::NUMERIC(10,6) AS NTCRE,
+				(CASE WHEN FLAGANALT = 2 THEN (CASE WHEN nimpres&lt;&gt;0 THEN ntots ELSE 0.00 END) ELSE 0.00 END)::NUMERIC(15,2) AS NBASERES,
+				(CASE WHEN FLAGANALT = 2 THEN (CASE WHEN nimpres&lt;&gt;0 THEN (CASE WHEN cmreg = 'S' THEN ROUND(NTOTS/NTC,2) ELSE NDOLAR END) ELSE 0.00 END) ELSE 0.00 END)::NUMERIC(15,2) AS nbasered,
+				(CASE WHEN FLAGANALT = 2 THEN (CASE WHEN NIMPRES&lt;&gt;0 THEN nimpres ELSE 0.00 END) ELSE 0.00 END)::NUMERIC(15,2) AS nimpres,
+				(CASE WHEN FLAGANALT = 2 THEN (CASE WHEN NIMPRES&lt;&gt;0 THEN ROUND(NIMPRES/NTC,2) ELSE 0.00 END) ELSE 0.00 END)::NUMERIC(15,2) AS nimpred,
+				(' ')::VARCHAR(8) AS cpdbdetcod, 
+				(' ')::VARCHAR(2) AS ccodretran, 
+				(' ')::VARCHAR(2) AS ccodtopdet, 
+				(0)::NUMERIC(1,0) AS npagdetra, 
+				(' ')::VARCHAR(20) AS cdocnodom, 
+				(' ')::VARCHAR(2) AS crefdoc, 
+				CAST(NULL AS DATE) AS freffec,
+				(' ')::VARCHAR(10) AS crefser, 
+				(' ')::VARCHAR(13) AS crefnum, 
+				(' ')::VARCHAR(3) AS ccoddas, 
+				(' ')::VARCHAR(4) AS cyeardas, 
+				(' ')::VARCHAR(6) AS ccorrdas, 
+				CAST(NULL AS DATE) AS ffembdas, 
+				CAST(NULL AS DATE) AS ffregdas, 
+				(0.00)::NUMERIC(15,2)  AS nfobdas, 
+				(0.00)::NUMERIC(15,2)  AS nfobdad, 
+				(0.00)::NUMERIC(6,0)  AS nlecorre, 
+				('1')::VARCHAR(1) AS clecvesta, 
+				VARMES AS clecvmes, 
+				VARPER  AS clecvper, 
+				('1')::VARCHAR(1) AS cledmcesta, 
+				VARMES as cledmcmes, 
+				VARPER as cledmcper, 
+				(0.00)::NUMERIC(6,0) AS nlecorrere, 
+				(0.00)::NUMERIC(1,0) as nautamo, 
+				FFECHADOC as ffec_dc, 
+				CCODDOC::VARCHAR(2) AS cdoc_dc, 
+				CSERIE::VARCHAR(20) AS cser_dc, 
+				CNUMERO::VARCHAR(20) AS cnum_dc, 
+				(' ')::VARCHAR(20) AS ccodisc,
+				00.00 AS nporisc,  		
+				(' ')::VARCHAR(1) AS CCODCLAS, 
+				(' ')::VARCHAR(2) AS ccodtipren, 
+				(' ')::VARCHAR(2) AS cdoc_nd, 
+				(' ')::VARCHAR(20) AS cser_nd, 
+				(' ')::VARCHAR(20) AS cnum_nd, 
+				(0.00)::NUMERIC(15,2) AS nrenbru_nd, 
+				(0.00)::NUMERIC(15,2) AS nrennet_nd, 
+				(0.00)::NUMERIC(15,2) AS nimpret_nd, 
+				(0.00)::NUMERIC(15,2) AS ndedcos_nd, 
+				(0.00)::NUMERIC(15,2) AS ntasret_nd, 
+				('1')::VARCHAR(3)  AS ccodmon, 
+				(0.00)::NUMERIC(5,3) AS ntc_nd, 
+				(0.00)::NUMERIC(1,0) AS nintext,
+				(0.00)::NUMERIC(13,2) AS NICBPERS,
+				(' ')::VARCHAR(20) AS cctaicbper,	
+				(0.00)::NUMERIC(13,2) AS NICBPER,
+				(0.00)::NUMERIC(13,2) AS NICBPERD,
+				(0.00)::NUMERIC(5,2) as nigv
+				FROM 
+				(select z.*, P.NANACUE AS FLAGANALT, P.Nafecos AS FLAGCCOST, P.Nafepre AS FLAGPRESUT, ROW_NUMBER () OVER (ORDER BY Z.CCODDOC, Z.CSERIE, Z.CNUMERO)::NUMERIC(6,0) AS  NASIENTO
+				from(select CCODRUC,CCODENTI,CCODDOC,CSERIE,CNUMERO,CNUMFIN,FFECHADOC,FFECHAVEN,ntc,cctatot,cctacobra,cmreg,nigv,cglosa,CCOND,sum(ntots) ntots, sum(ndolar) ndolar, sum(nimpres) nimpres
+				from cf_regven_integra
+				WHERE CCOND = 'CON' AND NTOTS &lt;&gt; 0
+				group by CCODRUC,CCODENTI,CCODDOC,CSERIE,CNUMERO,CNUMFIN,FFECHADOC,FFECHAVEN,ntc,cctatot,cctacobra,cmreg,nigv,cglosa,CCOND) Z
+				inner join CF_PLAN  P 
+				ON Z.CCTATOT = P.CCODCUE AND P.CPER = VARPER) C
 
-			/*
-			(SELECT R.*, P.NANACUE AS FLAGANALCOB, P.nafecos AS FLAGCCOSCOB, P.nafepre AS FLAGPRESUCOB, 
-			ROW_NUMBER () OVER (ORDER BY CCODDOC, CSERIE, CNUMERO)::NUMERIC(6,0) AS  NASIENTOCOB 
-			FROM cf_regven_integra R
-			INNER JOIN CF_PLAN  P 
-			ON R.CCTACOBRA = P.CCODCUE AND P.CPER = VARPER 
-			WHERE ccond = 'CON' AND NTOTS&lt;&gt;0) C
+				/*
+				(SELECT R.*, P.NANACUE AS FLAGANALCOB, P.nafecos AS FLAGCCOSCOB, P.nafepre AS FLAGPRESUCOB, 
+				ROW_NUMBER () OVER (ORDER BY CCODDOC, CSERIE, CNUMERO)::NUMERIC(6,0) AS  NASIENTOCOB 
+				FROM cf_regven_integra R
+				INNER JOIN CF_PLAN  P 
+				ON R.CCTACOBRA = P.CCODCUE AND P.CPER = VARPER 
+				WHERE ccond = 'CON' AND NTOTS&lt;&gt;0) C
 
-			*/
-			);
-			END;
+				*/
+				);
+				END;
 			END IF;
 
 
@@ -6914,9 +6924,9 @@ $BODY$
 
 			-- insertando resultado final
 			IF VARSOLOVENTA = 0 THEN 
-			BEGIN 
-			INSERT INTO RESULTADO (SELECT * FROM TMPREGCV3);
-			END;
+				BEGIN 
+					INSERT INTO RESULTADO (SELECT * FROM TMPREGCV3);
+				END;
 			END IF ;
 
 			-- INSERT INTO PRUEBAVEN SELECT * FROM RESULTADO;
@@ -6938,22 +6948,24 @@ $BODY$
 			 
 
 			IF varsoloventa = 0 THEN 
-			BEGIN
-			insert into cf_diario(cper,cmes,ccodori,nasiento,ffecasi,cmoneda,ccodusu,tregistro,ccodsu,ntcblo,ccodbas,nidreg,nidlin)
-			SELECT  distinct VARPER,VARMES,VARORIcob, nasiEntOcob + varmaxcob AS NASIENTO , 
-			ffechadoc as ffecasi,
-			cmreg as cmoneda,
-			'ADMIN' AS ccodusu,
-			current_timestamp as tregistro,
-			VARLREGCONT as ccodsu,
-			(0.00)::NUMERIC(1,0)  as ntcblo, 
-			(' ')::VARCHAR(10) as ccodbas,
-			(0.00)::NUMERIC(15,0) as nidreg, 
-			(0.00)::numeric(6,0)  as nidlin 
-			from  (SELECT R.*, ROW_NUMBER () OVER (ORDER BY CCODDOC, CSERIE, CNUMERO)::NUMERIC(6,0) AS  NASIENTOCOB 
-			FROM cf_regven_integra R
-			WHERE ccond = 'CON' AND NTOTS&lt;&gt;0)  C;
-			END;
+				BEGIN
+					insert into cf_diario(cper,cmes,ccodori,nasiento,ffecasi,cmoneda,ccodusu,tregistro,ccodsu,ntcblo,ccodbas,nidreg,nidlin)
+					SELECT  distinct VARPER,VARMES,VARORIcob, nasiEntOcob + varmaxcob AS NASIENTO , 
+					ffechadoc as ffecasi,
+					cmreg as cmoneda,
+					'ADMIN' AS ccodusu,
+					current_timestamp as tregistro,
+					VARLREGCONT as ccodsu,
+					(0.00)::NUMERIC(1,0)  as ntcblo, 
+					(' ')::VARCHAR(10) as ccodbas,
+					(0.00)::NUMERIC(15,0) as nidreg, 
+					(0.00)::numeric(6,0)  as nidlin 
+					--from  (SELECT R.*, ROW_NUMBER () OVER (ORDER BY CCODDOC, CSERIE, CNUMERO)::NUMERIC(6,0) AS  NASIENTOCOB 
+					from  (SELECT  ffechadoc, cmreg, CCODDOC, CSERIE, CNUMERO, ROW_NUMBER () OVER (ORDER BY CCODDOC, CSERIE, CNUMERO)::NUMERIC(6,0) AS  NASIENTOCOB   -- KMM - 21-08-2024 - cpe-Integracioin
+					FROM cf_regven_integra R
+					--WHERE ccond = 'CON' AND NTOTS&lt;&gt;0 )  C;
+					WHERE ccond = 'CON' AND NTOTS&lt;&gt;0 group by ffechadoc, cmreg, cCODDOC, CSERIE, CNUMERO )  C; -- KMM - 21-08-2024 - cpe-Integracioin
+				END;
 			 END IF;
 
 			--resultado_prueba
@@ -7101,7 +7113,10 @@ $BODY$
   LANGUAGE plpgsql VOLATILE</value>
   </data>
   <data name="txtasientoventas1.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION fin_ventas_integracion_principal()
+    <value>select Drop_si_existe_function_postgres('fin_ventas_integracion_principal'); 
+
+
+CREATE OR REPLACE FUNCTION fin_ventas_integracion_principal()
   RETURNS void AS
 $BODY$
 DECLARE 
@@ -7110,7 +7125,7 @@ DECLARE
 	    RW RECORD;
 	    rwperproceso record; 
 	    rwemp record; 
-	    rw2 record; 
+	    rw2 record;  
 	    rwnumerado  record;
 	    rwctualizasubdiario record;
 	    rwanuladoc  record;
@@ -7328,7 +7343,7 @@ BEGIN
 			end loop;
 
 			VCMAXASIENTO_p = 'SELECT NORIMES' || cast(rw.cmes as integer)::char(2) || ' AS NORIGEN FROM CF_ORIGENL WHERE CPER = ''' || rw.cper || ''' AND CCODORI = ''' || rw.ccodori_p ||'''' ;
-			for rw2 in EXECUTE VCMAXASIENTO	loop
+			for rw2 in EXECUTE VCMAXASIENTO_p  loop
 				varmaxcob  = coalesce(RW2.NORIGEN,0);---- + 1; -- RW2.NORIGEN + 1;
 			end loop;
 
@@ -7480,10 +7495,7 @@ BEGIN
 	
 END; 
 $BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
-ALTER FUNCTION fin_ventas_integracion_principal()
-  OWNER TO postgres;</value>
+  LANGUAGE plpgsql VOLATILE</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

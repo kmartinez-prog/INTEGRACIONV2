@@ -23,7 +23,7 @@ namespace Contasis
             try {
                 conex.ConnectionString = cadenaconexion;
                 conex.Open();
-                 MessageBox.Show("Conexion valida para el Postgresql", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                 MessageBox.Show("Conexión valida para el Postgresql", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 resultado = "1";
                 Properties.Settings.Default.cadenaPost =cadena;

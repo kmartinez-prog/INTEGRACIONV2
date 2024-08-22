@@ -64,8 +64,8 @@ namespace Contasis
 
         private void accesoAUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (txtcontrol.Text == "1")
-            {
+           /// if (txtcontrol.Text == "1")
+           /// {
                 foreach (Form OpenForm in Application.OpenForms)
                 {
                     if (OpenForm.Name == "master2")
@@ -86,7 +86,7 @@ namespace Contasis
                     
                 }
                 
-            }
+            /////}
             else
             {
                 MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

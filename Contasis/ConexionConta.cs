@@ -361,14 +361,19 @@ namespace Contasis
 
                         /*********************************************************************************************/
 
-                        stmodulo = "INSERT INTO cg_modulos(CCODMOD,CDESMOD) VALUES('00001','EMPRESAS');"+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00002', 'ACCESO A USUARIOS');"+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00003', 'ORIGEN DE DATOS'); "+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00004', 'ESTRUCTURA DE DATOS'); "+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00005', 'INTEGRADO CONTABLE'); "+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00006', 'FINANCIERO'); "+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00007', 'INTEGRADO COMERCIAL SQL'); "+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00008', 'ACCESO A PERMISOS')";
+                        stmodulo = "INSERT INTO cg_modulos(CCODMOD,CDESMOD) VALUES('00001','EMPRESAS');" +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00002', 'ACCESO A USUARIOS');" +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00003', 'ORIGEN DE DATOS'); " +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00004', 'ESTRUCTURA DE DATOS'); " +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00005', 'INTEGRADO CONTABLE'); " +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00006', 'FINANCIERO'); " +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00007', 'INTEGRADO COMERCIAL SQL'); " +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00008', 'ACCESO A PERMISOS');" +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00009', 'ACCESO A RUC EMISOR')+" +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00010', 'DESTINO DE DATOS')+" +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00011', 'NUBE - NEGOCIOS ONLINE')";
+
+
 
                         SqlCommand myCommand51 = new SqlCommand(stmodulo, conex2);
                         try
@@ -593,7 +598,7 @@ namespace Contasis
                                  "   isnull(nexo,0.00) as nexo,    \n" +
                                  "   isnull(ntots,0.00) as ntots,   \n" +
                                  "   case when ltrim(rtrim(isnull(cdocnodom,''))) = '' then '' else ltrim(rtrim(cdocnodom))  end  as cdocnodom,   \n" +
-                                 "   case when ltrim(rtrim(isnull(cnumdere,''))) = '' then '' else ltrim(rtrim(cdocnodom))  end  as cnumdere,    \n" +
+                                 "   case when ltrim(rtrim(isnull(cnumdere,''))) = '' then '' else ltrim(rtrim(cnumdere))  end  as cnumdere,    \n" +
                                  "   ltrim(rtrim(isnull(Convert(char(10), ffecre, 112),'')))  as ffecre,    \n" +
                                  "   ntc,    \n" +
                                  "   ltrim(rtrim(isnull(Convert(char(10), freffec, 112),''))) as freffec,      \n" +
@@ -746,7 +751,9 @@ namespace Contasis
                         "        \n" +
                         "SET  \n" +
                         " t.es_con_migracion = r.resultado_migracion,	\n" +
-                        " t.obserror = r.obserror  \n" +
+                        " t.obserror = r.obserror,  \n" +
+                        " t.estado=case when r.es_con_migracion=4  then 'ANULADO' \n" +
+                        " when r.es_con_migracion = 1  then 'ACEPTADO' END  \n" +
                         " FROM fin_ventas t \n" +
                         " JOIN OPENJSON(@resultado) \n" +
                         "            \n" +

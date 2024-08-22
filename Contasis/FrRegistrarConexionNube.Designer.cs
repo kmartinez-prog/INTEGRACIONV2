@@ -75,7 +75,7 @@ namespace Contasis
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(378, 29);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Conexion Fuente datos Externo";
+            this.label5.Text = "Conexión Fuente datos Externo";
             // 
             // label4
             // 

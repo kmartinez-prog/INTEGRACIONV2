@@ -91,6 +91,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aspose.Cells.GridDesktop, Version=24.8.0.0, Culture=neutral, PublicKeyToken=699ccf88ff76f11a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.Cells.GridDesktop.24.8.0\lib\net40\Aspose.Cells.GridDesktop.dll</HintPath>
+    </Reference>
     <Reference Include="ExcelDataReader, Version=3.7.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.3.7.0\lib\net462\ExcelDataReader.dll</HintPath>
     </Reference>
@@ -167,6 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clase\Class1.cs" />
+    <Compile Include="Clase\Compras_inconsistencia.cs" />
+    <Compile Include="Clase\compras_propiedades.cs" />
     <Compile Include="Clase\ConexionPostgreslContasis.cs" />
     <Compile Include="Clase\ConexionSql.cs" />
     <Compile Include="Clase\Cuentas.cs" />
@@ -307,6 +312,12 @@
     <Compile Include="FrmUsuedit.Designer.cs">
       <DependentUpon>FrmUsuedit.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmVerificacionEstrcutura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmVerificacionEstrcutura.Designer.cs">
+      <DependentUpon>FrmVerificacionEstrcutura.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_ventasEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -413,6 +424,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmUsuedit.resx">
       <DependentUpon>FrmUsuedit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmVerificacionEstrcutura.resx">
+      <DependentUpon>FrmVerificacionEstrcutura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_ventasEditor.resx">
       <DependentUpon>Frm_ventasEditor.cs</DependentUpon>

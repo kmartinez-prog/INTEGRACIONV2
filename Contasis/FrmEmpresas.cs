@@ -64,6 +64,7 @@ namespace Contasis
                 try
                 {
                     Clase.Empresas regis = new Clase.Empresas();
+                    dataGridView1.AllowUserToAddRows = false;
                     dataGridView1.DataSource = regis.Cargar_empresa();
                     dataGridView1.Columns[0].HeaderText = "CODIGO";
                     dataGridView1.Columns[0].MinimumWidth = 50;
@@ -73,9 +74,12 @@ namespace Contasis
                     dataGridView1.Columns[1].MinimumWidth = 50;
                     dataGridView1.Columns[1].Width = 405;
                     dataGridView1.Columns[1].ReadOnly = true;
+                    dataGridView1.AllowUserToAddRows = false;
+
                     dataGridView1.Font = new Font("Arial", 8, FontStyle.Regular);
                     dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     dataGridView1.ReadOnly = true;
+
                     if (dataGridView1.Rows.Count - 1 > 0)
                     {
                         this.dataGridView1.CurrentCell = this.dataGridView1.Rows[0].Cells[1];
@@ -94,6 +98,7 @@ namespace Contasis
                 {
                     Clase.Empresas regis = new Clase.Empresas();
                     dataGridView1.DataSource = regis.Cargar_empresa_postgres();
+                    dataGridView1.AllowUserToAddRows = false;
                     dataGridView1.Columns[0].HeaderText = "CODIGO";
                     dataGridView1.Columns[0].MinimumWidth = 50;
                     dataGridView1.Columns[0].Width = 80;
@@ -102,6 +107,7 @@ namespace Contasis
                     dataGridView1.Columns[1].MinimumWidth = 50;
                     dataGridView1.Columns[1].Width = 405;
                     dataGridView1.Columns[1].ReadOnly = true;
+                    dataGridView1.AllowUserToAddRows = false;
                     dataGridView1.Font = new Font("Arial", 8, FontStyle.Regular);
                     dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     dataGridView1.ReadOnly = true;
@@ -125,14 +131,6 @@ namespace Contasis
 
 
         }
-        
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-        }
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
         private void btnmodificar_Click(object sender, EventArgs e)
         {
             if (dataGridView1.Rows.Count > 0)
@@ -150,7 +148,6 @@ namespace Contasis
             }
 
         }
-
         private void btneliminar_Click(object sender, EventArgs e)
         {
             if (dataGridView1.Rows.Count-1 == 0)
@@ -199,16 +196,8 @@ namespace Contasis
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
         private void ruc()
         {
-
-
-
             try
             {
                 if (Properties.Settings.Default.cadenaPostPrincipal == "")
@@ -294,11 +283,9 @@ namespace Contasis
 
 
         }
-
         private void cmbrucemisor_SelectedIndexChanged(object sender, EventArgs e)
         {
             rucemisor = cmbrucemisor.Text.Trim().Substring(0, 11);
-            /////MessageBox.Show(rucemisor);
         }
     }
 }

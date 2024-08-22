@@ -141,7 +141,7 @@ namespace Contasis
             this.panel1.Controls.Add(this.Tablero);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.cmbempresas);
-            this.panel1.Location = new System.Drawing.Point(14, 12);
+            this.panel1.Location = new System.Drawing.Point(8, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(622, 504);
             this.panel1.TabIndex = 0;
@@ -282,6 +282,7 @@ namespace Contasis
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(558, 398);
             this.panel2.TabIndex = 0;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // label26
             // 
@@ -1014,7 +1015,7 @@ namespace Contasis
             this.BtnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSalir.Image = global::Contasis.Properties.Resources._19;
             this.BtnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSalir.Location = new System.Drawing.Point(498, 517);
+            this.BtnSalir.Location = new System.Drawing.Point(492, 517);
             this.BtnSalir.Name = "BtnSalir";
             this.BtnSalir.Size = new System.Drawing.Size(100, 32);
             this.BtnSalir.TabIndex = 12;
@@ -1026,7 +1027,7 @@ namespace Contasis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(642, 555);
+            this.ClientSize = new System.Drawing.Size(638, 555);
             this.Controls.Add(this.txtasientoventas2);
             this.Controls.Add(this.txtasientoventas1);
             this.Controls.Add(this.txtasientocompas2);

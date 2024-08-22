@@ -66,6 +66,7 @@ namespace Contasis
             this.dataGrid1.ReadOnly = true;
             this.dataGrid1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.dataGrid1.RowHeadersWidth = 51;
+            this.dataGrid1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGrid1.Size = new System.Drawing.Size(629, 161);
             this.dataGrid1.TabIndex = 10;
             // 
@@ -172,6 +173,7 @@ namespace Contasis
             this.btnBuscar.TabIndex = 1;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // pictureBox1
             // 

@@ -30,7 +30,7 @@ namespace Contasis
             if (string.IsNullOrWhiteSpace(cmbOrigen.Text))
             {
                 cmbOrigen.Focus();
-                MessageBox.Show("Debe de selecionar el tipo de conexión donde se crean la Base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe de selecionar el tipo de conexión donde se crea la Base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             else
@@ -38,14 +38,14 @@ namespace Contasis
                      if (string.IsNullOrWhiteSpace(Txtusuario.Text))
                     {
                         Txtusuario.Focus();
-                        MessageBox.Show("Debe de Ingresar el Usuario", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Debe de Ingresar el Usuario.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
 
                     if (string.IsNullOrWhiteSpace(txtClave.Text))
                     {
                         txtClave.Focus();
-                        MessageBox.Show("Debe de Ingresar su clave", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Debe de Ingresar su clave.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                 int opcion = cmbOrigen.SelectedIndex;
@@ -117,9 +117,6 @@ namespace Contasis
                                         lblEstado.Text = "Ya Existe la base de datos <<bdintegradorContasis>>";
 
 
-
-
-
                                         String verifica1 = "SELECT * FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME ='Conexiones'";
                                         SqlCommand comando00 = new SqlCommand(verifica1, connection1);
                                         {
@@ -129,7 +126,7 @@ namespace Contasis
                                             da2.Fill(dt2);
                                             if (dt2.Rows.Count > 0)
                                             {
-                                                lblEstado.Text = "Ya existe la tabla creada  sera creada";
+                                                lblEstado.Text = "Ya existe la tabla de Conexiones.";
 
                                                 return;
 
@@ -151,7 +148,7 @@ namespace Contasis
                                                     {
                                                         myCommand1.ExecuteNonQuery();
 
-                                                        lblEstado.Text = "Tabla Conexiones ha sido creada y se ha guardado los datos de conexión del Sql Server";
+                                                        lblEstado.Text = "Tabla de Conexiones ha sido creada,se ha guardado los datos del Sql Server";
                                                         String str2;
                                                         string valor01 = cmbOrigen.Text;
                                                         string valor02 = txtServidor.Text;
@@ -194,7 +191,7 @@ namespace Contasis
                                                         }
                                                         catch 
                                                         {
-                                                            MessageBox.Show("Error, favor revise", "Contasis Corp. No se grabo las Credenciales en tabla", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                                            MessageBox.Show("Error, favor revise.", "Contasis Corp. No se grabo las Credenciales", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                                         }
                                                         connection1.Close();
 

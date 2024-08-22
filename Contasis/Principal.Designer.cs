@@ -61,8 +61,8 @@ namespace Contasis
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.txtcontrol = new System.Windows.Forms.TextBox();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.txtcontrol = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -325,19 +325,19 @@ namespace Contasis
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // txtcontrol
-            // 
-            this.txtcontrol.Location = new System.Drawing.Point(34, -67);
-            this.txtcontrol.Name = "txtcontrol";
-            this.txtcontrol.Size = new System.Drawing.Size(112, 20);
-            this.txtcontrol.TabIndex = 4;
-            // 
             // toolStripStatusLabel5
             // 
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
             this.toolStripStatusLabel5.Size = new System.Drawing.Size(151, 23);
             this.toolStripStatusLabel5.Text = "toolStripStatusLabel5";
             this.toolStripStatusLabel5.Click += new System.EventHandler(this.toolStripStatusLabel5_Click);
+            // 
+            // txtcontrol
+            // 
+            this.txtcontrol.Location = new System.Drawing.Point(34, -67);
+            this.txtcontrol.Name = "txtcontrol";
+            this.txtcontrol.Size = new System.Drawing.Size(112, 20);
+            this.txtcontrol.TabIndex = 4;
             // 
             // Principal
             // 

@@ -94,22 +94,35 @@ namespace Contasis
             conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
             conexion.Open();
 
-            try
+            string query0 = "select cg_empresa.NOMEMPRESA as Empresa From cg_empemisor inner join cg_empresa on cg_empemisor.ccodrucemisor=CG_EMPRESA.ccodrucemisor " +
+                            " where  cg_empemisor.ccodrucemisor='" + Objet.ruc + "'";
+            NpgsqlCommand cmdp = new NpgsqlCommand(query0, conexion);
+            DataTable dt = new DataTable();
+            NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
+            data.Fill(dt);
+            if (dt.Rows.Count > 0)
             {
-                string cadena1 = "Delete from cg_empemisor  where ccodrucemisor='" + Objet.ruc + "'";
-                NpgsqlCommand command3 = new NpgsqlCommand(cadena1, conexion);
-                cadena = command3.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
+                MessageBox.Show("No puede eliminar este ruc esta activo con esta empresa : " + dt.Rows[0]["Empresa"].ToString(), "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
-            catch (Exception ex1)
+            else
             {
-                MessageBox.Show(ex1.ToString());
-                cadena = ex1.Message;
-            }
-            finally
-            {
-                if (conexion.State == ConnectionState.Open)
+                try
                 {
-                    conexion.Close();
+                    string cadena1 = "Delete from cg_empemisor  where ccodrucemisor='" + Objet.ruc + "'";
+                    NpgsqlCommand command3 = new NpgsqlCommand(cadena1, conexion);
+                    cadena = command3.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
+                }
+                catch (Exception ex1)
+                {
+                    MessageBox.Show(ex1.ToString());
+                    cadena = ex1.Message;
+                }
+                finally
+                {
+                    if (conexion.State == ConnectionState.Open)
+                    {
+                        conexion.Close();
+                    }
                 }
 
             }

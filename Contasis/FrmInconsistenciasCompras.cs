@@ -6,8 +6,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
-
+using Microsoft.Office.Interop.Excel;
+using objExcel = Microsoft.Office.Interop.Excel;
+using ExcelDataReader;
 namespace Contasis
 {
     public partial class FrmInconsistenciasCompras : Form

@@ -1181,7 +1181,6 @@ namespace Contasis
             this.grabar_compras();
             this.Mostrar_registros_compras();
         }
-
         public void Mostrar_registros_ventas()
         {
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
@@ -1193,6 +1192,7 @@ namespace Contasis
                     string xEmpresa = cmbempresas.Text.Substring(0, 3);
                     string xperiodo = cmbperiodo.Text;
                     dataGridView_venta.DataSource = regis.Cargar_ventas(xEmpresa, xperiodo);
+                    dataGridView_venta.AllowUserToAddRows = false;
 
                     dataGridView_venta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     dataGridView_venta.ReadOnly = true;
@@ -1217,6 +1217,7 @@ namespace Contasis
                     Clase.Cuentas regis = new Clase.Cuentas();
                     string xEmpresa = cmbempresas.Text.Substring(0, 3);
                     string xperiodo = cmbperiodo.Text;
+                    dataGridView_venta.AllowUserToAddRows = false;
                     dataGridView_venta.DataSource = regis.Cargar_ventas_postgres(xEmpresa, xperiodo);
 
                     dataGridView_venta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -1250,7 +1251,7 @@ namespace Contasis
                     string xperiodo = cmbperiodo.Text;
 
                     dataGridView_compra.DataSource = regis.Cargar_compras(xEmpresa, xperiodo);
-
+                    dataGridView_compra.AllowUserToAddRows = false;
                     dataGridView_compra.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     dataGridView_compra.ReadOnly = true;
 
@@ -1276,7 +1277,7 @@ namespace Contasis
                     string xperiodo = cmbperiodo.Text;
 
                     dataGridView_compra.DataSource = regis.Cargar_compras_postgres(xEmpresa, xperiodo);
-
+                    dataGridView_compra.AllowUserToAddRows = false;
                     dataGridView_compra.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     dataGridView_compra.ReadOnly = true;
 
@@ -1299,7 +1300,6 @@ namespace Contasis
 
 
         }
-
         public void seleccion()
         {
             if (cmbperiodo.Text == " ")
@@ -2498,6 +2498,11 @@ namespace Contasis
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }

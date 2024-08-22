@@ -56,7 +56,6 @@ namespace Contasis
             this.dataGrid1.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.dataGrid1.Size = new System.Drawing.Size(629, 161);
             this.dataGrid1.TabIndex = 18;
-            this.dataGrid1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid1_CellContentClick);
             // 
             // lblTotales
             // 

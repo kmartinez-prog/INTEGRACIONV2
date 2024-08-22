@@ -257,9 +257,9 @@ namespace Contasis
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(3, 7);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(282, 29);
+            this.label5.Size = new System.Drawing.Size(276, 29);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Conexion Base destino";
+            this.label5.Text = "Base de datos Destino";
             // 
             // panel2
             // 
@@ -298,7 +298,7 @@ namespace Contasis
             this.btnValidar.Name = "btnValidar";
             this.btnValidar.Size = new System.Drawing.Size(148, 32);
             this.btnValidar.TabIndex = 25;
-            this.btnValidar.Text = "Testear Conexion";
+            this.btnValidar.Text = "Testear Conexión";
             this.btnValidar.UseVisualStyleBackColor = true;
             this.btnValidar.Click += new System.EventHandler(this.btnValidar_Click_1);
             // 

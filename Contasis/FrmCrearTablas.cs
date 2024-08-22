@@ -51,7 +51,7 @@ namespace Contasis
         {
             if (rbfinanciero.Checked == true)
             {
-                MessageBox.Show("Se crean las tablas y index para Financiero ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Se crean las tablas e indexes para Financiero.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (txtopcion1.Text == "0")
                 {
                     crearfinanciero objetconexion = new crearfinanciero();
@@ -134,7 +134,7 @@ namespace Contasis
 
             if (rbcomercial.Checked == true)
             {
-                MessageBox.Show("Se crean las tablas y index para Comercial. ", "Contasis Corp. <<no activo>>", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Se crean las tablas e index para Comercial. ", "Contasis Corp. <<no activo>>", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
             }
 
@@ -203,7 +203,7 @@ namespace Contasis
             {
 
                 timer4.Enabled = false;
-                MessageBox.Show("Proceso Terminado para Financiero Sql", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Proceso Terminado para Financiero Sql.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             
@@ -225,14 +225,6 @@ namespace Contasis
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
-        private void FrmCrearTablas_Load(object sender, EventArgs e)
-        {
-
-        }
-
-       
-
         private void timer5_Tick(object sender, EventArgs e)
         {
             contador++;
@@ -294,10 +286,7 @@ namespace Contasis
 
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+     
     }
     }
 

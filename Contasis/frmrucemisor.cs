@@ -25,8 +25,8 @@ namespace Contasis
         {
             InitializeComponent();
             instance = this;
+            control = "0";
         }
-
         private void FrmRucemisor_Load(object sender, EventArgs e)
         {
             control = "1";
@@ -41,7 +41,7 @@ namespace Contasis
                     Clase.rucemisor regis = new Clase.rucemisor();
                     
                     dataGrid1.DataSource = regis.Cargar();
-              ////      dataGrid1.Rows.Remove(dataGrid1.Rows[dataGrid1.Rows.Count - 1]);
+              
                 }
                 else
                 {
@@ -49,11 +49,12 @@ namespace Contasis
                     
                     dataGrid1.DataSource = regis.Cargarpostgres();
                     dataGrid1.AllowUserToAddRows = false;
-                 ////   dataGrid1.Rows.Remove(dataGrid1.Rows[dataGrid1.Rows.Count - 1]);
+                 
                 }
                
 
                 lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count - 1);
+                dataGrid1.AllowUserToAddRows = false;
                 dataGrid1.Columns[0].HeaderText = "RUC";
                 dataGrid1.Columns[0].MinimumWidth = 50;
                 dataGrid1.Columns[0].Width = 100;
@@ -63,7 +64,7 @@ namespace Contasis
                 dataGrid1.Columns[2].HeaderText = "ACTIVO";
                 dataGrid1.Columns[2].MinimumWidth = 50;
                 dataGrid1.Columns[2].Width = 100;
-
+                dataGrid1.AllowUserToAddRows = false;
 
 
                 dataGrid1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -95,7 +96,7 @@ namespace Contasis
                 if (dataGrid1.Rows.Count > 0)
                 {
                     FrmExportarUsuariocs Frmeexelusu = new FrmExportarUsuariocs();
-                    Frmeexelusu.Show();
+                    Frmeexelusu.ShowDialog();
                 }
                 else
                 {
@@ -107,18 +108,6 @@ namespace Contasis
             {
                 return;
             }
-
-
-
-
-
-
-
-
-
-
-
-
             /*   Excel.Application excelApp = new Excel.Application();
                excelApp.Visible = true;
                Workbook workbook = excelApp.Workbooks.Add();
@@ -204,7 +193,7 @@ namespace Contasis
             }
             else
             {
-                MessageBox.Show("No Existe registros a modificar", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No Existe registros a modificar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -257,24 +246,11 @@ namespace Contasis
                 if (dataGrid1.Rows.Count > 0)
                 {
                     Clase.rucpropiedades obj = new Clase.rucpropiedades();
-
-
                     obj.ruc = Convert.ToString(dataGrid1.SelectedRows[0].Cells[0].Value).Trim();
                     obj.empresa = Convert.ToString(dataGrid1.SelectedRows[0].Cells[1].Value).Trim();
-                    
-
-                   /// if (Properties.Settings.Default.Usuario.Trim() == Convert.ToString(dataGrid1.SelectedRows[0].Cells[1].Value).Trim())
-                   // {
-                    ///    MessageBox.Show("No se puede eliminar ruc,se encuentra vinculado con empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                      ///  return;
-                    ///}
-                  //  else
-                   // {
-
-
                         FrmEliminarruc Frmeliruc = new FrmEliminarruc(obj.ruc, obj.empresa);
-                        Frmeliruc.Show();
-                    ////}
+                        Frmeliruc.ShowDialog();
+
                 }
             }
             else if (dialogResult == DialogResult.No)
@@ -284,10 +260,6 @@ namespace Contasis
 
         }
 
-        private void dataGrid1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }
 

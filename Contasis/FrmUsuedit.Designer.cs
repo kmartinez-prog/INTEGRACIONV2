@@ -73,7 +73,8 @@ namespace Contasis
             this.txtpassword.Location = new System.Drawing.Point(16, 105);
             this.txtpassword.MaxLength = 150;
             this.txtpassword.Name = "txtpassword";
-            this.txtpassword.Size = new System.Drawing.Size(320, 20);
+            this.txtpassword.PasswordChar = '!';
+            this.txtpassword.Size = new System.Drawing.Size(238, 20);
             this.txtpassword.TabIndex = 2;
             this.txtpassword.TextChanged += new System.EventHandler(this.txtpassword_TextChanged);
             this.txtpassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtpassword_KeyDown);

@@ -451,7 +451,9 @@ ALTER FUNCTION fn_ventas_envio(character, character)
   OWNER TO postgres;</value>
   </data>
   <data name="txtventa2.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION fn_ventas_envio_resultado(p_datos text)
+    <value>select Drop_si_existe_function_postgres('fn_ventas_envio_resultado'); 
+
+CREATE OR REPLACE FUNCTION fn_ventas_envio_resultado(p_datos text)
   RETURNS void AS
 $BODY$
 DECLARE
@@ -461,7 +463,9 @@ BEGIN
     v_data:=p_datos::json;
     UPDATE fin_ventas t 
     SET es_con_migracion = r.resultado_migracion,
-        obserror = r.obserror
+        obserror = r.obserror,
+	estado=case when r.es_con_migracion=4  then 'ANULADO'
+	  when r.es_con_migracion=1  then 'ACEPTADO' end
     from json_to_recordset(v_data) as r (idventas integer, obserror text, es_con_migracion integer, resultado_migracion integer)
     where t.idventas = r.idventas and t.es_con_migracion = r.es_con_migracion;
 
@@ -521,7 +525,7 @@ BEGIN
             coalesce(nexo,0.00) as nexo,    
             coalesce(ntots,0.00) as ntots,   
             case when trim(coalesce(cdocnodom,'')) = '' then '' else trim(cdocnodom)  end  as cdocnodom,   
-            case when trim(coalesce(cnumdere,'')) = '' then '' else trim(cdocnodom)  end  as cnumdere,    
+            case when trim(coalesce(cnumdere,'')) = '' then '' else trim(cnumdere)  end  as cnumdere,    
             to_char(ffecre, 'YYYY-MM-DD') as ffecre, --trim(coalesce(Convert(char(10), ffecre, 112),''))  as ffecre,    
             ntc,
             to_char(freffec, 'YYYY-MM-DD') as freffec, -- trim(coalesce(Convert(char(10), freffec, 112),'')) as freffec,
@@ -592,7 +596,9 @@ BEGIN
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
-  COST 100;</value>
+  COST 100;
+
+</value>
   </data>
   <data name="soloventasonline.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION public.fn_integracion_ventas_importar(OUT resultado text, p_datos text, p_cod_emp text)
