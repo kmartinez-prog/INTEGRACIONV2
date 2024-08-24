@@ -68,11 +68,10 @@ namespace Contasis
                     Clase.empresaPropiedades obj = new Clase.empresaPropiedades();
                     obj.codempresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value);
                     obj.empresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[1].Value);
-
                     cadena = Properties.Settings.Default.cadenaPost;
                     empresa = "contasis_" + obj.empresa.Trim();
-                    cadenanew = cadena.Replace("contasis","contasis_"+obj.codempresa.Trim());
-
+                    cadenanew = cadena.Replace("contasis","contasis_"+obj.codempresa.Trim()).ToLower();
+                    
                     
                     try
                     {
@@ -144,7 +143,9 @@ namespace Contasis
 
                     cadena = Properties.Settings.Default.cadenaPost;
                     empresa = "contasis_" + obj.empresa.Trim();
-                    cadenanew = cadena.Replace("contasis", "contasis_" + obj.codempresa.Trim());
+                    cadenanew = cadena.Replace("contasis", "contasis_" + obj.codempresa.Trim()).ToLower();
+                    
+
                     try
                     {
                         NpgsqlConnection cone1 = new NpgsqlConnection();

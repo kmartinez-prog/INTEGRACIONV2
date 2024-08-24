@@ -377,6 +377,7 @@ namespace Contasis
             // 
             // txtventa1
             // 
+            this.txtventa1.BackColor = System.Drawing.SystemColors.Info;
             this.txtventa1.Location = new System.Drawing.Point(861, 26);
             this.txtventa1.Multiline = true;
             this.txtventa1.Name = "txtventa1";
@@ -387,6 +388,7 @@ namespace Contasis
             // 
             // txtventa2
             // 
+            this.txtventa2.BackColor = System.Drawing.SystemColors.Info;
             this.txtventa2.Location = new System.Drawing.Point(1075, 26);
             this.txtventa2.Multiline = true;
             this.txtventa2.Name = "txtventa2";
@@ -407,11 +409,11 @@ namespace Contasis
             // 
             // txtcompras2
             // 
-            this.txtcompras2.Location = new System.Drawing.Point(1561, 26);
+            this.txtcompras2.Location = new System.Drawing.Point(1513, 26);
             this.txtcompras2.Multiline = true;
             this.txtcompras2.Name = "txtcompras2";
             this.txtcompras2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtcompras2.Size = new System.Drawing.Size(160, 336);
+            this.txtcompras2.Size = new System.Drawing.Size(208, 336);
             this.txtcompras2.TabIndex = 31;
             this.txtcompras2.Text = resources.GetString("txtcompras2.Text");
             // 
@@ -430,7 +432,7 @@ namespace Contasis
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(628, 369);
+            this.ClientSize = new System.Drawing.Size(632, 369);
             this.Controls.Add(this.soloventasonline);
             this.Controls.Add(this.txtcompras2);
             this.Controls.Add(this.txtcompras1);

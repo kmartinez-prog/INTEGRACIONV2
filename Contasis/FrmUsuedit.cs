@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.IO;
 
+
 namespace Contasis
 {
     public partial class FrmUsuedit : Form

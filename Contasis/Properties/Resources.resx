@@ -121,6 +121,9 @@
   <data name="LOGIN1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\LOGIN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="file_del" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagen\file_del.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="1. Icono Boton - Salir" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\1. Icono Boton - Salir.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -132,9 +135,6 @@
   </data>
   <data name="8. Icono Boton - Buscar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\8. Icono Boton - Buscar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Logo - Contasis1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagen\Logo - Contasis.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="4. Icono Boton - Nuevo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\4. Icono Boton - Nuevo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -165,6 +165,9 @@
   </data>
   <data name="91" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\9. Icono Boton - Grabar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Empresas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagen\Empresas.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AZULINGRESO" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\AZULINGRESO.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -229,8 +232,8 @@
   <data name="icono modificar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\icono modificar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="file_del" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagen\file_del.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Logo - Contasis1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagen\Logo - Contasis.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Candado" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\Candado.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -301,9 +304,6 @@
   <data name="94" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\9. Icono Boton - Grabar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icono modificar3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagen\icono modificar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Logo - Contasis" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\Logo - Contasis.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -334,6 +334,9 @@
   <data name="icono modificar2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\icono modificar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagen\3. Icono - Origen de datos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="9. Icono Boton - Grabar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\9. Icono Boton - Grabar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -355,10 +358,10 @@
   <data name="42" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Imagen\4. Icono Boton - Nuevo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Empresas" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagen\Empresas.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icono modificar3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Imagen\icono modificar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Imagen\3. Icono - Origen de datos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icono Grabar1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icono Grabar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

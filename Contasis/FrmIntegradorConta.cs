@@ -194,7 +194,7 @@ namespace Contasis
             }
             catch 
             {
-                MessageBox.Show("Error no Existe Informacion de  empresa, favor en registrar una empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no Existe Información de  empresa, favor en registrar una empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 this.Close();
             }
 
@@ -214,15 +214,24 @@ namespace Contasis
         }
         private void cmbempresas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtcadena.Text = Properties.Settings.Default.cadenaPost;
-            xCodempresa = "contasis_"+cmbempresas.Text.Substring(0, 3);
-            txtcadena.Text = txtcadena.Text.Replace("contasis", xCodempresa);
-            this.cargar();
-            this.cargarentidad();
-            this.anulados();
-            Tablero.Enabled = false;
-            this.limpiar();
-            
+            this.dataGridView_venta.DataSource = null;
+            this.dataGridView_compra.DataSource = null;
+            if (cmbempresas.Text == "")
+            {
+                return;
+            }
+            else
+            {
+                
+                txtcadena.Text = Properties.Settings.Default.cadenaPost;
+                xCodempresa = "contasis_" + cmbempresas.Text.Substring(0, 3);
+                txtcadena.Text = txtcadena.Text.Replace("contasis", xCodempresa.Trim()).ToLower();
+                this.cargar();
+                this.cargarentidad();
+                this.anulados();
+                Tablero.Enabled = false;
+                this.limpiar();
+            }
         }
         private void grabar_ventas()
         {
@@ -1191,6 +1200,7 @@ namespace Contasis
                     Clase.Cuentas regis = new Clase.Cuentas();
                     string xEmpresa = cmbempresas.Text.Substring(0, 3);
                     string xperiodo = cmbperiodo.Text;
+                    dataGridView_venta.Rows.Clear(); 
                     dataGridView_venta.DataSource = regis.Cargar_ventas(xEmpresa, xperiodo);
                     dataGridView_venta.AllowUserToAddRows = false;
 
@@ -1202,7 +1212,7 @@ namespace Contasis
                         this.dataGridView_venta.CurrentCell = this.dataGridView_venta.Rows[0].Cells[1];
                         this.dataGridView_venta.Refresh();
                     }
-                    this.dataGridView_venta.Refresh();
+                    
                 }
                 catch (Exception ex)
                 {
@@ -1217,7 +1227,9 @@ namespace Contasis
                     Clase.Cuentas regis = new Clase.Cuentas();
                     string xEmpresa = cmbempresas.Text.Substring(0, 3);
                     string xperiodo = cmbperiodo.Text;
+                    
                     dataGridView_venta.AllowUserToAddRows = false;
+                    
                     dataGridView_venta.DataSource = regis.Cargar_ventas_postgres(xEmpresa, xperiodo);
 
                     dataGridView_venta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -1313,8 +1325,11 @@ namespace Contasis
                 /**********************************************************/
                 try
                 {
+                    
+
                     string query01 = "select case when ncierre1>0 AND ncierre2>0  AND ncierre3>0 AND ncierre4>0 AND ncierre5>0  AND ncierre6>0 AND ncierre7>0  AND  ncierre8>0  AND ncierre9>0 " +
-                     " AND ncierre10> 0 AND ncierre11> 0 AND ncierre12> 0 then 'CERRADO' ELSE 'ABIERTO' END From cg_emppro where cper = '" + txtperiodo.Text.Trim() + "'";
+                     " AND ncierre10> 0 AND ncierre11> 0 AND ncierre12> 0 then 'CERRADO' ELSE 'ABIERTO' END From cg_emppro"+
+                     " where cper = '" + txtperiodo.Text.Trim() + "'";
 
                     NpgsqlConnection cone1 = new NpgsqlConnection();
                     cone1 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
@@ -2489,7 +2504,6 @@ namespace Contasis
             check_imp_com.Checked = false;
             check_actv_com.Checked = false;
             check_asicom_com.Checked = false;
-            
         }
         private void cmbrucemisor_SelectedIndexChanged(object sender, EventArgs e)
         {

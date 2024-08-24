@@ -19,6 +19,7 @@ namespace Contasis
         {
             InitializeComponent();
             instance = this;
+            
         }
 
         private void btnnuevo_Click(object sender, EventArgs e)
@@ -51,7 +52,6 @@ namespace Contasis
         private void FrmEmpresas_Load(object sender, EventArgs e)
         {
             this.ruc();
-            this.grilla1();
         }
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -59,77 +59,82 @@ namespace Contasis
         }
         public void grilla1()
         {
-            if (Properties.Settings.Default.cadenaPostPrincipal == "")
+            if (cmbrucemisor.Text == "")
             {
-                try
-                {
-                    Clase.Empresas regis = new Clase.Empresas();
-                    dataGridView1.AllowUserToAddRows = false;
-                    dataGridView1.DataSource = regis.Cargar_empresa();
-                    dataGridView1.Columns[0].HeaderText = "CODIGO";
-                    dataGridView1.Columns[0].MinimumWidth = 50;
-                    dataGridView1.Columns[0].Width = 80;
-                    dataGridView1.Columns[0].ReadOnly = true;
-                    dataGridView1.Columns[1].HeaderText = "EMPRESAS";
-                    dataGridView1.Columns[1].MinimumWidth = 50;
-                    dataGridView1.Columns[1].Width = 405;
-                    dataGridView1.Columns[1].ReadOnly = true;
-                    dataGridView1.AllowUserToAddRows = false;
-
-                    dataGridView1.Font = new Font("Arial", 8, FontStyle.Regular);
-                    dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                    dataGridView1.ReadOnly = true;
-
-                    if (dataGridView1.Rows.Count - 1 > 0)
-                    {
-                        this.dataGridView1.CurrentCell = this.dataGridView1.Rows[0].Cells[1];
-                        this.dataGridView1.Refresh();
-                    }
-                }
-                catch 
-                {
-
-                    MessageBox.Show("Error, no se encuentras las tablas.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                return;
             }
             else
             {
-                try
+                Clase.empresaPropiedades objeto = new Clase.empresaPropiedades();
+                objeto.ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
+
+                if (Properties.Settings.Default.cadenaPostPrincipal == "")
                 {
-                    Clase.Empresas regis = new Clase.Empresas();
-                    dataGridView1.DataSource = regis.Cargar_empresa_postgres();
-                    dataGridView1.AllowUserToAddRows = false;
-                    dataGridView1.Columns[0].HeaderText = "CODIGO";
-                    dataGridView1.Columns[0].MinimumWidth = 50;
-                    dataGridView1.Columns[0].Width = 80;
-                    dataGridView1.Columns[0].ReadOnly = true;
-                    dataGridView1.Columns[1].HeaderText = "EMPRESAS";
-                    dataGridView1.Columns[1].MinimumWidth = 50;
-                    dataGridView1.Columns[1].Width = 405;
-                    dataGridView1.Columns[1].ReadOnly = true;
-                    dataGridView1.AllowUserToAddRows = false;
-                    dataGridView1.Font = new Font("Arial", 8, FontStyle.Regular);
-                    dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                    dataGridView1.ReadOnly = true;
-                    if (dataGridView1.Rows.Count - 1 > 0)
+                    try
                     {
-                        this.dataGridView1.CurrentCell = this.dataGridView1.Rows[0].Cells[1];
-                        this.dataGridView1.Refresh();
+                        Clase.Empresas regis = new Clase.Empresas();
+                        dataGridView1.AllowUserToAddRows = false;
+                        dataGridView1.DataSource = regis.Cargar_empresa(objeto);
+                        dataGridView1.Columns[0].HeaderText = "CODIGO";
+                        dataGridView1.Columns[0].MinimumWidth = 50;
+                        dataGridView1.Columns[0].Width = 80;
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        dataGridView1.Columns[1].HeaderText = "EMPRESAS";
+                        dataGridView1.Columns[1].MinimumWidth = 50;
+                        dataGridView1.Columns[1].Width = 405;
+                        dataGridView1.Columns[1].ReadOnly = true;
+                        dataGridView1.AllowUserToAddRows = false;
+
+                        dataGridView1.Font = new Font("Arial", 8, FontStyle.Regular);
+                        dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                        dataGridView1.ReadOnly = true;
+
+                        if (dataGridView1.Rows.Count - 1 > 0)
+                        {
+                            this.dataGridView1.CurrentCell = this.dataGridView1.Rows[0].Cells[1];
+                            this.dataGridView1.Refresh();
+                        }
+                    }
+                    catch
+                    {
+
+                        MessageBox.Show("Error, no se encuentras las tablas.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                catch 
+                else
                 {
+                    try
+                    {
 
-                    MessageBox.Show("Error, no se encuentras las tablas.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        Clase.Empresas regis = new Clase.Empresas();
+                        dataGridView1.DataSource = regis.Cargar_empresa_postgres(objeto);
+                        dataGridView1.AllowUserToAddRows = false;
+                        dataGridView1.Columns[0].HeaderText = "CODIGO";
+                        dataGridView1.Columns[0].MinimumWidth = 50;
+                        dataGridView1.Columns[0].Width = 80;
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        dataGridView1.Columns[1].HeaderText = "EMPRESAS";
+                        dataGridView1.Columns[1].MinimumWidth = 50;
+                        dataGridView1.Columns[1].Width = 405;
+                        dataGridView1.Columns[1].ReadOnly = true;
+                        dataGridView1.AllowUserToAddRows = false;
+                        dataGridView1.Font = new Font("Arial", 8, FontStyle.Regular);
+                        dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                        dataGridView1.ReadOnly = true;
+                        if (dataGridView1.Rows.Count - 1 > 0)
+                        {
+                            this.dataGridView1.CurrentCell = this.dataGridView1.Rows[0].Cells[1];
+                            this.dataGridView1.Refresh();
+                        }
+                    }
+                    catch
+                    {
+
+                        MessageBox.Show("Error, no se encuentras las tablas.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-
-
-
             }
-
-
-
-
         }
         private void btnmodificar_Click(object sender, EventArgs e)
         {
@@ -236,6 +241,8 @@ namespace Contasis
 
                     connection.Close();
                 }
+                
+
                 else
                 {
                     NpgsqlConnection conexion = new NpgsqlConnection();
@@ -280,11 +287,12 @@ namespace Contasis
                 this.Close();
             }
 
-
+            
 
         }
         private void cmbrucemisor_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.grilla1();
             rucemisor = cmbrucemisor.Text.Trim().Substring(0, 11);
         }
     }

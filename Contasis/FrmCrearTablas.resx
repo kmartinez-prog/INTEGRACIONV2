@@ -351,12 +351,7 @@ $BODY$
     <value>421, 17</value>
   </metadata>
   <data name="txtventa1.Text" xml:space="preserve">
-    <value>
--- Function: fn_ventas_envio(character, character)
-
--- DROP FUNCTION fn_ventas_envio(character, character);
-
-CREATE OR REPLACE FUNCTION fn_ventas_envio(
+    <value>CREATE OR REPLACE FUNCTION fn_ventas_envio(
     OUT resultado text,
     IN p_ruc_emisor character,
     IN p_empresa character)
@@ -451,9 +446,7 @@ ALTER FUNCTION fn_ventas_envio(character, character)
   OWNER TO postgres;</value>
   </data>
   <data name="txtventa2.Text" xml:space="preserve">
-    <value>select Drop_si_existe_function_postgres('fn_ventas_envio_resultado'); 
-
-CREATE OR REPLACE FUNCTION fn_ventas_envio_resultado(p_datos text)
+    <value>CREATE OR REPLACE FUNCTION fn_ventas_envio_resultado(p_datos text)
   RETURNS void AS
 $BODY$
 DECLARE
@@ -463,9 +456,7 @@ BEGIN
     v_data:=p_datos::json;
     UPDATE fin_ventas t 
     SET es_con_migracion = r.resultado_migracion,
-        obserror = r.obserror,
-	estado=case when r.es_con_migracion=4  then 'ANULADO'
-	  when r.es_con_migracion=1  then 'ACEPTADO' end
+        obserror = r.obserror
     from json_to_recordset(v_data) as r (idventas integer, obserror text, es_con_migracion integer, resultado_migracion integer)
     where t.idventas = r.idventas and t.es_con_migracion = r.es_con_migracion;
 
@@ -748,7 +739,8 @@ BEGIN
 
     -- update (solo campo migracion)
     update fin_ventas v
-    set es_con_migracion=case when t.estado='ACEPTADO' then 0 else 3 end
+    set es_con_migracion=case when t.estado='ACEPTADO' then 0 else 3 end,
+    estado=t.estado
     from json_to_recordset(v_data)
     as t ( idventas integer, estado character varying(255), es_con_migracion boolean )    
     where v.idventas=t.idventas;

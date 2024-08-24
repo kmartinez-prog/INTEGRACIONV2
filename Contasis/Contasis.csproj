@@ -499,6 +499,7 @@
     <Content Include="Imagen\Contasis.ico" />
     <Content Include="Imagen\Datos25.jpg" />
     <Content Include="Imagen\Empresa.jpg" />
+    <None Include="Resources\icono Grabar.png" />
     <None Include="Imagen\Empresas.jpg" />
     <Content Include="Imagen\Estructura25.jpg" />
     <Content Include="Imagen\excelOil.ico" />

@@ -751,9 +751,7 @@ namespace Contasis
                         "        \n" +
                         "SET  \n" +
                         " t.es_con_migracion = r.resultado_migracion,	\n" +
-                        " t.obserror = r.obserror,  \n" +
-                        " t.estado=case when r.es_con_migracion=4  then 'ANULADO' \n" +
-                        " when r.es_con_migracion = 1  then 'ACEPTADO' END  \n" +
+                        " t.obserror = r.obserror  \n" +
                         " FROM fin_ventas t \n" +
                         " JOIN OPENJSON(@resultado) \n" +
                         "            \n" +

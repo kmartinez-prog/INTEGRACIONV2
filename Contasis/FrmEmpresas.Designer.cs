@@ -67,7 +67,7 @@ namespace Contasis
             this.panel1.Controls.Add(this.dataGridView1);
             this.panel1.Location = new System.Drawing.Point(14, 96);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(554, 327);
+            this.panel1.Size = new System.Drawing.Size(554, 345);
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -77,7 +77,7 @@ namespace Contasis
             this.btnnuevo.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnnuevo.Image = global::Contasis.Properties.Resources._41;
             this.btnnuevo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnnuevo.Location = new System.Drawing.Point(221, 281);
+            this.btnnuevo.Location = new System.Drawing.Point(221, 307);
             this.btnnuevo.Name = "btnnuevo";
             this.btnnuevo.Size = new System.Drawing.Size(100, 32);
             this.btnnuevo.TabIndex = 10;
@@ -106,7 +106,7 @@ namespace Contasis
             this.btneliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btneliminar.Image = global::Contasis.Properties.Resources._23;
             this.btneliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btneliminar.Location = new System.Drawing.Point(333, 281);
+            this.btneliminar.Location = new System.Drawing.Point(333, 307);
             this.btneliminar.Name = "btneliminar";
             this.btneliminar.Size = new System.Drawing.Size(100, 32);
             this.btneliminar.TabIndex = 8;
@@ -120,7 +120,7 @@ namespace Contasis
             this.btncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btncerrar.Image = global::Contasis.Properties.Resources._110;
             this.btncerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btncerrar.Location = new System.Drawing.Point(445, 281);
+            this.btncerrar.Location = new System.Drawing.Point(445, 307);
             this.btncerrar.Name = "btncerrar";
             this.btncerrar.Size = new System.Drawing.Size(100, 32);
             this.btncerrar.TabIndex = 7;
@@ -132,7 +132,7 @@ namespace Contasis
             // 
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 5);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 13);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;

@@ -11,14 +11,14 @@ namespace Contasis.Clase
 {
      class Empresas
     {
-        public DataTable Cargar_empresa()
+        public DataTable Cargar_empresa(Clase.empresaPropiedades Objet)
         {
             SqlDataReader carga;
             DataTable Grilla = new DataTable();
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "SELECT CCOD_EMPRESA,NOMEMPRESA AS NOMBRE_DE_EMPRESAS FROM CG_EMPRESA";
+                string query = "SELECT CCOD_EMPRESA,NOMEMPRESA AS NOMBRE_DE_EMPRESAS FROM CG_EMPRESA WHERE ccodrucemisor='"+Objet.ruc.Trim()+"'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
@@ -190,7 +190,7 @@ namespace Contasis.Clase
             return cadena;
         }
 
-        public DataTable Cargar_empresa_postgres()
+        public DataTable Cargar_empresa_postgres(Clase.empresaPropiedades Objet)
         {
             
             NpgsqlDataReader carga;
@@ -200,7 +200,7 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "select ccod_empresa,nomempresa as nombre_de_empresas from cg_empresa";
+                string query = "select ccod_empresa,nomempresa as nombre_de_empresas from cg_empresa  WHERE ccodrucemisor='" + Objet.ruc.Trim() + "'";
                 NpgsqlCommand cmdp = new NpgsqlCommand(query, conexion);
                 carga = cmdp.ExecuteReader();
                 Grilla.Load(carga);

@@ -493,10 +493,7 @@ $BODY$
   LANGUAGE plpgsql VOLATILE</value>
   </data>
   <data name="txtasientocompas1.Text" xml:space="preserve">
-    <value>select Drop_si_existe_function_postgres('fin_compras_integracion_principal'); 
-
-
-CREATE OR REPLACE FUNCTION fin_compras_integracion_principal()
+    <value>CREATE OR REPLACE FUNCTION fin_compras_integracion_principal()
   RETURNS void AS
 $BODY$
 DECLARE 
@@ -554,7 +551,7 @@ BEGIN
 	when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
 	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='10' then '1'
 	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
-	when ctipdoc='0' and Length(ltrim(ccodruc))=15  then '3'
+	when ctipdoc='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
 	when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
 	when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
 	END ::CHAR(1) AS CNATJUR,ccodtipent   FROM FIN_COMPRAS
@@ -588,7 +585,7 @@ BEGIN
 			
 
 		if rwemp.ncencosalt=1  then	
-			update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CTRO DE COSTO2 NO PUEDE ESTA VACIO&lt;REV.PROP.EMPRESA&gt;') ,  resultado_migracion = 2 
+			update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CTRO DE COSTO2 NO PUEDE ESTA VACIO&lt;REV.PROP.EMPRESA&gt;') ,  es_con_migracion = 2 
 		where  ltrim(fin_compras.ccodcos2) ='' ;
 		END IF ;
 
@@ -597,43 +594,43 @@ BEGIN
 ---select * from cf_plan where cf_plan.cper='2024' and cf_plan.nafepre=2  
 		
 		-- Validar cctabase,cctaicbper cctaotrib, cctatot, ccodcos, ccodcos2,	
-		Update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' Codigo de Presupuesto esta vacío'), resultado_migracion = 2  
+		Update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' Codigo de Presupuesto esta vacío'), es_con_migracion = 2  
 		where  fin_compras.ccodpresu='' and fin_compras.cctabase in (select ccodcue  from cf_plan where cf_plan.cper=rwperproceso.cperproceso and cf_plan.nafepre=2);
 		
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE IMPONIBLE NO EXISTE '), resultado_migracion = 2  
+		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE IMPONIBLE NO EXISTE '), es_con_migracion = 2  
 		where fin_compras.cper=rwperproceso.cperproceso and fin_compras.es_con_migracion=0 and  idcompras not in(
 		Select idcompras From fin_compras inner join cf_plan on
 			fin_compras.cper=cf_plan.cper and 
 			fin_compras.cctabase=cf_plan.ccodcue where fin_compras.cper=rwperproceso.cperproceso); 
 
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE ICBPER NO EXISTE '),  resultado_migracion = 2 
+		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE ICBPER NO EXISTE '),  es_con_migracion = 2 
 		where  fin_compras.cper=rwperproceso.cperproceso and fin_compras.es_con_migracion=0  and  fin_compras.cctaicbper&lt;&gt;' '  AND idcompras not in(
 		Select idcompras From fin_compras inner join cf_plan on
 		fin_compras.cper=cf_plan.cper and 
 		fin_compras.cctaicbper=cf_plan.ccodcue  WHERE  fin_compras.cper=rwperproceso.cperproceso and fin_compras.cctaicbper&lt;&gt;' '  );
 
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE OTROS TRIBUTOS Y CARGOS NO EXISTE ') ,  resultado_migracion = 2 
+		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE OTROS TRIBUTOS Y CARGOS NO EXISTE ') ,  es_con_migracion = 2 
 		where fin_compras.cper=rwperproceso.cperproceso and  es_con_migracion=0 and fin_compras.cctaotrib&lt;&gt;' ' AND idcompras not in(
 		Select idcompras From fin_compras inner join cf_plan on
 			fin_compras.cper=cf_plan.cper and 
 			fin_compras.cctaotrib=cf_plan.ccodcue  WHERE  fin_compras.cper=rwperproceso.cperproceso  and fin_compras.cctaotrib&lt;&gt;' ');
 
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-','CAMPO NEXO ESTA CON IMP. PERO SU  CUENTA OTROS TRIBUTOS Y CARGOS ESTA VACIO ') ,  resultado_migracion = 2 
+		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-','CAMPO NEXO ESTA CON IMP. PERO SU  CUENTA OTROS TRIBUTOS Y CARGOS ESTA VACIO ') ,  es_con_migracion = 2 
 		where fin_compras.cper=rwperproceso.cperproceso  and  es_con_migracion=0 AND fin_compras.NEXO &gt;0 AND fin_compras.cctaotrib='';
 
 
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE TOTAL NO EXISTE '),  resultado_migracion = 2 
+		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE TOTAL NO EXISTE '),  es_con_migracion = 2 
 		where fin_compras.cper=rwperproceso.cperproceso and  es_con_migracion=0 and  idcompras not in(
 		Select idcompras From fin_compras inner join cf_plan on
 			fin_compras.cper=cf_plan.cper and 
 			fin_compras.cctatot=cf_plan.ccodcue WHERE  fin_compras.cper=rwperproceso.cperproceso); 
 
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CENTRO DE COSTO NO EXISTE ') ,  resultado_migracion = 2 
+		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CENTRO DE COSTO NO EXISTE ') ,  es_con_migracion = 2 
 		where  fin_compras.cper=rwperproceso.cperproceso and   fin_compras.es_con_migracion=0 and  fin_compras.ccodcos&lt;&gt;' ' AND idcompras not in(
 		Select idcompras From fin_compras inner join CG_COSTOS on
 		fin_compras.ccodcos=CG_COSTOS.ccodcos  WHERE  fin_compras.cper=rwperproceso.cperproceso); 
 
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 NO EXISTE ') ,  resultado_migracion = 2 
+		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 NO EXISTE ') ,  es_con_migracion = 2 
 		where  fin_compras.cper=rwperproceso.cperproceso and   fin_compras.es_con_migracion=0 and  fin_compras.ccodcos2&lt;&gt;' ' and idcompras not in(
 		Select idcompras From fin_compras inner join CG_COSTOS2 on
 		fin_compras.ccodcos2=CG_COSTOS2.ccodcos2  WHERE  fin_compras.cper=rwperproceso.cperproceso); 
@@ -7113,10 +7110,7 @@ $BODY$
   LANGUAGE plpgsql VOLATILE</value>
   </data>
   <data name="txtasientoventas1.Text" xml:space="preserve">
-    <value>select Drop_si_existe_function_postgres('fin_ventas_integracion_principal'); 
-
-
-CREATE OR REPLACE FUNCTION fin_ventas_integracion_principal()
+    <value>CREATE OR REPLACE FUNCTION fin_ventas_integracion_principal()
   RETURNS void AS
 $BODY$
 DECLARE 
@@ -7171,7 +7165,7 @@ BEGIN
 
 
 
-
+	varcentro2=0;
 	-- Validaciones fin_ventas
 	-- Insetandoi entidades 	
 	insert into cg_entidad (ccodenti, cdesenti, ccodtipent) 
@@ -7182,7 +7176,7 @@ BEGIN
 	when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
 	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='10' then '1'
 	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
-	when ctipdoc='0' and Length(ltrim(ccodruc))=15  then '3'
+	when ctipdoc='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
 	when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
 	when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
 	 END ::CHAR(1) AS CNATJUR,ccodtipent   FROM FIN_VENTAS
@@ -7214,13 +7208,13 @@ BEGIN
 		
 		-- Validar cctabase,cctaicbper cctaotrib, cctatot, ccodcos, ccodcos2,	
 		Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Codigo de Presupuesto no debe estar vacio, la cuenta obliga'), 
-		resultado_migracion = 2  
+		es_con_migracion = 2  
 		where  fin_ventas.ccodpresu='' and fin_ventas.cctabase in 
 		(select ccodcue  from cf_plan where cf_plan.cper=rwperproceso.cperproceso and cf_plan.nafepre=1 );
 
 
 		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE IMPONIBLE NO EXISTE '), 
-		resultado_migracion = 2  
+		es_con_migracion = 2  
 		where fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.es_con_migracion=0 and  
 		concat(ccoddoc,cserie,cnumero,ccodruc) not in(
 		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc) From fin_ventas inner join cf_plan on
@@ -7229,7 +7223,7 @@ BEGIN
 
 
 
-		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE ICBPER NO EXISTE '),  resultado_migracion = 2 
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE ICBPER NO EXISTE '),  es_con_migracion = 2 
 		where  fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.es_con_migracion=0  and  fin_ventas.cctaicbper&lt;&gt;' '  
 		AND concat(ccoddoc,cserie,cnumero,ccodruc)  not in(
 		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc)  From fin_ventas inner join cf_plan on
@@ -7238,7 +7232,7 @@ BEGIN
 
 
 		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE OTROS TRIBUTOS Y CARGOS NO EXISTE ') ,  
-		resultado_migracion = 2 
+		es_con_migracion = 2 
 		where fin_ventas.cper=rwperproceso.cperproceso and  es_con_migracion=0 and fin_ventas.cctaotrib&lt;&gt;' ' 
 		AND concat(ccoddoc,cserie,cnumero,ccodruc) not in(
 		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc) From fin_ventas inner join cf_plan on
@@ -7249,7 +7243,7 @@ BEGIN
 
 
 
-		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE TOTAL NO EXISTE '),  resultado_migracion = 2 
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE TOTAL NO EXISTE '),  es_con_migracion = 2 
 		where fin_ventas.cper=rwperproceso.cperproceso and  es_con_migracion=0 and  concat(ccoddoc,cserie,cnumero,ccodruc) 
 		not in(
 		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc)  From fin_ventas inner join cf_plan on
@@ -7258,10 +7252,7 @@ BEGIN
 			WHERE  fin_ventas.cper=rwperproceso.cperproceso
 			group by concat(ccoddoc,cserie,cnumero,ccodruc)); 
 
-
-
-
-		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTRO DE COSTO NO EXISTE ') ,  resultado_migracion = 2 
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTRO DE COSTO NO EXISTE ') ,  es_con_migracion = 2 
 		where  fin_ventas.cper=rwperproceso.cperproceso and  fin_ventas.es_con_migracion=0
 		and concat(ccoddoc,cserie,cnumero,ccodruc)  in(
 		SELECT DISTINCT concat(ccoddoc,cserie,cnumero,ccodruc) 
@@ -7269,7 +7260,13 @@ BEGIN
 		LTRIM(V.ccodcos)=LTRIM(C.ccodcos)
 		where cper=rwperproceso.cperproceso and  V.ccodcos&lt;&gt;'' AND coalesce(C.ccodcos,'ERROR')='ERROR'); 
 
-		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 NO EXISTE ') ,  resultado_migracion = 2 
+		if varcentro2=0  then	
+			update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 ES NECESARIO POR SU CONFIGURACION') ,  es_con_migracion = 2 
+			where  fin_ventas.ccodcos2&lt;&gt;'' ;
+		END IF ;
+
+
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 NO EXISTE ') ,  es_con_migracion = 2 
 		where  fin_ventas.cper=rwperproceso.cperproceso and  fin_ventas.es_con_migracion=0
 		and concat(ccoddoc,cserie,cnumero,ccodruc)  in(
 		SELECT DISTINCT concat(ccoddoc,cserie,cnumero,ccodruc) 
@@ -7277,11 +7274,8 @@ BEGIN
 		LTRIM(V.ccodcos2)=LTRIM(C.ccodcos2)
 		where cper=rwperproceso.cperproceso and  V.ccodcos2&lt;&gt;'' AND coalesce(C.ccodcos2,'ERROR')='ERROR'); 
 
-		varcentro2=0;
-		if varcentro2=1  then	
-			update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 ES NECESARIO POR SU CONFIGURACION') ,  resultado_migracion = 2 
-			where  fin_ventas.ccodcos2&lt;&gt;'' ;
-		END IF ;
+		
+		
 
 		-- Cursor vucara documentos existentes drop table documentoexistentes 
 		
