@@ -232,7 +232,6 @@ namespace Contasis
             this.Column50});
             this.dataGridView2.Location = new System.Drawing.Point(19, 167);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.Size = new System.Drawing.Size(1189, 262);
             this.dataGridView2.TabIndex = 18;
@@ -316,12 +315,10 @@ namespace Contasis
             // Column1
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Column1.DataPropertyName = "MARCA";
             this.Column1.HeaderText = "MARCA";
             this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.ThreeState = true;
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Column1.Width = 53;
             // 
             // Column2
@@ -366,7 +363,6 @@ namespace Contasis
             this.Column6.HeaderText = "TIPO COMPROBANTE";
             this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
             this.Column6.Width = 125;
             // 
             // Column7
@@ -393,7 +389,6 @@ namespace Contasis
             this.Column9.HeaderText = "CODIGO ENTIDAD";
             this.Column9.MinimumWidth = 6;
             this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
             this.Column9.Width = 125;
             // 
             // Column10
@@ -429,7 +424,6 @@ namespace Contasis
             this.Column13.HeaderText = "RAZON SOCIAL";
             this.Column13.MinimumWidth = 6;
             this.Column13.Name = "Column13";
-            this.Column13.ReadOnly = true;
             this.Column13.Width = 125;
             // 
             // Column14
@@ -438,7 +432,6 @@ namespace Contasis
             this.Column14.HeaderText = "VALOR FACTURADO DE LA EXPORTACION";
             this.Column14.MinimumWidth = 6;
             this.Column14.Name = "Column14";
-            this.Column14.ReadOnly = true;
             this.Column14.Width = 125;
             // 
             // Column15
@@ -447,7 +440,6 @@ namespace Contasis
             this.Column15.HeaderText = "BASE IMPONIBLE DE LA OPERACION GRAVADA";
             this.Column15.MinimumWidth = 6;
             this.Column15.Name = "Column15";
-            this.Column15.ReadOnly = true;
             this.Column15.Width = 125;
             // 
             // Column16
@@ -456,7 +448,6 @@ namespace Contasis
             this.Column16.HeaderText = "EXONERADA";
             this.Column16.MinimumWidth = 6;
             this.Column16.Name = "Column16";
-            this.Column16.ReadOnly = true;
             this.Column16.Width = 125;
             // 
             // Column17
@@ -465,7 +456,6 @@ namespace Contasis
             this.Column17.HeaderText = "INAFECTA";
             this.Column17.MinimumWidth = 6;
             this.Column17.Name = "Column17";
-            this.Column17.ReadOnly = true;
             this.Column17.Width = 125;
             // 
             // Column18
@@ -474,7 +464,6 @@ namespace Contasis
             this.Column18.HeaderText = "ISC";
             this.Column18.MinimumWidth = 6;
             this.Column18.Name = "Column18";
-            this.Column18.ReadOnly = true;
             this.Column18.Width = 125;
             // 
             // Column19
@@ -483,7 +472,6 @@ namespace Contasis
             this.Column19.HeaderText = "IGV";
             this.Column19.MinimumWidth = 6;
             this.Column19.Name = "Column19";
-            this.Column19.ReadOnly = true;
             this.Column19.Width = 125;
             // 
             // Column20
@@ -492,7 +480,6 @@ namespace Contasis
             this.Column20.HeaderText = "ICBPER";
             this.Column20.MinimumWidth = 6;
             this.Column20.Name = "Column20";
-            this.Column20.ReadOnly = true;
             this.Column20.Width = 125;
             // 
             // Column21
@@ -501,7 +488,6 @@ namespace Contasis
             this.Column21.HeaderText = "OTROS TRIBUTOS Y CARGOS QUE NO FORMAN PARTE DE LA BASE IMPONIBLE";
             this.Column21.MinimumWidth = 6;
             this.Column21.Name = "Column21";
-            this.Column21.ReadOnly = true;
             this.Column21.Width = 125;
             // 
             // Column22
@@ -510,7 +496,6 @@ namespace Contasis
             this.Column22.HeaderText = "IMPORTE TOTAL DEL COMPROBANTE DE PAGO";
             this.Column22.MinimumWidth = 6;
             this.Column22.Name = "Column22";
-            this.Column22.ReadOnly = true;
             this.Column22.Width = 125;
             // 
             // Column23
@@ -519,7 +504,6 @@ namespace Contasis
             this.Column23.HeaderText = "TIPO DE CAMBIO";
             this.Column23.MinimumWidth = 6;
             this.Column23.Name = "Column23";
-            this.Column23.ReadOnly = true;
             this.Column23.Width = 125;
             // 
             // Column24
@@ -528,7 +512,6 @@ namespace Contasis
             this.Column24.HeaderText = "FECHA D REF.";
             this.Column24.MinimumWidth = 6;
             this.Column24.Name = "Column24";
-            this.Column24.ReadOnly = true;
             this.Column24.Width = 125;
             // 
             // Column25
@@ -537,7 +520,6 @@ namespace Contasis
             this.Column25.HeaderText = "TIPO REFERENCIA";
             this.Column25.MinimumWidth = 6;
             this.Column25.Name = "Column25";
-            this.Column25.ReadOnly = true;
             this.Column25.Width = 125;
             // 
             // Column26
@@ -546,7 +528,6 @@ namespace Contasis
             this.Column26.HeaderText = "SERIE REFERENCIA";
             this.Column26.MinimumWidth = 6;
             this.Column26.Name = "Column26";
-            this.Column26.ReadOnly = true;
             this.Column26.Width = 125;
             // 
             // Column27
@@ -555,7 +536,6 @@ namespace Contasis
             this.Column27.HeaderText = "N COMPROBANTE PAGO O DOCUMENTO";
             this.Column27.MinimumWidth = 6;
             this.Column27.Name = "Column27";
-            this.Column27.ReadOnly = true;
             this.Column27.Width = 125;
             // 
             // Column28
@@ -564,7 +544,6 @@ namespace Contasis
             this.Column28.HeaderText = "MONEDA";
             this.Column28.MinimumWidth = 6;
             this.Column28.Name = "Column28";
-            this.Column28.ReadOnly = true;
             this.Column28.Width = 125;
             // 
             // Column29
@@ -573,7 +552,6 @@ namespace Contasis
             this.Column29.HeaderText = "EQUIVALENTE EN DOLARES AMERICANOS";
             this.Column29.MinimumWidth = 6;
             this.Column29.Name = "Column29";
-            this.Column29.ReadOnly = true;
             this.Column29.Width = 125;
             // 
             // Column30
@@ -582,7 +560,6 @@ namespace Contasis
             this.Column30.HeaderText = "FECHA VENCIMIENTO";
             this.Column30.MinimumWidth = 6;
             this.Column30.Name = "Column30";
-            this.Column30.ReadOnly = true;
             this.Column30.Width = 125;
             // 
             // Column31

@@ -63,7 +63,7 @@ namespace Contasis.Clase
             ;            
             try
             {
-                string query = "SELECT  0 as MARCA  ,idventas" +
+                string query = "SELECT  idventas" +
                 ", ccod_empresa, to_char(ffechadoc,'dd/mm/yyyy')::char(10) as ffechadoc,"+
                 " to_char(ffechaven,'dd/mm/yyyy')::char(10) as ffechaven, ccoddoc" +
                 ", cserie, cnumero, ccodenti, cdesenti " +

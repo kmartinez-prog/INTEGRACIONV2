@@ -2474,6 +2474,7 @@ namespace Contasis
         }
         private void cmbanuladoscompras_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.anulados();
             this.button2.Enabled = true;
         }
         public void limpiar()

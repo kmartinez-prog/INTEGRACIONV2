@@ -183,7 +183,7 @@ namespace Contasis
                     dataGridView2.AllowUserToAddRows = false;
 
                     dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                    dataGridView2.ReadOnly = true;
+                  ////  dataGridView2.ReadOnly = true;
                     if (dataGridView2.IsCurrentCellDirty)
                     {
                         dataGridView2.CommitEdit(DataGridViewDataErrorContexts.Commit);
@@ -332,7 +332,7 @@ namespace Contasis
                     this.dataGridView2.Refresh();
 
                     dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                    dataGridView2.ReadOnly = true;
+                    /////dataGridView2.ReadOnly = true;
                     if (dataGridView2.IsCurrentCellDirty)
                     {
                         dataGridView2.CommitEdit(DataGridViewDataErrorContexts.Commit);
