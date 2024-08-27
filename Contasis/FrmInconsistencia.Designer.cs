@@ -31,20 +31,14 @@ namespace Contasis
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInconsistencia));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.checkSeleccionar = new System.Windows.Forms.CheckBox();
+            this.btnseleccionar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.BtnSalir = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtLista = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.cmbrucemisor = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cmbempresas = new System.Windows.Forms.ComboBox();
-            this.btnMostrar = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -95,6 +89,13 @@ namespace Contasis
             this.Column48 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column49 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtLista = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.cmbrucemisor = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbempresas = new System.Windows.Forms.ComboBox();
+            this.btnMostrar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -103,42 +104,57 @@ namespace Contasis
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.checkBox1);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.checkSeleccionar);
+            this.panel1.Controls.Add(this.btnseleccionar);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(19, 475);
+            this.panel1.Location = new System.Drawing.Point(19, 473);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(426, 101);
             this.panel1.TabIndex = 15;
             // 
-            // checkBox1
+            // comboBox1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(216, 55);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(121, 19);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Seleccionar todo";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(12, 23);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(409, 21);
+            this.comboBox1.TabIndex = 22;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // button2
+            // checkSeleccionar
             // 
-            this.button2.Location = new System.Drawing.Point(25, 50);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(166, 32);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Borrar registros marcados";
-            this.button2.UseVisualStyleBackColor = true;
+            this.checkSeleccionar.AutoSize = true;
+            this.checkSeleccionar.Enabled = false;
+            this.checkSeleccionar.Location = new System.Drawing.Point(147, 60);
+            this.checkSeleccionar.Name = "checkSeleccionar";
+            this.checkSeleccionar.Size = new System.Drawing.Size(121, 19);
+            this.checkSeleccionar.TabIndex = 2;
+            this.checkSeleccionar.Text = "Seleccionar todo";
+            this.checkSeleccionar.UseVisualStyleBackColor = true;
+            this.checkSeleccionar.CheckedChanged += new System.EventHandler(this.checkSeleccionar_CheckedChanged);
+            // 
+            // btnseleccionar
+            // 
+            this.btnseleccionar.Enabled = false;
+            this.btnseleccionar.Location = new System.Drawing.Point(16, 58);
+            this.btnseleccionar.Name = "btnseleccionar";
+            this.btnseleccionar.Size = new System.Drawing.Size(126, 27);
+            this.btnseleccionar.TabIndex = 1;
+            this.btnseleccionar.Text = "Marcar para enviar";
+            this.btnseleccionar.UseVisualStyleBackColor = true;
+            this.btnseleccionar.Click += new System.EventHandler(this.btnseleccionar_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 15);
+            this.label1.Location = new System.Drawing.Point(6, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(340, 13);
+            this.label1.Size = new System.Drawing.Size(191, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Marcar los registros que considera ya no serian importados";
+            this.label1.Text = "Seleccionar Motivo para marcar ";
             // 
             // pictureBox1
             // 
@@ -160,6 +176,7 @@ namespace Contasis
             this.button1.TabIndex = 14;
             this.button1.Text = "Exportar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // BtnSalir
@@ -240,77 +257,6 @@ namespace Contasis
             this.dataGridView2.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentDoubleClick);
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(16, 442);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 13);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "Total de Registros : 0";
-            // 
-            // txtLista
-            // 
-            this.txtLista.BackColor = System.Drawing.SystemColors.Info;
-            this.txtLista.Location = new System.Drawing.Point(453, 475);
-            this.txtLista.Multiline = true;
-            this.txtLista.Name = "txtLista";
-            this.txtLista.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLista.Size = new System.Drawing.Size(494, 101);
-            this.txtLista.TabIndex = 20;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(22, 118);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(130, 15);
-            this.label25.TabIndex = 22;
-            this.label25.Text = "Seleccione ruc Emisor";
-            // 
-            // cmbrucemisor
-            // 
-            this.cmbrucemisor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbrucemisor.FormattingEnabled = true;
-            this.cmbrucemisor.Location = new System.Drawing.Point(22, 136);
-            this.cmbrucemisor.Name = "cmbrucemisor";
-            this.cmbrucemisor.Size = new System.Drawing.Size(356, 21);
-            this.cmbrucemisor.TabIndex = 21;
-            this.cmbrucemisor.SelectedIndexChanged += new System.EventHandler(this.cmbrucemisor_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(388, 118);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 15);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "Seleccione Empresa";
-            // 
-            // cmbempresas
-            // 
-            this.cmbempresas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbempresas.FormattingEnabled = true;
-            this.cmbempresas.Location = new System.Drawing.Point(384, 136);
-            this.cmbempresas.Name = "cmbempresas";
-            this.cmbempresas.Size = new System.Drawing.Size(228, 21);
-            this.cmbempresas.TabIndex = 24;
-            this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.cmbempresas_SelectedIndexChanged);
-            // 
-            // btnMostrar
-            // 
-            this.btnMostrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMostrar.Image = global::Contasis.Properties.Resources._3__Icono_Boton___Modificar;
-            this.btnMostrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMostrar.Location = new System.Drawing.Point(618, 113);
-            this.btnMostrar.Name = "btnMostrar";
-            this.btnMostrar.Size = new System.Drawing.Size(110, 44);
-            this.btnMostrar.TabIndex = 25;
-            this.btnMostrar.Text = "Filtrar";
-            this.btnMostrar.UseVisualStyleBackColor = true;
-            this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
             // 
             // Column1
             // 
@@ -742,6 +688,77 @@ namespace Contasis
             this.Column50.ReadOnly = true;
             this.Column50.Width = 125;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(16, 442);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(130, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Total de Registros : 0";
+            // 
+            // txtLista
+            // 
+            this.txtLista.BackColor = System.Drawing.SystemColors.Info;
+            this.txtLista.Location = new System.Drawing.Point(453, 475);
+            this.txtLista.Multiline = true;
+            this.txtLista.Name = "txtLista";
+            this.txtLista.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLista.Size = new System.Drawing.Size(494, 101);
+            this.txtLista.TabIndex = 20;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(22, 118);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(130, 15);
+            this.label25.TabIndex = 22;
+            this.label25.Text = "Seleccione ruc Emisor";
+            // 
+            // cmbrucemisor
+            // 
+            this.cmbrucemisor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbrucemisor.FormattingEnabled = true;
+            this.cmbrucemisor.Location = new System.Drawing.Point(22, 136);
+            this.cmbrucemisor.Name = "cmbrucemisor";
+            this.cmbrucemisor.Size = new System.Drawing.Size(356, 21);
+            this.cmbrucemisor.TabIndex = 21;
+            this.cmbrucemisor.SelectedIndexChanged += new System.EventHandler(this.cmbrucemisor_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(388, 118);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(121, 15);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Seleccione Empresa";
+            // 
+            // cmbempresas
+            // 
+            this.cmbempresas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbempresas.FormattingEnabled = true;
+            this.cmbempresas.Location = new System.Drawing.Point(384, 136);
+            this.cmbempresas.Name = "cmbempresas";
+            this.cmbempresas.Size = new System.Drawing.Size(228, 21);
+            this.cmbempresas.TabIndex = 24;
+            this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.cmbempresas_SelectedIndexChanged);
+            // 
+            // btnMostrar
+            // 
+            this.btnMostrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMostrar.Image = global::Contasis.Properties.Resources._3__Icono_Boton___Modificar;
+            this.btnMostrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMostrar.Location = new System.Drawing.Point(633, 131);
+            this.btnMostrar.Name = "btnMostrar";
+            this.btnMostrar.Size = new System.Drawing.Size(93, 28);
+            this.btnMostrar.TabIndex = 25;
+            this.btnMostrar.Text = "Filtrar";
+            this.btnMostrar.UseVisualStyleBackColor = true;
+            this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
+            // 
             // FrmInconsistencia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -781,8 +798,8 @@ namespace Contasis
         private System.Windows.Forms.Button BtnSalir;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox checkSeleccionar;
+        private System.Windows.Forms.Button btnseleccionar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.DataGridView dataGridView2;
@@ -843,5 +860,6 @@ namespace Contasis
         private System.Windows.Forms.DataGridViewTextBoxColumn Column48;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column49;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column50;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

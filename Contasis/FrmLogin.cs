@@ -295,7 +295,7 @@ namespace Contasis
                 }
             
         }
-        private void FrmLogin_Load(object sender, EventArgs e)
+        private async void FrmLogin_Load(object sender, EventArgs e)
         {
             Properties.Settings.Default.cadenaSql = "";
             Properties.Settings.Default.Save();
@@ -329,7 +329,8 @@ namespace Contasis
                         }
 
             }
-            
+            await new Clase.ValidarVersion().Validar();
+
         }
         private void cmbusuario_SelectedIndexChanged(object sender, EventArgs e)
         {

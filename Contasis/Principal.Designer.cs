@@ -217,17 +217,17 @@ namespace Contasis
             // 
             // ventasContableToolStripMenuItem
             // 
-            this.ventasContableToolStripMenuItem.Image = global::Contasis.Properties.Resources.file_cabcel;
+            this.ventasContableToolStripMenuItem.Image = global::Contasis.Properties.Resources._7__Icono_Boton___Permisos;
             this.ventasContableToolStripMenuItem.Name = "ventasContableToolStripMenuItem";
-            this.ventasContableToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
+            this.ventasContableToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.ventasContableToolStripMenuItem.Text = "Ventas Contable";
             this.ventasContableToolStripMenuItem.Click += new System.EventHandler(this.ventasContableToolStripMenuItem_Click);
             // 
             // comprasContableToolStripMenuItem
             // 
-            this.comprasContableToolStripMenuItem.Image = global::Contasis.Properties.Resources.file_cabcel;
+            this.comprasContableToolStripMenuItem.Image = global::Contasis.Properties.Resources._3__Icono_Boton___Modificar;
             this.comprasContableToolStripMenuItem.Name = "comprasContableToolStripMenuItem";
-            this.comprasContableToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
+            this.comprasContableToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.comprasContableToolStripMenuItem.Text = " Compras Contable";
             this.comprasContableToolStripMenuItem.Click += new System.EventHandler(this.comprasContableToolStripMenuItem_Click);
             // 

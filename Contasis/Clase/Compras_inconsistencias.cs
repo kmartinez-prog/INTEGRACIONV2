@@ -8,31 +8,37 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 using Npgsql;
 
+
 namespace Contasis.Clase
 {
-    class Ventas_inconsistencias
+    class Compras_inconsistencias
     {
-        
         /*******************************************************************************************************/
-        public DataTable listassql(Clase.ventas_propiedades Objet)
+        public DataTable listassql(Clase.Compras_propiedadescs Objet)
         {
             SqlDataReader carga;
             DataTable grilla = new DataTable();
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "SELECT  idventas"+
-                ", ccod_empresa, convert(varchar,ffechadoc,103) as ffechadoc, convert(varchar,ffechaven,103) as ffechaven, ccoddoc" +
-                ", cserie, cnumero, ccodenti, cdesenti " +
-                ", ctipdoc, ccodruc, crazsoc, nbase2, nbase1 " +
-                ", nexo, nina, nisc, nigv1, nicbpers, nbase3 " +
-                ", ntots, ntc, convert(varchar,freffec,103) as freffec, crefdoc, crefser, crefnum " +
-                ", cmreg, ndolar, convert(varchar,ffechaven2,103) as ffechaven2, ccond, ccodcos, ccodcos2 " +
-                ", cctabase, cctaicbper, cctaotrib, cctatot, nresp " +
-                ", nporre, nimpres, cserre, cnumre, convert(varchar,ffecre,103) as ffecre, ccodpresu " +
-                ", nigv,  ccodpago, nperdenre, nbaseres, cctaperc, " +
-                " obserror " +
-                "  FROM fin_ventas where es_con_migracion not in(0,1,4) and ccodrucemisor='"+ Objet.ruc.Trim()+ "' and ccod_empresa='"+ Objet.empresa.Trim()+"'";
+                string query = "SELECT idcompras,  ccod_empresa, "+
+                "convert(varchar, ffechadoc, 103) as ffechadoc, " +
+                "convert(varchar, fechaven, 103) as fechaven, " +
+                "ccoddoc, ccoddas, cyeardas, cserie, cnumero,   " +
+                "ctipdoc, ccodruc, crazsoc, ccodclas, nbase1, " +
+                "nigv1,  nbase2, nigv2, nbase3, nigv3, nina,  " +
+                "nisc, nicbper, nexo, ntots,  " +
+                "cdocnodom, cnumdere,  " +
+                "convert(varchar, ffecre, 103) as ffecre, " +
+                "ntc,convert(varchar, freffec, 103) as freffec, " +
+                "crefdoc, crefser,crefnum, cmreg, ndolar,  " +
+                "convert(varchar, ffechaven2, 103) as ffechaven2, " +
+                "ccond, cctabase, cctaicbper,cctaotrib, cctatot, ccodcos, ccodcos2,  " +
+                "nresp, nporre, nimpres,cserre, cnumre,  " +
+                "convert(varchar, ffecre2, 103) as ffecre2, " +
+                "ccodpresu, nigv,  nperdenre,  " +
+                "nbaseres, cigvxacre, obserror " +
+                "  FROM fin_compras where es_con_migracion not in(0,1,4) and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
@@ -53,29 +59,33 @@ namespace Contasis.Clase
 
             }
         }
-        public DataTable listaspos(Clase.ventas_propiedades Objet)
+        public DataTable listaspos(Clase.Compras_propiedadescs Objet)
         {
             NpgsqlConnection conexion = new NpgsqlConnection();
             conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
             conexion.Open();
             NpgsqlDataReader carga;
             DataTable grilla = new DataTable();
-            ;            
+            ;
             try
             {
-                string query = "SELECT  idventas" +
-                ", ccod_empresa, to_char(ffechadoc,'dd/mm/yyyy')::char(10) as ffechadoc,"+
-                " to_char(ffechaven,'dd/mm/yyyy')::char(10) as ffechaven, ccoddoc" +
-                ", cserie, cnumero, ccodenti, cdesenti " +
-                ", ctipdoc, ccodruc, crazsoc, nbase2, nbase1 " +
-                ", nexo, nina, nisc, nigv1, nicbpers, nbase3 " +
-                ", ntots, ntc, to_char(freffec,'dd/mm/yyyy')::char(10) as freffec, crefdoc, crefser, crefnum " +
-                ", cmreg, ndolar, to_char(ffechaven2,'dd/mm/yyyy')::char(10) as ffechaven2, ccond, ccodcos, ccodcos2 " +
-                ", cctabase, cctaicbper, cctaotrib, cctatot, nresp " +
-                ", nporre, nimpres, cserre, cnumre, to_char(ffecre,'dd/mm/yyyy')::char(10) as ffecre, ccodpresu " +
-                ", nigv,  ccodpago, nperdenre, nbaseres, cctaperc, " +
-                " obserror " +
-                "  FROM fin_ventas where es_con_migracion not in(0,1,4) and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
+                string query = "SELECT idcompras,  ccod_empresa, to_char(ffechadoc,'dd/mm/yyyy')::char(10) as ffechadoc, " +
+                "to_char(fechaven, 'dd/mm/yyyy')::char(10) as fechaven, " +
+                "ccoddoc, ccoddas, cyeardas, cserie, cnumero,   " +
+                "ctipdoc, ccodruc, crazsoc, ccodclas, nbase1, " +
+                "nigv1,  nbase2, nigv2, nbase3, nigv3, nina,  " +
+                "nisc, nicbper, nexo, ntots,  " +
+                "cdocnodom, cnumdere,  " +
+                "to_char(ffecre, 'dd/mm/yyyy')::char(10) as ffecre, " +
+                "ntc,to_char(freffec, 'dd/mm/yyyy')::char(10) as freffec, " +
+                "crefdoc, crefser,crefnum, cmreg, ndolar,  " +
+                "to_char(ffechaven2, 'dd/mm/yyyy')::char(10) as ffechaven2, " +
+                "ccond, cctabase, cctaicbper,cctaotrib, cctatot, ccodcos, ccodcos2,  " +
+                "nresp, nporre, nimpres,cserre, cnumre,  " +
+                "to_char(ffecre2, 'dd/mm/yyyy')::char(10) as ffecre2, " +
+                "ccodpresu, nigv,  nperdenre,  " +
+                "nbaseres, cigvxacre, obserror  " +
+                "  FROM fin_compras where es_con_migracion not in(0,1,4) and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();
                 grilla.Load(carga);
@@ -94,7 +104,8 @@ namespace Contasis.Clase
 
             }
         }
-        public string eliminarsql(Clase.ventas_propiedades Objet)
+        /*******************************************************************************************************/
+        public string eliminarsql(Clase.Compras_propiedadescs Objet)
         {
             string cadena = "";
 
@@ -103,7 +114,7 @@ namespace Contasis.Clase
 
             try
             {
-                string cadena1 = "Delete from fin_ventas  where idventas=" + Objet.idventas + "";
+                string cadena1 = "Delete from FIN_COMPRAS  where idcompras=" + Objet.idcompras + "";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(cadena1, cone);
                 cone.Open();
@@ -124,7 +135,7 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string eliminarpos(Clase.ventas_propiedades Objet)
+        public string eliminarpos(Clase.Compras_propiedadescs Objet)
         {
             string cadena = "";
             NpgsqlConnection conexion = new NpgsqlConnection();
@@ -132,36 +143,37 @@ namespace Contasis.Clase
             conexion.Open();
 
             try
-                {
-                    string cadena1 = "Delete from fin_ventas  where idventas=" + Objet.idventas + "";
+            {
+                string cadena1 = "Delete from fin_compras  where idcompras=" + Objet.idcompras + "";
                 NpgsqlCommand command3 = new NpgsqlCommand(cadena1, conexion);
-                    cadena = command3.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
-                }
-                catch (Exception ex1)
+                cadena = command3.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+                cadena = ex1.Message;
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
                 {
-                    MessageBox.Show(ex1.ToString());
-                    cadena = ex1.Message;
+                    conexion.Close();
                 }
-                finally
-                {
-                    if (conexion.State == ConnectionState.Open)
-                    {
-                        conexion.Close();
-                    }
-                }
+            }
 
-            
+
             return cadena;
         }
-        public string Actualizarsql(Clase.ventas_propiedades Objet)
+        /*******************************************************************************************************/
+        public string Actualizarsql(Clase.Compras_propiedadescs Objet)
         {
             string cadena = "";
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "update  fin_ventas  SET cmreg='" + Objet.cmreg.Trim() + "',ccond='" + Objet.ccond.ToUpper().Trim() + "'," +
+                string query = "update  fin_compras  SET cmreg='" + Objet.cmreg.Trim() + "',ccond='" + Objet.ccond.ToUpper().Trim() + "'," +
                                    "cctabase='" + Objet.cctabase.Trim() + "',cctatot='" + Objet.cctatot.Trim() + "',ccodcos='" + Objet.ccodcos.Trim() + "'," +
-                                   "ccodcos2='" + Objet.ccodcos2.Trim() + "',obserror='',es_con_migracion=0  where idventas=" + Objet.idventas + "";
+                                   "ccodcos2='" + Objet.ccodcos2.Trim() + "',obserror='',es_con_migracion=0  where idcompras=" + Objet.idcompras + "";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
@@ -182,7 +194,7 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string Actualizarpos(Clase.ventas_propiedades Objet)
+        public string Actualizarpos(Clase.Compras_propiedadescs Objet)
         {
             string cadena = "";
             NpgsqlConnection conexion = new NpgsqlConnection();
@@ -190,9 +202,9 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "update  fin_ventas  SET cmreg='"+Objet.cmreg.Trim()+"',ccond='"+Objet.ccond.ToUpper().Trim()+"',"+
-                                  "cctabase='"+Objet.cctabase.Trim()+ "',cctatot='"+Objet.cctatot.Trim()+ "',ccodcos='"+Objet.ccodcos.Trim()+"',"+
-                                  "ccodcos2='"+Objet.ccodcos2.Trim()+ "',obserror='',es_con_migracion=0 where idventas=" + Objet.idventas + "";
+                string query = "update  fin_compras  SET cmreg='" + Objet.cmreg.Trim() + "',ccond='" + Objet.ccond.ToUpper().Trim() + "'," +
+                                  "cctabase='" + Objet.cctabase.Trim() + "',cctatot='" + Objet.cctatot.Trim() + "',ccodcos='" + Objet.ccodcos.Trim() + "'," +
+                                  "ccodcos2='" + Objet.ccodcos2.Trim() + "',obserror='',es_con_migracion=0 where idcompras=" + Objet.idcompras + "";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
 
@@ -213,26 +225,33 @@ namespace Contasis.Clase
             return cadena;
         }
         /*******************************************************************************************************/
-        public DataTable listascombosql(Clase.ventas_propiedades Objet)
+        public DataTable listascombosql(Clase.Compras_propiedadescs Objet)
         {
             SqlDataReader carga;
             DataTable grilla = new DataTable();
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "SELECT  idventas" +
-              ", ccod_empresa, convert(varchar,ffechadoc,103) as ffechadoc, convert(varchar,[ffechaven],103) as ffechaven, ccoddoc" +
-              ", cserie, cnumero, ccodenti, cdesenti " +
-              ", ctipdoc, ccodruc, crazsoc, nbase2, nbase1 " +
-              ", nexo, nina, nisc, nigv1, nicbpers, nbase3 " +
-              ", ntots, ntc, convert(varchar,freffec,103) as freffec, crefdoc, crefser, crefnum " +
-              ", cmreg, ndolar, convert(varchar,ffechaven2,103) as ffechaven2, ccond, ccodcos, ccodcos2 " +
-              ", cctabase, cctaicbper, cctaotrib, cctatot, nresp " +
-              ", nporre, nimpres, cserre, cnumre, convert(varchar,ffecre,103) as ffecre, ccodpresu " +
-              ", nigv,  ccodpago, nperdenre, nbaseres, cctaperc, " +
-              " obserror " +
-              "  FROM fin_ventas where es_con_migracion not in(0,1,4) and "+ 
-              "  ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "' and obserror='" + Objet.estado.Trim() + "'";
+                string query = "SELECT idcompras,  ccod_empresa, " +
+                 "convert(varchar, ffechadoc, 103) as ffechadoc, " +
+                 "convert(varchar, fechaven, 103) as fechaven, " +
+                 "ccoddoc, ccoddas, cyeardas, cserie, cnumero,   " +
+                 "ctipdoc, ccodruc, crazsoc, ccodclas, nbase1, " +
+                 "nigv1,  nbase2, nigv2, nbase3, nigv3, nina,  " +
+                 "nisc, nicbper, nexo, ntots,  " +
+                 "cdocnodom, cnumdere,  " +
+                 "convert(varchar, ffecre, 103) as ffecre, " +
+                 "ntc,convert(varchar, freffec, 103) as freffec, " +
+                 "crefdoc, crefser,crefnum, cmreg, ndolar,  " +
+                 "convert(varchar, ffechaven2, 103) as ffechaven2, " +
+                 "ccond, cctabase, cctaicbper,cctaotrib, cctatot, ccodcos, ccodcos2,  " +
+                 "nresp, nporre, nimpres,cserre, cnumre,  " +
+                 "convert(varchar, ffecre2, 103) as ffecre2, " +
+                 "ccodpresu, nigv,  nperdenre,  " +
+                 "nbaseres, cigvxacre, obserror " +
+                 "FROM fin_compras  " +
+                 " Where es_con_migracion not in(0,1,4) and " +
+                 "  ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "' and obserror='" + Objet.estado.Trim() + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
@@ -253,7 +272,7 @@ namespace Contasis.Clase
 
             }
         }
-        public DataTable listascombopos(Clase.ventas_propiedades Objet)
+        public DataTable listascombopos(Clase.Compras_propiedadescs Objet)
         {
             NpgsqlConnection conexion = new NpgsqlConnection();
             conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
@@ -263,20 +282,25 @@ namespace Contasis.Clase
             ;
             try
             {
-                string query = "SELECT  idventas" +
-                ", ccod_empresa, to_char(ffechadoc,'dd/mm/yyyy')::char(10) as ffechadoc," +
-                " to_char(ffechaven,'dd/mm/yyyy')::char(10) as ffechaven, ccoddoc" +
-                ", cserie, cnumero, ccodenti, cdesenti " +
-                ", ctipdoc, ccodruc, crazsoc, nbase2, nbase1 " +
-                ", nexo, nina, nisc, nigv1, nicbpers, nbase3 " +
-                ", ntots, ntc, to_char(freffec,'dd/mm/yyyy')::char(10) as freffec, crefdoc, crefser, crefnum " +
-                ", cmreg, ndolar, to_char(ffechaven2,'dd/mm/yyyy')::char(10) as ffechaven2, ccond, ccodcos, ccodcos2 " +
-                ", cctabase, cctaicbper, cctaotrib, cctatot, nresp " +
-                ", nporre, nimpres, cserre, cnumre, to_char(ffecre,'dd/mm/yyyy')::char(10) as ffecre, ccodpresu " +
-                ", nigv,  ccodpago, nperdenre, nbaseres, cctaperc, " +
-                " obserror " +
-                "  FROM fin_ventas where es_con_migracion not in(0,1,4) and " +
-                " ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "' and obserror='" + Objet.estado.Trim() + "'";
+                string query = "SELECT idcompras,  ccod_empresa, to_char(ffechadoc, 'dd/mm/yyyy')::char(10) as ffechadoc," +
+                "to_char(fechaven, 'dd/mm/yyyy')::char(10) as fechaven," +
+                "ccoddoc, ccoddas, cyeardas, cserie, cnumero,  " +
+                "ctipdoc, ccodruc, crazsoc, ccodclas, nbase1," +
+                "nigv1,  nbase2, nigv2, nbase3, nigv3, nina, " +
+                "nisc, nicbper, nexo, ntots, " +
+                "cdocnodom, cnumdere, " +
+                "to_char(ffecre, 'dd/mm/yyyy')::char(10) as ffecre," +
+                "ntc,to_char(freffec, 'dd/mm/yyyy')::char(10) as freffec," +
+                "crefdoc, crefser,crefnum, cmreg, ndolar, " +
+                "to_char(ffechaven2, 'dd/mm/yyyy')::char(10) as ffechaven2," +
+                "ccond, cctabase, cctaicbper,cctaotrib, cctatot, ccodcos, ccodcos2, " +
+                "nresp, nporre, nimpres,cserre, cnumre, " +
+                "to_char(ffecre2, 'dd/mm/yyyy')::char(10) as ffecre2," +
+                "ccodpresu, nigv,  nperdenre, " +
+                "nbaseres, cigvxacre, obserror" +
+                " FROM fin_compras "+
+                " where es_con_migracion not in(0,1,4) and " +
+                "  ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "' and obserror='" + Objet.estado.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();
                 grilla.Load(carga);
@@ -296,13 +320,13 @@ namespace Contasis.Clase
             }
         }
         /*******************************************************************************************************/
-        public string Actualizarmasivosql(Clase.ventas_propiedades Objet)
+        public string Actualizarmasivosql(Clase.Compras_propiedadescs Objet)
         {
             string cadena = "";
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "update  fin_ventas  SET obserror='',es_con_migracion=0 where idventas=" + Objet.vidventas + "";
+                string query = "update  fin_compras  SET obserror='',es_con_migracion=0 where idcompras=" + Objet.vidcompras + "";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
@@ -323,7 +347,7 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string Actualizarmasivopos(Clase.ventas_propiedades Objet)
+        public string Actualizarmasivopos(Clase.Compras_propiedadescs Objet)
         {
             string cadena = "";
             NpgsqlConnection conexion = new NpgsqlConnection();
@@ -331,7 +355,7 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "update  fin_ventas  SET obserror='',es_con_migracion=0 where idventas=" + Objet.vidventas + "";
+                string query = "update  fin_compras  SET obserror='',es_con_migracion=0 where idcompras=" + Objet.vidcompras + "";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
 

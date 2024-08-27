@@ -579,7 +579,7 @@ namespace Contasis
             this.MinimizeBox = false;
             this.Name = "Frm_ventasEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Editar errores en Venta";
+            this.Text = "Editar Inconsistencias en Venta";
             this.Load += new System.EventHandler(this.Frm_ventasEditor_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Frm_ventasEditor_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

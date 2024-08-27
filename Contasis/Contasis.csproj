@@ -132,6 +132,7 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.8.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -171,7 +172,9 @@
   <ItemGroup>
     <Compile Include="Clase\Class1.cs" />
     <Compile Include="Clase\Compras_inconsistencia.cs" />
+    <Compile Include="Clase\Compras_inconsistencias.cs" />
     <Compile Include="Clase\compras_propiedades.cs" />
+    <Compile Include="Clase\Compras_propiedadescs.cs" />
     <Compile Include="Clase\ConexionPostgreslContasis.cs" />
     <Compile Include="Clase\ConexionSql.cs" />
     <Compile Include="Clase\Cuentas.cs" />
@@ -187,6 +190,7 @@
     <Compile Include="Clase\rucpropiedades.cs" />
     <Compile Include="Clase\usuario.cs" />
     <Compile Include="Clase\usuarioPropiedad.cs" />
+    <Compile Include="Clase\ValidarVersion.cs" />
     <Compile Include="Clase\Ventas_inconsistencias.cs" />
     <Compile Include="Clase\ventas_propiedades.cs" />
     <Compile Include="Conexion.cs" />
@@ -318,6 +322,12 @@
     <Compile Include="FrmVerificacionEstrcutura.Designer.cs">
       <DependentUpon>FrmVerificacionEstrcutura.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frm_comprasEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_comprasEditor.Designer.cs">
+      <DependentUpon>Frm_comprasEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_ventasEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -427,6 +437,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmVerificacionEstrcutura.resx">
       <DependentUpon>FrmVerificacionEstrcutura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_comprasEditor.resx">
+      <DependentUpon>Frm_comprasEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_ventasEditor.resx">
       <DependentUpon>Frm_ventasEditor.cs</DependentUpon>

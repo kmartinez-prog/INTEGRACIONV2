@@ -98,8 +98,8 @@ namespace Contasis.Clase
         public string obtenerempresa(Clase.empresaPropiedades Objet)
     {
         string cadena1 = "";
-            string cadena = "";
-            DataTable Tabla = new DataTable();
+        string cadena = "";
+        DataTable Tabla = new DataTable();
         SqlConnection cone = new SqlConnection();
 
         try
@@ -189,7 +189,6 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-
         public DataTable Cargar_empresa_postgres(Clase.empresaPropiedades Objet)
         {
             
