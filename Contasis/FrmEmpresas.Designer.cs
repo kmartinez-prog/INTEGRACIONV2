@@ -39,6 +39,8 @@ namespace Contasis
             this.btncerrar = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label25 = new System.Windows.Forms.Label();
+            this.cmbrucemisor = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -49,12 +51,11 @@ namespace Contasis
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label1.Location = new System.Drawing.Point(6, 9);
+            this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(526, 33);
+            this.label1.Size = new System.Drawing.Size(561, 33);
             this.label1.TabIndex = 0;
             this.label1.Text = "Mantenimiento de Empresas";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel1
             // 
@@ -64,9 +65,9 @@ namespace Contasis
             this.panel1.Controls.Add(this.btneliminar);
             this.panel1.Controls.Add(this.btncerrar);
             this.panel1.Controls.Add(this.dataGridView1);
-            this.panel1.Location = new System.Drawing.Point(11, 53);
+            this.panel1.Location = new System.Drawing.Point(14, 96);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(554, 387);
+            this.panel1.Size = new System.Drawing.Size(554, 345);
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -76,7 +77,7 @@ namespace Contasis
             this.btnnuevo.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnnuevo.Image = global::Contasis.Properties.Resources._41;
             this.btnnuevo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnnuevo.Location = new System.Drawing.Point(223, 346);
+            this.btnnuevo.Location = new System.Drawing.Point(221, 307);
             this.btnnuevo.Name = "btnnuevo";
             this.btnnuevo.Size = new System.Drawing.Size(100, 32);
             this.btnnuevo.TabIndex = 10;
@@ -90,7 +91,7 @@ namespace Contasis
             this.btnmodificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnmodificar.Image = global::Contasis.Properties.Resources.icono_modificar1;
             this.btnmodificar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnmodificar.Location = new System.Drawing.Point(288, 544);
+            this.btnmodificar.Location = new System.Drawing.Point(291, 544);
             this.btnmodificar.Name = "btnmodificar";
             this.btnmodificar.Size = new System.Drawing.Size(103, 44);
             this.btnmodificar.TabIndex = 9;
@@ -105,7 +106,7 @@ namespace Contasis
             this.btneliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btneliminar.Image = global::Contasis.Properties.Resources._23;
             this.btneliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btneliminar.Location = new System.Drawing.Point(335, 346);
+            this.btneliminar.Location = new System.Drawing.Point(333, 307);
             this.btneliminar.Name = "btneliminar";
             this.btneliminar.Size = new System.Drawing.Size(100, 32);
             this.btneliminar.TabIndex = 8;
@@ -119,7 +120,7 @@ namespace Contasis
             this.btncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btncerrar.Image = global::Contasis.Properties.Resources._110;
             this.btncerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btncerrar.Location = new System.Drawing.Point(447, 346);
+            this.btncerrar.Location = new System.Drawing.Point(445, 307);
             this.btncerrar.Name = "btncerrar";
             this.btncerrar.Size = new System.Drawing.Size(100, 32);
             this.btncerrar.TabIndex = 7;
@@ -131,17 +132,31 @@ namespace Contasis
             // 
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 4);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 13);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(550, 328);
+            this.dataGridView1.Size = new System.Drawing.Size(542, 263);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // timer1
+            // label25
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(16, 42);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(130, 15);
+            this.label25.TabIndex = 12;
+            this.label25.Text = "Seleccione ruc Emisor";
+            // 
+            // cmbrucemisor
+            // 
+            this.cmbrucemisor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbrucemisor.FormattingEnabled = true;
+            this.cmbrucemisor.Location = new System.Drawing.Point(16, 60);
+            this.cmbrucemisor.Name = "cmbrucemisor";
+            this.cmbrucemisor.Size = new System.Drawing.Size(356, 21);
+            this.cmbrucemisor.TabIndex = 11;
+            this.cmbrucemisor.SelectedIndexChanged += new System.EventHandler(this.cmbrucemisor_SelectedIndexChanged);
             // 
             // FrmEmpresas
             // 
@@ -149,6 +164,8 @@ namespace Contasis
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(582, 449);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.cmbrucemisor);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -163,6 +180,7 @@ namespace Contasis
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -176,5 +194,7 @@ namespace Contasis
         private System.Windows.Forms.Button btneliminar;
         private System.Windows.Forms.Button btncerrar;
         public System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ComboBox cmbrucemisor;
     }
 }

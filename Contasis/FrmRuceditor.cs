@@ -27,7 +27,8 @@ namespace Contasis
             {
                 txtruc.Visible = true;
                 lblcodigo.Visible = true;
-                txtestado.Visible = true;
+                
+                tcontrol = 0;
             }
             else
             {
@@ -35,9 +36,18 @@ namespace Contasis
                 lblcodigo.Visible = true;
                 txtruc.Text = ruc;
                 txtempresa.Text = nombre;
-                txtestado.Text = frase;
+
+                if (frase == "1")
+                {
+                    checkBoxestado.Checked = true;
+                }
+                else
+                {
+                    checkBoxestado.Checked =false;
+                }
+
                 
-                txtestado.Enabled = true;
+                
 
             }
         }
@@ -54,7 +64,6 @@ namespace Contasis
             txtempresa.CharacterCasing = CharacterCasing.Upper;
             txtruc.Focus();
         }
-
         private void btncerrar_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -64,12 +73,34 @@ namespace Contasis
         {
             txtruc.Clear();
             txtempresa.Clear();
-            txtestado.Clear();
-            txtruc.Focus();
+            checkBoxestado.Checked =false;
+            
         }
-
         private void BtnActualizar_Click(object sender, EventArgs e)
         {
+            if (txtruc.MaxLength < 11)
+            {
+                MessageBox.Show("Debe de ingresar un ruc de 11 digitos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtruc.Text = "";
+                txtruc.Focus();
+            }
+            if (txtruc.Text.Substring(0, 2) == "10")
+            { }
+            else
+            {
+                if (txtruc.Text.Substring(0, 2) == "20")
+                { }
+                else
+                {
+                    MessageBox.Show("Ruc no valido, debe de comenzar con 20 ó 10.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    txtruc.Text = "";
+                    txtruc.Focus();
+                }
+            }
+
+
+
+
             if (tipo == 1)
             {
                 try
@@ -87,13 +118,7 @@ namespace Contasis
                         txtempresa.Focus();
                         return;
                     }
-                    if (txtestado.Text == "")
-                    {
-                        MessageBox.Show("estado no puede estar vacio.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        txtestado.Focus();
-                        return;
-                    }
-
+                  
                     if (Properties.Settings.Default.cadenaPostPrincipal == "")
                     {
                         string respuesta = "";
@@ -102,13 +127,21 @@ namespace Contasis
 
                         obj.ruc = txtruc.Text.Trim();
                         obj.empresa = txtempresa.Text.Trim();
-                        obj.estado = txtestado.Text.Trim();
+                        if (checkBoxestado.Checked == true)
+                        {
+                            obj.estado = "1";
+                        }
+                        else
+                        {
+                            obj.estado = "0";
+                        }
                         Clase.ruc ds = new ruc();
                         respuesta = ds.Insertar(obj);
                         if (respuesta.Equals("Grabado"))
                         {
                             MessageBox.Show("Registro grabado en tabla ruc emisor", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             this.limpiarcasilla();
+                            this.Close();
 
                         }
                         else
@@ -125,24 +158,31 @@ namespace Contasis
 
                         obj.ruc = txtruc.Text.Trim();
                         obj.empresa = txtempresa.Text.Trim();
-                        obj.estado = txtestado.Text.Trim();
+                        if (checkBoxestado.Checked == true)
+                        {
+                            obj.estado = "1";
+                        }
+                        else
+                        {
+                            obj.estado = "0";
+                        }
                         ruc_postgres ds = new ruc_postgres();
                         respuesta = ds.Insertar(obj);
                         if (respuesta.Equals("Grabado"))
                         {
                             MessageBox.Show("Registro grabado en tabla ruc emisor", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             this.limpiarcasilla();
-
+                            this.Close();
                         }
                         else
                         {
                             MessageBox.Show("No se puedo regitrar este ruc emisor", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         FrmRucemisor.instance.grilla1();
+
+                        this.Hide();
+                        this.Close();
                     }
-
-
-
 
                 }
                 catch (Exception ex)
@@ -160,8 +200,15 @@ namespace Contasis
                     
                     obj.ruc = txtruc.Text.Trim();
                     obj.empresa = txtempresa.Text.Trim();
-                    obj.estado = txtestado.Text.Trim();
-                 
+                    if (checkBoxestado.Checked == true)
+                    {
+                        obj.estado = "1";
+                    }
+                    else
+                    {
+                        obj.estado = "0";
+                    }
+
                     if (Properties.Settings.Default.cadenaPostPrincipal == "")
                     {
                         Clase.ruc ds = new ruc();
@@ -197,6 +244,7 @@ namespace Contasis
 
 
             }
+            
 
 
         }
@@ -209,6 +257,15 @@ namespace Contasis
                 Close();
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+        private void txtruc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+            if  (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                {
+                e.Handled = true;
+            }
+            
         }
     }
 }

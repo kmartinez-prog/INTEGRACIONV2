@@ -17,14 +17,15 @@ namespace Contasis
 {
     public partial class FrmUsuarios : Form
     {
+        
         public static FrmUsuarios instance = null;
         string control;
-        string valor;
+
         public FrmUsuarios()
         {
             InitializeComponent();
             instance = this;
-         
+            control = "0";
         }
 
         private void FrmUsuarios_Load(object sender, EventArgs e)
@@ -41,7 +42,7 @@ namespace Contasis
 
             FrmUsuedit Frnuevo = new FrmUsuedit(1, "", "", "");
             Frnuevo.Text = "Registrar usuario Nuevo";
-            Frnuevo.Show();
+            Frnuevo.ShowDialog();
 
         }
         private void btnmodificar_Click(object sender, EventArgs e)
@@ -55,7 +56,7 @@ namespace Contasis
 
                 FrmUsuedit Fredit = new FrmUsuedit(2, obj.codigo, obj.nombre, obj.password);
                 Fredit.Text = "Actualizar datos del Usuario";
-                Fredit.Show();
+                Fredit.ShowDialog();
 
             }
             else
@@ -82,6 +83,7 @@ namespace Contasis
 
                 
                 lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count - 1);
+                dataGrid1.AllowUserToAddRows = false;
                 dataGrid1.Columns[0].HeaderText = "CODIGO";
                 dataGrid1.Columns[0].MinimumWidth = 50;
                 dataGrid1.Columns[0].Width = 100;
@@ -89,8 +91,8 @@ namespace Contasis
                 dataGrid1.Columns[1].MinimumWidth = 50;
                 dataGrid1.Columns[1].Width = 474;
                 dataGrid1.Columns[2].Visible = false;
+                dataGrid1.AllowUserToAddRows = false;
 
-                
                 dataGrid1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGrid1.ReadOnly = true;
                 
@@ -102,7 +104,7 @@ namespace Contasis
                 this.dataGrid1.Refresh();
                 control = "1";
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("No existe información para Mostrar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 control = "0";
@@ -136,7 +138,7 @@ namespace Contasis
 
 
                         FrmEliminarUsuario Frmeliusu = new FrmEliminarUsuario(obj.codigo, obj.nombre);
-                        Frmeliusu.Show();
+                        Frmeliusu.ShowDialog();
                     }
                 }
                 else
@@ -160,7 +162,7 @@ namespace Contasis
                 if (dataGrid1.Rows.Count > 0)
                 {
                     FrmExportarUsuariocs Frmeexelusu = new FrmExportarUsuariocs();
-                    Frmeexelusu.Show();
+                    Frmeexelusu.ShowDialog();
                 }
                 else
                 {
@@ -265,7 +267,7 @@ namespace Contasis
                 obj.password = Convert.ToString(dataGrid1.SelectedRows[0].Cells[2].Value);
 
                 FrmAccesoUsuario Frmacceso = new FrmAccesoUsuario(obj.codigo, obj.nombre, obj.password);
-                Frmacceso.Show();
+                Frmacceso.ShowDialog();
 
 
             }
@@ -277,7 +279,10 @@ namespace Contasis
            
         }
 
-      
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

@@ -51,7 +51,7 @@ namespace Contasis
         {
             if (rbfinanciero.Checked == true)
             {
-                MessageBox.Show("Se Creara las tablas y index para Financiero ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Se crean las tablas e indexes para Financiero.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (txtopcion1.Text == "0")
                 {
                     crearfinanciero objetconexion = new crearfinanciero();
@@ -74,17 +74,72 @@ namespace Contasis
                     conexion.Open();
                     NpgsqlCommand command1 = new NpgsqlCommand(txtxcrearfuncion.Text, conexion);
                     command1.ExecuteNonQuery();
-
                     
-                    
-
-                    string ejecutar = "select * from tablas_negocio_online();";
-                    NpgsqlCommand command2 = new NpgsqlCommand(ejecutar, conexion);
+                    string ejecutar2 = "select * from tablas_negocio_online();";
+                    NpgsqlCommand command2 = new NpgsqlCommand(ejecutar2, conexion);
                     command2.ExecuteNonQuery();
-                    conexion.Close();
+
+                    try
+                    {
+                        string ejecutar6 = txtcompras2.Text;
+                        NpgsqlCommand command6 = new NpgsqlCommand(ejecutar6, conexion);
+                        command6.ExecuteNonQuery();
+
+                        string ejecutar7 = soloventasonline.Text;
+                        NpgsqlCommand command7 = new NpgsqlCommand(ejecutar7, conexion);
+                        command7.ExecuteNonQuery();
+
+
+                        timer2.Enabled = true;
+                        string ejecutar3 = txtventa1.Text;
+                        NpgsqlCommand command3 = new NpgsqlCommand(ejecutar3, conexion);
+                        command3.ExecuteNonQuery();
+                        timer2.Enabled = false;
+
+                        timer3.Enabled = true;
+                        string ejecutar4 = txtventa2.Text;
+                        NpgsqlCommand command4 = new NpgsqlCommand(ejecutar4, conexion);
+                        command4.ExecuteNonQuery();
+                        timer3.Enabled = false;
+
+
+                        timer4.Enabled = true;
+                        string ejecutar5 = txtcompras1.Text;
+                        NpgsqlCommand command5 = new NpgsqlCommand(ejecutar5, conexion);
+                        command5.ExecuteNonQuery();
+
+
+                        timer4.Enabled = true;
+                        string ejecutar8 = txtversion1.Text;
+                        NpgsqlCommand command8 = new NpgsqlCommand(ejecutar8, conexion);
+                        command8.ExecuteNonQuery();
+
+                        timer4.Enabled = true;
+                        string ejecutar9 = txtversion2.Text;
+                        NpgsqlCommand command9 = new NpgsqlCommand(ejecutar9, conexion);
+                        command9.ExecuteNonQuery();
+
+                        timer4.Enabled = true;
+                        string ejecutar10 = txtversion3.Text;
+                        NpgsqlCommand command10 = new NpgsqlCommand(ejecutar10, conexion);
+                        command10.ExecuteNonQuery();
+
+                        timer4.Enabled = false;
+
+                        conexion.Close();
+                    }
+                    catch (System.Exception ex)
+                    {
+                        MessageBox.Show("" + ex);
+                        ////MessageBox.Show("Ya existe el procedimiento de envio resultados de  compras", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+
+
+
+
                     timer5.Stop();
                     timer5.Enabled = false;
-                    MessageBox.Show("Proceso terminado, se ha crear las tablas y funciones en PostgresSql", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Proceso terminado, Se ha creador las tablas y funciones en el postgresql.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
 
@@ -93,7 +148,7 @@ namespace Contasis
 
             if (rbcomercial.Checked == true)
             {
-                MessageBox.Show("Se Creara las tablas y index para Comercial ", "NO EXISTE Proceso en Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Se crean las tablas e index para Comercial. ", "Contasis Corp. <<no activo>>", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
             }
 
@@ -162,7 +217,7 @@ namespace Contasis
             {
 
                 timer4.Enabled = false;
-                MessageBox.Show("Proceso Terminado para Financiero Sql", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Proceso Terminado para Financiero Sql.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             
@@ -184,14 +239,6 @@ namespace Contasis
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
-        private void FrmCrearTablas_Load(object sender, EventArgs e)
-        {
-
-        }
-
-       
-
         private void timer5_Tick(object sender, EventArgs e)
         {
             contador++;
@@ -252,6 +299,8 @@ namespace Contasis
             }
 
         }
+
+     
     }
     }
 

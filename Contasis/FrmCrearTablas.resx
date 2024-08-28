@@ -292,9 +292,9 @@ CREATE TABLE fin_ventas(
 	 ccoddoc   nchar (2) NULL,
 	 cserie   nchar (20) NULL,
 	 cnumero   nchar (20) NULL,
-	 codenti   nchar (11) NULL,
+	 ccodenti   nchar (11) NULL,
 	 cdesenti   nchar (100) NULL,
-	 ctipodoc   nchar (1) NULL,
+	 ctipdoc   nchar (1) NULL,
 	 ccodruc   nchar (15) NULL,
 	 crazsoc   nchar (100) NULL,
 	 nbase2   numeric (15, 2) NULL,
@@ -350,6 +350,439 @@ $BODY$
   <metadata name="timer5.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>421, 17</value>
   </metadata>
+  <data name="txtventa1.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fn_ventas_envio(
+    OUT resultado text,
+    IN p_ruc_emisor character,
+    IN p_empresa character)
+  RETURNS text AS
+$BODY$
+BEGIN 
+   
+    select json_agg(to_json(t))::text
+    from (
+        select
+            idventas, fin_ventas.ccod_empresa,fin_ventas.cper,cmes,    
+            trim(configuracion.csub1_vta) AS ccodori,   
+            trim(configuracion.clreg1_vta) AS ccodsu,   
+            trim(configuracion.csub2_vta) AS ccodori_p,   
+            trim(configuracion.clreg2_vta) AS ccodsu_p,   
+            trim(configuracion.cconts_vta) AS ccodcue_ps,   
+            trim(configuracion.ccontd_vta) AS ccodcue_pd,  
+            trim(configuracion.cfefec_vta) AS ccodflu,   
+            configuracion.ctares_vta AS flgctares,   
+            configuracion.ctaimp_vta AS flgctaimp,  
+            configuracion.Ctaact_vta AS flgctaact,  
+            configuracion.asientos_vta AS flggencomp,  
+            trim(configuracion.cEntidad) AS ccodtipent,   
+            to_char(ffechadoc, 'YYYY-MM-DD') AS ffechadoc, -- trim(Convert(char(10), ffechadoc, 112)) AS ffechadoc,   
+            to_char(ffechaven, 'YYYY-MM-DD') AS ffechaven, -- trim(Convert(char(10), ffechaven, 112)) AS ffechaven,   
+            trim(ccoddoc) AS ccoddoc,  
+            trim(cserie) AS cserie,  
+            trim(cnumero) AS cnumero,  
+            trim(ccodenti) AS ccodenti,  
+            trim(cdesenti) AS cdesenti, 
+            trim(ctipdoc) AS ctipdoc,  
+            trim(ccodruc) AS ccodruc,  
+            trim(crazsoc) AS crazsoc,  
+            coalesce(nbase2, 0.00) as nbase2,   
+            coalesce(nbase1, 0.00) as nbase1,  
+            coalesce(nexo, 0.00) as nexo,  
+            coalesce(nina, 0.00) as nina,   
+            coalesce(nisc, 0.00) as nisc, 
+            coalesce(nigv1, 0.00) as nigv1, 
+            coalesce(nicbpers, 0.00) as nicbpers,  
+            coalesce(nbase3, 0.00) as nbase3,  
+            coalesce(ntots, 0.00) as ntots,  
+            coalesce(ntc, 0.00) as ntc,  
+            to_char(freffec, 'YYYY-MM-DD') AS freffec, --trim(coalesce(Convert(char(10), freffec, 112), ' ')) AS freffec,
+            case when trim(coalesce(crefdoc,'')) = '' then ' ' else trim(crefdoc)  end as crefdoc,  
+            case when trim(coalesce(crefser,'')) = '' then ' ' else trim(crefser)  end as crefser,  
+            case when trim(coalesce(crefnum,'')) = '' then ' ' else trim(crefnum)  end as crefnum, 
+            case when trim(coalesce(cmreg,'')) = '' then ' ' else trim(cmreg)  end as cmreg,  
+            coalesce(ndolar, 0.00) as ndolar,   
+            to_char(ffechaven2, 'YYYY-MM-DD') AS ffechaven2, --trim(coalesce(Convert(char(10), ffechaven2, 112), ' ') AS ffechaven2,   
+            case when trim(coalesce(ccond,'')) = '' then ' ' else trim(ccond)  end as ccond,   
+            case when trim(coalesce(ccodcos,'')) = '' then ' ' else trim(ccodcos)  end as ccodcos,  
+            case when trim(coalesce(ccodcos2,'')) = '' then ' ' else trim(ccodcos2)  end as ccodcos2,   
+            case when trim(coalesce(cctabase,'')) = '' then ' ' else trim(cctabase)  end as cctabase,   
+            case when trim(coalesce(cctaicbper,'')) = '' then ' ' else trim(cctaicbper)  end as cctaicbper,   
+            case when trim(coalesce(cctaotrib,'')) = '' then ' ' else trim(cctaotrib)  end as cctaotrib,   
+            case when trim(coalesce(cctatot,'')) = '' then ' ' else trim(cctatot)  end as cctatot,   
+            coalesce(nresp, 0.00) as nresp,   
+            coalesce(nporre, 0.00) as nporre,   
+            coalesce(nimpres, 0.00) as nimpres,   
+            case when trim(coalesce(cserre,'')) = '' then ' ' else trim(cserre)  end as cserre,   
+            case when trim(coalesce(cnumre,'')) = '' then ' ' else trim(cnumre)  end as cnumre,   
+            to_char(ffecre, 'YYYY-MM-DD') AS ffecre, -- trim(coalesce(Convert(char(10), ffecre, 112), ' ') AS ffecre,
+            case when trim(coalesce(ccodpresu,'')) = '' then ' ' else trim(ccodpresu)  end as ccodpresu,   
+            coalesce(nigv, 0.00) as nigv,   
+            case when trim(coalesce(cglosa,'')) = '' then ' ' else trim(cglosa)  end as cglosa,   
+            case when trim(coalesce(ccodpago,'')) = '' then ' ' else trim(ccodpago)  end as ccodpago,   
+            coalesce(nperdenre, 0.00) as nperdenre,   
+            coalesce(nbaseres, 0.00) as nbaseres,   
+            case when trim(coalesce(cctaperc,'')) = '' then ' ' else trim(cctaperc)  end as cctaperc,  
+            case when trim(coalesce(estado,'')) = '' then ' ' else trim(estado)  end as estado,   
+            case when trim(coalesce(en_ambiente_de,'')) = '' then ' ' else trim(en_ambiente_de)  end as en_ambiente_de,   
+            es_con_migracion,   
+            case when trim(coalesce(ccodcos3,'')) = '' then ' ' else trim(ccodcos3)  end as ccodcos3,   
+            case when es_con_migracion=3  then  trim(configuracion.cEnt_anula)  else '' end  as ccodrucanula       
+        from fin_ventas
+        join configuracion ON fin_ventas.CCOD_EMPRESA = configuracion.CCOD_EMPRESA and fin_ventas.CPER = configuracion.CPER  
+        join CG_EMPRESA emp on fin_ventas.ccodrucemisor = emp.ccodrucemisor and fin_ventas.ccod_empresa = emp.CCOD_EMPRESA 
+        join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1::bit    
+        where   fin_ventas.ccodrucemisor= p_ruc_emisor::character(15)
+            and fin_ventas.ccod_empresa = p_empresa::character(3)
+            and es_con_migracion in (0, 3)
+            and configuracion.ctipo = '01'
+    ) t
+    into resultado;
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION fn_ventas_envio(character, character)
+  OWNER TO postgres;</value>
+  </data>
+  <data name="txtventa2.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fn_ventas_envio_resultado(p_datos text)
+  RETURNS void AS
+$BODY$
+DECLARE
+    v_data json;
+BEGIN 
+
+    v_data:=p_datos::json;
+    UPDATE fin_ventas t 
+    SET es_con_migracion = r.resultado_migracion,
+        obserror = r.obserror
+    from json_to_recordset(v_data) as r (idventas integer, obserror text, es_con_migracion integer, resultado_migracion integer)
+    where t.idventas = r.idventas and t.es_con_migracion = r.es_con_migracion;
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION fn_ventas_envio_resultado(text)
+  OWNER TO postgres;</value>
+  </data>
+  <data name="txtcompras1.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fn_compras_envio(
+    OUT resultado text,
+    IN p_ruc_emisor character,
+    IN p_empresa character)
+  RETURNS text AS
+$BODY$
+BEGIN 
+
+    select json_agg(to_json(t))::text
+    from (
+        select
+            idcompras, fin_compras.ccod_empresa, fin_compras.cper,cmes, 
+            trim(configuracion.csub1_com) as ccodori,   
+            trim(configuracion.clreg1_com) as ccodsu,   
+            trim(configuracion.csub2_com) as ccodori_p,   
+            trim(configuracion.clreg2_com) as ccodsu_p,     
+            trim(configuracion.cconts_com) as ccodcue_ps,    
+            trim(configuracion.ccontd_com) as ccodcue_pd,    
+            trim(configuracion.cfefec_com) as ccodflu,    
+            configuracion.ctares_com as flgctares,
+            configuracion.ctaimp_com as flgctaimp,
+            configuracion.ctapas_com as flgctaact,
+            configuracion.asientos_com as flggencomp,    
+            trim(configuracion.cEntidad) as ccodtipent,             
+            to_char(ffechadoc, 'YYYY-MM-DD') as ffechadoc, --trim(Convert(char(10), ffechadoc, 112)) as ffechadoc,    
+            to_char(fechaven, 'YYYY-MM-DD') as fechaven,-- trim(Convert(char(10), fechaven, 112)) as fechaven,
+            trim(ccoddoc)as ccoddoc,   
+            trim(coalesce(ccoddas,'')) as ccoddas,    
+            trim(coalesce(cyeardas,'')) as cyeardas,   
+            trim(cserie) as cserie,    
+            trim(cnumero) as cnumero,   
+            trim(fin_compras.ccodenti) as ccodenti,    
+            trim(cdesenti) as cdesenti,   
+            trim(ctipdoc) as ctipdoc,    
+            trim(ccodruc) as ccodruc,    
+            trim(crazsoc) as crazsoc,    
+            trim(coalesce(ccodclas,'')) as ccodclas,   
+            nbase1,nigv1, 
+            coalesce(nbase2,0.00) as nbase2, 
+            coalesce(nigv2,0.00) as nigv2 , 
+            coalesce(nbase3,0.00) as nbase3, 
+            coalesce(nigv3,0.00) as nigv3 ,   
+            coalesce(nina,0.00) as nina,    
+            coalesce(nisc,0.00) as nisc,    
+            coalesce(nicbper,0.00) as nicbper,    
+            coalesce(nexo,0.00) as nexo,    
+            coalesce(ntots,0.00) as ntots,   
+            case when trim(coalesce(cdocnodom,'')) = '' then '' else trim(cdocnodom)  end  as cdocnodom,   
+            case when trim(coalesce(cnumdere,'')) = '' then '' else trim(cnumdere)  end  as cnumdere,    
+            to_char(ffecre, 'YYYY-MM-DD') as ffecre, --trim(coalesce(Convert(char(10), ffecre, 112),''))  as ffecre,    
+            ntc,
+            to_char(freffec, 'YYYY-MM-DD') as freffec, -- trim(coalesce(Convert(char(10), freffec, 112),'')) as freffec,
+            case when trim(coalesce(crefdoc,'')) = '' then '' else trim(crefdoc)  end  as crefdoc,    
+            case when trim(coalesce(crefser,'')) = '' then '' else trim(crefser)  end  as crefser,    
+            case when trim(coalesce(crefnum,'')) = '' then '' else trim(crefnum)  end  as crefnum,    
+            case when trim(coalesce(cmreg,'')) = '' then '' else trim(cmreg)  end  as cmreg,    
+            coalesce(ndolar,0.00) as ndolar,
+            to_char(ffechaven2, 'YYYY-MM-DD') as ffechaven2, --trim(coalesce(Convert(char(10), ffechaven2, 112),'')) as ffechaven2,
+            case when trim(coalesce(ccond,'')) = '' then '' else trim(ccond)  end  as ccond,    
+            case when trim(coalesce(cctabase,'')) = '' then '' else trim(cctabase)  end  as cctabase,    
+            case when trim(coalesce(cctaicbper,'')) = '' then '' else trim(cctaicbper)  end  as cctaicbper,    
+            case when trim(coalesce(cctaotrib,'')) = '' then '' else trim(cctaotrib)  end  as cctaotrib,    
+            case when trim(coalesce(cctatot,'')) = '' then '' else trim(cctatot)  end  as cctatot,    
+            case when trim(coalesce(ccodcos,'')) = '' then '' else trim(ccodcos)  end  as ccodcos,    
+            case when trim(coalesce(ccodcos2,'')) = '' then '' else trim(ccodcos2)  end  as ccodcos2,    
+            coalesce(nresp,0.00)   as nresp,    
+            coalesce(nporre,0.00) as nporre,   
+            coalesce(nimpres,0.00) as nimpres,    
+            case when trim(coalesce(cserre,'')) = '' then '' else trim(cserre)  end  as cserre,   
+            case when trim(coalesce(cnumre,'')) = '' then '' else trim(cnumre)  end  as cnumre,    
+            to_char(ffecre2, 'YYYY-MM-DD') as ffecre2, --trim(coalesce(Convert(char(10), ffecre2, 112),'')) as ffecre2 ,    
+            case when trim(coalesce(ccodpresu,'')) = '' then '' else trim(cnumre)  end  as ccodpresu,    
+            nigv,    
+            case when trim(coalesce(cglosa,'')) = '' then '' else trim(cglosa)  end  as cglosa,   
+            coalesce(nperdenre,0.00) nperdenre,   
+            coalesce(nbaseres,0.00) as nbaseres,    
+            case when trim(coalesce(cigvxacre,'')) = '' then '' else trim(cigvxacre)  end  as cigvxacre,    
+            case when trim(coalesce(estado,'')) = '' then '' else trim(estado)  end  as estado ,    
+            coalesce(en_ambiente_de,'!') as en_ambiente_de,    
+            coalesce(es_con_migracion,0)as es_con_migracion,   
+            case when trim(coalesce(ccodcos3,'')) = '' then '' else trim(ccodcos3)  end  as ccodcos3,   
+            case when  es_con_migracion=3  then  trim(configuracion.cent_anula)  else '' end  as ccodrucanula      
+        from fin_compras
+        join configuracion ON fin_compras.CCOD_EMPRESA = configuracion.CCOD_EMPRESA AND FIN_COMPRAS.CPER = configuracion.CPER  
+        join CG_EMPRESA emp on FIN_COMPRAS.ccodrucemisor = emp.ccodrucemisor and FIN_COMPRAS.ccod_empresa = emp.CCOD_EMPRESA 
+        join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1::bit
+        where   fin_compras.ccodrucemisor = p_ruc_emisor::character(15)
+            and fin_compras.ccod_empresa = p_empresa::character(3)
+            and es_con_migracion in (0, 3)
+            and configuracion.CTIPO = '02'
+    ) t
+
+    into resultado;
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION fn_compras_envio(character, character)
+  OWNER TO postgres;</value>
+  </data>
+  <data name="txtcompras2.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fn_compras_envio_resultado(p_datos text)
+  RETURNS void AS
+$BODY$
+DECLARE
+    v_data json;
+BEGIN
+
+    v_data:=p_datos::json;
+    UPDATE fin_compras t 
+    SET es_con_migracion = r.resultado_migracion,
+        obserror = r.obserror
+    from json_to_recordset(v_data) as r (idcompras integer, obserror text, es_con_migracion integer, resultado_migracion integer)
+    where t.idcompras = r.idcompras and t.es_con_migracion = r.es_con_migracion;
+
+END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+</value>
+  </data>
+  <data name="soloventasonline.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION public.fn_integracion_ventas_importar(OUT resultado text, p_datos text, p_cod_emp text)
+ RETURNS text
+ LANGUAGE plpgsql
+AS $function$
+DECLARE
+    v_data json;
+BEGIN 
+
+    v_data:=p_datos::json;
+    p_datos=null;
+    -- nuevos
+    INSERT INTO fin_ventas(
+        idventas, ccodrucemisor,
+        ccod_empresa, cper, cmes, -- generados
+        ffechadoc, ffechaven, ccoddoc, cserie, cnumero, ccodenti, cdesenti, ctipdoc, 
+        ccodruc, crazsoc, nbase2, nbase1, nexo, nina, nisc, nigv1, nicbpers, 
+        nbase3, ntots, ntc, freffec, crefdoc, crefser, crefnum, cmreg, 
+        ndolar, ffechaven2, ccond, ccodcos, ccodcos2, cctabase, cctaicbper, 
+        cctaotrib, cctatot, nresp, nporre, nimpres, cserre, cnumre, ffecre, 
+        ccodpresu, nigv, cglosa, ccodpago, nperdenre, nbaseres, cctaperc, 
+        created_at, updated_at, estado, en_ambiente_de, es_con_migracion, 
+        ccodcos3
+    ) 
+    SELECT
+        t.idventas, t.ccodrucemisor, p_cod_emp,
+        extract(year from to_date(t.ffechadoc, 'DD/MM/YYYY'))::text, lpad(extract(month from to_date(t.ffechadoc, 'DD/MM/YYYY'))::text, 2, '0'),
+        to_date(t.ffechadoc, 'DD/MM/YYYY'), case when coalesce(t.ffechaven, '')='' then null else to_date(t.ffechaven, 'DD/MM/YYYY') end,
+        trim(t.ccoddoc) as ccoddoc,
+        trim(t.cserie) as cserie,
+        trim(t.cnumero) as cnumero,
+        trim(t.ccodenti) as ccodenti,
+        trim(t.cdesenti) as cdesenti,
+        trim(t.ctipdoc) as ctipdoc,
+        trim(t.ccodruc) as ccodruc,
+        trim(t.crazsoc) as razsoc,
+
+        case when trim(coalesce(t.nbase2, '')) = '' then null else t.nbase2::numeric end as nbase2,
+        case when trim(coalesce(t.nbase1, '')) = '' then null else t.nbase1::numeric end as nbase1,
+        case when trim(coalesce(t.nexo, '')) = '' then null else t.nexo::numeric end as nexo,
+        case when trim(coalesce(t.nina, '')) = '' then null else t.nina::numeric end as nina,
+        case when trim(coalesce(t.nisc, '')) = '' then null else t.nisc::numeric end as nisc,
+        case when trim(coalesce(t.nigv1, '')) = '' then null else t.nigv1::numeric end as nigv1,
+        case when trim(coalesce(t.nicbpers, '')) = '' then null else t.nicbpers::numeric end as nicbpers,
+        case when trim(coalesce(t.nbase3, '')) = '' then null else t.nbase3::numeric end as nbase3,
+        case when trim(coalesce(t.ntots, '')) = '' then null else t.ntots::numeric end as ntots,
+        case when trim(coalesce(t.ntc, '')) = '' then null else t.ntc::numeric end as ntc,
+        
+        case when coalesce(t.freffec, '')='' then null else to_date(t.freffec, 'DD/MM/YYYY') end,
+       
+        trim(t.crefdoc) as crefdoc,
+        trim(t.crefser) as crefser,
+        trim(t.crefnum) as crefnum,
+        trim(t.cmreg) as cmreg,
+
+
+        case when trim(coalesce(t.ndolar, '')) = '' then null else t.ndolar::numeric end as ndolar,
+        
+        case when coalesce(t.ffechaven2, '')='' then null else to_date(t.ffechaven2, 'DD/MM/YYYY') end,
+
+        trim(t.ccond) as ccond,
+        trim(t.ccodcos) as codcos,
+        trim(t.ccodcos2) as codcos2,
+        trim(t.cctabase) as cctabase,
+        trim(t.cctaicbper) as cctaicbper,
+        trim(t.cctaotrib) as cctaotrib,
+        trim(t.cctatot) as cctatot,
+
+
+        case when trim(coalesce(t.nresp, '')) = '' then null else t.nresp::numeric end as nresp,
+        case when trim(coalesce(t.nporre, '')) = '' then null else t.nporre::numeric end as nporre,
+        case when trim(coalesce(t.nimpres, '')) = '' then null else t.nimpres::numeric end as nimpres,
+
+        trim(t.cserre), trim(t.cnumre),
+        case when coalesce(t.ffecre, '')='' then null else to_date(t.ffecre, 'DD/MM/YYYY') end,
+        
+        trim(t.ccodpresu), case when trim(coalesce(t.nigv, '')) = '' then null else t.nigv::numeric end as nigv,
+        trim(t.cglosa), trim(t.ccodpago),
+
+        case when trim(coalesce(t.nperdenre, '')) = '' then null else t.nperdenre::numeric end as nperdenre,
+        case when trim(coalesce(t.nbaseres, '')) = '' then null else t.nbaseres::numeric end as nbaseres,
+        trim(t.cctaperc),
+        t.created_at::date, t.updated_at::date,
+        trim(t.estado),
+        trim(t.en_ambiente_de),
+        case when t.estado='ACEPTADO' then 0 else 3 end, trim(t.ccodcos3)
+    FROM json_to_recordset(v_data)
+    as t(
+        idventas integer,
+        ccodrucemisor character varying(30),
+        ffechadoc character varying(30),
+        ffechaven character varying(30),
+        ccoddoc character varying(15),
+        cserie character varying(20),
+        cnumero character varying(20),
+        ccodenti character varying(15),
+        cdesenti character varying(100),
+        ctipdoc character varying(15),
+        ccodruc character varying(20),
+        crazsoc text,
+        nbase2 character varying(50),
+        nbase1 character varying(50),
+        nexo character varying(50),
+        nina character varying(50),
+        nisc character varying(50),
+        nigv1 character varying(50),
+        nicbpers character varying(50),
+        nbase3 character varying(50),
+        ntots character varying(50),
+        ntc character varying(50),
+        freffec character varying(30),
+        crefdoc character varying(50),
+        crefser character varying(20),
+        crefnum character varying(20),
+        cmreg character varying(10),
+        ndolar character varying(50),
+        ffechaven2 character varying(30),
+        ccond character varying(15),
+        ccodcos character varying(15),
+        ccodcos2 character varying(15),
+        cctabase text,
+        cctaicbper text,
+        cctaotrib text,
+        cctatot text,
+        nresp text,
+        nporre text,
+        nimpres text,
+        cserre text,
+        cnumre text,
+        ffecre text,
+        ccodpresu character varying(20),
+        nigv character varying(20),
+        cglosa text,
+        ccodpago character varying(20),
+        nperdenre character varying(20),
+        nbaseres character varying(20),
+        cctaperc character varying(20),
+        created_at timestamp, updated_at timestamp,
+        estado character varying(255),
+        en_ambiente_de character varying(255),
+        es_con_migracion boolean,
+        ccodcos3 character varying(15)
+    )
+    left join fin_ventas v on t.idventas=v.idventas
+    where v.idventas is null;
+
+    -- update (solo campo migracion)
+    update fin_ventas v
+    set es_con_migracion=case when t.estado='ACEPTADO' then 0 else 3 end,
+    estado=t.estado
+    from json_to_recordset(v_data)
+    as t ( idventas integer, estado character varying(255), es_con_migracion boolean )    
+    where v.idventas=t.idventas;
+
+    -- resultado de confirmacion.
+    select json_agg(json_build_object('idventas', idventas, 'es_con_migracion', es_con_migracion))::text
+    from json_to_recordset(v_data)
+    as t ( idventas integer, es_con_migracion boolean )
+    into resultado;
+    
+end;
+$function$
+;</value>
+  </data>
+  <data name="txtversion2.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fn_select_version()
+RETURNS table(cversion character) AS
+$BODY$
+BEGIN 
+    return query select t.cversion from cg_version t;
+end;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;</value>
+  </data>
+  <data name="txtversion3.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fn_actualizar_version(in p_version character(15))
+RETURNS void AS
+$BODY$
+BEGIN 
+
+    if((select true from cg_version limit 1) is null)then
+        insert into cg_version(cversion) values (p_version);
+    else
+        update cg_version set cversion=p_version, cfecha=now();
+    end if;    
+    
+end;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

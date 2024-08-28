@@ -64,6 +64,14 @@ namespace Contasis
             this.txtopcion2 = new System.Windows.Forms.TextBox();
             this.txtxcrearfuncion = new System.Windows.Forms.TextBox();
             this.timer5 = new System.Windows.Forms.Timer(this.components);
+            this.txtventa1 = new System.Windows.Forms.TextBox();
+            this.txtventa2 = new System.Windows.Forms.TextBox();
+            this.txtcompras1 = new System.Windows.Forms.TextBox();
+            this.txtcompras2 = new System.Windows.Forms.TextBox();
+            this.soloventasonline = new System.Windows.Forms.TextBox();
+            this.txtversion1 = new System.Windows.Forms.TextBox();
+            this.txtversion2 = new System.Windows.Forms.TextBox();
+            this.txtversion3 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -358,7 +366,7 @@ namespace Contasis
             // 
             // txtxcrearfuncion
             // 
-            this.txtxcrearfuncion.Location = new System.Drawing.Point(675, 26);
+            this.txtxcrearfuncion.Location = new System.Drawing.Point(647, 26);
             this.txtxcrearfuncion.Multiline = true;
             this.txtxcrearfuncion.Name = "txtxcrearfuncion";
             this.txtxcrearfuncion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -370,12 +378,106 @@ namespace Contasis
             // 
             this.timer5.Tick += new System.EventHandler(this.timer5_Tick);
             // 
+            // txtventa1
+            // 
+            this.txtventa1.BackColor = System.Drawing.SystemColors.Info;
+            this.txtventa1.Location = new System.Drawing.Point(861, 26);
+            this.txtventa1.Multiline = true;
+            this.txtventa1.Name = "txtventa1";
+            this.txtventa1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtventa1.Size = new System.Drawing.Size(209, 336);
+            this.txtventa1.TabIndex = 28;
+            this.txtventa1.Text = resources.GetString("txtventa1.Text");
+            // 
+            // txtventa2
+            // 
+            this.txtventa2.BackColor = System.Drawing.SystemColors.Info;
+            this.txtventa2.Location = new System.Drawing.Point(1075, 26);
+            this.txtventa2.Multiline = true;
+            this.txtventa2.Name = "txtventa2";
+            this.txtventa2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtventa2.Size = new System.Drawing.Size(209, 336);
+            this.txtventa2.TabIndex = 29;
+            this.txtventa2.Text = resources.GetString("txtventa2.Text");
+            // 
+            // txtcompras1
+            // 
+            this.txtcompras1.Location = new System.Drawing.Point(1288, 26);
+            this.txtcompras1.Multiline = true;
+            this.txtcompras1.Name = "txtcompras1";
+            this.txtcompras1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtcompras1.Size = new System.Drawing.Size(209, 336);
+            this.txtcompras1.TabIndex = 30;
+            this.txtcompras1.Text = resources.GetString("txtcompras1.Text");
+            // 
+            // txtcompras2
+            // 
+            this.txtcompras2.Location = new System.Drawing.Point(1513, 26);
+            this.txtcompras2.Multiline = true;
+            this.txtcompras2.Name = "txtcompras2";
+            this.txtcompras2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtcompras2.Size = new System.Drawing.Size(208, 336);
+            this.txtcompras2.TabIndex = 31;
+            this.txtcompras2.Text = resources.GetString("txtcompras2.Text");
+            // 
+            // soloventasonline
+            // 
+            this.soloventasonline.Location = new System.Drawing.Point(1727, 26);
+            this.soloventasonline.Multiline = true;
+            this.soloventasonline.Name = "soloventasonline";
+            this.soloventasonline.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.soloventasonline.Size = new System.Drawing.Size(220, 336);
+            this.soloventasonline.TabIndex = 32;
+            this.soloventasonline.Text = resources.GetString("soloventasonline.Text");
+            // 
+            // txtversion1
+            // 
+            this.txtversion1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtversion1.Location = new System.Drawing.Point(647, 377);
+            this.txtversion1.Multiline = true;
+            this.txtversion1.Name = "txtversion1";
+            this.txtversion1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtversion1.Size = new System.Drawing.Size(209, 137);
+            this.txtversion1.TabIndex = 33;
+            this.txtversion1.Text = "CREATE TABLE cg_version\r\n(\r\n    cversion character(15) not null,\r\n    cfecha time" +
+    "stamp default now() not null    \r\n);";
+            // 
+            // txtversion2
+            // 
+            this.txtversion2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtversion2.Location = new System.Drawing.Point(862, 377);
+            this.txtversion2.Multiline = true;
+            this.txtversion2.Name = "txtversion2";
+            this.txtversion2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtversion2.Size = new System.Drawing.Size(209, 137);
+            this.txtversion2.TabIndex = 34;
+            this.txtversion2.Text = resources.GetString("txtversion2.Text");
+            // 
+            // txtversion3
+            // 
+            this.txtversion3.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.txtversion3.Location = new System.Drawing.Point(1086, 377);
+            this.txtversion3.Multiline = true;
+            this.txtversion3.Name = "txtversion3";
+            this.txtversion3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtversion3.Size = new System.Drawing.Size(209, 137);
+            this.txtversion3.TabIndex = 35;
+            this.txtversion3.Text = resources.GetString("txtversion3.Text");
+            // 
             // FrmCrearTablas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(628, 369);
+            this.Controls.Add(this.txtversion3);
+            this.Controls.Add(this.txtversion2);
+            this.Controls.Add(this.txtversion1);
+            this.Controls.Add(this.soloventasonline);
+            this.Controls.Add(this.txtcompras2);
+            this.Controls.Add(this.txtcompras1);
+            this.Controls.Add(this.txtventa2);
+            this.Controls.Add(this.txtventa1);
             this.Controls.Add(this.txtxcrearfuncion);
             this.Controls.Add(this.txtopcion2);
             this.Controls.Add(this.txtopcion1);
@@ -390,8 +492,6 @@ namespace Contasis
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmCrearTablas";
-            this.Text = "Creador de tablas en la parte del Cliente";
-            this.Load += new System.EventHandler(this.FrmCrearTablas_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCrearTablas_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -438,5 +538,13 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtopcion2;
         private System.Windows.Forms.TextBox txtxcrearfuncion;
         public System.Windows.Forms.Timer timer5;
+        private System.Windows.Forms.TextBox txtventa1;
+        private System.Windows.Forms.TextBox txtventa2;
+        private System.Windows.Forms.TextBox txtcompras1;
+        private System.Windows.Forms.TextBox txtcompras2;
+        private System.Windows.Forms.TextBox soloventasonline;
+        private System.Windows.Forms.TextBox txtversion1;
+        private System.Windows.Forms.TextBox txtversion2;
+        private System.Windows.Forms.TextBox txtversion3;
     }
 }

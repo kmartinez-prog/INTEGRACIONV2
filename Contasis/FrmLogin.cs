@@ -96,7 +96,7 @@ namespace Contasis
                 }
                 connection.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no Existe Informacion en la tabla usuario, use clave inicial."  , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
@@ -129,7 +129,7 @@ namespace Contasis
                 }
                 conexionNew.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no Existe Informacion en la tabla usuario, use clave inicial.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
@@ -157,7 +157,7 @@ namespace Contasis
                 }
                 connection.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no Existe Informacion de conexion a empresa." , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
@@ -185,7 +185,7 @@ namespace Contasis
                 }
                 conexionNew.Close();
             }
-            catch (Exception ex)
+            catch 
             {
                 MessageBox.Show("Error no Existe Informacion de conexion a empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
@@ -207,6 +207,7 @@ namespace Contasis
             if (File.Exists(ubicacion))
             {
                 this.conexiones();
+                this.conexion0();
                 control2 = "1";
             }
             else
@@ -230,6 +231,7 @@ namespace Contasis
                 this.llenarcombo();
                 this.captura1();
                 this.captura2();
+                
                 return;
             }
 
@@ -250,6 +252,8 @@ namespace Contasis
             if (File.Exists(ubicacion))
             {
                 this.conexion2();
+                this.conexion0();
+
                 control2 = "1";
             }
             else
@@ -291,7 +295,7 @@ namespace Contasis
                 }
             
         }
-        private void FrmLogin_Load(object sender, EventArgs e)
+        private async void FrmLogin_Load(object sender, EventArgs e)
         {
             Properties.Settings.Default.cadenaSql = "";
             Properties.Settings.Default.Save();
@@ -306,6 +310,9 @@ namespace Contasis
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
+            Properties.Settings.Default.cadenaweb = "";
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
 
 
 
@@ -316,13 +323,14 @@ namespace Contasis
                 if (control=="0" || control=="")
                         {
 
-                            MessageBox.Show("Bienvenido al Sistema de Integración por primera vez.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ////MessageBox.Show("Bienvenido al Sistema de Integración por primera vez.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             control = "0";
                             txtfrase.Text = "contasis";
                         }
 
             }
-            
+            await new Clase.ValidarVersion().Validar();
+
         }
         private void cmbusuario_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -508,48 +516,108 @@ namespace Contasis
         }
         public void conexiones()
         {
-            string cadenaSql = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\SQL.txt");
-            string cadenaPostgrel = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\pos.txt");
-            
+            string ubicacion = @"C:\\Users\\Public\\Documents\\SQL.txt";
+            if (File.Exists(ubicacion))
+            {
+                string cadenaSql = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\SQL.txt");
+                cadenaSql = Mostrar(cadenaSql);
+                Properties.Settings.Default.cadenaSql = cadenaSql;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+            else
+            {
+                Properties.Settings.Default.cadenaSql = "";
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
 
-            cadenaSql = Mostrar(cadenaSql);
-            cadenaPostgrel = Mostrar(cadenaPostgrel);
+            }
 
-            Properties.Settings.Default.cadenaSql = cadenaSql;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-
-            Properties.Settings.Default.cadenaPost = cadenaPostgrel;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
-
-            Properties.Settings.Default.cadenaPostPrincipal = "";
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            string ubicacion2 = @"C:\Users\Public\Documents\pos.txt";
+            if (File.Exists(ubicacion2))
+            {
+                string cadenaPostgrel = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\pos.txt");
+                cadenaPostgrel = Mostrar(cadenaPostgrel);
+                Properties.Settings.Default.cadenaPost = cadenaPostgrel;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+            else
+            {
+                Properties.Settings.Default.cadenaPost = "";
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
 
         }
         public void conexion2()
         {
-            string cadenaPostgrelPrincipal = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\PostgreSQL.txt");
-            string cadenaPostgrel = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\pos.txt");
-            cadenaPostgrelPrincipal= Mostrar(cadenaPostgrelPrincipal);
-            cadenaPostgrel = Mostrar(cadenaPostgrel);
 
             Properties.Settings.Default.cadenaSql = "";
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
-            Properties.Settings.Default.cadenaPostPrincipal = cadenaPostgrelPrincipal;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            string ubicacion = @"C:\Users\Public\Documents\PostgreSQL.txt";
+            if (File.Exists(ubicacion))
+            {
+                string cadenaPostgrelPrincipal = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\PostgreSQL.txt");
+                
+                cadenaPostgrelPrincipal = Mostrar(cadenaPostgrelPrincipal);
+                Properties.Settings.Default.cadenaPostPrincipal = cadenaPostgrelPrincipal;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+            else
+            {
+                Properties.Settings.Default.cadenaPostPrincipal = "";
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
 
 
-            Properties.Settings.Default.cadenaPost = cadenaPostgrel;
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            string ubicacion2 = @"C:\Users\Public\Documents\pos.txt";
+            if (File.Exists(ubicacion2))
+            {
+                string cadenaPostgrel = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\pos.txt");
 
+                cadenaPostgrel = Mostrar(cadenaPostgrel);
+
+                Properties.Settings.Default.cadenaPost = cadenaPostgrel;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+            else
+            {
+                Properties.Settings.Default.cadenaPostPrincipal = "";
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
 
         }
+
+        public void conexion0()
+        {
+            try
+            {
+                FileStream x = File.OpenRead("C:\\Users\\Public\\Documents\\WEB.txt");
+
+
+                string cadenaweb = System.IO.File.ReadAllText(@"C:\Users\Public\Documents\WEB.txt");
+
+                cadenaweb = Mostrar(cadenaweb);
+
+
+                Properties.Settings.Default.cadenaweb = cadenaweb;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+            catch 
+            { 
+            ///MessageBox.Show("No existe archivo de ruta web." ,"Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+        }
+
         public void existetablausuario()
         {
             SqlConnection connection = new SqlConnection(Properties.Settings.Default.cadenaSql);

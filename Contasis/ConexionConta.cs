@@ -22,7 +22,7 @@ namespace Contasis
             String strfventas;
             if (cadena == "")
             {
-                MessageBox.Show("No se realizo la conexion, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se realizo la conexión, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
@@ -33,9 +33,9 @@ namespace Contasis
                 {
                     conex.Open();
                 }
-                catch (Exception ex)
+                catch 
                 {
-                    MessageBox.Show("No se establec la conexion : " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No se establece la conexión : " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -61,9 +61,9 @@ namespace Contasis
                         "ccoddoc nchar(2) NULL," +
                         "cserie nchar(20) NULL," +
                         "cnumero nchar(20) NULL," +
-                        "codenti nchar(11) NULL," +
+                        "ccodenti nchar(11) NULL," +
                         "cdesenti nchar(100) NULL," +
-                        "ctipodoc nchar(1) NULL," +
+                        "ctipdoc nchar(1) NULL," +
                         "ccodruc nchar(15) NULL," +
                         "crazsoc nchar(100) NULL," +
                         "nbase2 numeric(15, 2) NULL," +
@@ -138,7 +138,7 @@ namespace Contasis
             cadena = _cadena;
             if (cadena == "")
             {
-                MessageBox.Show("No se establec la conexion, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se establece la conexión, ingrese las credenciales.", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
@@ -149,9 +149,9 @@ namespace Contasis
                 {
                     conex1.Open();
                 }
-                catch (Exception ex)
+                catch 
                 {
-                    MessageBox.Show("No se establec la conexion revise  usuario y clave " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se establece la conexión revise  usuario y clave " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 /** aca vamos a Verificar si Existe la tabla Contasis    **/
@@ -215,7 +215,7 @@ namespace Contasis
             cadena = _cadena;
             if (cadena == "")
             {
-                MessageBox.Show("No se establec la conexion, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se establece la conexión, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
@@ -232,9 +232,9 @@ namespace Contasis
             {
                 conex2.Open();
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show("No se establec la conexion revise sus credenciales " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se establece la conexión revise sus credenciales " , "Contasis Corp. error de conexion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             /** aca vamos a Verificar si Existe la tabla Contasis    **/
@@ -361,14 +361,19 @@ namespace Contasis
 
                         /*********************************************************************************************/
 
-                        stmodulo = "INSERT INTO cg_modulos(CCODMOD,CDESMOD) VALUES('00001','EMPRESAS');"+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00002', 'ACCESO A USUARIOS');"+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00003', 'ORIGEN DE DATOS'); "+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00004', 'ESTRUCTURA DE DATOS'); "+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00005', 'INTEGRADO CONTABLE'); "+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00006', 'FINANCIERO'); "+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00007', 'INTEGRADO COMERCIAL SQL'); "+
-                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00008', 'ACCESO A PERMISOS')";
+                        stmodulo = "INSERT INTO cg_modulos(CCODMOD,CDESMOD) VALUES('00001','EMPRESAS');" +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00002', 'ACCESO A USUARIOS');" +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00003', 'ORIGEN DE DATOS'); " +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00004', 'ESTRUCTURA DE DATOS'); " +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00005', 'INTEGRADO CONTABLE'); " +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00006', 'FINANCIERO'); " +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00007', 'INTEGRADO COMERCIAL SQL'); " +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00008', 'ACCESO A PERMISOS');" +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00009', 'ACCESO A RUC EMISOR');" +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00010', 'DESTINO DE DATOS');" +
+                        "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00011', 'NUBE - NEGOCIOS ONLINE');";
+
+
 
                         SqlCommand myCommand51 = new SqlCommand(stmodulo, conex2);
                         try
@@ -443,7 +448,7 @@ namespace Contasis
             cadena = _cadena;
             if (cadena == "")
             {
-                MessageBox.Show("No se establec la conexion, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se establece la conexión, ingrese las credenciales ", "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else
@@ -453,6 +458,10 @@ namespace Contasis
               //  string strcomprasfecha;
                 string strsp_compras;
                 string strsp_ventas;
+                string version01;
+                string version02;
+                string version03;
+                string version04;
 
                 SqlConnection conex2 = new SqlConnection(cadena);
                 try
@@ -461,7 +470,7 @@ namespace Contasis
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se establec la conexion : " + ex.Message, "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se establece la conexión : " + ex.Message, "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 /** aca vamos a Verificar si Existe la tabla Contasis    **/
@@ -593,7 +602,7 @@ namespace Contasis
                                  "   isnull(nexo,0.00) as nexo,    \n" +
                                  "   isnull(ntots,0.00) as ntots,   \n" +
                                  "   case when ltrim(rtrim(isnull(cdocnodom,''))) = '' then '' else ltrim(rtrim(cdocnodom))  end  as cdocnodom,   \n" +
-                                 "   case when ltrim(rtrim(isnull(cnumdere,''))) = '' then '' else ltrim(rtrim(cdocnodom))  end  as cnumdere,    \n" +
+                                 "   case when ltrim(rtrim(isnull(cnumdere,''))) = '' then '' else ltrim(rtrim(cnumdere))  end  as cnumdere,    \n" +
                                  "   ltrim(rtrim(isnull(Convert(char(10), ffecre, 112),'')))  as ffecre,    \n" +
                                  "   ntc,    \n" +
                                  "   ltrim(rtrim(isnull(Convert(char(10), freffec, 112),''))) as freffec,      \n" +
@@ -668,9 +677,9 @@ namespace Contasis
                                 "		 ltrim(rtrim(ccoddoc)) as ccoddoc,  \n" +
                                 "		 ltrim(rtrim(cserie)) as cserie,  \n" +
                                 "		 ltrim(rtrim(cnumero)) as cnumero,  \n" +
-                                "		 ltrim(rtrim(codenti)) as codenti,  \n" +
+                                "		 ltrim(rtrim(ccodenti)) as ccodenti,  \n" +
                                 "		 ltrim(rtrim(cdesenti)) as cdesenti, \n " +
-                                "		 ltrim(rtrim(ctipodoc)) as ctipodoc,  \n" +
+                                "		 ltrim(rtrim(ctipdoc)) as ctipdoc,  \n" +
                                 "		 ltrim(rtrim(ccodruc)) as ccodruc,  \n" +
                                 "		 ltrim(rtrim(crazsoc)) as crazsoc,  \n" +
                                 "		 Isnull(nbase2, 0.00) as nbase2,   \n" +
@@ -736,8 +745,6 @@ namespace Contasis
                         /**************************************************/
                       
                         /**************************************************/
-                        
-
                         string ENVIORESULTADOVENTAS = "CREATE PROCEDURE sp_ventas_envio_resultado\n" +
                         " @resultado NVARCHAR(MAX) \n" +
                         " AS \n" +
@@ -764,7 +771,7 @@ namespace Contasis
                         {
                             myCommand33.ExecuteNonQuery();
                         }
-                        catch (System.Exception ex)
+                        catch 
                         {
                             MessageBox.Show("Ya existe el procedimiento de envio resultados de  ventas", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         }
@@ -800,15 +807,93 @@ namespace Contasis
                         {
                             myCommand34.ExecuteNonQuery();
                         }
-                        catch (System.Exception ex)
+                        catch 
                         {
                             MessageBox.Show("Ya existe el procedimiento de envio resultados de  compras", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         }
+                        /**************************************************/
+                        version01 = "create table cg_version (" +
+                                    " cversion varchar(15) not null, " +
+                                    " cfecha datetime2 default GETDATE() not null,);";
+                        SqlCommand myCommand40 = new SqlCommand(version01, conex2);
+                        try
+                        {
+                            myCommand40.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe la tabla de versión.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
 
+                        /**************************************************/
+                        version02 = "create procedure sp_select_version as \n" +
+                                    " begin  \n" +
+                                    " select cversion   \n" +
+                                    " From dbo.cg_version   \n" +
+                                    " end; ";
+                                    
+                        SqlCommand myCommand41 = new SqlCommand(version02, conex2);
+                        try
+                        {
+                            myCommand41.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el sp_select_version.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
 
+                        /**************************************************/
+                        version03 = "create procedure dbo.sp_actualizar_version  \n" +
+                                    " @p_version varchar(15)  \n" +
+                                    " as  \n" +
+                                    " begin  \n" +
+                                    " if exists(select 1 from cg_version)  \n" +
+                                    " begin  \n" +
+                                    " update cg_version  \n" +
+                                    " set cversion = @p_version, cfecha = GETDATE();  \n" +
+                                    " end  \n" +
+                                    " else  \n" +
+                                    " begin  \n" +
+                                    " insert into cg_version(cversion)  \n" +
+                                    " values(@p_version); \n" +
+                                    " end  \n" +
+                                    "  end; ";
+                        SqlCommand myCommand42 = new SqlCommand(version03, conex2);
+                        try
+                        {
+                            myCommand42.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el sp_actualizar_version.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
 
+                        /**************************************************/
+                        version04 = "CREATE TABLE test( \n" +
+                                    "  test_id int NOT NULL, \n" +
+                                    " test_nombre char(50) NOT NULL)";
+                        SqlCommand myCommand43 = new SqlCommand(version04, conex2);
+                        try
+                        {
+                            myCommand43.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el sp_actualizar_version.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
 
-
+                        /**************************************************/
+                        string version05 = " INSERT INTO test (test_id,test_nombre) VALUES(1,'Test 1');" +
+                                           " INSERT INTO test (test_id, test_nombre)  VALUES(2, 'Test 2 - actualizado'); ";
+                        SqlCommand myCommand44 = new SqlCommand(version05, conex2);
+                        try
+                        {
+                            myCommand44.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el sp_actualizar_version.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
                         /**************************************************/
                         conex2.Close();
                     }

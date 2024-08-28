@@ -177,7 +177,6 @@ namespace Contasis
             this.cmbOrigen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbOrigen.FormattingEnabled = true;
             this.cmbOrigen.Items.AddRange(new object[] {
-            "Microsoft SQL Server",
             "PostgreSQL"});
             this.cmbOrigen.Location = new System.Drawing.Point(165, 134);
             this.cmbOrigen.Name = "cmbOrigen";
@@ -258,9 +257,9 @@ namespace Contasis
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(3, 7);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(282, 29);
+            this.label5.Size = new System.Drawing.Size(276, 29);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Conexion Base destino";
+            this.label5.Text = "Base de datos Destino";
             // 
             // panel2
             // 
@@ -299,13 +298,13 @@ namespace Contasis
             this.btnValidar.Name = "btnValidar";
             this.btnValidar.Size = new System.Drawing.Size(148, 32);
             this.btnValidar.TabIndex = 25;
-            this.btnValidar.Text = "Testear Conexion";
+            this.btnValidar.Text = "Testear Conexión";
             this.btnValidar.UseVisualStyleBackColor = true;
             this.btnValidar.Click += new System.EventHandler(this.btnValidar_Click_1);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(414, 13);
+            this.textBox1.Location = new System.Drawing.Point(414, -76);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 34;
@@ -334,6 +333,7 @@ namespace Contasis
             this.Name = "FrRegistrarConexionDestino";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registrar conexión de Destino";
+            this.Load += new System.EventHandler(this.FrRegistrarConexionDestino_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

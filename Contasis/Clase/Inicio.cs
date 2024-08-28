@@ -44,7 +44,7 @@ namespace Contasis.Clase
                     cadena = "0";
                 }
             }
-            catch (Exception ex1)
+            catch 
             {
                 /// MessageBox.Show("No existe la base de datos bdintegradorContasis...", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 

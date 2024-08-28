@@ -54,7 +54,7 @@ namespace Contasis.Clase
                     cadena = "0";
                 }
             }
-            catch (Exception ex1)
+            catch 
             {
                
                 
@@ -109,7 +109,7 @@ namespace Contasis.Clase
                     cadena = "00";
                 }
             }
-            catch (Exception ex)
+            catch 
             {
 
 
@@ -166,7 +166,7 @@ namespace Contasis.Clase
                         cadena = "0";
                     }
                 }
-                catch (Exception ex1)
+                catch 
                 {
 
 
@@ -223,7 +223,7 @@ namespace Contasis.Clase
                         cadena = "00";
                     }
                 }
-                catch (Exception ex)
+                catch 
                 {
 
 

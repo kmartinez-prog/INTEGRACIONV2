@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Contasis</RootNamespace>
-    <AssemblyName>Integracion</AssemblyName>
+    <AssemblyName>Integracion Online</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -74,7 +74,7 @@
     <ManifestKeyFile>Contasis_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -86,10 +86,14 @@
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup />
   <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aspose.Cells.GridDesktop, Version=24.8.0.0, Culture=neutral, PublicKeyToken=699ccf88ff76f11a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.Cells.GridDesktop.24.8.0\lib\net40\Aspose.Cells.GridDesktop.dll</HintPath>
+    </Reference>
     <Reference Include="ExcelDataReader, Version=3.7.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.3.7.0\lib\net462\ExcelDataReader.dll</HintPath>
     </Reference>
@@ -128,6 +132,7 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.8.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -138,6 +143,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -165,6 +171,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clase\Class1.cs" />
+    <Compile Include="Clase\Compras_inconsistencia.cs" />
+    <Compile Include="Clase\Compras_inconsistencias.cs" />
+    <Compile Include="Clase\compras_propiedades.cs" />
+    <Compile Include="Clase\Compras_propiedadescs.cs" />
     <Compile Include="Clase\ConexionPostgreslContasis.cs" />
     <Compile Include="Clase\ConexionSql.cs" />
     <Compile Include="Clase\Cuentas.cs" />
@@ -173,6 +183,8 @@
     <Compile Include="Clase\datosSqlUsu.cs" />
     <Compile Include="Clase\EmpresaPropiedades.cs" />
     <Compile Include="Clase\Empresas.cs" />
+    <Compile Include="Clase\Estructura_postgres.cs" />
+    <Compile Include="Clase\Estructura_SQL.cs" />
     <Compile Include="Clase\Inicio.cs" />
     <Compile Include="Clase\LeerUsuarios.cs" />
     <Compile Include="Clase\ruc.cs" />
@@ -180,9 +192,18 @@
     <Compile Include="Clase\rucpropiedades.cs" />
     <Compile Include="Clase\usuario.cs" />
     <Compile Include="Clase\usuarioPropiedad.cs" />
+    <Compile Include="Clase\ValidarVersion.cs" />
+    <Compile Include="Clase\Ventas_inconsistencias.cs" />
+    <Compile Include="Clase\ventas_propiedades.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="ConexionConta.cs" />
     <Compile Include="ConexionPostgrelSql.cs" />
+    <Compile Include="FrmConfigurarServicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmConfigurarServicio.Designer.cs">
+      <DependentUpon>FrmConfigurarServicio.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmEliminarruc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -297,6 +318,24 @@
     <Compile Include="FrmUsuedit.Designer.cs">
       <DependentUpon>FrmUsuedit.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmVerificacionEstrcutura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmVerificacionEstrcutura.Designer.cs">
+      <DependentUpon>FrmVerificacionEstrcutura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_comprasEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_comprasEditor.Designer.cs">
+      <DependentUpon>Frm_comprasEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_ventasEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_ventasEditor.Designer.cs">
+      <DependentUpon>Frm_ventasEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrRegistrarConexion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -315,6 +354,12 @@
     <Compile Include="FrRegistrarConexionDestino.Designer.cs">
       <DependentUpon>FrRegistrarConexionDestino.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrRegistrarConexionNube.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrRegistrarConexionNube.Designer.cs">
+      <DependentUpon>FrRegistrarConexionNube.cs</DependentUpon>
+    </Compile>
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -332,6 +377,9 @@
     <Compile Include="Servidor.cs" />
     <Compile Include="ServidorUni.cs" />
     <Compile Include="usuario_postgres.cs" />
+    <EmbeddedResource Include="FrmConfigurarServicio.resx">
+      <DependentUpon>FrmConfigurarServicio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmEliminarruc.resx">
       <DependentUpon>FrmEliminarruc.cs</DependentUpon>
     </EmbeddedResource>
@@ -389,6 +437,15 @@
     <EmbeddedResource Include="FrmUsuedit.resx">
       <DependentUpon>FrmUsuedit.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmVerificacionEstrcutura.resx">
+      <DependentUpon>FrmVerificacionEstrcutura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_comprasEditor.resx">
+      <DependentUpon>Frm_comprasEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_ventasEditor.resx">
+      <DependentUpon>Frm_ventasEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrRegistrarConexion.resx">
       <DependentUpon>FrRegistrarConexion.cs</DependentUpon>
     </EmbeddedResource>
@@ -398,6 +455,9 @@
     <EmbeddedResource Include="FrRegistrarConexionDestino.resx">
       <DependentUpon>FrRegistrarConexionDestino.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrRegistrarConexionNube.resx">
+      <DependentUpon>FrRegistrarConexionNube.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
@@ -406,6 +466,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="Contasis_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
@@ -453,6 +514,7 @@
     <Content Include="Imagen\Contasis.ico" />
     <Content Include="Imagen\Datos25.jpg" />
     <Content Include="Imagen\Empresa.jpg" />
+    <None Include="Resources\icono Grabar.png" />
     <None Include="Imagen\Empresas.jpg" />
     <Content Include="Imagen\Estructura25.jpg" />
     <Content Include="Imagen\excelOil.ico" />

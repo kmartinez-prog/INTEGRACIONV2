@@ -21,6 +21,8 @@ namespace Contasis
         FrmAyuda master7;
         FrmRucemisor master8;
         FrRegistrarConexionDestino master9;
+        FrmConfigurarServicio master10;
+        FrRegistrarConexionNube master11;
 
 
         public static Principal instance = null;
@@ -28,7 +30,7 @@ namespace Contasis
         {
             InitializeComponent();
             
-            txtcontrol.Text = "1";
+            txtcontrol.Text = valor;
 
             instance = this;
         }
@@ -62,8 +64,8 @@ namespace Contasis
 
         private void accesoAUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (txtcontrol.Text == "1")
-            {
+           /// if (txtcontrol.Text == "1")
+           /// {
                 foreach (Form OpenForm in Application.OpenForms)
                 {
                     if (OpenForm.Name == "master2")
@@ -84,7 +86,7 @@ namespace Contasis
                     
                 }
                 
-            }
+            /////}
             else
             {
                 MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -102,6 +104,26 @@ namespace Contasis
             toolStripStatusLabel1.Text = "Fecha Actual : "+DateTime.Now.ToLongDateString();
             toolStripStatusLabel2.Text = "| Hora Actual : " + DateTime.Now.ToString("hh:mm:ss");
             toolStripStatusLabel4.Text = "| Usuario Actual : " + Properties.Settings.Default.Usuario;
+            toolStripStatusLabel5.Text = "| Conexion origen :  ";
+
+
+            if (string.IsNullOrEmpty(Properties.Settings.Default.cadenaPostPrincipal))
+            {
+                
+            }
+            else
+            {
+                toolStripStatusLabel5.Text = "| Conexion origen : PostgresSQL ";
+            }
+            if (Properties.Settings.Default.cadenaSql == "")
+            {
+            }
+            else
+            {
+                toolStripStatusLabel5.Text = "| Conexion origen : SQL SERVER ";
+            }
+
+
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -395,5 +417,63 @@ namespace Contasis
             master9 = null;
         }
 
+        private void servicioDeIntegraciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form OpenForm in Application.OpenForms)
+            {
+                if (OpenForm.Name == "master10")
+                { }
+                else
+                {
+                    master10 = null;
+                }
+
+            }
+
+            if (master10 == null)
+            {
+                master10 = new FrmConfigurarServicio();
+                ///master6.MdiParent = this;
+                master10.ShowDialog();
+                master10.FormClosed += new FormClosedEventHandler(CerrarConfiguracionServicio);
+
+            }
+        }
+        void CerrarConfiguracionServicio(object sender, EventArgs e)
+        {
+            master10 = null;
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            foreach (Form OpenForm in Application.OpenForms)
+            {
+                if (OpenForm.Name == "master11")
+                { }
+                else
+                {
+                    master11 = null;
+                }
+
+            }
+
+            if (master11 == null)
+            {
+                master11 = new FrRegistrarConexionNube();
+                ///master6.MdiParent = this;
+                master11.ShowDialog();
+                master11.FormClosed += new FormClosedEventHandler(CerrarConfiguracionServicionube);
+
+            }
+        }
+        void CerrarConfiguracionServicionube(object sender, EventArgs e)
+        {
+            master11 = null;
+        }
+
+        private void toolStripStatusLabel5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

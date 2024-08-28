@@ -73,7 +73,8 @@ namespace Contasis
             this.txtpassword.Location = new System.Drawing.Point(16, 105);
             this.txtpassword.MaxLength = 150;
             this.txtpassword.Name = "txtpassword";
-            this.txtpassword.Size = new System.Drawing.Size(320, 20);
+            this.txtpassword.PasswordChar = '!';
+            this.txtpassword.Size = new System.Drawing.Size(238, 20);
             this.txtpassword.TabIndex = 2;
             this.txtpassword.TextChanged += new System.EventHandler(this.txtpassword_TextChanged);
             this.txtpassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtpassword_KeyDown);
@@ -132,7 +133,7 @@ namespace Contasis
             this.BtnActualizar.Location = new System.Drawing.Point(213, 153);
             this.BtnActualizar.Name = "BtnActualizar";
             this.BtnActualizar.Size = new System.Drawing.Size(100, 32);
-            this.BtnActualizar.TabIndex = 4;
+            this.BtnActualizar.TabIndex = 3;
             this.BtnActualizar.Text = "Grabar";
             this.BtnActualizar.UseVisualStyleBackColor = false;
             this.BtnActualizar.Click += new System.EventHandler(this.BtnActualizar_Click);
@@ -146,7 +147,7 @@ namespace Contasis
             this.btncerrar.Location = new System.Drawing.Point(320, 153);
             this.btncerrar.Name = "btncerrar";
             this.btncerrar.Size = new System.Drawing.Size(100, 32);
-            this.btncerrar.TabIndex = 3;
+            this.btncerrar.TabIndex = 4;
             this.btncerrar.Text = "Salir";
             this.btncerrar.UseVisualStyleBackColor = false;
             this.btncerrar.Click += new System.EventHandler(this.btncerrar_Click);

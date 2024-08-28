@@ -62,18 +62,18 @@
             // btnValidar
             // 
             this.btnValidar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnValidar.Location = new System.Drawing.Point(110, 386);
+            this.btnValidar.Location = new System.Drawing.Point(112, 386);
             this.btnValidar.Name = "btnValidar";
             this.btnValidar.Size = new System.Drawing.Size(148, 32);
             this.btnValidar.TabIndex = 9;
-            this.btnValidar.Text = "Testear Conexion";
+            this.btnValidar.Text = "Testear Conexión";
             this.btnValidar.UseVisualStyleBackColor = true;
             this.btnValidar.Click += new System.EventHandler(this.btnValidar_Click);
             // 
             // btnGrabar
             // 
             this.btnGrabar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGrabar.Location = new System.Drawing.Point(281, 386);
+            this.btnGrabar.Location = new System.Drawing.Point(283, 386);
             this.btnGrabar.Name = "btnGrabar";
             this.btnGrabar.Size = new System.Drawing.Size(148, 32);
             this.btnGrabar.TabIndex = 10;
@@ -85,16 +85,17 @@
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Location = new System.Drawing.Point(12, 72);
+            this.panel1.Location = new System.Drawing.Point(14, 72);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(591, 42);
             this.panel1.TabIndex = 16;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(5, 1);
+            this.label5.Location = new System.Drawing.Point(7, 1);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(267, 29);
             this.label5.TabIndex = 0;
@@ -103,7 +104,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(78, 139);
+            this.label6.Location = new System.Drawing.Point(80, 139);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(82, 15);
             this.label6.TabIndex = 17;
@@ -116,7 +117,7 @@
             this.cmbOrigen.Items.AddRange(new object[] {
             "Microsoft SQL Server",
             "PostgreSQL"});
-            this.cmbOrigen.Location = new System.Drawing.Point(165, 139);
+            this.cmbOrigen.Location = new System.Drawing.Point(167, 139);
             this.cmbOrigen.Name = "cmbOrigen";
             this.cmbOrigen.Size = new System.Drawing.Size(150, 21);
             this.cmbOrigen.TabIndex = 1;
@@ -138,14 +139,14 @@
             this.panel2.Controls.Add(this.txtClave);
             this.panel2.Controls.Add(this.Txtusuario);
             this.panel2.Controls.Add(this.txtServidor);
-            this.panel2.Location = new System.Drawing.Point(12, 169);
+            this.panel2.Location = new System.Drawing.Point(14, 169);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(596, 194);
             this.panel2.TabIndex = 19;
             // 
             // txtcadena
             // 
-            this.txtcadena.Location = new System.Drawing.Point(56, 160);
+            this.txtcadena.Location = new System.Drawing.Point(58, 160);
             this.txtcadena.Name = "txtcadena";
             this.txtcadena.ReadOnly = true;
             this.txtcadena.Size = new System.Drawing.Size(492, 20);
@@ -155,7 +156,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(66, 129);
+            this.label8.Location = new System.Drawing.Point(68, 129);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(69, 15);
             this.label8.TabIndex = 21;
@@ -164,7 +165,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(39, 102);
+            this.label7.Location = new System.Drawing.Point(41, 102);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(96, 15);
             this.label7.TabIndex = 20;
@@ -174,7 +175,7 @@
             // 
             this.cmbEsquema.Enabled = false;
             this.cmbEsquema.FormattingEnabled = true;
-            this.cmbEsquema.Location = new System.Drawing.Point(148, 126);
+            this.cmbEsquema.Location = new System.Drawing.Point(150, 126);
             this.cmbEsquema.Name = "cmbEsquema";
             this.cmbEsquema.Size = new System.Drawing.Size(302, 21);
             this.cmbEsquema.TabIndex = 8;
@@ -184,7 +185,7 @@
             this.cmbBase.Enabled = false;
             this.cmbBase.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cmbBase.FormattingEnabled = true;
-            this.cmbBase.Location = new System.Drawing.Point(148, 99);
+            this.cmbBase.Location = new System.Drawing.Point(150, 99);
             this.cmbBase.Name = "cmbBase";
             this.cmbBase.Size = new System.Drawing.Size(302, 21);
             this.cmbBase.TabIndex = 7;
@@ -192,7 +193,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(471, 28);
+            this.label4.Location = new System.Drawing.Point(473, 28);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 15);
             this.label4.TabIndex = 17;
@@ -202,7 +203,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(59, 76);
+            this.label3.Location = new System.Drawing.Point(61, 76);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 15);
             this.label3.TabIndex = 16;
@@ -211,7 +212,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 52);
+            this.label2.Location = new System.Drawing.Point(16, 52);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(121, 15);
             this.label2.TabIndex = 15;
@@ -220,7 +221,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 28);
+            this.label1.Location = new System.Drawing.Point(11, 28);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(126, 15);
             this.label1.TabIndex = 14;
@@ -228,7 +229,7 @@
             // 
             // txtpuerto
             // 
-            this.txtpuerto.Location = new System.Drawing.Point(528, 25);
+            this.txtpuerto.Location = new System.Drawing.Point(530, 25);
             this.txtpuerto.MaxLength = 4;
             this.txtpuerto.Name = "txtpuerto";
             this.txtpuerto.Size = new System.Drawing.Size(57, 20);
@@ -237,7 +238,7 @@
             // 
             // txtClave
             // 
-            this.txtClave.Location = new System.Drawing.Point(148, 74);
+            this.txtClave.Location = new System.Drawing.Point(150, 74);
             this.txtClave.Name = "txtClave";
             this.txtClave.PasswordChar = '*';
             this.txtClave.Size = new System.Drawing.Size(182, 20);
@@ -245,14 +246,14 @@
             // 
             // Txtusuario
             // 
-            this.Txtusuario.Location = new System.Drawing.Point(148, 49);
+            this.Txtusuario.Location = new System.Drawing.Point(150, 49);
             this.Txtusuario.Name = "Txtusuario";
             this.Txtusuario.Size = new System.Drawing.Size(183, 20);
             this.Txtusuario.TabIndex = 4;
             // 
             // txtServidor
             // 
-            this.txtServidor.Location = new System.Drawing.Point(148, 25);
+            this.txtServidor.Location = new System.Drawing.Point(150, 25);
             this.txtServidor.Name = "txtServidor";
             this.txtServidor.Size = new System.Drawing.Size(320, 20);
             this.txtServidor.TabIndex = 2;
@@ -263,7 +264,7 @@
             this.lblEstado.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstado.ForeColor = System.Drawing.Color.Red;
-            this.lblEstado.Location = new System.Drawing.Point(15, 427);
+            this.lblEstado.Location = new System.Drawing.Point(17, 427);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(606, 27);
             this.lblEstado.TabIndex = 20;
@@ -274,7 +275,7 @@
             this.BtnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSalir.Image = global::Contasis.Properties.Resources._17;
             this.BtnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSalir.Location = new System.Drawing.Point(453, 386);
+            this.BtnSalir.Location = new System.Drawing.Point(455, 386);
             this.BtnSalir.Name = "BtnSalir";
             this.BtnSalir.Size = new System.Drawing.Size(148, 32);
             this.BtnSalir.TabIndex = 10;
@@ -285,7 +286,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Contasis.Properties.Resources.Logo___Contasis;
-            this.pictureBox1.Location = new System.Drawing.Point(15, 18);
+            this.pictureBox1.Location = new System.Drawing.Point(17, 18);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(188, 46);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -294,7 +295,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(703, 18);
+            this.textBox1.Location = new System.Drawing.Point(491, -60);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 21;

@@ -30,7 +30,7 @@ namespace Contasis
             if (string.IsNullOrWhiteSpace(cmbOrigen.Text))
             {
                 cmbOrigen.Focus();
-                MessageBox.Show("Debe de selecionar el tipo de conexion donde se crean la Base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Debe de selecionar el tipo de conexión donde se crea la Base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             else
@@ -38,14 +38,14 @@ namespace Contasis
                      if (string.IsNullOrWhiteSpace(Txtusuario.Text))
                     {
                         Txtusuario.Focus();
-                        MessageBox.Show("Debe de Ingresar el Usuario", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Debe de Ingresar el Usuario.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
 
                     if (string.IsNullOrWhiteSpace(txtClave.Text))
                     {
                         txtClave.Focus();
-                        MessageBox.Show("Debe de Ingresar su clave", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Debe de Ingresar su clave.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
                 int opcion = cmbOrigen.SelectedIndex;
@@ -106,7 +106,6 @@ namespace Contasis
                                     connection1.Open();
                                     String verifica = "SELECT * FROM SYSDATABASES WHERE NAME='bdintegradorContasis'";
                                     SqlCommand comando = new SqlCommand(verifica, connection1);
-
                                     DataTable dt = new DataTable();
                                     SqlDataAdapter da = new SqlDataAdapter(comando);
 
@@ -118,9 +117,6 @@ namespace Contasis
                                         lblEstado.Text = "Ya Existe la base de datos <<bdintegradorContasis>>";
 
 
-
-
-
                                         String verifica1 = "SELECT * FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME ='Conexiones'";
                                         SqlCommand comando00 = new SqlCommand(verifica1, connection1);
                                         {
@@ -130,7 +126,7 @@ namespace Contasis
                                             da2.Fill(dt2);
                                             if (dt2.Rows.Count > 0)
                                             {
-                                                lblEstado.Text = "Ya existe la tabla creada  sera creada";
+                                                lblEstado.Text = "Ya existe la tabla de Conexiones.";
 
                                                 return;
 
@@ -142,17 +138,17 @@ namespace Contasis
                                                 {
                                                     String str1;
                                                     str1 = "Create Table conexiones(Id int Identity(1,1)," +
-                                                           "cTipoBase Char(50),cubicacion Char(50),cServidor char(50),cUsuario Char(50)," +
-                                                           "cClave text,cPuerto char(50),cBase char(50)," +
-                                                           "cEsquema Varchar(250),cCadena character(500), fFechaCreacion DateTime Default Getdate()," +
+                                                           "cTipoBase Char(250),cubicacion Char(250),cServidor text,cUsuario Char(250)," +
+                                                           "cClave text,cPuerto char(50),cBase char(250)," +
+                                                           "cEsquema Varchar(250),cCadena text, fFechaCreacion DateTime Default Getdate()," +
                                                            "fFechaModificacion Datetime, cUsuarioCre char(35),cUsuarioModi char(35))";
 
-                                                    SqlCommand myCommand1 = new SqlCommand(str1, connection1);
+                                                SqlCommand myCommand1 = new SqlCommand(str1, connection1);
                                                     try
                                                     {
                                                         myCommand1.ExecuteNonQuery();
 
-                                                        lblEstado.Text = "Tabla Conexiones ha sido creada y se ha guardado los datos de conexión del Sql Server";
+                                                        lblEstado.Text = "Tabla de Conexiones ha sido creada,se ha guardado los datos del Sql Server";
                                                         String str2;
                                                         string valor01 = cmbOrigen.Text;
                                                         string valor02 = txtServidor.Text;
@@ -169,7 +165,10 @@ namespace Contasis
                                                         str2 = "Insert Into Conexiones(cTipoBase,cServidor,cUsuario,cClave,cPuerto,cBase,cubicacion,cCadena,cUsuarioCre) " +
                                                             "values('" + valor01 + "','" + valor02 + "','" + valor04 + "','" + valor05 + "','" + valor03 + "','" + valor06 + "','" + valor09 + "','" + valor07 + "','" + valor08 + "')";
                                                         SqlCommand myCommand2 = new SqlCommand(str2, connection1);
-                                                        Properties.Settings.Default.cadenaSql = txtcadena.Text;
+
+                                                    MessageBox.Show("Conexión registrada correctamente.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                                    Properties.Settings.Default.cadenaSql = txtcadena.Text;
                                                         Properties.Settings.Default.Save();
                                                         Properties.Settings.Default.Reload();
 
@@ -190,14 +189,14 @@ namespace Contasis
                                                             btnGrabar.Focus();
 
                                                         }
-                                                        catch (System.Exception ex1)
+                                                        catch 
                                                         {
-                                                            MessageBox.Show("Error, favor revise", "Contasis Corp. No se grabo las Credenciales en tabla", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                                            MessageBox.Show("Error, favor revise.", "Contasis Corp. No se grabo las Credenciales", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                                         }
                                                         connection1.Close();
 
                                                     }
-                                                    catch (System.Exception ex)
+                                                    catch
                                                     {
                                                         MessageBox.Show("Tablas no se pudo crear.", "Contasis Corp. No se pudo crear Tabla de conexiones", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                                     }
@@ -207,7 +206,7 @@ namespace Contasis
 
                                     }
                                 }
-                                catch (System.Exception ex)
+                                catch 
                                 {
                                     MessageBox.Show("Revise las credenciales.", "Contasis Corp. - Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                 }
@@ -252,7 +251,7 @@ namespace Contasis
                                     string text02 = "create database bdintegradorcontasis;";
                                     NpgsqlCommand cmdp2 = new NpgsqlCommand(text02, conexion);
                                     cmdp2.ExecuteNonQuery();
-                                    MessageBox.Show("Se ha creado la base de datos con existo.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show("Se ha creado la base de datos con exito.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     conexion.Close();
                                     NpgsqlConnection conexionNew = new NpgsqlConnection();
                                     conexionNew.ConnectionString = conexionnewpos.Trim();
@@ -270,9 +269,9 @@ namespace Contasis
                                 {
                                     string text04 = "create sequence sec_id_conexion minvalue 1 maxvalue 9999999999 increment by 1 ;" +
                                     "Create Table conexiones(id int default nextval('sec_id_conexion')," +
-                                    "ctipobase Char(50), cubicacion Char(50),cservidor char(50), cusuario Char(50)," +
-                                    "cclave text, cpuerto char(50), cbase char(50)," +
-                                    "cesquema Varchar(250), ccadena character(500), fFechacreacion timestamp," +
+                                    "ctipobase Char(250), cubicacion Char(250),cservidor text, cusuario Char(250)," +
+                                    "cclave text, cpuerto char(50), cbase char(250)," +
+                                    "cesquema Varchar(250), ccadena text, fFechacreacion timestamp," +
                                     "ffechamodificacion timestamp, cusuarioCre char(35), cusuariomodi char(35));";
                                     NpgsqlCommand cmdp4 = new NpgsqlCommand(text04, conexionNew);
                                     cmdp4.ExecuteNonQuery();
@@ -286,7 +285,7 @@ namespace Contasis
                                     string malor5 = esconde1.Ocultar(txtClave.Text);
                                     string malor7 = esconde1.Ocultar(conexionnewpos);
                                     string malor8 = Properties.Settings.Default.Usuario;
-                                    string malor9 = "DESTINO";
+                                    string malor9 = "ORIGEN";
                                     str33 = "Insert Into conexiones(ctipobase,cservidor,cusuario,cclave,cpuerto,cbase,cubicacion,ccadena,cusuariocre) " +
                                    "values('" + malor1 + "','" + malor2 + "','" + malor4 + "','" + malor5 + "','" + malor3 + "','" + malor6 + "','" + malor9 + "','" + malor7 + "','" + malor8 + "')";
                                     NpgsqlCommand cmdp5 = new NpgsqlCommand(str33, conexionNew);
@@ -307,7 +306,9 @@ namespace Contasis
                                         txtcadena.Enabled = false;
                                         btnValidar.Enabled = false;
                                         btnGrabar.Enabled = false;
-                                        MessageBox.Show("Conexion registrada correctamente", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                                        MessageBox.Show("Conexión registrada correctamente.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    
                                         Principal.instance.txtcontrol.Text = "1";
                                         txtcadena.Text = conexionnewpos;
                                         btnGrabar.Enabled = true;
@@ -376,6 +377,7 @@ namespace Contasis
                 String parametercadena = txtcadena.Text;
                 FrmCrearTablas frm = new FrmCrearTablas(parametercadena,opcion, 0);
                 frm.Show();
+            this.btnGrabar.Enabled = false;
             
 
         }
@@ -463,9 +465,9 @@ namespace Contasis
 
                 connection.Close();
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no existe información de conexión a empresa " , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
         }
@@ -492,9 +494,9 @@ namespace Contasis
 
                 conexionNew.Close();
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no existe información de conexión a empresa "  , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
 
@@ -502,7 +504,10 @@ namespace Contasis
 
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
     }
 
 
