@@ -65,14 +65,19 @@ namespace Contasis
                     string cadenanew = "";
                     string empresa = "";
                     string cadena = "";
+                    string empresanew = "";
+
                     Clase.empresaPropiedades obj = new Clase.empresaPropiedades();
                     obj.codempresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value);
                     obj.empresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[1].Value);
+                                      
                     cadena = Properties.Settings.Default.cadenaPost;
                     empresa = "contasis_" + obj.empresa.Trim();
-                    cadenanew = cadena.Replace("contasis","contasis_"+obj.codempresa.Trim()).ToLower();
+                    empresanew = obj.codempresa.Trim().ToLower();
+                    cadenanew = cadena.Replace("contasis", "contasis_"+empresanew);
                     
-                    
+                   //////// MessageBox.Show(cadenanew);
+
                     try
                     {
                         NpgsqlConnection cone1 = new NpgsqlConnection();
@@ -132,7 +137,7 @@ namespace Contasis
                     string cadenanew = "";
                     string empresa = "";
                     string cadena = "";
-
+                    string empresanew = "";
 
                     Clase.empresaPropiedades obj = new Clase.empresaPropiedades();
                     obj.codempresa = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value);
@@ -143,8 +148,8 @@ namespace Contasis
 
                     cadena = Properties.Settings.Default.cadenaPost;
                     empresa = "contasis_" + obj.empresa.Trim();
-                    cadenanew = cadena.Replace("contasis", "contasis_" + obj.codempresa.Trim()).ToLower();
-                    
+                    empresanew = obj.codempresa.Trim().ToLower();
+                    cadenanew = cadena.Replace("contasis", "contasis_" + empresanew);
 
                     try
                     {
@@ -219,7 +224,7 @@ namespace Contasis
         }
         private void cargar_codigo(string valor)
         {
-             NpgsqlConnection cone = new NpgsqlConnection();
+            NpgsqlConnection cone = new NpgsqlConnection();
             cone = Clase.ConexionPostgreslContasis.Instancial().establecerconexion();
             NpgsqlCommand cmdp = new NpgsqlCommand(valor, cone);
             cone.Open();

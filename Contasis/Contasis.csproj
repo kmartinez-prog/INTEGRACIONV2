@@ -183,6 +183,8 @@
     <Compile Include="Clase\datosSqlUsu.cs" />
     <Compile Include="Clase\EmpresaPropiedades.cs" />
     <Compile Include="Clase\Empresas.cs" />
+    <Compile Include="Clase\Estructura_postgres.cs" />
+    <Compile Include="Clase\Estructura_SQL.cs" />
     <Compile Include="Clase\Inicio.cs" />
     <Compile Include="Clase\LeerUsuarios.cs" />
     <Compile Include="Clase\ruc.cs" />

@@ -755,6 +755,34 @@ end;
 $function$
 ;</value>
   </data>
+  <data name="txtversion2.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fn_select_version()
+RETURNS table(cversion character) AS
+$BODY$
+BEGIN 
+    return query select t.cversion from cg_version t;
+end;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;</value>
+  </data>
+  <data name="txtversion3.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fn_actualizar_version(in p_version character(15))
+RETURNS void AS
+$BODY$
+BEGIN 
+
+    if((select true from cg_version limit 1) is null)then
+        insert into cg_version(cversion) values (p_version);
+    else
+        update cg_version set cversion=p_version, cfecha=now();
+    end if;    
+    
+end;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

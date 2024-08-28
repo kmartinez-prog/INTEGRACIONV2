@@ -458,6 +458,10 @@ namespace Contasis
               //  string strcomprasfecha;
                 string strsp_compras;
                 string strsp_ventas;
+                string version01;
+                string version02;
+                string version03;
+                string version04;
 
                 SqlConnection conex2 = new SqlConnection(cadena);
                 try
@@ -741,8 +745,6 @@ namespace Contasis
                         /**************************************************/
                       
                         /**************************************************/
-                        
-
                         string ENVIORESULTADOVENTAS = "CREATE PROCEDURE sp_ventas_envio_resultado\n" +
                         " @resultado NVARCHAR(MAX) \n" +
                         " AS \n" +
@@ -809,11 +811,89 @@ namespace Contasis
                         {
                             MessageBox.Show("Ya existe el procedimiento de envio resultados de  compras", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         }
+                        /**************************************************/
+                        version01 = "create table cg_version (" +
+                                    " cversion varchar(15) not null, " +
+                                    " cfecha datetime2 default GETDATE() not null,);";
+                        SqlCommand myCommand40 = new SqlCommand(version01, conex2);
+                        try
+                        {
+                            myCommand40.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe la tabla de versión.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
 
+                        /**************************************************/
+                        version02 = "create procedure sp_select_version as \n" +
+                                    " begin  \n" +
+                                    " select cversion   \n" +
+                                    " From dbo.cg_version   \n" +
+                                    " end; ";
+                                    
+                        SqlCommand myCommand41 = new SqlCommand(version02, conex2);
+                        try
+                        {
+                            myCommand41.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el sp_select_version.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
 
+                        /**************************************************/
+                        version03 = "create procedure dbo.sp_actualizar_version  \n" +
+                                    " @p_version varchar(15)  \n" +
+                                    " as  \n" +
+                                    " begin  \n" +
+                                    " if exists(select 1 from cg_version)  \n" +
+                                    " begin  \n" +
+                                    " update cg_version  \n" +
+                                    " set cversion = @p_version, cfecha = GETDATE();  \n" +
+                                    " end  \n" +
+                                    " else  \n" +
+                                    " begin  \n" +
+                                    " insert into cg_version(cversion)  \n" +
+                                    " values(@p_version); \n" +
+                                    " end  \n" +
+                                    "  end; ";
+                        SqlCommand myCommand42 = new SqlCommand(version03, conex2);
+                        try
+                        {
+                            myCommand42.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el sp_actualizar_version.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
 
+                        /**************************************************/
+                        version04 = "CREATE TABLE test( \n" +
+                                    "  test_id int NOT NULL, \n" +
+                                    " test_nombre char(50) NOT NULL)";
+                        SqlCommand myCommand43 = new SqlCommand(version04, conex2);
+                        try
+                        {
+                            myCommand43.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el sp_actualizar_version.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
 
-
+                        /**************************************************/
+                        string version05 = " INSERT INTO test (test_id,test_nombre) VALUES(1,'Test 1');" +
+                                           " INSERT INTO test (test_id, test_nombre)  VALUES(2, 'Test 2 - actualizado'); ";
+                        SqlCommand myCommand44 = new SqlCommand(version05, conex2);
+                        try
+                        {
+                            myCommand44.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el sp_actualizar_version.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
                         /**************************************************/
                         conex2.Close();
                     }

@@ -133,7 +133,7 @@ namespace Contasis
             this.BtnActualizar.Location = new System.Drawing.Point(213, 153);
             this.BtnActualizar.Name = "BtnActualizar";
             this.BtnActualizar.Size = new System.Drawing.Size(100, 32);
-            this.BtnActualizar.TabIndex = 4;
+            this.BtnActualizar.TabIndex = 3;
             this.BtnActualizar.Text = "Grabar";
             this.BtnActualizar.UseVisualStyleBackColor = false;
             this.BtnActualizar.Click += new System.EventHandler(this.BtnActualizar_Click);
@@ -147,7 +147,7 @@ namespace Contasis
             this.btncerrar.Location = new System.Drawing.Point(320, 153);
             this.btncerrar.Name = "btncerrar";
             this.btncerrar.Size = new System.Drawing.Size(100, 32);
-            this.btncerrar.TabIndex = 3;
+            this.btncerrar.TabIndex = 4;
             this.btncerrar.Text = "Salir";
             this.btncerrar.UseVisualStyleBackColor = false;
             this.btncerrar.Click += new System.EventHandler(this.btncerrar_Click);

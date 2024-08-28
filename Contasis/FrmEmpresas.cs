@@ -155,7 +155,7 @@ namespace Contasis
         }
         private void btneliminar_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.Rows.Count-1 == 0)
+            if (dataGridView1.Rows.Count == 0)
             {
                 MessageBox.Show("No Existe registros a eliminar", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;

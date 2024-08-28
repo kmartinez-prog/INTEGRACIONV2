@@ -1,11 +1,11 @@
 ﻿using Npgsql;
 using System;
-using System.IO;
-using System.IO.Compression;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -16,12 +16,13 @@ namespace Contasis.Clase
 {
     public class ValidarVersion
     {
-        private readonly HttpClient httpClient = new HttpClient();
-        private readonly string VersionApp = "1.0.8";
+        private readonly HttpClient httpClient;
+
+        private readonly string VersionApp = "1.0.10";
         private readonly string UrlVersion = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/version.txt";
-        private readonly string UrlApp = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/Integrador.zip";
+        private readonly string UrlApp = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/Integrador_{0}.zip";
         private readonly string UbicacionInstalador = @"C:\\Users\\Public\\Documents\\integrador\\version";
-        private readonly string NombreInstalador = "Integrador.msi";
+        private readonly string NombreInstalador = "Setup1.msi";
         private readonly string NombreServicio = "IntegradorOnline";
 
         private string CadenaSql;
@@ -30,11 +31,10 @@ namespace Contasis.Clase
         private readonly string MOTOR_POSTGRES = "POSTGRES";
         private readonly string MOTOR_SQLSERVER = "SQLSERVER";
 
-       /// string zipPath = @"C:\Users\Public\Documents\Online.Zip";
-        ///string extractPath = @"C:\Users\Public\Documents\extract";
-
-        public ValidarVersion()
+        public  ValidarVersion()
         {
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+            httpClient = new HttpClient();
             if (File.Exists(@"C:\Users\Public\Documents\SQL.txt"))
             {
                 CadenaSql = Mostrar(File.ReadAllText(@"C:\Users\Public\Documents\SQL.txt"));
@@ -62,18 +62,19 @@ namespace Contasis.Clase
 
             try
             {
+                string versionURL = await ConsultarVersionAsync(UrlVersion);
                 // si version de bd es diferente a version de app actualizar bd.
                 bool requiereActualizacion = false;
                 // sql o postgres?
                 if(MotorBD == MOTOR_POSTGRES)
                 {
-                    requiereActualizacion = await SincronizarVersionPostgresAsync();
+                    requiereActualizacion = SincronizarVersionPostgres(versionURL);
                 } else
                 {
-                    requiereActualizacion = await SincronizarVersionSqlServerAsync();
+                    requiereActualizacion = SincronizarVersionSqlServer(versionURL);
                 }
                 //requiereActualizacion = await SincronizarVersionSqlServerAsync();
-
+                
                 if (!requiereActualizacion)
                 {
                     return;
@@ -83,18 +84,18 @@ namespace Contasis.Clase
 
                 if (result == DialogResult.Yes)
                 {
-                    await DowloadInstalador();
+                    await DowloadInstalador(versionURL);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al validar version del integrador");
+                MessageBox.Show($"Error al validar version del integrador: "+ex.Message);
             }
         }
 
 
         // Postgres
-        private async Task<bool> SincronizarVersionPostgresAsync()
+        private bool SincronizarVersionPostgres(string newVersion)
         {
             bool requiereActualizacion = false;
             using (NpgsqlConnection conexion = new NpgsqlConnection(CadenaSql))
@@ -107,12 +108,12 @@ namespace Contasis.Clase
                 }
                 else if (versionBD != VersionApp)
                 {
-                    ExecUpdateVersionPostgres(conexion, VersionApp);
+                    ExecScriptUpdatePostgres(conexion);
+                    ExecUpdateVersionPostgres(conexion, VersionApp);                    
                 }
                 versionBD = VersionApp;
                 //
-                string versionURL = await ConsultarVersionAsync(UrlVersion);
-                requiereActualizacion = (versionBD != versionURL);
+                requiereActualizacion = (versionBD != newVersion);
             }
             return requiereActualizacion;
         }
@@ -133,18 +134,26 @@ namespace Contasis.Clase
             return version;
         }
 
-        private string ExecUpdateVersionPostgres(NpgsqlConnection conexion, string version)
+        private void ExecUpdateVersionPostgres(NpgsqlConnection conexion, string version)
         {
             using (NpgsqlCommand cmdp1 = new NpgsqlCommand("select * from fn_actualizar_version(@p_version)", conexion))
             {
                 cmdp1.Parameters.AddWithValue("@p_version", version);
                 cmdp1.ExecuteNonQuery();
             }
-            return version;
+        }
+
+        private void ExecScriptUpdatePostgres(NpgsqlConnection conexion)
+        {
+            /*string sql = Properties.Resources.ScriptActualizacionPostgres;
+            using (NpgsqlCommand cmdp1 = new NpgsqlCommand(sql, conexion))
+            {                
+                cmdp1.ExecuteNonQuery();
+            }*/
         }
 
         // sql server
-        private async Task<bool> SincronizarVersionSqlServerAsync()
+        private bool SincronizarVersionSqlServer(string newVersion)
         {
             bool requiereActualizacion = false;
             using (SqlConnection conexion = new SqlConnection(CadenaSql))
@@ -157,12 +166,11 @@ namespace Contasis.Clase
                 }
                 else if (versionBD != VersionApp)
                 {
-                    ExecUpdateVersionSqlServer(conexion, VersionApp);
+                    ExecScriptUpdateSqlServer(conexion);
+                    ExecUpdateVersionSqlServer(conexion, VersionApp);                    
                 }
-                versionBD = VersionApp;
-                //
-                string versionURL = await ConsultarVersionAsync(UrlVersion);
-                requiereActualizacion = (versionBD != versionURL);
+                versionBD = VersionApp;                
+                requiereActualizacion = (versionBD != newVersion);
             }
             return requiereActualizacion;
         }
@@ -188,7 +196,7 @@ namespace Contasis.Clase
             return version;
         }
 
-        private string ExecUpdateVersionSqlServer(SqlConnection conexion, string version)
+        private void ExecUpdateVersionSqlServer(SqlConnection conexion, string version)
         {
             using (SqlCommand cmd = new SqlCommand("dbo.sp_actualizar_version", conexion))
             {
@@ -197,22 +205,38 @@ namespace Contasis.Clase
                 cmd.CommandTimeout = 5000;
                 cmd.ExecuteNonQuery();
             }
-            return version;
+        }
+        
+        private void ExecScriptUpdateSqlServer(SqlConnection conexion)
+        {
+           /* string sql = Properties.Resources.ScriptActualizacionSQLServer;
+            using (SqlCommand command = new SqlCommand(sql, conexion))
+            {
+                command.CommandTimeout = 5000;
+                command.ExecuteNonQuery();
+            }*/
         }
 
         // General
         private async Task<string> ConsultarVersionAsync(string url)
         {
             string content = null;
-            using (HttpResponseMessage response = await httpClient.GetAsync(url))
+            try
             {
-                response.EnsureSuccessStatusCode();
-                content = await response.Content.ReadAsStringAsync();
+                using (HttpResponseMessage response = await httpClient.GetAsync(url))
+                {
+                    response.EnsureSuccessStatusCode();
+                    content = await response.Content.ReadAsStringAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
             return content;
         }
 
-        private async Task DowloadInstalador()
+        private async Task DowloadInstalador(string newVersion)
         {
 
             if (Directory.Exists(UbicacionInstalador))
@@ -221,13 +245,14 @@ namespace Contasis.Clase
             }
             Directory.CreateDirectory(UbicacionInstalador);
             string pathInstalador = UbicacionInstalador + NombreInstalador.Replace(".msi", ".zip");
-            await DownloadFileAsync(pathInstalador);
+            await DownloadFileAsync(pathInstalador, newVersion);
             ExtractZipFile(pathInstalador, UbicacionInstalador);
         }
 
-        private async Task DownloadFileAsync(string filePath)
+        private async Task DownloadFileAsync(string filePath, string newVersion)
         {
-            using (HttpResponseMessage response = await httpClient.GetAsync(UrlApp))
+            string url = String.Format(UrlApp, newVersion);
+            using (HttpResponseMessage response = await httpClient.GetAsync(url))
             {
                 response.EnsureSuccessStatusCode();
                 byte[] fileBytes = await response.Content.ReadAsByteArrayAsync();
@@ -237,14 +262,10 @@ namespace Contasis.Clase
 
         private void ExtractZipFile(string zipPath, string extractPath)
         {
-            
-
             if (!Directory.Exists(extractPath))
             {
                 Directory.CreateDirectory(extractPath);
             }
-            
-
             ZipFile.ExtractToDirectory(zipPath, extractPath);
             string file = Path.Combine(extractPath, NombreInstalador);
 
@@ -258,8 +279,7 @@ namespace Contasis.Clase
         {
             try
             {
-                DetenerServicio();
-                MessageBox.Show(pathmsi + Environment.NewLine + msi);
+                //DetenerServicio();
                 Process.Start(pathmsi);
                 Process.Start(msi);
                 /*var processInfo = new Process();
