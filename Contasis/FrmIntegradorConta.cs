@@ -224,8 +224,8 @@ namespace Contasis
             {
                 
                 txtcadena.Text = Properties.Settings.Default.cadenaPost;
-                xCodempresa = "contasis_" + cmbempresas.Text.Substring(0, 3);
-                txtcadena.Text = txtcadena.Text.Replace("contasis", xCodempresa.Trim()).ToLower();
+                xCodempresa = "contasis_" + cmbempresas.Text.Substring(0, 3).ToLower();
+                txtcadena.Text = txtcadena.Text.Replace("contasis", xCodempresa.Trim());
                 this.cargar();
                 this.cargarentidad();
                 this.anulados();

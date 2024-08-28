@@ -115,12 +115,12 @@ namespace Contasis
                         command8.ExecuteNonQuery();
 
                         timer4.Enabled = true;
-                        string ejecutar9 = txtversion1.Text;
+                        string ejecutar9 = txtversion2.Text;
                         NpgsqlCommand command9 = new NpgsqlCommand(ejecutar9, conexion);
                         command9.ExecuteNonQuery();
 
                         timer4.Enabled = true;
-                        string ejecutar10 = txtversion1.Text;
+                        string ejecutar10 = txtversion3.Text;
                         NpgsqlCommand command10 = new NpgsqlCommand(ejecutar10, conexion);
                         command10.ExecuteNonQuery();
 
