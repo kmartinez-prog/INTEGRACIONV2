@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contasis", "Contasis\Contas
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "Setup1\Setup1.vdproj", "{4CAD325F-D0DF-4C2B-B14C-3514B5FE6500}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actualizador", "Actualizador\Actualizador.csproj", "{6A4A86A6-D28C-4DC4-A75B-9FE2C2F16453}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{871A6E9F-EDC4-436C-9857-89BB9384431F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4CAD325F-D0DF-4C2B-B14C-3514B5FE6500}.Debug|Any CPU.ActiveCfg = Debug
 		{4CAD325F-D0DF-4C2B-B14C-3514B5FE6500}.Release|Any CPU.ActiveCfg = Release
+		{6A4A86A6-D28C-4DC4-A75B-9FE2C2F16453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A4A86A6-D28C-4DC4-A75B-9FE2C2F16453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A4A86A6-D28C-4DC4-A75B-9FE2C2F16453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A4A86A6-D28C-4DC4-A75B-9FE2C2F16453}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
