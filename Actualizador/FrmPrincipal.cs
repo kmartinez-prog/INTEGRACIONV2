@@ -28,7 +28,7 @@ namespace Actualizador
         private readonly string UrlApp = "https://mediacomunica.com/apis/Setup_{0}.zip";
 
         private readonly string UbicacionInstalador = Application.StartupPath + "\\version"; //@"C:\\Users\\Public\\Documents\\integrador\\version";
-        private readonly string NombreInstalador = "SetupTest.exe";
+        private readonly string NombreInstalador = "Integracion Online.exe";
 
         private readonly List<string> ArchivosExcluidos = new List<string>()
         {
