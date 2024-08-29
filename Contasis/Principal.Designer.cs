@@ -63,6 +63,7 @@ namespace Contasis
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtcontrol = new System.Windows.Forms.TextBox();
+            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -219,7 +220,7 @@ namespace Contasis
             // 
             this.ventasContableToolStripMenuItem.Image = global::Contasis.Properties.Resources._7__Icono_Boton___Permisos;
             this.ventasContableToolStripMenuItem.Name = "ventasContableToolStripMenuItem";
-            this.ventasContableToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.ventasContableToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.ventasContableToolStripMenuItem.Text = "Ventas Contable";
             this.ventasContableToolStripMenuItem.Click += new System.EventHandler(this.ventasContableToolStripMenuItem_Click);
             // 
@@ -227,7 +228,7 @@ namespace Contasis
             // 
             this.comprasContableToolStripMenuItem.Image = global::Contasis.Properties.Resources._3__Icono_Boton___Modificar;
             this.comprasContableToolStripMenuItem.Name = "comprasContableToolStripMenuItem";
-            this.comprasContableToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.comprasContableToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.comprasContableToolStripMenuItem.Text = " Compras Contable";
             this.comprasContableToolStripMenuItem.Click += new System.EventHandler(this.comprasContableToolStripMenuItem_Click);
             // 
@@ -295,14 +296,14 @@ namespace Contasis
             // 
             this.toolStripStatusLabel1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(171, 23);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(169, 23);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(171, 23);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(169, 23);
             this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
             // 
             // toolStripStatusLabel4
@@ -318,12 +319,14 @@ namespace Contasis
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel4,
-            this.toolStripStatusLabel5});
+            this.toolStripStatusLabel5,
+            this.toolStripStatusLabel6});
             this.statusStrip1.Location = new System.Drawing.Point(0, 639);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1316, 29);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
             // 
             // toolStripStatusLabel5
             // 
@@ -338,6 +341,13 @@ namespace Contasis
             this.txtcontrol.Name = "txtcontrol";
             this.txtcontrol.Size = new System.Drawing.Size(112, 20);
             this.txtcontrol.TabIndex = 4;
+            // 
+            // toolStripStatusLabel6
+            // 
+            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(151, 23);
+            this.toolStripStatusLabel6.Text = "toolStripStatusLabel6";
+            this.toolStripStatusLabel6.Click += new System.EventHandler(this.toolStripStatusLabel6_Click);
             // 
             // Principal
             // 
@@ -408,5 +418,6 @@ namespace Contasis
         private System.Windows.Forms.ToolStripMenuItem servicioDeIntegraciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
     }
 }

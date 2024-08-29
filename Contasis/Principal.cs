@@ -105,8 +105,6 @@ namespace Contasis
             toolStripStatusLabel2.Text = "| Hora Actual : " + DateTime.Now.ToString("hh:mm:ss");
             toolStripStatusLabel4.Text = "| Usuario Actual : " + Properties.Settings.Default.Usuario;
             toolStripStatusLabel5.Text = "| Conexion origen :  ";
-
-
             if (string.IsNullOrEmpty(Properties.Settings.Default.cadenaPostPrincipal))
             {
                 
@@ -122,7 +120,7 @@ namespace Contasis
             {
                 toolStripStatusLabel5.Text = "| Conexion origen : SQL SERVER ";
             }
-
+            toolStripStatusLabel6.Text = "| Version del sistema :  " + Properties.Settings.Default.version;
 
         }
 
@@ -472,6 +470,16 @@ namespace Contasis
         }
 
         private void toolStripStatusLabel5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void toolStripStatusLabel6_Click(object sender, EventArgs e)
         {
 
         }

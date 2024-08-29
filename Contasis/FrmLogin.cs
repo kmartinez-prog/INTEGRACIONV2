@@ -105,6 +105,36 @@ namespace Contasis
 
 
         }
+        public void version1()
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(Properties.Settings.Default.cadenaSql);
+                ////connection.Open();
+                var command1 = new System.Data.SqlClient.SqlCommand();
+                command1.Connection = connection;
+                command1.CommandType = CommandType.Text;
+                command1.CommandText = "SELECT cversion+'-['+convert(char(10),cfecha,103)+']' as version  FROM  cg_version";
+                var adapter1 = new System.Data.SqlClient.SqlDataAdapter(command1);
+                var dataset1 = new DataSet();
+                adapter1.Fill(dataset1);
+                for (int i = 0; i < dataset1.Tables[0].Rows.Count; i++)
+                {
+                    Properties.Settings.Default.version = dataset1.Tables[0].Rows[i][0].ToString();
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+                }
+                connection.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Error no Existe Información en la tabla versión.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+            }
+
+
+
+        }
         public void llenarcombo2()
         {
             try
@@ -127,6 +157,28 @@ namespace Contasis
                     cmbusuario.Refresh();
 
                 }
+
+                var command1 = new NpgsqlCommand();
+                command1.Connection = conexionNew;
+                command1.CommandType = CommandType.Text;
+                command1.CommandText = "select concat(ltrim(cversion),'-[',to_char(cfecha,'dd/mm/yyyy'),']') as version from cg_version";
+                var adapter1 = new NpgsqlDataAdapter(command1);
+                var dataset1 = new DataSet();
+                adapter1.Fill(dataset1);
+                
+                for (int i = 0; i < dataset1.Tables[0].Rows.Count; i++)
+
+                {
+                    
+                    Properties.Settings.Default.version = dataset1.Tables[0].Rows[i][0].ToString();
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+
+                }
+
+
+
+
                 conexionNew.Close();
             }
             catch 
@@ -138,6 +190,40 @@ namespace Contasis
 
 
         }
+        public void version2()
+        {
+            try
+            {
+                NpgsqlConnection conexionNew = new NpgsqlConnection();
+                conexionNew.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                conexionNew.Open();
+                var command = new NpgsqlCommand();
+                command.Connection = conexionNew;
+                command.CommandType = CommandType.Text;
+                command.CommandText = "select concat(ltrim(cversion),'-[',to_char(cfecha,'dd/mm/yyyy'),']') as version from cg_version";
+                var adapter = new NpgsqlDataAdapter(command);
+                var dataset = new DataSet();
+                adapter.Fill(dataset);
+                
+                for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
+
+                {
+                    Properties.Settings.Default.version = dataset.Tables[0].Rows[i][0].ToString();
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+                }
+                 conexionNew.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Error no Existe Información en la tabla versión.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+            }
+
+
+
+        }
+
         public void capturarclave()
         {
             try
@@ -231,7 +317,7 @@ namespace Contasis
                 this.llenarcombo();
                 this.captura1();
                 this.captura2();
-                
+                this.version1();
                 return;
             }
 
@@ -274,6 +360,7 @@ namespace Contasis
                 {
                      control = "1";
                     this.llenarcombo2();
+                    this.version2();
                     this.captura3();
                     this.captura4();
                    
@@ -314,7 +401,9 @@ namespace Contasis
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
-
+            Properties.Settings.Default.version = "";
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
 
             this.revisar();
             if (control == "0" || control=="")
