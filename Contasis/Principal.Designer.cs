@@ -62,8 +62,8 @@ namespace Contasis
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.txtcontrol = new System.Windows.Forms.TextBox();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.txtcontrol = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -150,9 +150,11 @@ namespace Contasis
             // 
             // estructuraDeDatosToolStripMenuItem
             // 
-            this.estructuraDeDatosToolStripMenuItem.Enabled = false;
+            this.estructuraDeDatosToolStripMenuItem.Checked = true;
+            this.estructuraDeDatosToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.estructuraDeDatosToolStripMenuItem.Image = global::Contasis.Properties.Resources._4__Icono___Estructura_de_datos;
             this.estructuraDeDatosToolStripMenuItem.Name = "estructuraDeDatosToolStripMenuItem";
+            this.estructuraDeDatosToolStripMenuItem.ShowShortcutKeys = false;
             this.estructuraDeDatosToolStripMenuItem.Size = new System.Drawing.Size(244, 26);
             this.estructuraDeDatosToolStripMenuItem.Text = "&Estructura de datos";
             // 
@@ -271,6 +273,7 @@ namespace Contasis
             this.toolStripButton1.Size = new System.Drawing.Size(100, 27);
             this.toolStripButton1.Text = "Estructura";
             this.toolStripButton1.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripTextBox1
             // 
@@ -335,19 +338,19 @@ namespace Contasis
             this.toolStripStatusLabel5.Text = "toolStripStatusLabel5";
             this.toolStripStatusLabel5.Click += new System.EventHandler(this.toolStripStatusLabel5_Click);
             // 
-            // txtcontrol
-            // 
-            this.txtcontrol.Location = new System.Drawing.Point(34, -67);
-            this.txtcontrol.Name = "txtcontrol";
-            this.txtcontrol.Size = new System.Drawing.Size(112, 20);
-            this.txtcontrol.TabIndex = 4;
-            // 
             // toolStripStatusLabel6
             // 
             this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
             this.toolStripStatusLabel6.Size = new System.Drawing.Size(151, 23);
             this.toolStripStatusLabel6.Text = "toolStripStatusLabel6";
             this.toolStripStatusLabel6.Click += new System.EventHandler(this.toolStripStatusLabel6_Click);
+            // 
+            // txtcontrol
+            // 
+            this.txtcontrol.Location = new System.Drawing.Point(34, -67);
+            this.txtcontrol.Name = "txtcontrol";
+            this.txtcontrol.Size = new System.Drawing.Size(112, 20);
+            this.txtcontrol.TabIndex = 4;
             // 
             // Principal
             // 

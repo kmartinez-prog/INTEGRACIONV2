@@ -401,9 +401,9 @@ namespace Contasis
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
-            Properties.Settings.Default.version = "";
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+         ///   Properties.Settings.Default.version = "";
+///            Properties.Settings.Default.Save();
+   ///         Properties.Settings.Default.Reload();
 
             this.revisar();
             if (control == "0" || control=="")

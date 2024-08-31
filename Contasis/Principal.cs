@@ -483,5 +483,10 @@ namespace Contasis
         {
 
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("En proceso de activación.");
+        }
     }
 }
