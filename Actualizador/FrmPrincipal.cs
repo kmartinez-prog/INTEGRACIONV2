@@ -21,8 +21,8 @@ namespace Actualizador
         private HttpClient httpClient;
         private MaterialSkinManager msk;
 
-      private readonly string UrlVersion = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/version.txt";
-      private readonly string UrlApp = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/Setup_{0}.zip";
+      private readonly string UrlVersion = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/version.txt?v=" + DateTime.Now.ToString("ddMMyyyyHHmmss");
+        private readonly string UrlApp = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/Setup_{0}.zip";
 
       ///private readonly string UrlVersion = "https://contasiscorpfab.s3.amazonaws.com/version.txt";
        ///private readonly string UrlApp = "https://contasiscorpfab.s3.amazonaws.com/Setup_{0}.zip";

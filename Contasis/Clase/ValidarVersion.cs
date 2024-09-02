@@ -17,9 +17,9 @@ namespace Contasis.Clase
     public class ValidarVersion
     {
         private readonly HttpClient httpClient;
-        private readonly string VersionApp = "24.0.25";
+        private readonly string VersionApp = "24.0.4";
 
-      private readonly string UrlVersion = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/version.txt";
+        private readonly string UrlVersion = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/version.txt?v=" + DateTime.Now.ToString("ddMMyyyyHHmmss");
         
 
       /// private readonly string UrlVersion = "https://contasiscorpfab.s3.amazonaws.com/version.txt";
@@ -54,6 +54,33 @@ namespace Contasis.Clase
             byte[] descrcriptar = Convert.FromBase64String(_cadena);
             return Encoding.Unicode.GetString(descrcriptar);
         }
+        public void CopyFilesActualizador()
+        {
+            try
+            {
+                string versionFolderPath = Path.Combine(Application.StartupPath, "version");
+                if (!Directory.Exists(versionFolderPath)) { return; }
+                string[] files = { "Actualizador.exe", "Actualizador.exe.config", "MaterialSkin.dll" };
+
+
+                foreach (string file in files)
+                {
+                    string sourceFile = Path.Combine(versionFolderPath, file);
+                    if (File.Exists(sourceFile))
+                    {
+                        string destinationFile = Path.Combine(Application.StartupPath, file);
+                        File.Copy(sourceFile, destinationFile, overwrite: true);
+                    }
+                    
+                }
+
+                Directory.Delete(versionFolderPath, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al reemplazar el actualizador " + ex.Message);
+            }
+        }
 
         public async Task Validar()
         {
@@ -64,6 +91,7 @@ namespace Contasis.Clase
 
             try
             {
+                CopyFilesActualizador();
                 string versionURL = await ConsultarVersionAsync();
                 if (versionURL == null)
                 {
