@@ -52,6 +52,7 @@ namespace Contasis
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmVerificacionEstrcutura";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Verificación de estructura";
             this.ResumeLayout(false);
 

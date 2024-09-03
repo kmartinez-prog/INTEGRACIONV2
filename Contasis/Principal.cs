@@ -486,7 +486,17 @@ namespace Contasis
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("En proceso de activación.");
+            MessageBox.Show("En proceso de activación.","Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void inconsistenciasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void estructuraDeDatosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("En proceso de activación.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
