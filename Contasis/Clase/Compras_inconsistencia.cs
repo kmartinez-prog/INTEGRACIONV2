@@ -30,7 +30,7 @@ namespace Contasis.Clase
                 ", nporre, nimpres, cserre, cnumre, convert(varchar,ffecre,103) as ffecre, ccodpresu " +
                 ", nigv,  ccodpago, nperdenre, nbaseres, cctaperc, " +
                 " obserror " +
-                "  FROM fin_compras where es_con_migracion not in(0,1,4)";
+                "  FROM fin_compras where es_con_migracion = 2  and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
@@ -73,7 +73,7 @@ namespace Contasis.Clase
                 ", nporre, nimpres, cserre, cnumre, to_char(ffecre,'dd/mm/yyyy')::char(10) as ffecre, ccodpresu " +
                 ", nigv, cglosa, ccodpago, nperdenre, nbaseres, cctaperc, " +
                 " obserror " +
-                "  FROM fin_compras where resultado_migracion not in(0,1,4)";
+                "  FROM fin_compras where resultado_migracion =2  and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();
                 grilla.Load(carga);

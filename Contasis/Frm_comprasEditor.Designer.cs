@@ -157,6 +157,7 @@ namespace Contasis
             this.btncerrar.TabIndex = 111;
             this.btncerrar.Text = "Salir";
             this.btncerrar.UseVisualStyleBackColor = false;
+            this.btncerrar.Click += new System.EventHandler(this.btncerrar_Click);
             // 
             // txtidcompras
             // 

@@ -38,7 +38,7 @@ namespace Contasis.Clase
                 "convert(varchar, ffecre2, 103) as ffecre2, " +
                 "ccodpresu, nigv,  nperdenre,  " +
                 "nbaseres, cigvxacre, obserror " +
-                "  FROM fin_compras where es_con_migracion not in(0,1,4) and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
+                "  FROM fin_compras where es_con_migracion=2 and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
@@ -85,7 +85,7 @@ namespace Contasis.Clase
                 "to_char(ffecre2, 'dd/mm/yyyy')::char(10) as ffecre2, " +
                 "ccodpresu, nigv,  nperdenre,  " +
                 "nbaseres, cigvxacre, obserror  " +
-                "  FROM fin_compras where es_con_migracion not in(0,1,4) and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
+                "  FROM fin_compras where es_con_migracion=2 and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();
                 grilla.Load(carga);
@@ -250,7 +250,7 @@ namespace Contasis.Clase
                  "ccodpresu, nigv,  nperdenre,  " +
                  "nbaseres, cigvxacre, obserror " +
                  "FROM fin_compras  " +
-                 " Where es_con_migracion not in(0,1,4) and " +
+                 " Where es_con_migracion=2 and " +
                  "  ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "' and obserror='" + Objet.estado.Trim() + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
@@ -299,7 +299,7 @@ namespace Contasis.Clase
                 "ccodpresu, nigv,  nperdenre, " +
                 "nbaseres, cigvxacre, obserror" +
                 " FROM fin_compras "+
-                " where es_con_migracion not in(0,1,4) and " +
+                " where es_con_migracion=2 and " +
                 "  ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "' and obserror='" + Objet.estado.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();

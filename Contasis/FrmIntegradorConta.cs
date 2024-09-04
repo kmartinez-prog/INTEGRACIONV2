@@ -1200,7 +1200,7 @@ namespace Contasis
                     Clase.Cuentas regis = new Clase.Cuentas();
                     string xEmpresa = cmbempresas.Text.Substring(0, 3);
                     string xperiodo = cmbperiodo.Text;
-                    dataGridView_venta.Rows.Clear(); 
+                    dataGridView_venta.DataSource = null;
                     dataGridView_venta.DataSource = regis.Cargar_ventas(xEmpresa, xperiodo);
                     dataGridView_venta.AllowUserToAddRows = false;
 

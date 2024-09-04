@@ -204,5 +204,11 @@ namespace Contasis
                 this.Close();
             }
         }
+
+        private void btncerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Hide();
+        }
     }
 }
