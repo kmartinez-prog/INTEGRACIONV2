@@ -257,6 +257,7 @@ namespace Contasis
             this.dataGridView2.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentDoubleClick);
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
+            this.dataGridView2.Click += new System.EventHandler(this.dataGridView2_Click);
             // 
             // Column1
             // 
@@ -265,7 +266,7 @@ namespace Contasis
             this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column1.Width = 53;
+            this.Column1.Width = 55;
             // 
             // Column2
             // 

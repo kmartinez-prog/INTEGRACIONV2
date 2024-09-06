@@ -16,7 +16,7 @@ namespace Contasis
         public Frm_ventasEditor(string idventas, string ffechadoc,
                      string ffechaven, string ccoddoc, string cserie, string cnumero, string ctipdoc, string crazsoc,
                     string ruc, string  base1, string  nigv1, string  ntots, string ntc, string  cmreg,
-                    string  cctabase, string  cctatot, string  ccond,string ccodcos, string ccodcos2)
+                    string  cctabase, string  cctatot, string  ccond,string ccodcos, string ccodcos2,string ccodpresu,string obserror)
         {
             InitializeComponent();
             txtidventas.Text = idventas;
@@ -38,7 +38,8 @@ namespace Contasis
             txtccond.Text = ccond;
             txtccodcos.Text = ccodcos;
             txtccodcos2.Text = ccodcos2;
-
+            txtccodpresu.Text = ccodpresu;
+            txtobservacion.Text = obserror;
         }
 
         private void btncerrar_Click(object sender, EventArgs e)

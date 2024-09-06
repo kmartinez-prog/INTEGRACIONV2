@@ -23,6 +23,7 @@ namespace Contasis
         FrRegistrarConexionDestino master9;
         FrmConfigurarServicio master10;
         FrRegistrarConexionNube master11;
+        FrmVerificacionEstrcutura master12;
 
 
         public static Principal instance = null;
@@ -497,6 +498,31 @@ namespace Contasis
         private void estructuraDeDatosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("En proceso de activación.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            foreach (Form OpenForm in Application.OpenForms)
+            {
+                if (OpenForm.Name == "master12")
+                { }
+                else
+                {
+                    master12 = null;
+                }
+
+            }
+
+            if (master12 == null)
+            {
+                master12 = new FrmVerificacionEstrcutura();
+                ///master6.MdiParent = this;
+                master12.ShowDialog();
+                master12.FormClosed += new FormClosedEventHandler(Cerrarestructura);
+
+            }
         }
+        void Cerrarestructura(object sender, EventArgs e)
+        {
+            master12 = null;
+        }
+
+
     }
 }

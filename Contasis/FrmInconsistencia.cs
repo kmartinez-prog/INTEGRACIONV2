@@ -110,7 +110,7 @@ namespace Contasis
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString(), "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                  ////  MessageBox.Show(ex.ToString(), "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
@@ -346,7 +346,7 @@ namespace Contasis
                     var command = new System.Data.SqlClient.SqlCommand();
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT distinct obserror " +
+                    command.CommandText = "SELECT distinct convert(varchar(900),obserror) as obserror " +
                     "  FROM fin_ventas where es_con_migracion =2 and ccodrucemisor='" + vruc.Trim() + "' and ccod_empresa='" + vempresa.Trim() + "'";
                     var adapter = new System.Data.SqlClient.SqlDataAdapter(command);
                     var dataset = new DataSet();
@@ -701,7 +701,7 @@ namespace Contasis
             { 
                 try
                 {
-                    txtLista.Text = dataGridView2.CurrentRow.Cells["obserror"].Value.ToString();
+                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
                     Refresh();
                 }
                 catch
@@ -717,7 +717,7 @@ namespace Contasis
                 { }
                 else
                 {
-                    txtLista.Text = dataGridView2.CurrentRow.Cells["obserror"].Value.ToString();
+                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
                     Refresh();
                 }
             }
@@ -744,11 +744,9 @@ namespace Contasis
             if (Convert.ToString(dataGridView2.Rows.Count ) == "0")
             { }
             else
-            { 
-               /// txtLista.Text = dataGridView2.CurrentRow.Cells["obserror"].Value.ToString();
-                Refresh();
+            {
+               Refresh();
             }
-
         }
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -756,6 +754,11 @@ namespace Contasis
             { }
             else
             {
+                
+                txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
+                Refresh();
+        
+        
                 Clase.ventas_propiedades obj = new Clase.ventas_propiedades();
                 obj.idventas = dataGridView2.CurrentRow.Cells[1].Value.ToString();
                 obj.ffechadoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[3].Value).Trim();
@@ -776,14 +779,17 @@ namespace Contasis
                 obj.ccond = Convert.ToString(dataGridView2.SelectedRows[0].Cells[30].Value).Trim();
                 obj.ccodcos = Convert.ToString(dataGridView2.SelectedRows[0].Cells[31].Value).Trim();
                 obj.ccodcos2 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
+                obj.ccodpresu = Convert.ToString(dataGridView2.SelectedRows[0].Cells[43].Value).Trim();
+                obj.obserror = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
 
                 Frm_ventasEditor editventas = new Frm_ventasEditor(obj.idventas, obj.ffechadoc,
                 obj.ffechaven, obj.ccoddoc, obj.cserie, obj.cnumero, obj.ctipdoc, obj.crazsoc,
-                obj.cruc, obj.base1, obj.nigv1, obj.ntots, obj.ntc, obj.cmreg, obj.cctabase, obj.cctatot,obj.ccond, obj.ccodcos, obj.ccodcos2);
+                obj.cruc, obj.base1, obj.nigv1, obj.ntots, obj.ntc, obj.cmreg, obj.cctabase, obj.cctatot,obj.ccond, 
+                obj.ccodcos, obj.ccodcos2, obj.ccodpresu, obj.obserror);
                 /// Frm_ventasEditor editventas = new Frm_ventasEditor();
                 editventas.ShowDialog();
             }
-            }
+        }
 
         //////////////////////////////////////////////////////////////////////////
         private void button1_Click(object sender, EventArgs e)
@@ -839,11 +845,16 @@ namespace Contasis
                  }*/
         }
 
+        private void dataGridView2_Click(object sender, EventArgs e)
+        {
+            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+            { }
+            else
+            {
 
-
-
-
-
-
-    }
+                txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
+                Refresh();
+            }
+            }
+        }
     }

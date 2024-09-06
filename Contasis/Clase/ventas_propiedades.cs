@@ -33,7 +33,7 @@ namespace Contasis.Clase
         public string ccond { get; set; }
         public string ccodcos { get; set; }
         public string ccodcos2 { get; set; }
-
-
+        public string ccodpresu { get; set; }
+        public string obserror { get; set; }
     }
 }

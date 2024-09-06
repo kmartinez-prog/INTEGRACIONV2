@@ -230,9 +230,9 @@ namespace Contasis.Clase
               ", cctabase, cctaicbper, cctaotrib, cctatot, nresp " +
               ", nporre, nimpres, cserre, cnumre, convert(varchar,ffecre,103) as ffecre, ccodpresu " +
               ", nigv,  ccodpago, nperdenre, nbaseres, cctaperc, " +
-              " obserror " +
+              "  convert(varchar(900),obserror) as obserror " +
               "  FROM fin_ventas where es_con_migracion =2 and "+ 
-              "  ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "' and obserror='" + Objet.estado.Trim() + "'";
+              "  ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "' and convert(varchar(900),obserror) ='" + Objet.estado.Trim() + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();

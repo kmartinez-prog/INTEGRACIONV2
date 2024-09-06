@@ -84,8 +84,8 @@ namespace Contasis
                         "ndolar numeric(15, 2) NULL," +
                         "ffechaven2 date   NULL," +
                         "ccond nchar(3) NULL," +
-                        "ccodcos nchar(9) NULL," +
-                        "ccodcos2 nchar(9) NULL," +
+                        "ccodcos nchar(15) NULL," +
+                        "ccodcos2 nchar(15) NULL," +
                         "cctabase nchar(20) NULL," +
                         "cctaicbper nchar(20) NULL," +
                         "cctaotrib nchar(20) NULL," +
@@ -98,7 +98,7 @@ namespace Contasis
                         "ffecre date   NULL," +
                         "ccodpresu nchar(10) NULL," +
                         "nigv numeric(5, 2) NULL," +
-                        "cglosa nchar(80) NULL," +
+                        "cglosa text NULL," +
                         "ccodpago nchar(3) NULL," +
                         "nperdenre numeric(1, 0) NULL," +
                         "nbaseres numeric(15, 2) NULL," +
@@ -700,8 +700,8 @@ namespace Contasis
                                 "		 Isnull(ndolar, 0.00) as ndolar,   \n" +
                                 "		 ltrim(rtrim(Isnull(Convert(char(10), ffechaven2, 112), ' '))) as ffechaven2,   \n" +
                                 "		 case when ltrim(rtrim(isnull(ccond,''))) = '' then ' ' else ltrim(rtrim(ccond))  end as ccond,   \n" +
-                                "		 case when ltrim(rtrim(isnull(ccodcos,''))) = '' then ' ' else ltrim(rtrim(ccodcos))  end as ccodcos,  \n" +
-                                "		 case when ltrim(rtrim(isnull(ccodcos2,''))) = '' then ' ' else ltrim(rtrim(ccodcos2))  end as ccodcos2,   \n" +
+                                "		 case when ltrim(rtrim(isnull(convert(char(9),ccodcos),''))) = '' then ' ' else ltrim(rtrim(convert(char(9),ccodcos)))  end as ccodcos,  \n" +
+                                "		 case when ltrim(rtrim(isnull(convert(char(9),ccodcos2),''))) = '' then ' ' else ltrim(rtrim(ccodcos2))  end as ccodcos2,   \n" +
                                 "		 case when ltrim(rtrim(isnull(cctabase,''))) = '' then ' ' else ltrim(rtrim(cctabase))  end as cctabase,   \n" +
                                 "		 case when ltrim(rtrim(isnull(cctaicbper,''))) = '' then ' ' else ltrim(rtrim(cctaicbper))  end as cctaicbper,   \n" +
                                 "		 case when ltrim(rtrim(isnull(cctaotrib,''))) = '' then ' ' else ltrim(rtrim(cctaotrib))  end as cctaotrib,   \n" +
@@ -714,7 +714,7 @@ namespace Contasis
                                 "		ltrim(rtrim(Isnull(Convert(char(10), ffecre, 112), ' '))) as ffecre,   \n" +
                                 "		case when ltrim(rtrim(isnull(ccodpresu,''))) = '' then ' ' else ltrim(rtrim(ccodpresu))  end as ccodpresu,   \n" +
                                 "		Isnull(nigv, 0.00) as nigv,   \n" +
-                                "		case when ltrim(rtrim(isnull(cglosa,''))) = '' then ' ' else ltrim(rtrim(cglosa))  end as cglosa,   \n" +
+                                "		case when ltrim(rtrim(isnull(convert(char(80),cglosa) ,''))) = '' then ' ' else ltrim(rtrim(convert(char(80),cglosa) ))  end as cglosa,   \n" +
                                 "		case when ltrim(rtrim(isnull(ccodpago,''))) = '' then ' ' else ltrim(rtrim(ccodpago))  end as ccodpago,   \n" +
                                 "		Isnull(nperdenre, 0.00) as nperdenre,   \n" +
                                 "		Isnull(nbaseres, 0.00) as nbaseres,   \n" +

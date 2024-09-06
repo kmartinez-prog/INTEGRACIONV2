@@ -492,9 +492,6 @@ $BODY$
     <value>CREATE OR REPLACE FUNCTION public.fin_compras_integracion_principal(
 	)
     RETURNS void
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE PARALLEL UNSAFE
 AS $BODY$
 
 DECLARE 
@@ -868,11 +865,11 @@ BEGIN
 		
 	end loop; -- Periodo 
 
-	
-	
-END; 
-$BODY$;
 
+END; 
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
 ALTER FUNCTION public.fin_compras_integracion_principal()
     OWNER TO postgres;</value>
   </data>
@@ -7113,9 +7110,6 @@ $BODY$
     <value>CREATE OR REPLACE FUNCTION public.fin_ventas_integracion_principal(
 	)
     RETURNS void
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE PARALLEL UNSAFE
 AS $BODY$
 
 DECLARE 
@@ -7492,10 +7486,11 @@ BEGIN
 	
 	
 END; 
-$BODY$;
-
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
 ALTER FUNCTION public.fin_ventas_integracion_principal()
-    OWNER TO postgres;</value>
+OWNER TO postgres;</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

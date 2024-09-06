@@ -237,6 +237,7 @@ namespace Contasis
                 var adapter = new System.Data.SqlClient.SqlDataAdapter(command);
                 var dataset = new DataSet();
                 adapter.Fill(dataset);
+                txtfrase.Text = "";
                 for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
                 {
                   txtfrase.Text= dataset.Tables[0].Rows[i][0].ToString();
@@ -582,20 +583,27 @@ namespace Contasis
         {
             if (control == "1")
             {
-                if (Properties.Settings.Default.cadenaPostPrincipal == "")
-                {
-                    this.capturarclave();
-                    Clase.esconder Mostrar = new Clase.esconder();
-                    txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
-                    txtfrase.Refresh();
-                }
+                if (txtfrase.Text.Trim() == "")
+                { }
                 else
                 {
-                    this.capturarclave2();
-                    Clase.esconder Mostrar = new Clase.esconder();
-                    txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
-                    txtfrase.Refresh();
+                    if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                    {
+                        this.capturarclave();
+                        Clase.esconder Mostrar = new Clase.esconder();
+                        txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
+                        txtfrase.Refresh();
+                    }
+                    else
+                    {
+                        this.capturarclave2();
+                        Clase.esconder Mostrar = new Clase.esconder();
+                        txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
+                        txtfrase.Refresh();
+                    }
                 }
+
+
             }
             else
             {

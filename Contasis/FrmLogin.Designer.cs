@@ -53,7 +53,7 @@ namespace Contasis
             // 
             // txtfrase
             // 
-            this.txtfrase.Location = new System.Drawing.Point(50, 500);
+            this.txtfrase.Location = new System.Drawing.Point(50, 401);
             this.txtfrase.Name = "txtfrase";
             this.txtfrase.Size = new System.Drawing.Size(128, 20);
             this.txtfrase.TabIndex = 2;
@@ -113,7 +113,7 @@ namespace Contasis
             // 
             // txtclave
             // 
-            this.txtclave.Location = new System.Drawing.Point(387, 238);
+            this.txtclave.Location = new System.Drawing.Point(387, 234);
             this.txtclave.Name = "txtclave";
             this.txtclave.PasswordChar = '*';
             this.txtclave.Size = new System.Drawing.Size(264, 20);

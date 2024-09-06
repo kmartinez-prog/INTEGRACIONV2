@@ -80,6 +80,10 @@ namespace Contasis
             this.label22 = new System.Windows.Forms.Label();
             this.txtccodcos2 = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
+            this.txtccodpresu = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txtobservacion = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,7 +106,7 @@ namespace Contasis
             // 
             // txtffechaven
             // 
-            this.txtffechaven.Location = new System.Drawing.Point(162, 143);
+            this.txtffechaven.Location = new System.Drawing.Point(427, 118);
             this.txtffechaven.MaxLength = 10;
             this.txtffechaven.Name = "txtffechaven";
             this.txtffechaven.Size = new System.Drawing.Size(96, 20);
@@ -111,7 +115,7 @@ namespace Contasis
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 145);
+            this.label2.Location = new System.Drawing.Point(283, 120);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(135, 15);
             this.label2.TabIndex = 3;
@@ -119,16 +123,16 @@ namespace Contasis
             // 
             // txtctipdoc
             // 
-            this.txtctipdoc.Location = new System.Drawing.Point(162, 244);
+            this.txtctipdoc.Location = new System.Drawing.Point(162, 220);
             this.txtctipdoc.MaxLength = 1;
             this.txtctipdoc.Name = "txtctipdoc";
-            this.txtctipdoc.Size = new System.Drawing.Size(54, 20);
+            this.txtctipdoc.Size = new System.Drawing.Size(40, 20);
             this.txtctipdoc.TabIndex = 23;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 247);
+            this.label3.Location = new System.Drawing.Point(18, 223);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 15);
             this.label3.TabIndex = 7;
@@ -136,7 +140,7 @@ namespace Contasis
             // 
             // txtccoddoc
             // 
-            this.txtccoddoc.Location = new System.Drawing.Point(162, 168);
+            this.txtccoddoc.Location = new System.Drawing.Point(162, 144);
             this.txtccoddoc.MaxLength = 2;
             this.txtccoddoc.Name = "txtccoddoc";
             this.txtccoddoc.Size = new System.Drawing.Size(55, 20);
@@ -145,7 +149,7 @@ namespace Contasis
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 171);
+            this.label4.Location = new System.Drawing.Point(18, 147);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(91, 15);
             this.label4.TabIndex = 4;
@@ -153,7 +157,7 @@ namespace Contasis
             // 
             // txtcnumero
             // 
-            this.txtcnumero.Location = new System.Drawing.Point(162, 219);
+            this.txtcnumero.Location = new System.Drawing.Point(162, 195);
             this.txtcnumero.MaxLength = 20;
             this.txtcnumero.Name = "txtcnumero";
             this.txtcnumero.Size = new System.Drawing.Size(155, 20);
@@ -162,7 +166,7 @@ namespace Contasis
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 222);
+            this.label5.Location = new System.Drawing.Point(18, 198);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(129, 15);
             this.label5.TabIndex = 6;
@@ -170,7 +174,7 @@ namespace Contasis
             // 
             // txtcserie
             // 
-            this.txtcserie.Location = new System.Drawing.Point(162, 193);
+            this.txtcserie.Location = new System.Drawing.Point(162, 169);
             this.txtcserie.MaxLength = 20;
             this.txtcserie.Name = "txtcserie";
             this.txtcserie.Size = new System.Drawing.Size(155, 20);
@@ -179,7 +183,7 @@ namespace Contasis
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(18, 196);
+            this.label6.Location = new System.Drawing.Point(18, 172);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 15);
             this.label6.TabIndex = 5;
@@ -187,7 +191,7 @@ namespace Contasis
             // 
             // txtntc
             // 
-            this.txtntc.Location = new System.Drawing.Point(162, 394);
+            this.txtntc.Location = new System.Drawing.Point(162, 370);
             this.txtntc.Name = "txtntc";
             this.txtntc.Size = new System.Drawing.Size(81, 20);
             this.txtntc.TabIndex = 29;
@@ -195,7 +199,7 @@ namespace Contasis
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(18, 397);
+            this.label7.Location = new System.Drawing.Point(18, 373);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(100, 15);
             this.label7.TabIndex = 13;
@@ -203,7 +207,7 @@ namespace Contasis
             // 
             // txtntots
             // 
-            this.txtntots.Location = new System.Drawing.Point(162, 370);
+            this.txtntots.Location = new System.Drawing.Point(162, 346);
             this.txtntots.Name = "txtntots";
             this.txtntots.Size = new System.Drawing.Size(81, 20);
             this.txtntots.TabIndex = 28;
@@ -211,7 +215,7 @@ namespace Contasis
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(18, 373);
+            this.label8.Location = new System.Drawing.Point(18, 349);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(40, 15);
             this.label8.TabIndex = 12;
@@ -219,7 +223,7 @@ namespace Contasis
             // 
             // txtnigv1
             // 
-            this.txtnigv1.Location = new System.Drawing.Point(162, 345);
+            this.txtnigv1.Location = new System.Drawing.Point(162, 321);
             this.txtnigv1.Name = "txtnigv1";
             this.txtnigv1.Size = new System.Drawing.Size(81, 20);
             this.txtnigv1.TabIndex = 27;
@@ -227,7 +231,7 @@ namespace Contasis
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(18, 348);
+            this.label9.Location = new System.Drawing.Point(18, 324);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(32, 15);
             this.label9.TabIndex = 11;
@@ -235,7 +239,7 @@ namespace Contasis
             // 
             // txtbase1
             // 
-            this.txtbase1.Location = new System.Drawing.Point(162, 319);
+            this.txtbase1.Location = new System.Drawing.Point(162, 295);
             this.txtbase1.Name = "txtbase1";
             this.txtbase1.Size = new System.Drawing.Size(81, 20);
             this.txtbase1.TabIndex = 26;
@@ -243,7 +247,7 @@ namespace Contasis
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(18, 322);
+            this.label10.Location = new System.Drawing.Point(18, 298);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(56, 15);
             this.label10.TabIndex = 10;
@@ -251,7 +255,7 @@ namespace Contasis
             // 
             // txtruc
             // 
-            this.txtruc.Location = new System.Drawing.Point(162, 293);
+            this.txtruc.Location = new System.Drawing.Point(162, 269);
             this.txtruc.MaxLength = 15;
             this.txtruc.Name = "txtruc";
             this.txtruc.Size = new System.Drawing.Size(125, 20);
@@ -260,7 +264,7 @@ namespace Contasis
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(18, 296);
+            this.label11.Location = new System.Drawing.Point(18, 272);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 15);
             this.label11.TabIndex = 9;
@@ -268,7 +272,7 @@ namespace Contasis
             // 
             // txtcrazsoc
             // 
-            this.txtcrazsoc.Location = new System.Drawing.Point(162, 269);
+            this.txtcrazsoc.Location = new System.Drawing.Point(162, 245);
             this.txtcrazsoc.MaxLength = 100;
             this.txtcrazsoc.Name = "txtcrazsoc";
             this.txtcrazsoc.Size = new System.Drawing.Size(328, 20);
@@ -277,7 +281,7 @@ namespace Contasis
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(18, 272);
+            this.label12.Location = new System.Drawing.Point(18, 248);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(84, 15);
             this.label12.TabIndex = 8;
@@ -349,16 +353,16 @@ namespace Contasis
             // 
             // txtccond
             // 
-            this.txtccond.Location = new System.Drawing.Point(162, 493);
+            this.txtccond.Location = new System.Drawing.Point(406, 423);
             this.txtccond.MaxLength = 3;
             this.txtccond.Name = "txtccond";
-            this.txtccond.Size = new System.Drawing.Size(81, 20);
+            this.txtccond.Size = new System.Drawing.Size(44, 20);
             this.txtccond.TabIndex = 33;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(18, 496);
+            this.label17.Location = new System.Drawing.Point(264, 426);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(112, 15);
             this.label17.TabIndex = 17;
@@ -366,7 +370,7 @@ namespace Contasis
             // 
             // txtcctatot
             // 
-            this.txtcctatot.Location = new System.Drawing.Point(162, 469);
+            this.txtcctatot.Location = new System.Drawing.Point(162, 423);
             this.txtcctatot.MaxLength = 10;
             this.txtcctatot.Name = "txtcctatot";
             this.txtcctatot.Size = new System.Drawing.Size(81, 20);
@@ -375,7 +379,7 @@ namespace Contasis
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(18, 472);
+            this.label18.Location = new System.Drawing.Point(18, 426);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(60, 15);
             this.label18.TabIndex = 16;
@@ -383,7 +387,7 @@ namespace Contasis
             // 
             // txtcctabase
             // 
-            this.txtcctabase.Location = new System.Drawing.Point(162, 445);
+            this.txtcctabase.Location = new System.Drawing.Point(406, 397);
             this.txtcctabase.MaxLength = 10;
             this.txtcctabase.Name = "txtcctabase";
             this.txtcctabase.Size = new System.Drawing.Size(81, 20);
@@ -392,7 +396,7 @@ namespace Contasis
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(18, 448);
+            this.label19.Location = new System.Drawing.Point(262, 400);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(138, 15);
             this.label19.TabIndex = 15;
@@ -400,16 +404,16 @@ namespace Contasis
             // 
             // txtcmreg
             // 
-            this.txtcmreg.Location = new System.Drawing.Point(162, 421);
+            this.txtcmreg.Location = new System.Drawing.Point(162, 396);
             this.txtcmreg.MaxLength = 1;
             this.txtcmreg.Name = "txtcmreg";
-            this.txtcmreg.Size = new System.Drawing.Size(81, 20);
+            this.txtcmreg.Size = new System.Drawing.Size(47, 20);
             this.txtcmreg.TabIndex = 30;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(18, 424);
+            this.label20.Location = new System.Drawing.Point(18, 399);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(96, 15);
             this.label20.TabIndex = 14;
@@ -486,7 +490,7 @@ namespace Contasis
             // 
             // txtccodcos
             // 
-            this.txtccodcos.Location = new System.Drawing.Point(162, 519);
+            this.txtccodcos.Location = new System.Drawing.Point(162, 447);
             this.txtccodcos.MaxLength = 3;
             this.txtccodcos.Name = "txtccodcos";
             this.txtccodcos.Size = new System.Drawing.Size(81, 20);
@@ -495,7 +499,7 @@ namespace Contasis
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(18, 522);
+            this.label22.Location = new System.Drawing.Point(18, 450);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(100, 15);
             this.label22.TabIndex = 63;
@@ -503,7 +507,7 @@ namespace Contasis
             // 
             // txtccodcos2
             // 
-            this.txtccodcos2.Location = new System.Drawing.Point(162, 545);
+            this.txtccodcos2.Location = new System.Drawing.Point(406, 449);
             this.txtccodcos2.MaxLength = 3;
             this.txtccodcos2.Name = "txtccodcos2";
             this.txtccodcos2.Size = new System.Drawing.Size(81, 20);
@@ -512,17 +516,59 @@ namespace Contasis
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(18, 548);
+            this.label23.Location = new System.Drawing.Point(268, 452);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(101, 15);
             this.label23.TabIndex = 65;
             this.label23.Text = "Centro de Costo2";
+            // 
+            // txtccodpresu
+            // 
+            this.txtccodpresu.Location = new System.Drawing.Point(162, 473);
+            this.txtccodpresu.MaxLength = 3;
+            this.txtccodpresu.Name = "txtccodpresu";
+            this.txtccodpresu.Size = new System.Drawing.Size(81, 20);
+            this.txtccodpresu.TabIndex = 68;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(18, 476);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(124, 15);
+            this.label24.TabIndex = 67;
+            this.label24.Text = "Codigo Presupuesto :";
+            // 
+            // txtobservacion
+            // 
+            this.txtobservacion.BackColor = System.Drawing.SystemColors.Info;
+            this.txtobservacion.Enabled = false;
+            this.txtobservacion.Location = new System.Drawing.Point(162, 499);
+            this.txtobservacion.MaxLength = 3;
+            this.txtobservacion.Multiline = true;
+            this.txtobservacion.Name = "txtobservacion";
+            this.txtobservacion.Size = new System.Drawing.Size(328, 77);
+            this.txtobservacion.TabIndex = 70;
+            // 
+            // label25
+            // 
+            this.label25.AccessibleRole = System.Windows.Forms.AccessibleRole.Clock;
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(18, 502);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(78, 15);
+            this.label25.TabIndex = 69;
+            this.label25.Text = "Observacion:";
             // 
             // Frm_ventasEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(547, 623);
+            this.Controls.Add(this.txtobservacion);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.txtccodpresu);
+            this.Controls.Add(this.label24);
             this.Controls.Add(this.txtccodcos2);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.txtccodcos);
@@ -640,5 +686,9 @@ namespace Contasis
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox txtccodcos2;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox txtccodpresu;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox txtobservacion;
+        private System.Windows.Forms.Label label25;
     }
 }
