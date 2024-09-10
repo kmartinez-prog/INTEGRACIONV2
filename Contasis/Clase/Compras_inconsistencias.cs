@@ -173,7 +173,9 @@ namespace Contasis.Clase
             {
                 string query = "update  fin_compras  SET cmreg='" + Objet.cmreg.Trim() + "',ccond='" + Objet.ccond.ToUpper().Trim() + "'," +
                                    "cctabase='" + Objet.cctabase.Trim() + "',cctatot='" + Objet.cctatot.Trim() + "',ccodcos='" + Objet.ccodcos.Trim() + "'," +
-                                   "ccodcos2='" + Objet.ccodcos2.Trim() + "',obserror='',es_con_migracion=0  where idcompras=" + Objet.idcompras + "";
+                                   "ccodcos2='" + Objet.ccodcos2.Trim() +
+                                   "ccodpresu='" + Objet.ccodpresu.Trim() +
+                                   "',obserror='',es_con_migracion=0  where idcompras=" + Objet.idcompras + "";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();

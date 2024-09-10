@@ -33,10 +33,10 @@ namespace Contasis.Clase
                 else
                     {
 
-                        string query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo) values(" +
+                        string query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg) values(" +
                             "'" + Objet.ruc + "', " +
                             "'" + Objet.empresa + "', " +
-                            "'" + Objet.estado + "')";
+                            "'" + Objet.estado + "',"+ Objet.checkventas+","+ Objet.checkcompras+","+ Objet.checkcobranzas+","+ Objet.checkpagos+")";
                         cone = ConexionSql.Instancial().establecerconexion();
                         SqlCommand commando1 = new SqlCommand(query, cone);
                         cone.Open();
@@ -67,7 +67,7 @@ namespace Contasis.Clase
             try
             {
                 string query = "update  cg_empemisor SET cdesrucemisor='" + Objet.empresa + "'," +
-                "flgactivo='" + Objet.estado + "' where ccodrucemisor='" + Objet.ruc + "'";
+                "flgactivo='" + Objet.estado + "',nventaflg=" + Objet.checkventas + ",ncompraflg=" + Objet.checkcompras+ ", ncobranzaflg="+Objet.checkcobranzas+ ", npagoflg="+Objet.checkpagos+ " where ccodrucemisor='" + Objet.ruc + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();

@@ -7818,7 +7818,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Contasis Integrador"
         "ProductCode" = "8:{0FB66062-8ADD-4107-995E-DC0DE518E623}"
-        "PackageCode" = "8:{7C8AAB9B-ACB5-4659-B3C5-E59F9BA69944}"
+        "PackageCode" = "8:{5CE2B2E7-5684-48FA-B9B2-4D3EF8AE49F2}"
         "UpgradeCode" = "8:{EEB09360-ACA0-48EF-B218-D3F45113DDF8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

@@ -344,6 +344,31 @@ namespace Contasis
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
                 txtMensaje.Text = "" + respuesta;
             #endregion
+            #region campos_para_rucemiso
+            NombreTable = "cg_empemisor";
+            Nombrecampo = "nventaflg";
+            Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
+            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Text = "" + respuesta;
+
+            
+            Nombrecampo = "ncompraflg";
+            Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
+            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Text = "" + respuesta;
+
+            Nombrecampo = "ncobranzaflg";
+            Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
+            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Text = "" + respuesta;
+
+            Nombrecampo = "npagoflg";
+            Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
+            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Text = "" + respuesta;
+
+
+            #endregion
 
 
             //Area para crear o actualizar Store Procedure == Todo de empezar con create porque primero se borrar y se vuelve a crear  ////

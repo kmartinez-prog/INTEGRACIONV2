@@ -76,9 +76,9 @@ namespace Contasis
                 try
                 {
                     string respuesta = "";
-                    Clase.ventas_propiedades obe = new Clase.ventas_propiedades();
+                    Clase.VENTAS_PROPIEDADES obe = new Clase.VENTAS_PROPIEDADES();
 
-                    obe.idventas = txtidventas.Text;
+                    obe.Idventas = txtidventas.Text;
                     
                     Clase.Ventas_inconsistencias ds = new Clase.Ventas_inconsistencias();
                     respuesta = ds.eliminarsql(obe);
@@ -106,9 +106,9 @@ namespace Contasis
                 try
                 {
                     string respuesta = "";
-                    Clase.ventas_propiedades obe = new Clase.ventas_propiedades();
+                    Clase.VENTAS_PROPIEDADES obe = new Clase.VENTAS_PROPIEDADES();
 
-                    obe.idventas = txtidventas.Text;
+                    obe.Idventas = txtidventas.Text;
                     Clase.Ventas_inconsistencias ds = new Clase.Ventas_inconsistencias();
                     
                     respuesta = ds.eliminarpos(obe);
@@ -135,28 +135,29 @@ namespace Contasis
         private void btnGrabar_Click(object sender, EventArgs e)
         {
             string respuesta = "";
-            Clase.ventas_propiedades obe = new Clase.ventas_propiedades();
+            Clase.VENTAS_PROPIEDADES obe = new Clase.VENTAS_PROPIEDADES();
             Clase.Ventas_inconsistencias ds = new Clase.Ventas_inconsistencias();
-            obe.idventas = txtidventas.Text;
-            obe.ffechadoc = txtffechadoc.Text;
-            obe.ffechaven = txtffechaven.Text;
-            obe.ccoddoc = txtctipdoc.Text.Trim();
-            obe.cserie = txtcserie.Text.Trim();
-            obe.cnumero = txtcnumero.Text.Trim();
-            obe.ctipdoc = txtctipdoc.Text.Trim();
-            obe.crazsoc = txtcrazsoc.Text.Trim();
-            obe.cruc = txtcrazsoc.Text.Trim();
-            obe.base1 = txtbase1.Text;
-            obe.nigv1 = txtnigv1.Text;
-            obe.ntots = txtntots.Text;
-            obe.ntc = txtntc.Text;
-            obe.cmreg = txtcmreg.Text.Trim();
-            obe.cctabase = txtcctabase.Text.Trim();
-            obe.cctatot = txtcctatot.Text.Trim();
-            obe.ccond = txtccond.Text.Trim().ToUpper();
-            obe.ccodcos = txtccodcos.Text.Trim();
-            obe.ccodcos2 = txtccodcos2.Text.Trim();
-
+            obe.Idventas = txtidventas.Text;
+            obe.Ffechadoc = txtffechadoc.Text;
+            obe.Ffechaven = txtffechaven.Text;
+            obe.Ccoddoc = txtctipdoc.Text.Trim();
+            obe.Cserie = txtcserie.Text.Trim();
+            obe.Cnumero = txtcnumero.Text.Trim();
+            obe.Ctipdoc = txtctipdoc.Text.Trim();
+            obe.Crazsoc = txtcrazsoc.Text.Trim();
+            obe.Cruc = txtcrazsoc.Text.Trim();
+            obe.Base1 = txtbase1.Text;
+            obe.Nigv1 = txtnigv1.Text;
+            obe.Ntots = txtntots.Text;
+            obe.Ntc = txtntc.Text;
+            obe.Cmreg = txtcmreg.Text.Trim();
+            obe.Cctabase = txtcctabase.Text.Trim();
+            obe.Cctatot = txtcctatot.Text.Trim();
+            obe.Ccond = txtccond.Text.Trim().ToUpper();
+            obe.Ccodcos = txtccodcos.Text.Trim();
+            obe.Ccodcos2 = txtccodcos2.Text.Trim();
+            obe.Ccodpresu = txtccodpresu.Text.Trim();
+            
 
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
@@ -208,6 +209,11 @@ namespace Contasis
                 }
                 this.Close();
             }
+        }
+
+        private void txtffechaven_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

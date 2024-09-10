@@ -533,9 +533,9 @@ namespace Contasis
                     }
                     this.dataGridView2.Refresh();
                 }
-                catch (Exception ex)
+                catch 
                 {
-                    ///MessageBox.Show("No Existe datos." + ex.ToString(), "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ///(Exception ex)MessageBox.Show("No Existe datos." + ex.ToString(), "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }

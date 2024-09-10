@@ -51,9 +51,9 @@ namespace Contasis.Clase
                        //// FrmCrearTablas.instance.timer1.Enabled = true;
                         coneconexionsql.Close();
                     }
-                    catch (System.Exception ex)
+                    catch 
                     {
-                       //// MessageBox.Show(ex.ToString(), "Contasis Corp.en Ventas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        //// (System.Exception ex)MessageBox.Show(ex.ToString(), "Contasis Corp.en Ventas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                     }
                 }
@@ -122,9 +122,9 @@ namespace Contasis.Clase
                         //// FrmCrearTablas.instance.timer1.Enabled = true;
                         coneconexionsql.Close();
                     }
-                    catch (System.Exception ex)
+                    catch 
                     {
-                        //// MessageBox.Show(ex.ToString(), "Contasis Corp.en Ventas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        ////(System.Exception ex) MessageBox.Show(ex.ToString(), "Contasis Corp.en Ventas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                     }
                 }
@@ -185,9 +185,9 @@ namespace Contasis.Clase
                         //// FrmCrearTablas.instance.timer1.Enabled = true;
                         coneconexionsql.Close();
                     }
-                    catch (System.Exception ex)
+                    catch 
                     {
-                        //// MessageBox.Show(ex.ToString(), "Contasis Corp.en Ventas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        ////(System.Exception ex) MessageBox.Show(ex.ToString(), "Contasis Corp.en Ventas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                     }
                 }

@@ -59,15 +59,16 @@ namespace Contasis
                 try
                 {
 
-                    Clase.ventas_propiedades obj = new Clase.ventas_propiedades();
+                    Clase.VENTAS_PROPIEDADES obj = new Clase.VENTAS_PROPIEDADES();
                     Clase.Ventas_inconsistencias listasql = new Clase.Ventas_inconsistencias();
+                    Clase.Ventas_inconsistencias actuasql = new Clase.Ventas_inconsistencias();
 
-
-                    obj.ruc = cmbrucemisor.Text.Trim().Substring(0,11);
-                    obj.empresa = cmbempresas.Text.Trim().Substring(0,3);
-                    obj.estado = "";
-                    
+                    obj.Ruc = cmbrucemisor.Text.Trim().Substring(0,11);
+                    obj.Empresa = cmbempresas.Text.Trim().Substring(0,3);
+                    obj.Estado = "";
+                    actuasql.ActualizaEstadoSQL(obj);
                     this.dataGridView2.Refresh();
+
                     dataGridView2.DataSource = listasql.listassql(obj);
                     dataGridView2.AllowUserToAddRows = false;
                     label2.Text = "Total de Registros : " + Convert.ToString(dataGridView2.Rows.Count);
@@ -108,9 +109,9 @@ namespace Contasis
                
                     this.dataGridView2.Refresh();
                 }
-                catch (Exception ex)
+                catch 
                 {
-                  ////  MessageBox.Show(ex.ToString(), "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ////(Exception ex)  MessageBox.Show(ex.ToString(), "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
@@ -118,14 +119,14 @@ namespace Contasis
                 try
                 {
 
-                    Clase.ventas_propiedades obj = new Clase.ventas_propiedades();
+                    Clase.VENTAS_PROPIEDADES obj = new Clase.VENTAS_PROPIEDADES();
                     Clase.Ventas_inconsistencias listapos = new Clase.Ventas_inconsistencias();
+                    Clase.Ventas_inconsistencias actuapos = new Clase.Ventas_inconsistencias();
 
-
-                    obj.ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
-                    obj.empresa = cmbempresas.Text.Trim().Substring(0, 3);
-                    obj.estado = "";
-                    
+                    obj.Ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
+                    obj.Empresa = cmbempresas.Text.Trim().Substring(0, 3);
+                    obj.Estado = "";
+                    actuapos.ActualizaEstadoPOS(obj);
                     dataGridView2.Refresh();
                     dataGridView2.DataSource = listapos.listaspos(obj);
                     dataGridView2.AllowUserToAddRows = false;
@@ -434,14 +435,13 @@ namespace Contasis
                 try
                 {
 
-                    Clase.ventas_propiedades obj = new Clase.ventas_propiedades();
+                    Clase.VENTAS_PROPIEDADES obj = new Clase.VENTAS_PROPIEDADES();
                     Clase.Ventas_inconsistencias listasql = new Clase.Ventas_inconsistencias();
-
-
-                    obj.ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
-                    obj.empresa = cmbempresas.Text.Trim().Substring(0, 3);
-                    obj.estado = comboBox1.Text.Trim();
-
+                    Clase.Ventas_inconsistencias actualizar = new Clase.Ventas_inconsistencias();
+                    obj.Ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
+                    obj.Empresa = cmbempresas.Text.Trim().Substring(0, 3);
+                    obj.Estado = comboBox1.Text.Trim();
+                    actualizar.ActualizaEstadoSQL(obj);
                     this.dataGridView2.Refresh();
                     dataGridView2.DataSource = listasql.listascombosql(obj);
                     dataGridView2.AllowUserToAddRows = false;
@@ -490,14 +490,14 @@ namespace Contasis
                 try
                 {
 
-                    Clase.ventas_propiedades obj = new Clase.ventas_propiedades();
+                    Clase.VENTAS_PROPIEDADES obj = new Clase.VENTAS_PROPIEDADES();
                     Clase.Ventas_inconsistencias listapos = new Clase.Ventas_inconsistencias();
+                    Clase.Ventas_inconsistencias actualizar = new Clase.Ventas_inconsistencias();
 
-
-                    obj.ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
-                    obj.empresa = cmbempresas.Text.Trim().Substring(0, 3);
-                    obj.estado = comboBox1.Text.Trim();
-
+                    obj.Ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
+                    obj.Empresa = cmbempresas.Text.Trim().Substring(0, 3);
+                    obj.Estado = comboBox1.Text.Trim();
+                    actualizar.ActualizaEstadoPOS(obj);
                     dataGridView2.Refresh();
                     dataGridView2.DataSource = listapos.listascombopos(obj);
                     dataGridView2.AllowUserToAddRows = false;
@@ -541,9 +541,9 @@ namespace Contasis
         private void actualizamotivo(string id)
         {
             string respuesta = "";
-            Clase.ventas_propiedades obe = new Clase.ventas_propiedades();
+            Clase.VENTAS_PROPIEDADES obe = new Clase.VENTAS_PROPIEDADES();
             Clase.Ventas_inconsistencias ds = new Clase.Ventas_inconsistencias();
-            obe.vidventas = id;
+            obe.Vidventas = id;
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
                 try
@@ -741,11 +741,17 @@ namespace Contasis
         }
         private void dataGridView2_SelectionChanged(object sender, EventArgs e)
         {
-            if (Convert.ToString(dataGridView2.Rows.Count ) == "0")
+            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
             { }
             else
             {
-               Refresh();
+                try
+                {
+                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
+                    Refresh();
+                }
+                catch
+                { }
             }
         }
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -759,33 +765,33 @@ namespace Contasis
                 Refresh();
         
         
-                Clase.ventas_propiedades obj = new Clase.ventas_propiedades();
-                obj.idventas = dataGridView2.CurrentRow.Cells[1].Value.ToString();
-                obj.ffechadoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[3].Value).Trim();
-                obj.ffechaven = Convert.ToString(dataGridView2.SelectedRows[0].Cells[4].Value).Trim();
-                obj.ccoddoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[5].Value).Trim();
-                obj.cserie = Convert.ToString(dataGridView2.SelectedRows[0].Cells[6].Value).Trim();
-                obj.cnumero = Convert.ToString(dataGridView2.SelectedRows[0].Cells[7].Value).Trim();
-                obj.ctipdoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[10].Value).Trim();
-                obj.crazsoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[12].Value).Trim();
-                obj.cruc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[11].Value).Trim();
-                obj.base1 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[14].Value).Trim();
-                obj.nigv1 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[18].Value).Trim();
-                obj.ntots = Convert.ToString(dataGridView2.SelectedRows[0].Cells[21].Value).Trim();
-                obj.ntc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[22].Value).Trim();
-                obj.cmreg = Convert.ToString(dataGridView2.SelectedRows[0].Cells[27].Value).Trim();
-                obj.cctabase = Convert.ToString(dataGridView2.SelectedRows[0].Cells[33].Value).Trim();
-                obj.cctatot = Convert.ToString(dataGridView2.SelectedRows[0].Cells[36].Value).Trim();
-                obj.ccond = Convert.ToString(dataGridView2.SelectedRows[0].Cells[30].Value).Trim();
-                obj.ccodcos = Convert.ToString(dataGridView2.SelectedRows[0].Cells[31].Value).Trim();
-                obj.ccodcos2 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
-                obj.ccodpresu = Convert.ToString(dataGridView2.SelectedRows[0].Cells[43].Value).Trim();
-                obj.obserror = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
+                Clase.VENTAS_PROPIEDADES obj = new Clase.VENTAS_PROPIEDADES();
+                obj.Idventas = dataGridView2.CurrentRow.Cells[1].Value.ToString();
+                obj.Ffechadoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[3].Value).Trim();
+                obj.Ffechaven = Convert.ToString(dataGridView2.SelectedRows[0].Cells[4].Value).Trim();
+                obj.Ccoddoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[5].Value).Trim();
+                obj.Cserie = Convert.ToString(dataGridView2.SelectedRows[0].Cells[6].Value).Trim();
+                obj.Cnumero = Convert.ToString(dataGridView2.SelectedRows[0].Cells[7].Value).Trim();
+                obj.Ctipdoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[10].Value).Trim();
+                obj.Crazsoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[12].Value).Trim();
+                obj.Cruc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[11].Value).Trim();
+                obj.Base1 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[14].Value).Trim();
+                obj.Nigv1 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[18].Value).Trim();
+                obj.Ntots = Convert.ToString(dataGridView2.SelectedRows[0].Cells[21].Value).Trim();
+                obj.Ntc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[22].Value).Trim();
+                obj.Cmreg = Convert.ToString(dataGridView2.SelectedRows[0].Cells[27].Value).Trim();
+                obj.Cctabase = Convert.ToString(dataGridView2.SelectedRows[0].Cells[33].Value).Trim();
+                obj.Cctatot = Convert.ToString(dataGridView2.SelectedRows[0].Cells[36].Value).Trim();
+                obj.Ccond = Convert.ToString(dataGridView2.SelectedRows[0].Cells[30].Value).Trim();
+                obj.Ccodcos = Convert.ToString(dataGridView2.SelectedRows[0].Cells[31].Value).Trim();
+                obj.Ccodcos2 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
+                obj.Ccodpresu = Convert.ToString(dataGridView2.SelectedRows[0].Cells[43].Value).Trim();
+                obj.Obserror = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
 
-                Frm_ventasEditor editventas = new Frm_ventasEditor(obj.idventas, obj.ffechadoc,
-                obj.ffechaven, obj.ccoddoc, obj.cserie, obj.cnumero, obj.ctipdoc, obj.crazsoc,
-                obj.cruc, obj.base1, obj.nigv1, obj.ntots, obj.ntc, obj.cmreg, obj.cctabase, obj.cctatot,obj.ccond, 
-                obj.ccodcos, obj.ccodcos2, obj.ccodpresu, obj.obserror);
+                Frm_ventasEditor editventas = new Frm_ventasEditor(obj.Idventas, obj.Ffechadoc,
+                obj.Ffechaven, obj.Ccoddoc, obj.Cserie, obj.Cnumero, obj.Ctipdoc, obj.Crazsoc,
+                obj.Cruc, obj.Base1, obj.Nigv1, obj.Ntots, obj.Ntc, obj.Cmreg, obj.Cctabase, obj.Cctatot,obj.Ccond, 
+                obj.Ccodcos, obj.Ccodcos2, obj.Ccodpresu, obj.Obserror);
                 /// Frm_ventasEditor editventas = new Frm_ventasEditor();
                 editventas.ShowDialog();
             }

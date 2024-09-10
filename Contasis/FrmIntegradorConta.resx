@@ -7207,7 +7207,7 @@ BEGIN
 		Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Codigo de Presupuesto no debe estar vacio, la cuenta obliga'), 
 		resultado_migracion = 2  
 		where  fin_ventas.ccodpresu='' and fin_ventas.cctabase in 
-		(select ccodcue  from cf_plan where cf_plan.cper=rwperproceso.cperproceso and cf_plan.nafepre=1 );
+		(select ccodcue  from cf_plan where cf_plan.cper=rwperproceso.cperproceso and cf_plan.nafepre=2 );
 
 		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE IMPONIBLE NO EXISTE '), 
 		resultado_migracion = 2  

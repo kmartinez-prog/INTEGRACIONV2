@@ -150,6 +150,7 @@ namespace Contasis
             // 
             // estructuraDeDatosToolStripMenuItem
             // 
+            this.estructuraDeDatosToolStripMenuItem.Enabled = false;
             this.estructuraDeDatosToolStripMenuItem.Image = global::Contasis.Properties.Resources._4__Icono___Estructura_de_datos;
             this.estructuraDeDatosToolStripMenuItem.Name = "estructuraDeDatosToolStripMenuItem";
             this.estructuraDeDatosToolStripMenuItem.ShowShortcutKeys = false;

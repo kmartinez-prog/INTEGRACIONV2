@@ -15,7 +15,7 @@ namespace Contasis.Clase
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "select ccodrucemisor,cdesrucemisor,flgactivo  from cg_empemisor ";
+                string query = "select ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg  from cg_empemisor ";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
@@ -45,7 +45,7 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo  from cg_empemisor ";
+                string query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg  from cg_empemisor ";
                 NpgsqlCommand cmdp = new NpgsqlCommand(query, conexion);
 
                 carga = cmdp.ExecuteReader();

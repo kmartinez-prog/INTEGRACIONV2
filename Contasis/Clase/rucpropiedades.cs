@@ -12,5 +12,11 @@ namespace Contasis.Clase
         public string ruc { get; set; }
         public string empresa { get; set; }
         public string estado { get; set; }
+        public int checkventas { get; set; }
+        public int checkcompras { get; set; }
+        public int checkcobranzas { get; set; }
+        public int checkpagos { get; set; }
+
+
     }
 }

@@ -16,9 +16,9 @@ namespace Contasis
     public partial class FrmRuceditor : Form
     {
         int tipo;
-        int tcontrol;
+        
 
-        public FrmRuceditor(int ntipo, string ruc, string nombre, string frase)
+        public FrmRuceditor(int ntipo, string ruc, string nombre, string frase,int venta,int compras,int cobranza,int pago)
         {
             InitializeComponent();
             tipo = ntipo;
@@ -28,7 +28,7 @@ namespace Contasis
                 txtruc.Visible = true;
                 lblcodigo.Visible = true;
                 
-                tcontrol = 0;
+                
             }
             else
             {
@@ -45,10 +45,44 @@ namespace Contasis
                 {
                     checkBoxestado.Checked =false;
                 }
+                /******/
+                if (venta == 1)
+                {
+                    checkventa.Checked = true;
+                }
+                else
+                {
+                    checkventa.Checked = false;
+                }
 
-                
-                
+                if (compras == 1)
+                {
+                    checkCompras.Checked = true;
+                }
+                else
+                {
+                    checkCompras.Checked = false;
+                }
 
+                if (cobranza == 1)
+                {
+                    checkCobranza.Checked = true;
+                }
+                else
+                {
+                    checkCobranza.Checked = false;
+                }
+
+                if (pago == 1)
+                {
+                    checkPagos.Checked = true;
+                }
+                else
+                {
+                    checkPagos.Checked = false;
+                }
+
+                /*****/
             }
         }
 
@@ -127,6 +161,7 @@ namespace Contasis
 
                         obj.ruc = txtruc.Text.Trim();
                         obj.empresa = txtempresa.Text.Trim();
+
                         if (checkBoxestado.Checked == true)
                         {
                             obj.estado = "1";
@@ -135,6 +170,46 @@ namespace Contasis
                         {
                             obj.estado = "0";
                         }
+                        /*********/
+
+                        if (checkventa.Checked == true)
+                        {
+                            obj.checkventas = 1;
+                        }
+                        else
+                        {
+                            obj.checkventas = 0;
+                        }
+
+                        if (checkCompras.Checked == true)
+                        {
+                            obj.checkcompras = 1;
+                        }
+                        else
+                        {
+                            obj.checkcompras = 0;
+                        }
+
+                        if (checkCobranza.Checked == true)
+                        {
+                            obj.checkcobranzas = 1;
+                        }
+                        else
+                        {
+                            obj.checkcobranzas = 0;
+                        }
+
+                        if (checkPagos.Checked == true)
+                        {
+                            obj.checkpagos = 1;
+                        }
+                        else
+                        {
+                            obj.checkpagos = 0;
+                        }
+
+
+                        /*********/
                         Clase.ruc ds = new ruc();
                         respuesta = ds.Insertar(obj);
                         if (respuesta.Equals("Grabado"))
@@ -166,6 +241,42 @@ namespace Contasis
                         {
                             obj.estado = "0";
                         }
+                        if (checkventa.Checked == true)
+                        {
+                            obj.checkventas = 1;
+                        }
+                        else
+                        {
+                            obj.checkventas = 0;
+                        }
+
+                        if (checkCompras.Checked == true)
+                        {
+                            obj.checkcompras = 1;
+                        }
+                        else
+                        {
+                            obj.checkcompras = 0;
+                        }
+
+                        if (checkCobranza.Checked == true)
+                        {
+                            obj.checkcobranzas = 1;
+                        }
+                        else
+                        {
+                            obj.checkcobranzas = 0;
+                        }
+
+                        if (checkPagos.Checked == true)
+                        {
+                            obj.checkpagos = 1;
+                        }
+                        else
+                        {
+                            obj.checkpagos = 0;
+                        }
+
                         ruc_postgres ds = new ruc_postgres();
                         respuesta = ds.Insertar(obj);
                         if (respuesta.Equals("Grabado"))
@@ -208,7 +319,41 @@ namespace Contasis
                     {
                         obj.estado = "0";
                     }
+                    if (checkventa.Checked == true)
+                    {
+                        obj.checkventas = 1;
+                    }
+                    else
+                    {
+                        obj.checkventas = 0;
+                    }
 
+                    if (checkCompras.Checked == true)
+                    {
+                        obj.checkcompras = 1;
+                    }
+                    else
+                    {
+                        obj.checkcompras = 0;
+                    }
+
+                    if (checkCobranza.Checked == true)
+                    {
+                        obj.checkcobranzas = 1;
+                    }
+                    else
+                    {
+                        obj.checkcobranzas = 0;
+                    }
+
+                    if (checkPagos.Checked == true)
+                    {
+                        obj.checkpagos = 1;
+                    }
+                    else
+                    {
+                        obj.checkpagos = 0;
+                    }
                     if (Properties.Settings.Default.cadenaPostPrincipal == "")
                     {
                         Clase.ruc ds = new ruc();

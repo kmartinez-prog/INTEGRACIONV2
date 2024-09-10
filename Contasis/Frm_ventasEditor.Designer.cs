@@ -98,6 +98,7 @@ namespace Contasis
             // 
             // txtffechadoc
             // 
+            this.txtffechadoc.Enabled = false;
             this.txtffechadoc.Location = new System.Drawing.Point(162, 117);
             this.txtffechadoc.MaxLength = 10;
             this.txtffechadoc.Name = "txtffechadoc";
@@ -106,11 +107,13 @@ namespace Contasis
             // 
             // txtffechaven
             // 
+            this.txtffechaven.Enabled = false;
             this.txtffechaven.Location = new System.Drawing.Point(427, 118);
             this.txtffechaven.MaxLength = 10;
             this.txtffechaven.Name = "txtffechaven";
             this.txtffechaven.Size = new System.Drawing.Size(96, 20);
             this.txtffechaven.TabIndex = 19;
+            this.txtffechaven.TextChanged += new System.EventHandler(this.txtffechaven_TextChanged);
             // 
             // label2
             // 
@@ -123,6 +126,7 @@ namespace Contasis
             // 
             // txtctipdoc
             // 
+            this.txtctipdoc.Enabled = false;
             this.txtctipdoc.Location = new System.Drawing.Point(162, 220);
             this.txtctipdoc.MaxLength = 1;
             this.txtctipdoc.Name = "txtctipdoc";
@@ -140,6 +144,7 @@ namespace Contasis
             // 
             // txtccoddoc
             // 
+            this.txtccoddoc.Enabled = false;
             this.txtccoddoc.Location = new System.Drawing.Point(162, 144);
             this.txtccoddoc.MaxLength = 2;
             this.txtccoddoc.Name = "txtccoddoc";
@@ -157,6 +162,7 @@ namespace Contasis
             // 
             // txtcnumero
             // 
+            this.txtcnumero.Enabled = false;
             this.txtcnumero.Location = new System.Drawing.Point(162, 195);
             this.txtcnumero.MaxLength = 20;
             this.txtcnumero.Name = "txtcnumero";
@@ -174,6 +180,7 @@ namespace Contasis
             // 
             // txtcserie
             // 
+            this.txtcserie.Enabled = false;
             this.txtcserie.Location = new System.Drawing.Point(162, 169);
             this.txtcserie.MaxLength = 20;
             this.txtcserie.Name = "txtcserie";
@@ -191,6 +198,7 @@ namespace Contasis
             // 
             // txtntc
             // 
+            this.txtntc.Enabled = false;
             this.txtntc.Location = new System.Drawing.Point(162, 370);
             this.txtntc.Name = "txtntc";
             this.txtntc.Size = new System.Drawing.Size(81, 20);
@@ -207,6 +215,7 @@ namespace Contasis
             // 
             // txtntots
             // 
+            this.txtntots.Enabled = false;
             this.txtntots.Location = new System.Drawing.Point(162, 346);
             this.txtntots.Name = "txtntots";
             this.txtntots.Size = new System.Drawing.Size(81, 20);
@@ -223,6 +232,7 @@ namespace Contasis
             // 
             // txtnigv1
             // 
+            this.txtnigv1.Enabled = false;
             this.txtnigv1.Location = new System.Drawing.Point(162, 321);
             this.txtnigv1.Name = "txtnigv1";
             this.txtnigv1.Size = new System.Drawing.Size(81, 20);
@@ -239,6 +249,7 @@ namespace Contasis
             // 
             // txtbase1
             // 
+            this.txtbase1.Enabled = false;
             this.txtbase1.Location = new System.Drawing.Point(162, 295);
             this.txtbase1.Name = "txtbase1";
             this.txtbase1.Size = new System.Drawing.Size(81, 20);
@@ -255,6 +266,7 @@ namespace Contasis
             // 
             // txtruc
             // 
+            this.txtruc.Enabled = false;
             this.txtruc.Location = new System.Drawing.Point(162, 269);
             this.txtruc.MaxLength = 15;
             this.txtruc.Name = "txtruc";
@@ -272,6 +284,7 @@ namespace Contasis
             // 
             // txtcrazsoc
             // 
+            this.txtcrazsoc.Enabled = false;
             this.txtcrazsoc.Location = new System.Drawing.Point(162, 245);
             this.txtcrazsoc.MaxLength = 100;
             this.txtcrazsoc.Name = "txtcrazsoc";
@@ -404,6 +417,7 @@ namespace Contasis
             // 
             // txtcmreg
             // 
+            this.txtcmreg.Enabled = false;
             this.txtcmreg.Location = new System.Drawing.Point(162, 396);
             this.txtcmreg.MaxLength = 1;
             this.txtcmreg.Name = "txtcmreg";
