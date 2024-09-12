@@ -7791,7 +7791,7 @@ BEGIN
 
 		--raise exception 'ccod sub %', rw.cper; 
 		-- Actualiza subdiartio y Flujos 
-		for rwctualizasubdiario  in select distinct cper,cmes  from fin_cobranzapago_integra  loop
+		for rwctualizasubdiario  in select distinct cper,cmes  from fin_cobranzapago  loop
 
 			nreturn = (select * from func_regenerar_correlativo_subdiario(rwctualizasubdiario.cper, rwctualizasubdiario.cmes) as infograba1); 
 			nreturn = (select * from func_regenerar_saldos_plan_flujo(rwctualizasubdiario.cper, rwctualizasubdiario.cmes) as infograba2); 			 

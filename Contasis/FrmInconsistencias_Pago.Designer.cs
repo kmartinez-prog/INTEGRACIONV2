@@ -295,8 +295,8 @@ namespace Contasis
             // 
             // Column2
             // 
-            this.Column2.DataPropertyName = "idventas";
-            this.Column2.HeaderText = "ID PAGOS";
+            this.Column2.DataPropertyName = "idcobranzapago";
+            this.Column2.HeaderText = "ID COBRANZA PAGO";
             this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;

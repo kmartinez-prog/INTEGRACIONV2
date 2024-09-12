@@ -28,11 +28,13 @@ namespace Contasis
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
                 this.proceso_sql();
+                
             }
             else
             {
                 this.proceso_postgresl();
             }
+           
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -679,58 +681,62 @@ namespace Contasis
             txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
-            #region envio_cobranza
+            #region cobranzapago_envio
             this.barraprogreso();
             NombreSP = "sp_cobranzapago_envio";
-            Query = " CREATE PROCEDURE sp_cobranzapago_envio  \n" +
-                                " @prucEmisor char(15), \n" +
-                                " @empresa char(3),  \n" +
-                                " @tipo numeric(1)  \n" +
-                                "  AS  \n" +
-                                "  BEGIN  \n" +
-                                "    Select  idcobranzapago,fin_cobranzapago.ccod_empresa,fin_cobranzapago.cper,fin_cobranzapago.cmes, \n" +
-                                "    ltrim(rtrim(CONFIGURACION.csub1_com)) AS ccodori,\n" +
-                                "    ltrim(rtrim(CONFIGURACION.clreg1_com)) AS ccodsu,\n" +
-                                "    ltrim(rtrim(CONFIGURACION.cfefec_com)) AS ccodflu,\n" +
-                                "    ltrim(rtrim(Convert(char(10), ffechacan, 112))) as ffechacan,    \n" +
-                                "    ltrim(rtrim(isnull(cdoccan, ''))) as cdoccan,  \n" + 
-                                "    ltrim(rtrim(isnull(csercan, ''))) as csercan,  \n" + 
-                                "    ltrim(rtrim(isnull(cnumcan, ''))) as cdoccan,    \n" + 
-                                "    ltrim(rtrim(isnull(ccuecan, ''))) as ccuecan,    \n" +
-                                "    ltrim(rtrim(isnull(cmoncan, ''))) as cmoncan,      \n" +
-                                "    isnull(nimporcan, 0.00) as nimporcan, \n" +
-                                "    isnull(ntipcam, 0.00) as ntipcam ,\n" +
-                                "    ltrim(rtrim(isnull(ccodpago, ''))) as ccodpago, \n" +
-                                "    ltrim(rtrim(isnull(ccoddoc, ''))) as ccoddoc,\n" +
-                                "    ltrim(rtrim(isnull(cserie, ''))) as cserie,\n" +
-                                "    ltrim(rtrim(isnull(cnumero, ''))) as cnumero,\n" +
-                                "    ltrim(rtrim(Convert(char(10), ffechadoc, 112))) as ffechadoc,  \n" +
-                                "    ltrim(rtrim(Convert(char(10), ffechaven, 112))) as ffechaven,  \n" +
-                                "    ltrim(rtrim(isnull(ccodenti, ''))) as ccodenti,\n" +
-                                "    ltrim(rtrim(isnull(ccodruc, ''))) as ccodruc,\n" +
-                                "    ltrim(rtrim(isnull(crazsoc, ''))) as crazsoc,\n" +
-                                "    isnull(nimportes, 0.00) as nimportes, \n" +
-                                "    isnull(nimported, 0.00) as nimported , \n" +
-                                "    ltrim(rtrim(isnull(ccodcue, ''))) as ccodcue,\n" +
-                                "    ltrim(rtrim(isnull(cglosa, ''))) as cglosa, \n" +
-                                "    ltrim(rtrim(isnull(ccodcos, ''))) as ccodcos, \n" +
-                                "    ltrim(rtrim(isnull(ccodcos2, ''))) as ccodcos2, \n" +
-                                "    isnull(nporre, 0.00) as nporre, \n" +
-                                "    isnull(nimpperc, 0.00) as nimpperc, \n" +
-                                "    isnull(nperdenre, 0.00) as nperdenre, \n" +
-                                "    ltrim(rtrim(isnull(cserre, ''))) as cserre, \n" +
-                                "    ltrim(rtrim(isnull(cnumre, ''))) as cnumre, \n" +
-                                "    ltrim(rtrim(Convert(char(10), ffecre, 112))) as ffecre,  \n" +
-                                "    isnull(es_con_migracion, 0) as es_con_migracion,   \n" +
-                                "    From fin_cobranzapago \n" +
-                                "    INNER JOIN configuracion ON fin_cobranza.CCOD_EMPRESA = CONFIGURACION.CCOD_EMPRESA AND fin_cobranza.CPER = configuracion.CPER \n" +
-                                "    inner join CG_EMPRESA emp on fin_cobranza.ccodrucemisor = emp.ccodrucemisor and fin_cobranza.ccod_empresa = emp.CCOD_EMPRESA \n" +
-                                "    inner join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1 \n" +
-                                "    Where fin_cobranzapago.ccodrucemisor = @prucEmisor  \n"+
-                                "    and fin_cobranzapago.CCOD_EMPRESA = @empresa and fin_cobranzapago.es_con_migracion in (0, 3) \n" +
-                                "    and CONFIGURACION.CTIPO = @tipo \n" +
-                                "    for json path \n" +
-                                "    END   ";
+            Query = "CREATE PROCEDURE sp_cobranzapago_envio   \n" +
+            " @prucEmisor char(15),    \n" +
+            " @empresa char(3),   \n" +
+            " @tipo int   \n" +
+            "   AS   \n" +
+            "   BEGIN   \n" +
+            " Select  idcobranzapago,fin_cobranzapago.ccod_empresa,fin_cobranzapago.cper,fin_cobranzapago.cmes,    \n" +
+            " ltrim(rtrim(CONFIGURACION.csub1_vta)) AS ccodori,   \n" +
+            " ltrim(rtrim(CONFIGURACION.clreg1_vta)) AS ccodsu,   \n" +
+            " ltrim(rtrim(CONFIGURACION.cfefec_vta)) AS ccodflu,   \n" +
+            " fin_cobranzapago.ntipocobpag as ntipocobpag,   \n" +
+            " ltrim(rtrim(Convert(char(10), ffechacan, 112))) as ffechacan,       \n" +
+            " ltrim(rtrim(isnull(cdoccan, ''))) as cdoccan,     \n" +
+            " ltrim(rtrim(isnull(csercan, ''))) as csercan,     \n" +
+            " ltrim(rtrim(isnull(cnumcan, ''))) as cnumcan,       \n" +
+            " ltrim(rtrim(isnull(ccuecan, ''))) as ccuecan,       \n" +
+            " ltrim(rtrim(isnull(cmoncan, ''))) as cmoncan,         \n" +
+            " isnull(nimporcan, 0.00) as nimporcan,    \n" +
+            " isnull(ntipcam, 0.00) as ntipcam ,   \n" +
+            " ltrim(rtrim(isnull(ccodpago, ''))) as ccodpago,    \n" +
+            " ltrim(rtrim(isnull(ccoddoc, ''))) as ccoddoc,   \n" +
+            " ltrim(rtrim(isnull(cserie, ''))) as cserie,   \n" +
+            " ltrim(rtrim(isnull(cnumero, ''))) as cnumero,   \n" +
+            " ltrim(rtrim(Convert(char(10), ffechadoc, 112))) as ffechadoc,     \n" +
+            " ltrim(rtrim(Convert(char(10), ffechaven, 112))) as ffechaven,     \n" +
+            " ltrim(rtrim(isnull(ccodenti, ''))) as ccodenti,   \n" +
+            " ltrim(rtrim(isnull(ccodruc, ''))) as ccodruc,   \n" +
+            " ltrim(rtrim(isnull(crazsoc, ''))) as crazsoc,   \n" +
+            " isnull(nimportes, 0.00) as nimportes,    \n" +
+            " isnull(nimported, 0.00) as nimported ,    \n" +
+            " ltrim(rtrim(isnull(ccodcue, ''))) as ccodcue,   \n" +
+            " ltrim(rtrim(isnull(cglosa, ''))) as cglosa,    \n" +
+            " ltrim(rtrim(isnull(ccodcos, ''))) as ccodcos,    \n" +
+            " ltrim(rtrim(isnull(ccodcos2, ''))) as ccodcos2,    \n" +
+            " isnull(nporre, 0.00) as nporre,    \n" +
+            " isnull(nimpperc, 0.00) as nimpperc,    \n" +
+            " isnull(nperdenre, 0.00) as nperdenre,    \n" +
+            " ltrim(rtrim(isnull(cserre, ''))) as cserre,    \n" +
+            " ltrim(rtrim(isnull(cnumre, ''))) as cnumre,    \n" +
+            " ltrim(rtrim(Convert(char(10), ffecre, 112))) as ffecre,     \n" +
+            " case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end as estado ,       \n" +
+            " isnull(en_ambiente_de, '!') as en_ambiente_de,       \n" +
+            " isnull(es_con_migracion, 0) as es_con_migracion,      \n" +
+            " case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3,     \n" +
+            " case when es_con_migracion = 3  then ltrim(rtrim(configuracion.cEnt_anula))  else '' end as ccodrucanula   \n" +
+            " From fin_cobranzapago   \n" +
+            " INNER JOIN configuracion ON fin_cobranzapago.CCOD_EMPRESA = CONFIGURACION.CCOD_EMPRESA AND fin_cobranzapago.CPER = configuracion.CPER   \n" +
+            " inner join CG_EMPRESA emp on fin_cobranzapago.ccodrucemisor = emp.ccodrucemisor and fin_cobranzapago.ccod_empresa = emp.CCOD_EMPRESA   \n" +
+            " inner join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1    \n" +
+            " Where fin_cobranzapago.ccodrucemisor = @prucEmisor and fin_cobranzapago.CCOD_EMPRESA = @empresa and es_con_migracion in (0, 3)   \n" +
+            " AND CONFIGURACION.CTIPO = '03' and fin_cobranzapago.ntipocobpag = @tipo    \n" +
+            " for json path    \n" +
+            " END   ";
             respuesta = obj.crear_procedimiento(NombreSP, Query);
             txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
@@ -768,7 +774,7 @@ namespace Contasis
 
             /*   #region envio_pagos
                NombreSP = "sp_pagos_envio";
-               Query = " CREATE PROCEDURE sp_pagos_envio  \n" +
+               Query = " CREATE PROCEDURE sp_pagos_envio 
                                    " @prucEmisor char(15), \n" +
                                    "  @empresa char(3)  \n" +
                                    "  AS  \n" +
@@ -848,7 +854,9 @@ namespace Contasis
              respuesta = obj.crear_procedimiento(NombreSP, Query);
              txtMensaje.Text = "" + respuesta;
              #endregion */
+
             
+
         }
         /*********************************************************************************************************************/
         private void proceso_postgresl()
@@ -1907,8 +1915,8 @@ namespace Contasis
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 txtMensaje.Text = "" + respuesta;
                 #endregion */
-
             
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
