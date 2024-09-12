@@ -64,6 +64,8 @@ namespace Contasis
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtcontrol = new System.Windows.Forms.TextBox();
+            this.cobranzasContableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pagosContableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -150,7 +152,6 @@ namespace Contasis
             // 
             // estructuraDeDatosToolStripMenuItem
             // 
-            this.estructuraDeDatosToolStripMenuItem.Enabled = false;
             this.estructuraDeDatosToolStripMenuItem.Image = global::Contasis.Properties.Resources._4__Icono___Estructura_de_datos;
             this.estructuraDeDatosToolStripMenuItem.Name = "estructuraDeDatosToolStripMenuItem";
             this.estructuraDeDatosToolStripMenuItem.ShowShortcutKeys = false;
@@ -213,7 +214,9 @@ namespace Contasis
             this.inconsistenciasToolStripMenuItem.AutoSize = false;
             this.inconsistenciasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ventasContableToolStripMenuItem,
-            this.comprasContableToolStripMenuItem});
+            this.comprasContableToolStripMenuItem,
+            this.cobranzasContableToolStripMenuItem,
+            this.pagosContableToolStripMenuItem});
             this.inconsistenciasToolStripMenuItem.Name = "inconsistenciasToolStripMenuItem";
             this.inconsistenciasToolStripMenuItem.Size = new System.Drawing.Size(110, 32);
             this.inconsistenciasToolStripMenuItem.Text = "Inconsistencias";
@@ -353,6 +356,22 @@ namespace Contasis
             this.txtcontrol.Size = new System.Drawing.Size(112, 20);
             this.txtcontrol.TabIndex = 4;
             // 
+            // cobranzasContableToolStripMenuItem
+            // 
+            this.cobranzasContableToolStripMenuItem.Image = global::Contasis.Properties.Resources._7__Icono_Boton___Permisos;
+            this.cobranzasContableToolStripMenuItem.Name = "cobranzasContableToolStripMenuItem";
+            this.cobranzasContableToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
+            this.cobranzasContableToolStripMenuItem.Text = "Cobranzas Contable";
+            this.cobranzasContableToolStripMenuItem.Click += new System.EventHandler(this.cobranzasContableToolStripMenuItem_Click);
+            // 
+            // pagosContableToolStripMenuItem
+            // 
+            this.pagosContableToolStripMenuItem.Image = global::Contasis.Properties.Resources._3__Icono_Boton___Modificar;
+            this.pagosContableToolStripMenuItem.Name = "pagosContableToolStripMenuItem";
+            this.pagosContableToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
+            this.pagosContableToolStripMenuItem.Text = "Pagos Contable";
+            this.pagosContableToolStripMenuItem.Click += new System.EventHandler(this.pagosContableToolStripMenuItem_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -423,5 +442,7 @@ namespace Contasis
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
+        private System.Windows.Forms.ToolStripMenuItem cobranzasContableToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pagosContableToolStripMenuItem;
     }
 }

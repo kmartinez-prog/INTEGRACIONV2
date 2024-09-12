@@ -41,7 +41,9 @@ namespace Contasis
                     Clase.rucemisor regis = new Clase.rucemisor();
                     
                     dataGrid1.DataSource = regis.Cargar();
-              
+                    
+                    
+
                 }
                 else
                 {
@@ -55,6 +57,7 @@ namespace Contasis
                 lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count-1);
                 lblTotales.Refresh();
                 dataGrid1.AllowUserToAddRows = false;
+                
                 dataGrid1.Columns[0].HeaderText = "RUC";
                 dataGrid1.Columns[0].MinimumWidth = 50;
                 dataGrid1.Columns[0].Width = 100;
@@ -83,17 +86,13 @@ namespace Contasis
                 dataGrid1.Columns[6].MinimumWidth = 50;
                 dataGrid1.Columns[6].Width = 100;
 
-
-
-
-
                 dataGrid1.AllowUserToAddRows = false;
 
 
                 dataGrid1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGrid1.ReadOnly = true;
 
-                if (dataGrid1.Rows.Count - 1 > 0)
+                if (dataGrid1.Rows.Count  > 0)
                 {
                     this.dataGrid1.CurrentCell = this.dataGrid1.Rows[0].Cells[1];
                     this.dataGrid1.Refresh();
@@ -204,6 +203,8 @@ namespace Contasis
         {
             if (dataGrid1.Rows.Count > 0)
             {
+             
+
                 Clase.usuarioPropiedad obj = new Clase.usuarioPropiedad();
                 obj.codigo = Convert.ToString(dataGrid1.SelectedRows[0].Cells[0].Value).Trim();
                 obj.nombre = Convert.ToString(dataGrid1.SelectedRows[0].Cells[1].Value).Trim();
@@ -237,6 +238,10 @@ namespace Contasis
         {
             if (dataGrid1.Rows.Count > 0)
             {
+
+                
+
+
                 Clase.rucpropiedades obj = new Clase.rucpropiedades();
                 obj.ruc = Convert.ToString(dataGrid1.SelectedRows[0].Cells[0].Value).Trim();
                 obj.empresa = Convert.ToString(dataGrid1.SelectedRows[0].Cells[1].Value).Trim();
@@ -304,6 +309,9 @@ namespace Contasis
             {
                 if (dataGrid1.Rows.Count > 0)
                 {
+
+
+
                     Clase.rucpropiedades obj = new Clase.rucpropiedades();
                     obj.ruc = Convert.ToString(dataGrid1.SelectedRows[0].Cells[0].Value).Trim();
                     obj.empresa = Convert.ToString(dataGrid1.SelectedRows[0].Cells[1].Value).Trim();

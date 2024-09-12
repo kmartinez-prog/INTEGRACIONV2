@@ -216,6 +216,8 @@ namespace Contasis
         {
             this.dataGridView_venta.DataSource = null;
             this.dataGridView_compra.DataSource = null;
+            this.dataGridView_cobranza.DataSource = null;
+            this.dataGridView_pago.DataSource = null;
             if (cmbempresas.Text == "")
             {
                 return;
@@ -773,6 +775,320 @@ namespace Contasis
 
 
         }
+        private void grabar_cobranzas()
+        {
+            if (Properties.Settings.Default.cadenaPostPrincipal == "")
+            {
+                try
+                {
+                    string respuesta = "";
+                    Clase.CuentasPropiedad obj = new Clase.CuentasPropiedad();
+                    if (txtsubdiario_cobra.Text == "")
+                    {
+                        txtsubdiario_cobra.Focus();
+                    }
+                    if (txtregistro_cobra.Text == "")
+                    {
+                        txtregistro_cobra.Focus();
+                    }
+                    if (txtflujocobra.Text == "")
+                    {
+                        txtflujocobra.Focus();
+                    }
+                    if (cmbperiodo.Text == "")
+                    {
+                        MessageBox.Show("Favor de seleccionar el periodo.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        cmbperiodo.Focus();
+                        return;
+                    }
+
+                    this.crear_fin_cobranzapago_asientos();
+                    this.crear_fin_cobranzapago_integra_asientos();
+
+                    obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
+                    obj.PERIODO = txtperiodo.Text;
+                    obj.RAZONSOCIAL = txtrazon.Text;
+                    obj.RUC = txtruc.Text;
+                    obj.ENTIDAD = "";
+                    obj.CSUB1_vta = txtsubdiario_cobra.Text;
+                    obj.CLREG1_vta = txtregistro_cobra.Text;
+                    obj.CSUB2_vta = "";
+                    obj.CLREG2_vta = "";
+                    obj.CCONTS_vta = "";
+                    obj.CCONTD_vta = "";
+                    obj.CFEFEC_vta = txtflujocobra.Text;
+                    obj.CENT_ANULA = "";
+                    obj.CTARES_vta = 0;
+                    obj.CTAIMP_vta = 0;
+                    obj.CTAACT_Vta = 0;
+                    obj.ASIENTOS_vta = 0;
+                    obj.CTIPO = "03";
+
+                    Clase.Cuentas ds = new Clase.Cuentas();
+                    respuesta = ds.Insertar(obj);
+                    if (respuesta.Equals("Grabado"))
+                    {
+                        MessageBox.Show("Registro grabado en configuracion para cuentas de cobranzas", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        /*this.limpiarcasilla();*/
+                    }
+                    else
+                    {
+                        if (respuesta.Equals("Actualizado"))
+                        {
+                            MessageBox.Show("Registro actualizado en configuracion para cuentas de cobranzas", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            /*this.limpiarcasilla();*/
+                        }
+                        else
+                        {
+                            //MessageBox.Show("No se puedo grabar en configuracion", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    /* FrmUsuarios.instance.grilla1();*/
+
+                }
+                catch
+                {
+                    MessageBox.Show("revise, todos los campos debe de ser llenados correctamente.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                try
+                {
+                    string respuesta = "";
+                    Clase.CuentasPropiedad obj = new Clase.CuentasPropiedad();
+                    if (txtsubdiario_cobra.Text == "")
+                    {
+                        txtsubdiario_cobra.Focus();
+                    }
+                    if (txtregistro_cobra.Text == "")
+                    {
+                        txtregistro_cobra.Focus();
+                    }
+                    if (txtflujocobra.Text == "")
+                    {
+                        txtflujocobra.Focus();
+                    }
+                    if (cmbperiodo.Text == "")
+                    {
+                        MessageBox.Show("Favor de seleccionar el periodo.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        cmbperiodo.Focus();
+                        return;
+                    }
+                 
+                    this.crear_fin_cobranzapago_asientos();
+                    this.crear_fin_cobranzapago_integra_asientos();
+
+                    obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
+                    obj.PERIODO = txtperiodo.Text;
+                    obj.RAZONSOCIAL = txtrazon.Text;
+                    obj.RUC = txtruc.Text;
+                    obj.ENTIDAD = "";
+                    obj.CSUB1_vta = txtsubdiario_cobra.Text;
+                    obj.CLREG1_vta = txtregistro_cobra.Text;
+                    obj.CSUB2_vta = "";
+                    obj.CLREG2_vta = "";
+                    obj.CCONTS_vta = "";
+                    obj.CCONTD_vta = "";
+                    obj.CFEFEC_vta = txtflujocobra.Text;
+                    obj.CENT_ANULA = "";
+                    obj.CTARES_vta = 0;
+                    obj.CTAIMP_vta = 0;
+                    obj.CTAACT_Vta = 0;
+                    obj.ASIENTOS_vta = 0;
+                    obj.CTIPO = "03";
+                  
+                    Clase.Cuentas ds = new Clase.Cuentas();
+                    respuesta = ds.Insertar_postgres(obj);
+                    if (respuesta.Equals("Grabado"))
+                    {
+                        MessageBox.Show("Registro grabado en configuracion para cuentas de ventas", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        /*this.limpiarcasilla();*/
+                    }
+                    else
+                    {
+                        if (respuesta.Equals("Actualizado"))
+                        {
+                            MessageBox.Show("Registro actualizado en configuracion para cuentas de ventas", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            /*this.limpiarcasilla();*/
+                        }
+                        else
+                        {
+                            //MessageBox.Show("No se puedo grabar en configuracion", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    /* FrmUsuarios.instance.grilla1();*/
+
+                }
+                catch
+                {
+                    MessageBox.Show("revise, todos los campos debe de ser llenados correctamente.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+
+
+            }
+
+
+
+        }
+        private void grabar_pagos()
+        {
+            if (Properties.Settings.Default.cadenaPostPrincipal == "")
+            {
+
+
+                try
+                {
+                    string respuesta = "";
+                    Clase.CuentasPropiedad obj = new Clase.CuentasPropiedad();
+                    if (txtsubdiario_pago.Text == "")
+                    {
+                        txtsubdiario_pago.Focus();
+                    }
+                    if (txtregistro_pago.Text == "")
+                    {
+                        txtregistro_pago.Focus();
+                    }
+                    if (txtflujopago.Text == "")
+                    {
+                        txtflujopago.Focus();
+                    }
+                    if (cmbperiodo.Text == "")
+                    {
+                        MessageBox.Show("Favor de seleccionar el periodo.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        cmbperiodo.Focus();
+                        return;
+                    }
+                    this.crear_fin_cobranzapago_asientos();
+                    this.crear_fin_cobranzapago_integra_asientos();
+
+                    obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
+                    obj.PERIODO = txtperiodo.Text;
+                    obj.RAZONSOCIAL = txtrazon.Text;
+                    obj.RUC = txtruc.Text;
+                    obj.ENTIDAD = "";
+                    obj.CSUB1_com = txtsubdiario_pago.Text;
+                    obj.CLREG1_com = txtregistro_pago.Text;
+                    obj.CSUB2_com = "";
+                    obj.CLREG2_com = "";
+                    obj.CCONTS_com = "";
+                    obj.CCONTD_com = "";
+                    obj.CFEFEC_com = txtflujopago.Text;
+                    obj.CENT_ANULA = "";
+                    obj.CTARES_com = 0;
+                    obj.CTAIMP_com = 0;
+                    obj.CTAPAS_com = 0;
+                    obj.ASIENTOS_com = 0;
+                    obj.CTIPO = "04";
+                    Clase.Cuentas ds = new Clase.Cuentas();
+                    respuesta = ds.Insertar(obj);
+                    if (respuesta.Equals("Grabado"))
+                    {
+                        MessageBox.Show("Registro grabado en configuracion para cuentas de pagos", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        /*this.limpiarcasilla();*/
+                    }
+                    else
+                    {
+                        if (respuesta.Equals("Actualizado"))
+                        {
+                            MessageBox.Show("Registro actualizado en configuracion para cuentas de pagos", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            /*this.limpiarcasilla();*/
+                        }
+                        else
+                        {
+                            //MessageBox.Show("No se puedo grabar en configuracion", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    /* FrmUsuarios.instance.grilla1();*/
+
+                }
+                catch
+                {
+                    MessageBox.Show("revise, todos los campos debe de ser llenados correctamente.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                try
+                {
+                    string respuesta = "";
+                    Clase.CuentasPropiedad obj = new Clase.CuentasPropiedad();
+                    if (txtsubdiario_pago.Text == "")
+                    {
+                        txtsubdiario_pago.Focus();
+                    }
+                    if (txtregistro_pago.Text == "")
+                    {
+                        txtregistro_pago.Focus();
+                    }
+                    if (txtflujopago.Text == "")
+                    {
+                        txtflujopago.Focus();
+                    }
+                    if (cmbperiodo.Text == "")
+                    {
+                        MessageBox.Show("Favor de seleccionar el periodo.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        cmbperiodo.Focus();
+                        return;
+                    }
+                    
+
+                    this.crear_fin_cobranzapago_asientos();
+                    this.crear_fin_cobranzapago_integra_asientos();
+
+                    obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
+                    obj.PERIODO = txtperiodo.Text;
+                    obj.RAZONSOCIAL = txtrazon.Text;
+                    obj.RUC = txtruc.Text;
+                    obj.ENTIDAD = "";
+                    obj.CSUB1_com = txtsubdiario_pago.Text;
+                    obj.CLREG1_com = txtregistro_pago.Text;
+                    obj.CSUB2_com = "";
+                    obj.CLREG2_com = "";
+                    obj.CCONTS_com = "";
+                    obj.CCONTD_com = "";
+                    obj.CFEFEC_com = txtflujopago.Text;
+                    obj.CENT_ANULA = "";
+                    obj.CTARES_com = 0;
+                    obj.CTAIMP_com = 0;
+                    obj.CTAPAS_com = 0;
+                    obj.ASIENTOS_com = 0;
+                    obj.CTIPO = "04";
+                    Clase.Cuentas ds = new Clase.Cuentas();
+                    respuesta = ds.Insertar_postgres(obj);
+                    if (respuesta.Equals("Grabado"))
+                    {
+                        MessageBox.Show("Registro grabado en configuracion para cuentas de pagos", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        /*this.limpiarcasilla();*/
+                    }
+                    else
+                    {
+                        if (respuesta.Equals("Actualizado"))
+                        {
+                            MessageBox.Show("Registro actualizado en configuracion para cuentas de pagos", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            /*this.limpiarcasilla();*/
+                        }
+                        else
+                        {
+                            //MessageBox.Show("No se puedo grabar en configuracion", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    /* FrmUsuarios.instance.grilla1();*/
+
+                }
+                catch
+                {
+                    MessageBox.Show("revise, todos los campos debe de ser llenados correctamente.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+
+
+            }
+
+
+
+        }
         private void carga2()
         {
             try
@@ -854,7 +1170,7 @@ namespace Contasis
 
                     txtrazon.Text = grilla[0].ToString().Replace("'"," ");
                     txtruc.Text = grilla[1].ToString();
-                this.seleccion();
+                    this.seleccion();
 
                 //  if (rucemisor.Trim() == txtruc.Text.Trim())
                 //{
@@ -1179,6 +1495,12 @@ namespace Contasis
             {
                 this.validar_cuentas("14", txtCFEFEC_com.Text);
             }
+            if (e.KeyCode == Keys.Tab)
+            {
+                this.validar_cuentas("14", txtCFEFEC_com.Text);
+            }
+
+
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -1312,6 +1634,131 @@ namespace Contasis
 
 
         }
+        public void Mostrar_registros_cobranzas()
+        {
+            if (Properties.Settings.Default.cadenaPostPrincipal == "")
+            {
+                try
+                {
+
+                    Clase.Cuentas regis = new Clase.Cuentas();
+                    string xEmpresa = cmbempresas.Text.Substring(0, 3);
+                    string xperiodo = cmbperiodo.Text;
+                    dataGridView_cobranza.DataSource = null;
+                    dataGridView_cobranza.DataSource = regis.Cargar_cobranzas(xEmpresa, xperiodo);
+                    dataGridView_cobranza.AllowUserToAddRows = false;
+
+                    dataGridView_cobranza.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dataGridView_cobranza.ReadOnly = true;
+
+                    if (dataGridView_cobranza.Rows.Count - 1 > 0)
+                    {
+                        this.dataGridView_cobranza.CurrentCell = this.dataGridView_cobranza.Rows[0].Cells[1];
+                        this.dataGridView_cobranza.Refresh();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + ex.StackTrace, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                try
+                {
+
+                    Clase.Cuentas regis = new Clase.Cuentas();
+                    string xEmpresa = cmbempresas.Text.Substring(0, 3);
+                    string xperiodo = cmbperiodo.Text;
+
+                    dataGridView_cobranza.AllowUserToAddRows = false;
+
+                    dataGridView_cobranza.DataSource = regis.Cargar_cobranzas_postgres(xEmpresa, xperiodo);
+
+                    dataGridView_cobranza.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dataGridView_cobranza.ReadOnly = true;
+
+                    if (dataGridView_cobranza.Rows.Count - 1 > 0)
+                    {
+                        this.dataGridView_cobranza.CurrentCell = this.dataGridView_cobranza.Rows[0].Cells[1];
+                        this.dataGridView_cobranza.Refresh();
+                    }
+                    this.dataGridView_cobranza.Refresh();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + ex.StackTrace, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+            }
+        }
+        public void Mostrar_registros_pagos()
+        {
+            if (Properties.Settings.Default.cadenaPostPrincipal == "")
+            {
+
+                try
+                {
+                    Clase.Cuentas regis = new Clase.Cuentas();
+
+                    string xEmpresa = cmbempresas.Text.Substring(0, 3);
+                    string xperiodo = cmbperiodo.Text;
+
+                    dataGridView_pago.DataSource = regis.Cargar_pagos(xEmpresa, xperiodo);
+                    dataGridView_pago.AllowUserToAddRows = false;
+                    dataGridView_pago.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dataGridView_pago.ReadOnly = true;
+
+                    if (dataGridView_pago.Rows.Count - 1 > 0)
+                    {
+                        this.dataGridView_pago.CurrentCell = this.dataGridView_pago.Rows[0].Cells[1];
+                        this.dataGridView_pago.Refresh();
+                    }
+                    this.dataGridView_pago.Refresh();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + ex.StackTrace, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                try
+                {
+                    Clase.Cuentas regis = new Clase.Cuentas();
+
+                    string xEmpresa = cmbempresas.Text.Substring(0, 3);
+                    string xperiodo = cmbperiodo.Text;
+
+                    dataGridView_pago.DataSource = regis.Cargar_pagos_postgres(xEmpresa, xperiodo);
+                    dataGridView_pago.AllowUserToAddRows = false;
+                    dataGridView_pago.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dataGridView_pago.ReadOnly = true;
+
+                    if (dataGridView_pago.Rows.Count - 1 > 0)
+                    {
+                        this.dataGridView_pago.CurrentCell = this.dataGridView_pago.Rows[0].Cells[1];
+                        this.dataGridView_pago.Refresh();
+                    }
+                    this.dataGridView_pago.Refresh();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + ex.StackTrace, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
+
+
+            }
+
+
+        }
+
+
+
         public void seleccion()
         {
             if (cmbperiodo.Text == " ")
@@ -1380,6 +1827,8 @@ namespace Contasis
                         {
                             this.Mostrar_registros_ventas();
                             this.Mostrar_registros_compras();
+                            this.Mostrar_registros_cobranzas();
+                            this.Mostrar_registros_pagos();
                         }
 
                         else
@@ -1403,6 +1852,8 @@ namespace Contasis
                         {
                             this.Mostrar_registros_ventas();
                             this.Mostrar_registros_compras();
+                            this.Mostrar_registros_cobranzas();
+                            this.Mostrar_registros_pagos();
                         }
 
                         else
@@ -1519,7 +1970,7 @@ namespace Contasis
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error no Existe entidades " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no Existe entidades." + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 cmbperiodo.Items.Clear();
             }
             
@@ -2102,6 +2553,223 @@ namespace Contasis
             }
 
         }
+        public void crear_fin_cobranzapago_asientos()
+        {
+
+            NpgsqlConnection cone01 = new NpgsqlConnection();
+
+            try
+            {
+
+
+                string query0 = "SELECT distinct TABLE_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='fin_cobranzapago'";
+                cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
+                NpgsqlCommand commando = new NpgsqlCommand(query0, cone01);
+                cone01.Open();
+                NpgsqlDataAdapter datos = new NpgsqlDataAdapter(commando);
+                DataTable tablas = new DataTable();
+                datos.Fill(tablas);
+
+                if (tablas.Rows.Count == 0)
+                {
+                    string tmpquery = "CREATE TABLE fin_cobranzapago (" +
+                      " idcobranzapago numeric(20, 0), " +
+                      " ccod_empresa character(3), " +
+                      " cper character(4), " +
+                      " cmes character(2), " +
+                      " ccodori character(3), " +
+                      " ccodsu character(2), " +
+                      " ccodflu character(4), " +
+                      " ntipocobpag integer, " +
+                      " ffechacan date, " +
+                      " cdoccan character(2) NOT NULL DEFAULT ''::bpchar, " +
+                      " csercan character(20) NOT NULL DEFAULT ''::bpchar, " +
+                      " cnumcan character(20) NOT NULL DEFAULT ''::bpchar, " +
+                      " ccuecan character(20) NOT NULL DEFAULT ''::bpchar, " +
+                      " cmoncan character(1) NOT NULL DEFAULT ''::bpchar, " +
+                      " nimporcan numeric(15, 2) NOT NULL DEFAULT 0, " +
+                      " ntipcam numeric(10, 6) NOT NULL DEFAULT 0, " +
+                      " ccodpago character(3) NOT NULL DEFAULT ''::bpchar, " +
+                      " ccoddoc character(2) NOT NULL DEFAULT ''::bpchar, " +
+                      " cserie character(20) NOT NULL DEFAULT ''::bpchar, " +
+                      " cnumero character(20) NOT NULL DEFAULT ''::bpchar, " +
+                      " ffechadoc date, " +
+                      " ffechaven date, " +
+                      " ccodenti character(11) NOT NULL DEFAULT ''::bpchar, " +
+                      " ccodruc character(15) NOT NULL DEFAULT ''::bpchar, " +
+                      " crazsoc character(150) NOT NULL DEFAULT ''::bpchar, " +
+                      " nimportes numeric(15, 2) NOT NULL DEFAULT 0, " +
+                      " nimported numeric(15, 2) NOT NULL DEFAULT 0, " +
+                      " ccodcue character(20) NOT NULL DEFAULT ''::bpchar, " +
+                      " cglosa character varying(80) NOT NULL DEFAULT ''::character varying, " +
+                      " ccodcos character(9) NOT NULL DEFAULT ''::bpchar, " +
+                      " ccodcos2 character(9) NOT NULL DEFAULT ''::bpchar, " +
+                      " nporre numeric(5, 2) NOT NULL DEFAULT 0, " +
+                      " nimpperc numeric(15, 2) NOT NULL DEFAULT 0, " +
+                      " nperdenre numeric(1, 0) NOT NULL DEFAULT 0, " +
+                      " cserre character(6) NOT NULL DEFAULT ''::bpchar, " +
+                      " cnumre character(13) NOT NULL DEFAULT ''::bpchar, " +
+                      " ffecre date, " +
+                      " es_con_migracion numeric(1, 0), " +
+                      " obserror text, " +
+                      " resultado_migracion numeric(1, 0) )";
+
+
+                    cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
+                    NpgsqlCommand commando1 = new NpgsqlCommand(tmpquery, cone01);
+                    cone01.Open();
+                    commando1.ExecuteNonQuery();
+
+                    NpgsqlCommand commando2 = new NpgsqlCommand(txt_cobra01.Text, cone01);
+                    commando2.ExecuteNonQuery();
+
+                    NpgsqlCommand commando3 = new NpgsqlCommand(txt_cobra02.Text, cone01);
+                    commando3.ExecuteNonQuery();
+
+                    NpgsqlCommand commando4 = new NpgsqlCommand(txt_cobra03.Text, cone01);
+                    commando4.ExecuteNonQuery();
+
+                    NpgsqlCommand commando5 = new NpgsqlCommand(txt_cobra04.Text, cone01);
+                    commando5.ExecuteNonQuery();
+
+                }
+
+                else
+                {
+                    NpgsqlCommand commando2 = new NpgsqlCommand(txt_cobra01.Text, cone01);
+                    commando2.ExecuteNonQuery();
+
+                    NpgsqlCommand commando3 = new NpgsqlCommand(txt_cobra02.Text, cone01);
+                    commando3.ExecuteNonQuery();
+
+                    NpgsqlCommand commando4 = new NpgsqlCommand(txt_cobra03.Text, cone01);
+                    commando4.ExecuteNonQuery();
+
+                    NpgsqlCommand commando5 = new NpgsqlCommand(txt_cobra04.Text, cone01);
+                    commando5.ExecuteNonQuery();
+
+                }
+
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+
+            }
+            finally
+            {
+                if (cone01.State == ConnectionState.Open)
+                {
+                    cone01.Close();
+                }
+
+            }
+
+        }
+        public void crear_fin_cobranzapago_integra_asientos()
+        {
+
+            NpgsqlConnection cone01 = new NpgsqlConnection();
+
+            try
+            {
+
+
+                string query0 = "SELECT distinct TABLE_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='fin_cobranzapago_integra'";
+                cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
+                NpgsqlCommand commando = new NpgsqlCommand(query0, cone01);
+                cone01.Open();
+                NpgsqlDataAdapter datos = new NpgsqlDataAdapter(commando);
+                DataTable tablas = new DataTable();
+                datos.Fill(tablas);
+
+                if (tablas.Rows.Count == 0)
+                {
+                    string tmpquery = "CREATE TABLE fin_cobranzapago_integra "+
+                        " (idcobranzapago numeric(20, 0), " +
+                        " ffechacan date, " +
+                        " cdoccan character(2) NOT NULL DEFAULT ''::bpchar, " +
+                        " csercan character(20) NOT NULL DEFAULT ''::bpchar, " +
+                        " cnumcan character(20) NOT NULL DEFAULT ''::bpchar, " +
+                        " ccuecan character(20) NOT NULL DEFAULT ''::bpchar, " +
+                        " cmoncan character(1) NOT NULL DEFAULT ''::bpchar, " +
+                        " nimporcan numeric(15, 2) NOT NULL DEFAULT 0, " +
+                        " ntipcam numeric(10, 6) NOT NULL DEFAULT 0, " +
+                        " ccodpago character(3) NOT NULL DEFAULT ''::bpchar, " +
+                        " ccoddoc character(2) NOT NULL DEFAULT ''::bpchar, " +
+                        " cserie character(20) NOT NULL DEFAULT ''::bpchar, " +
+                        " cnumero character(20) NOT NULL DEFAULT ''::bpchar, " +
+                        " ffechadoc date, " +
+                        " ffechaven date, " +
+                        " ccodenti character(11) NOT NULL DEFAULT ''::bpchar, " +
+                        " ccodruc character(15) NOT NULL DEFAULT ''::bpchar, " +
+                        " crazsoc character(150) NOT NULL DEFAULT ''::bpchar, " +
+                        " nimportes numeric(15, 2) NOT NULL DEFAULT 0, " +
+                        " nimported numeric(15, 2) NOT NULL DEFAULT 0, " +
+                        " ccodcue character(20) NOT NULL DEFAULT ''::bpchar, " +
+                        " cglosa character varying(80) NOT NULL DEFAULT ''::character varying, " +
+                        " ccodcos character(9) NOT NULL DEFAULT ''::bpchar, " +
+                        " ccodcos2 character(9) NOT NULL DEFAULT ''::bpchar, " +
+                        " nporre numeric(5, 2) NOT NULL DEFAULT 0, " +
+                        " nimpperc numeric(15, 2) NOT NULL DEFAULT 0, " +
+                        " nperdenre numeric(1, 0) NOT NULL DEFAULT 0, " +
+                        " cserre character(6) NOT NULL DEFAULT ''::bpchar, " +
+                        " cnumre character(13) NOT NULL DEFAULT ''::bpchar, " +
+                        " ffecre date)  ";
+
+
+                    cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
+                    NpgsqlCommand commando1 = new NpgsqlCommand(tmpquery, cone01);
+                    cone01.Open();
+                    commando1.ExecuteNonQuery();
+
+                    NpgsqlCommand commando2 = new NpgsqlCommand(txt_cobra01.Text, cone01);
+                    commando2.ExecuteNonQuery();
+
+                    NpgsqlCommand commando3 = new NpgsqlCommand(txt_cobra02.Text, cone01);
+                    commando3.ExecuteNonQuery();
+
+                    NpgsqlCommand commando4 = new NpgsqlCommand(txt_cobra03.Text, cone01);
+                    commando4.ExecuteNonQuery();
+
+                    NpgsqlCommand commando5 = new NpgsqlCommand(txt_cobra04.Text, cone01);
+                    commando5.ExecuteNonQuery();
+                }
+
+                else
+                {
+                    NpgsqlCommand commando2 = new NpgsqlCommand(txt_cobra01.Text, cone01);
+                    commando2.ExecuteNonQuery();
+
+                    NpgsqlCommand commando3 = new NpgsqlCommand(txt_cobra02.Text, cone01);
+                    commando3.ExecuteNonQuery();
+
+                    NpgsqlCommand commando4 = new NpgsqlCommand(txt_cobra03.Text, cone01);
+                    commando4.ExecuteNonQuery();
+
+                    NpgsqlCommand commando5 = new NpgsqlCommand(txt_cobra04.Text, cone01);
+                    commando5.ExecuteNonQuery();
+
+                }
+
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+
+            }
+            finally
+            {
+                if (cone01.State == ConnectionState.Open)
+                {
+                    cone01.Close();
+                }
+
+            }
+
+        }
+
+
         private void txtCSUB1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -2259,6 +2927,34 @@ namespace Contasis
                 {
                     txtquery2.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where CCODFLU='" + xvalor2 + "' AND cper='" + txtperiodo.Text + "' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
                 }
+                /** para cobranzas **/
+                if (xvalor == "15")
+                {
+                    txtquery2.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI='" + xvalor2 + "' ORDER BY CCODORI ASC";
+                }
+                if (xvalor == "16")
+                {
+                    txtquery2.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU  where CCODSU='" + xvalor2 + "'  ORDER BY CCODSU ASC";
+                }
+                if (xvalor == "17")
+                {
+                    txtquery2.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where CCODFLU='" + xvalor2 + "' AND cper='" + txtperiodo.Text + "' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+                }
+                /** para pagos **/
+                if (xvalor == "18")
+                {
+                    txtquery2.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI='" + xvalor2 + "' ORDER BY CCODORI ASC";
+                }
+                if (xvalor == "19")
+                {
+                    txtquery2.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU  where CCODSU='" + xvalor2 + "'  ORDER BY CCODSU ASC";
+                }
+                if (xvalor == "20")
+                {
+                    txtquery2.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where CCODFLU='" + xvalor2 + "' AND cper='" + txtperiodo.Text + "' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+                }
+
+
                 cone = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
                 NpgsqlCommand cmdp = new NpgsqlCommand(txtquery2.Text, cone);
                 cone.Open();
@@ -2340,6 +3036,38 @@ namespace Contasis
                         txtCFEFEC_com.Text = "";
                         txtCFEFEC_com.Focus();
                     }
+
+                    if (xvalor == "15")
+                    {
+                        txtsubdiario_cobra.Text = "";
+                        txtsubdiario_cobra.Focus();
+                    }
+                    if (xvalor == "16")
+                    {
+                        txtregistro_cobra.Text = "";
+                        txtregistro_cobra.Focus();
+                    }
+                    if (xvalor == "17")
+                    {
+                        txtflujocobra.Text = "";
+                        txtflujocobra.Focus();
+                    }
+                    if (xvalor == "18")
+                    {
+                        txtsubdiario_pago.Text = "";
+                        txtsubdiario_pago.Focus();
+                    }
+                    if (xvalor == "19")
+                    {
+                        txtregistro_pago.Text = "";
+                        txtregistro_pago.Focus();
+                    }
+                    if (xvalor == "20")
+                    {
+                        txtflujopago.Text = "";
+                        txtflujopago.Focus();
+                    }
+
                     cone.Close();
                 }
                 
@@ -2505,21 +3233,274 @@ namespace Contasis
             check_imp_com.Checked = false;
             check_actv_com.Checked = false;
             check_asicom_com.Checked = false;
+            txtsubdiario_cobra.Text = "";
+            txtsubdiario_pago.Text = "";
+            txtregistro_cobra.Text = "";
+            txtregistro_pago.Text = "";
+            txtflujocobra.Text = "";
+            txtflujopago.Text = "";
         }
         private void cmbrucemisor_SelectedIndexChanged(object sender, EventArgs e)
         {
          rucemisor = cmbrucemisor.Text.Trim().Substring(0,11);
             
         }
+        /****************************************************************************************************************/
+        private void txtasientoventas2_TextChanged(object sender, EventArgs e)
+        {
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.grabar_pagos();
+            this.Mostrar_registros_pagos();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.grabar_cobranzas();
+            this.Mostrar_registros_cobranzas();
+        }
+        private void txtCSUB1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void txtsubdiario_cobra_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
+
+            {
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(15, txtcadena.Text, cmbperiodo.Text);
+                frmcuenta.Show();
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.validar_cuentas("15", txtsubdiario_cobra.Text);
+            }
+          
+        }
+        private void txtsubdiario_cobra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+        }
+        private void txtregistro_cobra_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
+
+            {
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(16, txtcadena.Text, cmbperiodo.Text);
+                frmcuenta.Show();
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.validar_cuentas("16", txtsubdiario_cobra.Text);
+            }
+
+        }
+        private void txtregistro_cobra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void txtflujocobra_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
+
+            {
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(17, txtcadena.Text, cmbperiodo.Text);
+                frmcuenta.Show();
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.validar_cuentas("17", txtflujocobra.Text);
+            }
+        }
+        private void txtflujocobra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void txtsubdiario_cobra_Validated(object sender, EventArgs e)
+        {
+            if (txtsubdiario_cobra.Text == "")
+            {
+                MessageBox.Show("Debe de ingresar la cuentra correcta.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtsubdiario_cobra.Focus();
+            }
+        }
+        private void txtregistro_cobra_Validated(object sender, EventArgs e)
+        {
+            if (txtregistro_cobra.Text == "")
+            {
+                MessageBox.Show("Debe de ingresar la cuentra correcta.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtregistro_cobra.Focus();
+            }
+        }
+        private void txtflujocobra_TextChanged(object sender, EventArgs e)
+        {
+            this.button3.Enabled = true;
+        }
+        private void txtflujocobra_Validated(object sender, EventArgs e)
+        {
+            if (txtflujocobra.Text == "")
+            {
+                MessageBox.Show("Debe de ingresar la cuentra correcta.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtflujocobra.Focus();
+            }
+        }
+        private void txtsubdiario_pago_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
+
+            {
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(18, txtcadena.Text, cmbperiodo.Text);
+                frmcuenta.Show();
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.validar_cuentas("18", txtsubdiario_pago.Text);
+            }
+        }
+        private void txtregistro_pago_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
+
+            {
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(19, txtcadena.Text, cmbperiodo.Text);
+                frmcuenta.Show();
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.validar_cuentas("19", txtregistro_pago.Text);
+            }
+        }
+        private void txtflujopago_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
+
+            {
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(20, txtcadena.Text, cmbperiodo.Text);
+                frmcuenta.Show();
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.validar_cuentas("20", txtflujopago.Text);
+            }
+        }
+        private void txtsubdiario_pago_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void txtregistro_pago_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void txtflujopago_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtsubdiario_pago_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
+        private void txtsubdiario_pago_KeyUp(object sender, KeyEventArgs e)
         {
-
+            if (e.KeyCode == Keys.Tab)
+            {
+                this.validar_cuentas("18", txtsubdiario_pago.Text);
+            }
         }
+
+        private void txtsubdiario_cobra_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void txtsubdiario_cobra_KeyUp(object sender, KeyEventArgs e)
+        {
+                if (e.KeyCode == Keys.Tab)
+            {
+                this.validar_cuentas("15", txtsubdiario_cobra.Text);
+                if (txtsubdiario_cobra.Text.Trim() == "")
+                {
+                    txtsubdiario_cobra.Focus();
+                }
+            }
+        }
+
+        private void txtregistro_cobra_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab)
+            {
+                this.validar_cuentas("15", txtsubdiario_cobra.Text);
+                if (txtsubdiario_cobra.Text == "")
+                {
+                    txtsubdiario_cobra.Focus();
+                }
+            }
+        }
+        private void txtflujocobra_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab)
+            {
+                this.validar_cuentas("16", txtregistro_cobra.Text);
+                if (txtregistro_cobra.Text == "")
+                {
+                    txtregistro_cobra.Focus();
+                }
+            }
+        }
+        private void txtregistro_pago_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab)
+            {
+                this.validar_cuentas("19", txtregistro_pago.Text);
+                if (txtregistro_pago.Text == "")
+                {
+                    txtregistro_pago.Focus();
+                }
+            }
+        }
+        private void txtflujopago_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab)
+            {
+                this.validar_cuentas("20", txtflujopago.Text);
+                if (txtflujopago.Text == "")
+                {
+                    txtflujopago.Focus();
+                }
+            }
+        }
+
+        private void txtflujopago_TextChanged(object sender, EventArgs e)
+        {
+            this.button4.Enabled = true;
+        }
+        /****************************************************************************************************************/
     }
 }

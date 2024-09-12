@@ -173,10 +173,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clase\Class1.cs" />
+    <Compile Include="Clase\Cobranzas_propiedades.cs" />
     <Compile Include="Clase\Compras_inconsistencia.cs" />
     <Compile Include="Clase\Compras_inconsistencias.cs" />
     <Compile Include="Clase\compras_propiedades.cs" />
     <Compile Include="Clase\Compras_propiedadescs.cs" />
+    <Compile Include="Clase\Conbranzas_Inconsistencia.cs" />
     <Compile Include="Clase\ConexionPostgreslContasis.cs" />
     <Compile Include="Clase\ConexionSql.cs" />
     <Compile Include="Clase\Cuentas.cs" />
@@ -189,6 +191,8 @@
     <Compile Include="Clase\Estructura_SQL.cs" />
     <Compile Include="Clase\Inicio.cs" />
     <Compile Include="Clase\LeerUsuarios.cs" />
+    <Compile Include="Clase\Pagos_inconsistencia.cs" />
+    <Compile Include="Clase\Pagos_propíedades.cs" />
     <Compile Include="Clase\ruc.cs" />
     <Compile Include="Clase\rucemisor.cs" />
     <Compile Include="Clase\rucpropiedades.cs" />
@@ -211,6 +215,18 @@
     </Compile>
     <Compile Include="FrmEliminarruc.Designer.cs">
       <DependentUpon>FrmEliminarruc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmInconsistencias_Cobranza.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInconsistencias_Cobranza.Designer.cs">
+      <DependentUpon>FrmInconsistencias_Cobranza.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmInconsistencias_Pago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInconsistencias_Pago.Designer.cs">
+      <DependentUpon>FrmInconsistencias_Pago.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmRuceditor.cs">
       <SubType>Form</SubType>
@@ -384,6 +400,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmEliminarruc.resx">
       <DependentUpon>FrmEliminarruc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmInconsistencias_Cobranza.resx">
+      <DependentUpon>FrmInconsistencias_Cobranza.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmInconsistencias_Pago.resx">
+      <DependentUpon>FrmInconsistencias_Pago.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRuceditor.resx">
       <DependentUpon>FrmRuceditor.cs</DependentUpon>

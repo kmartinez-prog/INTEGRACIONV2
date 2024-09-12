@@ -24,7 +24,8 @@ namespace Contasis
         FrmConfigurarServicio master10;
         FrRegistrarConexionNube master11;
         FrmVerificacionEstrcutura master12;
-
+        FrmInconsistencias_Cobranza master15;
+        FrmInconsistencias_Pago master14;
 
         public static Principal instance = null;
         public Principal(string valor)
@@ -523,6 +524,63 @@ namespace Contasis
             master12 = null;
         }
 
+        private void cobranzasContableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            foreach (Form OpenForm in Application.OpenForms)
+            {
+                if (OpenForm.Name == "master15")
+                { }
+                else
+                {
+                    master15 = null;
+                }
+
+            }
+
+            if (master15 == null)
+            {
+                master15 = new FrmInconsistencias_Cobranza();
+                ///master6.MdiParent = this;
+                master15.ShowDialog();
+                master15.FormClosed += new FormClosedEventHandler(cerrarcobranza);
+            }
+
+        }
+
+        void cerrarcobranza(object sender, EventArgs e)
+        {
+            master15 = null;
+        }
+
+        private void pagosContableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Form OpenForm in Application.OpenForms)
+            {
+                if (OpenForm.Name == "master14")
+                { }
+                else
+                {
+                    master14 = null;
+                }
+
+            }
+
+            if (master14 == null)
+            {
+                master14 = new FrmInconsistencias_Pago();
+                ///master6.MdiParent = this;
+                master14.ShowDialog();
+                master14.FormClosed += new FormClosedEventHandler(cerrarpagos);
+            }
+        }
+        void cerrarpagos(object sender, EventArgs e)
+        {
+            master14 = null;
+        }
+
+
 
     }
 }
+

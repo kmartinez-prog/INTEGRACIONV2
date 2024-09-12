@@ -102,6 +102,29 @@ namespace Contasis
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label34 = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label36 = new System.Windows.Forms.Label();
+            this.dataGridView_cobranza = new System.Windows.Forms.DataGridView();
+            this.button3 = new System.Windows.Forms.Button();
+            this.txtflujocobra = new System.Windows.Forms.TextBox();
+            this.txtregistro_cobra = new System.Windows.Forms.TextBox();
+            this.txtsubdiario_cobra = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label35 = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label37 = new System.Windows.Forms.Label();
+            this.dataGridView_pago = new System.Windows.Forms.DataGridView();
+            this.button4 = new System.Windows.Forms.Button();
+            this.txtflujopago = new System.Windows.Forms.TextBox();
+            this.txtregistro_pago = new System.Windows.Forms.TextBox();
+            this.txtsubdiario_pago = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbempresas = new System.Windows.Forms.ComboBox();
             this.txtcadena = new System.Windows.Forms.TextBox();
@@ -114,23 +137,10 @@ namespace Contasis
             this.txtasientoventas2 = new System.Windows.Forms.TextBox();
             this.txtasientoventas1 = new System.Windows.Forms.TextBox();
             this.BtnSalir = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.button4 = new System.Windows.Forms.Button();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
+            this.txt_cobra01 = new System.Windows.Forms.TextBox();
+            this.txt_cobra02 = new System.Windows.Forms.TextBox();
+            this.txt_cobra03 = new System.Windows.Forms.TextBox();
+            this.txt_cobra04 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -143,9 +153,11 @@ namespace Contasis
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_compra)).BeginInit();
             this.panel5.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_cobranza)).BeginInit();
             this.tabPage4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_pago)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -167,7 +179,6 @@ namespace Contasis
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(622, 504);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // label25
             // 
@@ -205,7 +216,7 @@ namespace Contasis
             // txtruc
             // 
             this.txtruc.Enabled = false;
-            this.txtruc.Location = new System.Drawing.Point(474, 91);
+            this.txtruc.Location = new System.Drawing.Point(467, 91);
             this.txtruc.Name = "txtruc";
             this.txtruc.Size = new System.Drawing.Size(107, 20);
             this.txtruc.TabIndex = 7;
@@ -306,7 +317,6 @@ namespace Contasis
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(558, 398);
             this.panel2.TabIndex = 0;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // label26
             // 
@@ -422,6 +432,7 @@ namespace Contasis
             this.txtCSUB1.Name = "txtCSUB1";
             this.txtCSUB1.Size = new System.Drawing.Size(82, 21);
             this.txtCSUB1.TabIndex = 4;
+            this.txtCSUB1.TextChanged += new System.EventHandler(this.txtCSUB1_TextChanged);
             this.txtCSUB1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCSUB1_KeyDown);
             this.txtCSUB1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCSUB1_KeyPress);
             this.txtCSUB1.Validated += new System.EventHandler(this.txtCSUB1_Validated);
@@ -634,7 +645,7 @@ namespace Contasis
             this.panel4.Controls.Add(this.label21);
             this.panel4.Location = new System.Drawing.Point(8, 9);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(559, 398);
+            this.panel4.Size = new System.Drawing.Size(558, 398);
             this.panel4.TabIndex = 2;
             // 
             // label27
@@ -923,14 +934,8 @@ namespace Contasis
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.button3);
-            this.tabPage3.Controls.Add(this.dataGridView2);
-            this.tabPage3.Controls.Add(this.textBox1);
-            this.tabPage3.Controls.Add(this.textBox2);
-            this.tabPage3.Controls.Add(this.textBox3);
-            this.tabPage3.Controls.Add(this.label28);
-            this.tabPage3.Controls.Add(this.label29);
-            this.tabPage3.Controls.Add(this.label30);
+            this.tabPage3.Controls.Add(this.label34);
+            this.tabPage3.Controls.Add(this.panel6);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -938,6 +943,269 @@ namespace Contasis
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Cobranzas";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(17, 5);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(258, 13);
+            this.label34.TabIndex = 42;
+            this.label34.Text = "Datos de Importación Automatica Cobranzas";
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.White;
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel6.Controls.Add(this.label36);
+            this.panel6.Controls.Add(this.dataGridView_cobranza);
+            this.panel6.Controls.Add(this.button3);
+            this.panel6.Controls.Add(this.txtflujocobra);
+            this.panel6.Controls.Add(this.txtregistro_cobra);
+            this.panel6.Controls.Add(this.txtsubdiario_cobra);
+            this.panel6.Controls.Add(this.label28);
+            this.panel6.Controls.Add(this.label29);
+            this.panel6.Controls.Add(this.label30);
+            this.panel6.Location = new System.Drawing.Point(8, 9);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(558, 398);
+            this.panel6.TabIndex = 35;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.ForeColor = System.Drawing.Color.Blue;
+            this.label36.Location = new System.Drawing.Point(355, 6);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(77, 15);
+            this.label36.TabIndex = 43;
+            this.label36.Text = "Ruc Emisor :";
+            // 
+            // dataGridView_cobranza
+            // 
+            this.dataGridView_cobranza.AllowUserToDeleteRows = false;
+            this.dataGridView_cobranza.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_cobranza.Location = new System.Drawing.Point(8, 229);
+            this.dataGridView_cobranza.Name = "dataGridView_cobranza";
+            this.dataGridView_cobranza.ReadOnly = true;
+            this.dataGridView_cobranza.RowHeadersWidth = 51;
+            this.dataGridView_cobranza.Size = new System.Drawing.Size(543, 118);
+            this.dataGridView_cobranza.TabIndex = 42;
+            // 
+            // button3
+            // 
+            this.button3.Enabled = false;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Image = global::Contasis.Properties.Resources._93;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(453, 360);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(100, 32);
+            this.button3.TabIndex = 41;
+            this.button3.Text = "Grabar";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // txtflujocobra
+            // 
+            this.txtflujocobra.Location = new System.Drawing.Point(140, 164);
+            this.txtflujocobra.MaxLength = 10;
+            this.txtflujocobra.Name = "txtflujocobra";
+            this.txtflujocobra.Size = new System.Drawing.Size(82, 21);
+            this.txtflujocobra.TabIndex = 38;
+            this.txtflujocobra.TextChanged += new System.EventHandler(this.txtflujocobra_TextChanged);
+            this.txtflujocobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtflujocobra_KeyDown);
+            this.txtflujocobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtflujocobra_KeyPress);
+            this.txtflujocobra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtflujocobra_KeyUp);
+            this.txtflujocobra.Validated += new System.EventHandler(this.txtflujocobra_Validated);
+            // 
+            // txtregistro_cobra
+            // 
+            this.txtregistro_cobra.Location = new System.Drawing.Point(140, 136);
+            this.txtregistro_cobra.MaxLength = 10;
+            this.txtregistro_cobra.Name = "txtregistro_cobra";
+            this.txtregistro_cobra.Size = new System.Drawing.Size(82, 21);
+            this.txtregistro_cobra.TabIndex = 37;
+            this.txtregistro_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtregistro_cobra_KeyDown);
+            this.txtregistro_cobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtregistro_cobra_KeyPress);
+            this.txtregistro_cobra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtregistro_cobra_KeyUp);
+            this.txtregistro_cobra.Validated += new System.EventHandler(this.txtregistro_cobra_Validated);
+            // 
+            // txtsubdiario_cobra
+            // 
+            this.txtsubdiario_cobra.Location = new System.Drawing.Point(140, 109);
+            this.txtsubdiario_cobra.MaxLength = 10;
+            this.txtsubdiario_cobra.Name = "txtsubdiario_cobra";
+            this.txtsubdiario_cobra.Size = new System.Drawing.Size(82, 21);
+            this.txtsubdiario_cobra.TabIndex = 36;
+            this.txtsubdiario_cobra.TextChanged += new System.EventHandler(this.txtsubdiario_cobra_TextChanged);
+            this.txtsubdiario_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_cobra_KeyDown);
+            this.txtsubdiario_cobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtsubdiario_cobra_KeyPress);
+            this.txtsubdiario_cobra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_cobra_KeyUp);
+            this.txtsubdiario_cobra.Validated += new System.EventHandler(this.txtsubdiario_cobra_Validated);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(51, 167);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(78, 15);
+            this.label28.TabIndex = 39;
+            this.label28.Text = "Flujo efectivo";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(63, 138);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(66, 15);
+            this.label29.TabIndex = 35;
+            this.label29.Text = "L/ Registro";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(29, 111);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(100, 15);
+            this.label30.TabIndex = 34;
+            this.label30.Text = "Sub Diario R. Vta";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.label35);
+            this.tabPage4.Controls.Add(this.panel7);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(576, 414);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Pagos";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.Location = new System.Drawing.Point(17, 5);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(234, 13);
+            this.label35.TabIndex = 51;
+            this.label35.Text = "Datos de Importación Automatica Pagos";
+            // 
+            // panel7
+            // 
+            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel7.Controls.Add(this.label37);
+            this.panel7.Controls.Add(this.dataGridView_pago);
+            this.panel7.Controls.Add(this.button4);
+            this.panel7.Controls.Add(this.txtflujopago);
+            this.panel7.Controls.Add(this.txtregistro_pago);
+            this.panel7.Controls.Add(this.txtsubdiario_pago);
+            this.panel7.Controls.Add(this.label31);
+            this.panel7.Controls.Add(this.label32);
+            this.panel7.Controls.Add(this.label33);
+            this.panel7.Location = new System.Drawing.Point(8, 9);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(558, 398);
+            this.panel7.TabIndex = 43;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(355, 7);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(77, 15);
+            this.label37.TabIndex = 52;
+            this.label37.Text = "Ruc Emisor :";
+            // 
+            // dataGridView_pago
+            // 
+            this.dataGridView_pago.AllowUserToDeleteRows = false;
+            this.dataGridView_pago.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_pago.Location = new System.Drawing.Point(8, 229);
+            this.dataGridView_pago.Name = "dataGridView_pago";
+            this.dataGridView_pago.ReadOnly = true;
+            this.dataGridView_pago.RowHeadersWidth = 51;
+            this.dataGridView_pago.Size = new System.Drawing.Size(543, 118);
+            this.dataGridView_pago.TabIndex = 51;
+            // 
+            // button4
+            // 
+            this.button4.Enabled = false;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Image = global::Contasis.Properties.Resources._93;
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button4.Location = new System.Drawing.Point(453, 360);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(100, 32);
+            this.button4.TabIndex = 50;
+            this.button4.Text = "Grabar";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // txtflujopago
+            // 
+            this.txtflujopago.Location = new System.Drawing.Point(140, 165);
+            this.txtflujopago.MaxLength = 10;
+            this.txtflujopago.Name = "txtflujopago";
+            this.txtflujopago.Size = new System.Drawing.Size(82, 21);
+            this.txtflujopago.TabIndex = 47;
+            this.txtflujopago.TextChanged += new System.EventHandler(this.txtflujopago_TextChanged);
+            this.txtflujopago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtflujopago_KeyDown);
+            this.txtflujopago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtflujopago_KeyPress);
+            this.txtflujopago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtflujopago_KeyUp);
+            // 
+            // txtregistro_pago
+            // 
+            this.txtregistro_pago.Location = new System.Drawing.Point(140, 137);
+            this.txtregistro_pago.MaxLength = 10;
+            this.txtregistro_pago.Name = "txtregistro_pago";
+            this.txtregistro_pago.Size = new System.Drawing.Size(82, 21);
+            this.txtregistro_pago.TabIndex = 46;
+            this.txtregistro_pago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtregistro_pago_KeyDown);
+            this.txtregistro_pago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtregistro_pago_KeyPress);
+            this.txtregistro_pago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtregistro_pago_KeyUp);
+            // 
+            // txtsubdiario_pago
+            // 
+            this.txtsubdiario_pago.Location = new System.Drawing.Point(140, 109);
+            this.txtsubdiario_pago.MaxLength = 10;
+            this.txtsubdiario_pago.Name = "txtsubdiario_pago";
+            this.txtsubdiario_pago.Size = new System.Drawing.Size(82, 21);
+            this.txtsubdiario_pago.TabIndex = 45;
+            this.txtsubdiario_pago.TextChanged += new System.EventHandler(this.txtsubdiario_pago_TextChanged);
+            this.txtsubdiario_pago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_pago_KeyDown);
+            this.txtsubdiario_pago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtsubdiario_pago_KeyPress);
+            this.txtsubdiario_pago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_pago_KeyUp);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(51, 168);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(78, 15);
+            this.label31.TabIndex = 48;
+            this.label31.Text = "Flujo efectivo";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(63, 139);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(66, 15);
+            this.label32.TabIndex = 44;
+            this.label32.Text = "L/ Registro";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(29, 111);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(100, 15);
+            this.label33.TabIndex = 43;
+            this.label33.Text = "Sub Diario R. Vta";
             // 
             // label1
             // 
@@ -978,7 +1246,7 @@ namespace Contasis
             this.txtguardarcompras.AccessibleRole = System.Windows.Forms.AccessibleRole.ScrollBar;
             this.txtguardarcompras.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.txtguardarcompras.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtguardarcompras.Location = new System.Drawing.Point(742, 34);
+            this.txtguardarcompras.Location = new System.Drawing.Point(681, 5);
             this.txtguardarcompras.Multiline = true;
             this.txtguardarcompras.Name = "txtguardarcompras";
             this.txtguardarcompras.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -990,7 +1258,7 @@ namespace Contasis
             // txtguardarventas
             // 
             this.txtguardarventas.BackColor = System.Drawing.SystemColors.Info;
-            this.txtguardarventas.Location = new System.Drawing.Point(742, 79);
+            this.txtguardarventas.Location = new System.Drawing.Point(681, 50);
             this.txtguardarventas.Multiline = true;
             this.txtguardarventas.Name = "txtguardarventas";
             this.txtguardarventas.Size = new System.Drawing.Size(585, 43);
@@ -1001,7 +1269,7 @@ namespace Contasis
             // txtanulacioncompras
             // 
             this.txtanulacioncompras.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.txtanulacioncompras.Location = new System.Drawing.Point(742, 134);
+            this.txtanulacioncompras.Location = new System.Drawing.Point(708, 97);
             this.txtanulacioncompras.Name = "txtanulacioncompras";
             this.txtanulacioncompras.Size = new System.Drawing.Size(573, 20);
             this.txtanulacioncompras.TabIndex = 17;
@@ -1010,22 +1278,22 @@ namespace Contasis
             // txtasientocompas1
             // 
             this.txtasientocompas1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.txtasientocompas1.Location = new System.Drawing.Point(742, 173);
+            this.txtasientocompas1.Location = new System.Drawing.Point(742, 120);
             this.txtasientocompas1.Multiline = true;
             this.txtasientocompas1.Name = "txtasientocompas1";
             this.txtasientocompas1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtasientocompas1.Size = new System.Drawing.Size(468, 105);
+            this.txtasientocompas1.Size = new System.Drawing.Size(192, 105);
             this.txtasientocompas1.TabIndex = 18;
             this.txtasientocompas1.Text = resources.GetString("txtasientocompas1.Text");
             // 
             // txtasientocompas2
             // 
             this.txtasientocompas2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.txtasientocompas2.Location = new System.Drawing.Point(742, 284);
+            this.txtasientocompas2.Location = new System.Drawing.Point(742, 231);
             this.txtasientocompas2.Multiline = true;
             this.txtasientocompas2.Name = "txtasientocompas2";
             this.txtasientocompas2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtasientocompas2.Size = new System.Drawing.Size(468, 105);
+            this.txtasientocompas2.Size = new System.Drawing.Size(192, 105);
             this.txtasientocompas2.TabIndex = 19;
             this.txtasientocompas2.Text = resources.GetString("txtasientocompas2.Text");
             this.txtasientocompas2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -1033,22 +1301,23 @@ namespace Contasis
             // txtasientoventas2
             // 
             this.txtasientoventas2.BackColor = System.Drawing.SystemColors.Info;
-            this.txtasientoventas2.Location = new System.Drawing.Point(742, 510);
+            this.txtasientoventas2.Location = new System.Drawing.Point(742, 457);
             this.txtasientoventas2.Multiline = true;
             this.txtasientoventas2.Name = "txtasientoventas2";
             this.txtasientoventas2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtasientoventas2.Size = new System.Drawing.Size(468, 105);
+            this.txtasientoventas2.Size = new System.Drawing.Size(192, 105);
             this.txtasientoventas2.TabIndex = 21;
             this.txtasientoventas2.Text = resources.GetString("txtasientoventas2.Text");
+            this.txtasientoventas2.TextChanged += new System.EventHandler(this.txtasientoventas2_TextChanged);
             // 
             // txtasientoventas1
             // 
             this.txtasientoventas1.BackColor = System.Drawing.SystemColors.Info;
-            this.txtasientoventas1.Location = new System.Drawing.Point(742, 399);
+            this.txtasientoventas1.Location = new System.Drawing.Point(742, 346);
             this.txtasientoventas1.Multiline = true;
             this.txtasientoventas1.Name = "txtasientoventas1";
             this.txtasientoventas1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtasientoventas1.Size = new System.Drawing.Size(468, 105);
+            this.txtasientoventas1.Size = new System.Drawing.Size(192, 105);
             this.txtasientoventas1.TabIndex = 20;
             this.txtasientoventas1.Text = resources.GetString("txtasientoventas1.Text");
             // 
@@ -1057,7 +1326,7 @@ namespace Contasis
             this.BtnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSalir.Image = global::Contasis.Properties.Resources._19;
             this.BtnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSalir.Location = new System.Drawing.Point(492, 517);
+            this.BtnSalir.Location = new System.Drawing.Point(524, 519);
             this.BtnSalir.Name = "BtnSalir";
             this.BtnSalir.Size = new System.Drawing.Size(100, 32);
             this.BtnSalir.TabIndex = 12;
@@ -1065,179 +1334,55 @@ namespace Contasis
             this.BtnSalir.UseVisualStyleBackColor = true;
             this.BtnSalir.Click += new System.EventHandler(this.BtnSalir_Click_1);
             // 
-            // dataGridView2
+            // txt_cobra01
             // 
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(17, 143);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.Size = new System.Drawing.Size(543, 190);
-            this.dataGridView2.TabIndex = 33;
+            this.txt_cobra01.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txt_cobra01.Location = new System.Drawing.Point(953, 120);
+            this.txt_cobra01.Multiline = true;
+            this.txt_cobra01.Name = "txt_cobra01";
+            this.txt_cobra01.Size = new System.Drawing.Size(342, 141);
+            this.txt_cobra01.TabIndex = 22;
+            this.txt_cobra01.Text = resources.GetString("txt_cobra01.Text");
             // 
-            // textBox1
+            // txt_cobra02
             // 
-            this.textBox1.Location = new System.Drawing.Point(156, 106);
-            this.textBox1.MaxLength = 10;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(82, 21);
-            this.textBox1.TabIndex = 31;
+            this.txt_cobra02.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txt_cobra02.Location = new System.Drawing.Point(953, 267);
+            this.txt_cobra02.Multiline = true;
+            this.txt_cobra02.Name = "txt_cobra02";
+            this.txt_cobra02.Size = new System.Drawing.Size(342, 141);
+            this.txt_cobra02.TabIndex = 23;
+            this.txt_cobra02.Text = resources.GetString("txt_cobra02.Text");
             // 
-            // textBox2
+            // txt_cobra03
             // 
-            this.textBox2.Location = new System.Drawing.Point(156, 78);
-            this.textBox2.MaxLength = 10;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(82, 21);
-            this.textBox2.TabIndex = 30;
+            this.txt_cobra03.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txt_cobra03.Location = new System.Drawing.Point(953, 421);
+            this.txt_cobra03.Multiline = true;
+            this.txt_cobra03.Name = "txt_cobra03";
+            this.txt_cobra03.Size = new System.Drawing.Size(342, 141);
+            this.txt_cobra03.TabIndex = 24;
+            this.txt_cobra03.Text = resources.GetString("txt_cobra03.Text");
             // 
-            // textBox3
+            // txt_cobra04
             // 
-            this.textBox3.Location = new System.Drawing.Point(156, 51);
-            this.textBox3.MaxLength = 10;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(82, 21);
-            this.textBox3.TabIndex = 29;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(67, 109);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(78, 15);
-            this.label28.TabIndex = 32;
-            this.label28.Text = "Flujo efectivo";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(79, 80);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(66, 15);
-            this.label29.TabIndex = 28;
-            this.label29.Text = "L/ Registro";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(45, 53);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(100, 15);
-            this.label30.TabIndex = 27;
-            this.label30.Text = "Sub Diario R. Vta";
-            // 
-            // button3
-            // 
-            this.button3.Enabled = false;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Image = global::Contasis.Properties.Resources._93;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(460, 376);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 32);
-            this.button3.TabIndex = 34;
-            this.button3.Text = "Grabar";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.button4);
-            this.tabPage4.Controls.Add(this.dataGridView3);
-            this.tabPage4.Controls.Add(this.textBox4);
-            this.tabPage4.Controls.Add(this.textBox5);
-            this.tabPage4.Controls.Add(this.textBox6);
-            this.tabPage4.Controls.Add(this.label31);
-            this.tabPage4.Controls.Add(this.label32);
-            this.tabPage4.Controls.Add(this.label33);
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(576, 414);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Pagos";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Enabled = false;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Image = global::Contasis.Properties.Resources._93;
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(463, 370);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 32);
-            this.button4.TabIndex = 42;
-            this.button4.Text = "Grabar";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView3
-            // 
-            this.dataGridView3.AllowUserToDeleteRows = false;
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(20, 137);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.ReadOnly = true;
-            this.dataGridView3.RowHeadersWidth = 51;
-            this.dataGridView3.Size = new System.Drawing.Size(543, 190);
-            this.dataGridView3.TabIndex = 41;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(159, 100);
-            this.textBox4.MaxLength = 10;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(82, 21);
-            this.textBox4.TabIndex = 39;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(159, 72);
-            this.textBox5.MaxLength = 10;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(82, 21);
-            this.textBox5.TabIndex = 38;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(159, 45);
-            this.textBox6.MaxLength = 10;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(82, 21);
-            this.textBox6.TabIndex = 37;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(70, 103);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(78, 15);
-            this.label31.TabIndex = 40;
-            this.label31.Text = "Flujo efectivo";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(82, 74);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(66, 15);
-            this.label32.TabIndex = 36;
-            this.label32.Text = "L/ Registro";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(48, 47);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(100, 15);
-            this.label33.TabIndex = 35;
-            this.label33.Text = "Sub Diario R. Vta";
+            this.txt_cobra04.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txt_cobra04.Location = new System.Drawing.Point(953, 568);
+            this.txt_cobra04.Multiline = true;
+            this.txt_cobra04.Name = "txt_cobra04";
+            this.txt_cobra04.Size = new System.Drawing.Size(342, 141);
+            this.txt_cobra04.TabIndex = 26;
+            this.txt_cobra04.Text = resources.GetString("txt_cobra04.Text");
             // 
             // FrmIntegradorConta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 555);
+            this.ClientSize = new System.Drawing.Size(644, 556);
+            this.Controls.Add(this.txt_cobra04);
+            this.Controls.Add(this.txt_cobra03);
+            this.Controls.Add(this.txt_cobra02);
+            this.Controls.Add(this.txt_cobra01);
             this.Controls.Add(this.txtasientoventas2);
             this.Controls.Add(this.txtasientoventas1);
             this.Controls.Add(this.txtasientocompas2);
@@ -1278,10 +1423,14 @@ namespace Contasis
             this.panel5.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_cobranza)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_pago)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1373,22 +1522,32 @@ namespace Contasis
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.DataGridView dataGridView_cobranza;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        public System.Windows.Forms.TextBox textBox1;
-        public System.Windows.Forms.TextBox textBox2;
-        public System.Windows.Forms.TextBox textBox3;
+        public System.Windows.Forms.TextBox txtflujocobra;
+        public System.Windows.Forms.TextBox txtregistro_cobra;
+        public System.Windows.Forms.TextBox txtsubdiario_cobra;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.DataGridView dataGridView_pago;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.DataGridView dataGridView3;
-        public System.Windows.Forms.TextBox textBox4;
-        public System.Windows.Forms.TextBox textBox5;
-        public System.Windows.Forms.TextBox textBox6;
+        public System.Windows.Forms.TextBox txtflujopago;
+        public System.Windows.Forms.TextBox txtregistro_pago;
+        public System.Windows.Forms.TextBox txtsubdiario_pago;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.TextBox txt_cobra01;
+        private System.Windows.Forms.TextBox txt_cobra02;
+        private System.Windows.Forms.TextBox txt_cobra03;
+        private System.Windows.Forms.TextBox txt_cobra04;
     }
 }

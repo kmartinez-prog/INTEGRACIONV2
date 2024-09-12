@@ -7492,6 +7492,1241 @@ $BODY$
 ALTER FUNCTION public.fin_ventas_integracion_principal()
 OWNER TO postgres;</value>
   </data>
+  <data name="txt_cobra01.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fin_guardar_cobranzapago_integrador(
+    OUT resultado text,
+    IN pjson text)
+  RETURNS text AS
+$BODY$
+
+declare 
+	a_json json;
+begin
+
+    /*
+    Tipo: ntipocobpag   1: Cobranzas
+			2: Pagos
+    */
+    
+    -- 0. Truncar tabla
+    truncate table fin_cobranzapago;
+    a_json = pjson::json;
+    
+    -- 1. Importar datos
+    INSERT INTO fin_cobranzapago(
+        idcobranzapago, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodflu, 
+	    ntipocobpag, ffechacan, cdoccan, csercan, cnumcan, ccuecan, cmoncan, 
+	    nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, ffechadoc, 
+	    ffechaven, ccodenti, ccodruc, crazsoc, nimportes, nimported, 
+	    ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, nperdenre, 
+	    cserre, cnumre, ffecre, es_con_migracion
+    )    
+    select idcobranzapago, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodflu, 
+	    ntipocobpag, ffechacan, cdoccan, csercan, cnumcan, ccuecan, cmoncan, 
+	    nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, ffechadoc, 
+	    ffechaven, ccodenti, ccodruc, crazsoc, nimportes, nimported, 
+	    ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, nperdenre, 
+	    cserre, cnumre, ffecre, es_con_migracion
+    from json_to_recordset(a_json)
+    as t(
+        idcobranzapago numeric(20,0),  
+	ccod_empresa character(3),
+	cper character(4),
+	cmes character(2),
+	ccodori character(3),
+	ccodsu character(2),
+	ccodflu character(4),
+	ntipocobpag integer,  -- 1 = Cobranzas, 2 = pagos 
+	ffechacan date,
+	cdoccan character(2),
+	csercan character(20),
+	cnumcan character(20),
+	ccuecan character(20),
+	cmoncan character(1),
+	nimporcan numeric(15,2),
+	ntipcam numeric(10,6),
+	ccodpago character(3),
+	ccoddoc character(2),
+	cserie character(20),
+	cnumero character(20),
+	ffechadoc date,
+	ffechaven date,
+	ccodenti character(11),
+	ccodruc character(15),
+	crazsoc character(150),
+	nimportes numeric(15,2),
+	nimported numeric(15,2),
+	ccodcue character(20),
+	cglosa character varying(80),
+	ccodcos character(9),
+	ccodcos2 character(9),
+	nporre numeric(5,2),
+	nimpperc numeric(15,2),
+	nperdenre numeric(1,0),
+	cserre character(6),
+	cnumre character(13),
+	ffecre date,
+	es_con_migracion numeric(1,0)
+    );
+
+    --2. llamar funcion de validar/generar asientos..., debe actualizar campo: resultado_migracion
+        -- resultado_migracion se debe completar luego de validar y/o generar el asiento
+        -- en vez de reemplazar el codigo en es_con_migracion, se debe agregar el estado en  "resultado_migracion"
+
+	perform fin_importar_cobranzapago_integrador_principal();
+    
+
+    --3. Informe de importacion    
+    select json_agg(json_build_object(
+        'idventas', fc.idcobranzapago, 'obserror', fc.obserror, 'es_con_migracion', fc.es_con_migracion, 'resultado_migracion', fc.resultado_migracion
+    ))::text
+    from fin_cobranzapago fc
+    into resultado;
+    
+end; 
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+</value>
+  </data>
+  <data name="txt_cobra02.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fin_importar_cobranzapago_integrador_cancelacion_impcobpag(vper character)
+    RETURNS integer
+AS $BODY$
+
+DECLARE
+	rw record; 
+	vcta character(20); 
+	vruc character(15);
+	/*
+		Autor: Kim martinez
+		select fin_importar_cobranzapago_integrador_cancelacion_impcobpag('2023'::character(4)) as infograba; 
+	*/
+BEGIN
+	raise notice 'Borrando'; 
+	
+	drop table if exists tempDocmentos;
+	
+	create temp table tempDocmentos as 
+	select ccoddoc, cserie, cnumero, ccodruc from fin_cobranzapago_integra group by ccoddoc, cserie, cnumero, ccodruc; 
+
+	--update cf_diariol set cmesc = '' where cper = vper; 
+	
+	update cf_diariol 
+	set cmesc = '' 
+	from (select ccoddoc, cserie, cnumero, ccodruc from tempDocmentos) p
+	where cf_diariol.ccoddoc = p.ccoddoc and cf_diariol.cserie = p.cserie and cf_diariol.cnumero = p.cnumero and cf_diariol.ccodruc = p.ccodruc and cf_diariol.cper = vper and cf_diariol.cmesc &lt;&gt; '';
+
+
+	raise notice 'termino borrar'; 
+	
+	for rw in select dl.ccodcue, dl.ccodruc, dl.ccoddoc, dl.cserie, dl.cnumero, dl.cmreg, max(dl.cmes) cmesc, 
+				sum(case when cmreg = 'S' then ndebes - nhabers else ndebed - nhaberd end) saldo
+			from cf_diariol dl
+			inner join cf_plan pl on dl.ccodcue = pl.ccodcue and dl.cper = pl.cper and pl.nanacue = 2 and pl.ntipcue in (1,2)
+			inner join tempDocmentos doc on dl.ccoddoc = doc.ccoddoc and dl.cserie = doc.cserie and dl.cnumero = doc.cnumero and dl.ccodruc = doc.ccodruc
+			where dl.cper = vper and dl.cmes between '00' and '13'
+			group by  dl.ccodcue, dl.ccodruc, dl.ccoddoc, dl.cserie, dl.cnumero, dl.cmreg
+			having sum(case when cmreg = 'S' then ndebes - nhabers else ndebed - nhaberd end) = 0			
+		loop
+		
+		raise notice 'Actalizando registros  '; 		
+		update cf_diariol 
+		set cmesc = rw.cmesc 
+		where     ccodcue = rw.ccodcue
+			  and ccodruc = rw.ccodruc
+			  and ccoddoc  = rw.ccoddoc
+			  and cserie  = rw.cserie
+			  and cnumero = rw.cnumero
+			  and cper = vper ;		
+			
+	end loop;
+
+	return 1;
+END; 
+$BODY$
+  LANGUAGE plpgsql VOLATILE;	</value>
+  </data>
+  <data name="txt_cobra03.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fin_importar_cobranzapago_integrador_principal()
+  RETURNS void AS
+$BODY$
+DECLARE 
+	RW RECORD;
+	rwperproceso record; 
+	rwemp record; 
+	vardifp character(10);
+	vardifpd character(10);
+	vardifph character(10);
+	vardifg character(10);
+	varmax integer;
+	VCMAXASIENTO text = ''; 
+	rw2 record;  
+	nreturn integer=0;
+	rwctualizasubdiario record;
+	vcregper character(20); 
+	vcregperc character(20); 
+	varperc character(20); 
+BEGIN
+
+	--varcentro2=0;
+	-- Validaciones fin_cobranzapago 
+
+	for rwperproceso in select distinct cper as cperproceso, ntipocobpag from fin_cobranzapago order by ntipocobpag loop 	
+
+		-- propiedades de empresa por periodos 
+		for rwemp in select cper, cctaper, cctagan, cregper,cregperc
+			     from cg_emppro  
+			     where cper = rwperproceso.cperproceso loop		
+		   
+			    vcregper = rwemp.cregper; 
+			    vcregperc = rwemp.cregperc;		    
+			    vardifp = rwemp.cctaper ;		    
+			    vardifpd = (select cdesdeb from cf_plan where cper = rwemp.cper and ccodcue = rwemp.cctaper);  
+			    vardifph = (select cdeshab from cf_plan where cper = rwemp.cper and ccodcue = rwemp.cctaper);		    
+			    vardifg = rwemp.cctagan ;	
+			    	    							
+			    if rwperproceso.ntipocobpag = 1 then -- Cobranzas 
+				varperc = vcregper; 
+			    else 
+				varperc = vcregperc;  -- Pagos 
+			    end if; 
+		end loop; 
+		
+		-- Validar cctabase,cctaicbper cctaotrib, cctatot, ccodcos, ccodcos2,	
+		/*Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Codigo de Presupuesto no debe estar vacio, la cuenta obliga'), 
+		es_con_migracion = 2  
+		where  fin_ventas.ccodpresu='' and fin_ventas.cctabase in 
+		(select ccodcue  from cf_plan where cf_plan.cper=rwperproceso.cperproceso and cf_plan.nafepre=1 );
+		*/
+		
+		-- Falta Validar si la cuenta no existe 
+
+		-- Cursor no existe provision 
+		DROP TABLE IF EXISTS documentonoprovisionados;
+		create temp table documentonoprovisionados as		
+		select idcobranzapago, rc.ccodcue, rc.ccodruc, rc.ccoddoc, rc.cserie, rc.cnumero, dl.ccodcue, dl.ccodruc, 
+			dl.ccoddoc, dl.cserie, dl.cnumero 
+	        from fin_cobranzapago rc 
+	        left join cf_diariol dl on rc.ccodcue = dl.ccodcue and 
+	       							  rc.ccodruc = dl.ccodruc and 
+	       							  rc.ccoddoc = dl.ccoddoc and 
+	       							  rc.cserie = dl.cserie and 
+	       							  rc.cnumero = dl.cnumero and 
+	       							  dl.ncomp = 1 and cper = rwperproceso.cperproceso
+		where  dl.ccodcue is null; 
+			
+		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' Documento no Provisionado...'),  resultado_migracion = 1  
+		where cper=rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag  and concat(ccoddoc,cserie,cnumero,ccodruc)  in ( select concat(ccoddoc,cserie,cnumero,ccodruc) from documentonoprovisionados );
+		-- Fin - Cursor no existe provision 
+
+		-- Validar doble provision 
+		DROP TABLE IF EXISTS documentobobleprovision;
+		create temp table documentobobleprovision as
+		select rc.ccodcue, rc.ccodruc, rc.ccoddoc, rc.cserie, rc.cnumero, count(dl.ccodcue) contar
+		from (select distinct ccodcue, ccodruc, ccoddoc, cserie, cnumero from regcobimp ) as rc
+					inner join cf_diariol dl on rc.ccodcue = dl.ccodcue and 
+											rc.ccodruc = dl.ccodruc and 
+											rc.ccoddoc = dl.ccoddoc and 
+											rc.cserie = dl.cserie and 
+											rc.cnumero = dl.cnumero and 
+											dl.ncomp = 1 and dl.cper = rwperproceso.cperproceso
+		group by  rc.ccodcue, rc.ccodruc, rc.ccoddoc, rc.cserie, rc.cnumero
+		having count(dl.ccodcue) &gt; 1 ; 
+		
+		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' Documento con Doble provisión...'),  resultado_migracion = 1  
+		where cper=rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag  and concat(ccoddoc,cserie,cnumero,ccodruc)  in ( select concat(ccoddoc,cserie,cnumero,ccodruc) from documentobobleprovision );
+		-- Fin Validar doble provision 
+
+		
+		for rw in select distinct cper, cmes, ccodori, ccodsu, ccodflu
+			  FROM fin_cobranzapago  
+			  where cper =  rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag and  trim(coalesce(obserror,'')) = ''  loop -- esten OK 
+
+			  VCMAXASIENTO = 'SELECT NORIMES' || cast(rw.cmes as integer)::char(2) || ' AS NORIGEN FROM CF_ORIGENL WHERE CPER = ''' || rw.cper || ''' AND CCODORI = ''' || rw.ccodori ||'''' ;
+			  for rw2 in EXECUTE VCMAXASIENTO	loop
+				varmax  = coalesce(RW2.NORIGEN,0); ---+ 1; -- RW2.NORIGEN + 1;
+			  end loop;
+
+		
+			  -- Truncar tabla Cada vez carga data por cada subdiario 		
+			  truncate table fin_cobranzapago_integra; 
+
+			 INSERT INTO fin_cobranzapago_integra(idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
+							    cmoncan, nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, 
+							    ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, 
+							    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
+							    nperdenre, cserre, cnumre, ffecre)
+							    
+			 SELECT  idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
+				    cmoncan, nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, 
+				    ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, 
+				    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
+				    nperdenre, cserre, cnumre, ffecre
+			 FROM fin_cobranzapago			        
+			 where cper=rw.cper and 
+				ntipocobpag = rwperproceso.ntipocobpag and 
+				ccodori = rw.ccodori and  
+				trim(coalesce(obserror,'')) = ''
+				and es_con_migracion in(0) 
+				order by ccoddoc,cserie,cnumero,ccodruc asc; 			
+
+			-- Integra las cobranzas 
+			nreturn = (SELECT * FROM fin_importar_cobranzapago_integrador(rw.cper,
+											  rw.cmes,
+											  rw.ccodori,
+											  rw.ccodflu,
+											  rw.ccodsu,											 
+											  vardifp,
+											  vardifpd,
+											  vardifph,
+											  vardifg,											  				
+											  varmax,											  
+											  rwperproceso.ntipocobpag,
+											  varperc));	
+			
+		end loop; 
+
+		-- Actualiza registro procesado correctamente 
+		update fin_cobranzapago set resultado_migracion = 1 where es_con_migracion = 0 and idcobranzapago in (select idcobranzapago from fin_cobranzapago_integra); 
+
+		--raise exception 'ccod sub %', rw.cper; 
+		-- Actualiza subdiartio y Flujos 
+		for rwctualizasubdiario  in select distinct cper,cmes  from fin_cobranzapago_integra  loop
+
+			nreturn = (select * from func_regenerar_correlativo_subdiario(rwctualizasubdiario.cper, rwctualizasubdiario.cmes) as infograba1); 
+			nreturn = (select * from func_regenerar_saldos_plan_flujo(rwctualizasubdiario.cper, rwctualizasubdiario.cmes) as infograba2); 			 
+
+		end loop;
+		
+		-- Cancelacion de documentos 
+		nreturn = (select * from fin_importar_cobranzapago_integrador_cancelacion_impcobpag(rwperproceso.cperproceso) as infograba2);
+		
+	end loop; -- Periodo 
+
+	
+	
+END; 
+$BODY$
+  LANGUAGE plpgsql VOLATILE</value>
+  </data>
+  <data name="txt_cobra04.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION fin_importar_cobranzapago_integrador(varper character,
+							    varmes character,
+							    varori character,
+							    varccodflu character,
+							    varlreg character,
+							    vardifp character,
+							    vardifpd character,
+							    vardifph character,
+							    vardifg character,
+							    varmax integer,
+							    indicador integer, -- 1= Cobranzas , 2= pagos
+							    varperc character)
+  RETURNS integer AS
+$BODY$
+DECLARE  
+RW RECORD;	
+BEGIN
+
+
+create temporary table resultado(
+  cper character(4)  NOT NULL DEFAULT ''::bpchar,
+  cmes character(2) NOT NULL DEFAULT ''::bpchar,
+  ccodori character(3) NOT NULL DEFAULT ''::bpchar,
+  nasiento numeric(6,0) NOT NULL DEFAULT 0,
+  nidlin numeric(6,0) NOT NULL DEFAULT 0,
+  ntc numeric(10,6) NOT NULL DEFAULT 0,
+  ccodcue character(20) NOT NULL DEFAULT ''::bpchar,
+  ndebe numeric(15,2) NOT NULL DEFAULT 0,
+  nhaber numeric(15,2) NOT NULL DEFAULT 0,
+  cglosa character varying(80) NOT NULL DEFAULT ''::character varying,
+  ndebes numeric(15,2) NOT NULL DEFAULT 0,
+  nhabers numeric(15,2) NOT NULL DEFAULT 0,
+  ndebed numeric(15,2) NOT NULL DEFAULT 0,
+  nhaberd numeric(15,2) NOT NULL DEFAULT 0,
+  cdes character(1) NOT NULL DEFAULT ''::bpchar,
+  cdestino character(3) NOT NULL DEFAULT ''::bpchar,
+  ndifauto numeric(1,0) NOT NULL DEFAULT 0,
+  najusauto numeric(1,0) NOT NULL DEFAULT 0,
+  cregis character(1) NOT NULL DEFAULT ''::bpchar,
+  ncomp numeric(1,0) NOT NULL DEFAULT 0,
+  ccoddoc character(2) NOT NULL DEFAULT ''::bpchar,
+  cserie character(20) NOT NULL DEFAULT ''::bpchar,
+  cnumero character(20) NOT NULL DEFAULT ''::bpchar,
+  cnumfin character(20) NOT NULL DEFAULT ''::bpchar,
+  ffechadoc date,
+  ccodruc character(15) NOT NULL DEFAULT ''::bpchar,
+  ccodenti character(11) NOT NULL DEFAULT ''::bpchar,
+  ffechaven date,
+  ccodflu character(4) NOT NULL DEFAULT ''::bpchar,
+  ccodpago character(3) NOT NULL DEFAULT ''::bpchar,
+  ccodcos character(9) NOT NULL DEFAULT ''::bpchar,
+  ccodcos2 character(9) NOT NULL DEFAULT ''::bpchar,
+  ccodpresu character(10) NOT NULL DEFAULT ''::bpchar,
+  ccodcam character(4) NOT NULL DEFAULT ''::bpchar,
+  ccodcam2 character(4) NOT NULL DEFAULT ''::bpchar,
+  ccodecpntribcol character(2) NOT NULL DEFAULT ''::bpchar,
+  ccodecpnniifcol character(2) NOT NULL DEFAULT ''::bpchar,
+  cglosa2 character varying(80) NOT NULL DEFAULT ''::character varying,
+  cmesc character(2) NOT NULL DEFAULT ''::bpchar,
+  cmreg character(1) NOT NULL DEFAULT ''::bpchar,
+  ccodocon character(4) NOT NULL DEFAULT ''::bpchar,
+  ndiferido numeric(1,0) NOT NULL DEFAULT 0,
+  ffechadif date,
+  nresp numeric(1,0) NOT NULL DEFAULT 0,
+  ccodpps character(2) NOT NULL DEFAULT ''::bpchar,
+  ccodpds character(5) NOT NULL DEFAULT ''::bpchar,
+  cregisre character(1) NOT NULL DEFAULT ''::bpchar,
+  nperdenre numeric(1,0) NOT NULL DEFAULT 0,
+  nporre numeric(5,2) NOT NULL DEFAULT 0,
+  ffecre date,
+  cserre character(6) NOT NULL DEFAULT ''::bpchar,
+  cnumre character(13) NOT NULL DEFAULT ''::bpchar,
+  cnumdere character(15) NOT NULL DEFAULT ''::bpchar,
+  ntcre numeric(10,6) NOT NULL DEFAULT 0,
+  nbaseres numeric(15,2) NOT NULL DEFAULT 0,
+  nbasered numeric(15,2) NOT NULL DEFAULT 0,
+  nimpres numeric(15,2) NOT NULL DEFAULT 0,
+  nimpred numeric(15,2) NOT NULL DEFAULT 0,
+  cpdbdetcod character(8) NOT NULL DEFAULT ''::bpchar,
+  ccodretran character(2) NOT NULL DEFAULT ''::bpchar,
+  ccodtopdet character(2) NOT NULL DEFAULT ''::bpchar,
+  npagdetra numeric(1,0) NOT NULL DEFAULT 0,
+  cdocnodom character(20) NOT NULL DEFAULT ''::bpchar,
+  crefdoc character(2) NOT NULL DEFAULT ''::bpchar,
+  freffec date,
+  crefser character(10) NOT NULL DEFAULT ''::bpchar,
+  crefnum character(13) NOT NULL DEFAULT ''::bpchar,
+  ccoddas character(3) NOT NULL DEFAULT ''::bpchar,
+  cyeardas character(4) NOT NULL DEFAULT ''::bpchar,
+  ccorrdas character(6) NOT NULL DEFAULT ''::bpchar,
+  ffembdas date,
+  ffregdas date,
+  nfobdas numeric(15,2) NOT NULL DEFAULT 0,
+  nfobdad numeric(15,2) NOT NULL DEFAULT 0,
+  nlecorre numeric(6,0) NOT NULL DEFAULT 0,
+  clecvesta character(1) NOT NULL DEFAULT ''::bpchar,
+  clecvmes character(2) NOT NULL DEFAULT ''::bpchar,
+  clecvper character(4) NOT NULL DEFAULT ''::bpchar,
+  cledmcesta character(1) NOT NULL DEFAULT ''::bpchar,
+  cledmcmes character(2) NOT NULL DEFAULT ''::bpchar,
+  cledmcper character(4) NOT NULL DEFAULT ''::bpchar,
+  nlecorrere numeric(6,0) NOT NULL DEFAULT 0,
+  nautamo numeric(1,0) NOT NULL DEFAULT 0,
+  ffec_dc date,
+  cdoc_dc character(2) NOT NULL DEFAULT ''::bpchar,
+  cser_dc character(20) NOT NULL DEFAULT ''::bpchar,
+  cnum_dc character(20) NOT NULL DEFAULT ''::bpchar,
+  ccodclas character(1) NOT NULL DEFAULT ''::bpchar,
+  ccodtipren character(2) NOT NULL DEFAULT ''::bpchar,
+  nrenbru_nd numeric(15,2) NOT NULL DEFAULT 0,
+  nrennet_nd numeric(15,2) NOT NULL DEFAULT 0,
+  nimpret_nd numeric(15,2) NOT NULL DEFAULT 0,
+  ndedcos_nd numeric(15,2) NOT NULL DEFAULT 0,
+  ntasret_nd numeric(6,2) NOT NULL DEFAULT 0,
+  ccodmon character(3) NOT NULL DEFAULT ''::bpchar,
+  ntc_nd numeric(5,3) NOT NULL DEFAULT 0,
+  nintext numeric(1,0) NOT NULL DEFAULT 0,
+  cmoneda character(1) NOT NULL DEFAULT ''::bpchar,
+  FFECHACAN date
+  ) on commit drop;
+
+-- CPE-3321  ANR 15/08/2023
+DROP TABLE IF EXISTS Diariol;
+
+Create temp table Diariol as 
+select 	dl.cper,dl.cmes,
+	dl.ntc,
+	dl.ccodcue,
+	dl.CCODDOC,
+	dl.CSERIE,
+	dl.CNUMERO,
+	dl.CNUMFIN,
+	dl.FFECHADOC,
+	dl.CCODRUC,
+	dl.CCODENTI,
+	dl.FFECHAVEN,
+	dl.CMREG,
+	dl.NRESP,
+	dl.CCODPPS,
+	dl.NPERDENRE,
+	dl.NPORRE,
+	dl.ncomp
+ from cf_diariol dl where cper = varper and NCOMP = 1;
+ -- CPE-3321  ANR 15/08/2023
+
+VARMAX = VARMAX-1;
+
+/*  ESTE SELECT NOS DA COMO RESULTADO LA CANCELACIÓN DE TODOS LOS DOCUMENTOS QUE ESTAN EN EL EXCEL -- HABER */
+INSERT INTO RESULTADO (cper,cmes,ccodori,nasiento,nidlin,ntc,ccodcue,ndebe,nhaber,cglosa,ndebes,nhabers,ndebed,nhaberd,ncomp,
+ccoddoc,cserie,cnumero,cnumfin,ffechadoc,ccodruc,ccodenti,ffechaven,ccodflu,ccodpago,ccodcos,ccodcos2,
+cmreg,ffec_dc,cdoc_dc,cser_dc,cnum_dc,cmoneda,FFECHACAN,NRESP,CCODPPS,NPERDENRE,NPORRE,FFECRE,CSERRE,CNUMRE,NTCRE,
+NBASERES,NBASERED,NIMPRES,NIMPRED
+)
+SELECT  VARPER as cper,    -- VARPER
+VARMES as cmes ,   -- VARMES
+VARORI AS ccodori,  -- VARORI
+VARMAX + R.NASIENTO AS NASIENTO,
+R.NIDLIN, 
+DL.NTC,
+DL.CCODCUE,
+(CASE WHEN indicador = 1 
+   THEN
+(CASE WHEN R.CMONCAN = 'S' 
+THEN 
+(CASE WHEN R.NIMPORTES &lt; 0 THEN ABS(R.NIMPORTES) ELSE 0.00 END)
+ELSE 
+(CASE WHEN R.NIMPORTED &lt; 0 THEN ABS(R.NIMPORTED) ELSE 0.00 END)
+END)
+   ELSE 
+(CASE WHEN R.CMONCAN = 'S' 
+THEN 
+(CASE WHEN R.NIMPORTES &lt; 0 THEN 0.00 ELSE ABS(R.NIMPORTES) END)
+ELSE 
+(CASE WHEN R.NIMPORTED &lt; 0 THEN 0.00 ELSE ABS(R.NIMPORTED) END)
+END)
+   END ) AS NDEBE,
+(CASE WHEN indicador = 1 
+   THEN
+(CASE WHEN R.CMONCAN = 'S' 
+THEN 
+(CASE WHEN R.NIMPORTES &gt;= 0 THEN ABS(R.NIMPORTES) ELSE 0.00 END)
+ELSE 
+(CASE WHEN R.NIMPORTED &gt;= 0 THEN ABS(R.NIMPORTED) ELSE 0.00 END)
+END)
+   ELSE 
+(CASE WHEN R.CMONCAN = 'S' 
+THEN 
+(CASE WHEN R.NIMPORTES &gt;= 0 THEN 0.00 ELSE ABS(R.NIMPORTES) END)
+ELSE 
+(CASE WHEN R.NIMPORTED &gt;= 0 THEN 0.00 ELSE ABS(R.NIMPORTED) END)
+END)
+
+   END ) AS NHABER,
+R.CGLOSA,
+(CASE WHEN indicador = 1 
+   THEN
+(CASE 	WHEN R.CMONCAN = 'S' 
+THEN 
+(CASE WHEN R.NIMPORTES &lt; 0 
+THEN ABS(R.NIMPORTES) 
+ELSE 0.00 END)
+ELSE 
+(CASE WHEN R.NIMPORTED &lt; 0 
+THEN ABS(ROUND(R.NIMPORTED*DL.NTC,2)) 
+ELSE 0.00 END) 
+END) 
+   ELSE 
+(CASE 	WHEN R.CMONCAN = 'S' 
+THEN 
+(CASE WHEN R.NIMPORTES &lt; 0 
+THEN 0.00
+ELSE ABS(R.NIMPORTES) END)
+ELSE 
+(CASE WHEN R.NIMPORTED &lt; 0 
+THEN 0.00
+ELSE ABS(ROUND(R.NIMPORTED*DL.NTC,2)) END) 
+END) 	   
+   END ) AS NDEBES,
+(CASE WHEN indicador = 1 
+   THEN
+(CASE 	WHEN R.CMONCAN = 'S' 
+THEN 
+(CASE WHEN R.NIMPORTES &gt;= 0 
+THEN ABS(R.NIMPORTES) 
+ELSE 0.00 END)
+ELSE 
+(CASE WHEN R.NIMPORTED &gt;= 0 
+THEN ABS(ROUND(R.NIMPORTED*DL.NTC,2)) 
+ELSE 0.00 END) 
+END) 
+   ELSE 
+(CASE 	WHEN R.CMONCAN = 'S' 
+THEN 
+(CASE WHEN R.NIMPORTES &gt;= 0 
+THEN 0.00
+ELSE ABS(R.NIMPORTES)  END)
+ELSE 
+(CASE WHEN R.NIMPORTED &gt;= 0 
+THEN 0.00
+ELSE ABS(ROUND(R.NIMPORTED*DL.NTC,2)) END) 
+END) 
+   END) AS NHABERS,
+(CASE WHEN indicador = 1 
+   THEN
+(CASE 	WHEN R.CMONCAN = 'D' 
+THEN 
+(CASE WHEN R.NIMPORTED &lt; 0 
+THEN ABS(R.NIMPORTED) 
+ELSE 0.00 END)
+ELSE 
+(CASE WHEN R.NIMPORTES &lt; 0 
+THEN  CASE WHEN DL.NTC &gt; 0 THEN ABS(ROUND(R.NIMPORTES/ DL.NTC,2)) ELSE 0.00 END
+ELSE 0.00 END) 
+END)
+   ELSE 
+(CASE 	WHEN R.CMONCAN = 'D' 
+THEN 
+(CASE WHEN R.NIMPORTED &lt; 0 
+THEN 0.00 
+ELSE ABS(R.NIMPORTED) END)
+ELSE 
+(CASE WHEN R.NIMPORTES &lt; 0 
+THEN 0.00
+ELSE CASE WHEN DL.NTC &gt; 0 THEN ABS(ROUND(R.NIMPORTES/DL.NTC,2)) ELSE 0.00 END   END) 
+END)
+   END) AS NDEBED,
+(CASE WHEN indicador = 1 
+   THEN
+(CASE 	WHEN R.CMONCAN = 'D' 
+THEN 
+(CASE WHEN R.NIMPORTED &gt;= 0 
+THEN ABS(R.NIMPORTED) 
+ELSE 0.00 END)
+ELSE 
+(CASE WHEN R.NIMPORTES &gt; 0 
+THEN CASE WHEN DL.NTC &gt; 0 THEN ABS(ROUND(R.NIMPORTES/DL.NTC,2)) ELSE 0.00 END 
+ELSE 0.00 END) 
+END) 
+   ELSE 
+(CASE 	WHEN R.CMONCAN = 'D' 
+THEN 
+(CASE WHEN R.NIMPORTED &gt;= 0 
+THEN 0.00 
+ELSE ABS(R.NIMPORTED) END)
+ELSE 
+(CASE WHEN R.NIMPORTES &gt;= 0 
+THEN 0.00 
+ELSE CASE WHEN DL.NTC &gt; 0 THEN ABS(ROUND(R.NIMPORTES/DL.NTC,2)) ELSE 0.00 END        END) 
+END) 
+   
+   END ) AS NHABERD,
+0 AS NCOMP,
+DL.CCODDOC,
+DL.CSERIE,
+DL.CNUMERO,
+DL.CNUMFIN,
+DL.FFECHADOC,
+DL.CCODRUC,
+DL.CCODENTI,
+DL.FFECHAVEN,
+'    ' AS CCODFLU,
+R.CCODPAGO,
+R.CCODCOS,
+R.CCODCOS2,
+DL.CMREG,
+R.FFECHACAN AS FFEC_DC,
+R.CDOCCAN AS CDOC_DC,
+R.CSERCAN AS CSER_DC,
+R.CNUMCAN AS CNUM_DC,
+R.CMONCAN as CMONEDA,
+R.FFECHACAN,
+DL.NRESP,
+DL.CCODPPS,
+DL.NPERDENRE,
+DL.NPORRE,
+R.FFECRE,
+(CASE WHEN R.CSERRE = '' THEN ' ' ELSE  R.CSERRE END) AS CSERRE,
+R.CNUMRE,
+R.NTIPCAM AS NTCRE,
+(CASE WHEN R.NIMPORTES &lt;&gt; 0 
+THEN R.NIMPORTES 
+ELSE 
+(CASE WHEN R.NIMPORTED &lt;&gt; 0 THEN ROUND(R.NIMPORTED*R.NTIPCAM,2) ELSE 0 END) 
+END) AS NBASERES,
+(CASE WHEN R.NIMPORTED &lt;&gt;0
+THEN R.NIMPORTED
+ELSE 
+(CASE WHEN R.NIMPORTES &lt;&gt; 0 THEN ROUND(R.NIMPORTES/R.NTIPCAM,2) ELSE 0 END)
+END) AS NBASERED,
+(CASE   WHEN R.NIMPORTES &lt;&gt; 0 AND R.NIMPPERC &lt;&gt; 0 THEN R.NIMPPERC
+WHEN R.NIMPORTED &lt;&gt; 0 AND R.NIMPPERC &lt;&gt; 0 THEN ROUND(R.NIMPPERC*R.NTIPCAM,2)
+ELSE 0
+END) AS NIMPRES,
+(CASE   WHEN R.NIMPORTES &lt;&gt; 0 AND R.NIMPPERC &lt;&gt; 0 THEN ROUND(R.NIMPPERC/R.NTIPCAM,2)
+WHEN R.NIMPORTED &lt;&gt; 0 AND R.NIMPPERC &lt;&gt; 0 THEN R.NIMPPERC
+ELSE 0
+END) AS NIMPRED
+FROM DIARIOL DL 
+INNER JOIN 
+(
+select 
+X.NASIENTO, --- HAY QUE SACAR EL TIPO DE CAMBIO SEGUN LA CUENTA ******* ESTO DEBE VENIR DESDE EL FOX
+ROW_NUMBER () OVER (PARTITION BY I.FFECHACAN,I.CDOCCAN,I.CSERCAN,I.CNUMCAN,I.CCUECAN,I.CMONCAN,I.NIMPORCAN ORDER BY I.FFECHACAN) AS NIDLIN,
+I.*,  LPAD(I.CSERIE,20,'0') AS CSERIEA, LPAD(I.CNUMERO,20,'0') AS CNUMEROA
+from fin_cobranzapago_integra I
+INNER JOIN 
+(SELECT *,ROW_NUMBER () OVER (ORDER BY  FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN) AS NASIENTO FROM
+(SELECT DISTINCT 
+FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN
+from fin_cobranzapago_integra) U
+) X
+ON I.FFECHACAN = X.FFECHACAN AND I.CDOCCAN = X.CDOCCAN AND I.CSERCAN = X.CSERCAN AND I.CNUMCAN = X.CNUMCAN 
+AND I.CCUECAN = X.CCUECAN AND I.CMONCAN = X.CMONCAN AND I.NIMPORCAN = X.NIMPORCAN
+) AS R
+ON DL.CCODCUE = R.CCODCUE AND DL.CCODRUC = R.CCODRUC AND DL.CCODDOC = R.CCODDOC AND DL.CSERIE = R.CSERIEA AND DL.CNUMERO = R.CNUMEROA --AND DL.NCOMP = 1
+WHERE CPER = VARPER -----VARPER
+ORDER BY CPER, CMES, CCODORI, NASIENTO, NIDLIN ;
+
+
+--UNION
+/* ESTE SELECT NOS DA COMO RESULTADO EL PAGO TOTAL QUE SE REALIZA  */
+INSERT INTO RESULTADO (cper,cmes,ccodori,nasiento,nidlin,ntc,ccodcue,ndebe,nhaber,cglosa,ndebes,nhabers,ndebed,nhaberd,ncomp,
+ccoddoc,cserie,cnumero,cnumfin,ffechadoc,ccodruc,ccodenti,ffechaven,ccodflu,ccodpago,ccodcos,ccodcos2,
+cmreg,ffec_dc,cdoc_dc,cser_dc,cnum_dc,cmoneda,FFECHACAN,NRESP,CCODPPS,NPERDENRE,NPORRE,FFECRE,CSERRE,CNUMRE,NTCRE,
+NBASERES,NBASERED,NIMPRES,NIMPRED
+)
+
+SELECT DISTINCT ON (I.FFECHACAN,I.CDOCCAN,I.CSERCAN,I.CNUMCAN,I.CCUECAN,I.CMONCAN,I.NIMPORCAN)
+VARPER 	AS CPER,  --- VARPER
+VARMES 	AS CMES,  --- VARMES
+VARORI 	AS CCODORI, --VARORI
+VARMAX + U.NASIENTO AS NASIENTO,
+U.NIDLIN,
+I.NTIPCAM AS NTC,
+I.CCUECAN AS CCODCUE,
+(CASE WHEN indicador = 1 
+   THEN
+(CASE WHEN I.NIMPORCAN &gt;= 0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END) 
+   ELSE 
+(CASE WHEN I.NIMPORCAN &gt;= 0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END) 
+   END ) AS NDEBE,
+(CASE WHEN indicador = 1 
+   THEN	
+(CASE WHEN I.NIMPORCAN &lt;  0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END) 
+   ELSE 
+(CASE WHEN I.NIMPORCAN &lt;  0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END) 
+   END ) AS NHABER,
+I.CGLOSA,
+(CASE WHEN indicador = 1 
+   THEN	
+(CASE 	WHEN U.CMONCAN = 'S' 
+THEN 
+(CASE WHEN I.NIMPORCAN &gt;= 0 
+THEN ABS(I.NIMPORCAN) 
+ELSE 0.00 END)
+ELSE 
+(CASE WHEN I.NIMPORCAN &gt;= 0 
+THEN ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2)) 
+ELSE 0.00 END) 
+END) 
+   ELSE 
+(CASE 	WHEN U.CMONCAN = 'S' 
+THEN 
+(CASE WHEN I.NIMPORCAN &gt;= 0 
+THEN 0.00 
+ELSE ABS(I.NIMPORCAN) END)
+ELSE 
+(CASE WHEN I.NIMPORCAN &gt;= 0 
+THEN 0.00 
+ELSE ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2))END) 
+END) 
+   END ) AS NDEBES,
+(CASE WHEN indicador = 1 
+   THEN	
+(CASE 	WHEN U.CMONCAN = 'S' 
+THEN 
+(CASE WHEN I.NIMPORCAN &lt; 0 
+THEN ABS(I.NIMPORCAN) 
+ELSE 0.00 END)
+ELSE 
+(CASE WHEN I.NIMPORCAN &lt; 0 
+THEN ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2)) 
+ELSE 0.00 END) 
+END) 
+   ELSE 
+(CASE 	WHEN U.CMONCAN = 'S' 
+THEN 
+(CASE WHEN I.NIMPORCAN &lt; 0 
+THEN 0.00 
+ELSE ABS(I.NIMPORCAN) END)
+ELSE 
+(CASE WHEN I.NIMPORCAN &lt; 0 
+THEN 0.00 
+ELSE ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2)) END) 
+END) 
+   END) AS NHABERS,
+(CASE WHEN indicador = 1 
+   THEN	
+   (CASE 	WHEN U.CMONCAN = 'D' 
+THEN 
+(CASE WHEN I.NIMPORCAN &gt;= 0 
+THEN ABS(I.NIMPORCAN) 
+ELSE 0.00 END)
+ELSE 
+(CASE WHEN I.NIMPORCAN &gt;= 0 
+THEN ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2)) 
+ELSE 0.00 END) 
+END) 
+   ELSE 
+   (CASE 	WHEN U.CMONCAN = 'D' 
+THEN 
+(CASE WHEN I.NIMPORCAN &gt;= 0 
+THEN 0.00
+ELSE ABS(I.NIMPORCAN) END)
+ELSE 
+(CASE WHEN I.NIMPORCAN &gt;= 0 
+THEN 0.00 
+ELSE ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2)) END) 
+END) 	   
+   END) AS NDEBED,
+(CASE WHEN indicador = 1 
+   THEN	
+(CASE 	WHEN U.CMONCAN = 'D' 
+THEN 
+(CASE WHEN I.NIMPORCAN &lt; 0 
+THEN ABS(I.NIMPORCAN) 
+ELSE 0.00 END)
+ELSE 
+(CASE WHEN I.NIMPORCAN &lt; 0 
+THEN ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2)) 
+ELSE 0.00 END) 
+END) 
+   ELSE 
+(CASE 	WHEN U.CMONCAN = 'D' 
+THEN 
+(CASE WHEN I.NIMPORCAN &lt; 0 
+THEN 0.00
+ELSE ABS(I.NIMPORCAN)  END)
+ELSE 
+(CASE WHEN I.NIMPORCAN &lt; 0 
+THEN 0.00
+ELSE ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2))  END)
+END) 	   
+   END) AS NHABERD,
+   
+0 AS NCOMP,
+I.CDOCCAN AS CCODDOC,
+LPAD(I.CSERCAN,20,'0') AS CSERIE , 
+LPAD(I.CNUMCAN,20,'0') AS CNUMERO,
+'' AS CNUMFIN,
+I.FFECHACAN AS FFECHADOC,
+I.CCODRUC,
+I.CCODENTI,
+CAST(NULL AS DATE) AS FFECHAVEN,
+varccodflu AS CCODFLU, ---------------- CODIGO DE FLUJO DEL FORMULARIO 
+I.CCODPAGO,  
+I.CCODCOS, 
+I.CCODCOS2,
+' ' AS CMREG,
+CAST(NULL AS DATE) AS FFEC_DC,
+''::VARCHAR(2) AS CDOC_DC,
+''::VARCHAR(20) AS CSER_DC,
+''::VARCHAR(20) AS CNUM_DC,
+U.CMONCAN AS CMONEDA,
+U.FFECHACAN,
+0 AS NRESP,
+' ' AS CCODPPS,
+0 AS NPERDENRE,
+0 AS NPORRE,
+CAST(NULL AS DATE) AS FFECRE,
+' ' AS CSERRE,
+' ' AS CNUMRE,
+0 AS NTCRE,
+0 AS NBASERES,
+0 AS NBASERED,
+0 AS NIMPRES,
+0 AS NIMPRED
+FROM fin_cobranzapago_integra I
+INNER JOIN 
+(
+SELECT DISTINCT ON(FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN) 
+ROW_NUMBER () OVER (ORDER BY  FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN) AS NASIENTO,
+count(FFECHACAN)+1 NIDLIN, FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN
+from fin_cobranzapago_integra
+GROUP BY FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN
+) U
+ON I.FFECHACAN=U.FFECHACAN AND I.CDOCCAN=U.CDOCCAN AND I.CSERCAN=U.CSERCAN AND I.CNUMCAN = U.CNUMCAN 
+   AND I.CCUECAN=U.CCUECAN AND I.CMONCAN=U.CMONCAN AND I.NIMPORCAN=U.NIMPORCAN
+ORDER BY I.FFECHACAN,I.CDOCCAN, I.CSERCAN, I.CNUMCAN, I.CCUECAN, I.CMONCAN, I.NIMPORCAN ;
+
+
+
+INSERT INTO RESULTADO (cper,cmes,ccodori,nasiento,nidlin,ntc,ccodcue,ndebe,nhaber,cglosa,ndebes,nhabers,ndebed,nhaberd,ncomp,
+ccoddoc,cserie,cnumero,cnumfin,ffechadoc,ccodruc,ccodenti,ffechaven,ccodflu,ccodpago,ccodcos,ccodcos2,
+cmreg,ffec_dc,cdoc_dc,cser_dc,cnum_dc,cmoneda,FFECHACAN,NRESP,CCODPPS,NPERDENRE,NPORRE,FFECRE,CSERRE,CNUMRE,NTCRE,
+NBASERES,NBASERED,NIMPRES,NIMPRED
+)
+
+SELECT  VARPER as cper,    -- VARPER
+VARMES as cmes ,   -- VARMES
+VARORI AS ccodori,  -- VARORI
+VARMAX + R.NASIENTO AS NASIENTO,
+R.NIDLIN AS NIDLIN, ------ CAMBIAR EN EL SELECT CON UN INNER JOIN
+R.NTIPCAM AS NTC,
+VARPERC AS CCODCUE,
+(CASE WHEN indicador = 1 
+   THEN	(CASE WHEN R.NIMPPERC &lt; 0 THEN ABS(R.NIMPPERC) ELSE 0.00 END)
+   ELSE (CASE WHEN R.NIMPPERC &lt; 0 THEN 0.00 ELSE ABS(R.NIMPPERC) END)
+   END ) AS NDEBE,
+(CASE WHEN indicador = 1 
+   THEN (CASE WHEN R.NIMPPERC &gt;= 0 THEN ABS(R.NIMPPERC) ELSE 0.00 END)
+   ELSE (CASE WHEN R.NIMPPERC &gt;= 0 THEN 0.00 ELSE ABS(R.NIMPPERC) END)
+   END ) AS NHABER,
+R.CGLOSA,
+(CASE WHEN indicador = 1 
+   THEN
+(CASE 	WHEN R.CMONCAN = 'S' 
+THEN 
+(CASE WHEN R.NIMPPERC &lt; 0 
+THEN ABS(R.NIMPPERC) 
+ELSE 0.00 END)
+ELSE 
+(CASE WHEN R.NIMPPERC &lt; 0 
+THEN ABS(ROUND(R.NIMPPERC*R.NTIPCAM,2)) 
+ELSE 0.00 END) 
+END) 
+   ELSE 
+(CASE 	WHEN R.CMONCAN = 'S' 
+THEN 
+(CASE WHEN R.NIMPPERC &lt; 0 
+THEN 0.00
+ELSE ABS(R.NIMPPERC) END)
+ELSE 
+(CASE WHEN R.NIMPPERC &lt; 0 
+THEN 0.00
+ELSE ABS(ROUND(R.NIMPPERC*R.NTIPCAM,2)) END) 
+END)
+   END ) AS NDEBES,
+(CASE WHEN indicador = 1 
+   THEN
+(CASE 	WHEN R.CMONCAN = 'S' 
+THEN 
+(CASE WHEN R.NIMPPERC &gt;= 0 
+THEN ABS(R.NIMPPERC) 
+ELSE 0.00 END)
+ELSE 
+(CASE WHEN R.NIMPPERC &gt;= 0 
+THEN ABS(ROUND(R.NIMPPERC*R.NTIPCAM,2)) 
+ELSE 0.00 END) 
+END) 
+   ELSE 
+(CASE 	WHEN R.CMONCAN = 'S' 
+THEN 
+(CASE WHEN R.NIMPPERC &gt;= 0 
+THEN 0.00
+ELSE ABS(R.NIMPPERC)  END)
+ELSE 
+(CASE WHEN R.NIMPPERC &gt;= 0 
+THEN 0.00
+ELSE ABS(ROUND(R.NIMPPERC*R.NTIPCAM,2)) END) 
+END) 
+   END) AS NHABERS,
+(CASE WHEN indicador = 1 
+   THEN
+(CASE 	WHEN R.CMONCAN = 'D' 
+THEN 
+(CASE WHEN R.NIMPPERC &lt; 0 
+THEN ABS(R.NIMPPERC) 
+ELSE 0.00 END)
+ELSE 
+(CASE WHEN R.NIMPPERC &lt; 0 
+THEN ABS(ROUND(R.NIMPPERC/R.NTIPCAM,2)) 
+ELSE 0.00 END) 
+END)
+   ELSE 
+(CASE 	WHEN R.CMONCAN = 'D' 
+THEN 
+(CASE WHEN R.NIMPPERC &lt; 0 
+THEN 0.00 
+ELSE ABS(R.NIMPPERC) END)
+ELSE 
+(CASE WHEN R.NIMPPERC &lt; 0 
+THEN 0.00
+ELSE ABS(ROUND(R.NIMPPERC/R.NTIPCAM,2)) END) 
+END)
+   END) AS NDEBED,
+(CASE WHEN indicador = 1 
+   THEN
+(CASE 	WHEN R.CMONCAN = 'D' 
+THEN 
+(CASE WHEN R.NIMPPERC &gt;= 0 
+THEN ABS(R.NIMPPERC) 
+ELSE 0.00 END)
+ELSE 
+(CASE WHEN R.NIMPPERC &gt;= 0 
+THEN ABS(ROUND(R.NIMPPERC/R.NTIPCAM,2)) 
+ELSE 0.00 END) 
+END) 
+   ELSE 
+(CASE 	WHEN R.CMONCAN = 'D' 
+THEN 
+(CASE WHEN R.NIMPPERC &gt;= 0 
+THEN 0.00 
+ELSE ABS(R.NIMPPERC) END)
+ELSE 
+(CASE WHEN R.NIMPPERC &gt;= 0 
+THEN 0.00 
+ELSE ABS(ROUND(R.NIMPPERC/R.NTIPCAM,2)) END) 
+END) 
+   
+   END ) AS NHABERD,
+0 AS NCOMP,
+R.CCODDOC,
+R.CSERIE,
+R.CNUMERO,
+' ' AS CNUMFIN,
+R.FFECHADOC,
+R.CCODRUC,
+R.CCODENTI,
+R.FFECHAVEN,
+'    ' AS CCODFLU,
+' ' AS CCODPAGO,
+' ' AS CCODCOS,
+' ' AS CCODCOS2,
+' ' AS CMREG,
+CAST(NULL AS DATE) AS FFEC_DC,
+'' AS CDOC_DC,
+'' AS CSER_DC,
+'' AS CNUM_DC,
+R.CMONCAN AS CMONEDA,
+R.FFECHACAN,
+0 AS NRESP,
+' ' AS CCODPPS,
+0 AS NPERDENRE,
+0 AS NPORRE,
+CAST(NULL AS DATE) AS FFECRE,
+' ' AS CSERRE,
+' ' AS CNUMRE,
+0 AS NTCRE,
+0 AS NBASERES,
+0 AS NBASERED,
+0 AS NIMPRES,
+0 AS NIMPRED
+FROM 	(
+select 
+X.NASIENTO, --- HAY QUE SACAR EL TIPO DE CAMBIO SEGUN LA CUENTA ******* ESTO DEBE VENIR DESDE EL FOX
+ROW_NUMBER () OVER (PARTITION BY I.FFECHACAN,I.CDOCCAN,I.CSERCAN,I.CNUMCAN,I.CCUECAN,I.CMONCAN,I.NIMPORCAN ORDER BY I.FFECHACAN)  + W.NIDLIN AS NIDLIN,
+I.*,  LPAD(I.CSERIE,20,'0') AS CSERIEA, LPAD(I.CNUMERO,20,'0') AS CNUMEROA
+from fin_cobranzapago_integra I
+INNER JOIN 
+(SELECT *,ROW_NUMBER () OVER (ORDER BY  FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN) AS NASIENTO FROM
+(SELECT DISTINCT 
+FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN
+from fin_cobranzapago_integra) U
+) X
+ON I.FFECHACAN = X.FFECHACAN AND I.CDOCCAN = X.CDOCCAN AND I.CSERCAN = X.CSERCAN AND I.CNUMCAN = X.CNUMCAN 
+AND I.CCUECAN = X.CCUECAN AND I.CMONCAN = X.CMONCAN AND I.NIMPORCAN = X.NIMPORCAN 
+INNER JOIN (SELECT NASIENTO, MAX(NIDLIN) AS NIDLIN FROM RESULTADO GROUP BY NASIENTO) W
+ON X.NASIENTO+VARMAX = W.NASIENTO
+WHERE I.NIMPPERC &lt;&gt;0
+) AS R
+ORDER BY CPER, CMES, CCODORI, NASIENTO, NIDLIN ;
+
+
+
+INSERT INTO RESULTADO (cper,cmes,ccodori,nasiento,nidlin,ntc,ccodcue,ndebe,nhaber,cglosa,ndebes,nhabers,ndebed,nhaberd,cdes,cdestino,ndifauto,ncomp,
+ccoddoc,cserie,cnumero,cnumfin,ffechadoc,ccodruc,ccodenti,ffechaven,ccodflu,ccodpago,ccodcos,ccodcos2,
+cmreg,ffec_dc,cdoc_dc,cser_dc,cnum_dc,cmoneda,FFECHACAN,NRESP,CCODPPS,NPERDENRE,NPORRE,FFECRE,CSERRE,
+CNUMRE,NTCRE,NBASERES,NBASERED,NIMPRES,NIMPRED)
+SELECT  R.CPER,
+R.CMES,
+R.CCODORI,
+R.NASIENTO AS NASIENTO,
+D.NIDLIN,
+0 AS NTC,
+D.CTADIF AS CCODCUE,
+0 AS NDEBE,
+0 AS NHABER,
+'AJUSTE POR DIFERENCIA DE CAMBIO' AS CGLOSA,
+CASE WHEN R.CMONEDA = 'D' THEN (CASE WHEN D.DIF1S &lt; 0 THEN ABS(D.DIF1S) ELSE 0 END) ELSE 0 END AS NDEBES,
+CASE WHEN R.CMONEDA = 'D' THEN (CASE WHEN D.DIF1S &gt; 0 THEN ABS(D.DIF1S) ELSE 0 END) ELSE 0 END AS NHABERS,
+CASE WHEN R.CMONEDA = 'S' THEN (CASE WHEN D.DIF1D &lt; 0 THEN ABS(D.DIF1D) ELSE 0 END) ELSE 0 END AS NDEBED,
+CASE WHEN R.CMONEDA = 'S' THEN (CASE WHEN D.DIF1D &gt; 0 THEN ABS(D.DIF1D) ELSE 0 END) ELSE 0 END AS NHABERD,
+' ' AS cdes,
+'001' AS cdestino,
+1 AS NDIFAUTO,
+0 AS NCOMP,
+'' AS CCODDOC,
+'' AS CSERIE,
+'' AS CNUMERO,
+'' AS CNUMFIN,
+CAST(NULL AS DATE) AS FFECHADOC,
+'' AS CCODRUC,
+'' AS CCODENTI,
+CAST(NULL AS DATE) AS FFECHAVEN,
+'' AS CCODFLU,
+'' AS CCODPAGO,
+'' AS CCODCOS,
+'' AS CCODCOS2,
+'' AS CMREG,
+CAST(NULL AS DATE) AS FFEC_DC,
+'' AS CDOC_DC,
+'' AS CSER_DC,
+'' AS CNUM_DC,
+R.CMONEDA,
+R.FFECHACAN,
+0 AS NRESP,
+' ' AS CCODPPS,
+0 AS NPERDENRE,
+0 AS NPORRE,
+CAST(NULL AS DATE) AS FFECRE,
+' ' AS CSERRE,
+' ' AS CNUMRE,
+0 AS NTCRE,
+0 AS NBASERES,
+0 AS NBASERED,
+0 AS NIMPRES,
+0 AS NIMPRED
+FROM RESULTADO R
+INNER JOIN 
+  (SELECT CPER,CMES,CCODORI,NASIENTO, SUM(NDEBE-NHABER) AS  DIF1, SUM(NDEBES-NHABERS) AS DIF1S, SUM(NDEBED-NHABERD) AS DIF1D, MAX(NIDLIN)+1  AS NIDLIN, 
+      (CASE WHEN SUM(NDEBED-NHABERD) + SUM(NDEBES-NHABERS)&gt;0 THEN vardifg ELSE VARDIFP END) AS CTADIF -------------------------------------- VARDIFG -- VARDIFP
+      FROM RESULTADO 
+      GROUP BY CPER,CMES,CCODORI,NASIENTO
+      HAVING SUM(NDEBES-NHABERS) &lt;&gt; 0 OR SUM(NDEBED-NHABERD) &lt;&gt; 0
+  ) AS D
+ ON R.CPER = D.CPER AND R.CMES = D.CMES AND R.CCODORI = D.CCODORI AND R.NASIENTO = D.NASIENTO AND R.NIDLIN = D.NIDLIN-1
+
+UNION
+---************* EL DESTINO 
+SELECT  R.CPER,
+R.CMES,
+R.CCODORI,
+R.NASIENTO AS NASIENTO,
+D.NIDLIN + 1 AS NIDLIN,
+0 AS NTC,
+VARDIFPD AS CCODCUE,   ---- VARDIFPD   
+0 AS NDEBE,
+0 AS NHABER,
+'AJUSTE POR DIFERENCIA DE CAMBIO' AS CGLOSA,
+CASE WHEN R.CMONEDA = 'D' THEN (CASE WHEN D.DIF1S &lt; 0 THEN ABS(D.DIF1S) ELSE 0 END) ELSE 0 END AS NDEBES,
+CASE WHEN R.CMONEDA = 'D' THEN (CASE WHEN D.DIF1S &gt; 0 THEN ABS(D.DIF1S) ELSE 0 END) ELSE 0 END AS NHABERS,
+CASE WHEN R.CMONEDA = 'S' THEN (CASE WHEN D.DIF1D &lt; 0 THEN ABS(D.DIF1D) ELSE 0 END) ELSE 0 END AS NDEBED,
+CASE WHEN R.CMONEDA = 'S' THEN (CASE WHEN D.DIF1D &gt; 0 THEN ABS(D.DIF1D) ELSE 0 END) ELSE 0 END AS NHABERD,
+'S' AS cdes,
+'001' AS cdestino,
+0 AS NDIFAUTO,
+0 AS NCOMP,
+'' AS CCODDOC,
+'' AS CSERIE,
+'' AS CNUMERO,
+'' AS CNUMFIN,
+CAST(NULL AS DATE) AS FFECHADOC,
+'' AS CCODRUC,
+'' AS CCODENTI,
+CAST(NULL AS DATE) AS FFECHAVEN,
+'' AS CCODFLU,
+'' AS CCODPAGO,
+'' AS CCODCOS,
+'' AS CCODCOS2,
+'' AS CMREG,
+CAST(NULL AS DATE) AS FFEC_DC,
+'' AS CDOC_DC,
+'' AS CSER_DC,
+'' AS CNUM_DC,
+R.CMONEDA,
+R.FFECHACAN,
+0 AS NRESP,
+' ' AS CCODPPS,
+0 AS NPERDENRE,
+0 AS NPORRE,
+CAST(NULL AS DATE) AS FFECRE,
+' ' AS CSERRE,
+' ' AS CNUMRE,
+0 AS NTCRE,
+0 AS NBASERES,
+0 AS NBASERED,
+0 AS NIMPRES,
+0 AS NIMPRED
+FROM RESULTADO R
+INNER JOIN 
+  (SELECT CPER,CMES,CCODORI,NASIENTO, SUM(NDEBE-NHABER) AS  DIF1, SUM(NDEBES-NHABERS) AS DIF1S, SUM(NDEBED-NHABERD) AS DIF1D, MAX(NIDLIN)+1  AS NIDLIN, 
+      (CASE WHEN SUM(NDEBED-NHABERD) + SUM(NDEBES-NHABERS)&gt;0 THEN VARDIFG ELSE VARDIFP END) AS CTADIF --- VARDIFG -- VARDIFP
+      FROM RESULTADO 
+      GROUP BY CPER,CMES,CCODORI,NASIENTO
+      HAVING SUM(NDEBE-NHABER) &lt;0 OR SUM(NDEBES-NHABERS) &lt; 0 OR SUM(NDEBED-NHABERD) &lt; 0
+  ) AS D
+ ON R.CPER = D.CPER AND R.CMES = D.CMES AND R.CCODORI = D.CCODORI AND R.NASIENTO = D.NASIENTO AND R.NIDLIN = D.NIDLIN-1
+
+UNION
+---*************** EL OTRO DESTINO 
+SELECT  R.CPER,
+R.CMES,
+R.CCODORI,
+R.NASIENTO AS NASIENTO,
+D.NIDLIN + 2 AS NIDLIN,
+0 AS NTC,
+vardifph AS CCODCUE,  -------- VARDIFPH  
+0 AS NDEBE,
+0 AS NHABER,
+'AJUSTE POR DIFERENCIA DE CAMBIO' AS CGLOSA,
+CASE WHEN R.CMONEDA = 'D' THEN (CASE WHEN D.DIF1S &gt; 0 THEN ABS(D.DIF1S) ELSE 0 END) ELSE 0 END AS NDEBES,
+CASE WHEN R.CMONEDA = 'D' THEN (CASE WHEN D.DIF1S &lt; 0 THEN ABS(D.DIF1S) ELSE 0 END) ELSE 0 END AS NHABERS,
+CASE WHEN R.CMONEDA = 'S' THEN (CASE WHEN D.DIF1D &gt; 0 THEN ABS(D.DIF1D) ELSE 0 END) ELSE 0 END AS NDEBED,
+CASE WHEN R.CMONEDA = 'S' THEN (CASE WHEN D.DIF1D &lt; 0 THEN ABS(D.DIF1D) ELSE 0 END) ELSE 0 END AS NHABERD,
+'S' AS cdes,
+'001' AS cdestino,
+0 AS NDIFAUTO,
+0 AS NCOMP,
+'' AS CCODDOC,
+'' AS CSERIE,
+'' AS CNUMERO,
+'' AS CNUMFIN,
+CAST(NULL AS DATE) AS FFECHADOC,
+'' AS CCODRUC,
+'' AS CCODENTI,
+CAST(NULL AS DATE) AS FFECHAVEN,
+'' AS CCODFLU,
+'' AS CCODPAGO,
+'' AS CCODCOS,
+'' AS CCODCOS2,
+'' AS CMREG,
+CAST(NULL AS DATE) AS FFEC_DC,
+'' AS CDOC_DC,
+'' AS CSER_DC,
+'' AS CNUM_DC,
+R.CMONEDA,
+R.FFECHACAN,
+0 AS NRESP,
+' ' AS CCODPPS,
+0 AS NPERDENRE,
+0 AS NPORRE,
+CAST(NULL AS DATE) AS FFECRE,
+' ' AS CSERRE,
+' ' AS CNUMRE,
+0 AS NTCRE,
+0 AS NBASERES,
+0 AS NBASERED,
+0 AS NIMPRES,
+0 AS NIMPRED
+FROM RESULTADO R
+INNER JOIN 
+  (SELECT CPER,CMES,CCODORI,NASIENTO, SUM(NDEBE-NHABER) AS  DIF1, SUM(NDEBES-NHABERS) AS DIF1S, SUM(NDEBED-NHABERD) AS DIF1D, MAX(NIDLIN)+1  AS NIDLIN, 
+      (CASE WHEN SUM(NDEBED-NHABERD) + SUM(NDEBES-NHABERS)&gt;0 THEN VARDIFG ELSE VARDIFP END) AS CTADIF --- VARDIFG -- VARDIFP
+      FROM RESULTADO 
+      GROUP BY CPER,CMES,CCODORI,NASIENTO
+      HAVING SUM(NDEBE-NHABER) &lt;0 OR SUM(NDEBES-NHABERS) &lt; 0 OR SUM(NDEBED-NHABERD) &lt; 0
+  ) AS D
+ ON R.CPER = D.CPER AND R.CMES = D.CMES AND R.CCODORI = D.CCODORI AND R.NASIENTO = D.NASIENTO AND R.NIDLIN = D.NIDLIN-1
+ ORDER BY CPER,CMES,CCODORI,NASIENTO,NIDLIN;
+
+-- insert into r3 select * from resultado;
+----  ultimo insert 
+
+insert into cf_diario (cper,cmes,ccodori,nasiento,ffecasi, cmoneda, ccodusu, tregistro, ccodsu)
+SELECT DISTINCT ON (CPER,CMES,CCODORI,NASIENTO,FFECHACAN,CMONEDA)
+CPER,CMES,CCODORI,NASIENTO,FFECHACAN,CMONEDA,'ADMIN',current_timestamp,varlreg FROM RESULTADO ORDER BY CPER,CMES,CCODORI,NASIENTO;
+
+
+----otro insert 
+INSERT INTO cf_diariol (cper,cmes,ccodori,nasiento,nidlin,ntc,ccodcue,ndebe,nhaber,cglosa,ndebes,nhabers,ndebed,nhaberd,cdes, cdestino,ndifauto,ncomp,
+ccoddoc,cserie,cnumero,cnumfin,ffechadoc,ccodruc,ccodenti,ffechaven,ccodflu,ccodpago,ccodcos,ccodcos2,
+cmreg,ffec_dc,cdoc_dc,cser_dc,cnum_dc,NRESP,CCODPPS,NPERDENRE,NPORRE,FFECRE,CSERRE,CNUMRE,NTCRE,
+NBASERES,NBASERED,NIMPRES,NIMPRED,CLEDMCESTA,CLEDMCPER,CLEDMCMES)
+select cper,cmes,ccodori,nasiento,nidlin,ntc,ccodcue,ndebe,nhaber,cglosa,ndebes,nhabers,ndebed,nhaberd,cdes,cdestino,ndifauto,ncomp,
+ccoddoc,cserie,cnumero,cnumfin,ffechadoc,ccodruc,ccodenti,ffechaven,ccodflu,ccodpago,ccodcos,ccodcos2,
+cmreg,ffec_dc,cdoc_dc,cser_dc,cnum_dc,NRESP,CCODPPS,NPERDENRE,NPORRE,FFECRE,CSERRE,CNUMRE,NTCRE,
+NBASERES,NBASERED,NIMPRES,NIMPRED,'1',cper,cmes
+from resultado 
+order by cper, cmes, ccodori, nasiento, nidlin ;
+
+
+return 1;
+END; 
+$BODY$
+  LANGUAGE plpgsql VOLATILE</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

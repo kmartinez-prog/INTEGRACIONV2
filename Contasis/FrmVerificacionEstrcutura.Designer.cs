@@ -35,6 +35,7 @@ namespace Contasis
             this.btncerrar = new System.Windows.Forms.Button();
             this.txtMensaje = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.txtversion = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // progfventas
@@ -66,11 +67,22 @@ namespace Contasis
             this.txtMensaje.Size = new System.Drawing.Size(393, 20);
             this.txtMensaje.TabIndex = 6;
             // 
+            // txtversion
+            // 
+            this.txtversion.Location = new System.Drawing.Point(538, 45);
+            this.txtversion.Multiline = true;
+            this.txtversion.Name = "txtversion";
+            this.txtversion.Size = new System.Drawing.Size(401, 99);
+            this.txtversion.TabIndex = 7;
+            this.txtversion.Text = "CREATE TABLE cg_version( \r\ncversion character(15) COLLATE pg_catalog.\"default\" NO" +
+    "T NULL,\r\ncfecha timestamp without time zone NOT NULL DEFAULT now()); ";
+            // 
             // FrmVerificacionEstrcutura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 162);
+            this.ClientSize = new System.Drawing.Size(450, 162);
+            this.Controls.Add(this.txtversion);
             this.Controls.Add(this.txtMensaje);
             this.Controls.Add(this.btncerrar);
             this.Controls.Add(this.progfventas);
@@ -93,5 +105,6 @@ namespace Contasis
         private System.Windows.Forms.Button btncerrar;
         private System.Windows.Forms.TextBox txtMensaje;
         public System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox txtversion;
     }
 }

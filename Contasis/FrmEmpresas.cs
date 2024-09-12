@@ -89,7 +89,7 @@ namespace Contasis
                         dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                         dataGridView1.ReadOnly = true;
 
-                        if (dataGridView1.Rows.Count - 1 > 0)
+                        if (dataGridView1.Rows.Count  > 0)
                         {
                             this.dataGridView1.CurrentCell = this.dataGridView1.Rows[0].Cells[1];
                             this.dataGridView1.Refresh();
@@ -122,7 +122,7 @@ namespace Contasis
                         dataGridView1.Font = new Font("Arial", 8, FontStyle.Regular);
                         dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                         dataGridView1.ReadOnly = true;
-                        if (dataGridView1.Rows.Count - 1 > 0)
+                        if (dataGridView1.Rows.Count  > 0)
                         {
                             this.dataGridView1.CurrentCell = this.dataGridView1.Rows[0].Cells[1];
                             this.dataGridView1.Refresh();

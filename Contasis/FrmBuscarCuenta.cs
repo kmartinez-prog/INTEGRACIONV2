@@ -107,6 +107,31 @@ namespace Contasis
             {
                 txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
             }
+            if (txtcodigo.Text == "15")
+            {
+                txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN ORDER BY CCODORI ASC";
+            }
+            if (txtcodigo.Text == "16")
+            {
+                    txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU ORDER BY CCODSU ASC";
+            }
+            if (txtcodigo.Text == "17")
+            {
+                txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+            }
+            if (txtcodigo.Text == "18")
+            {
+                txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN ORDER BY CCODORI ASC";
+            }
+            if (txtcodigo.Text == "19")
+            {
+                txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU ORDER BY CCODSU ASC";
+            }
+            if (txtcodigo.Text == "20")
+            {
+                txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+            }
+
             cone = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadenas.Text);
             NpgsqlCommand cmdp = new NpgsqlCommand(txtquery.Text, cone);
             cone.Open();
@@ -211,9 +236,36 @@ namespace Contasis
                 FrmIntegradorConta.instance.txtCFEFEC_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
                 BtnSalir.PerformClick();
             }
-
-
-
+            if (txtcodigo.Text == "15")
+            {
+                FrmIntegradorConta.instance.txtsubdiario_cobra.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                BtnSalir.PerformClick();
+            }
+            if (txtcodigo.Text == "16")
+            {
+                FrmIntegradorConta.instance.txtregistro_cobra.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                BtnSalir.PerformClick();
+            }
+            if (txtcodigo.Text == "17")
+            {
+                FrmIntegradorConta.instance.txtflujocobra.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                BtnSalir.PerformClick();
+            }
+            if (txtcodigo.Text == "18")
+            {
+                FrmIntegradorConta.instance.txtsubdiario_pago.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                BtnSalir.PerformClick();
+            }
+            if (txtcodigo.Text == "19")
+            {
+                FrmIntegradorConta.instance.txtregistro_pago.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                BtnSalir.PerformClick();
+            }
+            if (txtcodigo.Text == "20")
+            {
+                FrmIntegradorConta.instance.txtflujopago.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                BtnSalir.PerformClick();
+            }
 
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -329,6 +381,34 @@ namespace Contasis
                     {
                         txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  ccodflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
                     }
+                    if (txtcodigo.Text == "15")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "16")
+                    {
+                        txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU   where CCODSU like '%" + txtbuscar.Text + "%'  ORDER BY CCODSU ASC";
+                    }
+                    if (txtcodigo.Text == "17")
+                    {
+                        txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  ccodflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+                    }
+
+                    if (txtcodigo.Text == "18")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "19")
+                    {
+                        txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU   where CCODSU like '%" + txtbuscar.Text + "%'  ORDER BY CCODSU ASC";
+                    }
+                    if (txtcodigo.Text == "20")
+                    {
+                        txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  ccodflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+                    }
+
+
+
                     this.cargar_codigo(txtquery.Text);
                     dataGridView1.Focus();
                 }
@@ -392,7 +472,37 @@ namespace Contasis
                     {
                         txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  cdesflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
                     }
-                    
+                    if (txtcodigo.Text == "15")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "15")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "16")
+                    {
+                        txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU   where CCODSU like '%" + txtbuscar.Text + "%'  ORDER BY CCODSU ASC";
+                    }
+                    if (txtcodigo.Text == "17")
+                    {
+                        txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  ccodflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+                    }
+
+                    if (txtcodigo.Text == "18")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "19")
+                    {
+                        txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU   where CCODSU like '%" + txtbuscar.Text + "%'  ORDER BY CCODSU ASC";
+                    }
+                    if (txtcodigo.Text == "20")
+                    {
+                        txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  ccodflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+                    }
+
+
                     this.cargar_codigo(txtquery.Text);
                     dataGridView1.Focus();
                 }
