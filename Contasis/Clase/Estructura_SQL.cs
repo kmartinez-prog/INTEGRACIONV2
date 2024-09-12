@@ -32,6 +32,7 @@ namespace Contasis.Clase
                 if (dt.Rows.Count > 0)
                 {
                     cadena = "Tabla " + NombreTable.Trim().ToLower().ToString() + " ya existe.";
+                    
                 }
                 else
                 {

@@ -154,7 +154,7 @@ namespace Contasis
             this.cmbrucemisor.FormattingEnabled = true;
             this.cmbrucemisor.Location = new System.Drawing.Point(16, 60);
             this.cmbrucemisor.Name = "cmbrucemisor";
-            this.cmbrucemisor.Size = new System.Drawing.Size(356, 21);
+            this.cmbrucemisor.Size = new System.Drawing.Size(496, 21);
             this.cmbrucemisor.TabIndex = 11;
             this.cmbrucemisor.SelectedIndexChanged += new System.EventHandler(this.cmbrucemisor_SelectedIndexChanged);
             // 

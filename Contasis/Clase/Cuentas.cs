@@ -169,7 +169,7 @@ namespace Contasis.Clase
                         " cEntidad ='" + Objet.ENTIDAD + "', " +
                         " csub1_vta ='" + Objet.CSUB1_vta + "', " +
                         " clreg1_vta =' " + Objet.CLREG1_vta + "', " +
-                        " cfefec_vta ='" + Objet.CFEFEC_vta + "', " +
+                        " cfefec_vta ='" + Objet.CFEFEC_vta + "'" +
                         " where CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
                         cone = ConexionSql.Instancial().establecerconexion();
                         SqlCommand commando2 = new SqlCommand(query1, cone);

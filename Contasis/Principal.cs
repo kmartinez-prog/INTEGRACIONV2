@@ -488,7 +488,26 @@ namespace Contasis
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("En proceso de activación.","Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ///MessageBox.Show("En proceso de activación.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);///
+            foreach (Form OpenForm in Application.OpenForms)
+            {
+                if (OpenForm.Name == "master12")
+                { }
+                else
+                {
+                    master12 = null;
+                }
+
+            }
+
+            if (master12 == null)
+            {
+                master12 = new FrmVerificacionEstrcutura();
+                ///master6.MdiParent = this;
+                master12.ShowDialog();
+                master12.FormClosed += new FormClosedEventHandler(Cerrarestructura);
+
+            }
         }
 
         private void inconsistenciasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -498,7 +517,7 @@ namespace Contasis
 
         private void estructuraDeDatosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("En proceso de activación.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ///MessageBox.Show("En proceso de activación.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);///
             foreach (Form OpenForm in Application.OpenForms)
             {
                 if (OpenForm.Name == "master12")

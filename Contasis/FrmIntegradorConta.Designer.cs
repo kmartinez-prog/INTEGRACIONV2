@@ -104,6 +104,7 @@ namespace Contasis
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label34 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label36 = new System.Windows.Forms.Label();
             this.dataGridView_cobranza = new System.Windows.Forms.DataGridView();
             this.button3 = new System.Windows.Forms.Button();
@@ -116,6 +117,7 @@ namespace Contasis
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label35 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.dataGridView_pago = new System.Windows.Forms.DataGridView();
             this.button4 = new System.Windows.Forms.Button();
@@ -958,6 +960,7 @@ namespace Contasis
             // 
             this.panel6.BackColor = System.Drawing.Color.White;
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel6.Controls.Add(this.textBox2);
             this.panel6.Controls.Add(this.label36);
             this.panel6.Controls.Add(this.dataGridView_cobranza);
             this.panel6.Controls.Add(this.button3);
@@ -971,6 +974,18 @@ namespace Contasis
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(558, 398);
             this.panel6.TabIndex = 35;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(23, 59);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(510, 24);
+            this.textBox2.TabIndex = 54;
+            this.textBox2.Text = "Cuentas de Cobranzas asociadas a Ventas";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label36
             // 
@@ -992,6 +1007,8 @@ namespace Contasis
             this.dataGridView_cobranza.RowHeadersWidth = 51;
             this.dataGridView_cobranza.Size = new System.Drawing.Size(543, 118);
             this.dataGridView_cobranza.TabIndex = 42;
+            this.dataGridView_cobranza.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_cobranza_CellClick);
+            this.dataGridView_cobranza.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_cobranza_CellDoubleClick);
             // 
             // button3
             // 
@@ -1097,6 +1114,7 @@ namespace Contasis
             // panel7
             // 
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel7.Controls.Add(this.textBox1);
             this.panel7.Controls.Add(this.label37);
             this.panel7.Controls.Add(this.dataGridView_pago);
             this.panel7.Controls.Add(this.button4);
@@ -1110,6 +1128,18 @@ namespace Contasis
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(558, 398);
             this.panel7.TabIndex = 43;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(23, 59);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(510, 24);
+            this.textBox1.TabIndex = 53;
+            this.textBox1.Text = "Cuentas de pagos asociadas a Compras";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label37
             // 
@@ -1130,6 +1160,8 @@ namespace Contasis
             this.dataGridView_pago.RowHeadersWidth = 51;
             this.dataGridView_pago.Size = new System.Drawing.Size(543, 118);
             this.dataGridView_pago.TabIndex = 51;
+            this.dataGridView_pago.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_pago_CellClick);
+            this.dataGridView_pago.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_pago_CellDoubleClick);
             // 
             // button4
             // 
@@ -1549,5 +1581,7 @@ namespace Contasis
         private System.Windows.Forms.TextBox txt_cobra02;
         private System.Windows.Forms.TextBox txt_cobra03;
         private System.Windows.Forms.TextBox txt_cobra04;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

@@ -31,20 +31,21 @@ namespace Contasis
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmVerificacionEstrcutura));
-            this.progfventas = new System.Windows.Forms.ProgressBar();
+            this.pBarra = new System.Windows.Forms.ProgressBar();
             this.btncerrar = new System.Windows.Forms.Button();
             this.txtMensaje = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.txtversion = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // progfventas
+            // pBarra
             // 
-            this.progfventas.Location = new System.Drawing.Point(28, 45);
-            this.progfventas.Name = "progfventas";
-            this.progfventas.Size = new System.Drawing.Size(393, 19);
-            this.progfventas.Step = 20;
-            this.progfventas.TabIndex = 4;
+            this.pBarra.Location = new System.Drawing.Point(7, 2);
+            this.pBarra.Name = "pBarra";
+            this.pBarra.Size = new System.Drawing.Size(393, 19);
+            this.pBarra.Step = 20;
+            this.pBarra.TabIndex = 4;
             // 
             // btncerrar
             // 
@@ -52,7 +53,7 @@ namespace Contasis
             this.btncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btncerrar.Image = global::Contasis.Properties.Resources._11;
             this.btncerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btncerrar.Location = new System.Drawing.Point(321, 112);
+            this.btncerrar.Location = new System.Drawing.Point(300, 61);
             this.btncerrar.Name = "btncerrar";
             this.btncerrar.Size = new System.Drawing.Size(100, 32);
             this.btncerrar.TabIndex = 5;
@@ -62,10 +63,18 @@ namespace Contasis
             // 
             // txtMensaje
             // 
-            this.txtMensaje.Location = new System.Drawing.Point(31, 85);
+            this.txtMensaje.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.txtMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtMensaje.CausesValidation = false;
+            this.txtMensaje.Location = new System.Drawing.Point(10, 43);
             this.txtMensaje.Name = "txtMensaje";
-            this.txtMensaje.Size = new System.Drawing.Size(393, 20);
+            this.txtMensaje.Size = new System.Drawing.Size(393, 13);
             this.txtMensaje.TabIndex = 6;
+            this.txtMensaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // txtversion
             // 
@@ -77,15 +86,28 @@ namespace Contasis
             this.txtversion.Text = "CREATE TABLE cg_version( \r\ncversion character(15) COLLATE pg_catalog.\"default\" NO" +
     "T NULL,\r\ncfecha timestamp without time zone NOT NULL DEFAULT now()); ";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.SystemColors.Control;
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label1.Location = new System.Drawing.Point(194, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(14, 15);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "0";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
             // FrmVerificacionEstrcutura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 162);
+            this.ClientSize = new System.Drawing.Size(410, 98);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.txtversion);
             this.Controls.Add(this.txtMensaje);
             this.Controls.Add(this.btncerrar);
-            this.Controls.Add(this.progfventas);
+            this.Controls.Add(this.pBarra);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -101,10 +123,11 @@ namespace Contasis
 
         #endregion
 
-        private System.Windows.Forms.ProgressBar progfventas;
+        private System.Windows.Forms.ProgressBar pBarra;
         private System.Windows.Forms.Button btncerrar;
         private System.Windows.Forms.TextBox txtMensaje;
         public System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TextBox txtversion;
+        private System.Windows.Forms.Label label1;
     }
 }

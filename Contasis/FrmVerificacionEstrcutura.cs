@@ -16,6 +16,7 @@ namespace Contasis
         string NombreSP;
         string Query;
         string Nombrecampo;
+        int progreso = 0;
         public FrmVerificacionEstrcutura()
         {
             InitializeComponent();
@@ -24,7 +25,14 @@ namespace Contasis
 
         private void FrmVerificacionEstrcutura_Load(object sender, EventArgs e)
         {
-            this.proceso_sql();
+            if (Properties.Settings.Default.cadenaPostPrincipal == "")
+            {
+                this.proceso_sql();
+            }
+            else
+            {
+                this.proceso_postgresl();
+            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -41,13 +49,17 @@ namespace Contasis
             this.Hide();
             this.Close();
         }
+        private void barraprogreso()
+        {
+            timer1.Start();
+        }
 
         private void proceso_sql()
         {
             Clase.Estructura_SQL obj = new Clase.Estructura_SQL();
             //Area para crear la estructura de las Tablas ////
             #region fin_ventas
-
+            this.barraprogreso();
             NombreTable = "fin_ventas";
             Query = "CREATE TABLE fin_ventas(" +
                        "idventas int  identity(1,1)," +
@@ -109,15 +121,15 @@ namespace Contasis
                        "es_con_migracion numeric(1, 0) DEFAULT 0," +
                        "ccodcos3 nchar(15)   NULL," +
                        "obserror text NULL,PRIMARY KEY CLUSTERED (idventas  ASC) )";
+                        string respuesta = "";
+                        respuesta = obj.crear_tablas(NombreTable, Query);
+                        txtMensaje.Refresh();
+                        txtMensaje.Text = "" + respuesta;
 
 
-            string respuesta = "";
-            respuesta = obj.crear_tablas(NombreTable, Query);
-            txtMensaje.Text = "" + respuesta;
-        
-        #endregion
+            #endregion
             #region fin_compras
-
+            this.barraprogreso();
             NombreTable = "fin_compras";
             Query = "CREATE TABLE fin_compras(idcompras int identity(1,1),ccodrucemisor char(15) null, ccod_empresa char(3) NULL," +
             "cper char(4) null," +
@@ -143,17 +155,19 @@ namespace Contasis
             "obserror text NULL,PRIMARY KEY CLUSTERED (idcompras  ASC) )";
             
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
             #endregion
             #region fin_cobranza
-
-            NombreTable = "fin_cobranzas";
-            Query = "CREATE TABLE fin_cobranzas(idcobranzas int IDENTITY(1,1) NOT NULL," +
+            this.barraprogreso();
+            NombreTable = "fin_cobranzapago";
+            Query = "CREATE TABLE fin_cobranzapago(idcobranzapago int IDENTITY(1,1) NOT NULL," +
             "ccodrucemisor char(15) NULL," +
             "ccod_empresa char(3) NULL," +
             "cper char(4) NULL," +
             "cmes char(2) NULL," +
+            "ntipocobpag Numeric(1) ," +
             "ffechacan date NULL," +
             "cdoccan char(2) NULL," +
             "csercan char(20)  NULL," +
@@ -189,63 +203,65 @@ namespace Contasis
 	        "en_ambiente_de varchar(255) NULL,"+
 	        "es_con_migracion numeric(1, 0) NULL,"+
 	        "ccodcos3 nchar(15) NULL,"+
+            "resultado_migracion numeric(1,0) NULL,"+
             "obserror text NULL) ";
 
             respuesta = obj.crear_tablas(NombreTable, Query);
-            txtMensaje.Text = "" + respuesta;
-
-            #endregion   
-            #region fin_pagos
-
-            NombreTable = "fin_pagos";
-            Query = "CREATE TABLE fin_pagos(idpagos int IDENTITY(1,1) NOT NULL," +
-            "ccodrucemisor char(15) NULL," +
-            "ccod_empresa char(3) NULL," +
-            "cper char(4) NULL," +
-            "cmes char(2) NULL," +
-            "ffechacan date NULL," +
-            "cdoccan char(2) NULL," +
-            "csercan char(20)  NULL," +
-            "cnumcan char(20)  NULL," +
-            "ccuecan char(20)  NULL," +
-            "cmoncan char(1)  NULL," +
-            "nimporcan Numeric(15,2)  NULL," +
-            "ntipcam Numeric(10,6)  NULL," +
-            "ccodpago Char(3) NULL," +
-            "ccoddoc Char(2) NULL," +
-            "cserie Char(20) NULL," +
-            "cnumero Char(20) NULL," +
-            "ffechadoc date  NULL," +
-            "ffechaven date  NULL," +
-            "ccodenti Char(11) NULL," +
-            "ccodruc Char(15) NULL," +
-            "crazsoc Char(100) NULL," +
-            "nimportes Numeric(15,2) NULL," +
-            "nimported Numeric(15,2) NULL," +
-            "ccodcue Char(20) NULL," +
-            "cglosa Char(80) NULL," +
-            "ccodcos Char(9) NULL," +
-            "ccodcos2 Char(9) NULL," +
-            "nporre Numeric(5,2) NULL," +
-            "nimpperc Numeric(15,2) NULL," +
-            "nperdenre Numeric(1) NULL," +
-            "cserre Char(6) NULL," +
-            "cnumre char(13) NULL," +
-            "ffecre date NULL," +
-            "created_at datetime NULL," +
-            "updated_at datetime NULL," +
-            "estado varchar(255) NULL," +
-            "en_ambiente_de varchar(255) NULL," +
-            "es_con_migracion numeric(1, 0) NULL," +
-            "ccodcos3 nchar(15) NULL," +
-            "obserror text NULL) ";
-
-            respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
             #endregion
-            #region ruc_emisor
+            /*         #region fin_pagos
 
+                     NombreTable = "fin_pagos";
+                     Query = "CREATE TABLE fin_pagos(idpagos int IDENTITY(1,1) NOT NULL," +
+                     "ccodrucemisor char(15) NULL," +
+                     "ccod_empresa char(3) NULL," +
+                     "cper char(4) NULL," +
+                     "cmes char(2) NULL," +
+                     "ffechacan date NULL," +
+                     "cdoccan char(2) NULL," +
+                     "csercan char(20)  NULL," +
+                     "cnumcan char(20)  NULL," +
+                     "ccuecan char(20)  NULL," +
+                     "cmoncan char(1)  NULL," +
+                     "nimporcan Numeric(15,2)  NULL," +
+                     "ntipcam Numeric(10,6)  NULL," +
+                     "ccodpago Char(3) NULL," +
+                     "ccoddoc Char(2) NULL," +
+                     "cserie Char(20) NULL," +
+                     "cnumero Char(20) NULL," +
+                     "ffechadoc date  NULL," +
+                     "ffechaven date  NULL," +
+                     "ccodenti Char(11) NULL," +
+                     "ccodruc Char(15) NULL," +
+                     "crazsoc Char(100) NULL," +
+                     "nimportes Numeric(15,2) NULL," +
+                     "nimported Numeric(15,2) NULL," +
+                     "ccodcue Char(20) NULL," +
+                     "cglosa Char(80) NULL," +
+                     "ccodcos Char(9) NULL," +
+                     "ccodcos2 Char(9) NULL," +
+                     "nporre Numeric(5,2) NULL," +
+                     "nimpperc Numeric(15,2) NULL," +
+                     "nperdenre Numeric(1) NULL," +
+                     "cserre Char(6) NULL," +
+                     "cnumre char(13) NULL," +
+                     "ffecre date NULL," +
+                     "created_at datetime NULL," +
+                     "updated_at datetime NULL," +
+                     "estado varchar(255) NULL," +
+                     "en_ambiente_de varchar(255) NULL," +
+                     "es_con_migracion numeric(1, 0) NULL," +
+                     "ccodcos3 nchar(15) NULL," +
+                     "obserror text NULL) ";
+
+                     respuesta = obj.crear_tablas(NombreTable, Query);
+                     txtMensaje.Text = "" + respuesta;
+
+                     #endregion */
+            #region ruc_emisor
+            this.barraprogreso();
             NombreTable = "cg_empemisor";
             Query = "create table cg_empemisor(" +
             "ccodrucemisor char(15) NOT NULL, " +
@@ -255,27 +271,32 @@ namespace Contasis
                         " (ccodrucemisor  ASC))";
 
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
             #endregion
             #region empresa
-
+            this.barraprogreso();
             NombreTable = "cg_empresa";
             Query = "CREATE TABLE cg_empresa(ccodrucemisor character(15), " +
                     "ccod_empresa character(3),nomempresa character(80))  ";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region usuarios
+            this.barraprogreso();
             NombreTable = "cg_usuario";
             Query= "CREATE TABLE cg_usuario(ccodusu character(10) NOT NULL DEFAULT ''," +
                    "cdesusu character(60) NOT NULL DEFAULT ''," +
                    "password character(250) NOT NULL DEFAULT ''," +
                    "fec_ultacceso datetime default getdate(),PRIMARY KEY CLUSTERED(ccodusu  ASC) )";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region configuracion
+            this.barraprogreso();
             NombreTable = "configuracion";
             Query = "CREATE TABLE configuracion(ccod_empresa Char(3) null," +
                     "cper char(4) null," +
@@ -295,31 +316,39 @@ namespace Contasis
                     "cfefec_com char(4),ctares_com numeric(1,0),ctaimp_com numeric(1,0) ,Ctapas_com numeric(1,0), asientos_com numeric(1,0)," +
                     "cTipo char(2) null,cEnt_anula char(15) null)";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region modulos
+            this.barraprogreso();
             NombreTable = "cg_modulos";
             Query = "CREATE TABLE cg_modulos(ccodmod character(10),cdesmod character(100))";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region acceso_usuario
+            this.barraprogreso();
             NombreTable = "cg_usuario_acceso";
             Query = "CREATE TABLE cg_usuario_acceso(ccodusu character(10) not null DEFAULT ''," +
                     "ccodmod  character(10) not null DEFAULT ''," +
                     "flgacceso NUMERIC(1,0) default 0)";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region version
+            this.barraprogreso();
             NombreTable = "cg_version";
             Query = "create table cg_version (" +
                     " cversion varchar(15) not null, " +
                     " cfecha datetime2 default GETDATE() not null,);";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region log
+            this.barraprogreso();
             NombreTable = "cg_log";
             Query = "CREATE TABLE cg_log(id INT IDENTITY(1,1)," +
                     "tipo_error TEXT NULL," +
@@ -327,44 +356,54 @@ namespace Contasis
                     "fechahora datetime default Getdate()," +
                     "PRIMARY KEY CLUSTERED(id  ASC) )";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             //Area para Agregar Nuevos Campos a la tabla////
             #region campos_para_ventas
+            this.barraprogreso();
                 NombreTable = "fin_ventas";
                 Nombrecampo = "cubigeo";
                 Query = "alter table "+ NombreTable.Trim().ToLower() + " add "+ Nombrecampo.Trim().ToLower()  +" nchar(6) not null default '';";
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                txtMensaje.Text = "" + respuesta;
+            txtMensaje.Refresh();
+            txtMensaje.Text = "" + respuesta;
             #endregion
             #region campos_para_compras
-                NombreTable = "fin_comparas";
+            this.barraprogreso();
+            NombreTable = "fin_comparas";
                 Nombrecampo = "cubigeo";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " nchar(6) not null default '';";
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                txtMensaje.Text = "" + respuesta;
+            txtMensaje.Refresh();
+            txtMensaje.Text = "" + respuesta;
             #endregion
             #region campos_para_rucemiso
+            this.barraprogreso();
             NombreTable = "cg_empemisor";
             Nombrecampo = "nventaflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
             
             Nombrecampo = "ncompraflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
             Nombrecampo = "ncobranzaflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
             Nombrecampo = "npagoflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
 
@@ -373,6 +412,7 @@ namespace Contasis
 
             //Area para crear o actualizar Store Procedure == Todo de empezar con create porque primero se borrar y se vuelve a crear  ////
             #region version
+            this.barraprogreso();
             NombreSP = "sp_select_version";
             Query = "create procedure sp_select_version as \n" +
                                     " begin  \n" +
@@ -380,9 +420,11 @@ namespace Contasis
                                     " From dbo.cg_version   \n" +
                                     " end; ";
             respuesta = obj.crear_procedimiento(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region version_actualiza
+            this.barraprogreso();
             NombreSP = "sp_actualizar_version";
             Query = "create procedure sp_actualizar_version  \n" +
                                     " @p_version varchar(15)  \n" +
@@ -400,9 +442,11 @@ namespace Contasis
                                     " end  \n" +
                                     "  end; ";
             respuesta = obj.crear_procedimiento(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region compras_envio_resultado
+            this.barraprogreso();
             NombreSP = "sp_compras_envio_resultado";
             Query = "CREATE PROCEDURE sp_compras_envio_resultado \n" +
                            " @resultado NVARCHAR(MAX) \n" +
@@ -429,9 +473,11 @@ namespace Contasis
                            "     ON t.idcompras = r.idcompras and t.es_con_migracion = r.es_con_migracion;\n " +
                            " END; ";
             respuesta = obj.crear_procedimiento(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region envio_compras
+            this.barraprogreso();
             NombreSP = "sp_compras_envio";
             Query = " CREATE PROCEDURE sp_compras_envio  \n" +
                             "      @prucEmisor char(15), \n" +
@@ -517,9 +563,11 @@ namespace Contasis
                                  "   for json path  \n" +
                                  "   END ";
             respuesta = obj.crear_procedimiento(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region ventas_envio_resultado
+            this.barraprogreso();
             NombreSP = "sp_ventas_envio_resultado";
             Query = "CREATE PROCEDURE sp_ventas_envio_resultado\n" +
                         " @resultado NVARCHAR(MAX) \n" +
@@ -542,9 +590,11 @@ namespace Contasis
                         "ON t.idventas = r.idventas and t.es_con_migracion = r.es_con_migracion;   \n" +
                         "END   ";
             respuesta = obj.crear_procedimiento(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region envio_ventas
+            this.barraprogreso();
             NombreSP = "sp_ventas_envio";
             Query = " CREATE PROCEDURE sp_ventas_envio  \n" +
                                 " @prucEmisor char(15), \n" +
@@ -626,16 +676,19 @@ namespace Contasis
                                 "       for json path \n" +
                                 "       END   ";
             respuesta = obj.crear_procedimiento(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region envio_cobranza
-            NombreSP = "sp_cobranza_envio";
-            Query = " CREATE PROCEDURE sp_cobranza_envio  \n" +
+            this.barraprogreso();
+            NombreSP = "sp_cobranzapago_envio";
+            Query = " CREATE PROCEDURE sp_cobranzapago_envio  \n" +
                                 " @prucEmisor char(15), \n" +
-                                "  @empresa char(3)  \n" +
+                                " @empresa char(3),  \n" +
+                                " @tipo numeric(1)  \n" +
                                 "  AS  \n" +
                                 "  BEGIN  \n" +
-                                "    Select  idcobranza,fin_cobranza.ccod_empresa,fin_cobranza.cper,cmes, \n" +
+                                "    Select  idcobranzapago,fin_cobranzapago.ccod_empresa,fin_cobranzapago.cper,fin_cobranzapago.cmes, \n" +
                                 "    ltrim(rtrim(CONFIGURACION.csub1_com)) AS ccodori,\n" +
                                 "    ltrim(rtrim(CONFIGURACION.clreg1_com)) AS ccodsu,\n" +
                                 "    ltrim(rtrim(CONFIGURACION.cfefec_com)) AS ccodflu,\n" +
@@ -668,79 +721,24 @@ namespace Contasis
                                 "    ltrim(rtrim(isnull(cserre, ''))) as cserre, \n" +
                                 "    ltrim(rtrim(isnull(cnumre, ''))) as cnumre, \n" +
                                 "    ltrim(rtrim(Convert(char(10), ffecre, 112))) as ffecre,  \n" +
-	                            "    case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end as estado ,    \n" +
-                                "    isnull(en_ambiente_de, '!') as en_ambiente_de,    \n" +
                                 "    isnull(es_con_migracion, 0) as es_con_migracion,   \n" +
-                                "    case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3,  \n" +
-		                        "    case when es_con_migracion = 3  then ltrim(rtrim(configuracion.cEnt_anula))  else '' end as ccodrucanula \n" +
-                                "    From fin_cobranza \n" +
+                                "    From fin_cobranzapago \n" +
                                 "    INNER JOIN configuracion ON fin_cobranza.CCOD_EMPRESA = CONFIGURACION.CCOD_EMPRESA AND fin_cobranza.CPER = configuracion.CPER \n" +
                                 "    inner join CG_EMPRESA emp on fin_cobranza.ccodrucemisor = emp.ccodrucemisor and fin_cobranza.ccod_empresa = emp.CCOD_EMPRESA \n" +
                                 "    inner join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1 \n" +
-                                "    Where fin_cobranza.ccodrucemisor = @prucEmisor  and fin_cobranza.CCOD_EMPRESA = @empresa and es_con_migracion in (0, 3) AND CONFIGURACION.CTIPO = '03' \n"+
+                                "    Where fin_cobranzapago.ccodrucemisor = @prucEmisor  \n"+
+                                "    and fin_cobranzapago.CCOD_EMPRESA = @empresa and fin_cobranzapago.es_con_migracion in (0, 3) \n" +
+                                "    and CONFIGURACION.CTIPO = @tipo \n" +
                                 "    for json path \n" +
                                 "    END   ";
             respuesta = obj.crear_procedimiento(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
-            #region envio_pagos
-            NombreSP = "sp_pagos_envio";
-            Query = " CREATE PROCEDURE sp_pagos_envio  \n" +
-                                " @prucEmisor char(15), \n" +
-                                "  @empresa char(3)  \n" +
-                                "  AS  \n" +
-                                "  BEGIN  \n" +
-                                "    Select  idpagos,fin_pagos.ccod_empresa,fin_pagos.cper,cmes, \n" +
-                                "    ltrim(rtrim(CONFIGURACION.csub1_com)) AS ccodori,\n" +
-                                "    ltrim(rtrim(CONFIGURACION.clreg1_com)) AS ccodsu,\n" +
-                                "    ltrim(rtrim(CONFIGURACION.cfefec_com)) AS ccodflu,\n" +
-                                "    ltrim(rtrim(Convert(char(10), ffechacan, 112))) as ffechacan,    \n" +
-                                "    ltrim(rtrim(isnull(cdoccan, ''))) as cdoccan,  \n" +
-                                "    ltrim(rtrim(isnull(csercan, ''))) as csercan,  \n" +
-                                "    ltrim(rtrim(isnull(cnumcan, ''))) as cdoccan,    \n" +
-                                "    ltrim(rtrim(isnull(ccuecan, ''))) as ccuecan,    \n" +
-                                "    ltrim(rtrim(isnull(cmoncan, ''))) as cmoncan,      \n" +
-                                "    isnull(nimporcan, 0.00) as nimporcan, \n" +
-                                "    isnull(ntipcam, 0.00) as ntipcam ,\n" +
-                                "    ltrim(rtrim(isnull(ccodpago, ''))) as ccodpago, \n" +
-                                "    ltrim(rtrim(isnull(ccoddoc, ''))) as ccoddoc,\n" +
-                                "    ltrim(rtrim(isnull(cserie, ''))) as cserie,\n" +
-                                "    ltrim(rtrim(isnull(cnumero, ''))) as cnumero,\n" +
-                                "    ltrim(rtrim(Convert(char(10), ffechadoc, 112))) as ffechadoc,  \n" +
-                                "    ltrim(rtrim(Convert(char(10), ffechaven, 112))) as ffechaven,  \n" +
-                                "    ltrim(rtrim(isnull(ccodenti, ''))) as ccodenti,\n" +
-                                "    ltrim(rtrim(isnull(ccodruc, ''))) as ccodruc,\n" +
-                                "    ltrim(rtrim(isnull(crazsoc, ''))) as crazsoc,\n" +
-                                "    isnull(nimportes, 0.00) as nimportes, \n" +
-                                "    isnull(nimported, 0.00) as nimported , \n" +
-                                "    ltrim(rtrim(isnull(ccodcue, ''))) as ccodcue,\n" +
-                                "    ltrim(rtrim(isnull(cglosa, ''))) as cglosa, \n" +
-                                "    ltrim(rtrim(isnull(ccodcos, ''))) as ccodcos, \n" +
-                                "    ltrim(rtrim(isnull(ccodcos2, ''))) as ccodcos2, \n" +
-                                "    isnull(nporre, 0.00) as nporre, \n" +
-                                "    isnull(nimpperc, 0.00) as nimpperc, \n" +
-                                "    isnull(nperdenre, 0.00) as nperdenre, \n" +
-                                "    ltrim(rtrim(isnull(cserre, ''))) as cserre, \n" +
-                                "    ltrim(rtrim(isnull(cnumre, ''))) as cnumre, \n" +
-                                "    ltrim(rtrim(Convert(char(10), ffecre, 112))) as ffecre,  \n" +
-                                "    case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end as estado ,    \n" +
-                                "    isnull(en_ambiente_de, '!') as en_ambiente_de,    \n" +
-                                "    isnull(es_con_migracion, 0) as es_con_migracion,   \n" +
-                                "    case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3,  \n" +
-                                "    case when es_con_migracion = 3  then ltrim(rtrim(configuracion.cEnt_anula))  else '' end as ccodrucanula \n" +
-                                "    From fin_pagos \n" +
-                                "    INNER JOIN configuracion ON fin_pagos.CCOD_EMPRESA = CONFIGURACION.CCOD_EMPRESA AND fin_pagos.CPER = configuracion.CPER \n" +
-                                "    inner join CG_EMPRESA emp on fin_pagos.ccodrucemisor = emp.ccodrucemisor and fin_pagos.ccod_empresa = emp.CCOD_EMPRESA \n" +
-                                "    inner join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1 \n" +
-                                "    Where fin_pagos.ccodrucemisor = @prucEmisor  and fin_pagos.CCOD_EMPRESA = @empresa and es_con_migracion in (0, 3) AND CONFIGURACION.CTIPO = '03' \n" +
-                                "    for json path \n" +
-                                "    END   ";
-            respuesta = obj.crear_procedimiento(NombreSP, Query);
-            txtMensaje.Text = "" + respuesta;
-            #endregion
-            #region cobranza_envio_resultado
-            NombreSP = "sp_cobranza_envio_resultado";
-            Query = "CREATE PROCEDURE sp_cobranza_envio_resultado  \n" +
+            #region cobranzapagos_envio_resultado
+            this.barraprogreso();
+            NombreSP = "sp_cobranzapago_envio_resultado";
+            Query = "CREATE PROCEDURE sp_cobranzapago_envio_resultado  \n" +
                         " @resultado NVARCHAR(MAX) \n" +
                         " AS \n" +
                         " BEGIN \n" +
@@ -749,55 +747,115 @@ namespace Contasis
                         "SET  \n" +
                         " t.es_con_migracion = r.resultado_migracion,	\n" +
                         " t.obserror = r.obserror  \n" +
-                        " FROM fin_cobranza t \n" +
+                        " FROM fin_cobranzapago t \n" +
                         " JOIN OPENJSON(@resultado) \n" +
                         "            \n" +
                         "WITH(    \n" +
-                        "idcobranza INT,  \n" +
+                        "idcobranzapago INT,  \n" +
                         "obserror NVARCHAR(MAX),  \n" +
                         "es_con_migracion INT,  \n" +
                         "resultado_migracion INT  \n" +
                         ") AS r  \n" +
-                        "ON t.idcobranza = r.idcobranza and t.es_con_migracion = r.es_con_migracion;   \n" +
+                        "ON t.idcobranzapago = r.idcobranzapago and t.es_con_migracion = r.es_con_migracion;   \n" +
                         "END   ";
 
             respuesta = obj.crear_procedimiento(NombreSP, Query);
-            txtMensaje.Text = "" + respuesta;
-            #endregion
-            #region pagos_envio_resultado
-            NombreSP = "sp_pagos_envio_resultado";
-            Query = "CREATE PROCEDURE sp_pagos_envio_resultado  \n" +
-                        " @resultado NVARCHAR(MAX) \n" +
-                        " AS \n" +
-                        " BEGIN \n" +
-                        " UPDATE t \n" +
-                        "        \n" +
-                        "SET  \n" +
-                        " t.es_con_migracion = r.resultado_migracion,	\n" +
-                        " t.obserror = r.obserror  \n" +
-                        " FROM fin_pagos t \n" +
-                        " JOIN OPENJSON(@resultado) \n" +
-                        "            \n" +
-                        "WITH(    \n" +
-                        "idpagos INT,  \n" +
-                        "obserror NVARCHAR(MAX),  \n" +
-                        "es_con_migracion INT,  \n" +
-                        "resultado_migracion INT  \n" +
-                        ") AS r  \n" +
-                        "ON t.idpagos = r.idpagos and t.es_con_migracion = r.es_con_migracion;   \n" +
-                        "END   ";
-
-            respuesta = obj.crear_procedimiento(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
 
+
+
+            /*   #region envio_pagos
+               NombreSP = "sp_pagos_envio";
+               Query = " CREATE PROCEDURE sp_pagos_envio  \n" +
+                                   " @prucEmisor char(15), \n" +
+                                   "  @empresa char(3)  \n" +
+                                   "  AS  \n" +
+                                   "  BEGIN  \n" +
+                                   "    Select  idpagos,fin_pagos.ccod_empresa,fin_pagos.cper,cmes, \n" +
+                                   "    ltrim(rtrim(CONFIGURACION.csub1_com)) AS ccodori,\n" +
+                                   "    ltrim(rtrim(CONFIGURACION.clreg1_com)) AS ccodsu,\n" +
+                                   "    ltrim(rtrim(CONFIGURACION.cfefec_com)) AS ccodflu,\n" +
+                                   "    ltrim(rtrim(Convert(char(10), ffechacan, 112))) as ffechacan,    \n" +
+                                   "    ltrim(rtrim(isnull(cdoccan, ''))) as cdoccan,  \n" +
+                                   "    ltrim(rtrim(isnull(csercan, ''))) as csercan,  \n" +
+                                   "    ltrim(rtrim(isnull(cnumcan, ''))) as cdoccan,    \n" +
+                                   "    ltrim(rtrim(isnull(ccuecan, ''))) as ccuecan,    \n" +
+                                   "    ltrim(rtrim(isnull(cmoncan, ''))) as cmoncan,      \n" +
+                                   "    isnull(nimporcan, 0.00) as nimporcan, \n" +
+                                   "    isnull(ntipcam, 0.00) as ntipcam ,\n" +
+                                   "    ltrim(rtrim(isnull(ccodpago, ''))) as ccodpago, \n" +
+                                   "    ltrim(rtrim(isnull(ccoddoc, ''))) as ccoddoc,\n" +
+                                   "    ltrim(rtrim(isnull(cserie, ''))) as cserie,\n" +
+                                   "    ltrim(rtrim(isnull(cnumero, ''))) as cnumero,\n" +
+                                   "    ltrim(rtrim(Convert(char(10), ffechadoc, 112))) as ffechadoc,  \n" +
+                                   "    ltrim(rtrim(Convert(char(10), ffechaven, 112))) as ffechaven,  \n" +
+                                   "    ltrim(rtrim(isnull(ccodenti, ''))) as ccodenti,\n" +
+                                   "    ltrim(rtrim(isnull(ccodruc, ''))) as ccodruc,\n" +
+                                   "    ltrim(rtrim(isnull(crazsoc, ''))) as crazsoc,\n" +
+                                   "    isnull(nimportes, 0.00) as nimportes, \n" +
+                                   "    isnull(nimported, 0.00) as nimported , \n" +
+                                   "    ltrim(rtrim(isnull(ccodcue, ''))) as ccodcue,\n" +
+                                   "    ltrim(rtrim(isnull(cglosa, ''))) as cglosa, \n" +
+                                   "    ltrim(rtrim(isnull(ccodcos, ''))) as ccodcos, \n" +
+                                   "    ltrim(rtrim(isnull(ccodcos2, ''))) as ccodcos2, \n" +
+                                   "    isnull(nporre, 0.00) as nporre, \n" +
+                                   "    isnull(nimpperc, 0.00) as nimpperc, \n" +
+                                   "    isnull(nperdenre, 0.00) as nperdenre, \n" +
+                                   "    ltrim(rtrim(isnull(cserre, ''))) as cserre, \n" +
+                                   "    ltrim(rtrim(isnull(cnumre, ''))) as cnumre, \n" +
+                                   "    ltrim(rtrim(Convert(char(10), ffecre, 112))) as ffecre,  \n" +
+                                   "    case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end as estado ,    \n" +
+                                   "    isnull(en_ambiente_de, '!') as en_ambiente_de,    \n" +
+                                   "    isnull(es_con_migracion, 0) as es_con_migracion,   \n" +
+                                   "    case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3,  \n" +
+                                   "    case when es_con_migracion = 3  then ltrim(rtrim(configuracion.cEnt_anula))  else '' end as ccodrucanula \n" +
+                                   "    From fin_pagos \n" +
+                                   "    INNER JOIN configuracion ON fin_pagos.CCOD_EMPRESA = CONFIGURACION.CCOD_EMPRESA AND fin_pagos.CPER = configuracion.CPER \n" +
+                                   "    inner join CG_EMPRESA emp on fin_pagos.ccodrucemisor = emp.ccodrucemisor and fin_pagos.ccod_empresa = emp.CCOD_EMPRESA \n" +
+                                   "    inner join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1 \n" +
+                                   "    Where fin_pagos.ccodrucemisor = @prucEmisor  and fin_pagos.CCOD_EMPRESA = @empresa and es_con_migracion in (0, 3) AND CONFIGURACION.CTIPO = '03' \n" +
+                                   "    for json path \n" +
+                                   "    END   ";
+               respuesta = obj.crear_procedimiento(NombreSP, Query);
+               txtMensaje.Text = "" + respuesta;
+               #endregion */
+
+            /* #region pagos_envio_resultado
+             NombreSP = "sp_pagos_envio_resultado";
+             Query = "CREATE PROCEDURE sp_pagos_envio_resultado  \n" +
+                         " @resultado NVARCHAR(MAX) \n" +
+                         " AS \n" +
+                         " BEGIN \n" +
+                         " UPDATE t \n" +
+                         "        \n" +
+                         "SET  \n" +
+                         " t.es_con_migracion = r.resultado_migracion,	\n" +
+                         " t.obserror = r.obserror  \n" +
+                         " FROM fin_pagos t \n" +
+                         " JOIN OPENJSON(@resultado) \n" +
+                         "            \n" +
+                         "WITH(    \n" +
+                         "idpagos INT,  \n" +
+                         "obserror NVARCHAR(MAX),  \n" +
+                         "es_con_migracion INT,  \n" +
+                         "resultado_migracion INT  \n" +
+                         ") AS r  \n" +
+                         "ON t.idpagos = r.idpagos and t.es_con_migracion = r.es_con_migracion;   \n" +
+                         "END   ";
+
+             respuesta = obj.crear_procedimiento(NombreSP, Query);
+             txtMensaje.Text = "" + respuesta;
+             #endregion */
+            
         }
         /*********************************************************************************************************************/
         private void proceso_postgresl()
         {
             Clase.Estructura_postgres obj = new Clase.Estructura_postgres();
             #region fin_ventas
-
+            this.barraprogreso();
             NombreTable = "fin_ventas";
             Query = "create sequence sec_id_ventas minvalue 1 maxvalue 9999999999 increment by 1 "+
              " CREATE TABLE fin_ventas( "+
@@ -864,11 +922,12 @@ namespace Contasis
 
             string respuesta = "";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
             #endregion
             #region fin_compras
-
+            this.barraprogreso();
             NombreTable = "fin_compras";
             Query = " create sequence sec_id_compras minvalue 1 maxvalue 9999999999 increment by 1 ;"+
                     " CREATE TABLE fin_compras("+
@@ -941,10 +1000,12 @@ namespace Contasis
                     " PRIMARY KEY(idcompras)); ";
 
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
             #endregion
             #region fin_cobranzas
+            this.barraprogreso();
             NombreTable = "create sequence sec_idcobranzas minvalue 1 maxvalue 9999999999 increment by 1 " +
             "  CREATE TABLE fin_cobranzas( " +
             "  idcobranzas numeric(20,0), " +
@@ -988,61 +1049,63 @@ namespace Contasis
             "  es_con_migracion numeric(1, 0) NULL, " +
             "  ccodcos3 character(15) NOT NULL DEFAULT ''::bpchar )";
             respuesta = obj.crear_tablas(NombreTable, Query);
-            txtMensaje.Text = "" + respuesta;
-
-            #endregion   
-            #region fin_pagos
-
-            NombreTable = "fin_pagos";
-            Query = "create sequence sec_idpagos minvalue 1 maxvalue 9999999999 increment by 1 " +
-            "  CREATE TABLE fin_pagos( " +
-            "  idpagos numeric(20,0), " +
-            "  ccodrucemisor character(15) NOT NULL DEFAULT ''::bpchar, " +
-            "  ccod_empresa character(3), " +
-            "  cper character(4), " +
-            "  cmes character(2), " +
-            "  cdoccan character(2) NOT NULL DEFAULT ''::bpchar, " +
-            "  csercan character(20) NOT NULL DEFAULT ''::bpchar, " +
-            "  cnumcan character(20) NOT NULL DEFAULT ''::bpchar, " +
-            "  ccuecan character(20) NOT NULL DEFAULT ''::bpchar, " +
-            "  cmoncan character(1) NOT NULL DEFAULT ''::bpchar, " +
-            "  nimporcan numeric(15,2) NOT NULL DEFAULT 0, " +
-            "  ntipcam numeric(10,6) NOT NULL DEFAULT 0, " +
-            "  ccodpago character(3) NOT NULL DEFAULT ''::bpchar, " +
-            "  ccoddoc character(2) NOT NULL DEFAULT ''::bpchar, " +
-            "  cserie character(20) NOT NULL DEFAULT ''::bpchar, " +
-            "  cnumero character(20) NOT NULL DEFAULT ''::bpchar, " +
-            "  ffechadoc date, " +
-            "  ffechaven date, " +
-            "  ccodruc character(15) NOT NULL DEFAULT ''::bpchar, " +
-            "  crazsoc character(150) NOT NULL DEFAULT ''::bpchar, " +
-            "  nimportes numeric(15,2) NOT NULL DEFAULT 0, " +
-            "  nimported numeric(15,2) NOT NULL DEFAULT 0, " +
-            "  ccodcue character(20) NOT NULL DEFAULT ''::bpchar, " +
-            "  cglosa text, " +
-            "  ccodcos character(15) NOT NULL DEFAULT ''::bpchar, " +
-            "  ccodcos2 character(15) NOT NULL DEFAULT ''::bpchar, " +
-            "  nporre numeric(5,2) NOT NULL DEFAULT 0, " +
-            "  nimpperc numeric(15,2) NOT NULL DEFAULT 0, " +
-            "  nperdenre numeric(1,0) NOT NULL DEFAULT 0, " +
-            "  cserre character(6) NOT NULL DEFAULT ''::bpchar, " +
-            "  cnumre character(13) NOT NULL DEFAULT ''::bpchar, " +
-            "  ffecre date, " +
-            "  obserror text, " +
-            "  resultado_migracion numeric(1,0), " +
-            "  created_at date, " +
-            "  updated_at date , " +
-            "  estado character(255) NOT NULL DEFAULT ''::bpchar, " +
-            "  en_ambiente_de character(255) NOT NULL DEFAULT ''::bpchar, " +
-            "  es_con_migracion numeric(1, 0) NULL, " +
-            "  ccodcos3 character(15) NOT NULL DEFAULT ''::bpchar )";
-
-            respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
             #endregion
-            #region ruc_emisor
+            /*   #region fin_pagos
 
+               NombreTable = "fin_pagos";
+               Query = "create sequence sec_idpagos minvalue 1 maxvalue 9999999999 increment by 1 " +
+               "  CREATE TABLE fin_pagos( " +
+               "  idpagos numeric(20,0), " +
+               "  ccodrucemisor character(15) NOT NULL DEFAULT ''::bpchar, " +
+               "  ccod_empresa character(3), " +
+               "  cper character(4), " +
+               "  cmes character(2), " +
+               "  cdoccan character(2) NOT NULL DEFAULT ''::bpchar, " +
+               "  csercan character(20) NOT NULL DEFAULT ''::bpchar, " +
+               "  cnumcan character(20) NOT NULL DEFAULT ''::bpchar, " +
+               "  ccuecan character(20) NOT NULL DEFAULT ''::bpchar, " +
+               "  cmoncan character(1) NOT NULL DEFAULT ''::bpchar, " +
+               "  nimporcan numeric(15,2) NOT NULL DEFAULT 0, " +
+               "  ntipcam numeric(10,6) NOT NULL DEFAULT 0, " +
+               "  ccodpago character(3) NOT NULL DEFAULT ''::bpchar, " +
+               "  ccoddoc character(2) NOT NULL DEFAULT ''::bpchar, " +
+               "  cserie character(20) NOT NULL DEFAULT ''::bpchar, " +
+               "  cnumero character(20) NOT NULL DEFAULT ''::bpchar, " +
+               "  ffechadoc date, " +
+               "  ffechaven date, " +
+               "  ccodruc character(15) NOT NULL DEFAULT ''::bpchar, " +
+               "  crazsoc character(150) NOT NULL DEFAULT ''::bpchar, " +
+               "  nimportes numeric(15,2) NOT NULL DEFAULT 0, " +
+               "  nimported numeric(15,2) NOT NULL DEFAULT 0, " +
+               "  ccodcue character(20) NOT NULL DEFAULT ''::bpchar, " +
+               "  cglosa text, " +
+               "  ccodcos character(15) NOT NULL DEFAULT ''::bpchar, " +
+               "  ccodcos2 character(15) NOT NULL DEFAULT ''::bpchar, " +
+               "  nporre numeric(5,2) NOT NULL DEFAULT 0, " +
+               "  nimpperc numeric(15,2) NOT NULL DEFAULT 0, " +
+               "  nperdenre numeric(1,0) NOT NULL DEFAULT 0, " +
+               "  cserre character(6) NOT NULL DEFAULT ''::bpchar, " +
+               "  cnumre character(13) NOT NULL DEFAULT ''::bpchar, " +
+               "  ffecre date, " +
+               "  obserror text, " +
+               "  resultado_migracion numeric(1,0), " +
+               "  created_at date, " +
+               "  updated_at date , " +
+               "  estado character(255) NOT NULL DEFAULT ''::bpchar, " +
+               "  en_ambiente_de character(255) NOT NULL DEFAULT ''::bpchar, " +
+               "  es_con_migracion numeric(1, 0) NULL, " +
+               "  ccodcos3 character(15) NOT NULL DEFAULT ''::bpchar )";
+
+               respuesta = obj.crear_tablas(NombreTable, Query);
+               txtMensaje.Text = "" + respuesta;
+
+               #endregion */
+
+            #region ruc_emisor
+            this.barraprogreso();
             NombreTable = "cg_empemisor";
             Query = "CREATE TABLE cg_empemisor(" +
             " ccodrucemisor char(15) NOT NULL, " +
@@ -1050,11 +1113,12 @@ namespace Contasis
             " flgActivo bit NULL," +
             " PRIMARY KEY(ccodrucemisor) ); ";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
             #endregion
             #region empresa
-
+            this.barraprogreso();
             NombreTable = "cg_empresa";
             Query = "CREATE TABLE cg_empresa(" +
             "  ccodrucemisor char(15) NULL," +
@@ -1062,9 +1126,11 @@ namespace Contasis
             "  nomempresa char(80) NULL, " +
             "  PRIMARY KEY(ccodrucemisor, ccod_empresa) );";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region usuarios
+            this.barraprogreso();
             NombreTable = "cg_usuario";
             Query = "CREATE TABLE cg_usuario(  " +
                     " ccodusu char(10) NOT NULL," +
@@ -1074,9 +1140,11 @@ namespace Contasis
                     " PRIMARY KEY(ccodusu));";
 
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region configuracion
+            this.barraprogreso();
             NombreTable = "configuracion";
             Query = "CREATE TABLE configuracion( "+
             " ccod_empresa char(3) NULL, " +
@@ -1109,32 +1177,40 @@ namespace Contasis
 	        " cTipo char(2) NULL,"+
             " cEnt_anula char(15) NULL);";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region modulos
+            this.barraprogreso();
             NombreTable = "cg_modulos";
             Query = "CREATE TABLE cg_modulos( " +
                     " ccodmod char(10) NULL," +
                     " cdesmod char(100) NULL) ;";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region acceso_usuario
+            this.barraprogreso();
             NombreTable = " CREATE TABLE cg_usuario_acceso( "+
             " ccodusu char(10) NOT NULL,"+
             " ccodmod char(10) NOT NULL,"+
             " flgacceso numeric(1, 0) NULL);";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region version
+            this.barraprogreso();
             NombreTable = "cg_version";
             Query = txtversion.Text;
 
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region log
+            this.barraprogreso();
             NombreTable = "cg_log";
             Query = "create sequence sec_id_log minvalue 1 maxvalue 9999999999 increment by 1 ;" +
             " CREATE TABLE cg_log( " +
@@ -1144,45 +1220,55 @@ namespace Contasis
             " fechahora date NULL," +
             " PRIMARY KEY(id));"; 
             respuesta = obj.crear_tablas(NombreTable, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
 
             //Area para Agregar Nuevos Campos a la tabla////
             #region campos_para_ventas
+            this.barraprogreso();
             NombreTable = "fin_ventas";
             Nombrecampo = "cubigeo";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " nchar(6) not null default '';";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region campos_para_compras
+            this.barraprogreso();
             NombreTable = "fin_comparas";
             Nombrecampo = "cubigeo";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " nchar(6) not null default '';";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region campos_para_rucemiso
+            this.barraprogreso();
             NombreTable = "cg_empemisor";
             Nombrecampo = "nventaflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
-
+            this.barraprogreso();
             Nombrecampo = "ncompraflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
-
+            this.barraprogreso();
             Nombrecampo = "ncobranzaflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
-
+            this.barraprogreso();
             Nombrecampo = "npagoflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
 
 
@@ -1191,6 +1277,7 @@ namespace Contasis
 
             //Area para crear o actualizar function en postgresql == Todo de empezar con create porque primero se borrar y se vuelve a crear  ////
             #region version
+            this.barraprogreso();
             NombreSP = "fn_select_version";
             Query = " CREATE OR REPLACE FUNCTION fn_select_version() \n" +
                     " ETURNS table(cversion character) AS  \n" +
@@ -1202,9 +1289,11 @@ namespace Contasis
                     " LANGUAGE plpgsql VOLATILE  \n" +
                     " COST 100; ";
             respuesta = obj.crear_funcion(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region version_actualiza
+            this.barraprogreso();
             NombreSP = "fn_actualizar_version";
             Query = "CREATE OR REPLACE FUNCTION fn_actualizar_version(in p_version character(15))  \n" +
                     " RETURNS void AS  \n" +
@@ -1221,9 +1310,11 @@ namespace Contasis
                     " LANGUAGE plpgsql VOLATILE  \n" +
                     " COST 100;  ";
             respuesta = obj.crear_funcion(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region compras_envio_resultado
+            this.barraprogreso();
             NombreSP = "fn_compras_envio_resultado";
             Query =  "CREATE OR REPLACE FUNCTION fn_compras_envio_resultado(p_datos text)  \n" +
                     " RETURNS void AS  \n" +
@@ -1244,9 +1335,11 @@ namespace Contasis
                     " LANGUAGE plpgsql VOLATILE  \n" +
                     " COST 100; ";
             respuesta = obj.crear_funcion(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region envio_compras
+            this.barraprogreso();
             NombreSP = "fn_compras_envio";
             Query = "CREATE OR REPLACE FUNCTION fn_compras_envio( \n" +
                     " OUT resultado text,   \n" +
@@ -1349,9 +1442,11 @@ namespace Contasis
                     " ALTER FUNCTION fn_compras_envio(character, character)  \n" +
                     " OWNER TO postgres;  ";
             respuesta = obj.crear_funcion(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region ventas_envio_resultado
+            this.barraprogreso();
             NombreSP = "fn_ventas_envio_resultado";
             Query = " CREATE OR REPLACE FUNCTION fn_ventas_envio_resultado(p_datos text) \n" +
                     " RETURNS void AS \n" +
@@ -1374,9 +1469,11 @@ namespace Contasis
                     " ALTER FUNCTION fn_ventas_envio_resultado(text)  \n" +
                     " OWNER TO postgres; ";
             respuesta = obj.crear_funcion(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region envio_ventas
+            this.barraprogreso();
             NombreSP = "fn_ventas_envio";
             Query = " CREATE OR REPLACE FUNCTION fn_ventas_envio(  \n" +
                     "    OUT resultado text,  \n" +
@@ -1472,12 +1569,11 @@ namespace Contasis
             "    ALTER FUNCTION fn_ventas_envio(character, character)   \n" +
             " OWNER TO postgres; ";
             respuesta = obj.crear_funcion(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
-
-
-
             #region envio_cobranza
+            this.barraprogreso();
             NombreSP = "sp_cobranza_envio";
             Query = " CREATE PROCEDURE sp_cobranza_envio  \n" +
                                 " @prucEmisor char(15), \n" +
@@ -1530,64 +1626,11 @@ namespace Contasis
                                 "    for json path \n" +
                                 "    END   ";
             respuesta = obj.crear_funcion(NombreSP, Query);
-            txtMensaje.Text = "" + respuesta;
-            #endregion
-            #region envio_pagos
-            NombreSP = "sp_pagos_envio";
-            Query = " CREATE PROCEDURE sp_pagos_envio  \n" +
-                                " @prucEmisor char(15), \n" +
-                                "  @empresa char(3)  \n" +
-                                "  AS  \n" +
-                                "  BEGIN  \n" +
-                                "    Select  idpagos,fin_pagos.ccod_empresa,fin_pagos.cper,cmes, \n" +
-                                "    ltrim(rtrim(CONFIGURACION.csub1_com)) AS ccodori,\n" +
-                                "    ltrim(rtrim(CONFIGURACION.clreg1_com)) AS ccodsu,\n" +
-                                "    ltrim(rtrim(CONFIGURACION.cfefec_com)) AS ccodflu,\n" +
-                                "    ltrim(rtrim(Convert(char(10), ffechacan, 112))) as ffechacan,    \n" +
-                                "    ltrim(rtrim(isnull(cdoccan, ''))) as cdoccan,  \n" +
-                                "    ltrim(rtrim(isnull(csercan, ''))) as csercan,  \n" +
-                                "    ltrim(rtrim(isnull(cnumcan, ''))) as cdoccan,    \n" +
-                                "    ltrim(rtrim(isnull(ccuecan, ''))) as ccuecan,    \n" +
-                                "    ltrim(rtrim(isnull(cmoncan, ''))) as cmoncan,      \n" +
-                                "    isnull(nimporcan, 0.00) as nimporcan, \n" +
-                                "    isnull(ntipcam, 0.00) as ntipcam ,\n" +
-                                "    ltrim(rtrim(isnull(ccodpago, ''))) as ccodpago, \n" +
-                                "    ltrim(rtrim(isnull(ccoddoc, ''))) as ccoddoc,\n" +
-                                "    ltrim(rtrim(isnull(cserie, ''))) as cserie,\n" +
-                                "    ltrim(rtrim(isnull(cnumero, ''))) as cnumero,\n" +
-                                "    ltrim(rtrim(Convert(char(10), ffechadoc, 112))) as ffechadoc,  \n" +
-                                "    ltrim(rtrim(Convert(char(10), ffechaven, 112))) as ffechaven,  \n" +
-                                "    ltrim(rtrim(isnull(ccodenti, ''))) as ccodenti,\n" +
-                                "    ltrim(rtrim(isnull(ccodruc, ''))) as ccodruc,\n" +
-                                "    ltrim(rtrim(isnull(crazsoc, ''))) as crazsoc,\n" +
-                                "    isnull(nimportes, 0.00) as nimportes, \n" +
-                                "    isnull(nimported, 0.00) as nimported , \n" +
-                                "    ltrim(rtrim(isnull(ccodcue, ''))) as ccodcue,\n" +
-                                "    ltrim(rtrim(isnull(cglosa, ''))) as cglosa, \n" +
-                                "    ltrim(rtrim(isnull(ccodcos, ''))) as ccodcos, \n" +
-                                "    ltrim(rtrim(isnull(ccodcos2, ''))) as ccodcos2, \n" +
-                                "    isnull(nporre, 0.00) as nporre, \n" +
-                                "    isnull(nimpperc, 0.00) as nimpperc, \n" +
-                                "    isnull(nperdenre, 0.00) as nperdenre, \n" +
-                                "    ltrim(rtrim(isnull(cserre, ''))) as cserre, \n" +
-                                "    ltrim(rtrim(isnull(cnumre, ''))) as cnumre, \n" +
-                                "    ltrim(rtrim(Convert(char(10), ffecre, 112))) as ffecre,  \n" +
-                                "    case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end as estado ,    \n" +
-                                "    isnull(en_ambiente_de, '!') as en_ambiente_de,    \n" +
-                                "    isnull(es_con_migracion, 0) as es_con_migracion,   \n" +
-                                "    case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3,  \n" +
-                                "    case when es_con_migracion = 3  then ltrim(rtrim(configuracion.cEnt_anula))  else '' end as ccodrucanula \n" +
-                                "    From fin_pagos \n" +
-                                "    INNER JOIN configuracion ON fin_pagos.CCOD_EMPRESA = CONFIGURACION.CCOD_EMPRESA AND fin_pagos.CPER = configuracion.CPER \n" +
-                                "    inner join CG_EMPRESA emp on fin_pagos.ccodrucemisor = emp.ccodrucemisor and fin_pagos.ccod_empresa = emp.CCOD_EMPRESA \n" +
-                                "    inner join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1 \n" +
-                                "    Where fin_pagos.ccodrucemisor = @prucEmisor  and fin_pagos.CCOD_EMPRESA = @empresa and es_con_migracion in (0, 3) AND CONFIGURACION.CTIPO = '03' \n" +
-                                "    for json path \n" +
-                                "    END   ";
-            respuesta = obj.crear_funcion(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region cobranza_envio_resultado
+            this.barraprogreso();
             NombreSP = "sp_cobranza_envio_resultado";
             Query = "CREATE PROCEDURE sp_cobranza_envio_resultado  \n" +
                         " @resultado NVARCHAR(MAX) \n" +
@@ -1611,39 +1654,11 @@ namespace Contasis
                         "END   ";
 
             respuesta = obj.crear_funcion(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
-            #region pagos_envio_resultado
-            NombreSP = "sp_pagos_envio_resultado";
-            Query = "CREATE PROCEDURE sp_pagos_envio_resultado  \n" +
-                        " @resultado NVARCHAR(MAX) \n" +
-                        " AS \n" +
-                        " BEGIN \n" +
-                        " UPDATE t \n" +
-                        "        \n" +
-                        "SET  \n" +
-                        " t.es_con_migracion = r.resultado_migracion,	\n" +
-                        " t.obserror = r.obserror  \n" +
-                        " FROM fin_pagos t \n" +
-                        " JOIN OPENJSON(@resultado) \n" +
-                        "            \n" +
-                        "WITH(    \n" +
-                        "idpagos INT,  \n" +
-                        "obserror NVARCHAR(MAX),  \n" +
-                        "es_con_migracion INT,  \n" +
-                        "resultado_migracion INT  \n" +
-                        ") AS r  \n" +
-                        "ON t.idpagos = r.idpagos and t.es_con_migracion = r.es_con_migracion;   \n" +
-                        "END   ";
-
-            respuesta = obj.crear_funcion(NombreSP, Query);
-            txtMensaje.Text = "" + respuesta;
-            #endregion
-
-            
-            
-            
             #region envio_cobranza
+            this.barraprogreso();
             NombreSP = "sp_cobranza_envio";
             Query = " CREATE PROCEDURE sp_cobranza_envio  \n" +
                                 " @prucEmisor char(15), \n" +
@@ -1696,64 +1711,11 @@ namespace Contasis
                                 "    for json path \n" +
                                 "    END   ";
             respuesta = obj.crear_funcion(NombreSP, Query);
-            txtMensaje.Text = "" + respuesta;
-            #endregion
-            #region envio_pagos
-            NombreSP = "sp_pagos_envio";
-            Query = " CREATE PROCEDURE sp_pagos_envio  \n" +
-                                " @prucEmisor char(15), \n" +
-                                "  @empresa char(3)  \n" +
-                                "  AS  \n" +
-                                "  BEGIN  \n" +
-                                "    Select  idpagos,fin_pagos.ccod_empresa,fin_pagos.cper,cmes, \n" +
-                                "    ltrim(rtrim(CONFIGURACION.csub1_com)) AS ccodori,\n" +
-                                "    ltrim(rtrim(CONFIGURACION.clreg1_com)) AS ccodsu,\n" +
-                                "    ltrim(rtrim(CONFIGURACION.cfefec_com)) AS ccodflu,\n" +
-                                "    ltrim(rtrim(Convert(char(10), ffechacan, 112))) as ffechacan,    \n" +
-                                "    ltrim(rtrim(isnull(cdoccan, ''))) as cdoccan,  \n" +
-                                "    ltrim(rtrim(isnull(csercan, ''))) as csercan,  \n" +
-                                "    ltrim(rtrim(isnull(cnumcan, ''))) as cdoccan,    \n" +
-                                "    ltrim(rtrim(isnull(ccuecan, ''))) as ccuecan,    \n" +
-                                "    ltrim(rtrim(isnull(cmoncan, ''))) as cmoncan,      \n" +
-                                "    isnull(nimporcan, 0.00) as nimporcan, \n" +
-                                "    isnull(ntipcam, 0.00) as ntipcam ,\n" +
-                                "    ltrim(rtrim(isnull(ccodpago, ''))) as ccodpago, \n" +
-                                "    ltrim(rtrim(isnull(ccoddoc, ''))) as ccoddoc,\n" +
-                                "    ltrim(rtrim(isnull(cserie, ''))) as cserie,\n" +
-                                "    ltrim(rtrim(isnull(cnumero, ''))) as cnumero,\n" +
-                                "    ltrim(rtrim(Convert(char(10), ffechadoc, 112))) as ffechadoc,  \n" +
-                                "    ltrim(rtrim(Convert(char(10), ffechaven, 112))) as ffechaven,  \n" +
-                                "    ltrim(rtrim(isnull(ccodenti, ''))) as ccodenti,\n" +
-                                "    ltrim(rtrim(isnull(ccodruc, ''))) as ccodruc,\n" +
-                                "    ltrim(rtrim(isnull(crazsoc, ''))) as crazsoc,\n" +
-                                "    isnull(nimportes, 0.00) as nimportes, \n" +
-                                "    isnull(nimported, 0.00) as nimported , \n" +
-                                "    ltrim(rtrim(isnull(ccodcue, ''))) as ccodcue,\n" +
-                                "    ltrim(rtrim(isnull(cglosa, ''))) as cglosa, \n" +
-                                "    ltrim(rtrim(isnull(ccodcos, ''))) as ccodcos, \n" +
-                                "    ltrim(rtrim(isnull(ccodcos2, ''))) as ccodcos2, \n" +
-                                "    isnull(nporre, 0.00) as nporre, \n" +
-                                "    isnull(nimpperc, 0.00) as nimpperc, \n" +
-                                "    isnull(nperdenre, 0.00) as nperdenre, \n" +
-                                "    ltrim(rtrim(isnull(cserre, ''))) as cserre, \n" +
-                                "    ltrim(rtrim(isnull(cnumre, ''))) as cnumre, \n" +
-                                "    ltrim(rtrim(Convert(char(10), ffecre, 112))) as ffecre,  \n" +
-                                "    case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end as estado ,    \n" +
-                                "    isnull(en_ambiente_de, '!') as en_ambiente_de,    \n" +
-                                "    isnull(es_con_migracion, 0) as es_con_migracion,   \n" +
-                                "    case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3,  \n" +
-                                "    case when es_con_migracion = 3  then ltrim(rtrim(configuracion.cEnt_anula))  else '' end as ccodrucanula \n" +
-                                "    From fin_pagos \n" +
-                                "    INNER JOIN configuracion ON fin_pagos.CCOD_EMPRESA = CONFIGURACION.CCOD_EMPRESA AND fin_pagos.CPER = configuracion.CPER \n" +
-                                "    inner join CG_EMPRESA emp on fin_pagos.ccodrucemisor = emp.ccodrucemisor and fin_pagos.ccod_empresa = emp.CCOD_EMPRESA \n" +
-                                "    inner join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1 \n" +
-                                "    Where fin_pagos.ccodrucemisor = @prucEmisor  and fin_pagos.CCOD_EMPRESA = @empresa and es_con_migracion in (0, 3) AND CONFIGURACION.CTIPO = '03' \n" +
-                                "    for json path \n" +
-                                "    END   ";
-            respuesta = obj.crear_funcion(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
             #region cobranza_envio_resultado
+            this.barraprogreso();
             NombreSP = "fn_cobranzas_envio_resultado";
             Query = " CREATE OR REPLACE FUNCTION fn_cobranzas_envio_resultado(p_datos text) \n" +
                     " RETURNS void AS  \n" +
@@ -1775,11 +1737,70 @@ namespace Contasis
                     " COST 100;  \n" +
                     " ALTER FUNCTION fn_cobranzas_envio_resultado(text)  \n" +
                     " OWNER TO postgres;  ";
-             respuesta = obj.crear_funcion(NombreSP, Query);
+            respuesta = obj.crear_funcion(NombreSP, Query);
+            txtMensaje.Refresh();
             txtMensaje.Text = "" + respuesta;
             #endregion
 
-            #region pagos_envio_resultado
+
+            /*    #region envio_pagos
+                NombreSP = "sp_pagos_envio";
+                Query = " CREATE PROCEDURE sp_pagos_envio  \n" +
+                                    " @prucEmisor char(15), \n" +
+                                    "  @empresa char(3)  \n" +
+                                    "  AS  \n" +
+                                    "  BEGIN  \n" +
+                                    "    Select  idpagos,fin_pagos.ccod_empresa,fin_pagos.cper,cmes, \n" +
+                                    "    ltrim(rtrim(CONFIGURACION.csub1_com)) AS ccodori,\n" +
+                                    "    ltrim(rtrim(CONFIGURACION.clreg1_com)) AS ccodsu,\n" +
+                                    "    ltrim(rtrim(CONFIGURACION.cfefec_com)) AS ccodflu,\n" +
+                                    "    ltrim(rtrim(Convert(char(10), ffechacan, 112))) as ffechacan,    \n" +
+                                    "    ltrim(rtrim(isnull(cdoccan, ''))) as cdoccan,  \n" +
+                                    "    ltrim(rtrim(isnull(csercan, ''))) as csercan,  \n" +
+                                    "    ltrim(rtrim(isnull(cnumcan, ''))) as cdoccan,    \n" +
+                                    "    ltrim(rtrim(isnull(ccuecan, ''))) as ccuecan,    \n" +
+                                    "    ltrim(rtrim(isnull(cmoncan, ''))) as cmoncan,      \n" +
+                                    "    isnull(nimporcan, 0.00) as nimporcan, \n" +
+                                    "    isnull(ntipcam, 0.00) as ntipcam ,\n" +
+                                    "    ltrim(rtrim(isnull(ccodpago, ''))) as ccodpago, \n" +
+                                    "    ltrim(rtrim(isnull(ccoddoc, ''))) as ccoddoc,\n" +
+                                    "    ltrim(rtrim(isnull(cserie, ''))) as cserie,\n" +
+                                    "    ltrim(rtrim(isnull(cnumero, ''))) as cnumero,\n" +
+                                    "    ltrim(rtrim(Convert(char(10), ffechadoc, 112))) as ffechadoc,  \n" +
+                                    "    ltrim(rtrim(Convert(char(10), ffechaven, 112))) as ffechaven,  \n" +
+                                    "    ltrim(rtrim(isnull(ccodenti, ''))) as ccodenti,\n" +
+                                    "    ltrim(rtrim(isnull(ccodruc, ''))) as ccodruc,\n" +
+                                    "    ltrim(rtrim(isnull(crazsoc, ''))) as crazsoc,\n" +
+                                    "    isnull(nimportes, 0.00) as nimportes, \n" +
+                                    "    isnull(nimported, 0.00) as nimported , \n" +
+                                    "    ltrim(rtrim(isnull(ccodcue, ''))) as ccodcue,\n" +
+                                    "    ltrim(rtrim(isnull(cglosa, ''))) as cglosa, \n" +
+                                    "    ltrim(rtrim(isnull(ccodcos, ''))) as ccodcos, \n" +
+                                    "    ltrim(rtrim(isnull(ccodcos2, ''))) as ccodcos2, \n" +
+                                    "    isnull(nporre, 0.00) as nporre, \n" +
+                                    "    isnull(nimpperc, 0.00) as nimpperc, \n" +
+                                    "    isnull(nperdenre, 0.00) as nperdenre, \n" +
+                                    "    ltrim(rtrim(isnull(cserre, ''))) as cserre, \n" +
+                                    "    ltrim(rtrim(isnull(cnumre, ''))) as cnumre, \n" +
+                                    "    ltrim(rtrim(Convert(char(10), ffecre, 112))) as ffecre,  \n" +
+                                    "    case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end as estado ,    \n" +
+                                    "    isnull(en_ambiente_de, '!') as en_ambiente_de,    \n" +
+                                    "    isnull(es_con_migracion, 0) as es_con_migracion,   \n" +
+                                    "    case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3,  \n" +
+                                    "    case when es_con_migracion = 3  then ltrim(rtrim(configuracion.cEnt_anula))  else '' end as ccodrucanula \n" +
+                                    "    From fin_pagos \n" +
+                                    "    INNER JOIN configuracion ON fin_pagos.CCOD_EMPRESA = CONFIGURACION.CCOD_EMPRESA AND fin_pagos.CPER = configuracion.CPER \n" +
+                                    "    inner join CG_EMPRESA emp on fin_pagos.ccodrucemisor = emp.ccodrucemisor and fin_pagos.ccod_empresa = emp.CCOD_EMPRESA \n" +
+                                    "    inner join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1 \n" +
+                                    "    Where fin_pagos.ccodrucemisor = @prucEmisor  and fin_pagos.CCOD_EMPRESA = @empresa and es_con_migracion in (0, 3) AND CONFIGURACION.CTIPO = '03' \n" +
+                                    "    for json path \n" +
+                                    "    END   ";
+                respuesta = obj.crear_funcion(NombreSP, Query);
+                txtMensaje.Text = "" + respuesta;
+                #endregion */
+
+
+            /*#region pagos_envio_resultado
             NombreSP = "sp_pagos_envio_resultado";
             Query = "CREATE PROCEDURE sp_pagos_envio_resultado  \n" +
                         " @resultado NVARCHAR(MAX) \n" +
@@ -1804,8 +1825,108 @@ namespace Contasis
 
             respuesta = obj.crear_funcion(NombreSP, Query);
             txtMensaje.Text = "" + respuesta;
-            #endregion
+            #endregion */
+            /*  #region envio_pagos
+              NombreSP = "sp_pagos_envio";
+              Query = " CREATE PROCEDURE sp_pagos_envio  \n" +
+                                  " @prucEmisor char(15), \n" +
+                                  "  @empresa char(3)  \n" +
+                                  "  AS  \n" +
+                                  "  BEGIN  \n" +
+                                  "    Select  idpagos,fin_pagos.ccod_empresa,fin_pagos.cper,cmes, \n" +
+                                  "    ltrim(rtrim(CONFIGURACION.csub1_com)) AS ccodori,\n" +
+                                  "    ltrim(rtrim(CONFIGURACION.clreg1_com)) AS ccodsu,\n" +
+                                  "    ltrim(rtrim(CONFIGURACION.cfefec_com)) AS ccodflu,\n" +
+                                  "    ltrim(rtrim(Convert(char(10), ffechacan, 112))) as ffechacan,    \n" +
+                                  "    ltrim(rtrim(isnull(cdoccan, ''))) as cdoccan,  \n" +
+                                  "    ltrim(rtrim(isnull(csercan, ''))) as csercan,  \n" +
+                                  "    ltrim(rtrim(isnull(cnumcan, ''))) as cdoccan,    \n" +
+                                  "    ltrim(rtrim(isnull(ccuecan, ''))) as ccuecan,    \n" +
+                                  "    ltrim(rtrim(isnull(cmoncan, ''))) as cmoncan,      \n" +
+                                  "    isnull(nimporcan, 0.00) as nimporcan, \n" +
+                                  "    isnull(ntipcam, 0.00) as ntipcam ,\n" +
+                                  "    ltrim(rtrim(isnull(ccodpago, ''))) as ccodpago, \n" +
+                                  "    ltrim(rtrim(isnull(ccoddoc, ''))) as ccoddoc,\n" +
+                                  "    ltrim(rtrim(isnull(cserie, ''))) as cserie,\n" +
+                                  "    ltrim(rtrim(isnull(cnumero, ''))) as cnumero,\n" +
+                                  "    ltrim(rtrim(Convert(char(10), ffechadoc, 112))) as ffechadoc,  \n" +
+                                  "    ltrim(rtrim(Convert(char(10), ffechaven, 112))) as ffechaven,  \n" +
+                                  "    ltrim(rtrim(isnull(ccodenti, ''))) as ccodenti,\n" +
+                                  "    ltrim(rtrim(isnull(ccodruc, ''))) as ccodruc,\n" +
+                                  "    ltrim(rtrim(isnull(crazsoc, ''))) as crazsoc,\n" +
+                                  "    isnull(nimportes, 0.00) as nimportes, \n" +
+                                  "    isnull(nimported, 0.00) as nimported , \n" +
+                                  "    ltrim(rtrim(isnull(ccodcue, ''))) as ccodcue,\n" +
+                                  "    ltrim(rtrim(isnull(cglosa, ''))) as cglosa, \n" +
+                                  "    ltrim(rtrim(isnull(ccodcos, ''))) as ccodcos, \n" +
+                                  "    ltrim(rtrim(isnull(ccodcos2, ''))) as ccodcos2, \n" +
+                                  "    isnull(nporre, 0.00) as nporre, \n" +
+                                  "    isnull(nimpperc, 0.00) as nimpperc, \n" +
+                                  "    isnull(nperdenre, 0.00) as nperdenre, \n" +
+                                  "    ltrim(rtrim(isnull(cserre, ''))) as cserre, \n" +
+                                  "    ltrim(rtrim(isnull(cnumre, ''))) as cnumre, \n" +
+                                  "    ltrim(rtrim(Convert(char(10), ffecre, 112))) as ffecre,  \n" +
+                                  "    case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end as estado ,    \n" +
+                                  "    isnull(en_ambiente_de, '!') as en_ambiente_de,    \n" +
+                                  "    isnull(es_con_migracion, 0) as es_con_migracion,   \n" +
+                                  "    case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3,  \n" +
+                                  "    case when es_con_migracion = 3  then ltrim(rtrim(configuracion.cEnt_anula))  else '' end as ccodrucanula \n" +
+                                  "    From fin_pagos \n" +
+                                  "    INNER JOIN configuracion ON fin_pagos.CCOD_EMPRESA = CONFIGURACION.CCOD_EMPRESA AND fin_pagos.CPER = configuracion.CPER \n" +
+                                  "    inner join CG_EMPRESA emp on fin_pagos.ccodrucemisor = emp.ccodrucemisor and fin_pagos.ccod_empresa = emp.CCOD_EMPRESA \n" +
+                                  "    inner join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1 \n" +
+                                  "    Where fin_pagos.ccodrucemisor = @prucEmisor  and fin_pagos.CCOD_EMPRESA = @empresa and es_con_migracion in (0, 3) AND CONFIGURACION.CTIPO = '03' \n" +
+                                  "    for json path \n" +
+                                  "    END   ";
+              respuesta = obj.crear_funcion(NombreSP, Query);
+              txtMensaje.Text = "" + respuesta;
+              #endregion */
+            /*    #region pagos_envio_resultado
+                NombreSP = "sp_pagos_envio_resultado";
+                Query = "CREATE PROCEDURE sp_pagos_envio_resultado  \n" +
+                            " @resultado NVARCHAR(MAX) \n" +
+                            " AS \n" +
+                            " BEGIN \n" +
+                            " UPDATE t \n" +
+                            "        \n" +
+                            "SET  \n" +
+                            " t.es_con_migracion = r.resultado_migracion,	\n" +
+                            " t.obserror = r.obserror  \n" +
+                            " FROM fin_pagos t \n" +
+                            " JOIN OPENJSON(@resultado) \n" +
+                            "            \n" +
+                            "WITH(    \n" +
+                            "idpagos INT,  \n" +
+                            "obserror NVARCHAR(MAX),  \n" +
+                            "es_con_migracion INT,  \n" +
+                            "resultado_migracion INT  \n" +
+                            ") AS r  \n" +
+                            "ON t.idpagos = r.idpagos and t.es_con_migracion = r.es_con_migracion;   \n" +
+                            "END   ";
 
+                respuesta = obj.crear_funcion(NombreSP, Query);
+                txtMensaje.Text = "" + respuesta;
+                #endregion */
+
+            
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            pBarra.Value = progreso;
+            progreso += 1;
+            this.label1.Text = (progreso-1).ToString() + "%";
+            if (progreso > pBarra.Maximum)
+            {
+                timer1.Stop();
+                progreso = 0;
+                this.Refresh();
+                txtMensaje.Text = "Proceso terminado.";
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
 
         }
         /*********************************************************************************************************************/

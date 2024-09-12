@@ -1304,7 +1304,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(1, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
 
             if (e.KeyCode == Keys.Enter)
@@ -1321,7 +1321,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(2, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -1336,7 +1336,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(3, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -1351,7 +1351,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(4, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -1365,7 +1365,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(5, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -1379,7 +1379,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(6, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -1394,7 +1394,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(7, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -1411,7 +1411,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(8, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -1424,7 +1424,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(9, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -1437,7 +1437,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(10, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -1450,7 +1450,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(11, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -1463,7 +1463,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(12, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -1476,7 +1476,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(13, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -1489,7 +1489,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(14, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
             {
@@ -3270,7 +3270,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(15, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
 
             if (e.KeyCode == Keys.Enter)
@@ -3293,7 +3293,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(16, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
 
             if (e.KeyCode == Keys.Enter)
@@ -3315,7 +3315,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(17, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
 
             if (e.KeyCode == Keys.Enter)
@@ -3364,7 +3364,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(18, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
 
             if (e.KeyCode == Keys.Enter)
@@ -3378,7 +3378,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(19, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
 
             if (e.KeyCode == Keys.Enter)
@@ -3392,7 +3392,7 @@ namespace Contasis
 
             {
                 FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(20, txtcadena.Text, cmbperiodo.Text);
-                frmcuenta.Show();
+                frmcuenta.ShowDialog();
             }
 
             if (e.KeyCode == Keys.Enter)
@@ -3500,6 +3500,48 @@ namespace Contasis
         private void txtflujopago_TextChanged(object sender, EventArgs e)
         {
             this.button4.Enabled = true;
+        }
+
+        private void dataGridView_cobranza_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            posicion = e.RowIndex;
+        }
+
+        private void dataGridView_cobranza_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (posicion == 1)
+            {
+                return;
+            }
+
+            if (dataGridView_cobranza.Rows.Count > 0)
+            {
+                txtsubdiario_cobra.Text = dataGridView_cobranza.Rows[posicion].Cells["SUBDIARIO_COBRANZA"].Value.ToString();
+                txtregistro_cobra.Text = dataGridView_cobranza.Rows[posicion].Cells["REGISTRO_COBRANZA"].Value.ToString();
+                txtflujocobra.Text = dataGridView_cobranza.Rows[posicion].Cells["FLUJO_COBRANZA"].Value.ToString();
+            }
+
+        }
+
+        private void dataGridView_pago_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            posicion = e.RowIndex;
+        }
+        private void dataGridView_pago_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (posicion == 1)
+            {
+                return;
+            }
+
+            if (dataGridView_pago.Rows.Count > 0)
+            {
+                txtsubdiario_pago.Text = dataGridView_pago.Rows[posicion].Cells["SUBDIARIO_PAGO"].Value.ToString();
+                txtregistro_pago.Text = dataGridView_pago.Rows[posicion].Cells["REGISTRO_PAGO"].Value.ToString();
+                txtflujopago.Text = dataGridView_pago.Rows[posicion].Cells["FLUJO_PAGOS"].Value.ToString();
+            }
+
         }
         /****************************************************************************************************************/
     }
