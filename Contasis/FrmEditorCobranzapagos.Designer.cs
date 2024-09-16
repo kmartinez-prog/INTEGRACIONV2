@@ -32,9 +32,9 @@ namespace Contasis
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEditorCobranzapagos));
             this.txtobservacion = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
-            this.txtcc = new System.Windows.Forms.TextBox();
-            this.label24 = new System.Windows.Forms.Label();
             this.txtccodcos2 = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.txt = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
             this.txtccodcos = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -71,7 +71,7 @@ namespace Contasis
             this.label11 = new System.Windows.Forms.Label();
             this.txtimporte = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.txtcuencon = new System.Windows.Forms.TextBox();
+            this.txtccuecan = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtnumerocan = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -108,35 +108,35 @@ namespace Contasis
             this.label25.TabIndex = 123;
             this.label25.Text = "Observacion:";
             // 
-            // txtcc
+            // txtccodcos2
             // 
-            this.txtcc.Location = new System.Drawing.Point(162, 468);
-            this.txtcc.MaxLength = 3;
-            this.txtcc.Name = "txtcc";
-            this.txtcc.Size = new System.Drawing.Size(81, 20);
-            this.txtcc.TabIndex = 122;
+            this.txtccodcos2.Location = new System.Drawing.Point(162, 468);
+            this.txtccodcos2.MaxLength = 3;
+            this.txtccodcos2.Name = "txtccodcos2";
+            this.txtccodcos2.Size = new System.Drawing.Size(81, 20);
+            this.txtccodcos2.TabIndex = 122;
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(18, 471);
+            this.label24.Location = new System.Drawing.Point(366, 471);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(124, 15);
             this.label24.TabIndex = 121;
             this.label24.Text = "Codigo Presupuesto :";
             // 
-            // txtccodcos2
+            // txt
             // 
-            this.txtccodcos2.Location = new System.Drawing.Point(406, 444);
-            this.txtccodcos2.MaxLength = 3;
-            this.txtccodcos2.Name = "txtccodcos2";
-            this.txtccodcos2.Size = new System.Drawing.Size(81, 20);
-            this.txtccodcos2.TabIndex = 120;
+            this.txt.Location = new System.Drawing.Point(406, 444);
+            this.txt.MaxLength = 3;
+            this.txt.Name = "txt";
+            this.txt.Size = new System.Drawing.Size(81, 20);
+            this.txt.TabIndex = 120;
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(268, 447);
+            this.label23.Location = new System.Drawing.Point(21, 471);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(101, 15);
             this.label23.TabIndex = 119;
@@ -456,14 +456,14 @@ namespace Contasis
             this.label12.TabIndex = 78;
             this.label12.Text = "Importe total :";
             // 
-            // txtcuencon
+            // txtccuecan
             // 
-            this.txtcuencon.Enabled = false;
-            this.txtcuencon.Location = new System.Drawing.Point(162, 190);
-            this.txtcuencon.MaxLength = 20;
-            this.txtcuencon.Name = "txtcuencon";
-            this.txtcuencon.Size = new System.Drawing.Size(95, 20);
-            this.txtcuencon.TabIndex = 93;
+            this.txtccuecan.Enabled = false;
+            this.txtccuecan.Location = new System.Drawing.Point(162, 190);
+            this.txtccuecan.MaxLength = 20;
+            this.txtccuecan.Name = "txtccuecan";
+            this.txtccuecan.Size = new System.Drawing.Size(95, 20);
+            this.txtccuecan.TabIndex = 93;
             // 
             // label5
             // 
@@ -581,9 +581,9 @@ namespace Contasis
             this.ClientSize = new System.Drawing.Size(547, 623);
             this.Controls.Add(this.txtobservacion);
             this.Controls.Add(this.label25);
-            this.Controls.Add(this.txtcc);
-            this.Controls.Add(this.label24);
             this.Controls.Add(this.txtccodcos2);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.txt);
             this.Controls.Add(this.label23);
             this.Controls.Add(this.txtccodcos);
             this.Controls.Add(this.label22);
@@ -620,7 +620,7 @@ namespace Contasis
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txtimporte);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.txtcuencon);
+            this.Controls.Add(this.txtccuecan);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtnumerocan);
             this.Controls.Add(this.label6);
@@ -652,9 +652,9 @@ namespace Contasis
 
         private System.Windows.Forms.TextBox txtobservacion;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.TextBox txtcc;
-        private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox txtccodcos2;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox txt;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox txtccodcos;
         private System.Windows.Forms.Label label22;
@@ -691,7 +691,7 @@ namespace Contasis
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtimporte;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox txtcuencon;
+        private System.Windows.Forms.TextBox txtccuecan;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtnumerocan;
         private System.Windows.Forms.Label label6;

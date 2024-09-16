@@ -24,7 +24,7 @@ namespace Contasis
             txtdocucan.Text = Cdoccan;
             txtseriecan.Text = Csercan;
             txtnumerocan.Text = Cnumcan;
-            txtcuencon.Text = Cmoncan;
+            txtccuecan.Text = Cmoncan;
             txtmoneda.Text = Nimporcan;
             txtimporte.Text = Ntipcam;
             txttipocambio.Text = Ccodpago;
@@ -37,8 +37,8 @@ namespace Contasis
             txtcctatot.Text = Nimportes;
             txtccond.Text = Nimported;
             txtccodcos.Text = Ccodcue;
-            txtccodcos2.Text = Ccodcos;
-            txtcc.Text = Ccodcos2;
+            txt.Text = Ccodcos;
+            txtccodcos2.Text = Ccodcos2;
             txtobservacion.Text = obserror;
         }
 

@@ -7823,11 +7823,34 @@ BEGIN
 											  varmax,											  
 											  rwperproceso.ntipocobpag,
 											  varperc));	
+
+		update fin_cobranzapago set resultado_migracion = 1 where es_con_migracion = 0 and idcobranzapago in (select idcobranzapago from fin_cobranzapago_integra); 
+
+		--truncate table fin_cobranzapago_integra; 
+		INSERT INTO fin_cobranzapago_integra(idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
+							    cmoncan, nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, 
+							    ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, 
+							    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
+							    nperdenre, cserre, cnumre, ffecre)
+			 SELECT  idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
+				    cmoncan, nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, 
+				    ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, 
+				    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
+				    nperdenre, cserre, cnumre, ffecre
+			 FROM fin_cobranzapago			        
+			 where fin_cobranzapago.cper=rw.cper and 
+				ntipocobpag = rwperproceso.ntipocobpag and 
+				ccodori = rw.ccodori and  
+				trim(coalesce(obserror,'')) = ''
+				and es_con_migracion in(3) 
+				order by ccoddoc,cserie,cnumero,ccodruc asc; 
 			
 		end loop; 
 
 		-- Actualiza registro procesado correctamente 
-		update fin_cobranzapago set resultado_migracion = 1 where es_con_migracion = 0 and idcobranzapago in (select idcobranzapago from fin_cobranzapago_integra); 
+			
+
+
 
 		-- Actualizar los anulados a 4 
 		update fin_cobranzapago set resultado_migracion = 4 where es_con_migracion = 3 and trim(coalesce(obserror,'')) = '' ;  
@@ -7840,7 +7863,7 @@ BEGIN
 			from cf_diariol a
 			inner join fin_cobranzapago b  on a.ccoddoc = b.cdoccan  and a.cserie = b.csercan and a.cnumero = b.cnumcan and a.ccodcue = b.ccuecan 
 							and trim(coalesce(obserror,'')) = ''
-							and es_con_migracion = 4 
+							and es_con_migracion = 3 
 			where a.cper = rwperproceso.cperproceso and a.ncomp =0    ;
 
 			for rwanuladoc in select cper, cmes, ccodori, nasiento, ncomp,ccoddoc, cserie, cnumero, ccodruc from documentosAnula  loop 
