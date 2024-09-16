@@ -178,10 +178,10 @@ namespace Contasis
                                         "cnumdere    nchar  (15) NULL,ffecre    date   NULL,ntc    numeric  (10,6) NULL,freffec    date   NULL,crefdoc    nchar  (2) NULL," +
                                         "crefser    nchar  (6) NULL,crefnum    nchar  (13) NULL,cmreg    nchar  (1) NULL,ndolar    numeric  (15,2) NULL," +
                                         "ffechaven2    date   NULL,ccond    nchar  (3) NULL,cctabase    nchar  (10) NULL,cctaicbper    nchar  (10) NULL," +
-                                        "cctaotrib    nchar  (10) NULL,cctatot    nchar  (10) NULL,ccodcos    nchar  (9) NULL,ccodcos2    nchar  (9) NULL," +
+                                        "cctaotrib    nchar  (10) NULL,cctatot    nchar  (10) NULL,ccodcos    nchar  (15) NULL,ccodcos2    nchar  (15) NULL," +
                                         "nresp    numeric  (1,0) NULL,nporre    numeric  (5,2) NULL,nimpres    numeric  (15,2) NULL," +
                                         "cserre    nchar  (6) NULL,cnumre    nchar  (13) NULL,ffecre2    date   NULL,ccodpresu    nchar  (10) NULL," +
-                                        "nigv    numeric  (5,2) NULL,cglosa    nchar  (50) NULL,nperdenre    numeric  (15,2) NULL,nbaseres    numeric  (15,2) NULL," +
+                                        "nigv    numeric  (5,2) NULL,cglosa    nchar  (250) NULL,nperdenre    numeric  (15,2) NULL,nbaseres    numeric  (15,2) NULL," +
                                         "cigvxacre    nchar  (1) NULL,created_at    datetime   default getdate()," +
                                         "updated_at    datetime   NULL,estado    varchar(255)   NULL,en_ambiente_de    varchar(255)   NULL," +
                                         "es_con_migracion   numeric(1,0) DEFAULT 0,"+
@@ -343,8 +343,9 @@ namespace Contasis
                         sconfigura = "create table cg_empemisor("+
                         "ccodrucemisor char(15) NOT NULL, "+
                         "cdesrucemisor char(200) NULL,"+
-                        "flgActivo bit NULL, "+
-                        "PRIMARY KEY CLUSTERED "+
+                        "flgActivo bit NULL, nventaflg  int NOT NULL,ncompraflg int NOT NULL, " +
+                        "ncobranzaflg int NOT NULL,npagoflg int NOT NULL,"+ 
+                        "PRIMARY KEY CLUSTERED " +
                         " (ccodrucemisor  ASC))";
 
                         SqlCommand myCommand04 = new SqlCommand(sconfigura, conex2);

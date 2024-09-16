@@ -51,7 +51,7 @@ namespace Contasis
         }
         private void FrmEmpresas_Load(object sender, EventArgs e)
         {
-            this.ruc();
+           this.ruc();
         }
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -251,7 +251,7 @@ namespace Contasis
                     var command = new NpgsqlCommand();
                     command.Connection = conexion;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "select ltrim(ccodrucemisor)||'-'||ltrim(cdesrucemisor)::character(60) as emisor  from cg_empemisor where flgactivo='1'";
+                    command.CommandText = "select ltrim(ccodrucemisor)||'-'||ltrim(cdesrucemisor)::character(250) as emisor  from cg_empemisor where cast(cg_empemisor.flgActivo as integer)=1";
                     var adapter = new NpgsqlDataAdapter(command);
                     var dataset = new DataSet();
                     adapter.Fill(dataset);

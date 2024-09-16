@@ -54,7 +54,7 @@ namespace Contasis
                 }
                
 
-                lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count-1);
+                lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count);
                 lblTotales.Refresh();
                 dataGrid1.AllowUserToAddRows = false;
                 
@@ -245,7 +245,9 @@ namespace Contasis
                 Clase.rucpropiedades obj = new Clase.rucpropiedades();
                 obj.ruc = Convert.ToString(dataGrid1.SelectedRows[0].Cells[0].Value).Trim();
                 obj.empresa = Convert.ToString(dataGrid1.SelectedRows[0].Cells[1].Value).Trim();
-                if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[2].Value).Trim() == "True")
+               //// MessageBox.Show(Convert.ToString(dataGrid1.SelectedRows[0].Cells[2].Value).Trim());
+
+                if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[2].Value).Trim() == "1")
                 {
                     obj.estado = "1";
                 }

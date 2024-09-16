@@ -300,7 +300,10 @@ namespace Contasis
 
         }
 
-     
+        private void FrmCrearTablas_Load(object sender, EventArgs e)
+        {
+
+        }
     }
     }
 

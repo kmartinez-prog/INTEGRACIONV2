@@ -7578,7 +7578,7 @@ begin
 
     --3. Informe de importacion    
     select json_agg(json_build_object(
-        'idventas', fc.idcobranzapago, 'obserror', fc.obserror, 'es_con_migracion', fc.es_con_migracion, 'resultado_migracion', fc.resultado_migracion
+        'idcobranzapago', fc.idcobranzapago, 'obserror', fc.obserror, 'es_con_migracion', fc.es_con_migracion, 'resultado_migracion', fc.resultado_migracion
     ))::text
     from fin_cobranzapago fc
     into resultado;
@@ -7647,9 +7647,11 @@ $BODY$
   LANGUAGE plpgsql VOLATILE;	</value>
   </data>
   <data name="txt_cobra03.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION fin_importar_cobranzapago_integrador_principal()
-  RETURNS void AS
-$BODY$
+    <value>CREATE OR REPLACE FUNCTION public.fin_importar_cobranzapago_integrador_principal(
+	)
+    RETURNS void
+AS $BODY$
+
 DECLARE 
 	RW RECORD;
 	rwperproceso record; 
@@ -7661,6 +7663,7 @@ DECLARE
 	varmax integer;
 	VCMAXASIENTO text = ''; 
 	rw2 record;  
+	rwanuladoc record;  
 	nreturn integer=0;
 	rwctualizasubdiario record;
 	vcregper character(20); 
@@ -7672,11 +7675,10 @@ BEGIN
 	-- Validaciones fin_cobranzapago 
 
 	for rwperproceso in select distinct cper as cperproceso, ntipocobpag from fin_cobranzapago order by ntipocobpag loop 	
-
 		-- propiedades de empresa por periodos 
 		for rwemp in select cper, cctaper, cctagan, cregper,cregperc
 			     from cg_emppro  
-			     where cper = rwperproceso.cperproceso loop		
+			     where cper =rwperproceso.cperproceso loop		
 		   
 			    vcregper = rwemp.cregper; 
 			    vcregperc = rwemp.cregperc;		    
@@ -7691,31 +7693,69 @@ BEGIN
 				varperc = vcregperc;  -- Pagos 
 			    end if; 
 		end loop; 
+
 		
-		-- Validar cctabase,cctaicbper cctaotrib, cctatot, ccodcos, ccodcos2,	
-		/*Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Codigo de Presupuesto no debe estar vacio, la cuenta obliga'), 
-		es_con_migracion = 2  
-		where  fin_ventas.ccodpresu='' and fin_ventas.cctabase in 
-		(select ccodcue  from cf_plan where cf_plan.cper=rwperproceso.cperproceso and cf_plan.nafepre=1 );
-		*/
+		
+
+		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' CAMPO CCODCUE TIENE UNA CTA ERRADA  ') ,  resultado_migracion = 2 
+		WHERE CCODCUE IN(
+		SELECT A.CCODCUE  FROM fin_cobranzapago A left join cf_plan b on a.CCODCUE=b.ccodcue and b.cper=rwperproceso.cperproceso
+		where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCODCUE&lt;&gt;'');
+		
+
+		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' CAMPO CCODCUE ESTA VACIO ') ,  resultado_migracion = 2 
+		WHERE CCODCUE IN(
+		SELECT A.CCODCUE  FROM fin_cobranzapago A left join cf_plan b on a.CCODCUE=b.ccodcue and b.cper=rwperproceso.cperproceso
+		where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCODCUE='');
+
+			
+		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' CAMPO CCUECAN TIENE UNA CTA ERRADA  ') ,  resultado_migracion = 2 
+		WHERE CCUECAN IN(
+		SELECT A.CCUECAN  FROM fin_cobranzapago A left join cf_plan b on a.CCUECAN=b.ccodcue and b.cper=rwperproceso.cperproceso
+		where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCUECAN&lt;&gt;'');
+
+		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' CAMPO CCUECAN ESTA VACIO ') ,  resultado_migracion = 2 
+		WHERE CCUECAN IN(
+		SELECT A.CCUECAN  FROM fin_cobranzapago A left join cf_plan b on a.CCUECAN=b.ccodcue and b.cper='2024'
+		where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCUECAN='') ;
+
+
+		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' RUC NO EXISTE ') ,  resultado_migracion = 2 
+		WHERE ccodruc IN(
+		select C.ccodruc  from fin_cobranzapago c  left join cg_entitrib e on e.ccodruc=c.ccodruc
+			where coalesce(e.ccodruc,'ERROR')='ERROR');
+		
+		update  fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' CENTRO DE COSTO NO EXISTE ') ,  resultado_migracion = 2 
+		where  fin_cobranzapago.cper=rwperproceso.cperproceso and   fin_cobranzapago.es_con_migracion=0 and  fin_cobranzapago.ccodcos&lt;&gt;' ' AND idcobranzapago not in(
+		Select idcobranzapago From fin_cobranzapago inner join CG_COSTOS on
+		fin_cobranzapago.ccodcos=CG_COSTOS.ccodcos  WHERE  fin_cobranzapago.cper=rwperproceso.cperproceso); 
+
+
+		update  fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 NO EXISTE ') ,  resultado_migracion = 2 
+		where  fin_cobranzapago.cper=rwperproceso.cperproceso and   fin_cobranzapago.es_con_migracion=0 and  fin_cobranzapago.ccodcos2&lt;&gt;' ' and idcobranzapago not in(
+		Select idcobranzapago From fin_cobranzapago inner join CG_COSTOS2 on
+		fin_cobranzapago.ccodcos2=CG_COSTOS2.ccodcos2  WHERE  fin_cobranzapago.cper=rwperproceso.cperproceso); 
+
+
+
 		
 		-- Falta Validar si la cuenta no existe 
-
+		---
 		-- Cursor no existe provision 
 		DROP TABLE IF EXISTS documentonoprovisionados;
 		create temp table documentonoprovisionados as		
-		select idcobranzapago, rc.ccodcue, rc.ccodruc, rc.ccoddoc, rc.cserie, rc.cnumero, dl.ccodcue, dl.ccodruc, 
-			dl.ccoddoc, dl.cserie, dl.cnumero 
+		select idcobranzapago, rc.ccodcue, rc.ccodruc, rc.ccoddoc, rc.cserie, rc.cnumero,dl.ccodcue as d_ccodcue,  dl.ccodruc as d_ccodruc, 
+			dl.ccoddoc as d_ccoddoc, dl.cserie as d_cserie, dl.cnumero as d_cnumero
 	        from fin_cobranzapago rc 
 	        left join cf_diariol dl on rc.ccodcue = dl.ccodcue and 
 	       							  rc.ccodruc = dl.ccodruc and 
 	       							  rc.ccoddoc = dl.ccoddoc and 
 	       							  rc.cserie = dl.cserie and 
 	       							  rc.cnumero = dl.cnumero and 
-	       							  dl.ncomp = 1 and cper = rwperproceso.cperproceso
+	       							  dl.ncomp = 1 and rc.cper =rwperproceso.cperproceso
 		where  dl.ccodcue is null; 
 			
-		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' Documento no Provisionado...'),  resultado_migracion = 1  
+		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' Documento no Provisionado...'),  resultado_migracion = 2  
 		where cper=rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag  and concat(ccoddoc,cserie,cnumero,ccodruc)  in ( select concat(ccoddoc,cserie,cnumero,ccodruc) from documentonoprovisionados );
 		-- Fin - Cursor no existe provision 
 
@@ -7729,12 +7769,13 @@ BEGIN
 											rc.ccoddoc = dl.ccoddoc and 
 											rc.cserie = dl.cserie and 
 											rc.cnumero = dl.cnumero and 
-											dl.ncomp = 1 and dl.cper = rwperproceso.cperproceso
+											dl.ncomp = 1 and dl.cper =  rwperproceso.cperproceso
 		group by  rc.ccodcue, rc.ccodruc, rc.ccoddoc, rc.cserie, rc.cnumero
 		having count(dl.ccodcue) &gt; 1 ; 
 		
 		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' Documento con Doble provisión...'),  resultado_migracion = 1  
-		where cper=rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag  and concat(ccoddoc,cserie,cnumero,ccodruc)  in ( select concat(ccoddoc,cserie,cnumero,ccodruc) from documentobobleprovision );
+		where cper=rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag  and concat(ccoddoc,cserie,cnumero,ccodruc) 
+			in ( select concat(ccoddoc,cserie,cnumero,ccodruc) from documentobobleprovision );
 		-- Fin Validar doble provision 
 
 		
@@ -7744,7 +7785,7 @@ BEGIN
 
 			  VCMAXASIENTO = 'SELECT NORIMES' || cast(rw.cmes as integer)::char(2) || ' AS NORIGEN FROM CF_ORIGENL WHERE CPER = ''' || rw.cper || ''' AND CCODORI = ''' || rw.ccodori ||'''' ;
 			  for rw2 in EXECUTE VCMAXASIENTO	loop
-				varmax  = coalesce(RW2.NORIGEN,0); ---+ 1; -- RW2.NORIGEN + 1;
+				varmax  = coalesce(RW2.NORIGEN,0)+1; ---+ 1; -- RW2.NORIGEN + 1;
 			  end loop;
 
 		
@@ -7756,14 +7797,13 @@ BEGIN
 							    ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, 
 							    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
 							    nperdenre, cserre, cnumre, ffecre)
-							    
 			 SELECT  idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
 				    cmoncan, nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, 
 				    ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, 
 				    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
 				    nperdenre, cserre, cnumre, ffecre
 			 FROM fin_cobranzapago			        
-			 where cper=rw.cper and 
+			 where fin_cobranzapago.cper=rw.cper and 
 				ntipocobpag = rwperproceso.ntipocobpag and 
 				ccodori = rw.ccodori and  
 				trim(coalesce(obserror,'')) = ''
@@ -7789,6 +7829,29 @@ BEGIN
 		-- Actualiza registro procesado correctamente 
 		update fin_cobranzapago set resultado_migracion = 1 where es_con_migracion = 0 and idcobranzapago in (select idcobranzapago from fin_cobranzapago_integra); 
 
+		-- Actualizar los anulados a 4 
+		update fin_cobranzapago set resultado_migracion = 4 where es_con_migracion = 3 and trim(coalesce(obserror,'')) = '' ;  
+		-- anular Los registros 
+			
+		
+		    DROP TABLE IF EXISTS documentosAnula;
+			create temp table documentosAnula as 
+			select a.cper, a.cmes, a.ccodori, a.nasiento, a.ncomp,a.ccoddoc, a.cserie, a.cnumero, a.ccodruc
+			from cf_diariol a
+			inner join fin_cobranzapago b  on a.ccoddoc = b.cdoccan  and a.cserie = b.csercan and a.cnumero = b.cnumcan and a.ccodcue = b.ccuecan 
+							and trim(coalesce(obserror,'')) = ''
+							and es_con_migracion = 4 
+			where a.cper = rwperproceso.cperproceso and a.ncomp =0    ;
+
+			for rwanuladoc in select cper, cmes, ccodori, nasiento, ncomp,ccoddoc, cserie, cnumero, ccodruc from documentosAnula  loop 
+				DELETE FROM cf_diariol
+				where cper = rwanuladoc.cper and cmes = rwanuladoc.cmes and  ccodori = rwanuladoc.ccodori and nasiento = rwanuladoc.nasiento  ; 
+				
+				DELETE FROM cf_diario
+				where cper = rwanuladoc.cper and cmes = rwanuladoc.cmes and  ccodori = rwanuladoc.ccodori and nasiento = rwanuladoc.nasiento  ; 
+			end loop; 
+
+
 		--raise exception 'ccod sub %', rw.cper; 
 		-- Actualiza subdiartio y Flujos 
 		for rwctualizasubdiario  in select distinct cper,cmes  from fin_cobranzapago  loop
@@ -7803,11 +7866,12 @@ BEGIN
 		
 	end loop; -- Periodo 
 
-	
-	
 END; 
 $BODY$
-  LANGUAGE plpgsql VOLATILE</value>
+LANGUAGE 'plpgsql'
+COST 100;
+ALTER FUNCTION public.fin_importar_cobranzapago_integrador_principal()
+OWNER TO postgres;</value>
   </data>
   <data name="txt_cobra04.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION fin_importar_cobranzapago_integrador(varper character,
@@ -7828,7 +7892,7 @@ DECLARE
 RW RECORD;	
 BEGIN
 
-
+DROP TABLE IF EXISTS resultado;
 create temporary table resultado(
   cper character(4)  NOT NULL DEFAULT ''::bpchar,
   cmes character(2) NOT NULL DEFAULT ''::bpchar,

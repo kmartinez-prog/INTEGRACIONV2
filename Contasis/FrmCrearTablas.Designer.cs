@@ -416,7 +416,7 @@ namespace Contasis
             this.txtcompras2.Multiline = true;
             this.txtcompras2.Name = "txtcompras2";
             this.txtcompras2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtcompras2.Size = new System.Drawing.Size(208, 336);
+            this.txtcompras2.Size = new System.Drawing.Size(179, 336);
             this.txtcompras2.TabIndex = 31;
             this.txtcompras2.Text = resources.GetString("txtcompras2.Text");
             // 
@@ -469,7 +469,7 @@ namespace Contasis
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(634, 373);
+            this.ClientSize = new System.Drawing.Size(635, 370);
             this.Controls.Add(this.txtversion3);
             this.Controls.Add(this.txtversion2);
             this.Controls.Add(this.txtversion1);
@@ -492,6 +492,7 @@ namespace Contasis
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmCrearTablas";
+            this.Load += new System.EventHandler(this.FrmCrearTablas_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCrearTablas_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

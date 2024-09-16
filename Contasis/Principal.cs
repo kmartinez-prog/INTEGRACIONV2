@@ -218,8 +218,6 @@ namespace Contasis
             {
                 MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
-
         }
         void cerrarempresa(object sender, EventArgs e)
         {
@@ -488,27 +486,33 @@ namespace Contasis
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            ///MessageBox.Show("En proceso de activación.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);///
-            foreach (Form OpenForm in Application.OpenForms)
+            DialogResult dialogResult = MessageBox.Show("Deseas actualizar las tablas y funciones del sistema Integrador ?", "Contasis Corpo. Cambios en Estructura", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
             {
-                if (OpenForm.Name == "master12")
-                { }
-                else
+                ///MessageBox.Show("En proceso de activación.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);///
+                foreach (Form OpenForm in Application.OpenForms)
                 {
-                    master12 = null;
+                    if (OpenForm.Name == "master12")
+                    { }
+                    else
+                    {
+                        master12 = null;
+                    }
                 }
-
+                if (master12 == null)
+                {
+                    master12 = new FrmVerificacionEstrcutura();
+                    ///master6.MdiParent = this;
+                    master12.ShowDialog();
+                    master12.FormClosed += new FormClosedEventHandler(Cerrarestructura);
+                }
             }
-
-            if (master12 == null)
+            else if (dialogResult == DialogResult.No)
             {
-                master12 = new FrmVerificacionEstrcutura();
-                ///master6.MdiParent = this;
-                master12.ShowDialog();
-                master12.FormClosed += new FormClosedEventHandler(Cerrarestructura);
-
+                return;
             }
-        }
+        
+         }
 
         private void inconsistenciasToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -517,25 +521,30 @@ namespace Contasis
 
         private void estructuraDeDatosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ///MessageBox.Show("En proceso de activación.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);///
-            foreach (Form OpenForm in Application.OpenForms)
+            DialogResult dialogResult = MessageBox.Show("Deseas actualizar las tablas y funciones del sistema Integrador ?", "Contasis Corpo. Cambios en Estructura", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
             {
-                if (OpenForm.Name == "master12")
-                { }
-                else
+                ///MessageBox.Show("En proceso de activación.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);///
+                foreach (Form OpenForm in Application.OpenForms)
                 {
-                    master12 = null;
+                    if (OpenForm.Name == "master12")
+                    { }
+                    else
+                    {
+                        master12 = null;
+                    }
                 }
-
+                if (master12 == null)
+                {
+                    master12 = new FrmVerificacionEstrcutura();
+                    ///master6.MdiParent = this;
+                    master12.ShowDialog();
+                    master12.FormClosed += new FormClosedEventHandler(Cerrarestructura);
+                }
             }
-
-            if (master12 == null)
+            else if (dialogResult == DialogResult.No)
             {
-                master12 = new FrmVerificacionEstrcutura();
-                ///master6.MdiParent = this;
-                master12.ShowDialog();
-                master12.FormClosed += new FormClosedEventHandler(Cerrarestructura);
-
+                return;
             }
         }
         void Cerrarestructura(object sender, EventArgs e)

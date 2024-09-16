@@ -210,6 +210,12 @@
     <Compile Include="FrmConfigurarServicio.Designer.cs">
       <DependentUpon>FrmConfigurarServicio.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmEditorCobranzapagos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEditorCobranzapagos.Designer.cs">
+      <DependentUpon>FrmEditorCobranzapagos.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmEliminarruc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -397,6 +403,9 @@
     <Compile Include="usuario_postgres.cs" />
     <EmbeddedResource Include="FrmConfigurarServicio.resx">
       <DependentUpon>FrmConfigurarServicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEditorCobranzapagos.resx">
+      <DependentUpon>FrmEditorCobranzapagos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmEliminarruc.resx">
       <DependentUpon>FrmEliminarruc.cs</DependentUpon>

@@ -53,10 +53,9 @@ namespace Contasis
                 try
                 {
 
-                    Clase.VENTAS_PROPIEDADES obj = new Clase.VENTAS_PROPIEDADES();
-                    Clase.Ventas_inconsistencias listasql = new Clase.Ventas_inconsistencias();
-                    Clase.Ventas_inconsistencias actuasql = new Clase.Ventas_inconsistencias();
-
+                    Clase.Cobranzas_propiedades obj = new Clase.Cobranzas_propiedades();
+                    Clase.Conbranzas_Inconsistencia listasql = new Clase.Conbranzas_Inconsistencia();
+                    Clase.Conbranzas_Inconsistencia actuasql = new Clase.Conbranzas_Inconsistencia();
                     obj.Ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
                     obj.Empresa = cmbempresas.Text.Trim().Substring(0, 3);
                     obj.Estado = "";
@@ -113,9 +112,9 @@ namespace Contasis
                 try
                 {
 
-                    Clase.VENTAS_PROPIEDADES obj = new Clase.VENTAS_PROPIEDADES();
-                    Clase.Ventas_inconsistencias listapos = new Clase.Ventas_inconsistencias();
-                    Clase.Ventas_inconsistencias actuapos = new Clase.Ventas_inconsistencias();
+                    Clase.Cobranzas_propiedades obj = new Clase.Cobranzas_propiedades();
+                    Clase.Conbranzas_Inconsistencia listapos = new Clase.Conbranzas_Inconsistencia();
+                    Clase.Conbranzas_Inconsistencia actuapos = new Clase.Conbranzas_Inconsistencia();
 
                     obj.Ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
                     obj.Empresa = cmbempresas.Text.Trim().Substring(0, 3);
@@ -429,9 +428,9 @@ namespace Contasis
                 try
                 {
 
-                    Clase.VENTAS_PROPIEDADES obj = new Clase.VENTAS_PROPIEDADES();
-                    Clase.Ventas_inconsistencias listasql = new Clase.Ventas_inconsistencias();
-                    Clase.Ventas_inconsistencias actualizar = new Clase.Ventas_inconsistencias();
+                    Clase.Cobranzas_propiedades obj = new Clase.Cobranzas_propiedades();
+                    Clase.Conbranzas_Inconsistencia listasql = new Clase.Conbranzas_Inconsistencia();
+                    Clase.Conbranzas_Inconsistencia actualizar = new Clase.Conbranzas_Inconsistencia();
                     obj.Ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
                     obj.Empresa = cmbempresas.Text.Trim().Substring(0, 3);
                     obj.Estado = comboBox1.Text.Trim();
@@ -484,9 +483,9 @@ namespace Contasis
                 try
                 {
 
-                    Clase.VENTAS_PROPIEDADES obj = new Clase.VENTAS_PROPIEDADES();
-                    Clase.Ventas_inconsistencias listapos = new Clase.Ventas_inconsistencias();
-                    Clase.Ventas_inconsistencias actualizar = new Clase.Ventas_inconsistencias();
+                    Clase.Cobranzas_propiedades obj = new Clase.Cobranzas_propiedades();
+                    Clase.Conbranzas_Inconsistencia listapos = new Clase.Conbranzas_Inconsistencia();
+                    Clase.Conbranzas_Inconsistencia actualizar = new Clase.Conbranzas_Inconsistencia();
 
                     obj.Ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
                     obj.Empresa = cmbempresas.Text.Trim().Substring(0, 3);
@@ -535,9 +534,9 @@ namespace Contasis
         private void actualizamotivo(string id)
         {
             string respuesta = "";
-            Clase.VENTAS_PROPIEDADES obe = new Clase.VENTAS_PROPIEDADES();
-            Clase.Ventas_inconsistencias ds = new Clase.Ventas_inconsistencias();
-            obe.Vidventas = id;
+            Clase.Cobranzas_propiedades obe = new Clase.Cobranzas_propiedades();
+            Clase.Conbranzas_Inconsistencia ds = new Clase.Conbranzas_Inconsistencia();
+            obe.Idcobranzas = id;
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
                 try
@@ -669,34 +668,12 @@ namespace Contasis
         }
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
-            { }
-            else
-            {
-                try
-                {
-                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
-                    Refresh();
-                }
-                catch
-                { }
-            }
+          
         }
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
 
         {
-            try
-            {
-                if (Convert.ToString(dataGridView2.Rows.Count) == "0")
-                { }
-                else
-                {
-                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
-                    Refresh();
-                }
-            }
-            catch
-            { }
+           
         }
         private void dataGridView2_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -715,60 +692,11 @@ namespace Contasis
         }
         private void dataGridView2_SelectionChanged(object sender, EventArgs e)
         {
-            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
-            { }
-            else
-            {
-                try
-                {
-                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
-                    Refresh();
-                }
-                catch
-                { }
-            }
+         
         }
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
-            { }
-            else
-            {
-
-                txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
-                Refresh();
-
-
-                Clase.VENTAS_PROPIEDADES obj = new Clase.VENTAS_PROPIEDADES();
-                obj.Idventas = dataGridView2.CurrentRow.Cells[1].Value.ToString();
-                obj.Ffechadoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[3].Value).Trim();
-                obj.Ffechaven = Convert.ToString(dataGridView2.SelectedRows[0].Cells[4].Value).Trim();
-                obj.Ccoddoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[5].Value).Trim();
-                obj.Cserie = Convert.ToString(dataGridView2.SelectedRows[0].Cells[6].Value).Trim();
-                obj.Cnumero = Convert.ToString(dataGridView2.SelectedRows[0].Cells[7].Value).Trim();
-                obj.Ctipdoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[10].Value).Trim();
-                obj.Crazsoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[12].Value).Trim();
-                obj.Cruc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[11].Value).Trim();
-                obj.Base1 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[14].Value).Trim();
-                obj.Nigv1 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[18].Value).Trim();
-                obj.Ntots = Convert.ToString(dataGridView2.SelectedRows[0].Cells[21].Value).Trim();
-                obj.Ntc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[22].Value).Trim();
-                obj.Cmreg = Convert.ToString(dataGridView2.SelectedRows[0].Cells[27].Value).Trim();
-                obj.Cctabase = Convert.ToString(dataGridView2.SelectedRows[0].Cells[33].Value).Trim();
-                obj.Cctatot = Convert.ToString(dataGridView2.SelectedRows[0].Cells[36].Value).Trim();
-                obj.Ccond = Convert.ToString(dataGridView2.SelectedRows[0].Cells[30].Value).Trim();
-                obj.Ccodcos = Convert.ToString(dataGridView2.SelectedRows[0].Cells[31].Value).Trim();
-                obj.Ccodcos2 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
-                obj.Ccodpresu = Convert.ToString(dataGridView2.SelectedRows[0].Cells[43].Value).Trim();
-                obj.Obserror = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
-
-                Frm_ventasEditor editventas = new Frm_ventasEditor(obj.Idventas, obj.Ffechadoc,
-                obj.Ffechaven, obj.Ccoddoc, obj.Cserie, obj.Cnumero, obj.Ctipdoc, obj.Crazsoc,
-                obj.Cruc, obj.Base1, obj.Nigv1, obj.Ntots, obj.Ntc, obj.Cmreg, obj.Cctabase, obj.Cctatot, obj.Ccond,
-                obj.Ccodcos, obj.Ccodcos2, obj.Ccodpresu, obj.Obserror);
-                /// Frm_ventasEditor editventas = new Frm_ventasEditor();
-                editventas.ShowDialog();
-            }
+           
         }
 
         //////////////////////////////////////////////////////////////////////////
@@ -831,8 +759,7 @@ namespace Contasis
             { }
             else
             {
-
-                txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
+                txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
                 Refresh();
             }
         }
@@ -865,6 +792,189 @@ namespace Contasis
                 this.llenar_grilla();
                 this.motivo();
 
+            }
+        }
+
+        private void checkSeleccionar_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+            {
+                return;
+            }
+            else
+            {
+                if (checkSeleccionar.Checked == true)
+                {
+
+                    checkSeleccionar.Text = "Desmarcar todo";
+                    for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                    {
+                        dataGridView2.Rows[i].Cells[0].Value = CheckState.Checked;
+                    }
+                }
+                else
+                {
+
+                    checkSeleccionar.Text = "Seleccionar todo";
+                    for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                    {
+                        dataGridView2.Rows[i].Cells[0].Value = CheckState.Unchecked;
+                    }
+                }
+
+
+            }
+
+        }
+
+        private void btnseleccionar_Click_1(object sender, EventArgs e)
+        {
+            if (comboBox1.Text == "")
+            {
+                return;
+            }
+            else
+            {
+                if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+                {
+                    return;
+                }
+                else
+                {
+                    for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                    {
+
+                        if (dataGridView2.Rows[i].Cells[0].Value.ToString() == "Checked")
+                        {
+                            string valor = dataGridView2.Rows[i].Cells[1].Value.ToString();
+                            this.actualizamotivo(valor);
+                            this.txtLista.Text = "";
+                        }
+                    }
+                    this.llenar_grilla();
+
+
+
+                }
+            }
+
+        }
+
+        private void dataGridView2_Click_1(object sender, EventArgs e)
+        {
+            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+            { }
+            else
+            {
+                txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
+                Refresh();
+            }
+        }
+
+        private void dataGridView2_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+            { }
+            else
+            {
+                try
+                {
+                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
+                    Refresh();
+                }
+                catch
+                { }
+            }
+        }
+
+        private void dataGridView2_CellContentDoubleClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+                { }
+                else
+                {
+                    txtLista.Text = dataGridView2.CurrentRow.Cells["obserror"].Value.ToString();
+                    Refresh();
+                }
+            }
+            catch
+            { }
+        }
+
+        private void dataGridView2_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+            { }
+            else
+            {
+
+                txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
+                Refresh();
+
+
+                Clase.Cobranzas_propiedades obj = new Clase.Cobranzas_propiedades();
+                obj.Idcobranzas = dataGridView2.CurrentRow.Cells[1].Value.ToString();
+                obj.Ffechacan = Convert.ToString(dataGridView2.SelectedRows[0].Cells[3].Value).Trim();
+                obj.Cdoccan = Convert.ToString(dataGridView2.SelectedRows[0].Cells[4].Value).Trim();
+                obj.Csercan = Convert.ToString(dataGridView2.SelectedRows[0].Cells[5].Value).Trim();
+                obj.Cnumcan = Convert.ToString(dataGridView2.SelectedRows[0].Cells[6].Value).Trim();
+                obj.Cmoncan = Convert.ToString(dataGridView2.SelectedRows[0].Cells[8].Value).Trim();
+                obj.Nimporcan = Convert.ToString(dataGridView2.SelectedRows[0].Cells[9].Value).Trim();
+                obj.Ntipcam = Convert.ToString(dataGridView2.SelectedRows[0].Cells[10].Value).Trim();
+                obj.Ccodpago = Convert.ToString(dataGridView2.SelectedRows[0].Cells[11].Value).Trim();
+                obj.Ccoddoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[12].Value).Trim();
+                obj.Cserie = Convert.ToString(dataGridView2.SelectedRows[0].Cells[13].Value).Trim();
+                obj.Cnumero = Convert.ToString(dataGridView2.SelectedRows[0].Cells[14].Value).Trim();
+                obj.Ffechadoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[15].Value).Trim();
+                obj.Ccodruc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[18].Value).Trim();
+                obj.Crazsoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[19].Value).Trim();
+                obj.Nimportes = Convert.ToString(dataGridView2.SelectedRows[0].Cells[20].Value).Trim();
+                obj.Nimported = Convert.ToString(dataGridView2.SelectedRows[0].Cells[21].Value).Trim();
+                obj.Ccodcue = Convert.ToString(dataGridView2.SelectedRows[0].Cells[22].Value).Trim();
+                obj.Ccodcos = Convert.ToString(dataGridView2.SelectedRows[0].Cells[24].Value).Trim();
+                obj.Ccodcos2 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[25].Value).Trim();
+                obj.Obserror = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
+
+                FrmEditorCobranzapagos editcobranza = new FrmEditorCobranzapagos(obj.Idcobranzas, obj.Ffechacan,
+                obj.Cdoccan, obj.Csercan, obj.Cnumcan, obj.Cmoncan, obj.Nimporcan,
+                obj.Ntipcam, obj.Ccodpago, obj.Ccoddoc, obj.Cserie, obj.Cnumero, obj.Ffechadoc, obj.Ccodruc, obj.Crazsoc, obj.Nimportes,
+                obj.Nimported, obj.Ccodcue, obj.Ccodcos, obj.Ccodcos2, obj.Obserror);
+                /// Frm_ventasEditor editventas = new Frm_ventasEditor();
+                editcobranza.ShowDialog();
+            }
+        }
+
+        private void dataGridView2_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+                { }
+                else
+                {
+                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
+                    Refresh();
+                }
+            }
+            catch
+            { }
+        }
+
+        private void dataGridView2_SelectionChanged_1(object sender, EventArgs e)
+        {
+            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+            { }
+            else
+            {
+                try
+                {
+                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
+                    Refresh();
+                }
+                catch
+                { }
             }
         }
     }

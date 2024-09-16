@@ -106,7 +106,6 @@ namespace Contasis.Clase
                     //// aca luego se vuelve a crear con los nuevos Cambios ///
 
                     NpgsqlCommand commando2 = new NpgsqlCommand(EstructuraSp, conexion);
-
                     commando2.ExecuteNonQuery();
                     cadena = "Función " + NombreSp.Trim().ToLower().ToString() + " ha sido actualizado.";
                 }

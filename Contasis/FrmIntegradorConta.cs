@@ -43,11 +43,16 @@ namespace Contasis
                     var command = new System.Data.SqlClient.SqlCommand();
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "select ltrim(ccodrucemisor)+'-'+ltrim(cdesrucemisor) as emisor  from cg_empemisor where flgactivo='1'";
+                    command.CommandText = "select ltrim(ccodrucemisor)+'-'+ltrim(cdesrucemisor) as emisor,"+
+                    "nventaflg as venta,ncompraflg as compra,ncobranzaflg as cobranza,npagoflg as pago "+    
+                    " from cg_empemisor where flgactivo='1'";
                     var adapter = new System.Data.SqlClient.SqlDataAdapter(command);
                     var dataset = new DataSet();
                     adapter.Fill(dataset);
-
+                    txtventa.Text = "";
+                    txtcompras.Text = "";
+                    txtcobranza.Text = "";
+                    txtpago.Text = "";
                     cmbrucemisor.Items.Clear();
                     if (dataset.Tables.Count == 0)
                     {
@@ -59,7 +64,12 @@ namespace Contasis
 
                         DataTable dtDatabases = dataset.Tables[0];
                         String NewBase = dataset.Tables[0].Rows[0][0].ToString();
+
                         cmbrucemisor.Text = dataset.Tables[0].Rows[0][0].ToString();
+                        txtventa.Text= dataset.Tables[0].Rows[1][1].ToString();
+                        txtcompras.Text = dataset.Tables[0].Rows[1][2].ToString();
+                        txtcobranza.Text = dataset.Tables[0].Rows[1][3].ToString();
+                        txtpago.Text = dataset.Tables[0].Rows[1][4].ToString();
                         for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
 
                         {
@@ -79,11 +89,16 @@ namespace Contasis
                     var command = new NpgsqlCommand();
                     command.Connection = conexion;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "select ltrim(ccodrucemisor)||'-'||ltrim(cdesrucemisor)::character(60) as emisor  from cg_empemisor where flgactivo='1'";
+                    command.CommandText = "select ltrim(ccodrucemisor)||'-'||ltrim(cdesrucemisor)::character(60) as emisor "+
+                    "nventaflg as venta,ncompraflg as compra,ncobranzaflg as cobranza,npagoflg as pago "+      
+                    " from cg_empemisor where flgactivo='1'";
                     var adapter = new NpgsqlDataAdapter(command);
                     var dataset = new DataSet();
                     adapter.Fill(dataset);
-
+                    txtventa.Text = "";
+                    txtcompras.Text = "";
+                    txtcobranza.Text = "";
+                    txtpago.Text = "";
                     cmbrucemisor.Items.Clear();
                     if (dataset.Tables.Count == 0)
                     {
@@ -96,12 +111,15 @@ namespace Contasis
                         DataTable dtDatabases = dataset.Tables[0];
                         String NewBase = dataset.Tables[0].Rows[0][0].ToString();
                         cmbrucemisor.Text = dataset.Tables[0].Rows[0][0].ToString();
-                        for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
 
+                        txtventa.Text = dataset.Tables[0].Rows[1][0].ToString();
+                        txtcompras.Text = dataset.Tables[0].Rows[2][0].ToString();
+                        txtcobranza.Text = dataset.Tables[0].Rows[3][0].ToString();
+                        txtpago.Text = dataset.Tables[0].Rows[4][0].ToString();
+                        for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
                         {
                             cmbrucemisor.Items.Add(dataset.Tables[0].Rows[i][0].ToString());
                             cmbrucemisor.Refresh();
-
                         }
                     }
 
@@ -129,11 +147,17 @@ namespace Contasis
                     var command = new System.Data.SqlClient.SqlCommand();
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT CCOD_EMPRESA+'-'+NOMEMPRESA AS EMPRESA FROM CG_EMPRESA";
+                    command.CommandText = "Select CCOD_EMPRESA+'-'+NOMEMPRESA AS EMPRESA,nventaflg as venta," +
+                    "ncompraflg as compra,ncobranzaflg as cobranza,npagoflg as pago  from cg_empresa inner join cg_empemisor on " +
+                    "cg_empresa.ccodrucemisor = cg_empemisor.ccodrucemisor " +
+                    " where cg_empemisor.flgActivo = 1 ";
                     var adapter = new System.Data.SqlClient.SqlDataAdapter(command);
                     var dataset = new DataSet();
                     adapter.Fill(dataset);
-
+                    txtventa.Text = "";
+                    txtcompras.Text = "";
+                    txtcobranza.Text = "";
+                    txtpago.Text = "";
                     if (dataset.Tables.Count == 0)
                     {
                         MessageBox.Show("No existe datos de empresa seleccionada empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -144,12 +168,12 @@ namespace Contasis
                         DataTable dtDatabases = dataset.Tables[0];
                         String NewBase = dataset.Tables[0].Rows[0][0].ToString();
                         cmbempresas.Text = dataset.Tables[0].Rows[0][0].ToString();
+
                         for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
 
                         {
                             cmbempresas.Items.Add(dataset.Tables[0].Rows[i][0].ToString());
                             cmbempresas.Refresh();
-
                         }
                     }
 
@@ -164,11 +188,17 @@ namespace Contasis
                     var command = new NpgsqlCommand();
                     command.Connection = conexion;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT ltrim(CCOD_EMPRESA)||'-'||ltrim(NOMEMPRESA)::character(50) AS EMPRESA FROM CG_EMPRESA";
+                    command.CommandText = "SELECT ltrim(CCOD_EMPRESA)||'-'||ltrim(NOMEMPRESA)::character(50) AS EMPRESA,nventaflg as venta," +
+                    "ncompraflg as compra,ncobranzaflg as cobranza,npagoflg as pago  from cg_empresa inner join cg_empemisor on " +
+                    "cg_empresa.ccodrucemisor = cg_empemisor.ccodrucemisor " +
+                    "  where cast(cg_empemisor.flgActivo as integer) =1";
                     var adapter = new NpgsqlDataAdapter(command);
                     var dataset = new DataSet();
                     adapter.Fill(dataset);
-
+                    txtventa.Text = "";
+                    txtcompras.Text = "";
+                    txtcobranza.Text = "";
+                    txtpago.Text = "";
                     if (dataset.Tables.Count == 0)
                     {
                         MessageBox.Show("No existe datos de empresa seleccionada empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -179,10 +209,16 @@ namespace Contasis
                         DataTable dtDatabases = dataset.Tables[0];
                         String NewBase = dataset.Tables[0].Rows[0][0].ToString();
                         cmbempresas.Text = dataset.Tables[0].Rows[0][0].ToString();
+
+                        
                         for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
 
                         {
                             cmbempresas.Items.Add(dataset.Tables[0].Rows[i][0].ToString());
+                            txtventa.Text = dataset.Tables[0].Rows[i][1].ToString();
+                            txtcompras.Text = dataset.Tables[0].Rows[i][2].ToString();
+                            txtcobranza.Text = dataset.Tables[0].Rows[i][3].ToString();
+                            txtpago.Text = dataset.Tables[0].Rows[i][4].ToString();
                             cmbempresas.Refresh();
 
                         }
@@ -207,7 +243,7 @@ namespace Contasis
             ////// MessageBox.Show("" + Properties.Settings.Default.cadenaPost);
 
             this.cmbempresas.Focus();
-       ////     this.ruc();
+       ///     this.ruc();
             this.empresas();
             
             
@@ -1256,7 +1292,23 @@ namespace Contasis
         }
         public  void cmbperiodo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtperiodo.Text = cmbperiodo.Text;
+            txtperiodo.Text = cmbperiodo.Text.Trim();
+
+            
+
+            if (this.txtventa.Text== "0")
+            { this.tabPage1.Parent = null; }
+
+            if (this.txtcompras.Text == "0")
+            { this.tabPage2.Parent = null; }
+
+            if (this.txtcobranza.Text == "0")
+            { this.tabPage3.Parent = null; }
+
+            if (this.txtpago.Text == "0")
+            { this.tabPage4.Parent = null; }
+
+
             this.carga3();
             
             
@@ -3541,6 +3593,11 @@ namespace Contasis
                 txtregistro_pago.Text = dataGridView_pago.Rows[posicion].Cells["REGISTRO_PAGO"].Value.ToString();
                 txtflujopago.Text = dataGridView_pago.Rows[posicion].Cells["FLUJO_PAGOS"].Value.ToString();
             }
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
 
         }
         /****************************************************************************************************************/

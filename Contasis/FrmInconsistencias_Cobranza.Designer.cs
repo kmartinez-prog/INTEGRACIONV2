@@ -176,6 +176,7 @@ namespace Contasis
             this.checkSeleccionar.TabIndex = 2;
             this.checkSeleccionar.Text = "Seleccionar todo";
             this.checkSeleccionar.UseVisualStyleBackColor = true;
+            this.checkSeleccionar.CheckedChanged += new System.EventHandler(this.checkSeleccionar_CheckedChanged_1);
             // 
             // btnseleccionar
             // 
@@ -186,6 +187,7 @@ namespace Contasis
             this.btnseleccionar.TabIndex = 1;
             this.btnseleccionar.Text = "Marcar para enviar";
             this.btnseleccionar.UseVisualStyleBackColor = true;
+            this.btnseleccionar.Click += new System.EventHandler(this.btnseleccionar_Click_1);
             // 
             // label1
             // 
@@ -285,6 +287,12 @@ namespace Contasis
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.Size = new System.Drawing.Size(1189, 262);
             this.dataGridView2.TabIndex = 50;
+            this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick_1);
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick_1);
+            this.dataGridView2.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentDoubleClick_1);
+            this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick_1);
+            this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged_1);
+            this.dataGridView2.Click += new System.EventHandler(this.dataGridView2_Click_1);
             // 
             // Column1
             // 
@@ -297,7 +305,7 @@ namespace Contasis
             // 
             // Column2
             // 
-            this.Column2.DataPropertyName = "idcobranzapago";
+            this.Column2.DataPropertyName = "IDCOBRANZAS";
             this.Column2.HeaderText = "ID COBRANZAPAGO";
             this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";

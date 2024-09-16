@@ -8,40 +8,40 @@ namespace Contasis.Clase
 {
     class Cobranzas_propiedades
     {
-        public string ruc { get; set; }
-        public string empresa { get; set; }
-        public string estado { get; set; }
-        public string idcobranzas { get; set; }
-        public string ffechacan { get; set; }
-        public string cdoccan { get; set; }
-        public string csercan { get; set; }
-        public string cnumcan { get; set; }
-        public string ccuecan { get; set; }
-        public string cmoncan { get; set; }
-        public string nimporcan { get; set; }
-        public string ntipcam { get; set; }
-        public string ccodpago { get; set; }
-        public string ccoddoc { get; set; }
-        public string cserie { get; set; }
-        public string cnumero { get; set; }
-        public string ffechadoc { get; set; }
-        public string ffechaven { get; set; }
-        public string ccodenti { get; set; }
-        public string ccodruc { get; set; }
-        public string crazsoc { get; set; }
-        public string nimportes { get; set; }
-        public string nimported { get; set; }
-        public string ccodcue { get; set; }
-        public string cglosa  { get; set; }
-        public string ccodcos { get; set; }
-        public string ccodcos2 { get; set; }
-        public string nporre  { get; set; }
-        public string nimpperc { get; set; }
-        public string nperdenre { get; set; }
-        public string cserre  { get; set; }
-        public string cnumre  { get; set; }
-        public string ffecre   { get; set; }
-        public string obserror { get; set; }
+        public string Ruc { get; set; }
+        public string Empresa { get; set; }
+        public string Estado { get; set; }
+        public string Idcobranzas { get; set; }
+        public string Ffechacan { get; set; }
+        public string Cdoccan { get; set; }
+        public string Csercan { get; set; }
+        public string Cnumcan { get; set; }
+        public string Ccuecan { get; set; }
+        public string Cmoncan { get; set; }
+        public string Nimporcan { get; set; }
+        public string Ntipcam { get; set; }
+        public string Ccodpago { get; set; }
+        public string Ccoddoc { get; set; }
+        public string Cserie { get; set; }
+        public string Cnumero { get; set; }
+        public string Ffechadoc { get; set; }
+        public string Ffechaven { get; set; }
+        public string Ccodenti { get; set; }
+        public string Ccodruc { get; set; }
+        public string Crazsoc { get; set; }
+        public string Nimportes { get; set; }
+        public string Nimported { get; set; }
+        public string Ccodcue { get; set; }
+        public string Cglosa  { get; set; }
+        public string Ccodcos { get; set; }
+        public string Ccodcos2 { get; set; }
+        public string Nporre  { get; set; }
+        public string Nimpperc { get; set; }
+        public string Nperdenre { get; set; }
+        public string Cserre  { get; set; }
+        public string Cnumre  { get; set; }
+        public string Ffecre   { get; set; }
+        public string Obserror { get; set; }
 
 
 

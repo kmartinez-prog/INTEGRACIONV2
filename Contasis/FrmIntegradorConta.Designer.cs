@@ -31,6 +31,10 @@ namespace Contasis
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmIntegradorConta));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtpago = new System.Windows.Forms.TextBox();
+            this.txtcobranza = new System.Windows.Forms.TextBox();
+            this.txtcompras = new System.Windows.Forms.TextBox();
+            this.txtventa = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.cmbrucemisor = new System.Windows.Forms.ComboBox();
             this.txtestado = new System.Windows.Forms.TextBox();
@@ -166,6 +170,10 @@ namespace Contasis
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.txtpago);
+            this.panel1.Controls.Add(this.txtcobranza);
+            this.panel1.Controls.Add(this.txtcompras);
+            this.panel1.Controls.Add(this.txtventa);
             this.panel1.Controls.Add(this.label25);
             this.panel1.Controls.Add(this.cmbrucemisor);
             this.panel1.Controls.Add(this.txtestado);
@@ -181,6 +189,38 @@ namespace Contasis
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(622, 504);
             this.panel1.TabIndex = 0;
+            // 
+            // txtpago
+            // 
+            this.txtpago.Location = new System.Drawing.Point(514, -49);
+            this.txtpago.MaxLength = 1;
+            this.txtpago.Name = "txtpago";
+            this.txtpago.Size = new System.Drawing.Size(42, 20);
+            this.txtpago.TabIndex = 14;
+            // 
+            // txtcobranza
+            // 
+            this.txtcobranza.Location = new System.Drawing.Point(469, -48);
+            this.txtcobranza.MaxLength = 1;
+            this.txtcobranza.Name = "txtcobranza";
+            this.txtcobranza.Size = new System.Drawing.Size(42, 20);
+            this.txtcobranza.TabIndex = 13;
+            // 
+            // txtcompras
+            // 
+            this.txtcompras.Location = new System.Drawing.Point(425, -48);
+            this.txtcompras.MaxLength = 1;
+            this.txtcompras.Name = "txtcompras";
+            this.txtcompras.Size = new System.Drawing.Size(42, 20);
+            this.txtcompras.TabIndex = 12;
+            // 
+            // txtventa
+            // 
+            this.txtventa.Location = new System.Drawing.Point(380, -48);
+            this.txtventa.MaxLength = 1;
+            this.txtventa.Name = "txtventa";
+            this.txtventa.Size = new System.Drawing.Size(42, 20);
+            this.txtventa.TabIndex = 11;
             // 
             // label25
             // 
@@ -319,6 +359,7 @@ namespace Contasis
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(558, 398);
             this.panel2.TabIndex = 0;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // label26
             // 
@@ -1372,6 +1413,7 @@ namespace Contasis
             this.txt_cobra01.Location = new System.Drawing.Point(953, 120);
             this.txt_cobra01.Multiline = true;
             this.txt_cobra01.Name = "txt_cobra01";
+            this.txt_cobra01.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_cobra01.Size = new System.Drawing.Size(342, 141);
             this.txt_cobra01.TabIndex = 22;
             this.txt_cobra01.Text = resources.GetString("txt_cobra01.Text");
@@ -1382,6 +1424,7 @@ namespace Contasis
             this.txt_cobra02.Location = new System.Drawing.Point(953, 267);
             this.txt_cobra02.Multiline = true;
             this.txt_cobra02.Name = "txt_cobra02";
+            this.txt_cobra02.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_cobra02.Size = new System.Drawing.Size(342, 141);
             this.txt_cobra02.TabIndex = 23;
             this.txt_cobra02.Text = resources.GetString("txt_cobra02.Text");
@@ -1389,19 +1432,21 @@ namespace Contasis
             // txt_cobra03
             // 
             this.txt_cobra03.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.txt_cobra03.Location = new System.Drawing.Point(953, 421);
+            this.txt_cobra03.Location = new System.Drawing.Point(977, 421);
             this.txt_cobra03.Multiline = true;
             this.txt_cobra03.Name = "txt_cobra03";
-            this.txt_cobra03.Size = new System.Drawing.Size(342, 141);
+            this.txt_cobra03.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txt_cobra03.Size = new System.Drawing.Size(318, 264);
             this.txt_cobra03.TabIndex = 24;
             this.txt_cobra03.Text = resources.GetString("txt_cobra03.Text");
             // 
             // txt_cobra04
             // 
             this.txt_cobra04.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.txt_cobra04.Location = new System.Drawing.Point(953, 568);
+            this.txt_cobra04.Location = new System.Drawing.Point(607, 568);
             this.txt_cobra04.Multiline = true;
             this.txt_cobra04.Name = "txt_cobra04";
+            this.txt_cobra04.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_cobra04.Size = new System.Drawing.Size(342, 141);
             this.txt_cobra04.TabIndex = 26;
             this.txt_cobra04.Text = resources.GetString("txt_cobra04.Text");
@@ -1410,7 +1455,7 @@ namespace Contasis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(644, 557);
+            this.ClientSize = new System.Drawing.Size(646, 556);
             this.Controls.Add(this.txt_cobra04);
             this.Controls.Add(this.txt_cobra03);
             this.Controls.Add(this.txt_cobra02);
@@ -1583,5 +1628,9 @@ namespace Contasis
         private System.Windows.Forms.TextBox txt_cobra04;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtpago;
+        private System.Windows.Forms.TextBox txtcobranza;
+        private System.Windows.Forms.TextBox txtcompras;
+        private System.Windows.Forms.TextBox txtventa;
     }
 }

@@ -139,6 +139,10 @@ CREATE TABLE cg_empemisor(
 	ccodrucemisor char (15) NOT NULL,
 	cdesrucemisor char (200) NULL,
 	flgActivo bit NULL,
+	nventaflg numeric(1,0)  NULL,
+	ncompraflg numeric(1,0)   NULL,
+	ncobranzaflg numeric(1,0)   NULL,
+	npagoflg numeric(1,0)   NULL,
 PRIMARY KEY  (ccodrucemisor) );
 
 CREATE TABLE cg_empresa(
@@ -329,7 +333,7 @@ CREATE TABLE fin_ventas(
 	 ffecre   date  NULL,
 	 ccodpresu   nchar (10) NULL,
 	 nigv   numeric (5, 2) NULL,
-	 cglosa   Text NULL,
+	 cglosa   text NULL,
 	 ccodpago   nchar (3) NULL,
 	 nperdenre   numeric (1, 0) NULL,
 	 nbaseres   numeric (15, 2) NULL,
@@ -343,9 +347,60 @@ CREATE TABLE fin_ventas(
 	 obserror   text  NULL,
 PRIMARY KEY (idventas));
 
+
+create sequence sec_idcobranzas minvalue 1 maxvalue 9999999999 increment by 1 ;
+CREATE TABLE fin_cobranzapago
+(
+    idcobranzas numeric(20,0),
+    ccodrucemisor character(15) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    ccod_empresa character(3) COLLATE pg_catalog."default",
+    cper character(4) COLLATE pg_catalog."default",
+    cmes character(2) COLLATE pg_catalog."default",
+    ntipocobpag numeric(1,0),
+    ffechacan date,
+    cdoccan character(2) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    csercan character(20) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    cnumcan character(20) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    ccuecan character(20) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    cmoncan character(1) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    nimporcan numeric(15,2) NOT NULL DEFAULT 0,
+    ntipcam numeric(10,6) NOT NULL DEFAULT 0,
+    ccodpago character(3) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    ccoddoc character(2) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    cserie character(20) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    cnumero character(20) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    ffechadoc date,
+    ffechaven date,
+    ccodenti character(11) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    ccodruc character(15) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    crazsoc character(150) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    nimportes numeric(15,2) NOT NULL DEFAULT 0,
+    nimported numeric(15,2) NOT NULL DEFAULT 0,
+    ccodcue character(20) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    cglosa text COLLATE pg_catalog."default",
+    ccodcos character(15) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    ccodcos2 character(15) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    nporre numeric(5,2) NOT NULL DEFAULT 0,
+    nimpperc numeric(15,2) NOT NULL DEFAULT 0,
+    nperdenre numeric(1,0) NOT NULL DEFAULT 0,
+    cserre character(6) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    cnumre character(13) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    ffecre date,
+    obserror text COLLATE pg_catalog."default",
+    resultado_migracion numeric(1,0),
+    created_at date,
+    updated_at date,
+    estado character(255) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    en_ambiente_de character(255) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+    es_con_migracion numeric(1,0),
+    ccodcos3 character(15) COLLATE pg_catalog."default" NOT NULL DEFAULT ''::bpchar,
+	PRIMARY KEY (idcobranzas));
+
+
 END;
 $BODY$
-  LANGUAGE plpgsql VOLATILE</value>
+  LANGUAGE plpgsql VOLATILE
+</value>
   </data>
   <metadata name="timer5.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>421, 17</value>
@@ -784,7 +839,7 @@ $BODY$
   COST 100;</value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>226</value>
+    <value>51</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

@@ -41,7 +41,7 @@ namespace Contasis
             // 
             // pBarra
             // 
-            this.pBarra.Location = new System.Drawing.Point(7, 2);
+            this.pBarra.Location = new System.Drawing.Point(7, 33);
             this.pBarra.Name = "pBarra";
             this.pBarra.Size = new System.Drawing.Size(393, 19);
             this.pBarra.Step = 20;
@@ -53,7 +53,7 @@ namespace Contasis
             this.btncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btncerrar.Image = global::Contasis.Properties.Resources._11;
             this.btncerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btncerrar.Location = new System.Drawing.Point(300, 61);
+            this.btncerrar.Location = new System.Drawing.Point(300, 136);
             this.btncerrar.Name = "btncerrar";
             this.btncerrar.Size = new System.Drawing.Size(100, 32);
             this.btncerrar.TabIndex = 5;
@@ -66,7 +66,7 @@ namespace Contasis
             this.txtMensaje.BackColor = System.Drawing.SystemColors.ControlLight;
             this.txtMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtMensaje.CausesValidation = false;
-            this.txtMensaje.Location = new System.Drawing.Point(10, 43);
+            this.txtMensaje.Location = new System.Drawing.Point(10, 139);
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.Size = new System.Drawing.Size(393, 13);
             this.txtMensaje.TabIndex = 6;
@@ -91,7 +91,7 @@ namespace Contasis
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.Control;
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(194, 26);
+            this.label1.Location = new System.Drawing.Point(194, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(14, 15);
             this.label1.TabIndex = 8;

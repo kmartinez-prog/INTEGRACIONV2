@@ -29,17 +29,17 @@ namespace Contasis
                 NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
                 data.Fill(dt);
                 if (dt.Rows.Count > 0)
-                {                }
+                { }
                 else
-                { string query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo) values(" +
-                            "'" + Objet.ruc + "', " +
-                            "'" + Objet.empresa + "', " +
-                            "'" + Objet.estado + "')";
-                        NpgsqlCommand ejecutor = new NpgsqlCommand(query, conexion);
-                        cadena = ejecutor.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
+                {
+                    string query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg) values(" +
+                                  "'" + Objet.ruc + "', " +
+                                  "'" + Objet.empresa + "', " +
+                                  "'" + Objet.estado + "'," + Objet.checkventas + "," + Objet.checkcompras + "," + Objet.checkcobranzas + "," + Objet.checkpagos + ")";
+                    NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
+                    cadena = command3.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
+                    
                 }
-                
-
             }
             catch (Exception ex1)
             {
@@ -64,8 +64,8 @@ namespace Contasis
             conexion.Open();
             try
             {
-                string query = "update  cg_empemisor SET cdesrucemisor='" + Objet.empresa + "'," +
-                "flgactivo='" + Objet.estado + "' where ccodrucemisor='" + Objet.ruc + "'";
+               string query = "update  cg_empemisor SET cdesrucemisor='" + Objet.empresa + "'," +
+               "flgactivo='" + Objet.estado + "',nventaflg=" + Objet.checkventas + ",ncompraflg=" + Objet.checkcompras + ", ncobranzaflg=" + Objet.checkcobranzas + ", npagoflg=" + Objet.checkpagos + " where ccodrucemisor='" + Objet.ruc + "'";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
                 
