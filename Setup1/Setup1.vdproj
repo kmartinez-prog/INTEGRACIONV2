@@ -286,7 +286,7 @@
         "Entry"
         {
         "MsmKey" = "8:_2F6A13F72390CE0C514D8A543D4FBAE7"
-        "OwnerKey" = "8:_E5B2B3D02E129D64DCFD2FA6CB49FB0F"
+        "OwnerKey" = "8:_E52B00CD9BC7A23EDC9610DF2C0D53B4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -298,7 +298,7 @@
         "Entry"
         {
         "MsmKey" = "8:_2F6A13F72390CE0C514D8A543D4FBAE7"
-        "OwnerKey" = "8:_E52B00CD9BC7A23EDC9610DF2C0D53B4"
+        "OwnerKey" = "8:_E5B2B3D02E129D64DCFD2FA6CB49FB0F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1630,13 +1630,13 @@
         "Entry"
         {
         "MsmKey" = "8:_E5B2B3D02E129D64DCFD2FA6CB49FB0F"
-        "OwnerKey" = "8:_FE43B6A85D6B4754A937DEA778BC02B8"
+        "OwnerKey" = "8:_55110AC811AD4D7F9B927D730A03F46C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_E5B2B3D02E129D64DCFD2FA6CB49FB0F"
-        "OwnerKey" = "8:_55110AC811AD4D7F9B927D730A03F46C"
+        "OwnerKey" = "8:_FE43B6A85D6B4754A937DEA778BC02B8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1828,6 +1828,18 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_600DE9A0B9FAE9FC8A3ED9556834A8B7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BE2F507DDE4765D664E3A4C9019A0F16"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_55110AC811AD4D7F9B927D730A03F46C"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1937,6 +1949,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_DF9C9B49B39B0632AF9C04C10E5E74C2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E5B2B3D02E129D64DCFD2FA6CB49FB0F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2254,6 +2272,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2F6A13F72390CE0C514D8A543D4FBAE7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B66E698C4FD57CD99F368395CA39C0EB"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2341,30 +2365,6 @@
         "OwnerKey" = "8:_DB813C7CD92B88A210A7F270F63CF598"
         "MsmSig" = "8:_UNDEFINED"
         }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_600DE9A0B9FAE9FC8A3ED9556834A8B7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BE2F507DDE4765D664E3A4C9019A0F16"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E5B2B3D02E129D64DCFD2FA6CB49FB0F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2F6A13F72390CE0C514D8A543D4FBAE7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
     }
     "Configurations"
     {
@@ -2406,7 +2406,7 @@
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
         "OutputFilename" = "8:Release\\Setup1.msi"
-        "PackageFilesAs" = "3:2"
+        "PackageFilesAs" = "3:1"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
         "Compression" = "3:2"
@@ -7818,7 +7818,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Contasis Integrador"
         "ProductCode" = "8:{0FB66062-8ADD-4107-995E-DC0DE518E623}"
-        "PackageCode" = "8:{26C26503-CC3F-4FD5-AC7F-2F9F5E9137B8}"
+        "PackageCode" = "8:{5DDAC75B-8D1C-42CD-A49A-90D3002743B5}"
         "UpgradeCode" = "8:{EEB09360-ACA0-48EF-B218-D3F45113DDF8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -8395,7 +8395,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FE43B6A85D6B4754A937DEA778BC02B8"
             {
-            "SourcePath" = "8:..\\Actualizador\\obj\\Debug\\Actualizador.exe"
+            "SourcePath" = "8:..\\Actualizador\\obj\\Release\\Actualizador.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5EE495FDBAED4C258F5F144C01784EE2"

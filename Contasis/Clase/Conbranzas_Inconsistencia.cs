@@ -23,7 +23,7 @@ namespace Contasis.Clase
             {
 
 
-                string query = "SELECT idcobranzapago "+
+                string query = "SELECT idcobranzapago  as idcobranzas" +
                 ", ccod_empresa, convert(varchar(10), ffechacan, 103) as ffechacan, "+
                 " isnull(cdoccan, '') as cdoccan,isnull(csercan, '') as csercan, "+
                 " isnull(cnumcan, '') as cnumcan,isnull(ccuecan, '') as ccuecan, "+
@@ -37,7 +37,7 @@ namespace Contasis.Clase
                 "isnull(cglosa, '') as cglosa "+
                 ",isnull(ccodcos, '') as ccodcos,isnull(ccodcos2, '') as ccodcos2,isnull(nporre, 0.00) as nporre, "+
                 "isnull(nimpperc, 0.00) as nimpperc,isnull(nperdenre, 0.00) as nperdenre,isnull(cserre, '') as cserre "+
-                ",isnull(cnumre, '') as cnumre,convert(varchar, ffecre, 103) as ffecre,resultado_migracion,obserror "+
+                ",isnull(cnumre, '') as cnumre,convert(varchar, ffecre, 103) as ffecre,obserror "+
                 "FROM fin_cobranzapago with(nolock) where ntipocobpag= 1 and  "+
                 "es_con_migracion = 2  and ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
@@ -161,8 +161,8 @@ namespace Contasis.Clase
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "update  fin_cobranzapago  SET Ccodruc='" + Objet.Ccodruc.Trim() + "',Crazsoc='" + Objet.Crazsoc.ToUpper().Trim() + "'," +
-                                  "Ccuecan='" + Objet.Ccuecan.Trim() + "',Ccodcue='" + Objet.Ccodcue.Trim() + "',ccodcos='" + Objet.Ccodcos.Trim() + "'," +
+                string query = "update  fin_cobranzapago  SET Ccuecan='" + Objet.Ccuecan.Trim() + "',Ccodcue='" + Objet.Ccodcue.Trim() + "'," +
+                                  "Nimportes=" + Objet.Nimportes + ",Nimported=" + Objet.Nimported + ",ccodcos='" + Objet.Ccodcos.Trim() + "'," +
                                   "ccodcos2='" + Objet.Ccodcos2.Trim() + "',obserror='',es_con_migracion=0 where idcobranzapago=" + Objet.Idcobranzas + "";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
@@ -192,9 +192,9 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "update  fin_cobranzapago  SET Ccodruc='" + Objet.Ccodruc.Trim() + "',Crazsoc='" + Objet.Crazsoc.ToUpper().Trim() + "'," +
-                                  "Ccuecan='" + Objet.Ccuecan.Trim() + "',Ccodcue='" + Objet.Ccodcue.Trim() + "',ccodcos='" + Objet.Ccodcos.Trim() + "'," +
-                                  "ccodcos2='" + Objet.Ccodcos2.Trim() + "',obserror='',es_con_migracion=0 where idcobranzapago=" + Objet.Idcobranzas + "";
+                string query = "update  fin_cobranzapago  SET Ccuecan='" + Objet.Ccuecan.Trim() + "',Ccodcue='" + Objet.Ccodcue.Trim() + "'," +
+                                  "Nimportes=" + Objet.Nimportes + ",Nimported=" + Objet.Nimported + ",ccodcos='" + Objet.Ccodcos.Trim() + "'," +
+                                  "ccodcos2='" + Objet.Ccodcos2.Trim() + "',obserror='',es_con_migracion=0 where idcobranzas=" + Objet.Idcobranzas + "";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
 

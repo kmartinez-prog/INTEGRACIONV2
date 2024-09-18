@@ -504,8 +504,9 @@ namespace Contasis
             // 
             // txtccodcos
             // 
+            this.txtccodcos.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.txtccodcos.Location = new System.Drawing.Point(162, 447);
-            this.txtccodcos.MaxLength = 3;
+            this.txtccodcos.MaxLength = 9;
             this.txtccodcos.Name = "txtccodcos";
             this.txtccodcos.Size = new System.Drawing.Size(81, 20);
             this.txtccodcos.TabIndex = 64;
@@ -521,8 +522,9 @@ namespace Contasis
             // 
             // txtccodcos2
             // 
+            this.txtccodcos2.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.txtccodcos2.Location = new System.Drawing.Point(406, 449);
-            this.txtccodcos2.MaxLength = 3;
+            this.txtccodcos2.MaxLength = 9;
             this.txtccodcos2.Name = "txtccodcos2";
             this.txtccodcos2.Size = new System.Drawing.Size(81, 20);
             this.txtccodcos2.TabIndex = 66;
@@ -538,8 +540,9 @@ namespace Contasis
             // 
             // txtccodpresu
             // 
+            this.txtccodpresu.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.txtccodpresu.Location = new System.Drawing.Point(162, 473);
-            this.txtccodpresu.MaxLength = 3;
+            this.txtccodpresu.MaxLength = 9;
             this.txtccodpresu.Name = "txtccodpresu";
             this.txtccodpresu.Size = new System.Drawing.Size(81, 20);
             this.txtccodpresu.TabIndex = 68;

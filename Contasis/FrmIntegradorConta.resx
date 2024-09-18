@@ -7669,6 +7669,7 @@ DECLARE
 	vcregper character(20); 
 	vcregperc character(20); 
 	varperc character(20); 
+	vccodenti character(11);
 BEGIN
 
 	--varcentro2=0;
@@ -7676,7 +7677,7 @@ BEGIN
 
 	for rwperproceso in select distinct cper as cperproceso, ntipocobpag from fin_cobranzapago order by ntipocobpag loop 	
 		-- propiedades de empresa por periodos 
-		for rwemp in select cper, cctaper, cctagan, cregper,cregperc
+		for rwemp in select cper, cctaper, cctagan, cregper,cregperc,ccodenti
 			     from cg_emppro  
 			     where cper =rwperproceso.cperproceso loop		
 		   
@@ -7686,7 +7687,7 @@ BEGIN
 			    vardifpd = (select cdesdeb from cf_plan where cper = rwemp.cper and ccodcue = rwemp.cctaper);  
 			    vardifph = (select cdeshab from cf_plan where cper = rwemp.cper and ccodcue = rwemp.cctaper);		    
 			    vardifg = rwemp.cctagan ;	
-			    	    							
+			    vccodenti =	 rwemp.ccodenti;   							
 			    if rwperproceso.ntipocobpag = 1 then -- Cobranzas 
 				varperc = vcregper; 
 			    else 
@@ -7697,7 +7698,7 @@ BEGIN
 		
 		
 
-		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' CAMPO CCODCUE TIENE UNA CTA ERRADA  ') ,  resultado_migracion = 2 
+		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' CAMPO CCODCUE NO EXISTE EN PCGE') ,  resultado_migracion = 2 
 		WHERE CCODCUE IN(
 		SELECT A.CCODCUE  FROM fin_cobranzapago A left join cf_plan b on a.CCODCUE=b.ccodcue and b.cper=rwperproceso.cperproceso
 		where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCODCUE&lt;&gt;'');
@@ -7709,14 +7710,14 @@ BEGIN
 		where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCODCUE='');
 
 			
-		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' CAMPO CCUECAN TIENE UNA CTA ERRADA  ') ,  resultado_migracion = 2 
+		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' CAMPO CCUECAN  NO EXISTE EN PCGE') ,  resultado_migracion = 2 
 		WHERE CCUECAN IN(
 		SELECT A.CCUECAN  FROM fin_cobranzapago A left join cf_plan b on a.CCUECAN=b.ccodcue and b.cper=rwperproceso.cperproceso
 		where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCUECAN&lt;&gt;'');
 
 		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' CAMPO CCUECAN ESTA VACIO ') ,  resultado_migracion = 2 
 		WHERE CCUECAN IN(
-		SELECT A.CCUECAN  FROM fin_cobranzapago A left join cf_plan b on a.CCUECAN=b.ccodcue and b.cper='2024'
+		SELECT A.CCUECAN  FROM fin_cobranzapago A left join cf_plan b on a.CCUECAN=b.ccodcue and b.cper=rwperproceso.cperproceso
 		where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCUECAN='') ;
 
 
@@ -7736,7 +7737,7 @@ BEGIN
 		Select idcobranzapago From fin_cobranzapago inner join CG_COSTOS2 on
 		fin_cobranzapago.ccodcos2=CG_COSTOS2.ccodcos2  WHERE  fin_cobranzapago.cper=rwperproceso.cperproceso); 
 
-
+		update  fin_cobranzapago set ccodenti=vccodenti where trim(coalesce(ccodenti,''))='';
 
 		
 		-- Falta Validar si la cuenta no existe 
@@ -7894,7 +7895,8 @@ $BODY$
 LANGUAGE 'plpgsql'
 COST 100;
 ALTER FUNCTION public.fin_importar_cobranzapago_integrador_principal()
-OWNER TO postgres;</value>
+OWNER TO postgres;
+</value>
   </data>
   <data name="txt_cobra04.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION fin_importar_cobranzapago_integrador(varper character,

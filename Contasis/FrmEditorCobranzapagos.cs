@@ -13,9 +13,10 @@ namespace Contasis
     public partial class FrmEditorCobranzapagos : Form
     {
         public FrmEditorCobranzapagos(string Idcobranzas, string Ffechacan,
-                    string Cdoccan, string Csercan, string Cnumcan, string Cmoncan, string Nimporcan, string Ntipcam,
-                    string Ccodpago, string Ccoddoc, string Cserie, string Cnumero, string Ffechadoc, string Ccodruc,
-                    string Crazsoc, string Nimportes, string Nimported, string Ccodcue, string Ccodcos, string Ccodcos2, 
+                    string Cdoccan, string Csercan, string Cnumcan,string Ccuecan, string Cmoncan, string Nimporcan, string Ntipcam,
+                    string Ccodpago, string Ccoddoc, string Cserie, string Cnumero, string Ffechadoc, 
+                    string Ccodruc,  string Crazsoc, string Nimportes, string Nimported, 
+                    string Ccodcue, string Ccodcos, string Ccodcos2, 
                     string obserror)
         {
             InitializeComponent();
@@ -24,21 +25,22 @@ namespace Contasis
             txtdocucan.Text = Cdoccan;
             txtseriecan.Text = Csercan;
             txtnumerocan.Text = Cnumcan;
-            txtccuecan.Text = Cmoncan;
-            txtmoneda.Text = Nimporcan;
-            txtimporte.Text = Ntipcam;
-            txttipocambio.Text = Ccodpago;
-            txtmediopago.Text = Ccoddoc;
-            txtdocu.Text = Cserie;
-            txtserie.Text = Cnumero;
-            txtnumero.Text = Ffechadoc;
-            txtFfechadoc.Text = Ccodruc;
-            txtFfechaven.Text = Crazsoc;
-            txtcctatot.Text = Nimportes;
-            txtccond.Text = Nimported;
-            txtccodcos.Text = Ccodcue;
-            txt.Text = Ccodcos;
-            txtccodcos2.Text = Ccodcos2;
+            txtccuecan.Text = Ccuecan;
+            txtmoneda.Text = Cmoncan;
+            txtimporte.Text = Nimporcan;
+            txttipocambio.Text = Ntipcam;
+            txtmediopago.Text = Ccodpago;
+            txtdocu.Text = Ccoddoc;
+            txtserie.Text = Cserie;
+            txtnumero.Text = Cnumero;
+            txtFfechadoc.Text = Ffechadoc;
+            txtruc.Text = Ccodruc;
+            txtrazon.Text = Crazsoc;
+            txtcodcue.Text = Ccodcue;
+            txtImportesoles.Text= Nimportes;
+            txtImportedolar.Text = Nimported;
+            txtcosto.Text = Ccodcos;
+            txtcosto2.Text = Ccodcos2;
             txtobservacion.Text = obserror;
         }
 
@@ -70,11 +72,10 @@ namespace Contasis
                 {
                     string respuesta = "";
                     Clase.Cobranzas_propiedades obe = new Clase.Cobranzas_propiedades();
-
                     obe.Idcobranzas = txtidcobranzapago.Text;
-
                     Clase.Conbranzas_Inconsistencia ds = new Clase.Conbranzas_Inconsistencia();
                     respuesta = ds.eliminarsql(obe);
+                    FrmInconsistencias_Cobranza.instance.llenar_grilla();
                     if (respuesta.Equals("Eliminar"))
                     {
                         MessageBox.Show("Cobranza fue eliminada.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -105,7 +106,6 @@ namespace Contasis
                     respuesta = ds.eliminarpos(obe);
                     if (respuesta.Equals("Eliminar"))
                     {
-
                         MessageBox.Show("Cobranza fue eliminada.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
                     }
@@ -117,38 +117,42 @@ namespace Contasis
                 }
                 catch (Exception ex)
                 {
-
                     MessageBox.Show("error : " + ex.Message, "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                FrmInconsistencias_Cobranza.instance.llenar_grilla();
                 this.Close();
             }
         }
 
         private void btnGrabar_Click(object sender, EventArgs e)
         {
-         /**   string respuesta = "";
+           string respuesta = "";
             Clase.Cobranzas_propiedades obe = new Clase.Cobranzas_propiedades();
             Clase.Conbranzas_Inconsistencia ds = new Clase.Conbranzas_Inconsistencia();
-            obe.Idcobranzas = txtidcobranzapago.Text;
-            obe.Ffechadoc = txtffechacan.Text;
-            obe.Ffechaven = txtdocucan.Text;
-            obe.Ccoddoc = txtmoneda.Text.Trim();
-            obe.Cserie = txtnumerocan.Text.Trim();
-            obe.Cnumero = txtcuencon.Text.Trim();
-            obe.Ctipdoc = txtmoneda.Text.Trim();
-            obe.Crazsoc = txtimporte.Text.Trim();
-            obe.Cruc = txtimporte.Text.Trim();
-            obe.Base1 = txtmediopago.Text;
-            obe.Nigv1 = txtdocu.Text;
-            obe.Ntots = txtserie.Text;
-            obe.Ntc = txtnumero.Text;
-            obe.Cmreg = txtFfechadoc.Text.Trim();
-            obe.Cctabase = txtFfechaven.Text.Trim();
-            obe.Cctatot = txtcctatot.Text.Trim();
-            obe.Ccond = txtccond.Text.Trim().ToUpper();
-            obe.Ccodcos = txtccodcos.Text.Trim();
-            obe.Ccodcos2 = txtccodcos2.Text.Trim();
-            obe.Ccodpresu = txtccodpresu.Text.Trim();
+
+            obe.Idcobranzas= txtidcobranzapago.Text;
+            obe.Ffechacan= txtffechacan.Text;
+            obe.Cdoccan= txtdocucan.Text;
+            obe.Csercan= txtseriecan.Text;
+            obe.Cnumcan= txtnumerocan.Text;
+            obe.Ccuecan= txtccuecan.Text;
+            obe.Cmoncan= txtmoneda.Text;
+            obe.Nimporcan= txtimporte.Text;
+            obe.Ntipcam= txttipocambio.Text;
+            obe.Ccodpago= txtmediopago.Text;
+            obe.Ccoddoc= txtdocu.Text;
+            obe.Cserie= txtserie.Text;
+            obe.Cnumero= txtnumero.Text;
+            obe.Ffechadoc= txtFfechadoc.Text;
+            obe.Ccodruc= txtruc.Text;
+            obe.Crazsoc = txtrazon.Text;
+            obe.Ccodcue= txtcodcue.Text;
+            obe.Nimportes= txtImportesoles.Text;
+            obe.Nimported= txtImportedolar.Text;
+            obe.Ccodcos= txtcosto.Text;
+            obe.Ccodcos2= txtcosto2.Text;
+            obe.Obserror = txtobservacion.Text;
+
 
 
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
@@ -161,7 +165,8 @@ namespace Contasis
 
                         MessageBox.Show("Cobranza fue actualizada.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
-                        FrmInconsistencia.instance.llenar_grilla();
+                        FrmInconsistencias_Cobranza.instance.llenar_grilla();
+
                     }
                     else
                     {
@@ -175,6 +180,7 @@ namespace Contasis
                     MessageBox.Show("error : " + ex.Message, "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 this.Close();
+                FrmInconsistencias_Cobranza.instance.llenar_grilla();
             }
             else
             {
@@ -186,7 +192,7 @@ namespace Contasis
 
                         MessageBox.Show("Cobranza fue actualizada.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
-                        FrmInconsistencia.instance.llenar_grilla();
+                        FrmInconsistencias_Cobranza.instance.llenar_grilla();
                     }
                     else
                     {
@@ -200,7 +206,8 @@ namespace Contasis
                     MessageBox.Show("error : " + ex.Message, "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 this.Close();
-            }*/
+                FrmInconsistencias_Cobranza.instance.llenar_grilla();
+            }
         }
 
         private void FrmEditorCobranzapagos_KeyDown(object sender, KeyEventArgs e)

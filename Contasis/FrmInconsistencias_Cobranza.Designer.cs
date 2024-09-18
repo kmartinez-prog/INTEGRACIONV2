@@ -119,7 +119,7 @@ namespace Contasis
             this.txtLista.Multiline = true;
             this.txtLista.Name = "txtLista";
             this.txtLista.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLista.Size = new System.Drawing.Size(494, 101);
+            this.txtLista.Size = new System.Drawing.Size(494, 109);
             this.txtLista.TabIndex = 44;
             // 
             // label2
@@ -154,23 +154,23 @@ namespace Contasis
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(20, 475);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(426, 101);
+            this.panel1.Size = new System.Drawing.Size(426, 110);
             this.panel1.TabIndex = 40;
             // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 23);
+            this.comboBox1.Location = new System.Drawing.Point(22, 23);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(409, 21);
+            this.comboBox1.Size = new System.Drawing.Size(397, 21);
             this.comboBox1.TabIndex = 22;
             // 
             // checkSeleccionar
             // 
             this.checkSeleccionar.AutoSize = true;
             this.checkSeleccionar.Enabled = false;
-            this.checkSeleccionar.Location = new System.Drawing.Point(147, 60);
+            this.checkSeleccionar.Location = new System.Drawing.Point(22, 47);
             this.checkSeleccionar.Name = "checkSeleccionar";
             this.checkSeleccionar.Size = new System.Drawing.Size(121, 19);
             this.checkSeleccionar.TabIndex = 2;
@@ -181,7 +181,7 @@ namespace Contasis
             // btnseleccionar
             // 
             this.btnseleccionar.Enabled = false;
-            this.btnseleccionar.Location = new System.Drawing.Point(16, 58);
+            this.btnseleccionar.Location = new System.Drawing.Point(22, 67);
             this.btnseleccionar.Name = "btnseleccionar";
             this.btnseleccionar.Size = new System.Drawing.Size(126, 27);
             this.btnseleccionar.TabIndex = 1;
@@ -193,7 +193,7 @@ namespace Contasis
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 6);
+            this.label1.Location = new System.Drawing.Point(15, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(191, 13);
             this.label1.TabIndex = 0;

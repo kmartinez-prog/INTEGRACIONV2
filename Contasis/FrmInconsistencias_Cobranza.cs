@@ -16,13 +16,15 @@ using Npgsql;
 namespace Contasis
 {
     public partial class FrmInconsistencias_Cobranza : Form
+        
     {
+        public static FrmInconsistencias_Cobranza instance = null;
         string vruc;
         string vempresa;
         public FrmInconsistencias_Cobranza()
         {
             InitializeComponent();
-            
+            instance = this;
         }
 
         private void FrmInconsistencias_Cobranza_Load(object sender, EventArgs e)
@@ -37,7 +39,7 @@ namespace Contasis
                     this.Hide();
                 }
             }
-         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
 
             if (keyData == (Keys.Escape))
@@ -341,7 +343,7 @@ namespace Contasis
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
                     command.CommandText = "SELECT distinct convert(varchar(900),obserror) as obserror " +
-                    "  FROM fin_ventas where es_con_migracion =2 and ccodrucemisor='" + vruc.Trim() + "' and ccod_empresa='" + vempresa.Trim() + "'";
+                    "  FROM fin_cobranzapago where es_con_migracion =2 and ccodrucemisor='" + vruc.Trim() + "' and ccod_empresa='" + vempresa.Trim() + "'";
                     var adapter = new System.Data.SqlClient.SqlDataAdapter(command);
                     var dataset = new DataSet();
                     adapter.Fill(dataset);
@@ -379,8 +381,8 @@ namespace Contasis
                     var command = new NpgsqlCommand();
                     command.Connection = conexion;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT distinct obserror " +
-                    "  FROM fin_ventas where es_con_migracion=2 and ccodrucemisor='" + vruc.Trim() + "' and ccod_empresa='" + vempresa.Trim() + "'";
+                    command.CommandText = "SELECT distinct ltrim(obserror) as obserror " +
+                    "  FROM fin_cobranzapago where es_con_migracion=2 and ccodrucemisor='" + vruc.Trim() + "' and ccod_empresa='" + vempresa.Trim() + "'";
                     var adapter = new NpgsqlDataAdapter(command);
                     var dataset = new DataSet();
                     adapter.Fill(dataset);
@@ -846,11 +848,13 @@ namespace Contasis
 
                         if (dataGridView2.Rows[i].Cells[0].Value.ToString() == "Checked")
                         {
+                            MessageBox.Show(dataGridView2.Rows[i].Cells[1].Value.ToString());
                             string valor = dataGridView2.Rows[i].Cells[1].Value.ToString();
                             this.actualizamotivo(valor);
                             this.txtLista.Text = "";
                         }
                     }
+                    MessageBox.Show("Se ha actualizado el estado para envio en cobranzas.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.llenar_grilla();
 
 
@@ -920,6 +924,7 @@ namespace Contasis
                 obj.Cdoccan = Convert.ToString(dataGridView2.SelectedRows[0].Cells[4].Value).Trim();
                 obj.Csercan = Convert.ToString(dataGridView2.SelectedRows[0].Cells[5].Value).Trim();
                 obj.Cnumcan = Convert.ToString(dataGridView2.SelectedRows[0].Cells[6].Value).Trim();
+                obj.Ccuecan = Convert.ToString(dataGridView2.SelectedRows[0].Cells[7].Value).Trim();
                 obj.Cmoncan = Convert.ToString(dataGridView2.SelectedRows[0].Cells[8].Value).Trim();
                 obj.Nimporcan = Convert.ToString(dataGridView2.SelectedRows[0].Cells[9].Value).Trim();
                 obj.Ntipcam = Convert.ToString(dataGridView2.SelectedRows[0].Cells[10].Value).Trim();
@@ -938,7 +943,7 @@ namespace Contasis
                 obj.Obserror = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
 
                 FrmEditorCobranzapagos editcobranza = new FrmEditorCobranzapagos(obj.Idcobranzas, obj.Ffechacan,
-                obj.Cdoccan, obj.Csercan, obj.Cnumcan, obj.Cmoncan, obj.Nimporcan,
+                obj.Cdoccan, obj.Csercan, obj.Cnumcan, obj.Ccuecan, obj.Cmoncan, obj.Nimporcan,
                 obj.Ntipcam, obj.Ccodpago, obj.Ccoddoc, obj.Cserie, obj.Cnumero, obj.Ffechadoc, obj.Ccodruc, obj.Crazsoc, obj.Nimportes,
                 obj.Nimported, obj.Ccodcue, obj.Ccodcos, obj.Ccodcos2, obj.Obserror);
                 /// Frm_ventasEditor editventas = new Frm_ventasEditor();
