@@ -41,11 +41,6 @@ namespace Contasis
             this.cmbrucemisor = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.checkSeleccionar = new System.Windows.Forms.CheckBox();
-            this.btnseleccionar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -100,6 +95,11 @@ namespace Contasis
             this.Column52 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column53 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column54 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.checkSeleccionar = new System.Windows.Forms.CheckBox();
+            this.btnseleccionar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -144,11 +144,11 @@ namespace Contasis
             // txtLista
             // 
             this.txtLista.BackColor = System.Drawing.SystemColors.Info;
-            this.txtLista.Location = new System.Drawing.Point(453, 475);
+            this.txtLista.Location = new System.Drawing.Point(453, 465);
             this.txtLista.Multiline = true;
             this.txtLista.Name = "txtLista";
             this.txtLista.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLista.Size = new System.Drawing.Size(494, 101);
+            this.txtLista.Size = new System.Drawing.Size(494, 109);
             this.txtLista.TabIndex = 23;
             // 
             // btnMostrar
@@ -282,61 +282,6 @@ namespace Contasis
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
             // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Controls.Add(this.checkSeleccionar);
-            this.panel1.Controls.Add(this.btnseleccionar);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(20, 475);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(426, 101);
-            this.panel1.TabIndex = 33;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 23);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(409, 21);
-            this.comboBox1.TabIndex = 22;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // checkSeleccionar
-            // 
-            this.checkSeleccionar.AutoSize = true;
-            this.checkSeleccionar.Enabled = false;
-            this.checkSeleccionar.Location = new System.Drawing.Point(147, 60);
-            this.checkSeleccionar.Name = "checkSeleccionar";
-            this.checkSeleccionar.Size = new System.Drawing.Size(121, 19);
-            this.checkSeleccionar.TabIndex = 2;
-            this.checkSeleccionar.Text = "Seleccionar todo";
-            this.checkSeleccionar.UseVisualStyleBackColor = true;
-            this.checkSeleccionar.CheckedChanged += new System.EventHandler(this.checkSeleccionar_CheckedChanged);
-            // 
-            // btnseleccionar
-            // 
-            this.btnseleccionar.Enabled = false;
-            this.btnseleccionar.Location = new System.Drawing.Point(16, 58);
-            this.btnseleccionar.Name = "btnseleccionar";
-            this.btnseleccionar.Size = new System.Drawing.Size(126, 27);
-            this.btnseleccionar.TabIndex = 1;
-            this.btnseleccionar.Text = "Marcar para enviar";
-            this.btnseleccionar.UseVisualStyleBackColor = true;
-            this.btnseleccionar.Click += new System.EventHandler(this.btnseleccionar_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(191, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Seleccionar Motivo para marcar ";
-            // 
             // Column1
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
@@ -344,7 +289,7 @@ namespace Contasis
             this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column1.Width = 53;
+            this.Column1.Width = 55;
             // 
             // Column2
             // 
@@ -798,6 +743,61 @@ namespace Contasis
             this.Column54.MinimumWidth = 6;
             this.Column54.Name = "Column54";
             this.Column54.Width = 125;
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.checkSeleccionar);
+            this.panel1.Controls.Add(this.btnseleccionar);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(20, 465);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(426, 109);
+            this.panel1.TabIndex = 33;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(12, 23);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(409, 21);
+            this.comboBox1.TabIndex = 22;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // checkSeleccionar
+            // 
+            this.checkSeleccionar.AutoSize = true;
+            this.checkSeleccionar.Enabled = false;
+            this.checkSeleccionar.Location = new System.Drawing.Point(12, 49);
+            this.checkSeleccionar.Name = "checkSeleccionar";
+            this.checkSeleccionar.Size = new System.Drawing.Size(121, 19);
+            this.checkSeleccionar.TabIndex = 2;
+            this.checkSeleccionar.Text = "Seleccionar todo";
+            this.checkSeleccionar.UseVisualStyleBackColor = true;
+            this.checkSeleccionar.CheckedChanged += new System.EventHandler(this.checkSeleccionar_CheckedChanged);
+            // 
+            // btnseleccionar
+            // 
+            this.btnseleccionar.Enabled = false;
+            this.btnseleccionar.Location = new System.Drawing.Point(12, 69);
+            this.btnseleccionar.Name = "btnseleccionar";
+            this.btnseleccionar.Size = new System.Drawing.Size(126, 27);
+            this.btnseleccionar.TabIndex = 1;
+            this.btnseleccionar.Text = "Marcar para enviar";
+            this.btnseleccionar.UseVisualStyleBackColor = true;
+            this.btnseleccionar.Click += new System.EventHandler(this.btnseleccionar_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(191, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Seleccionar Motivo para marcar ";
             // 
             // FrmInconsistenciasCompras
             // 

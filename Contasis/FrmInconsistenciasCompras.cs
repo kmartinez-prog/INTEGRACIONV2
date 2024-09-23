@@ -21,7 +21,7 @@ namespace Contasis
         string vruc;
         string vempresa;
         public FrmInconsistenciasCompras()
-       {
+        {
         InitializeComponent();
         instance = this;
         }
@@ -60,19 +60,17 @@ namespace Contasis
 
                     Clase.Compras_propiedadescs obj = new Clase.Compras_propiedadescs();
                     Clase.Compras_inconsistencias listasql = new Clase.Compras_inconsistencias();
-
+                    Clase.Compras_inconsistencias actualizar = new Clase.Compras_inconsistencias();
 
                     obj.ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
                     obj.empresa = cmbempresas.Text.Trim().Substring(0, 3);
                     obj.estado = "";
-
                     this.dataGridView2.Refresh();
+                    actualizar.ActualizaEstadoSQL(obj);
                     dataGridView2.DataSource = listasql.listassql(obj);
                     dataGridView2.AllowUserToAddRows = false;
                     label2.Text = "Total de Registros : " + Convert.ToString(dataGridView2.Rows.Count);
-                
                     dataGridView2.AllowUserToAddRows = false;
-
                     dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     ////  dataGridView2.ReadOnly = true;
                     if (dataGridView2.IsCurrentCellDirty)
@@ -117,28 +115,23 @@ namespace Contasis
 
                     Clase.Compras_propiedadescs obj = new Clase.Compras_propiedadescs();
                     Clase.Compras_inconsistencias listapos = new Clase.Compras_inconsistencias();
-
+                    Clase.Compras_inconsistencias actualizar = new Clase.Compras_inconsistencias();
 
                     obj.ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
                     obj.empresa = cmbempresas.Text.Trim().Substring(0, 3);
                     obj.estado = "";
-
+                    actualizar.ActualizaEstadoSQL(obj);
                     dataGridView2.Refresh();
                     dataGridView2.DataSource = listapos.listaspos(obj);
                     dataGridView2.AllowUserToAddRows = false;
                     label2.Text = "Total de Registros : " + Convert.ToString(dataGridView2.Rows.Count);
-
-                
                     this.dataGridView2.Refresh();
-
                     dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     /////dataGridView2.ReadOnly = true;
                     if (dataGridView2.IsCurrentCellDirty)
                     {
                         dataGridView2.CommitEdit(DataGridViewDataErrorContexts.Commit);
                     }
-
-
                     if (dataGridView2.Rows.Count > 0)
                     {
                         this.dataGridView2.CurrentCell = this.dataGridView2.Rows[0].Cells[1];
@@ -686,7 +679,7 @@ namespace Contasis
             {
                 try
                 {
-                    txtLista.Text = dataGridView2.CurrentRow.Cells["obserror"].Value.ToString();
+                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[54].Value).Trim();
                     Refresh();
                 }
                 catch
@@ -701,7 +694,7 @@ namespace Contasis
                 { }
                 else
                 {
-                    txtLista.Text = dataGridView2.CurrentRow.Cells["obserror"].Value.ToString();
+                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[54].Value).Trim();
                     Refresh();
                 }
             }
@@ -716,7 +709,7 @@ namespace Contasis
                 { }
                 else
                 {
-                    txtLista.Text = dataGridView2.CurrentRow.Cells["obserror"].Value.ToString();
+                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[54].Value).Trim();
                     Refresh();
                 }
             }
@@ -729,41 +722,49 @@ namespace Contasis
             { }
             else
             {
-                /// txtLista.Text = dataGridView2.CurrentRow.Cells["obserror"].Value.ToString();
-                Refresh();
+                try
+                {
+                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[54].Value).Trim();
+                    Refresh();
+                }
+                catch
+                { }
             }
         }
-
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (Convert.ToString(dataGridView2.Rows.Count) == "0")
             { }
             else
             {
+                txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[54].Value).Trim();
                 Clase.Compras_propiedadescs obj = new Clase.Compras_propiedadescs();
                 obj.idcompras = dataGridView2.CurrentRow.Cells[1].Value.ToString();
                 obj.ffechadoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[3].Value).Trim();
-                obj.fechaven = Convert.ToString(dataGridView2.SelectedRows[0].Cells[4].Value).Trim();
-                obj.ccoddoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[5].Value).Trim();
-                obj.cserie = Convert.ToString(dataGridView2.SelectedRows[0].Cells[8].Value).Trim();
-                obj.cnumero = Convert.ToString(dataGridView2.SelectedRows[0].Cells[9].Value).Trim();
-                obj.ctipdoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[10].Value).Trim();
-                obj.crazsoc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[12].Value).Trim();
-                obj.ccodruc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[11].Value).Trim();
-                obj.nbase1 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[14].Value).Trim();
-                obj.nigv1 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[15].Value).Trim();
-                obj.ntots = Convert.ToString(dataGridView2.SelectedRows[0].Cells[24].Value).Trim();
-                obj.ntc = Convert.ToString(dataGridView2.SelectedRows[0].Cells[28].Value).Trim();
-                obj.cmreg = Convert.ToString(dataGridView2.SelectedRows[0].Cells[33].Value).Trim();
-                obj.cctabase = Convert.ToString(dataGridView2.SelectedRows[0].Cells[37].Value).Trim();
-                obj.cctatot = Convert.ToString(dataGridView2.SelectedRows[0].Cells[40].Value).Trim();
-                obj.ccond = Convert.ToString(dataGridView2.SelectedRows[0].Cells[36].Value).Trim();
-                obj.ccodcos = Convert.ToString(dataGridView2.SelectedRows[0].Cells[41].Value).Trim();
-                obj.ccodcos2 = Convert.ToString(dataGridView2.SelectedRows[0].Cells[42].Value).Trim();
+                obj.fechaven  = Convert.ToString(dataGridView2.SelectedRows[0].Cells[4].Value).Trim();
+                obj.ccoddoc   = Convert.ToString(dataGridView2.SelectedRows[0].Cells[5].Value).Trim();
+                obj.cserie    = Convert.ToString(dataGridView2.SelectedRows[0].Cells[8].Value).Trim();
+                obj.cnumero   = Convert.ToString(dataGridView2.SelectedRows[0].Cells[9].Value).Trim();
+                obj.ctipdoc   = Convert.ToString(dataGridView2.SelectedRows[0].Cells[10].Value).Trim();
+                obj.crazsoc   = Convert.ToString(dataGridView2.SelectedRows[0].Cells[12].Value).Trim();
+                obj.ccodruc   = Convert.ToString(dataGridView2.SelectedRows[0].Cells[11].Value).Trim();
+                obj.nbase1    = Convert.ToString(dataGridView2.SelectedRows[0].Cells[14].Value).Trim();
+                obj.nigv1     = Convert.ToString(dataGridView2.SelectedRows[0].Cells[15].Value).Trim();
+                obj.ntots     = Convert.ToString(dataGridView2.SelectedRows[0].Cells[24].Value).Trim();
+                obj.ntc       = Convert.ToString(dataGridView2.SelectedRows[0].Cells[28].Value).Trim();
+                obj.cmreg     = Convert.ToString(dataGridView2.SelectedRows[0].Cells[33].Value).Trim();
+                obj.cctabase  = Convert.ToString(dataGridView2.SelectedRows[0].Cells[37].Value).Trim();
+                obj.cctatot   = Convert.ToString(dataGridView2.SelectedRows[0].Cells[40].Value).Trim();
+                obj.ccond     = Convert.ToString(dataGridView2.SelectedRows[0].Cells[36].Value).Trim();
+                obj.ccodcos   = Convert.ToString(dataGridView2.SelectedRows[0].Cells[41].Value).Trim();
+                obj.ccodcos2  = Convert.ToString(dataGridView2.SelectedRows[0].Cells[42].Value).Trim();
+                obj.ccodpresu = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
+                obj.obserror  = Convert.ToString(dataGridView2.SelectedRows[0].Cells[54].Value).Trim();
 
                 Frm_comprasEditor editcompras = new Frm_comprasEditor(obj.idcompras, obj.ffechadoc,
                 obj.fechaven, obj.ccoddoc, obj.cserie, obj.cnumero, obj.ctipdoc, obj.crazsoc,
-                obj.ccodruc, obj.nbase1, obj.nigv1, obj.ntots, obj.ntc, obj.cmreg, obj.cctabase, obj.cctatot, obj.ccond, obj.ccodcos, obj.ccodcos2);
+                obj.ccodruc, obj.nbase1, obj.nigv1, obj.ntots, obj.ntc, obj.cmreg, obj.cctabase, 
+                obj.cctatot, obj.ccond, obj.ccodcos, obj.ccodcos2, obj.ccodpresu,obj.obserror);
                 /// Frm_ventasEditor editventas = new Frm_ventasEditor();
                 editcompras.ShowDialog();
             }

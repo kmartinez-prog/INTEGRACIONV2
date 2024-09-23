@@ -172,10 +172,9 @@ namespace Contasis.Clase
             try
             {
                 string query = "update  fin_compras  SET cmreg='" + Objet.cmreg.Trim() + "',ccond='" + Objet.ccond.ToUpper().Trim() + "'," +
-                                   "cctabase='" + Objet.cctabase.Trim() + "',cctatot='" + Objet.cctatot.Trim() + "',ccodcos='" + Objet.ccodcos.Trim() + "'," +
-                                   "ccodcos2='" + Objet.ccodcos2.Trim() +
-                                   "ccodpresu='" + Objet.ccodpresu.Trim() +
-                                   "',obserror='',es_con_migracion=0  where idcompras=" + Objet.idcompras + "";
+                                   "cctabase='"   + Objet.cctabase.Trim() + "',cctatot ='" + Objet.cctatot.Trim() +
+                                   "',ccodcos='"  + Objet.ccodcos.Trim() + "',ccodcos2='" + Objet.ccodcos2.Trim() + 
+                                   "',ccodpresu='" + Objet.ccodpresu.Trim() + "',obserror='', es_con_migracion = 0  where idcompras=" + Objet.idcompras + "";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
@@ -205,8 +204,9 @@ namespace Contasis.Clase
             try
             {
                 string query = "update  fin_compras  SET cmreg='" + Objet.cmreg.Trim() + "',ccond='" + Objet.ccond.ToUpper().Trim() + "'," +
-                                  "cctabase='" + Objet.cctabase.Trim() + "',cctatot='" + Objet.cctatot.Trim() + "',ccodcos='" + Objet.ccodcos.Trim() + "'," +
-                                  "ccodcos2='" + Objet.ccodcos2.Trim() + "',obserror='',es_con_migracion=0 where idcompras=" + Objet.idcompras + "";
+                                   "cctabase='" + Objet.cctabase.Trim() + "',cctatot ='" + Objet.cctatot.Trim() +
+                                   "',ccodcos='" + Objet.ccodcos.Trim() + "',ccodcos2='" + Objet.ccodcos2.Trim() +
+                                   "',ccodpresu='" + Objet.ccodpresu.Trim() + "',obserror='', es_con_migracion = 0  where idcompras=" + Objet.idcompras + "";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
 
@@ -377,5 +377,61 @@ namespace Contasis.Clase
             }
             return cadena;
         }
+        /*******************************************************************************************************/
+        public void ActualizaEstadoSQL(Clase.Compras_propiedadescs Objet)
+        {
+
+            SqlConnection cone = new SqlConnection();
+            try
+            {
+                string query = "update fin_compras  SET es_con_migracion=2  where es_con_migracion=0 and  convert(char(900),obserror)<>''  and  ccodrucemisor = '" + Objet.ruc.Trim() + "' and ccod_empresa = '" + Objet.empresa.Trim() + "'";
+                cone = ConexionSql.Instancial().establecerconexion();
+                SqlCommand commando1 = new SqlCommand(query, cone);
+                cone.Open();
+                commando1.ExecuteNonQuery();
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+            }
+            finally
+            {
+                if (cone.State == ConnectionState.Open)
+                {
+                    cone.Close();
+                }
+
+            }
+
+        }
+        public void ActualizaEstadoPOS(Clase.Compras_propiedadescs Objet)
+        {
+
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+            try
+            {
+                string query = "update  fin_compras  SET es_con_migracion=2  where es_con_migracion=0 and  obserror<>''  and  ccodrucemisor = '" + Objet.ruc.Trim() + "' and ccod_empresa = '" + Objet.empresa.Trim() + "'";
+                NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
+                command3.ExecuteNonQuery();
+
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+
+            }
+        }
+
+
+
     }
 }

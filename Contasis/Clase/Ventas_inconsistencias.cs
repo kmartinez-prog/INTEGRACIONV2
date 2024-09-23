@@ -360,7 +360,7 @@ namespace Contasis.Clase
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "update  fin_ventas  SET es_con_migracion=2  where   convert(char(900),obserror)<>''  and  ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim()  + "'";
+                string query = "update  fin_ventas  SET es_con_migracion=2  where es_con_migracion=0 and  convert(char(900),obserror)<>''  and  ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim()  + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
@@ -380,7 +380,6 @@ namespace Contasis.Clase
             }
             
         }
-
         public void ActualizaEstadoPOS(Clase.VENTAS_PROPIEDADES Objet)
         {
             
@@ -389,7 +388,7 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "update  fin_ventas  SET es_con_migracion=2  where obserror<>''  and  ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim() + "'";
+                string query = "update  fin_ventas  SET es_con_migracion=2  where es_con_migracion=0 and  obserror<>''  and  ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim() + "'";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 command3.ExecuteNonQuery();
 
@@ -407,8 +406,6 @@ namespace Contasis.Clase
 
             }
         }
-
-
         /***********************************************************************************************************/
     }
 }

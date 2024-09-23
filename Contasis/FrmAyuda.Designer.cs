@@ -36,6 +36,7 @@ namespace Contasis
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.payuda2 = new System.Windows.Forms.PictureBox();
             this.payuda3 = new System.Windows.Forms.PictureBox();
             this.payuda4 = new System.Windows.Forms.PictureBox();
             this.Caja = new System.Windows.Forms.Label();
@@ -44,14 +45,13 @@ namespace Contasis
             this.label1 = new System.Windows.Forms.Label();
             this.btncerrar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.payuda2 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.payuda2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.payuda3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.payuda4)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.payuda2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -64,7 +64,7 @@ namespace Contasis
             this.panel1.Controls.Add(this.button1);
             this.panel1.Location = new System.Drawing.Point(7, 90);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 355);
+            this.panel1.Size = new System.Drawing.Size(225, 355);
             this.panel1.TabIndex = 4;
             // 
             // button4
@@ -119,10 +119,21 @@ namespace Contasis
             this.panel2.Controls.Add(this.payuda3);
             this.panel2.Controls.Add(this.payuda4);
             this.panel2.Controls.Add(this.Caja);
-            this.panel2.Location = new System.Drawing.Point(215, 90);
+            this.panel2.Location = new System.Drawing.Point(237, 90);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(575, 302);
+            this.panel2.Size = new System.Drawing.Size(555, 302);
             this.panel2.TabIndex = 5;
+            // 
+            // payuda2
+            // 
+            this.payuda2.Image = global::Contasis.Properties.Resources.ayuda2;
+            this.payuda2.Location = new System.Drawing.Point(173, 176);
+            this.payuda2.Name = "payuda2";
+            this.payuda2.Size = new System.Drawing.Size(219, 114);
+            this.payuda2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.payuda2.TabIndex = 3;
+            this.payuda2.TabStop = false;
+            this.payuda2.Visible = false;
             // 
             // payuda3
             // 
@@ -151,7 +162,7 @@ namespace Contasis
             // 
             this.Caja.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Caja.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.Caja.Location = new System.Drawing.Point(26, 9);
+            this.Caja.Location = new System.Drawing.Point(9, 9);
             this.Caja.Name = "Caja";
             this.Caja.Size = new System.Drawing.Size(533, 225);
             this.Caja.TabIndex = 0;
@@ -196,7 +207,7 @@ namespace Contasis
             this.btncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btncerrar.Image = global::Contasis.Properties.Resources._15;
             this.btncerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btncerrar.Location = new System.Drawing.Point(677, 398);
+            this.btncerrar.Location = new System.Drawing.Point(679, 400);
             this.btncerrar.Name = "btncerrar";
             this.btncerrar.Size = new System.Drawing.Size(110, 44);
             this.btncerrar.TabIndex = 3;
@@ -214,17 +225,6 @@ namespace Contasis
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // payuda2
-            // 
-            this.payuda2.Image = global::Contasis.Properties.Resources.ayuda2;
-            this.payuda2.Location = new System.Drawing.Point(173, 176);
-            this.payuda2.Name = "payuda2";
-            this.payuda2.Size = new System.Drawing.Size(219, 114);
-            this.payuda2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.payuda2.TabIndex = 3;
-            this.payuda2.TabStop = false;
-            this.payuda2.Visible = false;
-            // 
             // FrmAyuda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -241,17 +241,18 @@ namespace Contasis
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmAyuda";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ayuda - Información del Modulo";
             this.Load += new System.EventHandler(this.FrmAyuda_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmAyuda_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.payuda2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.payuda3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.payuda4)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.payuda2)).EndInit();
             this.ResumeLayout(false);
 
         }

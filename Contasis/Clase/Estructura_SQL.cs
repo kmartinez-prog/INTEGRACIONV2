@@ -76,7 +76,70 @@ namespace Contasis.Clase
             }
             return cadena;
         }
+        public string crear_types(string NombreTable, string Estructura)
+        {
+            string cadena = "";
+            int cadena1 = 0;
 
+            DataTable Tabla = new DataTable();
+            SqlConnection coneconexionsql = new SqlConnection();
+
+            try
+            {
+                string query0 = "Select * from sys.Types where name = '" + NombreTable.Trim().ToLower() + "'";
+                coneconexionsql = ConexionSql.Instancial().establecerconexion();
+                SqlCommand commando = new SqlCommand(query0, coneconexionsql);
+                coneconexionsql.Open();
+                DataTable dt = new DataTable();
+                SqlDataAdapter data = new SqlDataAdapter(commando);
+                data.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    cadena = "Tabla Types  " + NombreTable.Trim().ToLower().ToString() + " ya existe.";
+
+                }
+                else
+                {
+                    SqlCommand myCommand = new SqlCommand(Estructura, coneconexionsql);
+                    try
+                    {
+                        cadena1 = myCommand.ExecuteNonQuery();
+                        if (cadena1 < 0)
+                        {
+                            cadena = "Tabla  Types" + NombreTable + " creada.";
+
+                        }
+                        else
+                        {
+                            cadena = "No se puedo crear la tabla  Types: " + NombreTable;
+                        }
+                        //// FrmCrearTablas.instance.timer1.Enabled = true;
+                        coneconexionsql.Close();
+                    }
+                    catch
+                    {
+                        //// (System.Exception ex)MessageBox.Show(ex.ToString(), "Contasis Corp.en Ventas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    }
+                }
+
+
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+                cadena = ex1.Message;
+            }
+            finally
+            {
+                if (coneconexionsql.State == ConnectionState.Open)
+                {
+                    coneconexionsql.Close();
+                }
+
+            }
+            return cadena;
+        }
         public string crear_procedimiento(string NombreSp, string EstructuraSp)
         {
             string cadena = "";
@@ -147,7 +210,6 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-
         public string crear_Campos_nuevos_en_tablas(string NombreTable,string Nombrecampo ,string campolargo)
         {
             string cadena = "";

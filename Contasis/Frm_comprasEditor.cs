@@ -15,7 +15,8 @@ namespace Contasis
         public Frm_comprasEditor(string idcompras, string ffechadoc,
                      string ffechaven, string ccoddoc, string cserie, string cnumero, string ctipdoc, string crazsoc,
                     string ruc, string base1, string nigv1, string ntots, string ntc, string cmreg,
-                    string cctabase, string cctatot, string ccond, string ccodcos, string ccodcos2)
+                    string cctabase, string cctatot, string ccond, string ccodcos, string ccodcos2, 
+                    string presupuesto, string error)
         {
             InitializeComponent();
             txtidcompras.Text = idcompras;
@@ -37,6 +38,8 @@ namespace Contasis
             txtccond.Text = ccond;
             txtccodcos.Text = ccodcos;
             txtccodcos2.Text = ccodcos2;
+            txtpresupuesto.Text = presupuesto;
+            txtobservacion.Text = error;
         }
 
         private void btnGrabar_Click(object sender, EventArgs e)
@@ -63,7 +66,7 @@ namespace Contasis
             obe.ccond = txtccond.Text.Trim().ToUpper();
             obe.ccodcos = txtccodcos.Text.Trim();
             obe.ccodcos2 = txtccodcos2.Text.Trim();
-
+            obe.ccodpresu = txtpresupuesto.Text.Trim();
 
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
@@ -124,7 +127,6 @@ namespace Contasis
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-
             if (keyData == (Keys.Escape))
             {
                 Close();
@@ -147,14 +149,11 @@ namespace Contasis
                 {
                     string respuesta = "";
                     Clase.Compras_propiedadescs obe = new Clase.Compras_propiedadescs();
-
                     obe.idcompras = txtidcompras.Text;
-
                     Clase.Compras_inconsistencias ds = new Clase.Compras_inconsistencias();
                     respuesta = ds.eliminarsql(obe);
                     if (respuesta.Equals("Eliminar"))
                     {
-
                         MessageBox.Show("Venta fue eliminada.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();
                         FrmInconsistenciasCompras.instance.llenar_grilla();
@@ -163,11 +162,9 @@ namespace Contasis
                     {
                         MessageBox.Show("No se pudo eliminar esa venta.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-
                 }
                 catch (Exception ex)
                 {
-
                     MessageBox.Show("error : " + ex.Message, "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 this.Close();
@@ -204,7 +201,6 @@ namespace Contasis
                 this.Close();
             }
         }
-
         private void btncerrar_Click(object sender, EventArgs e)
         {
             this.Close();

@@ -66,14 +66,16 @@ namespace Contasis
             this.txtMensaje.BackColor = System.Drawing.SystemColors.ControlLight;
             this.txtMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtMensaje.CausesValidation = false;
-            this.txtMensaje.Location = new System.Drawing.Point(10, 139);
+            this.txtMensaje.Location = new System.Drawing.Point(10, 82);
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.Size = new System.Drawing.Size(393, 13);
             this.txtMensaje.TabIndex = 6;
             this.txtMensaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMensaje.TextChanged += new System.EventHandler(this.txtMensaje_TextChanged);
             // 
             // timer1
             // 
+            this.timer1.Interval = 50;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // txtversion
@@ -102,7 +104,7 @@ namespace Contasis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(410, 98);
+            this.ClientSize = new System.Drawing.Size(410, 118);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtversion);
             this.Controls.Add(this.txtMensaje);
