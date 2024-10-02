@@ -36,12 +36,14 @@ namespace Contasis
             this.txtnombre = new System.Windows.Forms.TextBox();
             this.btneliminar = new System.Windows.Forms.Button();
             this.btncerrar = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 17);
+            this.label2.Location = new System.Drawing.Point(9, 7);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 15);
             this.label2.TabIndex = 26;
@@ -50,7 +52,7 @@ namespace Contasis
             // txtcodigo
             // 
             this.txtcodigo.Enabled = false;
-            this.txtcodigo.Location = new System.Drawing.Point(11, 34);
+            this.txtcodigo.Location = new System.Drawing.Point(10, 24);
             this.txtcodigo.MaxLength = 11;
             this.txtcodigo.Name = "txtcodigo";
             this.txtcodigo.Size = new System.Drawing.Size(115, 20);
@@ -59,7 +61,7 @@ namespace Contasis
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 55);
+            this.label1.Location = new System.Drawing.Point(9, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 15);
             this.label1.TabIndex = 24;
@@ -68,7 +70,7 @@ namespace Contasis
             // txtnombre
             // 
             this.txtnombre.Enabled = false;
-            this.txtnombre.Location = new System.Drawing.Point(11, 72);
+            this.txtnombre.Location = new System.Drawing.Point(10, 62);
             this.txtnombre.Name = "txtnombre";
             this.txtnombre.Size = new System.Drawing.Size(333, 20);
             this.txtnombre.TabIndex = 23;
@@ -79,7 +81,7 @@ namespace Contasis
             this.btneliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btneliminar.Image = global::Contasis.Properties.Resources._22;
             this.btneliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btneliminar.Location = new System.Drawing.Point(128, 113);
+            this.btneliminar.Location = new System.Drawing.Point(128, 121);
             this.btneliminar.Name = "btneliminar";
             this.btneliminar.Size = new System.Drawing.Size(103, 44);
             this.btneliminar.TabIndex = 22;
@@ -94,7 +96,7 @@ namespace Contasis
             this.btncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btncerrar.Image = global::Contasis.Properties.Resources._13;
             this.btncerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btncerrar.Location = new System.Drawing.Point(237, 113);
+            this.btncerrar.Location = new System.Drawing.Point(237, 121);
             this.btncerrar.Name = "btncerrar";
             this.btncerrar.Size = new System.Drawing.Size(103, 44);
             this.btncerrar.TabIndex = 21;
@@ -102,17 +104,27 @@ namespace Contasis
             this.btncerrar.UseVisualStyleBackColor = false;
             this.btncerrar.Click += new System.EventHandler(this.btncerrar_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.txtcodigo);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txtnombre);
+            this.panel1.Location = new System.Drawing.Point(1, 5);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(352, 110);
+            this.panel1.TabIndex = 27;
+            // 
             // FrmEliminarruc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(355, 174);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtcodigo);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtnombre);
             this.Controls.Add(this.btneliminar);
             this.Controls.Add(this.btncerrar);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -121,8 +133,9 @@ namespace Contasis
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Eliminar ruc emisor";
             this.Load += new System.EventHandler(this.FrmEliminarruc_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -134,5 +147,6 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtnombre;
         private System.Windows.Forms.Button btneliminar;
         private System.Windows.Forms.Button btncerrar;
+        private System.Windows.Forms.Panel panel1;
     }
 }

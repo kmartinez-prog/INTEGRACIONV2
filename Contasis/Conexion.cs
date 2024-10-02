@@ -26,7 +26,7 @@ namespace Contasis
                 conex.Open();
                 
 
-                MessageBox.Show("Validando Conexión para Crear Base de Datos y guardar las credenciales.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+             ////   MessageBox.Show("Validando Conexión para Crear Base de Datos y guardar las credenciales.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 /**** ***/
                 string rutas = "SELECT top 1 replace(filename,NAME+'.mdf','') as ruta  FROM SYSDATABASES";
@@ -40,7 +40,7 @@ namespace Contasis
 
 
                     /** aca vamos a Verificar si Existe la tabla Contasis    **/
-                    string verifica = "SELECT  * FROM SYSDATABASES WHERE NAME='bdintegradorContasis'";
+                    string verifica = "SELECT  * FROM SYSDATABASES WHERE NAME='bdintegradorContasis2'";
                     SqlCommand comando = new SqlCommand(verifica, conex);
                     {
                         DataTable dt = new DataTable();
@@ -49,27 +49,27 @@ namespace Contasis
                         da.Fill(dt);
                         if (dt.Rows.Count > 0)
                         {
-                            MessageBox.Show("Ya Existe la base de datos <<bdintegradorContasis>>", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                           //// MessageBox.Show("Ya Existe la base de datos <<bdintegradorContasis>>", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             return;
 
                         }
                         else
                         {
-                            MessageBox.Show("base de datos <<bdintegradorContasis>> sera creada", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ////MessageBox.Show("base de datos <<bdintegradorContasis>> sera creada", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             {
-                                str = "CREATE DATABASE [bdintegradorContasis] ON PRIMARY " +
-                                      " (NAME = N'bdintegradorContasis', " +
-                                      " FILENAME = N'" + ruta + "bdintegradorContasisDATA.mdf'," +
+                                str = "CREATE DATABASE bdintegradorContasis2 ON PRIMARY " +
+                                      " (NAME = N'bdintegradorContasis2', " +
+                                      " FILENAME = N'" + ruta + "bdintegradorContasis2DATA.mdf'," +
                                       "  SIZE = 8192KB, MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB) " +
-                                      "  LOG ON(NAME = N'bdintegradorContasis_Log', " +
-                                      "  FILENAME = N'" + ruta + "bdintegradorContasisLog.ldf'," +
+                                      "  LOG ON(NAME = N'bdintegradorContasis2_Log', " +
+                                      "  FILENAME = N'" + ruta + "bdintegradorContasis2Log.ldf'," +
                                       "  SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )";
 
                                 SqlCommand myCommand = new SqlCommand(str, conex);
                                 try
                                 {
                                     myCommand.ExecuteNonQuery();
-                                    MessageBox.Show("Base de datos ha sido creado <<bdintegradorContasis>>", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                 ////   MessageBox.Show("Base de datos ha sido creado <<bdintegradorContasis>>", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                     conex.Close();
                                 }
                                 catch 

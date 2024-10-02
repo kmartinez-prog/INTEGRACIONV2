@@ -17,10 +17,7 @@ namespace Contasis
 {
     public partial class FrmUsuarios : Form
     {
-        
         public static FrmUsuarios instance = null;
-        
-
         public FrmUsuarios()
         {
             InitializeComponent();

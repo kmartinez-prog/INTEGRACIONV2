@@ -174,6 +174,7 @@
   <ItemGroup>
     <Compile Include="Clase\Class1.cs" />
     <Compile Include="Clase\Cobranzas_propiedades.cs" />
+    <Compile Include="Clase\Comercial_procesos_configuracion.cs" />
     <Compile Include="Clase\Compras_inconsistencia.cs" />
     <Compile Include="Clase\Compras_inconsistencias.cs" />
     <Compile Include="Clase\compras_propiedades.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="Clase\Conbranzas_Inconsistencia.cs" />
     <Compile Include="Clase\ConexionPostgreslContasis.cs" />
     <Compile Include="Clase\ConexionSql.cs" />
+    <Compile Include="Clase\Configuracion_comercial.cs" />
     <Compile Include="Clase\Cuentas.cs" />
     <Compile Include="Clase\CuentasPropiedad.cs" />
     <Compile Include="Clase\datosPostgrelEmpresa.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="Clase\Ventas_inconsistencias.cs" />
     <Compile Include="Clase\ventas_propiedades.cs" />
     <Compile Include="Conexion.cs" />
+    <Compile Include="ConexionComercial.cs" />
     <Compile Include="ConexionConta.cs" />
     <Compile Include="ConexionPostgrelSql.cs" />
     <Compile Include="FrmConfigurarServicio.cs">
@@ -228,11 +231,29 @@
     <Compile Include="FrmInconsistencias_Cobranza.Designer.cs">
       <DependentUpon>FrmInconsistencias_Cobranza.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmInconsistencias_comercial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInconsistencias_comercial.Designer.cs">
+      <DependentUpon>FrmInconsistencias_comercial.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmInconsistencias_Pago.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmInconsistencias_Pago.Designer.cs">
       <DependentUpon>FrmInconsistencias_Pago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmInconsistencia_productos_comercial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInconsistencia_productos_comercial.Designer.cs">
+      <DependentUpon>FrmInconsistencia_productos_comercial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmIntegradorComercial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmIntegradorComercial.Designer.cs">
+      <DependentUpon>FrmIntegradorComercial.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmRuceditor.cs">
       <SubType>Form</SubType>
@@ -413,8 +434,17 @@
     <EmbeddedResource Include="FrmInconsistencias_Cobranza.resx">
       <DependentUpon>FrmInconsistencias_Cobranza.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmInconsistencias_comercial.resx">
+      <DependentUpon>FrmInconsistencias_comercial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmInconsistencias_Pago.resx">
       <DependentUpon>FrmInconsistencias_Pago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmInconsistencia_productos_comercial.resx">
+      <DependentUpon>FrmInconsistencia_productos_comercial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmIntegradorComercial.resx">
+      <DependentUpon>FrmIntegradorComercial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRuceditor.resx">
       <DependentUpon>FrmRuceditor.cs</DependentUpon>

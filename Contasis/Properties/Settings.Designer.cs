@@ -94,5 +94,17 @@ namespace Contasis.Properties {
                 this["version"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TipModulo {
+            get {
+                return ((string)(this["TipModulo"]));
+            }
+            set {
+                this["TipModulo"] = value;
+            }
+        }
     }
 }

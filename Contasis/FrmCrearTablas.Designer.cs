@@ -37,6 +37,9 @@ namespace Contasis
             this.rbfinanciero = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.progreotrastablas = new System.Windows.Forms.ProgressBar();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.lblindex = new System.Windows.Forms.Label();
             this.lblotros = new System.Windows.Forms.Label();
             this.lblcompras = new System.Windows.Forms.Label();
@@ -46,8 +49,6 @@ namespace Contasis
             this.progvarios = new System.Windows.Forms.ProgressBar();
             this.progindex = new System.Windows.Forms.ProgressBar();
             this.label6 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label5 = new System.Windows.Forms.Label();
             this.progfcompras = new System.Windows.Forms.ProgressBar();
             this.progfventas = new System.Windows.Forms.ProgressBar();
             this.label4 = new System.Windows.Forms.Label();
@@ -72,6 +73,12 @@ namespace Contasis
             this.txtversion1 = new System.Windows.Forms.TextBox();
             this.txtversion2 = new System.Windows.Forms.TextBox();
             this.txtversion3 = new System.Windows.Forms.TextBox();
+            this.timer6 = new System.Windows.Forms.Timer(this.components);
+            this.timer7 = new System.Windows.Forms.Timer(this.components);
+            this.Funcion_comercial = new System.Windows.Forms.TextBox();
+            this.func_guardar_com_documento = new System.Windows.Forms.TextBox();
+            this.func_guardar_com_producto = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -79,6 +86,7 @@ namespace Contasis
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.btncreando);
             this.panel1.Controls.Add(this.rbcomercial);
@@ -90,7 +98,7 @@ namespace Contasis
             // 
             // btncreando
             // 
-            this.btncreando.Location = new System.Drawing.Point(448, 9);
+            this.btncreando.Location = new System.Drawing.Point(448, 7);
             this.btncreando.Name = "btncreando";
             this.btncreando.Size = new System.Drawing.Size(128, 30);
             this.btncreando.TabIndex = 2;
@@ -101,7 +109,6 @@ namespace Contasis
             // rbcomercial
             // 
             this.rbcomercial.AutoSize = true;
-            this.rbcomercial.Enabled = false;
             this.rbcomercial.Location = new System.Drawing.Point(241, 18);
             this.rbcomercial.Name = "rbcomercial";
             this.rbcomercial.Size = new System.Drawing.Size(156, 19);
@@ -109,6 +116,7 @@ namespace Contasis
             this.rbcomercial.TabStop = true;
             this.rbcomercial.Text = "Modulo Comercial SQL";
             this.rbcomercial.UseVisualStyleBackColor = true;
+            this.rbcomercial.CheckedChanged += new System.EventHandler(this.rbcomercial_CheckedChanged);
             // 
             // rbfinanciero
             // 
@@ -120,6 +128,7 @@ namespace Contasis
             this.rbfinanciero.TabStop = true;
             this.rbfinanciero.Text = "Modulo Contable Financiero SQL";
             this.rbfinanciero.UseVisualStyleBackColor = true;
+            this.rbfinanciero.CheckedChanged += new System.EventHandler(this.rbfinanciero_CheckedChanged);
             // 
             // label1
             // 
@@ -133,7 +142,11 @@ namespace Contasis
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.progreotrastablas);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.lblindex);
             this.panel2.Controls.Add(this.lblotros);
             this.panel2.Controls.Add(this.lblcompras);
@@ -143,8 +156,6 @@ namespace Contasis
             this.panel2.Controls.Add(this.progvarios);
             this.panel2.Controls.Add(this.progindex);
             this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.progressBar1);
-            this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.progfcompras);
             this.panel2.Controls.Add(this.progfventas);
             this.panel2.Controls.Add(this.label4);
@@ -155,13 +166,41 @@ namespace Contasis
             this.panel2.Size = new System.Drawing.Size(592, 198);
             this.panel2.TabIndex = 20;
             // 
+            // progreotrastablas
+            // 
+            this.progreotrastablas.Location = new System.Drawing.Point(248, 71);
+            this.progreotrastablas.Name = "progreotrastablas";
+            this.progreotrastablas.Size = new System.Drawing.Size(185, 19);
+            this.progreotrastablas.TabIndex = 18;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(17, 79);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(134, 15);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Realizando verificacion";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.label8.Location = new System.Drawing.Point(447, 72);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(27, 15);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "0%";
+            // 
             // lblindex
             // 
             this.lblindex.AutoSize = true;
             this.lblindex.BackColor = System.Drawing.Color.Transparent;
             this.lblindex.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblindex.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lblindex.Location = new System.Drawing.Point(448, 143);
+            this.lblindex.Location = new System.Drawing.Point(447, 143);
             this.lblindex.Name = "lblindex";
             this.lblindex.Size = new System.Drawing.Size(27, 15);
             this.lblindex.TabIndex = 15;
@@ -173,7 +212,7 @@ namespace Contasis
             this.lblotros.BackColor = System.Drawing.Color.Transparent;
             this.lblotros.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblotros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lblotros.Location = new System.Drawing.Point(447, 117);
+            this.lblotros.Location = new System.Drawing.Point(447, 111);
             this.lblotros.Name = "lblotros";
             this.lblotros.Size = new System.Drawing.Size(27, 15);
             this.lblotros.TabIndex = 14;
@@ -221,16 +260,16 @@ namespace Contasis
             // 
             // progvarios
             // 
-            this.progvarios.Location = new System.Drawing.Point(248, 116);
+            this.progvarios.Location = new System.Drawing.Point(248, 111);
             this.progvarios.Name = "progvarios";
             this.progvarios.Size = new System.Drawing.Size(185, 19);
             this.progvarios.TabIndex = 9;
             // 
             // progindex
             // 
-            this.progindex.Location = new System.Drawing.Point(248, 145);
+            this.progindex.Location = new System.Drawing.Point(248, 143);
             this.progindex.Name = "progindex";
-            this.progindex.Size = new System.Drawing.Size(185, 13);
+            this.progindex.Size = new System.Drawing.Size(185, 19);
             this.progindex.TabIndex = 8;
             // 
             // label6
@@ -238,27 +277,9 @@ namespace Contasis
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(17, 140);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(136, 15);
+            this.label6.Size = new System.Drawing.Size(199, 15);
             this.label6.TabIndex = 7;
-            this.label6.Text = "Creando correctamente";
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(248, 76);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(185, 13);
-            this.progressBar1.TabIndex = 6;
-            this.progressBar1.Visible = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 75);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(110, 15);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Creamdo Servicios";
-            this.label5.Visible = false;
+            this.label6.Text = "Creando Procedimientos funciones";
             // 
             // progfcompras
             // 
@@ -279,7 +300,7 @@ namespace Contasis
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 119);
+            this.label4.Location = new System.Drawing.Point(17, 112);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(162, 15);
             this.label4.TabIndex = 2;
@@ -370,7 +391,7 @@ namespace Contasis
             this.txtxcrearfuncion.Multiline = true;
             this.txtxcrearfuncion.Name = "txtxcrearfuncion";
             this.txtxcrearfuncion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtxcrearfuncion.Size = new System.Drawing.Size(209, 336);
+            this.txtxcrearfuncion.Size = new System.Drawing.Size(209, 134);
             this.txtxcrearfuncion.TabIndex = 27;
             this.txtxcrearfuncion.Text = resources.GetString("txtxcrearfuncion.Text");
             // 
@@ -406,13 +427,13 @@ namespace Contasis
             this.txtcompras1.Multiline = true;
             this.txtcompras1.Name = "txtcompras1";
             this.txtcompras1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtcompras1.Size = new System.Drawing.Size(209, 336);
+            this.txtcompras1.Size = new System.Drawing.Size(179, 336);
             this.txtcompras1.TabIndex = 30;
             this.txtcompras1.Text = resources.GetString("txtcompras1.Text");
             // 
             // txtcompras2
             // 
-            this.txtcompras2.Location = new System.Drawing.Point(1513, 26);
+            this.txtcompras2.Location = new System.Drawing.Point(1479, 26);
             this.txtcompras2.Multiline = true;
             this.txtcompras2.Name = "txtcompras2";
             this.txtcompras2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -422,7 +443,7 @@ namespace Contasis
             // 
             // soloventasonline
             // 
-            this.soloventasonline.Location = new System.Drawing.Point(1727, 26);
+            this.soloventasonline.Location = new System.Drawing.Point(1667, 26);
             this.soloventasonline.Multiline = true;
             this.soloventasonline.Name = "soloventasonline";
             this.soloventasonline.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -456,7 +477,7 @@ namespace Contasis
             // txtversion3
             // 
             this.txtversion3.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.txtversion3.Location = new System.Drawing.Point(1086, 377);
+            this.txtversion3.Location = new System.Drawing.Point(1077, 377);
             this.txtversion3.Multiline = true;
             this.txtversion3.Name = "txtversion3";
             this.txtversion3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -464,12 +485,62 @@ namespace Contasis
             this.txtversion3.TabIndex = 35;
             this.txtversion3.Text = resources.GetString("txtversion3.Text");
             // 
+            // timer6
+            // 
+            this.timer6.Tick += new System.EventHandler(this.timer6_Tick);
+            // 
+            // Funcion_comercial
+            // 
+            this.Funcion_comercial.Location = new System.Drawing.Point(646, 182);
+            this.Funcion_comercial.Multiline = true;
+            this.Funcion_comercial.Name = "Funcion_comercial";
+            this.Funcion_comercial.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.Funcion_comercial.Size = new System.Drawing.Size(209, 134);
+            this.Funcion_comercial.TabIndex = 36;
+            this.Funcion_comercial.Text = resources.GetString("Funcion_comercial.Text");
+            // 
+            // func_guardar_com_documento
+            // 
+            this.func_guardar_com_documento.BackColor = System.Drawing.Color.Moccasin;
+            this.func_guardar_com_documento.Location = new System.Drawing.Point(1291, 377);
+            this.func_guardar_com_documento.Multiline = true;
+            this.func_guardar_com_documento.Name = "func_guardar_com_documento";
+            this.func_guardar_com_documento.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.func_guardar_com_documento.Size = new System.Drawing.Size(172, 137);
+            this.func_guardar_com_documento.TabIndex = 37;
+            this.func_guardar_com_documento.Text = resources.GetString("func_guardar_com_documento.Text");
+            // 
+            // func_guardar_com_producto
+            // 
+            this.func_guardar_com_producto.BackColor = System.Drawing.Color.Moccasin;
+            this.func_guardar_com_producto.Location = new System.Drawing.Point(1473, 377);
+            this.func_guardar_com_producto.Multiline = true;
+            this.func_guardar_com_producto.Name = "func_guardar_com_producto";
+            this.func_guardar_com_producto.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.func_guardar_com_producto.Size = new System.Drawing.Size(189, 137);
+            this.func_guardar_com_producto.TabIndex = 38;
+            this.func_guardar_com_producto.Text = resources.GetString("func_guardar_com_producto.Text");
+            // 
+            // textBox3
+            // 
+            this.textBox3.BackColor = System.Drawing.Color.Moccasin;
+            this.textBox3.Location = new System.Drawing.Point(1667, 377);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox3.Size = new System.Drawing.Size(189, 137);
+            this.textBox3.TabIndex = 39;
+            // 
             // FrmCrearTablas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(635, 370);
+            this.ClientSize = new System.Drawing.Size(632, 368);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.func_guardar_com_producto);
+            this.Controls.Add(this.func_guardar_com_documento);
+            this.Controls.Add(this.Funcion_comercial);
             this.Controls.Add(this.txtversion3);
             this.Controls.Add(this.txtversion2);
             this.Controls.Add(this.txtversion1);
@@ -484,14 +555,15 @@ namespace Contasis
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txtcadena);
             this.Controls.Add(this.BtnSalir);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmCrearTablas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FrmCrearTablas_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmCrearTablas_KeyDown);
             this.panel1.ResumeLayout(false);
@@ -522,8 +594,6 @@ namespace Contasis
         private System.Windows.Forms.ProgressBar progvarios;
         private System.Windows.Forms.ProgressBar progindex;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ProgressBar progfcompras;
         private System.Windows.Forms.ProgressBar progfventas;
         private System.Windows.Forms.Label lblventa;
@@ -547,5 +617,14 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtversion1;
         private System.Windows.Forms.TextBox txtversion2;
         private System.Windows.Forms.TextBox txtversion3;
+        private System.Windows.Forms.Label label8;
+        public System.Windows.Forms.Timer timer6;
+        private System.Windows.Forms.ProgressBar progreotrastablas;
+        private System.Windows.Forms.Label label5;
+        public System.Windows.Forms.Timer timer7;
+        private System.Windows.Forms.TextBox Funcion_comercial;
+        private System.Windows.Forms.TextBox func_guardar_com_documento;
+        private System.Windows.Forms.TextBox func_guardar_com_producto;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }

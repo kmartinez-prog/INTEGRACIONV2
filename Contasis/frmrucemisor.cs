@@ -39,22 +39,17 @@ namespace Contasis
                 if (Properties.Settings.Default.cadenaPostPrincipal == "")
                 {
                     Clase.rucemisor regis = new Clase.rucemisor();
-                    
                     dataGrid1.DataSource = regis.Cargar();
-                    
-                    
-
                 }
                 else
                 {
                     Clase.rucemisor regis = new Clase.rucemisor();
                     dataGrid1.DataSource = regis.Cargarpostgres();
                     dataGrid1.AllowUserToAddRows = false;
-                 
                 }
                
 
-                lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count);
+                lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count-1);
                 lblTotales.Refresh();
                 dataGrid1.AllowUserToAddRows = false;
                 
@@ -238,16 +233,12 @@ namespace Contasis
         {
             if (dataGrid1.Rows.Count > 0)
             {
-
-                
-
-
                 Clase.rucpropiedades obj = new Clase.rucpropiedades();
                 obj.ruc = Convert.ToString(dataGrid1.SelectedRows[0].Cells[0].Value).Trim();
                 obj.empresa = Convert.ToString(dataGrid1.SelectedRows[0].Cells[1].Value).Trim();
-               //// MessageBox.Show(Convert.ToString(dataGrid1.SelectedRows[0].Cells[2].Value).Trim());
+              ////  MessageBox.Show(Convert.ToString(dataGrid1.SelectedRows[0].Cells[2].Value).Trim());
 
-                if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[2].Value).Trim() == "1")
+                if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[2].Value).Trim() == "True")
                 {
                     obj.estado = "1";
                 }

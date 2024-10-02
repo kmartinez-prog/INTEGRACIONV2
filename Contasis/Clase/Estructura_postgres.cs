@@ -79,6 +79,72 @@ namespace Contasis.Clase
             return cadena;
         }
 
+        public string crear_tablas_index(string NombreTable, string Estructura)
+        {
+            string cadena = "";
+            int cadena1 = 0;
+
+            DataTable Tabla = new DataTable();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+
+
+            try
+            {
+                string query = "SELECT * FROM INFORMATION_SCHEMA.columns where TABLE_NAME = '" + NombreTable.Trim().ToLower() + "'";
+                NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
+
+
+                DataTable dt = new DataTable();
+                NpgsqlDataAdapter data = new NpgsqlDataAdapter(commando);
+                data.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    cadena = "Tabla " + NombreTable.Trim().ToLower().ToString() + "  existe.";
+               
+                    NpgsqlCommand myCommand = new NpgsqlCommand(Estructura, conexion);
+                    try
+                    {
+                        cadena1 = myCommand.ExecuteNonQuery();
+                        if (cadena1 < 0)
+                        {
+                            cadena = "Index Tabla " + NombreTable + " creada.";
+
+                        }
+                        else
+                        {
+                            cadena = "No se puedo crear el index de la tabla : " + NombreTable;
+                        }
+                        //// FrmCrearTablas.instance.timer1.Enabled = true;
+                        conexion.Close();
+                    }
+                    catch
+                    {
+                        //// (System.Exception ex)MessageBox.Show(ex.ToString(), "Contasis Corp.en Ventas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    }
+                }
+
+
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+                cadena = ex1.Message;
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+
+            }
+            return cadena;
+        }
+
+
         public string crear_funcion(string NombreSp, string EstructuraSp)
         {
             string cadena = "";

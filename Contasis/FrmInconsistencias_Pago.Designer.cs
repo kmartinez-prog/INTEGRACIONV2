@@ -41,11 +41,6 @@ namespace Contasis
             this.btnseleccionar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.cmbempresas = new System.Windows.Forms.ComboBox();
-            this.btnMostrar = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.BtnSalir = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,6 +74,11 @@ namespace Contasis
             this.Column31 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column32 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmbempresas = new System.Windows.Forms.ComboBox();
+            this.btnMostrar = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.BtnSalir = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -227,62 +227,6 @@ namespace Contasis
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.Size = new System.Drawing.Size(1189, 262);
             this.dataGridView2.TabIndex = 30;
-            // 
-            // cmbempresas
-            // 
-            this.cmbempresas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbempresas.FormattingEnabled = true;
-            this.cmbempresas.Location = new System.Drawing.Point(385, 138);
-            this.cmbempresas.Name = "cmbempresas";
-            this.cmbempresas.Size = new System.Drawing.Size(228, 21);
-            this.cmbempresas.TabIndex = 36;
-            this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.cmbempresas_SelectedIndexChanged_1);
-            // 
-            // btnMostrar
-            // 
-            this.btnMostrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMostrar.Image = global::Contasis.Properties.Resources._3__Icono_Boton___Modificar;
-            this.btnMostrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMostrar.Location = new System.Drawing.Point(634, 133);
-            this.btnMostrar.Name = "btnMostrar";
-            this.btnMostrar.Size = new System.Drawing.Size(93, 28);
-            this.btnMostrar.TabIndex = 37;
-            this.btnMostrar.Text = "Filtrar";
-            this.btnMostrar.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Contasis.Properties.Resources.Logo___Contasis;
-            this.pictureBox1.Location = new System.Drawing.Point(26, 14);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(287, 74);
-            this.pictureBox1.TabIndex = 29;
-            this.pictureBox1.TabStop = false;
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = global::Contasis.Properties.Resources._6__Icono_Boton___Excel;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(966, 528);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 44);
-            this.button1.TabIndex = 27;
-            this.button1.Text = "Exportar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            // 
-            // BtnSalir
-            // 
-            this.BtnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSalir.Image = global::Contasis.Properties.Resources._110;
-            this.BtnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSalir.Location = new System.Drawing.Point(1099, 528);
-            this.BtnSalir.Name = "BtnSalir";
-            this.BtnSalir.Size = new System.Drawing.Size(110, 44);
-            this.BtnSalir.TabIndex = 26;
-            this.BtnSalir.Text = "Salir";
-            this.BtnSalir.UseVisualStyleBackColor = true;
             // 
             // Column1
             // 
@@ -560,6 +504,63 @@ namespace Contasis
             this.Column50.Name = "Column50";
             this.Column50.ReadOnly = true;
             this.Column50.Width = 125;
+            // 
+            // cmbempresas
+            // 
+            this.cmbempresas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbempresas.FormattingEnabled = true;
+            this.cmbempresas.Location = new System.Drawing.Point(385, 138);
+            this.cmbempresas.Name = "cmbempresas";
+            this.cmbempresas.Size = new System.Drawing.Size(228, 21);
+            this.cmbempresas.TabIndex = 36;
+            this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.cmbempresas_SelectedIndexChanged_1);
+            // 
+            // btnMostrar
+            // 
+            this.btnMostrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMostrar.Image = global::Contasis.Properties.Resources._3__Icono_Boton___Modificar;
+            this.btnMostrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMostrar.Location = new System.Drawing.Point(634, 133);
+            this.btnMostrar.Name = "btnMostrar";
+            this.btnMostrar.Size = new System.Drawing.Size(93, 28);
+            this.btnMostrar.TabIndex = 37;
+            this.btnMostrar.Text = "Filtrar";
+            this.btnMostrar.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Contasis.Properties.Resources.Logo___Contasis;
+            this.pictureBox1.Location = new System.Drawing.Point(26, 14);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(287, 74);
+            this.pictureBox1.TabIndex = 29;
+            this.pictureBox1.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = global::Contasis.Properties.Resources._6__Icono_Boton___Excel;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(966, 528);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 44);
+            this.button1.TabIndex = 27;
+            this.button1.Text = "Exportar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            // 
+            // BtnSalir
+            // 
+            this.BtnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSalir.Image = global::Contasis.Properties.Resources._110;
+            this.BtnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnSalir.Location = new System.Drawing.Point(1099, 528);
+            this.BtnSalir.Name = "BtnSalir";
+            this.BtnSalir.Size = new System.Drawing.Size(110, 44);
+            this.BtnSalir.TabIndex = 26;
+            this.BtnSalir.Text = "Salir";
+            this.BtnSalir.UseVisualStyleBackColor = true;
+            this.BtnSalir.Click += new System.EventHandler(this.BtnSalir_Click_1);
             // 
             // FrmInconsistencias_Pago
             // 

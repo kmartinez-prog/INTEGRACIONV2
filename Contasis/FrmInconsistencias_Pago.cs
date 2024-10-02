@@ -863,5 +863,10 @@ namespace Contasis
             vruc = cmbrucemisor.Text.Trim().Substring(0, 11);
             this.empresas();
         }
+
+        private void BtnSalir_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

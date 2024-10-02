@@ -15,7 +15,6 @@ namespace Contasis
     {
         private string cadena;
         public string Cadena { get => cadena; set => cadena = value; }
-
         public void crearventas(string _cadena)
         {
             cadena = _cadena;
@@ -227,7 +226,8 @@ namespace Contasis
             String stmodulo;
             String strusuarioacceso;
             String strlog;
-            SqlConnection conex2 = new SqlConnection(cadena);
+            String strcobranzas;
+                SqlConnection conex2 = new SqlConnection(cadena);
             try
             {
                 conex2.Open();
@@ -425,10 +425,77 @@ namespace Contasis
                             MessageBox.Show(ex.ToString(), "Contasis Corp. Creacion de  Trigger", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                         }
+                        //***************************************************************************************************************************************//
+                        strcobranzas = "CREATE TABLE fin_cobranzapago(idcobranzapago int IDENTITY(1,1) NOT NULL," +
+                        "ccodrucemisor char(15) NULL," +
+                        "ccod_empresa char(3) NULL," +
+                        "cper char(4) NULL," +
+                        "cmes char(2) NULL," +
+                        "ntipocobpag Numeric(1) ," +
+                        "ffechacan date NULL," +
+                        "cdoccan char(2) NULL," +
+                        "csercan char(20)  NULL," +
+                        "cnumcan char(20)  NULL," +
+                        "ccuecan char(20)  NULL," +
+                        "cmoncan char(1)  NULL," +
+                        "nimporcan Numeric(15,2)  NULL," +
+                        "ntipcam Numeric(10,6)  NULL," +
+                        "ccodpago Char(3) NULL," +
+                        "ccoddoc Char(2) NULL," +
+                        "cserie Char(20) NULL," +
+                        "cnumero Char(20) NULL," +
+                        "ffechadoc date  NULL," +
+                        "ffechaven date  NULL," +
+                        "ccodenti Char(11) NULL," +
+                        "ccodruc Char(15) NULL," +
+                        "crazsoc Char(100) NULL," +
+                        "nimportes Numeric(15,2) NULL," +
+                        "nimported Numeric(15,2) NULL," +
+                        "ccodcue Char(20) NULL," +
+                        "cglosa Char(80) NULL," +
+                        "ccodcos Char(9) NULL," +
+                        "ccodcos2 Char(9) NULL," +
+                        "nporre Numeric(5,2) NULL," +
+                        "nimpperc Numeric(15,2) NULL," +
+                        "nperdenre Numeric(1) NULL," +
+                        "cserre Char(6) NULL," +
+                        "cnumre char(13) NULL," +
+                        "ffecre date NULL," +
+                        "created_at datetime NULL," +
+                        "updated_at datetime NULL," +
+                        "estado varchar(255) NULL," +
+                        "en_ambiente_de varchar(255) NULL," +
+                        "es_con_migracion numeric(1, 0) NULL," +
+                        "ccodcos3 nchar(15) NULL," +
+                        "resultado_migracion numeric(1,0) NULL," +
+                        "obserror text NULL) ";
+                        SqlCommand myCommand521 = new SqlCommand(strcobranzas, conex2);
+                        try
+                        {
+                            myCommand521.ExecuteNonQuery();
+                        }
+                        catch (System.Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString(), "Contasis Corp. Creacion de  Cobranzaspagos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
+                        }
+                        /*****************************************************************************/
+                        string cmodulo = "update conexiones set nmodulo=1";
+                        SqlCommand myCommand461 = new SqlCommand(cmodulo, conex2);
+                        try
+                        {
+                            myCommand461.ExecuteNonQuery();
+                            Properties.Settings.Default.TipModulo = "1";
+                            Properties.Settings.Default.Save();
+                            Properties.Settings.Default.Reload();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Actualizado el Modulo a Financiero.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
+                        /*****************************************************************************/
+                        conex2.Close();
 
-
-                       
 
 
 
@@ -463,7 +530,13 @@ namespace Contasis
                 string version02;
                 string version03;
                 string version04;
-
+                string tabletype;
+                string tabletype2;
+                string procedureCobra1;
+                string procedureCobra2;
+                string funcion01;
+                string funcion02;
+                string funcion03;
                 SqlConnection conex2 = new SqlConnection(cadena);
                 try
                 {
@@ -744,8 +817,6 @@ namespace Contasis
                             MessageBox.Show("Ya existe el procedimiento de ventas"+ex, "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         }
                         /**************************************************/
-                      
-                        /**************************************************/
                         string ENVIORESULTADOVENTAS = "CREATE PROCEDURE sp_ventas_envio_resultado\n" +
                         " @resultado NVARCHAR(MAX) \n" +
                         " AS \n" +
@@ -895,12 +966,387 @@ namespace Contasis
                         {
                             MessageBox.Show("Ya existe el sp_actualizar_version.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         }
+                        /*************************************************/
+                        tabletype= "CREATE TYPE dbo.tp_resultado AS TABLE (" +
+                                    "id INT," +
+                                    "obserror NVARCHAR(MAX)," +
+                                    "es_con_migracion INT," +
+                                    "resultado_migracion INT);";
+                        SqlCommand myCommand440 = new SqlCommand(tabletype, conex2);
+                        try
+                        {
+                            myCommand440.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el tp_resultado.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
+                        /**************************************************/
+                        tabletype2 = "CREATE TYPE [dbo].[tp_id] AS TABLE(  \n" +
+                        " [id][int] NULL )";
+                        SqlCommand myCommand430 = new SqlCommand(tabletype2, conex2);
+                        try
+                        {
+                            myCommand430.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el tp_resultado.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
+
+
+
+                        /*************************************************/
+                        procedureCobra1 = "CREATE PROCEDURE sp_cobranzapago_envio    \n" +
+            "	@prucEmisor char(15),      \n" +
+            "	@empresa char(3),     \n" +
+            "	@tipo int  \n" +
+            "AS     \n" +
+            "BEGIN     \n" +
+            "	select top 1000  \n" +
+            "		idcobranzapago,fin_cobranzapago.ccod_empresa,fin_cobranzapago.cper,fin_cobranzapago.cmes,      \n" +
+            "		ltrim(rtrim(CONFIGURACION.csub1_vta)) AS ccodori,     \n" +
+            "		ltrim(rtrim(CONFIGURACION.clreg1_vta)) AS ccodsu,     \n" +
+            "		ltrim(rtrim(CONFIGURACION.cfefec_vta)) AS ccodflu,  \n" +
+            "		cast(fin_cobranzapago.ntipocobpag as integer) as ntipocobpag,   \n" +
+            "		ltrim(rtrim(Convert(char(10), ffechacan, 112))) as ffechacan,         \n" +
+            "		ltrim(rtrim(isnull(cdoccan, ''))) as cdoccan,       \n" +
+            "		ltrim(rtrim(isnull(csercan, ''))) as csercan,       \n" +
+            "		ltrim(rtrim(isnull(cnumcan, ''))) as cnumcan,         \n" +
+            "		ltrim(rtrim(isnull(ccuecan, ''))) as ccuecan,         \n" +
+            "		ltrim(rtrim(isnull(cmoncan, ''))) as cmoncan,     \n" +
+            "		isnull(nimporcan, 0.00) as nimporcan,      \n" +
+            "		isnull(ntipcam, 0.00) as ntipcam ,     \n" +
+            "		ltrim(rtrim(isnull(ccodpago, ''))) as ccodpago,      \n" +
+            "		ltrim(rtrim(isnull(ccoddoc, ''))) as ccoddoc,     \n" +
+            "		ltrim(rtrim(isnull(cserie, ''))) as cserie,     \n" +
+            "		ltrim(rtrim(isnull(cnumero, ''))) as cnumero,     \n" +
+            "		ltrim(rtrim(Convert(char(10), ffechadoc, 112))) as ffechadoc,       \n" +
+            "		ltrim(rtrim(Convert(char(10), ffechaven, 112))) as ffechaven,       \n" +
+            "		ltrim(rtrim(isnull(ccodenti, ''))) as ccodenti,     \n" +
+            "		ltrim(rtrim(isnull(ccodruc, ''))) as ccodruc,     \n" +
+            "		ltrim(rtrim(isnull(crazsoc, ''))) as crazsoc,     \n" +
+            "		isnull(nimportes, 0.00) as nimportes,      \n" +
+            "		isnull(nimported, 0.00) as nimported ,      \n" +
+            "		ltrim(rtrim(isnull(ccodcue, ''))) as ccodcue,     \n" +
+            "		ltrim(rtrim(isnull(substring(cglosa,1,80), '')))    as cglosa,        \n" +
+            "		ltrim(rtrim(isnull(substring(ccodcos,1,9), ''))) as ccodcos,      \n" +
+            "		ltrim(rtrim(isnull(substring(ccodcos2,1,9), ''))) as ccodcos2,      \n" +
+            "		isnull(nporre, 0.00) as nporre,      \n" +
+            "		isnull(nimpperc, 0.00) as nimpperc,      \n" +
+            "		isnull(nperdenre, 0.00) as nperdenre,      \n" +
+            "		ltrim(rtrim(isnull(cserre, ''))) as cserre,      \n" +
+            "		ltrim(rtrim(isnull(cnumre, ''))) as cnumre,      \n" +
+            "		ltrim(rtrim(Convert(char(10), ffecre, 112))) as ffecre,       \n" +
+            "		case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end as estado ,         \n" +
+            "		isnull(en_ambiente_de, '!') as en_ambiente_de,         \n" +
+            "		isnull(es_con_migracion, 0) as es_con_migracion,        \n" +
+            "		case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3,       \n" +
+            "		case when es_con_migracion = 3  then ltrim(rtrim(configuracion.cEnt_anula))  else '' end as ccodrucanula     \n" +
+            "	from fin_cobranzapago     \n" +
+            "	INNER JOIN configuracion ON fin_cobranzapago.CCOD_EMPRESA = CONFIGURACION.CCOD_EMPRESA AND fin_cobranzapago.CPER = configuracion.CPER     \n" +
+            "	inner join CG_EMPRESA emp on fin_cobranzapago.ccodrucemisor = emp.ccodrucemisor and fin_cobranzapago.ccod_empresa = emp.CCOD_EMPRESA     \n" +
+            "	inner join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1      \n" +
+            "		and fin_cobranzapago.CCOD_EMPRESA = @empresa  \n" +
+            "		and es_con_migracion in (0, 3)     \n" +
+            "		and CONFIGURACION.CTIPO = '03'  \n" +
+            "END";
+                        SqlCommand myCommand421 = new SqlCommand(procedureCobra1, conex2);
+                        try
+                        {
+                            myCommand421.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el sp_cobranzapago_envio.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
+                        /****************************************************/
+                        procedureCobra2 = "CREATE PROCEDURE sp_cobranzapago_envio_resultado   \n" +
+                                        " @resultado dbo.tp_resultado READONLY   \n" +
+                                        " AS   \n" +
+                                        " BEGIN   \n" +
+                                        "   \n" +
+                                        "  UPDATE t   \n" +
+                                        "      \n" +
+                                        " SET   \n" +
+                                        "     \n" +
+                                        " t.es_con_migracion = r.resultado_migracion,   \n" +
+                                        " t.obserror = r.obserror   \n" +
+                                        "   \n" +
+                                        " FROM fin_cobranzapago t   \n" +
+                                        " JOIN @resultado r   \n" +
+                                        "     \n" +
+                                        " ON t.idcobranzapago = r.id and t.es_con_migracion = r.es_con_migracion;   \n" +
+                                        " END  ";
+                        SqlCommand myCommand422 = new SqlCommand(procedureCobra2, conex2);
+                        try
+                        {
+                            myCommand422.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el sp_cobranzapago_envio_resultado.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
+                        /**************************************************/
+                        funcion01 = " CREATE FUNCTION fn_cobranzapago_envio(  \n" +
+                                    " 	@prucEmisor char(15), \n" +
+                                    " 	@empresa char(3), \n" +
+                                    " 	@tipo int \n" +
+                                    " ) RETURNS TABLE \n" +
+                                    " AS    \n" +
+                                    " RETURN ( \n" +
+                                    " 	select top 1000 \n" +
+                                    " 		idcobranzapago,fin_cobranzapago.ccod_empresa,fin_cobranzapago.cper,fin_cobranzapago.cmes,     \n" +
+                                    " 		ltrim(rtrim(CONFIGURACION.csub1_vta)) AS ccodori,    \n" +
+                                    " 		ltrim(rtrim(CONFIGURACION.clreg1_vta)) AS ccodsu,    \n" +
+                                    " 		ltrim(rtrim(CONFIGURACION.cfefec_vta)) AS ccodflu, \n" +
+                                    " 		cast(fin_cobranzapago.ntipocobpag as integer) as ntipocobpag,  \n" +
+                                    " 		ltrim(rtrim(Convert(char(10), ffechacan, 112))) as ffechacan,        \n" +
+                                    " 		ltrim(rtrim(isnull(cdoccan, ''))) as cdoccan,      \n" +
+                                    " 		ltrim(rtrim(isnull(csercan, ''))) as csercan,      \n" +
+                                    " 		ltrim(rtrim(isnull(cnumcan, ''))) as cnumcan,        \n" +
+                                    " 		ltrim(rtrim(isnull(ccuecan, ''))) as ccuecan,        \n" +
+                                    " 		ltrim(rtrim(isnull(cmoncan, ''))) as cmoncan,          \n" +
+                                    " 		isnull(nimporcan, 0.00) as nimporcan,     \n" +
+                                    " 		isnull(ntipcam, 0.00) as ntipcam ,    \n" +
+                                    " 		ltrim(rtrim(isnull(ccodpago, ''))) as ccodpago,     \n" +
+                                    " 		ltrim(rtrim(isnull(ccoddoc, ''))) as ccoddoc,    \n" +
+                                    " 		ltrim(rtrim(isnull(cserie, ''))) as cserie,    \n" +
+                                    " 		ltrim(rtrim(isnull(cnumero, ''))) as cnumero,    \n" +
+                                    " 		ltrim(rtrim(Convert(char(10), ffechadoc, 112))) as ffechadoc,      \n" +
+                                    " 		ltrim(rtrim(Convert(char(10), ffechaven, 112))) as ffechaven,      \n" +
+                                    " 		ltrim(rtrim(isnull(ccodenti, ''))) as ccodenti,    \n" +
+                                    " 		ltrim(rtrim(isnull(ccodruc, ''))) as ccodruc,    \n" +
+                                    " 		ltrim(rtrim(isnull(crazsoc, ''))) as crazsoc,    \n" +
+                                    " 		isnull(nimportes, 0.00) as nimportes,     \n" +
+                                    " 		isnull(nimported, 0.00) as nimported ,     \n" +
+                                    " 		ltrim(rtrim(isnull(ccodcue, ''))) as ccodcue,    \n" +
+                                    " 		ltrim(rtrim(isnull(cglosa, ''))) as cglosa,     \n" +
+                                    " 		ltrim(rtrim(isnull(ccodcos, ''))) as ccodcos,     \n" +
+                                    " 		ltrim(rtrim(isnull(ccodcos2, ''))) as ccodcos2,     \n" +
+                                    " 		isnull(nporre, 0.00) as nporre,     \n" +
+                                    " 		isnull(nimpperc, 0.00) as nimpperc,     \n" +
+                                    " 		isnull(nperdenre, 0.00) as nperdenre,     \n" +
+                                    " 		ltrim(rtrim(isnull(cserre, ''))) as cserre,     \n" +
+                                    " 		ltrim(rtrim(isnull(cnumre, ''))) as cnumre,     \n" +
+                                    " 		ltrim(rtrim(Convert(char(10), ffecre, 112))) as ffecre,      \n" +
+                                    " 		case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end as estado ,        \n" +
+                                    " 		isnull(en_ambiente_de, '!') as en_ambiente_de,        \n" +
+                                    " 		isnull(es_con_migracion, 0) as es_con_migracion,       \n" +
+                                    " 		case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3,      \n" +
+                                    " 		case when es_con_migracion = 3  then ltrim(rtrim(configuracion.cEnt_anula))  else '' end as ccodrucanula    \n" +
+                                    " 	from fin_cobranzapago    \n" +
+                                    " 	INNER JOIN configuracion ON fin_cobranzapago.CCOD_EMPRESA = CONFIGURACION.CCOD_EMPRESA AND fin_cobranzapago.CPER = configuracion.CPER    \n" +
+                                    " 	inner join CG_EMPRESA emp on fin_cobranzapago.ccodrucemisor = emp.ccodrucemisor and fin_cobranzapago.ccod_empresa = emp.CCOD_EMPRESA    \n" +
+                                    " 	inner join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1     \n" +
+                                    " 	where fin_cobranzapago.ccodrucemisor = @prucEmisor \n" +
+                                    " 		and fin_cobranzapago.CCOD_EMPRESA = @empresa \n" +
+                                    " 		and es_con_migracion in (0, 3)    \n" +
+                                    " 		and CONFIGURACION.CTIPO = '03' \n" +
+                                    " 		and cast(fin_cobranzapago.ntipocobpag as int) = @tipo); ";
+                        SqlCommand myCommand423 = new SqlCommand(funcion01, conex2);
+                        try
+                        {
+                            myCommand423.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el sp_cobranzapago_envio_resultado.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
+
+                        funcion02 = " CREATE FUNCTION fn_compras_envio (  \n" +
+                                    " 	@prucEmisor char(15),  \n" +
+                                    " 	@empresa char(3) \n" +
+                                    " ) RETURNS TABLE \n" +
+                                    " AS    \n" +
+                                    " RETURN ( \n" +
+                                    " 	select top 1000 \n" +
+                                    "         idcompras, fin_compras.ccod_empresa, fin_compras.cper, cmes, \n" +
+                                    "         ltrim(rtrim(configuracion.csub1_com)) AS ccodori, \n" +
+                                    "         ltrim(rtrim(configuracion.clreg1_com)) AS ccodsu, \n" +
+                                    "         ltrim(rtrim(configuracion.csub2_com)) AS ccodori_p, \n" +
+                                    "         ltrim(rtrim(configuracion.clreg2_com)) AS ccodsu_p, \n" +
+                                    "         ltrim(rtrim(configuracion.cconts_com)) AS ccodcue_ps, \n" +
+                                    "         ltrim(rtrim(configuracion.ccontd_com)) AS ccodcue_pd, \n" +
+                                    "         ltrim(rtrim(configuracion.cfefec_com)) AS  ccodflu, \n" +
+                                    "         ltrim(rtrim(configuracion.ctares_com)) AS flgctares, \n" +
+                                    "         ltrim(rtrim(configuracion.ctaimp_com)) AS flgctaimp, \n" +
+                                    "         ltrim(rtrim(configuracion.Ctapas_com)) AS flgctaact, \n" +
+                                    "        ltrim(rtrim(configuracion.asientos_com)) AS flggencomp, \n" +
+                                    "        ltrim(rtrim(configuracion.cEntidad)) AS ccodtipent, \n" +
+                                    "        ltrim(rtrim(Convert(char(10), ffechadoc, 112))) as ffechadoc, \n" +
+                                    "        ltrim(rtrim(Convert(char(10), fechaven, 112))) as fechaven, \n" +
+                                    "        ltrim(rtrim(ccoddoc))as ccoddoc, \n" +
+                                    "        ltrim(rtrim(isnull(ccoddas,''))) as ccoddas, \n" +
+                                    "        ltrim(rtrim(isnull(cyeardas,''))) as cyeardas, \n" +
+                                    "        ltrim(rtrim(cserie)) as cserie, \n" +
+                                    "        ltrim(rtrim(cnumero)) as cnumero, \n" +
+                                    "        ltrim(rtrim(fin_compras.ccodenti)) AS ccodenti, \n" +
+                                    "        ltrim(rtrim(cdesenti)) as cdesenti, \n" +
+                                    "        ltrim(rtrim(ctipdoc)) as ctipdoc, \n" +
+                                    "        ltrim(rtrim(ccodruc)) as ccodruc, \n" +
+                                    "        ltrim(rtrim(crazsoc)) as crazsoc, \n" +
+                                    "        ltrim(rtrim(isnull(ccodclas,''))) as ccodclas, \n" +
+                                    "        nbase1,nigv1, \n" +
+                                    "        isnull(nbase2,0.00) as nbase2, \n" +
+                                    "        isnull(nigv2,0.00) as nigv2, \n" +
+                                    "        isnull(nbase3,0.00) as nbase3, \n" +
+                                    "        isnull(nigv3,0.00) as nigv3, \n" +
+                                    "        isnull(nina,0.00) as nina, \n" +
+                                    "        isnull(nisc,0.00) as nisc, \n" +
+                                    "        isnull(nicbper,0.00) as nicbper, \n" +
+                                    "        isnull(nexo,0.00) as nexo, \n" +
+                                    "        isnull(ntots,0.00) as ntots, \n" +
+                                    "        case when ltrim(rtrim(isnull(cdocnodom,''))) = '' then '' else ltrim(rtrim(cdocnodom))  end  as cdocnodom, \n" +
+                                    "        case when ltrim(rtrim(isnull(cnumdere,''))) = '' then '' else ltrim(rtrim(cnumdere))  end  as cnumdere, \n" +
+                                    "        ltrim(rtrim(isnull(Convert(char(10), ffecre, 112),'')))  as ffecre, \n" +
+                                    "        ntc, \n" +
+                                    "        ltrim(rtrim(isnull(Convert(char(10), freffec, 112),''))) as freffec, \n" +
+                                    "        case when ltrim(rtrim(isnull(crefdoc,''))) = '' then '' else ltrim(rtrim(crefdoc))  end  as crefdoc, \n" +
+                                    "        case when ltrim(rtrim(isnull(crefser,''))) = '' then '' else ltrim(rtrim(crefser))  end  as crefser, \n" +
+                                    "        case when ltrim(rtrim(isnull(crefnum,''))) = '' then '' else ltrim(rtrim(crefnum))  end  as crefnum, \n" +
+                                    "        case when ltrim(rtrim(isnull(cmreg,''))) = '' then '' else ltrim(rtrim(cmreg))  end  as cmreg, \n" +
+                                    "        isnull(ndolar,0.00) as ndolar, \n" +
+                                    "        ltrim(rtrim(isnull(Convert(char(10), ffechaven2, 112),''))) as ffechaven2, \n" +
+                                    "        case when ltrim(rtrim(isnull(ccond,''))) = '' then '' else ltrim(rtrim(ccond))  end  as ccond, \n" +
+                                    "        case when ltrim(rtrim(isnull(cctabase,''))) = '' then '' else ltrim(rtrim(cctabase))  end  as cctabase, \n" +
+                                    "        case when ltrim(rtrim(isnull(cctaicbper,''))) = '' then '' else ltrim(rtrim(cctaicbper))  end  as cctaicbper,     \n" +
+                                    "        case when ltrim(rtrim(isnull(cctaotrib,''))) = '' then '' else ltrim(rtrim(cctaotrib))  end  as cctaotrib,     \n" +
+                                    "        case when ltrim(rtrim(isnull(cctatot,''))) = '' then '' else ltrim(rtrim(cctatot))  end  as cctatot,     \n" +
+                                    "        case when ltrim(rtrim(isnull(ccodcos,''))) = '' then '' else ltrim(rtrim(ccodcos))  end  as ccodcos,     \n" +
+                                    "        case when ltrim(rtrim(isnull(ccodcos2,''))) = '' then '' else ltrim(rtrim(ccodcos2))  end  as ccodcos2,     \n" +
+                                    "        isnull(nresp,0.00) as nresp,     \n" +
+                                    "        isnull(nporre,0.00) as nporre,    \n" +
+                                    "        isnull(nimpres,0.00) as nimpres,     \n" +
+                                    "        case when ltrim(rtrim(isnull(cserre,''))) = '' then '' else ltrim(rtrim(cserre))  end  as cserre,    \n" +
+                                    "        case when ltrim(rtrim(isnull(cnumre,''))) = '' then '' else ltrim(rtrim(cnumre))  end  as cnumre,     \n" +
+                                    "       ltrim(rtrim(isnull(Convert(char(10), ffecre2, 112),''))) as ffecre2 ,     \n" +
+                                    "       case when ltrim(rtrim(isnull(ccodpresu,''))) = '' then '' else ltrim(rtrim(cnumre))  end  as ccodpresu,     \n" +
+                                    "        nigv, \n" +
+                                    "        case when ltrim(rtrim(isnull(cglosa,''))) = '' then '' else ltrim(rtrim(cglosa))  end  as cglosa, \n" +
+                                    "        isnull(nperdenre,0.00) nperdenre, \n" +
+                                    "        isnull(nbaseres,0.00) as nbaseres, \n" +
+                                    "        case when ltrim(rtrim(isnull(cigvxacre,''))) = '' then '' else ltrim(rtrim(cigvxacre)) end as cigvxacre, \n" +
+                                    "        case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end  as estado, \n" +
+                                    "        isnull(en_ambiente_de,'!') as en_ambiente_de, \n" +
+                                    "        isnull(es_con_migracion,0)as es_con_migracion,    \n" +
+                                    "        case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3, \n" +
+                                    "       case when es_con_migracion=3 then ltrim(rtrim(configuracion.cEnt_anula))  else '' end as ccodrucanula \n" +
+                                    "	from fin_compras \n" +
+                                    "	inner join configuracion on fin_compras.ccod_empresa = configuracion.ccod_empresa and fin_compras.cper = configuracion.cper   \n" +
+                                    "	inner join cg_empresa emp on fin_compras.ccodrucemisor = emp.ccodrucemisor and fin_compras.ccod_empresa = emp.ccod_empresa  \n" +
+                                    "	inner join cg_empemisor empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1   \n" +
+                                    "	where fin_compras.ccodrucemisor = @prucEmisor  \n" +
+                                    "		and fin_compras.ccod_empresa = @empresa \n" +
+                                    "		and es_con_migracion in (0, 3) \n" +
+                                    "		and configuracion.CTIPO = '02');";
+                        SqlCommand myCommand424 = new SqlCommand(funcion02, conex2);
+                        try
+                        {
+                            myCommand424.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el fn_compras_envio.", "Contasis Corp.  Modulos", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
+                        funcion03 = "CREATE FUNCTION fn_ventas_envio (  \n" +
+                                    "	@prucEmisor char(15),   \n" +
+                                    "	@empresa char(3)    \n" +
+                                    ") RETURNS TABLE  \n" +
+                                    "AS     \n" +
+                                    "RETURN (  \n" +
+                                    "	select top 1000  \n" +
+                                    "         idventas, fin_ventas.ccod_empresa,fin_ventas.cper,cmes,      \n" +
+                                    "         ltrim(rtrim(configuracion.csub1_vta)) AS ccodori,     \n" +
+                                    "         ltrim(rtrim(configuracion.clreg1_vta)) AS ccodsu,     \n" +
+                                    "         ltrim(rtrim(configuracion.csub2_vta)) AS ccodori_p,     \n" +
+                                    "         ltrim(rtrim(configuracion.clreg2_vta)) AS ccodsu_p,     \n" +
+                                    "         ltrim(rtrim(configuracion.cconts_vta)) AS ccodcue_ps,     \n" +
+                                    "         ltrim(rtrim(configuracion.ccontd_vta)) AS ccodcue_pd,    \n" +
+                                    "         ltrim(rtrim(configuracion.cfefec_vta)) AS ccodflu,     \n" +
+                                    "         ltrim(rtrim(configuracion.ctares_vta)) AS flgctares,     \n" +
+                                    "        ltrim(rtrim(configuracion.ctaimp_vta)) AS flgctaimp,    \n" +
+                                    "        ltrim(rtrim(configuracion.Ctaact_vta)) AS flgctaact,    \n" +
+                                    "        ltrim(rtrim(configuracion.asientos_vta)) AS flggencomp,    \n" +
+                                    "        ltrim(rtrim(configuracion.cEntidad)) AS ccodtipent,     \n" +
+                                    "        ltrim(rtrim(Convert(char(10), ffechadoc, 112))) as ffechadoc,  \n" +
+                                    "        ltrim(rtrim(Convert(char(10), ffechaven, 112))) as ffechaven,     \n" +
+                                    "        ltrim(rtrim(ccoddoc)) as ccoddoc,    \n" +
+                                    "        ltrim(rtrim(cserie)) as cserie,    \n" +
+                                    "        ltrim(rtrim(cnumero)) as cnumero,    \n" +
+                                    "        ltrim(rtrim(ccodenti)) as ccodenti,    \n" +
+                                    "        ltrim(rtrim(cdesenti)) as cdesenti,   \n" +
+                                    "        ltrim(rtrim(ctipdoc)) as ctipdoc,    \n" +
+                                    "        ltrim(rtrim(ccodruc)) as ccodruc,    \n" +
+                                    "        ltrim(rtrim(crazsoc)) as crazsoc,    \n" +
+                                    "        Isnull(nbase2, 0.00) as nbase2,     \n" +
+                                    "        Isnull(nbase1, 0.00) as nbase1,    \n" +
+                                    "        Isnull(nexo, 0.00) as nexo,    \n" +
+                                    "        Isnull(nina, 0.00) as nina,     \n" +
+                                    "        Isnull(nisc, 0.00) as nisc,   \n" +
+                                    "        Isnull(nigv1, 0.00) as nigv1,   \n" +
+                                    "        Isnull(nicbpers, 0.00) as nicbpers,    \n" +
+                                    "        Isnull(nbase3, 0.00) as nbase3,    \n" +
+                                    "        Isnull(ntots, 0.00) as ntots,    \n" +
+                                    "        Isnull(ntc, 0.00) as ntc,    \n" +
+                                    "        ltrim(rtrim(Isnull(Convert(char(10), freffec, 112), ' '))) as freffec ,    \n" +
+                                    "        case when ltrim(rtrim(isnull(crefdoc,''))) = '' then ' ' else ltrim(rtrim(crefdoc))  end as crefdoc,    \n" +
+                                    "        case when ltrim(rtrim(isnull(crefser,''))) = '' then ' ' else ltrim(rtrim(crefser))  end as crefser,    \n" +
+                                    "        case when ltrim(rtrim(isnull(crefnum,''))) = '' then ' ' else ltrim(rtrim(crefnum))  end as crefnum,   \n" +
+                                    "        case when ltrim(rtrim(isnull(cmreg,''))) = '' then ' ' else ltrim(rtrim(cmreg))  end as cmreg,    \n" +
+                                    "        Isnull(ndolar, 0.00) as ndolar,     \n" +
+                                    "        ltrim(rtrim(Isnull(Convert(char(10), ffechaven2, 112), ' '))) as ffechaven2,     \n" +
+                                    "        case when ltrim(rtrim(isnull(ccond,''))) = '' then ' ' else ltrim(rtrim(ccond))  end as ccond,     \n" +
+                                    "        case when ltrim(rtrim(isnull(convert(char(9),ccodcos),''))) = '' then ' ' else ltrim(rtrim(convert(char(9),ccodcos)))  end as ccodcos,    \n" +
+                                    "        case when ltrim(rtrim(isnull(convert(char(9),ccodcos2),''))) = '' then ' ' else ltrim(rtrim(convert(char(9),ccodcos2)))  end as ccodcos2,     \n" +
+                                    "        case when ltrim(rtrim(isnull(cctabase,''))) = '' then ' ' else ltrim(rtrim(cctabase))  end as cctabase,     \n" +
+                                    "        case when ltrim(rtrim(isnull(cctaicbper,''))) = '' then ' ' else ltrim(rtrim(cctaicbper))  end as cctaicbper,     \n" +
+                                    "        case when ltrim(rtrim(isnull(cctaotrib,''))) = '' then ' ' else ltrim(rtrim(cctaotrib))  end as cctaotrib,     \n" +
+                                    "        case when ltrim(rtrim(isnull(cctatot,''))) = '' then ' ' else ltrim(rtrim(cctatot))  end as cctatot,     \n" +
+                                    "        Isnull(nresp, 0.00) as nresp,     \n" +
+                                    "        Isnull(nporre, 0.00) as nporre,     \n" +
+                                    "        Isnull(nimpres, 0.00) as nimpres,     \n" +
+                                    "        case when ltrim(rtrim(isnull(cserre,''))) = '' then ' ' else ltrim(rtrim(cserre))  end as cserre,     \n" +
+                                    "        case when ltrim(rtrim(isnull(cnumre,''))) = '' then ' ' else ltrim(rtrim(cnumre))  end as cnumre,     \n" +
+                                    "        ltrim(rtrim(Isnull(Convert(char(10), ffecre, 112), ' '))) as ffecre,     \n" +
+                                    "        case when ltrim(rtrim(isnull(ccodpresu,''))) = '' then ' ' else ltrim(rtrim(ccodpresu))  end as ccodpresu,     \n" +
+                                    "        Isnull(nigv, 0.00) as nigv,     \n" +
+                                    "        case when ltrim(rtrim(isnull(convert(char(80),cglosa) ,''))) = '' then ' ' else ltrim(rtrim(convert(char(80),cglosa) ))  end as cglosa,     \n" +
+                                    "        case when ltrim(rtrim(isnull(ccodpago,''))) = '' then ' ' else ltrim(rtrim(ccodpago))  end as ccodpago,     \n" +
+                                    "        Isnull(nperdenre, 0.00) as nperdenre,     \n" +
+                                    "        Isnull(nbaseres, 0.00) as nbaseres,     \n" +
+                                    "        case when ltrim(rtrim(isnull(cctaperc,''))) = '' then ' ' else ltrim(rtrim(cctaperc))  end as cctaperc,    \n" +
+                                    "        case when ltrim(rtrim(isnull(estado,''))) = '' then ' ' else ltrim(rtrim(estado))  end as estado,     \n" +
+                                    "        case when ltrim(rtrim(isnull(en_ambiente_de,''))) = '' then ' ' else ltrim(rtrim(en_ambiente_de))  end as en_ambiente_de,     \n" +
+                                    "        es_con_migracion,     \n" +
+                                    "        case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then ' ' else ltrim(rtrim(ccodcos3))  end as ccodcos3,     \n" +
+                                    "        case when es_con_migracion=3  then  ltrim(rtrim(configuracion.cEnt_anula))  else '' end  as ccodrucanula  \n" +
+                                    "	from fin_ventas    \n" +
+                                    "	inner join configuracion on fin_ventas.ccod_empresa = configuracion.ccod_empresa and fin_ventas.cper = configuracion.cper  \n" +
+                                    "	inner join cg_empresa emp on fin_ventas.ccodrucemisor = emp.ccodrucemisor and fin_ventas.ccod_empresa = emp.ccod_empresa   \n" +
+                                    "	inner join cg_empemisor empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1    \n" +
+                                    "		where fin_ventas.ccodrucemisor = @prucEmisor   \n" +
+                                    "		and fin_ventas.ccod_empresa = @empresa  \n" +
+                                    "		and es_con_migracion in (0, 3)  \n" +
+                                    "		and configuracion.ctipo = '01'); ";
+                        SqlCommand myCommand425 = new SqlCommand(funcion03, conex2);
+                        try
+                        {
+                            myCommand425.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ya existe el fn_ventas_envio.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
+
+
+
                         /**************************************************/
                         conex2.Close();
                     }
                     else
                     {
-                        MessageBox.Show("Los Index ya existen", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Los procedimientos y funciones existen", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         FrmCrearTablas.instance.timer4.Enabled = false;
                     }
 

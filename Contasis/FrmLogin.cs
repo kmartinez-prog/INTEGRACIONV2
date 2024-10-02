@@ -223,7 +223,6 @@ namespace Contasis
 
 
         }
-
         public void capturarclave()
         {
             try
@@ -295,6 +294,7 @@ namespace Contasis
             {
                 this.conexiones();
                 this.conexion0();
+                this.Modulo_Sql();
                 control2 = "1";
             }
             else
@@ -340,7 +340,7 @@ namespace Contasis
             {
                 this.conexion2();
                 this.conexion0();
-
+                this.Modulo_postgres();
                 control2 = "1";
             }
             else
@@ -405,6 +405,12 @@ namespace Contasis
             Properties.Settings.Default.version = "";
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
+
+            Properties.Settings.Default.TipModulo = "";
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+
+
 
             this.revisar();
             if (control == "0" || control=="")
@@ -509,7 +515,7 @@ namespace Contasis
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error no Existe Informacion de conexion de destino de la empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
 
@@ -691,7 +697,6 @@ namespace Contasis
             }
 
         }
-
         public void conexion0()
         {
             try
@@ -714,7 +719,6 @@ namespace Contasis
             }
 
         }
-
         public void existetablausuario()
         {
             SqlConnection connection = new SqlConnection(Properties.Settings.Default.cadenaSql);
@@ -847,6 +851,103 @@ namespace Contasis
 
             }
         }
+        public void Modulo_Sql()
+        {
+            try
+            {
+                SqlConnection connection = new SqlConnection(Properties.Settings.Default.cadenaSql);
+                connection.Open();
+                Clase.Estructura_SQL obj = new Clase.Estructura_SQL();
+                string NombreTable = "conexiones";
+                string Nombrecampo = "nModulo";
+                string Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
+                string respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+
+
+                string query0 = "SELECT* FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'com_documento'";
+                SqlCommand commando = new SqlCommand(query0, connection);
+                DataTable dt = new DataTable();
+                SqlDataAdapter data = new SqlDataAdapter(commando);
+                data.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    string actualizar = "Update CONEXIONES set nModulo=2";
+                    SqlCommand comando2 = new SqlCommand(actualizar, connection);
+                    comando2.ExecuteReader();
+                    Properties.Settings.Default.TipModulo = "2";
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+
+                }
+                else
+                {
+                    string actualizar = "Update CONEXIONES set nModulo=1";
+                    SqlCommand comando2 = new SqlCommand(actualizar, connection);
+                    comando2.ExecuteReader();
+                    Properties.Settings.Default.TipModulo = "1";
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+                }
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+            }
+        }
+        public void Modulo_postgres()
+        {
+            try
+            {
+                NpgsqlConnection conexionNew = new NpgsqlConnection();
+                conexionNew.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                conexionNew.Open();
+                Clase.Estructura_postgres obj = new Clase.Estructura_postgres();
+                string NombreTable = "conexiones";
+                string Nombrecampo = "nmodulo";
+                string Query = "alter table " + NombreTable.Trim().ToLower() + " add column " + Nombrecampo.Trim().ToLower() + " integer;";
+                string respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                //// MessageBox.Show(respuesta);
+                ///
+
+
+                string query = "SELECT * FROM INFORMATION_SCHEMA.columns where TABLE_NAME = 'com_documento'";
+                NpgsqlCommand commando = new NpgsqlCommand(query, conexionNew);
+
+
+                DataTable dt = new DataTable();
+                NpgsqlDataAdapter data = new NpgsqlDataAdapter(commando);
+                data.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    string actualizar = "Update conexiones set nmodulo=2";
+                    NpgsqlCommand comando2 = new NpgsqlCommand(actualizar, conexionNew);
+                    comando2.ExecuteReader();
+                    Properties.Settings.Default.TipModulo = "2";
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+
+                }
+                else
+                {
+                    string actualizar = "Update conexiones set nmodulo=1";
+                    NpgsqlCommand comando2 = new NpgsqlCommand(actualizar, conexionNew);
+                    comando2.ExecuteReader();
+                    Properties.Settings.Default.TipModulo = "1";
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+                }
+                conexionNew.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+            }
+        }
+        /*******************************************************************************/
 
     }
 }

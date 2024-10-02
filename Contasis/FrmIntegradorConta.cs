@@ -14,8 +14,8 @@ namespace Contasis
 {
     public partial class FrmIntegradorConta : Form
     {
-        String xCodempresa;
-        String rucemisor;
+        string xCodempresa;
+        string rucemisor;
         
         
         public static FrmIntegradorConta  instance = null;
@@ -1808,9 +1808,6 @@ namespace Contasis
 
 
         }
-
-
-
         public void seleccion()
         {
             if (cmbperiodo.Text == " ")
@@ -3597,6 +3594,11 @@ namespace Contasis
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

@@ -16,9 +16,7 @@ namespace Contasis
     public partial class FrmRuceditor : Form
     {
         int tipo;
-        
-
-        public FrmRuceditor(int ntipo, string ruc, string nombre, string frase,int venta,int compras,int cobranza,int pago)
+     public FrmRuceditor(int ntipo, string ruc, string nombre, string frase,int venta,int compras,int cobranza,int pago)
         {
             InitializeComponent();
             tipo = ntipo;
@@ -88,15 +86,20 @@ namespace Contasis
 
         private void FrmRuceditor_Load(object sender, EventArgs e)
         {
-            txtruc.Focus();
-
+            if (Properties.Settings.Default.TipModulo == "2")
+            {
+                this.label1.Visible = false;
+                this.checkventa.Visible = false;
+                this.checkCobranza.Visible = false;
+                this.checkCompras.Visible = false;
+                this.checkPagos.Visible = false;
+            }
             if (tipo == 1)
             {
                 limpiarcasilla();
             }
-
             txtempresa.CharacterCasing = CharacterCasing.Upper;
-            txtruc.Focus();
+            this.txtruc.Focus();
         }
         private void btncerrar_Click(object sender, EventArgs e)
         {
@@ -105,10 +108,12 @@ namespace Contasis
         }
         private void limpiarcasilla()
         {
-            txtruc.Clear();
-            txtempresa.Clear();
-            checkBoxestado.Checked =false;
-            
+            this.txtruc.Clear();
+            this.txtempresa.Clear();
+            this.checkBoxestado.Checked =false;
+            txtruc.Focus(); 
+
+
         }
         private void BtnActualizar_Click(object sender, EventArgs e)
         {
@@ -131,10 +136,6 @@ namespace Contasis
                     txtruc.Focus();
                 }
             }
-
-
-
-
             if (tipo == 1)
             {
                 try
@@ -389,11 +390,7 @@ namespace Contasis
 
 
             }
-            
-
-
         }
-
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
 
@@ -405,12 +402,45 @@ namespace Contasis
         }
         private void txtruc_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
-            if  (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+              if  (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 {
                 e.Handled = true;
             }
-            
+        }
+        private void FrmRuceditor_Shown(object sender, EventArgs e)
+        {
+            txtruc.Focus(); 
+        }
+
+        private void txtruc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtempresa.Focus();
+            }
+        }
+
+        private void checkBoxestado_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (Properties.Settings.Default.TipModulo == "2")
+                {
+                    BtnActualizar.Focus();
+                }
+                else
+                {
+                    checkventa.Focus();
+                }
+            }
+        }
+
+        private void txtempresa_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                checkBoxestado.Focus();
+            }
         }
     }
 }

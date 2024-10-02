@@ -26,6 +26,10 @@ namespace Contasis
         FrmVerificacionEstrcutura master12;
         FrmInconsistencias_Cobranza master15;
         FrmInconsistencias_Pago master14;
+        FrmIntegradorComercial master16;
+        FrmInconsistencias_comercial master17;
+        FrmInconsistencia_productos_comercial master18;
+        
 
         public static Principal instance = null;
         public Principal(string valor)
@@ -102,14 +106,45 @@ namespace Contasis
 
         private void Principal_Load(object sender, EventArgs e)
         {
-           // this.desacactivar();///
+            if (Properties.Settings.Default.TipModulo == "2")
+            {
+                integradorContableToolStripMenuItem.Enabled = false;
+                ventasContableToolStripMenuItem.Enabled = false;
+                comprasContableToolStripMenuItem.Enabled = false;
+                cobranzasContableToolStripMenuItem.Enabled = false;
+                pagosContableToolStripMenuItem.Enabled = false;
+
+                documentosComercialToolStripMenuItem.Enabled = true;
+                productosToolStripMenuItem.Enabled = true;
+                integradorComercialSQLToolStripMenuItem.Enabled = true;
+                
+            }
+            else
+            {
+                integradorContableToolStripMenuItem.Enabled = true;
+              ///  integradorComercialSQLToolStripMenuItem.Enabled = false;
+
+                ventasContableToolStripMenuItem.Enabled =true;
+                comprasContableToolStripMenuItem.Enabled = true;
+                cobranzasContableToolStripMenuItem.Enabled = true;
+                pagosContableToolStripMenuItem.Enabled = true;
+
+                documentosComercialToolStripMenuItem.Enabled = false;
+                productosToolStripMenuItem.Enabled = false;
+
+
+
+            }
+
+
+
+            // this.desacactivar();///
             toolStripStatusLabel1.Text = "Fecha Actual : "+DateTime.Now.ToLongDateString();
             toolStripStatusLabel2.Text = "| Hora Actual : " + DateTime.Now.ToString("hh:mm:ss");
             toolStripStatusLabel4.Text = "| Usuario Actual : " + Properties.Settings.Default.Usuario;
             toolStripStatusLabel5.Text = "| Conexion origen :  ";
             if (string.IsNullOrEmpty(Properties.Settings.Default.cadenaPostPrincipal))
             {
-                
             }
             else
             {
@@ -123,8 +158,29 @@ namespace Contasis
                 toolStripStatusLabel5.Text = "| Conexion origen : SQL SERVER ";
             }
             toolStripStatusLabel6.Text = "| Version del sistema :  " + Properties.Settings.Default.version;
+            
+
+
+            if (Properties.Settings.Default.TipModulo == "1")
+            {
+                toolStripStatusLabel7.Text = "|Modulo Financiero|";
+
+                this.Text = "Configuración del Integrador Contasis 2024 - Contable Financiero SQL 2024 - PERIODO 2024";
+            }
+            if (Properties.Settings.Default.TipModulo == "2")
+            {
+                toolStripStatusLabel7.Text = "|Modulo Comercial|";
+                this.Text = "Configuración del Integrador Contasis 2024 - Comercial SQL 2024 - PERIODO 2024";
+            }
+
+            if (Properties.Settings.Default.TipModulo == "")
+            {
+                this.Text = "Configuración del Integrador Contasis 2024 - Contable Financiero SQL 2024 - PERIODO 2024";
+                toolStripStatusLabel7.Text = "|Modulo Financiero|";
+            }
 
         }
+            
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -156,34 +212,42 @@ namespace Contasis
             }
         private void integradorContableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (txtcontrol.Text == "1")
+            if (Properties.Settings.Default.TipModulo == "1")
             {
-                foreach (Form OpenForm in Application.OpenForms)
+                this.integradorContableToolStripMenuItem.Enabled = true;
+                if (txtcontrol.Text == "1")
                 {
-                    if (OpenForm.Name == "master4")
-                    { }
-                    else
+                    foreach (Form OpenForm in Application.OpenForms)
                     {
-                        master4 = null;
+                        if (OpenForm.Name == "master4")
+                        { }
+                        else
+                        {
+                            master4 = null;
+                        }
+
                     }
 
+                    if (master4 == null)
+                    {
+                        master4 = new FrmIntegradorConta();
+                        /// master4.MdiParent = this;
+                        master4.ShowDialog();
+                        master4.FormClosed += new FormClosedEventHandler(cerrarconta);
+                        /////master4.Show();
+                    }
                 }
-
-                if (master4 == null)
+                else
                 {
-                    master4 = new FrmIntegradorConta();
-                    /// master4.MdiParent = this;
-                    master4.ShowDialog();
-                    master4.FormClosed += new FormClosedEventHandler(cerrarconta);
-                    /////master4.Show();
+                    master4 = null;
+                    MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    this.integradorContableToolStripMenuItem.Enabled = false;
                 }
             }
             else
             {
-                master4 = null;
-                MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Opcion no disponible.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
 
         }
         void cerrarconta(object sender, EventArgs e)
@@ -236,6 +300,7 @@ namespace Contasis
                 integradorContableToolStripMenuItem.Enabled = true;
               //  estructuraDeDatosToolStripMenuItem.Enabled = true;
                 ayudaToolStripMenuItem.Enabled = true;
+
 
             }
             else
@@ -605,6 +670,91 @@ namespace Contasis
         void cerrarpagos(object sender, EventArgs e)
         {
             master14 = null;
+        }
+
+        private void integradorComercialSQLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.TipModulo == "2")
+            {
+                this.integradorComercialSQLToolStripMenuItem.Enabled = true;
+                if (txtcontrol.Text == "1")
+                {
+                    foreach (Form OpenForm in Application.OpenForms)
+                    {
+                        if (OpenForm.Name == "master16")
+                        { }
+                        else
+                        {
+                            master16 = null;
+                        }
+
+                    }
+
+                    if (master16 == null)
+                    {
+                        master16 = new FrmIntegradorComercial();
+                        /// master4.MdiParent = this;
+                        master16.ShowDialog();
+                        master16.FormClosed += new FormClosedEventHandler(cerrarcomercial);
+                        /////master4.Show();
+                    }
+                }
+                else
+                {
+
+                    master16 = null;
+                    MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    this.integradorComercialSQLToolStripMenuItem.Enabled = false;
+                }
+            
+        }
+            else
+            {
+                MessageBox.Show("Opcion no disponible.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        void cerrarcomercial(object sender, EventArgs e)
+        {
+            master16 = null;
+        }
+
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void documentosComercialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (master17 == null)
+            {
+                master17 = new FrmInconsistencias_comercial();
+                ///master7.MdiParent = this;
+
+                master17.ShowDialog();
+                master17.FormClosed += new FormClosedEventHandler(cerrardcoumento);
+                ////  master7.Show();
+            }
+
+        }
+        private void cerrardcoumento(object sender, EventArgs e)
+        {
+            master17 = null;
+        }
+        private void productosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (master18 == null)
+            {
+                master18 = new FrmInconsistencia_productos_comercial();
+                ///master7.MdiParent = this;
+
+                master18.ShowDialog();
+                master18.FormClosed += new FormClosedEventHandler(cerrarproducto);
+                ////  master7.Show();
+            }
+        }
+        private void cerrarproducto(object sender, EventArgs e)
+        {
+            master18 = null;
         }
 
 

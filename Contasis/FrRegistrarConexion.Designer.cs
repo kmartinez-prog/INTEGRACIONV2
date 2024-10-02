@@ -83,6 +83,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.label5);
             this.panel1.Location = new System.Drawing.Point(14, 72);
@@ -125,6 +126,7 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.txtcadena);
             this.panel2.Controls.Add(this.label8);
@@ -229,7 +231,7 @@
             // 
             // txtpuerto
             // 
-            this.txtpuerto.Location = new System.Drawing.Point(530, 25);
+            this.txtpuerto.Location = new System.Drawing.Point(527, 25);
             this.txtpuerto.MaxLength = 4;
             this.txtpuerto.Name = "txtpuerto";
             this.txtpuerto.Size = new System.Drawing.Size(57, 20);
@@ -264,7 +266,7 @@
             this.lblEstado.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstado.ForeColor = System.Drawing.Color.Red;
-            this.lblEstado.Location = new System.Drawing.Point(17, 427);
+            this.lblEstado.Location = new System.Drawing.Point(8, 427);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(606, 27);
             this.lblEstado.TabIndex = 20;
@@ -306,7 +308,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(638, 485);
+            this.ClientSize = new System.Drawing.Size(622, 485);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.panel2);
