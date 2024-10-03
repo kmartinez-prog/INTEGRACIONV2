@@ -49,18 +49,51 @@ namespace Contasis.Clase
             }
             return cadena;
         }
+        public string comer_insert_postgres(Clase.Configuracion_comercial Objet)
+        {
+            string cadena = "";
 
+            DataTable Tabla = new DataTable();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+            try
+            {
+                string query = "INSERT INTO configuracion2(ccod_empresa " +
+                ", cper, crazemp, crucemp, Entidad, Tipo, codtipdocu, cserie, ccodmov, ccodpag, ccodvend, " +
+                "ccodalma, Ent_anula, Prodanula) " +
+                "VALUES('" + Objet.Ccod_empresa + "', " +
+                    "'" + Objet.Cper + "','" + Objet.Crazemp + "','" + Objet.Crucemp + "','" + Objet.Entidad + "','" + Objet.Tipo + "','" + Objet.Codtipdocu + "'," +
+                    "'" + Objet.Cserie + "','" + Objet.Ccodmov + "','" + Objet.Ccodpag + "','" + Objet.Ccodvend + "','" + Objet.Ccodalma + "','" + Objet.Ent_anula + "'," +
+                    "'" + Objet.Prodanula + "')";
+                NpgsqlCommand cmdp = new NpgsqlCommand(query, conexion);
+                cadena = cmdp.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
 
-        public DataTable Cargar(string periodo,string empresa)
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+            }
+            return cadena;
+        }
+        public DataTable Cargar(string periodo,string empresa,string modulo)
         {
             SqlDataReader carga;
             DataTable Grilla = new DataTable();
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "Select ID,TIPO AS TIPO_MODULO,Entidad AS ENTIDAD,Ent_anula AS ANULACION_DOC,codtipdocu AS TIP_DOCUMENTO," +
-                "cserie AS SERIE,ccodpag AS COD_PAGO,ccodmov AS MOVIMIENTO,ccodvend AS VENDEDOR,ccodalma AS ALMACEN, Prodanula ANULACION_PROD "+
-                "From configuracion2 where ccod_empresa = '"+empresa.ToString()+"' and cper='"+periodo+"'";
+                string query = "Select ID,TIPO AS TIPO_OPERACION,Entidad AS CODIGO_ENTIDAD,Ent_anula AS CODIGO_ANULACION,codtipdocu AS TIPO_DOCUMENTO,cserie AS SERIES," +
+                               "ccodpag AS CODIGO_PAGO,ccodmov AS TIPO_MOVIMIENTO,ccodvend AS CODIGO_VENDEDOR,ccodalma AS CODIGO_ALMACEN, Prodanula AS CODIGO_ANULACION_PRODUCTO " +
+                               "From configuracion2 " +
+                               " where ccod_empresa = '"+empresa.ToString()+"' and cper='"+periodo+ "' and TIPO='"+modulo+"'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
@@ -81,7 +114,7 @@ namespace Contasis.Clase
 
             }
         }
-        public DataTable Cargarpostgres(string periodo, string empresa)
+        public DataTable Cargarpostgres(string periodo, string empresa,string modulo)
         {
             NpgsqlDataReader carga;
             DataTable Grilla = new DataTable();
@@ -90,9 +123,10 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "Select  ID,TIPO AS TIPO_MODULO,Entidad AS ENTIDAD,Ent_anula AS ANULACION_DOC,codtipdocu AS TIP_DOCUMENTO," +
-                "cserie AS SERIE,ccodpag AS COD_PAGO,ccodmov AS MOVIMIENTO,ccodvend AS VENDEDOR,ccodalma AS ALMACEN, Prodanula ANULACION_PROD " +
-                "From configuracion2 where ccod_empresa = '" + empresa.ToString() + "' and cper='" + periodo + "'";
+                string query = "Select ID,TIPO AS TIPO_OPERACION,Entidad AS CODIGO_ENTIDAD,Ent_anula AS CODIGO_ANULACION,codtipdocu AS TIPO_DOCUMENTO,cserie AS SERIES," +
+                               "ccodpag AS CODIGO_PAGO,ccodmov AS TIPO_MOVIMIENTO,ccodvend AS CODIGO_VENDEDOR,ccodalma AS CODIGO_ALMACEN, Prodanula AS CODIGO_ANULACION_PRODUCTO " +
+                               "From configuracion2 " +
+                               " where ccod_empresa = '" + empresa.ToString() + "' and cper='" + periodo + "' and TIPO='" + modulo + "'";
                 NpgsqlCommand cmdp = new NpgsqlCommand(query, conexion);
 
                 carga = cmdp.ExecuteReader();
@@ -113,5 +147,139 @@ namespace Contasis.Clase
             }
         }
         //*********************************************************************************************//
+        public string verifica_movimientosql(string movimiento)
+        {
+            string aviso;
+            SqlConnection cone = new SqlConnection();
+            try
+            {
+                string query = "Select * From configuracion2 " +
+                               "  where ccodmov='" + movimiento.ToString() + "'";
+                cone = ConexionSql.Instancial().establecerconexion();
+                SqlCommand commando = new SqlCommand(query, cone);
+                DataTable dt = new DataTable();
+                cone.Open();
+                SqlDataAdapter data = new SqlDataAdapter(commando);
+                data.Fill(dt);
+                if (dt.Rows.Count > 0){
+                    aviso= "1";
+                }
+                else { 
+                    aviso = "0";
+                }
+                return aviso;
+
+            }
+            catch (Exception ex1)
+            {
+                throw ex1;
+            }
+            finally
+            {
+                if (cone.State == ConnectionState.Open)
+                {
+                    cone.Close();
+                }
+
+            }
+        }
+        public string verifica_movimientopossql(string movimiento)
+        {
+            string aviso;
+                      
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+            try
+            {
+                string query = "Select * From configuracion2 " +
+                               "  where ccodmov='" + movimiento.ToString() + "'";
+                NpgsqlCommand cmdp = new NpgsqlCommand(query, conexion);
+                DataTable dt = new DataTable();
+                NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
+                data.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    aviso = "1";
+                }
+                else
+                {
+                    aviso = "0";
+                }
+                return aviso;
+            }
+            catch (Exception ex1)
+            {
+                throw ex1;
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+
+            }
+        }
+
+        //*********************************************************************************************//
+        public string eliminar_movimientosql(string id)
+        {
+            string cadena = "";
+            SqlConnection cone = new SqlConnection();
+            try
+            {
+                string query = "delete From configuracion2 " +
+                               "  where id=" + id + "";
+                cone = ConexionSql.Instancial().establecerconexion();
+                SqlCommand commando1 = new SqlCommand(query, cone);
+                cone.Open();
+                cadena = commando1.ExecuteNonQuery() > 0 ? "Eliminado" : "No se elimino";
+               
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+
+            }
+            finally
+            {
+                if (cone.State == ConnectionState.Open)
+                {
+                    cone.Close();
+                }
+            }
+            return cadena;
+        }
+        public string eliminar_movimientopossql(string id)
+        {
+            string cadena = "";
+
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+            try
+            {
+                string query = "delete From configuracion2 " +
+                               "  where id=" + id + "";
+                NpgsqlCommand cmdp = new NpgsqlCommand(query, conexion);
+                cadena = cmdp.ExecuteNonQuery() > 0 ? "Eliminado" : "No se elimino";
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+            }
+            return cadena;
+
+        
+        }
     }
 }

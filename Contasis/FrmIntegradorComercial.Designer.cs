@@ -48,6 +48,7 @@ namespace Contasis
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label34 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.lblTotales = new System.Windows.Forms.Label();
             this.cboanulacionproducto = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.BtnSalir = new System.Windows.Forms.Button();
@@ -75,7 +76,11 @@ namespace Contasis
             this.btngrabar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbempresas = new System.Windows.Forms.ComboBox();
-            this.lblTotales = new System.Windows.Forms.Label();
+            this.txtdocumento = new System.Windows.Forms.TextBox();
+            this.txtdetalledocu = new System.Windows.Forms.TextBox();
+            this.txtproducto = new System.Windows.Forms.TextBox();
+            this.txtguardardocu = new System.Windows.Forms.TextBox();
+            this.txtguardarproducto = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -282,6 +287,17 @@ namespace Contasis
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(558, 444);
             this.panel6.TabIndex = 35;
+          
+            // 
+            // lblTotales
+            // 
+            this.lblTotales.AutoSize = true;
+            this.lblTotales.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotales.Location = new System.Drawing.Point(7, 412);
+            this.lblTotales.Name = "lblTotales";
+            this.lblTotales.Size = new System.Drawing.Size(148, 15);
+            this.lblTotales.TabIndex = 65;
+            this.lblTotales.Text = "Total de Registros :  0";
             // 
             // cboanulacionproducto
             // 
@@ -329,6 +345,7 @@ namespace Contasis
             this.btneliminar.TabIndex = 63;
             this.btneliminar.Text = "Borrar";
             this.btneliminar.UseVisualStyleBackColor = true;
+            this.btneliminar.Click += new System.EventHandler(this.btneliminar_Click);
             // 
             // cmbanulados
             // 
@@ -445,6 +462,7 @@ namespace Contasis
             this.cmbmovimiento.Name = "cmbmovimiento";
             this.cmbmovimiento.Size = new System.Drawing.Size(505, 23);
             this.cmbmovimiento.TabIndex = 7;
+            this.cmbmovimiento.SelectedIndexChanged += new System.EventHandler(this.cmbmovimiento_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -502,8 +520,12 @@ namespace Contasis
             this.cmbtipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbtipo.FormattingEnabled = true;
             this.cmbtipo.Items.AddRange(new object[] {
-            "01 Ventas",
-            "02 Compras"});
+            "VENTA\tVEMTAS",
+            "COMPRA\tCOMPRAS",
+            "GUIAR\tGUIAS",
+            "GUIAT\tGUIAS TRANSPORTTISTA",
+            "TRANS\tSALIDA DE TRANSFERENCIA",
+            "TRANI\tINGRESO TRANSFERENCIA"});
             this.cmbtipo.Location = new System.Drawing.Point(23, 39);
             this.cmbtipo.Name = "cmbtipo";
             this.cmbtipo.Size = new System.Drawing.Size(212, 23);
@@ -539,6 +561,7 @@ namespace Contasis
             this.dataGrid.RowHeadersWidth = 51;
             this.dataGrid.Size = new System.Drawing.Size(543, 144);
             this.dataGrid.TabIndex = 42;
+            this.dataGrid.Click += new System.EventHandler(this.dataGrid_Click);
             // 
             // btngrabar
             // 
@@ -572,22 +595,65 @@ namespace Contasis
             this.cmbempresas.TabIndex = 2;
             this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.cmbempresas_SelectedIndexChanged);
             // 
-            // lblTotales
+            // txtdocumento
             // 
-            this.lblTotales.AutoSize = true;
-            this.lblTotales.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotales.Location = new System.Drawing.Point(7, 412);
-            this.lblTotales.Name = "lblTotales";
-            this.lblTotales.Size = new System.Drawing.Size(161, 16);
-            this.lblTotales.TabIndex = 65;
-            this.lblTotales.Text = "Total de Registros :  0";
+            this.txtdocumento.Location = new System.Drawing.Point(658, 9);
+            this.txtdocumento.Multiline = true;
+            this.txtdocumento.Name = "txtdocumento";
+            this.txtdocumento.Size = new System.Drawing.Size(274, 257);
+            this.txtdocumento.TabIndex = 2;
+            this.txtdocumento.Text = resources.GetString("txtdocumento.Text");
+            // 
+            // txtdetalledocu
+            // 
+            this.txtdetalledocu.Location = new System.Drawing.Point(658, 276);
+            this.txtdetalledocu.Multiline = true;
+            this.txtdetalledocu.Name = "txtdetalledocu";
+            this.txtdetalledocu.Size = new System.Drawing.Size(274, 257);
+            this.txtdetalledocu.TabIndex = 3;
+            this.txtdetalledocu.Text = resources.GetString("txtdetalledocu.Text");
+            // 
+            // txtproducto
+            // 
+            this.txtproducto.Location = new System.Drawing.Point(938, 9);
+            this.txtproducto.Multiline = true;
+            this.txtproducto.Name = "txtproducto";
+            this.txtproducto.Size = new System.Drawing.Size(274, 257);
+            this.txtproducto.TabIndex = 4;
+            this.txtproducto.Text = resources.GetString("txtproducto.Text");
+            // 
+            // txtguardardocu
+            // 
+            this.txtguardardocu.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.txtguardardocu.Location = new System.Drawing.Point(939, 276);
+            this.txtguardardocu.Multiline = true;
+            this.txtguardardocu.Name = "txtguardardocu";
+            this.txtguardardocu.Size = new System.Drawing.Size(273, 108);
+            this.txtguardardocu.TabIndex = 5;
+            this.txtguardardocu.Text = resources.GetString("txtguardardocu.Text");
+            // 
+            // txtguardarproducto
+            // 
+            this.txtguardarproducto.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.txtguardarproducto.Location = new System.Drawing.Point(939, 390);
+            this.txtguardarproducto.Multiline = true;
+            this.txtguardarproducto.Name = "txtguardarproducto";
+            this.txtguardarproducto.Size = new System.Drawing.Size(273, 108);
+            this.txtguardarproducto.TabIndex = 6;
+            this.txtguardarproducto.Text = resources.GetString("txtguardarproducto.Text");
             // 
             // FrmIntegradorComercial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(638, 556);
+            this.ClientSize = new System.Drawing.Size(640, 556);
+            this.Controls.Add(this.txtguardarproducto);
+            this.Controls.Add(this.txtguardardocu);
+            this.Controls.Add(this.txtproducto);
+            this.Controls.Add(this.txtdetalledocu);
+            this.Controls.Add(this.txtdocumento);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -604,6 +670,7 @@ namespace Contasis
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -655,5 +722,10 @@ namespace Contasis
         private System.Windows.Forms.ComboBox cboanulacionproducto;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblTotales;
+        private System.Windows.Forms.TextBox txtdocumento;
+        private System.Windows.Forms.TextBox txtdetalledocu;
+        private System.Windows.Forms.TextBox txtproducto;
+        private System.Windows.Forms.TextBox txtguardardocu;
+        private System.Windows.Forms.TextBox txtguardarproducto;
     }
 }

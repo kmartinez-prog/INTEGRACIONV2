@@ -117,6 +117,646 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="txtdocumento.Text" xml:space="preserve">
+    <value>CREATE TABLE com_documento (
+	iddocumento numeric(20,0),
+	ccod_empresa character(3),
+	cper character(4),
+	cmes character(2),
+	ccodmodulo character(6),
+	ccodmov character(5),
+	ccoddoc character(2),
+	cserie character(20),
+	cnumero character(20),
+	ccodenti character(11),
+	cdesenti character varying(100),
+	ccodtipent character(3),
+	ccodruc character(15),
+	crazsoc character(150),
+	cdirecc character varying(250),
+	ccodubi character(6),
+	ccodcontac character(3),
+	cdescontacto character(150),
+	ffecha date,
+	ffechaven date,
+	ffechaalm date,
+	ccodpag character(2),
+	cmoneda character(1),
+	ntcigv numeric(10,6),
+	cguiaser character(7),
+	cguianum character(13),
+	mdsc text,
+	ccodvend character(4),
+	ccodclas character(1),
+	ccodcon character(4),
+	cnumordc character(20),
+	crefdoc character(2),
+	freffec date,
+	crefser character(10),
+	crefnum character(13),
+	ccat09 character(2),
+	cmotinc character(50),
+	nresp numeric(1,0),
+	ccodpds character(5),
+	nporre numeric(5,2),
+	ffecre date,
+	cnumdere character(15),
+	ccodpps character(2),
+	nporre2 numeric(5,2),
+	nperdenre numeric(1,0),
+	nbase1 numeric(15,2),
+	nigv1 numeric(15,2),
+	nbase2 numeric(15,2),
+	nigv2 numeric(15,2),
+	nbase3 numeric(15,2),
+	nigv3 numeric(15,2) ,
+	nimpicbper numeric(15,2),
+	nina numeric(15,2),
+	nexo numeric(15,2),
+	nisc numeric(15,2),
+	nivabase numeric(15,2),
+	nivaimp numeric(15,2),
+	nimpant numeric(15,2),
+	ntot numeric(15,2),
+	created_at timestamp,
+	updated_at timestamp,
+	estado character varying(255),
+	en_ambiente_de character varying(255),
+	es_con_migracion numeric(1, 0)  default 0,
+	ccodcos3 character(15),	
+	ccodrucanula character(15),
+	obserror text,
+	resultado_migracion numeric(1, 0),
+	nflgexisteanular integer NOT NULL DEFAULT 0,
+	constraint pk_documento PRIMARY KEY (iddocumento)
+);</value>
+  </data>
+  <data name="txtdetalledocu.Text" xml:space="preserve">
+    <value>
+CREATE TABLE com_detalledocumento (
+	iddetalledocumento numeric(20, 0) not null,
+	ccodalma character(3),
+	ccodprod character(20),
+	ccodmed character(15),
+	ccodlote character(20),
+	nuniori numeric(20,10),
+	nvvori numeric(20,10),
+	npvori numeric(20,10),
+	nvalor numeric(15,2),
+	nigvtot numeric(15,2),
+	ntotori numeric(15,2),
+	npigv numeric(5,2),
+	nconvnum numeric(9,2),
+	nconvden numeric(9,2),
+	clibprod character(1),
+	ccodcos character(9),
+	ccodcos2 character(9),
+	ccodpresu character(10),
+	cctaprod character(20),
+	npordscu numeric(15,2),
+	ndsctos numeric(15,2),
+	ccodisc character(5),
+	nporisc numeric(5,2),
+	nisc numeric(15,2),
+	tipo_isc numeric(1,0),
+	mdscl text,
+	iddocumento int not null,
+	constraint pk_detalle_documento PRIMARY KEY (iddetalledocumento),
+	constraint fk_detalle_documento FOREIGN KEY (iddocumento) references com_documento(iddocumento)
+);</value>
+  </data>
+  <data name="txtproducto.Text" xml:space="preserve">
+    <value>CREATE TABLE com_producto (
+	idproducto numeric(20,0) not null,
+	ccod_empresa character(3),
+	cper character(4),
+	cmes character(2),
+	ccodmodulo character(6),
+	ccodfamg character(20),
+	cdesfamg character(50),
+	ccodfamf character(20),
+	cdesfamf character(50),
+	ccodprod character(20),
+	cdesprod character(150),
+	cdesprodGen character varying(500),
+	ccodtes character(2),
+	cdesmar character(80),
+	ccodmed character(15),
+	ccodcatbs character(8),
+	cdescatbs character(100),
+	ntipoprod character(8),
+	nunidsec character(2),
+	npesoprod numeric(10,4),
+	ccodbarras character(15),
+	ninprod character(2),
+	nanuprod character(2),
+	nlote character(2),
+	nseruni character(2),
+	nicbper character(2),
+	nprodanti character(2),
+	ngasrela character(2),
+	nprodsafniif character(2),
+	ccomcue character(20),
+	cvencue character(20),
+	cdebicue character(20),
+	ccredcue character(20),
+	cdebicuei character(20),
+	ccredcuei character(20),
+	ccodcos character(9),
+	ccodcos2 character(9),
+	ccodpresu character(10),
+	ccomprod character(1),
+	cvenprod character(1),
+	ccodisc character(5),
+	cmoneda character(1),
+	npreunit1 numeric(15,4),
+	npreunit2 numeric(15,4),
+	npreunit3 numeric(15,4),
+	npreunit4 numeric(15,4),
+	npreunit5 numeric(15,4),
+	npreunit6 numeric(15,4),
+	npreunit7 numeric(15,4),
+	npreunit8 numeric(15,4),
+	npreunit9 numeric(15,4),
+	npreunit10 numeric(15,4),
+	npreunit11 numeric(15,4),
+	npreunit12 numeric(15,4),
+	npreunit13 numeric(15,4),
+	npreunit14 numeric(15,4),
+	npreunit15 numeric(15,4),
+	nstockmin numeric(15,4),
+	nstockmax numeric(15,4),
+	nrango1 numeric(15,0),
+	nrango2 numeric(15,0),
+	nresp numeric(1,0),
+	ccodpps character(2),
+	ccodpds character(5),
+	nagemonmin numeric(15,2),
+	ccodlabora character(4),
+	cdeslabora character(60),
+	
+	estado varchar(255),
+	en_ambiente_de varchar(255),
+	es_con_migracion numeric(1,0),
+	ccodcos3 nchar(15),
+	obserror text,
+	resultado_migracion numeric(1, 0)
+);</value>
+  </data>
+  <data name="txtguardardocu.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION public.func_guardar_com_documento(
+	OUT resultado text,
+	IN pjson text,
+	IN ptipo character(2)
+)
+RETURNS text AS
+$BODY$
+declare 
+	a_json json;
+	a_documento json;
+	a_detalle json;
+begin
+	/* Tipo:
+	01: Venta
+	02: Compra
+	*/
+    -- 0. Truncar tabla
+    truncate table com_detalledocumento;
+	truncate table com_documento cascade;
+    a_json		:= pjson::json;
+	a_documento	:= a_json-&gt;'documentos';
+	a_detalle	:= a_json-&gt;'detalles';
+    -- 1. Importar datos
+    INSERT INTO com_documento(
+		iddocumento, ccod_empresa, cper, cmes,
+		ccodmodulo, ccodmov, ccoddoc,
+		cserie, cnumero, ccodenti, cdesenti, ccodtipent, ccodruc, crazsoc, cdirecc, ccodubi,
+		ccodcontac, cdescontacto, ffecha, ffechaven, ffechaalm, ccodpag, cmoneda, ntcigv,
+		cguiaser, cguianum, mdsc, ccodvend, ccodclas, ccodcon, cnumordc, crefdoc, freffec,
+		crefser, crefnum, ccat09, cmotinc, nresp, ccodpds, nporre, ffecre, cnumdere, ccodpps,
+		nporre2, nperdenre, nbase1, nigv1, nbase2, nigv2, nbase3, nigv3, nimpicbper, nina, nexo,
+		nisc, nivabase, nivaimp, nimpant, ntot, estado, en_ambiente_de,
+		es_con_migracion, ccodcos3, ccodrucanula
+    )
+    select
+		iddocumento, ccod_empresa, cper, cmes,
+		coalesce(ccodmodulo,'') as ccodmodulo,
+		coalesce(ccodmov,'') as ccodmov,
+		coalesce(ccoddoc,'') as ccoddoc,
+		coalesce(cserie,'') as cserie,
+		coalesce(cnumero,'') as cnumero,
+		coalesce(ccodenti,'') as ccodenti,
+		coalesce(cdesenti,'') as cdesenti,
+		coalesce(ccodtipent,'') as ccodtipent,
+		coalesce(ccodruc,'') as ccodruc,
+		coalesce(crazsoc,'') as crazsoc,
+		coalesce(cdirecc,'') as cdirecc,
+		coalesce(ccodubi,'') as ccodubi,
+		coalesce(ccodcontac,'') as ccodcontac,
+		coalesce(cdescontacto,'') as cdescontacto,
+		ffecha,
+		ffechaven,
+		ffechaalm,
+		coalesce(ccodpag,'') as ccodpag,
+		coalesce(cmoneda,'') as cmoneda,
+		coalesce(ntcigv,0.0) as ntcigv,
+		coalesce(cguiaser,'') as cguiaser,
+		coalesce(cguianum,'') as cguianum,
+		coalesce(mdsc,'') as mdsc,
+		coalesce(ccodvend,'') as ccodvend,
+		coalesce(ccodclas,'') as ccodclas,
+		coalesce(ccodcon,'') as ccodcon,
+		coalesce(cnumordc,'') as cnumordc,
+		coalesce(crefdoc,'') as crefdoc,
+		freffec,
+		coalesce(crefser,'') as crefser,
+		coalesce(crefnum,'') as crefnum,
+		coalesce(ccat09,'') as ccat09,
+		coalesce(cmotinc,'') as cmotinc,
+		coalesce(nresp,0.0) as nresp,
+		coalesce(ccodpds,'') as ccodpds,
+		coalesce(nporre,0.0) as nporre,
+		ffecre,
+		coalesce(cnumdere,'') as cnumdere,
+		coalesce(ccodpps,'') as ccodpps,
+		coalesce(nporre2,0.0) as nporre2,
+		coalesce(nperdenre,0.0) as nperdenre,
+		coalesce(nbase1,0.0) as nbase1,
+		coalesce(nigv1,0.0) as nigv1,
+		coalesce(nbase2,0.0) as nbase2,
+		coalesce(nigv2,0.0) as nigv2,
+		coalesce(nbase3,0.0) as nbase3,
+		coalesce(nigv3,0.0) as nigv3,
+		coalesce(nimpicbper,0.0) as nimpicbper,
+		coalesce(nina,0.0) as nina,
+		coalesce(nexo,0.0) as nexo,
+		coalesce(nisc,0.0) as nisc,
+		coalesce(nivabase,0.0) as nivabase,
+		coalesce(nivaimp,0.0) as nivaimp,
+		coalesce(nimpant,0.0) as nimpant,
+		coalesce(ntot,0.0) as ntot,
+		estado,
+		en_ambiente_de,
+		es_con_migracion,
+		coalesce(ccodcos3,'') as ccodcos3,
+		coalesce(ccodrucanula,'') as ccodrucanula
+    from json_to_recordset(a_documento)
+    as t (
+        iddocumento numeric,
+		ccodrucemisor character(15),
+		ccod_empresa character(3),
+		cper character(4),
+		cmes character(2),
+		ccodmodulo character(6),
+		ccodmov character(5),
+		ccoddoc character(2),
+		cserie character(20),
+		cnumero character(20),
+		ccodenti character(11),
+		cdesenti character varying(100),
+		ccodtipent character(3),
+		ccodruc character(15),
+		crazsoc character(150),
+		cdirecc character varying(250),
+		ccodubi character(6),
+		ccodcontac character(3),
+		cdescontacto character(150),
+		ffecha date,
+		ffechaven date,
+		ffechaalm date,
+		ccodpag character(2),
+		cmoneda character(1),
+		ntcigv numeric(10,6),
+		cguiaser character(7),
+		cguianum character(13),
+		mdsc text,
+		ccodvend character(4),
+		ccodclas character(1),
+		ccodcon character(4),
+		cnumordc character(20),
+		crefdoc character(2),
+		freffec date,
+		crefser character(10),
+		crefnum character(13),
+		ccat09 character(2),
+		cmotinc character(50),
+		nresp numeric(1,0),
+		ccodpds character(5),
+		nporre numeric(5,2),
+		ffecre date,
+		cnumdere character(15),
+		ccodpps character(2),
+		nporre2 numeric(5,2),
+		nperdenre numeric(1,0),
+		nbase1 numeric(15,2),
+		nigv1 numeric(15,2),
+		nbase2 numeric(15,2),
+		nigv2 numeric(15,2),
+		nbase3 numeric(15,2),
+		nigv3 numeric(15,2) ,
+		nimpicbper numeric(15,2),
+		nina numeric(15,2),
+		nexo numeric(15,2),
+		nisc numeric(15,2),
+		nivabase numeric(15,2),
+		nivaimp numeric(15,2),
+		nimpant numeric(15,2),
+		ntot numeric(15,2),
+		created_at timestamp,
+		updated_at timestamp,
+		estado character varying(255),
+		en_ambiente_de character varying(255),
+		es_con_migracion numeric(1, 0),
+		ccodcos3 character(15),	
+		ccodrucanula character(15)
+    );
+	
+	-- 2. Insert detalle
+	INSERT INTO public.com_detalledocumento(
+		iddetalledocumento, ccodalma, ccodprod, ccodmed, ccodlote, nuniori,
+		nvvori, npvori, nvalor, nigvtot, ntotori, npigv, nconvnum, nconvden,
+		clibprod, ccodcos, ccodcos2, ccodpresu, cctaprod, npordscu, ndsctos,
+		ccodisc, nporisc, nisc, tipo_isc, mdscl, iddocumento
+	)
+	select
+		dd.iddetalledocumento,
+		coalesce(dd.ccodalma,'') as ccodalma,
+		coalesce(dd.ccodprod,'') as ccodprod,
+		coalesce(dd.ccodmed,'') as ccodmed,
+		coalesce(dd.ccodlote,'') as ccodlote,
+		coalesce(dd.nuniori,0.0) as nuniori,
+		coalesce(dd.nvvori,0.0) as nvvori,
+		coalesce(dd.npvori,0.0) as npvori,
+		coalesce(dd.nvalor,0.0) as nvalor,
+		coalesce(dd.nigvtot,0.0) as nigvtot,
+		coalesce(dd.ntotori,0.0) as ntotori,
+		coalesce(dd.npigv,0.0) as npigv,
+		coalesce(dd.nconvnum,0.0) as nconvnum,
+		coalesce(dd.nconvden,0.0) as nconvden,
+		coalesce(dd.clibprod,'') as clibprod,
+		coalesce(dd.ccodcos,'') as ccodcos,
+		coalesce(dd.ccodcos2,'') as ccodcos2,
+		coalesce(dd.ccodpresu,'') as ccodpresu,
+		coalesce(dd.cctaprod,'') as cctaprod,
+		coalesce(dd.npordscu,0.0) as npordscu,
+		coalesce(dd.ndsctos,0.0) as ndsctos,
+		coalesce(dd.ccodisc,'') as ccodisc,
+		coalesce(dd.nporisc,0.0) as nporisc,
+		coalesce(dd.nisc,0.0) as nisc,
+		coalesce(dd.tipo_isc,0.0) as tipo_isc,
+		coalesce(dd.mdscl,'') as mdscl,
+		dd.iddocumento
+	from json_to_recordset(a_detalle)
+    as dd (
+		iddetalledocumento numeric(20,0),
+		ccodalma character(3),
+		ccodprod character(20),
+		ccodmed character(15),
+		ccodlote character(20),
+		nuniori numeric(20,10),
+		nvvori numeric(20,10),
+		npvori numeric(20,10),
+		nvalor numeric(15,2),
+		nigvtot numeric(15,2),
+		ntotori numeric(15,2),
+		npigv numeric(5,2),
+		nconvnum numeric(9,2),
+		nconvden numeric(9,2),
+		clibprod character(1),
+		ccodcos character(9),
+		ccodcos2 character(9),
+		ccodpresu character(10),
+		cctaprod character(20),
+		npordscu numeric(15,2),
+		ndsctos numeric(15,2),
+		ccodisc character(5),
+		nporisc numeric(5,2),
+		nisc numeric(15,2),
+		tipo_isc numeric(1,0),
+		mdscl text,
+		iddocumento integer
+	);
+
+    --3. Validar/generar registros | 01: Venta - 02: Compra
+	if(ptipo='01')then
+		-- perform com_ventas_integracion_principal(); -- Crear funcion...
+	elsif(ptipo='02')then
+		-- perform com_compras_integracion_principal(); -- Crear funcion...
+	end if;
+
+	--3.1 Test.. (Eliminar cuando las funciones anteriores (2) ya esten creadas)
+    update com_documento set obserror='Test Habilitado '||iddocumento, resultado_migracion=2;
+
+    --4. Informe de importacion    
+    select json_agg(json_build_object(
+        'id', t.iddocumento,
+		'obserror', t.obserror,
+		'es_con_migracion', t.es_con_migracion,
+		'resultado_migracion', t.resultado_migracion
+    ))::text
+    from com_documento t
+    into resultado;	
+    
+end; 
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;</value>
+  </data>
+  <data name="txtguardarproducto.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION public.func_guardar_com_producto(
+	OUT resultado text,
+	IN pjson text
+)
+RETURNS text AS
+$BODY$
+declare 
+	a_json json;
+begin
+    -- 0. Truncar tabla
+    truncate table com_producto;
+    a_json = pjson::json;
+    -- 1. Importar datos
+    INSERT INTO com_producto(
+		idproducto, ccod_empresa, cper, cmes,
+		ccodmodulo, ccodfamg, cdesfamg, ccodfamf, cdesfamf, ccodprod, cdesprod,
+		cdesprodgen, ccodtes, cdesmar, ccodmed, ccodcatbs, cdescatbs, ntipoprod,
+		nunidsec, npesoprod, ccodbarras, ninprod, nanuprod, nlote, nseruni, nicbper,
+		nprodanti, ngasrela, nprodsafniif, ccomcue, cvencue, cdebicue, ccredcue, cdebicuei,
+		ccredcuei, ccodcos, ccodcos2, ccodpresu, ccomprod, cvenprod, ccodisc, cmoneda,
+		npreunit1, npreunit2, npreunit3, npreunit4, npreunit5, npreunit6, npreunit7,
+		npreunit8, npreunit9, npreunit10, npreunit11, npreunit12, npreunit13, npreunit14,
+		npreunit15, nstockmin, nstockmax, nrango1, nrango2, nresp, ccodpps, ccodpds,
+		nagemonmin, ccodlabora, cdeslabora, estado, en_ambiente_de, es_con_migracion,
+		ccodcos3
+    )
+    select
+		idproducto, ccod_empresa, cper, cmes,
+		coalesce(ccodmodulo, ''),
+		coalesce(ccodfamg, ''),
+		coalesce(cdesfamg, ''),
+		coalesce(ccodfamf, ''),
+		coalesce(cdesfamf, ''),
+		coalesce(ccodprod, ''),
+		coalesce(cdesprod, ''),
+		coalesce(cdesprodGen, ''),
+		coalesce(ccodtes, ''),
+		coalesce(cdesmar, ''),
+		coalesce(ccodmed, ''),
+		coalesce(ccodcatbs, ''),
+		coalesce(cdescatbs, ''),
+		coalesce(ntipoprod, ''),
+		coalesce(nunidsec, ''),
+		coalesce(npesoprod, 0.00),
+		coalesce(ccodbarras, ''),
+		coalesce(ninprod, ''),
+		coalesce(nanuprod, ''),
+		coalesce(nlote, ''),
+		coalesce(nseruni, ''),
+		coalesce(nicbper, ''),
+		coalesce(nprodanti, ''),
+		coalesce(ngasrela, ''),
+		coalesce(nprodsafniif, ''),
+		coalesce(ccomcue, ''),
+		coalesce(cvencue, ''),
+		coalesce(cdebicue, ''),
+		coalesce(ccredcue, ''),
+		coalesce(cdebicuei, ''),
+		coalesce(ccredcuei, ''),
+		coalesce(ccodcos, ''),
+		coalesce(ccodcos2, ''),
+		coalesce(ccodpresu, ''),
+		coalesce(ccomprod, ''),
+		coalesce(cvenprod, ''),
+		coalesce(ccodisc, ''),
+		coalesce(cmoneda, ''),
+		coalesce(npreunit1, 0.00),
+		coalesce(npreunit2, 0.00),
+		coalesce(npreunit3, 0.00),
+		coalesce(npreunit4, 0.00),
+		coalesce(npreunit5, 0.00),
+		coalesce(npreunit6, 0.00),
+		coalesce(npreunit7, 0.00),
+		coalesce(npreunit8, 0.00),
+		coalesce(npreunit9, 0.00),
+		coalesce(npreunit10, 0.00),
+		coalesce(npreunit11, 0.00),
+		coalesce(npreunit12, 0.00),
+		coalesce(npreunit13, 0.00),
+		coalesce(npreunit14, 0.00),
+		coalesce(npreunit15, 0.00),
+		coalesce(nstockmin, 0.00),
+		coalesce(nstockmax, 0.00),
+		coalesce(nrango1, 0.00),
+		coalesce(nrango2, 0.00),
+		coalesce(nresp, 0.00),
+		coalesce(ccodpps, ''),
+		coalesce(ccodpds, ''),
+		coalesce(nagemonmin, 0.00),
+		coalesce(ccodlabora, ''),
+		coalesce(cdeslabora, ''),
+		coalesce(estado, ''),
+		en_ambiente_de,
+		es_con_migracion,
+		coalesce(ccodcos3, '')
+    from json_to_recordset(a_json)
+    as t (
+		idproducto numeric(20,0),
+		--
+		ccodrucemisor character(15),
+		ccod_empresa character(3),
+		cper character(4),
+		cmes character(2),
+		ccodmodulo character(6),
+		--
+		ccodfamg character(20),
+		cdesfamg character(50),
+		ccodfamf character(20),
+		cdesfamf character(50),
+		ccodprod character(20),
+		cdesprod character(150),
+		cdesprodGen character varying(500),
+		ccodtes character(2),
+		cdesmar character(80),
+		ccodmed character(15),
+		ccodcatbs character(8),
+		cdescatbs character(100),
+		ntipoprod character(8),
+		nunidsec character(2),
+		npesoprod numeric(10,4),
+		ccodbarras character(15),
+		ninprod character(2),
+		nanuprod character(2),
+		nlote character(2),
+		nseruni character(2),
+		nicbper character(2),
+		nprodanti character(2),
+		ngasrela character(2),
+		nprodsafniif character(2),
+		ccomcue character(20),
+		cvencue character(20),
+		cdebicue character(20),
+		ccredcue character(20),
+		cdebicuei character(20),
+		ccredcuei character(20),
+		ccodcos character(9),
+		ccodcos2 character(9),
+		ccodpresu character(10),
+		ccomprod character(1),
+		cvenprod character(1),
+		ccodisc character(5),
+		cmoneda character(1),
+		npreunit1 numeric(15,4),
+		npreunit2 numeric(15,4),
+		npreunit3 numeric(15,4),
+		npreunit4 numeric(15,4),
+		npreunit5 numeric(15,4),
+		npreunit6 numeric(15,4),
+		npreunit7 numeric(15,4),
+		npreunit8 numeric(15,4),
+		npreunit9 numeric(15,4),
+		npreunit10 numeric(15,4),
+		npreunit11 numeric(15,4),
+		npreunit12 numeric(15,4),
+		npreunit13 numeric(15,4),
+		npreunit14 numeric(15,4),
+		npreunit15 numeric(15,4),
+		nstockmin numeric(15,4),
+		nstockmax numeric(15,4),
+		nrango1 numeric(15,0),
+		nrango2 numeric(15,0),
+		nresp numeric(1,0),
+		ccodpps character(2),
+		ccodpds character(5),
+		nagemonmin numeric(15,2),
+		ccodlabora character(4),
+		cdeslabora character(60),
+		
+		estado varchar(255),
+		en_ambiente_de varchar(255),
+		es_con_migracion numeric(1,0),
+		ccodcos3 nchar(15)
+    );
+	--
+   
+	--2.1 Test.. (Eliminar cuando las funciones anteriores (2) ya esten creadas)
+    update com_producto set obserror='Test Habilitado '||idproducto, resultado_migracion=2;
+
+    --3. Informe de importacion    
+    select json_agg(json_build_object(
+        'id', t.idproducto,
+		'obserror', t.obserror,
+		'es_con_migracion', t.es_con_migracion,
+		'resultado_migracion', t.resultado_migracion
+    ))::text
+    from com_producto t
+    into resultado;	
+    
+end; 
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

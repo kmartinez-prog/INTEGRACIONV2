@@ -17,6 +17,9 @@ namespace Contasis
     {
         string xCodempresa;
         string xtipomovi;
+        string xcontrol;
+        string xmodulo;
+        string xmovimiento;
         public static FrmIntegradorComercial instance = null;
         public FrmIntegradorComercial()
         {
@@ -138,10 +141,7 @@ namespace Contasis
                     var adapter = new System.Data.SqlClient.SqlDataAdapter(command);
                     var dataset = new DataSet();
                     adapter.Fill(dataset);
-                    txtventa.Text = "";
-                    txtcompras.Text = "";
-                    txtcobranza.Text = "";
-                    txtpago.Text = "";
+                 
                     if (dataset.Tables.Count == 0)
                     {
                         MessageBox.Show("No existe datos de empresa seleccionada empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -222,8 +222,8 @@ namespace Contasis
             this.cmbempresas.Focus();
             ///     this.ruc();
             this.empresas();
+            
         }
-
         private void cmbempresas_SelectedIndexChanged(object sender, EventArgs e)
         {
            this.dataGrid.DataSource = null;
@@ -331,16 +331,20 @@ namespace Contasis
             }
             catch
             {
-                MessageBox.Show("Error no Existe entidades.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                cmbperiodo.Items.Clear();
+                if (xcontrol == "B")
+                { }
+                else
+                {
+                    MessageBox.Show("Error no Existe entidades.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
             }
 
         }
-
         private void cmbperiodo_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtperiodo.Text = cmbperiodo.Text.Trim();
             this.carga3();
+            this.modulos();
             ////Tablero.Enabled = false;
         }
         private void anulados()
@@ -365,8 +369,12 @@ namespace Contasis
 
             catch
             {
-                MessageBox.Show("Error no existen en Entidades anulados ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                cmbperiodo.Items.Clear();
+                if (xcontrol == "B")
+                { }
+                else
+                {
+                    MessageBox.Show("Error no existen en Entidades anulados ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
             }
 
         }
@@ -375,7 +383,9 @@ namespace Contasis
             try
             {
                 NpgsqlConnection cone2 = new NpgsqlConnection();
-                string text02 = "select ccoddoc as coddoc,cdesdoc as descri from cg_doc order by ccoddoc";
+                string text02 = "select ccoddoc as coddoc,cdesdoc as descri from cg_doc " +
+                                " where ccoddoc in (select distinct ccoddoc  from cc_movimiento) " +
+                                " order by ccoddoc";
                 cone2 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
                 NpgsqlCommand cmd = new NpgsqlCommand(text02, cone2);
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
@@ -392,8 +402,12 @@ namespace Contasis
 
             catch
             {
-                MessageBox.Show("Error no existen en documentos creados ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                cmbperiodo.Items.Clear();
+                if (xcontrol == "B")
+                { }
+                else
+                {
+                    MessageBox.Show("Error no existen en documentos creados ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
             }
 
         }
@@ -419,8 +433,12 @@ namespace Contasis
 
             catch
             {
-                MessageBox.Show("Error no existen en pagos creados ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                cmbperiodo.Items.Clear();
+                if (xcontrol == "B")
+                { }
+                else
+                {
+                    MessageBox.Show("Error no existen en pagos creados ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
             }
 
         }
@@ -446,8 +464,12 @@ namespace Contasis
 
             catch
             {
-                MessageBox.Show("Error no existen en vendedores ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                cmbperiodo.Items.Clear();
+                if (xcontrol == "B")
+                { }
+                else
+                {
+                    MessageBox.Show("Error no existen en vendedores ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
             }
 
         }
@@ -473,19 +495,30 @@ namespace Contasis
 
             catch
             {
-                MessageBox.Show("Error no existen en almacen ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                cmbperiodo.Items.Clear();
+                if (xcontrol == "B")
+                { }
+                else
+                {
+                    MessageBox.Show("Error no existen en almacen ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
             }
 
         }
-        private void series(string codigo)
+        private void series(string codigo,string tipo)
         {
+            string text03 = "";
             try
             {
                 NpgsqlConnection cone1 = new NpgsqlConnection();
                 cone1 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
                 cone1.Open();
-                string text03 = "select cserdoc::char(20) as serie,cserdoc::char(20) as serie2  from cc_numdoc where ccoddoc='"+codigo.ToString()+"';";
+                if (tipo == "S")
+                {
+                    text03 = "select cserdoc::char(20) as serie,cserdoc::char(20) as serie2  from cc_numdoc where ccoddoc='" + codigo.ToString() + "';";
+                } else {
+                    text03 = "select cserie::char(20) as serie,cserie::char(20) as serie2  from cc_movimiento where  ctipmov='I' and ccoddoc='" + codigo.ToString() + "';";
+                }
+
                 NpgsqlCommand cmd = new NpgsqlCommand(text03, cone1);
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -552,15 +585,79 @@ namespace Contasis
 
             catch
             {
-                MessageBox.Show("Error no existen en productos anulados ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                cmbperiodo.Items.Clear();
+                if (xcontrol == "B")
+                { }
+                else
+                {
+                    MessageBox.Show("Error no existen en productos anulados ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
             }
 
         }
-
         public void limpiar()
         {
-            
+            xcontrol = "B";
+            cmbtipo.Text="";
+            cmbentidad.Text = "";
+            cmbanulados.Text = "";
+            cmbdocumento.Text = "";
+            cmbseries.Text = "";
+            cmbpagos.Text = "";
+            cmbmovimiento.Text = "";
+            cmbvendedor.Text = "";
+            cmbalmacen.Text = "";
+            cboanulacionproducto.Text = "";
+        }
+        public void modulos()
+        {
+            if (Properties.Settings.Default.cadenaPostPrincipal == "")
+            {
+                SqlConnection cone = new SqlConnection();
+                string text02 = "select ccodmudulo,cdesmodulo  from modulo_comercial;";
+                cone = Clase.ConexionSql.Instancial().establecerconexion();
+                SqlCommand cmd = new SqlCommand(text02,cone);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                cone.Open();
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                cmbtipo.Items.Clear();
+                cmbtipo.ValueMember = "ccodmudulo";
+                cmbtipo.DisplayMember = "cdesmodulo";
+                cmbtipo.DataSource = dt;
+                cmbtipo.Refresh();
+                cone.Close();
+            }
+            else
+            {
+                try
+                {
+                    NpgsqlConnection cone2 = new NpgsqlConnection();
+                    string text02 = "select ccodmudulo,cdesmodulo  from modulo_comercial;";
+                    cone2 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
+                    NpgsqlCommand cmd = new NpgsqlCommand(text02, cone2);
+                    NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
+                    cone2.Open();
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    cmbtipo.Items.Clear();
+                    cmbtipo.ValueMember = "ccodmudulo";
+                    cmbtipo.DisplayMember = "cdesmodulo";
+                    cmbtipo.DataSource = dt;
+                    cmbtipo.Refresh();
+                    cone2.Close();
+                }
+
+                catch
+                {
+                    if (xcontrol == "B")
+                    { }
+                    else
+                    {
+                        MessageBox.Show("Error no existen en Modulos activos ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                }
+            }
+
         }
 
      
@@ -584,7 +681,7 @@ namespace Contasis
         {
             if (cmbdocumento.SelectedValue.ToString() != null)
              {
-            series(cmbdocumento.SelectedValue.ToString());
+            series(cmbdocumento.SelectedValue.ToString(), xtipomovi);
             }
         }
 
@@ -598,14 +695,16 @@ namespace Contasis
         }
         private void cmbtipo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.cmbtipo.Text.Substring(1, 2) == "01")
+            xmodulo = cmbtipo.SelectedValue.ToString();
+            if (xmodulo == "COMPR")
             {
                 xtipomovi = "I";
             }
-            else
+            if (xmodulo == "VENTA")
             {
                 xtipomovi = "S";
             }
+            this.limpiar();
             this.documento();
             this.cargarentidad();
             this.anulados();
@@ -617,60 +716,84 @@ namespace Contasis
         }
         private void grabar()
         {
-
-            string respuesta = "";
-            Clase.Configuracion_comercial obj = new Clase.Configuracion_comercial();
-            obj.Ccod_empresa = cmbempresas.Text.Substring(0, 3);
-            obj.Cper= txtperiodo.Text;
-            obj.Crazemp = txtrazon.Text;
-            obj.Crucemp = txtruc.Text;
-            obj.Entidad = cmbentidad.SelectedValue.ToString();
-            obj.Tipo = cmbtipo.Text.Substring(0, 2);
-            obj.Codtipdocu = cmbdocumento.SelectedValue.ToString();
-            obj.Cserie = cmbseries.SelectedValue.ToString();
-            obj.Ccodmov = cmbdocumento.SelectedValue.ToString();
-            obj.Ccodpag = cmbpagos.SelectedValue.ToString();
-            obj.Ccodvend = cmbpagos.SelectedValue.ToString();
-            obj.Ccodalma = cmbalmacen.SelectedValue.ToString();
-            obj.Ent_anula = cmbanulados.SelectedValue.ToString();
-            obj.Prodanula = cboanulacionproducto.SelectedValue.ToString();
-
-
-            if (Properties.Settings.Default.cadenaPostPrincipal == "")
+            if (cmbmovimiento.Text == "")
             {
-                Clase.Comercial_procesos_configuracion ds = new Clase.Comercial_procesos_configuracion();
-                respuesta = ds.comer_insert(obj);
-                if (respuesta.Equals("Grabado"))
+                MessageBox.Show("No existe codigo de Movimiento.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                string respuesta = "";
+                Clase.Comercial_procesos_configuracion ver = new Clase.Comercial_procesos_configuracion();
+                if (Properties.Settings.Default.cadenaPostPrincipal == "")
                 {
-                    MessageBox.Show("Registro grabado en tabla configuración comercial", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ////this.limpiarcasilla();
-
+                    respuesta = ver.verifica_movimientosql(cmbmovimiento.SelectedValue.ToString());
                 }
                 else
                 {
-                    MessageBox.Show("No se puedo regitrar esta configuración", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    respuesta = ver.verifica_movimientopossql(cmbmovimiento.SelectedValue.ToString());
                 }
-                this.mostrar_grilla();
-            }
 
-            /*            else
+
+                if (respuesta.Equals("1"))
+                {
+                    MessageBox.Show("este movimiento ya figura en este periodo.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                else
+                {
+
+                    Clase.Configuracion_comercial obj = new Clase.Configuracion_comercial();
+                    obj.Ccod_empresa = cmbempresas.Text.Substring(0, 3);
+                    obj.Cper = txtperiodo.Text;
+                    obj.Crazemp = txtrazon.Text;
+                    obj.Crucemp = txtruc.Text;
+                    obj.Entidad = cmbentidad.SelectedValue.ToString();
+                    obj.Tipo = cmbtipo.Text.Substring(0, 5);
+                    obj.Codtipdocu = cmbdocumento.SelectedValue.ToString();
+                    obj.Cserie = cmbseries.SelectedValue.ToString();
+                    obj.Ccodmov = cmbmovimiento.SelectedValue.ToString();
+                    obj.Ccodpag = cmbpagos.SelectedValue.ToString();
+                    obj.Ccodvend = cmbpagos.SelectedValue.ToString();
+                    obj.Ccodalma = cmbalmacen.SelectedValue.ToString();
+                    obj.Ent_anula = cmbanulados.SelectedValue.ToString();
+                    obj.Prodanula = cboanulacionproducto.SelectedValue.ToString();
+
+
+                    if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                    {
+                        Clase.Comercial_procesos_configuracion ds = new Clase.Comercial_procesos_configuracion();
+                        respuesta = ds.comer_insert(obj);
+                        if (respuesta.Equals("Grabado"))
                         {
-                            usuario_postgres ds = new usuario_postgres();
-                            respuesta = ds.Insertar(obj);
-                            if (respuesta.Equals("Grabado"))
-                            {
-                                MessageBox.Show("Registro grabado en tabla Usuario", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                this.limpiarcasilla();
+                            MessageBox.Show("Registro grabado en tabla configuración comercial", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.limpiar();
 
-                            }
-                            else
-                            {
-                                MessageBox.Show("No se puedo regitrar este usuario", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            FrmUsuarios.instance.grilla1();
                         }
-            */
+                        else
+                        {
+                            MessageBox.Show("No se puedo regitrar esta configuración", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        this.mostrar_grilla();
+                    }
 
+                    else
+                     {
+                        Clase.Comercial_procesos_configuracion ds = new Clase.Comercial_procesos_configuracion();
+                        respuesta = ds.comer_insert_postgres(obj);
+                        if (respuesta.Equals("Grabado"))
+                       {
+                          MessageBox.Show("Registro grabado en tabla configuración comercial", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                          this.limpiar();
+                       }
+                       else
+                       {
+                          MessageBox.Show("No se puedo regitrar esta configuración", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                       }
+                        this.mostrar_grilla();
+                    }
+                }
+            }
         }
         public void mostrar_grilla()
         {
@@ -679,12 +802,12 @@ namespace Contasis
                 if (Properties.Settings.Default.cadenaPostPrincipal == "")
                 {
                     Clase.Comercial_procesos_configuracion regis = new Clase.Comercial_procesos_configuracion();
-                    dataGrid.DataSource =regis.Cargar(txtperiodo.Text, cmbempresas.Text.Substring(0, 3));
+                    dataGrid.DataSource =regis.Cargar(txtperiodo.Text, cmbempresas.Text.Substring(0, 3), xmodulo);
                 }
                 else
                 {
                     Clase.Comercial_procesos_configuracion regis = new Clase.Comercial_procesos_configuracion();
-                    dataGrid.DataSource = regis.Cargarpostgres(txtperiodo.Text, cmbempresas.Text.Substring(0, 3));
+                    dataGrid.DataSource = regis.Cargarpostgres(txtperiodo.Text, cmbempresas.Text.Substring(0, 3), xmodulo);
                 }
 
 
@@ -714,13 +837,205 @@ namespace Contasis
             }
             catch
             {
-                MessageBox.Show("No existe información para Mostrar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               /// MessageBox.Show("No existe información para Mostrar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }
         private void btngrabar_Click(object sender, EventArgs e)
         {
             this.grabar();
+            this.com_documento();
+            this.com_detalledocumento();
+            this.com_producto();
+            this.funciones();
         }
+
+        
+        private void cmbmovimiento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            xmovimiento = cmbmovimiento.SelectedValue.ToString();
+        }
+        private void btneliminar_Click(object sender, EventArgs e)
+        {
+
+            DialogResult dialogResult = MessageBox.Show("Deseas eliminar movimiento seleccionado.?", "Contasis Corpor.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (dataGrid.Rows.Count > 0)
+                {
+                    string codigo = Convert.ToString(dataGrid.SelectedRows[0].Cells[0].Value);
+                    if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                    {
+                        Clase.Comercial_procesos_configuracion regis = new Clase.Comercial_procesos_configuracion();
+                        dataGrid.DataSource = regis.eliminar_movimientosql(codigo);
+                    }
+                    else
+                    {
+                        Clase.Comercial_procesos_configuracion regis = new Clase.Comercial_procesos_configuracion();
+                        dataGrid.DataSource = regis.eliminar_movimientopossql(codigo);
+                    }
+                    this.mostrar_grilla();
+                }
+                else     {                  
+                    return;
+                }
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+            btneliminar.Enabled = false;
+        }
+        private void dataGrid_Click(object sender, EventArgs e)
+        {
+            btneliminar.Enabled = true;
+        }
+        public void com_documento()
+        {
+            NpgsqlConnection cone01 = new NpgsqlConnection();
+            try
+            {
+
+
+                string query0 = "SELECT distinct TABLE_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='com_documento'";
+                cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
+                NpgsqlCommand commando = new NpgsqlCommand(query0, cone01);
+                cone01.Open();
+                NpgsqlDataAdapter datos = new NpgsqlDataAdapter(commando);
+                DataTable tablas = new DataTable();
+                datos.Fill(tablas);
+
+                if (tablas.Rows.Count == 0)
+                {
+                    string tmpquery = txtdocumento.Text;
+                    cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
+                    NpgsqlCommand commando1 = new NpgsqlCommand(tmpquery, cone01);
+                    cone01.Open();
+                    commando1.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+
+            }
+            finally
+            {
+                if (cone01.State == ConnectionState.Open)
+                {
+                    cone01.Close();
+                }
+
+            }
+
+        }
+        public void com_detalledocumento()
+        {
+            NpgsqlConnection cone01 = new NpgsqlConnection();
+            try
+            {
+
+
+                string query0 = "SELECT distinct TABLE_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='com_detalledocumento'";
+                cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
+                NpgsqlCommand commando = new NpgsqlCommand(query0, cone01);
+                cone01.Open();
+                NpgsqlDataAdapter datos = new NpgsqlDataAdapter(commando);
+                DataTable tablas = new DataTable();
+                datos.Fill(tablas);
+
+                if (tablas.Rows.Count == 0)
+                {
+                    string tmpquery = txtdetalledocu.Text;
+                    cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
+                    NpgsqlCommand commando1 = new NpgsqlCommand(tmpquery, cone01);
+                    cone01.Open();
+                    commando1.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+
+            }
+            finally
+            {
+                if (cone01.State == ConnectionState.Open)
+                {
+                    cone01.Close();
+                }
+
+            }
+
+        }
+        public void com_producto()
+        {
+            NpgsqlConnection cone01 = new NpgsqlConnection();
+            try
+            {
+
+
+                string query0 = "SELECT distinct TABLE_NAME  FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='com_producto'";
+                cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
+                NpgsqlCommand commando = new NpgsqlCommand(query0, cone01);
+                cone01.Open();
+                NpgsqlDataAdapter datos = new NpgsqlDataAdapter(commando);
+                DataTable tablas = new DataTable();
+                datos.Fill(tablas);
+
+                if (tablas.Rows.Count == 0)
+                {
+                    string tmpquery = txtproducto.Text;
+                    cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
+                    NpgsqlCommand commando1 = new NpgsqlCommand(tmpquery, cone01);
+                    cone01.Open();
+                    commando1.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+
+            }
+            finally
+            {
+                if (cone01.State == ConnectionState.Open)
+                {
+                    cone01.Close();
+                }
+
+            }
+
+        }
+        public void funciones()
+        {
+                NpgsqlConnection cone01 = new NpgsqlConnection();
+
+                try
+                {
+                    cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
+                    cone01.Open();
+                        NpgsqlCommand commando2 = new NpgsqlCommand(txtguardardocu.Text, cone01);
+                        commando2.ExecuteNonQuery();
+
+                        NpgsqlCommand commando23 = new NpgsqlCommand(txtguardarproducto.Text, cone01);
+                        commando23.ExecuteNonQuery();
+                }
+                catch (Exception ex1)
+                {
+                    MessageBox.Show(ex1.ToString());
+
+                }
+                finally
+                {
+                    if (cone01.State == ConnectionState.Open)
+                    {
+                        cone01.Close();
+                    }
+
+                }
+
+        }
+
     }
 }

@@ -897,23 +897,31 @@ CREATE TABLE cg_usuario_acceso(
 	flgacceso numeric(1, 0) NULL
 );
 
+create table modulo_comercial(
+ccodmudulo Char(5) null,
+cdesmodulo char(50) null
+);
 
+create sequence sec_id minvalue 1 maxvalue 99999999999 increment by 1 ;
 CREATE TABLE configuracion2(
-	ccod_empresa char(3) NULL,
-	cper char(4) NULL,
-	crazemp char(100) NULL,
-	crucemp char(15) NULL,
-	Entidad char(3) NULL,
-	Tipo char(2) NULL,
-	codtipdocu char(4) null,
-	cserie char(10) null,
-	ccodmov char(10) null,
-	ccodpag char(5) null,
-	ccodvend char(10) null,
-	ccodalma char(10) null,
-	Ent_anula char(15) NULL); 
+	id numeric(20,0),
+    ccod_empresa char(3) NULL,
+    cper char(4) NULL,
+    crazemp char(100) NULL,
+    crucemp char(15) NULL, 
+    Entidad char(3) NULL,
+    Tipo char(2) NULL,
+    codtipdocu char(4) NULL,
+	serie char(20) NULL,
+    ccodmov char(10) NULL,
+    ccodpag char(5) NULL,
+    ccodvend char(10) NULL,
+	ccodalma char(10) NULL,
+    Ent_anula char(15) NULL,
+	Prodanula char(15) NULL);
 
-create sequence sec_iddocumento minvalue 1 maxvalue 9999999999999999999 increment by 1 ;
+
+create sequence sec_iddocumento minvalue 1 maxvalue 99999999999 increment by 1 ;
 CREATE TABLE com_documento (
 	iddocumento numeric(20,0),
 	ccod_empresa character(3),
@@ -1000,7 +1008,7 @@ CREATE TABLE com_documento (
 	nflgexisteanular integer NOT NULL DEFAULT 0,
 	constraint pk_documento PRIMARY KEY (iddocumento)
 );
-create sequence sec_iddetalledocumento minvalue 1 maxvalue 9999999999999999999 increment by 1 ;
+create sequence sec_iddetalledocumento minvalue 1 maxvalue 99999999999 increment by 1 ;
 CREATE TABLE com_detalledocumento (
 	iddetalledocumento numeric(20, 0) not null,
 	ccodalma character(3),
@@ -1033,7 +1041,7 @@ CREATE TABLE com_detalledocumento (
 	constraint fk_detalle_documento FOREIGN KEY (iddocumento) references com_documento(iddocumento)
 );
 
-create sequence sec_idproducto minvalue 1 maxvalue 9999999999999999999 increment by 1 ;
+create sequence sec_idproducto minvalue 1 maxvalue 99999999999 increment by 1 ;
 CREATE TABLE com_producto (
 	idproducto numeric(20,0) not null,
 	--
@@ -1114,8 +1122,7 @@ CREATE TABLE com_producto (
 
 END;
 $BODY$
-  LANGUAGE plpgsql VOLATILE
-</value>
+  LANGUAGE plpgsql VOLATILE</value>
   </data>
   <data name="func_guardar_com_documento.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION func_guardar_com_documento(

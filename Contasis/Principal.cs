@@ -175,8 +175,8 @@ namespace Contasis
 
             if (Properties.Settings.Default.TipModulo == "")
             {
-                this.Text = "Configuración del Integrador Contasis 2024 - Contable Financiero SQL 2024 - PERIODO 2024";
-                toolStripStatusLabel7.Text = "|Modulo Financiero|";
+                this.Text = "Configuración del Integrador Contasis 2024";
+                toolStripStatusLabel7.Text = "";
             }
 
         }

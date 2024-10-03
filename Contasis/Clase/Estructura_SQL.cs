@@ -402,5 +402,60 @@ namespace Contasis.Clase
             }
             return cadena;
         }
+        /*********************************************************************************************************/
+        public  void Insertar_datos_fijos()
+        {
+            DataTable Tabla = new DataTable();
+            SqlConnection coneconexionsql = new SqlConnection();
+            coneconexionsql = ConexionSql.Instancial().establecerconexion();
+            coneconexionsql.Open();
+
+            try
+            {
+                string valor1 = "delete from modulo_comercial;";
+                SqlCommand myCommand = new SqlCommand(valor1, coneconexionsql);
+                myCommand.ExecuteNonQuery();
+
+                string valor2 = "Insert into modulo_comercial(ccodmudulo,cdesmodulo)values('VENTA','VENTAS');";
+                SqlCommand myCommand1 = new SqlCommand(valor2, coneconexionsql);
+                myCommand1.ExecuteNonQuery();
+
+                string valor3 = "Insert into modulo_comercial(ccodmudulo, cdesmodulo)values('COMPR', 'COMPRAS');";
+                SqlCommand myCommand2 = new SqlCommand(valor3, coneconexionsql);
+                myCommand2.ExecuteNonQuery();
+                /*
+                string valor4 = "Insert into modulo_comercial(ccodmudulo, cdesmodulo)values('GUIAR', 'GUIAS');";
+                SqlCommand myCommand3 = new SqlCommand(valor4, coneconexionsql);
+                myCommand3.ExecuteNonQuery();
+
+                string valor5 = "Insert into modulo_comercial(ccodmudulo, cdesmodulo)values('GUIAT', 'GUIAS TRANSPORTISTA');";
+                SqlCommand myCommand4 = new SqlCommand(valor5, coneconexionsql);
+                myCommand4.ExecuteNonQuery();
+
+                string valor6 = "Insert into modulo_comercial(ccodmudulo, cdesmodulo)values('TRANS', 'SALIDA DE TRANSFERENCIA');";
+                SqlCommand myCommand5 = new SqlCommand(valor6, coneconexionsql);
+                myCommand5.ExecuteNonQuery();
+
+                string valor7 = "Insert into modulo_comercial(ccodmudulo, cdesmodulo)values('TRANI', 'INGRESO DE TRANSFERENCIA');";
+                SqlCommand myCommand6 = new SqlCommand(valor7, coneconexionsql);
+                myCommand6.ExecuteNonQuery();
+                */
+            }
+            
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+            }
+            finally
+            {
+                if (coneconexionsql.State == ConnectionState.Open)
+                {
+                    coneconexionsql.Close();
+                }
+
+            }
+        }
+
+        /*********************************************************************************************************/
     }
 }

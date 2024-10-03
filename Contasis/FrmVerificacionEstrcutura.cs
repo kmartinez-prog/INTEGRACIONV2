@@ -989,29 +989,42 @@ namespace Contasis
             if (Properties.Settings.Default.TipModulo == "2")
             {
                 //Area para crear la estructura de las Tablas inicia para el integrador solo comercial ////
+                #region modulo_comercial
+                NombreTable = "modulo_comercial";
+                Query = "create table modulo_comercial( " +
+                       "ccodmudulo Char(5) null, " +
+                       "cdesmodulo char(50) null)";
+                respuesta = obj.crear_tablas(NombreTable, Query);
+                this.barraprogreso(respuesta);
+                obj.Insertar_datos_fijos();
+                #endregion
+
+
                 #region configuracion2
 
                 NombreTable = "configuracion2";
-                Query = " CREATE TABLE configuracion2( \n" +
-                        " ccod_empresa char(3) NULL, \n" +
-                        " cper char(4) NULL, \n" +
-                        " crazemp char(100) NULL, \n" +
-                        " crucemp char(15) NULL, \n" +
-                        " Entidad char(3) NULL, \n" +
-                        " Tipo char(2) NULL, \n" +
-                        " codtipdocu char(4) null, \n" +
-                        " cserie char(10) null, \n" +
-                        " ccodmov char(10) null, \n" +
-                        " ccodpag char(5) null, \n" +
-                        " ccodvend char(10) null, \n" +
-                        " ccodalma char(10) null, \n" +
-                        " Ent_anula char(15) NULL) ";
+                Query = "CREATE TABLE configuracion2( " +
+                        "id int IDENTITY(1,1) NOT NULL, " +
+                        "ccod_empresa char(3) NULL, " +
+                        "cper char(4) NULL, " +
+                        "crazemp char(100) NULL, " +
+                        "crucemp char(15) NULL, " +
+                        "Entidad char(3) NULL, " +
+                        "Tipo char(5) NULL, " +
+                        "codtipdocu char(4) NULL, " +
+                        "cserie char(20) NULL, " +
+                        "ccodmov char(10) NULL, " +
+                        "ccodpag char(5) NULL, " +
+                        "ccodvend char(10) NULL, " +
+                        "ccodalma char(10) NULL, " +
+                        "Ent_anula char(15) NULL, " +
+                        "Prodanula char(15) NULL) ";
                 respuesta = obj.crear_tablas(NombreTable, Query);
                 this.barraprogreso(respuesta);
                 #endregion
                 #region com_documento
                 NombreTable = "com_documento";
-                Query = "CREATE TABLE com_documento (\n" +
+                 Query = "CREATE TABLE com_documento (\n" +
                         "iddocumento int identity(1,1) primary key not null,\n" +
                         "ccodrucemisor char(15) NULL,   \n" +
                         "	ccod_empresa char(3) NULL, " +
@@ -2250,23 +2263,60 @@ namespace Contasis
             if (Properties.Settings.Default.TipModulo == "2")
             {
                 // Area para tablas comerciales //
-                #region configuracion
+                #region modulo_comercial
+                NombreTable = "modulo_comercial";
+                Query = "create table modulo_comercial( " +
+                       "ccodmudulo Char(5) null, " +
+                       "cdesmodulo char(50) null)";
+                respuesta = obj.crear_tablas(NombreTable, Query);
+                this.barraprogreso(respuesta);
+                #endregion
+                #region modulo_comercial
 
                 NombreTable = "configuracion2";
-                Query = "CREATE TABLE configuracion2( \n" +
-                        " ccod_empresa char(3) NULL, \n" +
-                        " cper char(4) NULL, \n" +
-                        " crazemp char(100) NULL, \n" +
-                        " crucemp char(15) NULL, \n" +
-                        " Entidad char(3) NULL, \n" +
-                        " Tipo char(2) NULL, \n" +
-                        " codtipdocu char(4) null, \n" +
-                        " cserie char(10) null, \n" +
-                        " ccodmov char(10) null, \n" +
-                        " ccodpag char(5) null, \n" +
-                        " ccodvend char(10) null, \n" +
-                        " ccodalma char(10) null, \n" +
-                        " Ent_anula char(15) NULL)";
+                Query = "create sequence sec_id minvalue 1 maxvalue 99999999999 increment by 1; " +
+                "CREATE TABLE configuracion2( " +
+                 "   id numeric(20, 0), " +
+                 "   ccod_empresa char(3) NULL, " +
+                 "   cper char(4) NULL, " +
+                 "   crazemp char(100) NULL, " +
+                 "   crucemp char(15) NULL, " +
+                 "   Entidad char(3) NULL, " +
+                 "   Tipo char(5) NULL, " +
+                 "   codtipdocu char(4) NULL, " +
+                 "   serie char(20) NULL, " +
+                 "   ccodmov char(10) NULL, " +
+                 "   ccodpag char(5) NULL, " +
+                 "   ccodvend char(10) NULL, " +
+                 "   ccodalma char(10) NULL, " +
+                 "   Ent_anula char(15) NULL, " +
+                 "   Prodanula char(15) NULL); ";
+                respuesta = obj.crear_tablas(NombreTable, Query);
+                this.barraprogreso(respuesta);
+                #endregion
+
+
+                #region configuracion2
+
+                NombreTable = "configuracion2";
+                Query = "drop sequence if exists sec_id;"+
+                "create sequence sec_id minvalue 1 maxvalue 99999999999 increment by 1; " +
+                "CREATE TABLE configuracion2( " +
+                 "   id numeric(20, 0), " +
+                 "   ccod_empresa char(3) NULL, " +
+                 "   cper char(4) NULL, " +
+                 "   crazemp char(100) NULL, " +
+                 "   crucemp char(15) NULL, " +
+                 "   Entidad char(3) NULL, " +
+                 "   Tipo char(2) NULL, " +
+                 "   codtipdocu char(4) NULL, " +
+                 "   serie char(20) NULL, " +
+                 "   ccodmov char(10) NULL, " +
+                 "   ccodpag char(5) NULL, " +
+                 "   ccodvend char(10) NULL, " +
+                 "   ccodalma char(10) NULL, " +
+                 "   Ent_anula char(15) NULL, " +
+                 "   Prodanula char(15) NULL); ";
                 respuesta = obj.crear_tablas(NombreTable, Query);
                 this.barraprogreso(respuesta);
                 #endregion

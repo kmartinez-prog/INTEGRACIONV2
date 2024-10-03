@@ -73,6 +73,10 @@ namespace Contasis
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtcontrol = new System.Windows.Forms.TextBox();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -102,7 +106,9 @@ namespace Contasis
             this.toolStripSeparator4,
             this.origenDeDatosToolStripMenuItem,
             this.toolStripMenuItem3,
+            this.toolStripSeparator7,
             this.toolStripMenuItem4,
+            this.toolStripSeparator8,
             this.estructuraDeDatosToolStripMenuItem,
             this.toolStripSeparator2,
             this.servicioDeIntegraciónToolStripMenuItem,
@@ -204,7 +210,9 @@ namespace Contasis
             this.procesosToolStripMenuItem.AutoSize = false;
             this.procesosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.integradorContableToolStripMenuItem,
+            this.toolStripSeparator5,
             this.financieroToolStripMenuItem,
+            this.toolStripSeparator6,
             this.integradorComercialSQLToolStripMenuItem});
             this.procesosToolStripMenuItem.Name = "procesosToolStripMenuItem";
             this.procesosToolStripMenuItem.Size = new System.Drawing.Size(110, 32);
@@ -429,6 +437,26 @@ namespace Contasis
             this.txtcontrol.Size = new System.Drawing.Size(112, 20);
             this.txtcontrol.TabIndex = 4;
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(260, 6);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(260, 6);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(241, 6);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(241, 6);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -446,8 +474,7 @@ namespace Contasis
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Principal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Configuración del Integrador Contasis 2024 - Contable Financiero SQL 2024 - PERIO" +
-    "DO 2024";
+            this.Text = "Configuración del Integrador Contasis 2024  - PERIODO 2024";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Principal_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Principal_FormClosed);
@@ -508,5 +535,9 @@ namespace Contasis
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     }
 }

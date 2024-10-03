@@ -104,7 +104,7 @@ namespace Contasis
                                     objetconexion1.crearCadena(txtcadena.Text);
                                     SqlConnection connection1 = new SqlConnection(txtcadena.Text);
                                     connection1.Open();
-                                    String verifica = "SELECT * FROM SYSDATABASES WHERE NAME='bdintegradorContasis2'";
+                                    String verifica = "SELECT * FROM SYSDATABASES WHERE NAME='bdintegradorContasis'";
                                     SqlCommand comando = new SqlCommand(verifica, connection1);
                                     DataTable dt = new DataTable();
                                     SqlDataAdapter da = new SqlDataAdapter(comando);
@@ -114,7 +114,7 @@ namespace Contasis
                                     {
                                         btnValidar.Enabled = true;
                                         btnGrabar.Enabled = false;
-                                        lblEstado.Text = "Ya Existe la base de datos <<bdintegradorContasis2>>";
+                                        lblEstado.Text = "Ya Existe la base de datos <<bdintegradorContasis>>";
 
 
                                         String verifica1 = "SELECT * FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME ='Conexiones'";
@@ -236,12 +236,12 @@ namespace Contasis
                                 NpgsqlConnection conexion = new NpgsqlConnection();
                                 conexion.ConnectionString = txtcadena.Text.Trim();
                                 conexion.Open();
-                                string text01 = "select distinct datname from pg_database where datname='bdintegradorcontasis2'";
+                                string text01 = "select distinct datname from pg_database where datname='bdintegradorcontasis'";
                                 NpgsqlCommand cmdp = new NpgsqlCommand(text01, conexion);
                                 DataTable dt = new DataTable();
                                 NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
                                 data.Fill(dt);
-                                string conexionnewpos = txtcadena.Text.Replace("contasis", "bdintegradorcontasis2");
+                                string conexionnewpos = txtcadena.Text.Replace("contasis", "bdintegradorcontasis");
                                 if (dt.Rows.Count > 0)
                                 {
                                     lblEstado.Text = "ya existe esta base de datos en el PostgrelSql";
@@ -249,7 +249,7 @@ namespace Contasis
                                 else
                                 {
 
-                                    string text02 = "create database bdintegradorcontasis2;";
+                                    string text02 = "create database bdintegradorcontasis;";
                                     NpgsqlCommand cmdp2 = new NpgsqlCommand(text02, conexion);
                                     cmdp2.ExecuteNonQuery();
                                     MessageBox.Show("Se ha creado la base de datos con exito.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -264,7 +264,7 @@ namespace Contasis
                                     data1.Fill(dt1);
                                 if (dt1.Rows.Count > 0)
                                 {
-                                    lblEstado.Text = "ya existe la tabla de conexiones en bdintegradorcontasis2";
+                                    lblEstado.Text = "ya existe la tabla de conexiones en bdintegradorcontasis";
                                 }
                                 else
                                 {
@@ -282,7 +282,7 @@ namespace Contasis
                                     string malor2 = txtServidor.Text;
                                     string malor3 = txtpuerto.Text;
                                     string malor4 = Txtusuario.Text;
-                                    string malor6 = "bdintegradorcontasis2";
+                                    string malor6 = "bdintegradorcontasis";
                                     string malor5 = esconde1.Ocultar(txtClave.Text);
                                     string malor7 = esconde1.Ocultar(conexionnewpos);
                                     string malor8 = Properties.Settings.Default.Usuario;

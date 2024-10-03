@@ -476,22 +476,24 @@ namespace Contasis
                             MessageBox.Show(ex.ToString(), "Contasis Corp. configuracion ctas.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                         }
-                      
+
                         /*****************************************************************************************************/
-                        sconfigura = "CREATE TABLE configuracion2( \n" +
-                        " ccod_empresa char(3) NULL, \n" +
-                        " cper char(4) NULL, \n" +
-                        " crazemp char(100) NULL, \n" +
-                        " crucemp char(15) NULL, \n" +
-                        " Entidad char(3) NULL, \n" +
-                        " Tipo char(2) NULL, \n" +
-                        " codtipdocu char(4) null, \n" +
-                        " cserie char(10) null, \n" +
-                        " ccodmov char(10) null, \n" +
-                        " ccodpag char(5) null, \n" +
-                        " ccodvend char(10) null, \n" +
-                        " ccodalma char(10) null, \n" +
-                        " Ent_anula char(15) NULL)";
+                        sconfigura = " CREATE TABLE configuracion2( " +
+                                     "id int identity(1,1), " +
+                                    "ccod_empresa char(3) NULL, " +
+                                    "cper char(4) NULL, " +
+                                    "crazemp char(100) NULL, " +
+                                    "crucemp char(15) NULL, " +
+                                    "Entidad char(3) NULL, " +
+                                    "Tipo char(5) NULL, " +
+                                    "codtipdocu char(4) NULL, " +
+                                    "cserie char(20) NULL, " +
+                                    "ccodmov char(10) NULL, " +
+                                    "ccodpag char(5) NULL, " +
+                                    "ccodvend char(10) NULL, " +
+                                    "ccodalma char(10) NULL, " +
+                                    "Ent_anula char(15) NULL, " +
+                                    "Prodanula char(15) NULL)";
                        SqlCommand myCommand41 = new SqlCommand(sconfigura, conex2);
                         try
                         {
@@ -514,6 +516,22 @@ namespace Contasis
                             MessageBox.Show(ex.ToString(), "Contasis Corp. Modulo", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                         }
+
+                        /*****************************************************************************************************/
+                        string modulocomer = "create table modulo_comercial( " +
+                        "ccodmudulo Char(5) null, " +
+                        "cdesmodulo char(50) null)";
+                        SqlCommand myCommand041 = new SqlCommand(modulocomer, conex2);
+                        try
+                        {
+                            myCommand041.ExecuteNonQuery();
+
+                        }
+                        catch (System.Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString(), "Contasis Corp. configuracion ctas.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                        }
                         /*****************************************************************************************************/
                         sconfigura = "create table cg_empemisor(" +
                         "ccodrucemisor char(15) NOT NULL, " +
@@ -522,7 +540,6 @@ namespace Contasis
                         "ncobranzaflg int NOT NULL,npagoflg int NOT NULL," +
                         "PRIMARY KEY CLUSTERED " +
                         " (ccodrucemisor  ASC))";
-
                         SqlCommand myCommand04 = new SqlCommand(sconfigura, conex2);
                         try
                         {
@@ -534,7 +551,6 @@ namespace Contasis
                             MessageBox.Show(ex.ToString(), "Contasis Corp. configuracion  .", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                         }
-
                         /*********************************************************************************************/
 
                         stmodulo = "INSERT INTO cg_modulos(CCODMOD,CDESMOD) VALUES('00001','EMPRESAS');" +

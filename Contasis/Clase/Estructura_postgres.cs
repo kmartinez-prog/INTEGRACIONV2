@@ -280,5 +280,60 @@ namespace Contasis.Clase
             return cadena;
         }
 
+        public void Insertar_datos_fijos()
+        {
+            DataTable Tabla = new DataTable();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+
+            try
+            {
+                string valor1 = "delete from modulo_comercial;";
+                NpgsqlCommand myCommand = new NpgsqlCommand(valor1, conexion);
+                myCommand.ExecuteNonQuery();
+
+                string valor2 = "Insert into modulo_comercial(ccodmudulo,cdesmodulo)values('VENTA','VENTAS');";
+                NpgsqlCommand myCommand1 = new NpgsqlCommand(valor2, conexion);
+                myCommand1.ExecuteNonQuery();
+
+                string valor3 = "Insert into modulo_comercial(ccodmudulo, cdesmodulo)values('COMPR', 'COMPRAS');";
+                NpgsqlCommand myCommand2 = new NpgsqlCommand(valor3, conexion);
+                myCommand2.ExecuteNonQuery();
+                /*
+                string valor4 = "Insert into modulo_comercial(ccodmudulo, cdesmodulo)values('GUIAR', 'GUIAS');";
+                NpgsqlCommand myCommand3 = new NpgsqlCommand(valor4, conexion);
+                myCommand3.ExecuteNonQuery();
+
+                string valor5 = "Insert into modulo_comercial(ccodmudulo, cdesmodulo)values('GUIAT', 'GUIAS TRANSPORTISTA');";
+                NpgsqlCommand myCommand4 = new NpgsqlCommand(valor5, conexion);
+                myCommand4.ExecuteNonQuery();
+
+                string valor6 = "Insert into modulo_comercial(ccodmudulo, cdesmodulo)values('TRANS', 'SALIDA DE TRANSFERENCIA');";
+                NpgsqlCommand myCommand5 = new NpgsqlCommand(valor6, conexion);
+                myCommand5.ExecuteNonQuery();
+
+                string valor7 = "Insert into modulo_comercial(ccodmudulo, cdesmodulo)values('TRANI', 'INGRESO DE TRANSFERENCIA');";
+                NpgsqlCommand myCommand6 = new NpgsqlCommand(valor7, conexion);
+                myCommand6.ExecuteNonQuery();
+                */
+            }
+
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+
+            }
+        }
+
+        /*********************************************************************************************************/
+
     }
 }

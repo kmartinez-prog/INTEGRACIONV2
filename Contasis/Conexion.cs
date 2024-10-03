@@ -40,7 +40,7 @@ namespace Contasis
 
 
                     /** aca vamos a Verificar si Existe la tabla Contasis    **/
-                    string verifica = "SELECT  * FROM SYSDATABASES WHERE NAME='bdintegradorContasis2'";
+                    string verifica = "SELECT  * FROM SYSDATABASES WHERE NAME='bdintegradorContasis'";
                     SqlCommand comando = new SqlCommand(verifica, conex);
                     {
                         DataTable dt = new DataTable();
@@ -57,12 +57,12 @@ namespace Contasis
                         {
                             ////MessageBox.Show("base de datos <<bdintegradorContasis>> sera creada", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             {
-                                str = "CREATE DATABASE bdintegradorContasis2 ON PRIMARY " +
-                                      " (NAME = N'bdintegradorContasis2', " +
-                                      " FILENAME = N'" + ruta + "bdintegradorContasis2DATA.mdf'," +
+                                str = "CREATE DATABASE bdintegradorContasis ON PRIMARY " +
+                                      " (NAME = N'bdintegradorContasis', " +
+                                      " FILENAME = N'" + ruta + "bdintegradorContasisDATA.mdf'," +
                                       "  SIZE = 8192KB, MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB) " +
-                                      "  LOG ON(NAME = N'bdintegradorContasis2_Log', " +
-                                      "  FILENAME = N'" + ruta + "bdintegradorContasis2Log.ldf'," +
+                                      "  LOG ON(NAME = N'bdintegradorContasis_Log', " +
+                                      "  FILENAME = N'" + ruta + "bdintegradorContasisLog.ldf'," +
                                       "  SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )";
 
                                 SqlCommand myCommand = new SqlCommand(str, conex);
