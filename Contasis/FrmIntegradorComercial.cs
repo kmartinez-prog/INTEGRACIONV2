@@ -222,6 +222,7 @@ namespace Contasis
             this.cmbempresas.Focus();
             ///     this.ruc();
             this.empresas();
+            this.limpiar();
             
         }
         private void cmbempresas_SelectedIndexChanged(object sender, EventArgs e)
@@ -659,8 +660,6 @@ namespace Contasis
             }
 
         }
-
-     
         private void cmbentidad_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbentidad.SelectedValue.ToString() != null)
@@ -668,7 +667,6 @@ namespace Contasis
              ////   MessageBox.Show(cmbentidad.SelectedValue.ToString());
             }
         }
-
         private void cmbanulados_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbanulados.SelectedValue.ToString() != null)
@@ -676,7 +674,6 @@ namespace Contasis
               ////  MessageBox.Show(cmbanulados.SelectedValue.ToString());
             }
         }
-
         private void cmbdocumento_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbdocumento.SelectedValue.ToString() != null)
@@ -684,7 +681,6 @@ namespace Contasis
             series(cmbdocumento.SelectedValue.ToString(), xtipomovi);
             }
         }
-
         private void cmbseries_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.movimiento(cmbdocumento.SelectedValue.ToString(), cmbseries.SelectedValue.ToString(), xtipomovi);
@@ -849,8 +845,6 @@ namespace Contasis
             this.com_producto();
             this.funciones();
         }
-
-        
         private void cmbmovimiento_SelectedIndexChanged(object sender, EventArgs e)
         {
             xmovimiento = cmbmovimiento.SelectedValue.ToString();

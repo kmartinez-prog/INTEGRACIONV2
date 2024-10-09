@@ -35,9 +35,7 @@ namespace Contasis
         public Principal(string valor)
         {
             InitializeComponent();
-            
             txtcontrol.Text = valor;
-
             instance = this;
         }
 
@@ -70,8 +68,8 @@ namespace Contasis
 
         private void accesoAUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           /// if (txtcontrol.Text == "1")
-           /// {
+           if (txtcontrol.Text == "1")
+            {
                 foreach (Form OpenForm in Application.OpenForms)
                 {
                     if (OpenForm.Name == "master2")
@@ -92,7 +90,7 @@ namespace Contasis
                     
                 }
                 
-            /////}
+            }
             else
             {
                 MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -180,8 +178,6 @@ namespace Contasis
             }
 
         }
-            
-
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit(); 
@@ -240,7 +236,7 @@ namespace Contasis
                 else
                 {
                     master4 = null;
-                    MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("No existe información para el sistema.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     this.integradorContableToolStripMenuItem.Enabled = false;
                 }
             }
@@ -280,7 +276,7 @@ namespace Contasis
             }
             else
             {
-                MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No existe información para el sistema", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
         void cerrarempresa(object sender, EventArgs e)
@@ -340,7 +336,7 @@ namespace Contasis
             }
             else
             {
-                MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No existe información para el sistema.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
         }
@@ -374,7 +370,7 @@ namespace Contasis
             }
             else
             {
-                MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No existe información para el sistema.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
 
@@ -472,7 +468,7 @@ namespace Contasis
             }
             else
             {
-                MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No existe información para el sistema.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
         void cerrardestino(object sender, EventArgs e)
@@ -703,7 +699,7 @@ namespace Contasis
                 {
 
                     master16 = null;
-                    MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("No existe información para el sistema.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     this.integradorComercialSQLToolStripMenuItem.Enabled = false;
                 }
             
@@ -742,6 +738,19 @@ namespace Contasis
         }
         private void productosToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            foreach (Form OpenForm in Application.OpenForms)
+            {
+                if (OpenForm.Name == "master18")
+                { }
+                else
+                {
+                    master18 = null;
+                }
+
+            }
+
+
+
             if (master18 == null)
             {
                 master18 = new FrmInconsistencia_productos_comercial();

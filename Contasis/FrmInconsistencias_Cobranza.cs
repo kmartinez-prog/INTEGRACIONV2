@@ -103,6 +103,7 @@ namespace Contasis
                     }
 
                     this.dataGridView2.Refresh();
+                    dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 }
                 catch
                 {
@@ -630,12 +631,7 @@ namespace Contasis
                         dataGridView2.Rows[i].Cells[0].Value = CheckState.Unchecked;
                     }
                 }
-
-
             }
-
-
-
         }
         private void btnseleccionar_Click(object sender, EventArgs e)
         {
@@ -771,7 +767,6 @@ namespace Contasis
             this.Hide();
             this.Close();
         }
-
         private void cmbrucemisor_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             this.dataGridView2.DataSource = null;
@@ -796,7 +791,6 @@ namespace Contasis
 
             }
         }
-
         private void checkSeleccionar_CheckedChanged_1(object sender, EventArgs e)
         {
             if (Convert.ToString(dataGridView2.Rows.Count) == "0")
@@ -848,7 +842,7 @@ namespace Contasis
 
                         if (dataGridView2.Rows[i].Cells[0].Value.ToString() == "Checked")
                         {
-                            MessageBox.Show(dataGridView2.Rows[i].Cells[1].Value.ToString());
+                           
                             string valor = dataGridView2.Rows[i].Cells[1].Value.ToString();
                             this.actualizamotivo(valor);
                             this.txtLista.Text = "";
@@ -863,7 +857,6 @@ namespace Contasis
             }
 
         }
-
         private void dataGridView2_Click_1(object sender, EventArgs e)
         {
             if (Convert.ToString(dataGridView2.Rows.Count) == "0")

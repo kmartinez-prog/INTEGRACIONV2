@@ -287,7 +287,6 @@ namespace Contasis
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(558, 444);
             this.panel6.TabIndex = 35;
-          
             // 
             // lblTotales
             // 
@@ -303,9 +302,6 @@ namespace Contasis
             // 
             this.cboanulacionproducto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboanulacionproducto.FormattingEnabled = true;
-            this.cboanulacionproducto.Items.AddRange(new object[] {
-            "Compras",
-            "Ventas"});
             this.cboanulacionproducto.Location = new System.Drawing.Point(23, 222);
             this.cboanulacionproducto.Name = "cboanulacionproducto";
             this.cboanulacionproducto.Size = new System.Drawing.Size(331, 23);
@@ -351,9 +347,6 @@ namespace Contasis
             // 
             this.cmbanulados.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbanulados.FormattingEnabled = true;
-            this.cmbanulados.Items.AddRange(new object[] {
-            "Compras",
-            "Ventas"});
             this.cmbanulados.Location = new System.Drawing.Point(385, 39);
             this.cmbanulados.Name = "cmbanulados";
             this.cmbanulados.Size = new System.Drawing.Size(134, 23);
@@ -373,9 +366,6 @@ namespace Contasis
             // 
             this.cmbalmacen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbalmacen.FormattingEnabled = true;
-            this.cmbalmacen.Items.AddRange(new object[] {
-            "Compras",
-            "Ventas"});
             this.cmbalmacen.Location = new System.Drawing.Point(311, 178);
             this.cmbalmacen.Name = "cmbalmacen";
             this.cmbalmacen.Size = new System.Drawing.Size(215, 23);
@@ -394,9 +384,6 @@ namespace Contasis
             // 
             this.cmbvendedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbvendedor.FormattingEnabled = true;
-            this.cmbvendedor.Items.AddRange(new object[] {
-            "Compras",
-            "Ventas"});
             this.cmbvendedor.Location = new System.Drawing.Point(23, 178);
             this.cmbvendedor.Name = "cmbvendedor";
             this.cmbvendedor.Size = new System.Drawing.Size(279, 23);
@@ -415,9 +402,6 @@ namespace Contasis
             // 
             this.cmbpagos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbpagos.FormattingEnabled = true;
-            this.cmbpagos.Items.AddRange(new object[] {
-            "Compras",
-            "Ventas"});
             this.cmbpagos.Location = new System.Drawing.Point(385, 83);
             this.cmbpagos.Name = "cmbpagos";
             this.cmbpagos.Size = new System.Drawing.Size(134, 23);
@@ -455,9 +439,6 @@ namespace Contasis
             // 
             this.cmbmovimiento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbmovimiento.FormattingEnabled = true;
-            this.cmbmovimiento.Items.AddRange(new object[] {
-            "Compras",
-            "Ventas"});
             this.cmbmovimiento.Location = new System.Drawing.Point(23, 130);
             this.cmbmovimiento.Name = "cmbmovimiento";
             this.cmbmovimiento.Size = new System.Drawing.Size(505, 23);
@@ -497,9 +478,6 @@ namespace Contasis
             // 
             this.cmbdocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbdocumento.FormattingEnabled = true;
-            this.cmbdocumento.Items.AddRange(new object[] {
-            "Compras",
-            "Ventas"});
             this.cmbdocumento.Location = new System.Drawing.Point(23, 83);
             this.cmbdocumento.Name = "cmbdocumento";
             this.cmbdocumento.Size = new System.Drawing.Size(212, 23);
@@ -519,13 +497,6 @@ namespace Contasis
             // 
             this.cmbtipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbtipo.FormattingEnabled = true;
-            this.cmbtipo.Items.AddRange(new object[] {
-            "VENTA\tVEMTAS",
-            "COMPRA\tCOMPRAS",
-            "GUIAR\tGUIAS",
-            "GUIAT\tGUIAS TRANSPORTTISTA",
-            "TRANS\tSALIDA DE TRANSFERENCIA",
-            "TRANI\tINGRESO TRANSFERENCIA"});
             this.cmbtipo.Location = new System.Drawing.Point(23, 39);
             this.cmbtipo.Name = "cmbtipo";
             this.cmbtipo.Size = new System.Drawing.Size(212, 23);
