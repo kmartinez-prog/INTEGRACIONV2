@@ -216,6 +216,7 @@ namespace Contasis
         }
         private void FrmIntegradorComercial_Load(object sender, EventArgs e)
         {
+            this.button1.Enabled = false;
             txtcadena.Text = Properties.Settings.Default.cadenaPost;
             ////// MessageBox.Show("" + Properties.Settings.Default.cadenaPost);
 
@@ -228,7 +229,7 @@ namespace Contasis
         private void cmbempresas_SelectedIndexChanged(object sender, EventArgs e)
         {
            this.dataGrid.DataSource = null;
-            
+            this.button1.Enabled = false;
             if (cmbempresas.Text == "")
             {
                 return;
@@ -346,6 +347,7 @@ namespace Contasis
             txtperiodo.Text = cmbperiodo.Text.Trim();
             this.carga3();
             this.modulos();
+            this.button1.Enabled = true;
             ////Tablero.Enabled = false;
         }
         private void anulados()
@@ -505,7 +507,7 @@ namespace Contasis
             }
 
         }
-        private void series(string codigo,string tipo)
+        private void series(string codigo,string xtipomovi)
         {
             string text03 = "";
             try
@@ -513,10 +515,13 @@ namespace Contasis
                 NpgsqlConnection cone1 = new NpgsqlConnection();
                 cone1 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
                 cone1.Open();
-                if (tipo == "S")
+                
+                if (xtipomovi == "S")
                 {
+                    label5.Text = "Tipo de movimiento de Salida:";
                     text03 = "select cserdoc::char(20) as serie,cserdoc::char(20) as serie2  from cc_numdoc where ccoddoc='" + codigo.ToString() + "';";
                 } else {
+                    label5.Text = "Tipo de movimiento de Ingreso:";
                     text03 = "select cserie::char(20) as serie,cserie::char(20) as serie2  from cc_movimiento where  ctipmov='I' and ccoddoc='" + codigo.ToString() + "';";
                 }
 
@@ -613,6 +618,7 @@ namespace Contasis
         {
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
+                label5.Text = "Tipo de movimiento:";
                 SqlConnection cone = new SqlConnection();
                 string text02 = "select ccodmudulo,cdesmodulo  from modulo_comercial;";
                 cone = Clase.ConexionSql.Instancial().establecerconexion();
@@ -632,6 +638,7 @@ namespace Contasis
             {
                 try
                 {
+                    label5.Text = "Tipo de movimiento:";
                     NpgsqlConnection cone2 = new NpgsqlConnection();
                     string text02 = "select ccodmudulo,cdesmodulo  from modulo_comercial;";
                     cone2 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
@@ -685,21 +692,22 @@ namespace Contasis
         {
             this.movimiento(cmbdocumento.SelectedValue.ToString(), cmbseries.SelectedValue.ToString(), xtipomovi);
         }
-        private void cmbseries_Click(object sender, EventArgs e)
-        {
-            
-        }
+        
         private void cmbtipo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            xmodulo = cmbtipo.SelectedValue.ToString();
+            label5.Text = "Tipo de movimiento:";
+            xmodulo = cmbtipo.SelectedValue.ToString().Trim();
             if (xmodulo == "COMPR")
             {
                 xtipomovi = "I";
+                label5.Text = "Tipo de movimiento de Ingreso:";
             }
             if (xmodulo == "VENTA")
             {
                 xtipomovi = "S";
+               label5.Text = "Tipo de movimiento de Salida:";
             }
+            
             this.limpiar();
             this.documento();
             this.cargarentidad();
@@ -707,6 +715,9 @@ namespace Contasis
             this.pagos();
             this.vendedor();
             this.almacen();
+            this.cmbdocumento.Refresh();
+            this.cmbseries.Refresh();
+            this.cmbmovimiento.Refresh();
             this.anulacionproductos();
             this.mostrar_grilla();
         }
@@ -1014,8 +1025,27 @@ namespace Contasis
 
                         NpgsqlCommand commando23 = new NpgsqlCommand(txtguardarproducto.Text, cone01);
                         commando23.ExecuteNonQuery();
-                }
-                catch (Exception ex1)
+
+                        NpgsqlCommand commando33 = new NpgsqlCommand(txtproductoprincipal.Text, cone01);
+                        commando23.ExecuteNonQuery();
+
+                NpgsqlCommand commando43 = new NpgsqlCommand(txtcompras_comercial.Text, cone01);
+                commando43.ExecuteNonQuery();
+
+
+                NpgsqlCommand commando53 = new NpgsqlCommand(txtventascomercial.Text, cone01);
+                commando53.ExecuteNonQuery();
+
+
+                NpgsqlCommand commando63 = new NpgsqlCommand(txtasientoscompras.Text, cone01);
+                commando63.ExecuteNonQuery();
+
+
+                NpgsqlCommand commando73 = new NpgsqlCommand(txtventasasientos.Text, cone01);
+                commando73.ExecuteNonQuery();
+
+            }
+            catch (Exception ex1)
                 {
                     MessageBox.Show(ex1.ToString());
 
@@ -1031,5 +1061,17 @@ namespace Contasis
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.com_documento();
+            this.com_detalledocumento();
+            this.com_producto();
+            this.funciones();
+        }
+
+        private void panel6_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

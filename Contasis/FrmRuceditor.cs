@@ -16,7 +16,7 @@ namespace Contasis
     public partial class FrmRuceditor : Form
     {
         int tipo;
-     public FrmRuceditor(int ntipo, string ruc, string nombre, string frase,int venta,int compras,int cobranza,int pago)
+     public FrmRuceditor(int ntipo, string ruc, string nombre, string frase,int venta,int compras,int cobranza,int pago, int productos, int comcompras, int conventas)
         {
             InitializeComponent();
             tipo = ntipo;
@@ -44,40 +44,76 @@ namespace Contasis
                     checkBoxestado.Checked =false;
                 }
                 /******/
-                if (venta == 1)
+                if (Properties.Settings.Default.TipModulo == "1")
                 {
-                    checkventa.Checked = true;
-                }
-                else
-                {
-                    checkventa.Checked = false;
+                    if (venta == 1)
+                    {
+                        checkventa.Checked = true;
+                    }
+                    else
+                    {
+                        checkventa.Checked = false;
+                    }
+
+                    if (compras == 1)
+                    {
+                        checkCompras.Checked = true;
+                    }
+                    else
+                    {
+                        checkCompras.Checked = false;
+                    }
+
+                    if (cobranza == 1)
+                    {
+                        checkCobranza.Checked = true;
+                    }
+                    else
+                    {
+                        checkCobranza.Checked = false;
+                    }
+
+                    if (pago == 1)
+                    {
+                        checkPagos.Checked = true;
+                    }
+                    else
+                    {
+                        checkPagos.Checked = false;
+                    }
                 }
 
-                if (compras == 1)
-                {
-                    checkCompras.Checked = true;
-                }
-                else
-                {
-                    checkCompras.Checked = false;
-                }
 
-                if (cobranza == 1)
+                if (Properties.Settings.Default.TipModulo == "2")
                 {
-                    checkCobranza.Checked = true;
-                }
-                else
-                {
-                    checkCobranza.Checked = false;
-                }
+                    if (productos == 1)
+                    {
+                        checkPRODUCTO.Checked = true;
+                    }
+                    else
+                    {
+                        checkPRODUCTO.Checked = false;
+                    }
 
-                if (pago == 1)
-                {
-                    checkPagos.Checked = true;
-                }
-                else
-                {
-                    checkPagos.Checked = false;
+                    if (comcompras == 1)
+                    {
+                        checkcomprascom.Checked = true;
+                    }
+                    else
+                    {
+                        checkcomprascom.Checked = false;
+                    }
+
+                    if (conventas == 1)
+                    {
+                        checkventascom.Checked = true;
+                    }
+                    else
+                    {
+                        checkventascom.Checked = false;
+                    }
+
+                  
                 }
 
                 /*****/
@@ -86,6 +122,25 @@ namespace Contasis
 
         private void FrmRuceditor_Load(object sender, EventArgs e)
         {
+            if (tipo == 1)
+            {
+                this.checkPRODUCTO.Visible = false;
+                this.checkcomprascom.Visible = false;
+                this.checkventascom.Visible = false;
+                limpiarcasilla();
+            }
+            if (Properties.Settings.Default.TipModulo == "1")
+            {
+                this.label1.Visible = true;
+                this.checkventa.Visible = true;
+                this.checkCobranza.Visible = true;
+                this.checkCompras.Visible = true;
+                this.checkPagos.Visible = true;
+                this.checkPRODUCTO.Visible = false;
+                this.checkcomprascom.Visible = false;
+                this.checkventascom.Visible = false;
+            }
+
             if (Properties.Settings.Default.TipModulo == "2")
             {
                 this.label1.Visible = false;
@@ -93,11 +148,11 @@ namespace Contasis
                 this.checkCobranza.Visible = false;
                 this.checkCompras.Visible = false;
                 this.checkPagos.Visible = false;
+                this.checkPRODUCTO.Visible = true;
+                this.checkcomprascom.Visible = true;
+                this.checkventascom.Visible = true;
             }
-            if (tipo == 1)
-            {
-                limpiarcasilla();
-            }
+          
             txtempresa.CharacterCasing = CharacterCasing.Upper;
             this.txtruc.Focus();
         }
@@ -209,9 +264,42 @@ namespace Contasis
                             obj.checkpagos = 0;
                         }
 
+                        if (Properties.Settings.Default.TipModulo == "2")
+                        {
+                            if (checkPRODUCTO.Checked == true)
+                            {
+                                obj.ncomproductoflg = 1;
+                            }
+                            else
+                            {
+                                obj.ncomproductoflg = 0;
+                            }
 
-                        /*********/
-                        Clase.ruc ds = new ruc();
+                            if (checkcomprascom.Checked == true)
+                            {
+                                obj.ncomcompraflg = 1;
+                            }
+                            else
+                            {
+                                obj.ncomcompraflg = 0;
+                            }
+
+                            if (checkventascom.Checked == true)
+                            {
+                                obj.ncomventaflg = 1;
+                            }
+                            else
+                            {
+                                obj.ncomventaflg = 0;
+                            }
+
+
+                        }
+
+
+
+                            /*********/
+                            Clase.ruc ds = new ruc();
                         respuesta = ds.Insertar(obj);
                         if (respuesta.Equals("Grabado"))
                         {
@@ -276,6 +364,37 @@ namespace Contasis
                         else
                         {
                             obj.checkpagos = 0;
+                        }
+                        if (Properties.Settings.Default.TipModulo == "2")
+                        {
+                            if (checkPRODUCTO.Checked == true)
+                            {
+                                obj.ncomproductoflg = 1;
+                            }
+                            else
+                            {
+                                obj.ncomproductoflg = 0;
+                            }
+
+                            if (checkcomprascom.Checked == true)
+                            {
+                                obj.ncomcompraflg = 1;
+                            }
+                            else
+                            {
+                                obj.ncomcompraflg = 0;
+                            }
+
+                            if (checkventascom.Checked == true)
+                            {
+                                obj.ncomventaflg = 1;
+                            }
+                            else
+                            {
+                                obj.ncomventaflg = 0;
+                            }
+
+
                         }
 
                         ruc_postgres ds = new ruc_postgres();
@@ -355,6 +474,43 @@ namespace Contasis
                     {
                         obj.checkpagos = 0;
                     }
+
+                    if (Properties.Settings.Default.TipModulo == "2")
+                    {
+                        if (checkPRODUCTO.Checked == true)
+                        {
+                            obj.ncomproductoflg = 1;
+                        }
+                        else
+                        {
+                            obj.ncomproductoflg = 0;
+                        }
+
+                        if (checkcomprascom.Checked == true)
+                        {
+                            obj.ncomcompraflg = 1;
+                        }
+                        else
+                        {
+                            obj.ncomcompraflg = 0;
+                        }
+
+                        if (checkventascom.Checked == true)
+                        {
+                            obj.ncomventaflg = 1;
+                        }
+                        else
+                        {
+                            obj.ncomventaflg = 0;
+                        }
+
+
+                    }
+
+
+
+
+
                     if (Properties.Settings.Default.cadenaPostPrincipal == "")
                     {
                         Clase.ruc ds = new ruc();

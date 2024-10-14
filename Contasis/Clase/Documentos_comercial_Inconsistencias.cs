@@ -13,7 +13,7 @@ namespace Contasis.Clase
     class Documentos_comercial_Inconsistencias
     {
         /*******************************************************************************************************/
-        public DataTable listarsql(Clase.Comercial_productos_propiedades Objet)
+        public DataTable listarsql(Clase.Comercial_documentoPropiedades Objet)
         {
 
             SqlDataReader carga;
@@ -21,21 +21,35 @@ namespace Contasis.Clase
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "SELECT idproducto as ID,ccodmodulo AS MODULO,ccodfamg AS COD_GRUPO,cdesfamg AS DESCRIPCION_GRUPO,ccodfamf AS COD_FAMILIA,cdesfamf AS DESC_FAMILIA," +
-                               "ccodprod AS COD_PRODUCTO,cdesprod AS DESCRIPCION_PRODUCTO,cdesprodGen AS DESCRIPCION_GENERAL,ccodtes AS EXISTENCIA,cdesmar AS MARCA," +
-                               "ccodmed AS UNIDAD_MEDIDA,ccodcatbs AS COD_OSCE,cdescatbs AS DESCRIP_OSCE,ntipoprod AS TIPO,nunidsec AS UNID_SECUNDARIA,npesoprod AS PESO ," +
-                               "ccodbarras AS COD_BARRA,ninprod AS INHABILITAR_PROD,nanuprod AS PARA_ANULAR,nlote AS LOTE,nseruni AS SERIE_UNICA,nicbper AS ICBPER," +
-                               "nprodanti AS PROD_ANTICIPO,ngasrela AS GASTO_RELACIONADO,nprodsafniif AS PROD_SAFNIF,ccomcue AS CUENTA_COMPRAS,cvencue AS CUENTA_VENTAS," +
-                               "cdebicue AS COSTO_DEBITO_SALIDA,ccredcue AS COSTOS_CREDITO_SALIDA,cdebicuei AS DEBITO_COSTO_INGRESOS,ccredcuei AS CREDITO_COSTO_INGRESOS," +
-                               "ccodcos AS CCostos,ccodcos2 AS CCostos2,ccodpresu AS PRESUPUESTO,ccomprod AS REG_COMPRAS,cvenprod AS REG_VENTAS,ccodisc AS AFECTO_ISC,cmoneda AS MONEDA," +
-                               "npreunit1 AS PRECIO1,npreunit2 AS PRECIO2,npreunit3 AS PRECIO3,npreunit4 AS PRECIO4,npreunit5 AS PRECIO5,npreunit6 AS PRECIO6,npreunit7 AS PRECIO7,npreunit8 AS PRECIO8," +
-                               "npreunit9 AS PRECIO9,npreunit10 AS PRECIO10,npreunit11 AS PRECIO11,npreunit12 AS PRECIO12,npreunit13 AS PRECIO13,npreunit14 AS PRECIO14,npreunit15 AS PRECIO15," +
-                               "nstockmin AS STOCK_MINIMO,nstockmax AS STOCK_MAXIMO,nrango1 AS LIMITE_INFERIOR_PRECIO,nrango2 AS LIMITE_SUPERIOR_PRECIO," +
-                               "nresp AS REGIMEN_ESPECIAL,ccodpps AS CODIGO_PERCEPCION,ccodpds AS CODIGO_DETRACCION,nagemonmin AS MONTO_MINIMO,ccodlabora AS CODIGO_LABORATORIO," +
-                               "cdeslabora AS DESCRIPCION_LABORATORIO,es_con_migracion AS ESTADO,obserror AS OBSERVACION " +
-                               " FROM com_producto with(nolock) " +
-                               "where es_con_migracion = 2  and ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "'";
+                string query = "SELECT a.iddocumento AS ID,a.ccodmodulo AS MODULO,b.ccodmov AS COD_MOVIMIENTO,a.ccoddoc AS COD_DOCUMENTO,b.cserie AS SERIE"+
+                ", a.cnumero AS NUMERO,b.Entidad AS COD_ENTIEDAD,a.cdesenti AS NOMBRE_ENTIDAD,a.ccodtipent AS TIPO_DOC_ENTIDAD,a.ccodruc AS RUC"+
+                ",a.crazsoc AS RAZON_SOCIAL,isnull(a.cdirecc, '') AS DIREC_CLIENTE, isnull(a.ccodubi, '') AS UBIGEO, isnull(a.ccodcontac, '') AS CONTACTO"+
+                ", a.cdescontacto AS NOMB_CONTACTO,"+
+                " convert(varchar, a.ffecha, 103) AS FEC_DOCUMENTO,"+
+                " convert(varchar, a.ffechaven, 103)  AS FEC_VENCIMIENTO,"+
+                " convert(varchar, a.ffechaalm, 103)  AS FEC_ALMACEN, isnull(a.ccodpag, b.ccodpag) AS CONDICION_PAGO, isnull(a.cmoneda, '') AS MONEDA"+
+                ", a.ntcigv AS TIPO_CAMBIO,a.cguiaser AS SERIE_GUIA,a.cguianum AS NUMERO_GUIA,a.mdsc AS INF_ADICIONAL_DOC,b.ccodvend AS COD_VENDEDOR,a.ccodclas AS COD_CLASI_BBSS"+
+                ",isnull(a.ccodocon, '') AS OTROS_CONCEPTOS, isnull(a.cnumordc, '') AS ORDEN_COMPRA, isnull(a.crefdoc, '') AS TIP_REFERENCIA,"+
+                " isnull(a.freffec, '') AS FEC_DOC_REFERENCIA, isnull(a.crefser, '') AS SERIE_DOC_REFERENCIA, isnull(a.crefnum, '') AS NUMERO_REFERENCIA,"+
+                " isnull(a.ccat09, '') AS COD_MOTIVO_NOTACREDITO, isnull(a.cmotinc, '') AS MOTIVO_NOTACREDITO, isnull(a.nresp, 0) AS REG_ESPECIAL, isnull(a.ccodpds, '') AS COD_DETRACCION"+
+                ", isnull(a.nporre, 0.00) AS PORCENTAJE_DETRACCION,"+
+                " convert(varchar, a.ffecre, 103) AS FEC_DEPOSITO"+
+                " , a.cnumdere AS CONTANCIA_DEPOSITO,isnull(a.ccodpps, '') AS COD_PERCEPCION, isnull(a.nporre2, 0.00) AS PORCENTAJE_PERCEPCION"+
+                ", isnull(a.nperdenre, 0.00) AS DOCUMENTO_DENTROFUERA, isnull(a.nbase1, 0.00) AS BASE_IMP1, isnull(a.nigv1, 0.00) AS IGV1, isnull(nbase2, 0.00) AS BASE_IMP2,"+
+                " isnull(nigv2, 0.00) AS IGV2, isnull(nbase3, 0.00) AS BASE_IMP3, isnull(nigv3, 00) AS IGV3"+
+                ",isnull(a.nimpicbper, 0.00) AS IMP_ICBPER, isnull(a.nina, 0.00) AS IMP_INAFECTO, Isnull(a.nexo, 0.00) AS IMP_EXONERADO, Isnull(a.nisc, 0.00) AS IMP_ISC,"+
+                " isnull(a.nivabase, 0.00) AS BASE_IVAP,"+
+                " isnull(a.nivaimp, 0.00) AS IGV_IVAP, isnull(a.nimpant, 0.00) AS IMP_ANTICIPO"+
+                ",isnull(a.ntot, 0.00) AS TOTAL,"+
+                " isnull(a.obserror, '') as OBSERVACION " +
+                " FROM com_documento a with(nolock) inner join configuracion2 b on  "+ 
+                " ltrim(a.ccodmodulo) = ltrim(b.Tipo) and  "+
+                " ltrim(a.ccoddoc) = ltrim(b.codtipdocu) and  "+
+                " ltrim(a.cserie) = ltrim(b.cserie)  "+
+                " where a.es_con_migracion = 2  and a.ccodrucemisor='" + Objet.Ruc.Trim() + "' and a.ccod_empresa='" + Objet.Empresa.Trim() + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
+
+
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -44,6 +58,7 @@ namespace Contasis.Clase
             }
             catch (Exception ex1)
             {
+                
                 throw ex1;
             }
             finally
@@ -55,7 +70,7 @@ namespace Contasis.Clase
 
             }
         }
-        public DataTable listarpostgres(Clase.Comercial_productos_propiedades Objet)
+        public DataTable listarpostgres(Clase.Comercial_documentoPropiedades Objet)
         {
             NpgsqlConnection conexion = new NpgsqlConnection();
             conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
@@ -64,20 +79,32 @@ namespace Contasis.Clase
             DataTable grilla = new DataTable();
             try
             {
-                string query = "SELECT idproducto as ID,ccodmodulo AS MODULO,ccodfamg AS COD_GRUPO,cdesfamg AS DESCRIPCION_GRUPO,ccodfamf AS COD_FAMILIA,cdesfamf AS DESC_FAMILIA," +
-                              "ccodprod AS COD_PRODUCTO,cdesprod AS DESCRIPCION_PRODUCTO,cdesprodGen AS DESCRIPCION_GENERAL,ccodtes AS EXISTENCIA,cdesmar AS MARCA," +
-                              "ccodmed AS UNIDAD_MEDIDA,ccodcatbs AS COD_OSCE,cdescatbs AS DESCRIP_OSCE,ntipoprod AS TIPO,nunidsec AS UNID_SECUNDARIA,npesoprod AS PESO ," +
-                              "ccodbarras AS COD_BARRA,ninprod AS INHABILITAR_PROD,nanuprod AS PARA_ANULAR,nlote AS LOTE,nseruni AS SERIE_UNICA,nicbper AS ICBPER," +
-                              "nprodanti AS PROD_ANTICIPO,ngasrela AS GASTO_RELACIONADO,nprodsafniif AS PROD_SAFNIF,ccomcue AS CUENTA_COMPRAS,cvencue AS CUENTA_VENTAS," +
-                              "cdebicue AS COSTO_DEBITO_SALIDA,ccredcue AS COSTOS_CREDITO_SALIDA,cdebicuei AS DEBITO_COSTO_INGRESOS,ccredcuei AS CREDITO_COSTO_INGRESOS," +
-                              "ccodcos AS CCostos,ccodcos2 AS CCostos2,ccodpresu AS PRESUPUESTO,ccomprod AS REG_COMPRAS,cvenprod AS REG_VENTAS,ccodisc AS AFECTO_ISC,cmoneda AS MONEDA," +
-                              "npreunit1 AS PRECIO1,npreunit2 AS PRECIO2,npreunit3 AS PRECIO3,npreunit4 AS PRECIO4,npreunit5 AS PRECIO5,npreunit6 AS PRECIO6,npreunit7 AS PRECIO7,npreunit8 AS PRECIO8," +
-                              "npreunit9 AS PRECIO9,npreunit10 AS PRECIO10,npreunit11 AS PRECIO11,npreunit12 AS PRECIO12,npreunit13 AS PRECIO13,npreunit14 AS PRECIO14,npreunit15 AS PRECIO15," +
-                              "nstockmin AS STOCK_MINIMO,nstockmax AS STOCK_MAXIMO,nrango1 AS LIMITE_INFERIOR_PRECIO,nrango2 AS LIMITE_SUPERIOR_PRECIO," +
-                              "nresp AS REGIMEN_ESPECIAL,ccodpps AS CODIGO_PERCEPCION,ccodpds AS CODIGO_DETRACCION,nagemonmin AS MONTO_MINIMO,ccodlabora AS CODIGO_LABORATORIO," +
-                              "cdeslabora AS DESCRIPCION_LABORATORIO,es_con_migracion AS ESTADO,obserror AS OBSERVACION" +
-                              "FROM com_producto  " +
-                              "where es_con_migracion = 2  and ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "'";
+                string query = "SELECT a.iddocumento AS ID,a.ccodmodulo AS MODULO,b.ccodmov AS COD_MOVIMIENTO,a.ccoddoc AS COD_DOCUMENTO,b.cserie AS SERIE "+
+                ", a.cnumero AS NUMERO,b.Entidad AS COD_ENTIEDAD,a.cdesenti AS NOMBRE_ENTIDAD,a.ccodtipent AS TIPO_DOC_ENTIDAD,a.ccodruc AS RUC "+
+                ",a.crazsoc AS RAZON_SOCIAL,coalesce(a.cdirecc, '') AS DIREC_CLIENTE, coalesce(a.ccodubi, '') AS UBIGEO, coalesce(a.ccodcontac, '') AS CONTACTO "+
+                ", a.cdescontacto AS NOMB_CONTACTO, "+
+                "to_char(a.ffecha, 'yyyymmdd') AS FEC_DOCUMENTO, "+
+                "to_char(a.ffechaven, 'yyyymmdd')  AS FEC_VENCIMIENTO, "+
+                "to_char(a.ffechaalm, 'yyyymmdd')  AS FEC_ALMACEN, coalesce(a.ccodpag, b.ccodpag) AS CONDICION_PAGO, coalesce(a.cmoneda, '') AS MONEDA "+
+                " a.ntcigv AS TIPO_CAMBIO,a.cguiaser AS SERIE_GUIA,a.cguianum AS NUMERO_GUIA,a.mdsc AS INF_ADICIONAL_DOC,b.ccodvend AS COD_VENDEDOR,a.ccodclas AS COD_CLASI_BBSS "+
+                ",coalesce(a.ccodocon, '') AS OTROS_CONCEPTOS, coalesce(a.cnumordc, '') AS ORDEN_COMPRA, coalesce(a.crefdoc, '') AS TIP_REFERENCIA, " +
+                "to_char(a.freffec, 'yyyymmdd') AS FEC_DOC_REFERENCIA, coalesce(a.crefser, '') AS SERIE_DOC_REFERENCIA, coalesce(a.crefnum, '') AS NUMERO_REFERENCIA, "+
+                "coalesce(a.ccat09, '') AS COD_MOTIVO_NOTACREDITO, coalesce(a.cmotinc, '') AS MOTIVO_NOTACREDITO, coalesce(a.nresp, 0) AS REG_ESPECIAL, coalesce(a.ccodpds, '') AS COD_DETRACCION "+
+                ", coalesce(a.nporre, 0.00) AS PORCENTAJE_DETRACCION, "+
+                " to_char(a.ffecre, 'yyyymmdd') AS FEC_DEPOSITO "+
+                ", a.cnumdere AS CONTANCIA_DEPOSITO,coalesce(a.ccodpps, '') AS COD_PERCEPCION, coalesce(a.nporre2, 0.00) AS PORCENTAJE_PERCEPCION "+
+                ", coalesce(a.nperdenre, 0.00) AS DOCUMENTO_DENTROFUERA, coalesce(a.nbase1, 0.00) AS BASE_IMP1, coalesce(a.nigv1, 0.00) AS IGV1, coalesce(nbase2, 0.00) AS BASE_IMP2, "+
+                " coalesce(nigv2, 0.00) AS IGV2, coalesce(nbase3, 0.00) AS BASE_IMP3, coalesce(nigv3, 00) AS IGV3 "+
+                ", coalesce(a.nimpicbper, 0.00) AS IMP_ICBPER, coalesce(a.nina, 0.00) AS IMP_INAFECTO, coalesce(a.nexo, 0.00) AS IMP_EXONERADO, coalesce(a.nisc, 0.00) AS IMP_ISC, "+
+                " coalesce(a.nivabase, 0.00) AS BASE_IVAP, "+
+                " coalesce(a.nivaimp, 0.00) AS IGV_IVAP, coalesce(a.nimpant, 0.00) AS IMP_ANTICIPO "+
+                ", coalesce(a.ntot, 0.00) AS TOTAL, "+
+                "  coalesce(a.obserror, '') as OBSERVACION  "+
+                " FROM com_documento a inner join configuracion2 b on  " +
+                " ltrim(a.ccodmodulo) = ltrim(b.Tipo) and  " +
+                " ltrim(a.ccoddoc) = ltrim(b.codtipdocu) and  " +
+                " ltrim(a.cserie) = ltrim(b.cserie)  "+
+                " where es_con_migracion = 2  and ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();
                 grilla.Load(carga);
@@ -96,6 +123,12 @@ namespace Contasis.Clase
 
             }
         }
+
+
+
+
+
+
         public string eliminarsql(Clase.Comercial_productos_propiedades Objet)
         {
             string cadena = "";
@@ -258,28 +291,40 @@ namespace Contasis.Clase
             return cadena;
         }
         /*******************************************************************************************************/
-        public DataTable listascombosql(Clase.Comercial_productos_propiedades Objet)
+        public DataTable listascombosql(Clase.Comercial_documentoPropiedades Objet)
         {
             SqlDataReader carga;
             DataTable grilla = new DataTable();
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "SELECT idproducto as ID,ccodmodulo AS MODULO,ccodfamg AS COD_GRUPO,cdesfamg AS DESCRIPCION_GRUPO,ccodfamf AS COD_FAMILIA,cdesfamf AS DESC_FAMILIA," +
-                               "ccodprod AS COD_PRODUCTO,cdesprod AS DESCRIPCION_PRODUCTO,cdesprodGen AS DESCRIPCION_GENERAL,ccodtes AS EXISTENCIA,cdesmar AS MARCA," +
-                               "ccodmed AS UNIDAD_MEDIDA,ccodcatbs AS COD_OSCE,cdescatbs AS DESCRIP_OSCE,ntipoprod AS TIPO,nunidsec AS UNID_SECUNDARIA,npesoprod AS PESO ," +
-                               "ccodbarras AS COD_BARRA,ninprod AS INHABILITAR_PROD,nanuprod AS PARA_ANULAR,nlote AS LOTE,nseruni AS SERIE_UNICA,nicbper AS ICBPER," +
-                               "nprodanti AS PROD_ANTICIPO,ngasrela AS GASTO_RELACIONADO,nprodsafniif AS PROD_SAFNIF,ccomcue AS CUENTA_COMPRAS,cvencue AS CUENTA_VENTAS," +
-                               "cdebicue AS COSTO_DEBITO_SALIDA,ccredcue AS COSTOS_CREDITO_SALIDA,cdebicuei AS DEBITO_COSTO_INGRESOS,ccredcuei AS CREDITO_COSTO_INGRESOS," +
-                               "ccodcos AS CCostos,ccodcos2 AS CCostos2,ccodpresu AS PRESUPUESTO,ccomprod AS REG_COMPRAS,cvenprod AS REG_VENTAS,ccodisc AS AFECTO_ISC,cmoneda AS MONEDA," +
-                               "npreunit1 AS PRECIO1,npreunit2 AS PRECIO2,npreunit3 AS PRECIO3,npreunit4 AS PRECIO4,npreunit5 AS PRECIO5,npreunit6 AS PRECIO6,npreunit7 AS PRECIO7,npreunit8 AS PRECIO8," +
-                               "npreunit9 AS PRECIO9,npreunit10 AS PRECIO10,npreunit11 AS PRECIO11,npreunit12 AS PRECIO12,npreunit13 AS PRECIO13,npreunit14 AS PRECIO14,npreunit15 AS PRECIO15," +
-                               "nstockmin AS STOCK_MINIMO,nstockmax AS STOCK_MAXIMO,nrango1 AS LIMITE_INFERIOR_PRECIO,nrango2 AS LIMITE_SUPERIOR_PRECIO," +
-                               "nresp AS REGIMEN_ESPECIAL,ccodpps AS CODIGO_PERCEPCION,ccodpds AS CODIGO_DETRACCION,nagemonmin AS MONTO_MINIMO,ccodlabora AS CODIGO_LABORATORIO," +
-                               "cdeslabora AS DESCRIPCION_LABORATORIO,es_con_migracion AS ESTADO,obserror AS OBSERVACION " +
-                               "FROM com_producto with(nolock) " +
-                               "where es_con_migracion =2 and " +
-                               "ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "' and convert(varchar(900),obserror) ='" + Objet.Estado.Trim() + "'";
+                string query = "SELECT a.iddocumento AS ID,a.ccodmodulo AS MODULO,b.ccodmov AS COD_MOVIMIENTO,a.ccoddoc AS COD_DOCUMENTO,b.cserie AS SERIE" +
+               ", a.cnumero AS NUMERO,b.Entidad AS COD_ENTIEDAD,a.cdesenti AS NOMBRE_ENTIDAD,a.ccodtipent AS TIPO_DOC_ENTIDAD,a.ccodruc AS RUC" +
+               ",a.crazsoc AS RAZON_SOCIAL,isnull(a.cdirecc, '') AS DIREC_CLIENTE, isnull(a.ccodubi, '') AS UBIGEO, isnull(a.ccodcontac, '') AS CONTACTO" +
+               ", a.cdescontacto AS NOMB_CONTACTO," +
+               " convert(varchar, a.ffecha, 103) AS FEC_DOCUMENTO," +
+               " convert(varchar, a.ffechaven, 103)  AS FEC_VENCIMIENTO," +
+               " convert(varchar, a.ffechaalm, 103)  AS FEC_ALMACEN, isnull(a.ccodpag, b.ccodpag) AS CONDICION_PAGO, isnull(a.cmoneda, '') AS MONEDA" +
+               ", a.ntcigv AS TIPO_CAMBIO,a.cguiaser AS SERIE_GUIA,a.cguianum AS NUMERO_GUIA,a.mdsc AS INF_ADICIONAL_DOC,b.ccodvend AS COD_VENDEDOR,a.ccodclas AS COD_CLASI_BBSS" +
+               ",isnull(a.ccodocon, '') AS OTROS_CONCEPTOS, isnull(a.cnumordc, '') AS ORDEN_COMPRA, isnull(a.crefdoc, '') AS TIP_REFERENCIA," +
+               " isnull(a.freffec, '') AS FEC_DOC_REFERENCIA, isnull(a.crefser, '') AS SERIE_DOC_REFERENCIA, isnull(a.crefnum, '') AS NUMERO_REFERENCIA," +
+               " isnull(a.ccat09, '') AS COD_MOTIVO_NOTACREDITO, isnull(a.cmotinc, '') AS MOTIVO_NOTACREDITO, isnull(a.nresp, 0) AS REG_ESPECIAL, isnull(a.ccodpds, '') AS COD_DETRACCION" +
+               ", isnull(a.nporre, 0.00) AS PORCENTAJE_DETRACCION," +
+               " convert(varchar, a.ffecre, 103) AS FEC_DEPOSITO" +
+               " , a.cnumdere AS CONTANCIA_DEPOSITO,isnull(a.ccodpps, '') AS COD_PERCEPCION, isnull(a.nporre2, 0.00) AS PORCENTAJE_PERCEPCION" +
+               ", isnull(a.nperdenre, 0.00) AS DOCUMENTO_DENTROFUERA, isnull(a.nbase1, 0.00) AS BASE_IMP1, isnull(a.nigv1, 0.00) AS IGV1, isnull(nbase2, 0.00) AS BASE_IMP2," +
+               " isnull(nigv2, 0.00) AS IGV2, isnull(nbase3, 0.00) AS BASE_IMP3, isnull(nigv3, 00) AS IGV3" +
+               ",isnull(a.nimpicbper, 0.00) AS IMP_ICBPER, isnull(a.nina, 0.00) AS IMP_INAFECTO, Isnull(a.nexo, 0.00) AS IMP_EXONERADO, Isnull(a.nisc, 0.00) AS IMP_ISC," +
+               " isnull(a.nivabase, 0.00) AS BASE_IVAP," +
+               " isnull(a.nivaimp, 0.00) AS IGV_IVAP, isnull(a.nimpant, 0.00) AS IMP_ANTICIPO" +
+               ",isnull(a.ntot, 0.00) AS TOTAL," +
+               " isnull(a.obserror, '') as OBSERVACION " +
+               " FROM com_documento a with(nolock) inner join configuracion2 b on  " +
+               " ltrim(a.ccodmodulo) = ltrim(b.Tipo) and  " +
+               " ltrim(a.ccoddoc) = ltrim(b.codtipdocu) and  " +
+               " ltrim(a.cserie) = ltrim(b.cserie)  " +
+               " where es_con_migracion =2 and " +
+               " ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "' and convert(varchar(900),obserror) ='" + Objet.Estado.Trim() + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
@@ -300,7 +345,7 @@ namespace Contasis.Clase
 
             }
         }
-        public DataTable listascombopos(Clase.Comercial_productos_propiedades Objet)
+        public DataTable listascombopos(Clase.Comercial_documentoPropiedades Objet)
         {
             NpgsqlConnection conexion = new NpgsqlConnection();
             conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
@@ -310,21 +355,33 @@ namespace Contasis.Clase
             ;
             try
             {
-                string query = "SELECT idproducto as ID,ccodmodulo AS MODULO,ccodfamg AS COD_GRUPO,cdesfamg AS DESCRIPCION_GRUPO,ccodfamf AS COD_FAMILIA,cdesfamf AS DESC_FAMILIA," +
-                               "ccodprod AS COD_PRODUCTO,cdesprod AS DESCRIPCION_PRODUCTO,cdesprodGen AS DESCRIPCION_GENERAL,ccodtes AS EXISTENCIA,cdesmar AS MARCA," +
-                               "ccodmed AS UNIDAD_MEDIDA,ccodcatbs AS COD_OSCE,cdescatbs AS DESCRIP_OSCE,ntipoprod AS TIPO,nunidsec AS UNID_SECUNDARIA,npesoprod AS PESO ," +
-                               "ccodbarras AS COD_BARRA,ninprod AS INHABILITAR_PROD,nanuprod AS PARA_ANULAR,nlote AS LOTE,nseruni AS SERIE_UNICA,nicbper AS ICBPER," +
-                               "nprodanti AS PROD_ANTICIPO,ngasrela AS GASTO_RELACIONADO,nprodsafniif AS PROD_SAFNIF,ccomcue AS CUENTA_COMPRAS,cvencue AS CUENTA_VENTAS," +
-                               "cdebicue AS COSTO_DEBITO_SALIDA,ccredcue AS COSTOS_CREDITO_SALIDA,cdebicuei AS DEBITO_COSTO_INGRESOS,ccredcuei AS CREDITO_COSTO_INGRESOS," +
-                               "ccodcos AS CCostos,ccodcos2 AS CCostos2,ccodpresu AS PRESUPUESTO,ccomprod AS REG_COMPRAS,cvenprod AS REG_VENTAS,ccodisc AS AFECTO_ISC,cmoneda AS MONEDA," +
-                               "npreunit1 AS PRECIO1,npreunit2 AS PRECIO2,npreunit3 AS PRECIO3,npreunit4 AS PRECIO4,npreunit5 AS PRECIO5,npreunit6 AS PRECIO6,npreunit7 AS PRECIO7,npreunit8 AS PRECIO8," +
-                               "npreunit9 AS PRECIO9,npreunit10 AS PRECIO10,npreunit11 AS PRECIO11,npreunit12 AS PRECIO12,npreunit13 AS PRECIO13,npreunit14 AS PRECIO14,npreunit15 AS PRECIO15," +
-                               "nstockmin AS STOCK_MINIMO,nstockmax AS STOCK_MAXIMO,nrango1 AS LIMITE_INFERIOR_PRECIO,nrango2 AS LIMITE_SUPERIOR_PRECIO," +
-                               "nresp AS REGIMEN_ESPECIAL,ccodpps AS CODIGO_PERCEPCION,ccodpds AS CODIGO_DETRACCION,nagemonmin AS MONTO_MINIMO,ccodlabora AS CODIGO_LABORATORIO," +
-                               "cdeslabora AS DESCRIPCION_LABORATORIO,es_con_migracion AS ESTADO,obserror AS OBSERVACION " +
-                               "FROM com_producto " +
-                               "where es_con_migracion =2 AND " +
-                               " ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "' and obserror='" + Objet.Estado.Trim() + "'";
+                string query = "SELECT a.iddocumento AS ID,a.ccodmodulo AS MODULO,b.ccodmov AS COD_MOVIMIENTO,a.ccoddoc AS COD_DOCUMENTO,b.cserie AS SERIE " +
+               ", a.cnumero AS NUMERO,b.Entidad AS COD_ENTIEDAD,a.cdesenti AS NOMBRE_ENTIDAD,a.ccodtipent AS TIPO_DOC_ENTIDAD,a.ccodruc AS RUC " +
+               ",a.crazsoc AS RAZON_SOCIAL,coalesce(a.cdirecc, '') AS DIREC_CLIENTE, coalesce(a.ccodubi, '') AS UBIGEO, coalesce(a.ccodcontac, '') AS CONTACTO " +
+               ", a.cdescontacto AS NOMB_CONTACTO, " +
+               "to_char(a.ffecha, 'yyyymmdd') AS FEC_DOCUMENTO, " +
+               "to_char(a.ffechaven, 'yyyymmdd')  AS FEC_VENCIMIENTO, " +
+               "to_char(a.ffechaalm, 'yyyymmdd')  AS FEC_ALMACEN, coalesce(a.ccodpag, b.ccodpag) AS CONDICION_PAGO, coalesce(a.cmoneda, '') AS MONEDA " +
+               " a.ntcigv AS TIPO_CAMBIO,a.cguiaser AS SERIE_GUIA,a.cguianum AS NUMERO_GUIA,a.mdsc AS INF_ADICIONAL_DOC,b.ccodvend AS COD_VENDEDOR,a.ccodclas AS COD_CLASI_BBSS " +
+               ",coalesce(a.ccodocon, '') AS OTROS_CONCEPTOS, coalesce(a.cnumordc, '') AS ORDEN_COMPRA, coalesce(a.crefdoc, '') AS TIP_REFERENCIA, " +
+               "to_char(a.freffec, 'yyyymmdd') AS FEC_DOC_REFERENCIA, coalesce(a.crefser, '') AS SERIE_DOC_REFERENCIA, coalesce(a.crefnum, '') AS NUMERO_REFERENCIA, " +
+               "coalesce(a.ccat09, '') AS COD_MOTIVO_NOTACREDITO, coalesce(a.cmotinc, '') AS MOTIVO_NOTACREDITO, coalesce(a.nresp, 0) AS REG_ESPECIAL, coalesce(a.ccodpds, '') AS COD_DETRACCION " +
+               ", coalesce(a.nporre, 0.00) AS PORCENTAJE_DETRACCION, " +
+               " to_char(a.ffecre, 'yyyymmdd') AS FEC_DEPOSITO " +
+               ", a.cnumdere AS CONTANCIA_DEPOSITO,coalesce(a.ccodpps, '') AS COD_PERCEPCION, coalesce(a.nporre2, 0.00) AS PORCENTAJE_PERCEPCION " +
+               ", coalesce(a.nperdenre, 0.00) AS DOCUMENTO_DENTROFUERA, coalesce(a.nbase1, 0.00) AS BASE_IMP1, coalesce(a.nigv1, 0.00) AS IGV1, coalesce(nbase2, 0.00) AS BASE_IMP2, " +
+               " coalesce(nigv2, 0.00) AS IGV2, coalesce(nbase3, 0.00) AS BASE_IMP3, coalesce(nigv3, 00) AS IGV3 " +
+               ", coalesce(a.nimpicbper, 0.00) AS IMP_ICBPER, coalesce(a.nina, 0.00) AS IMP_INAFECTO, coalesce(a.nexo, 0.00) AS IMP_EXONERADO, coalesce(a.nisc, 0.00) AS IMP_ISC, " +
+               " coalesce(a.nivabase, 0.00) AS BASE_IVAP, " +
+               " coalesce(a.nivaimp, 0.00) AS IGV_IVAP, coalesce(a.nimpant, 0.00) AS IMP_ANTICIPO " +
+               ", coalesce(a.ntot, 0.00) AS TOTAL, " +
+               "  coalesce(a.obserror, '') as OBSERVACION  " +
+               " FROM com_documento a inner join configuracion2 b on  " +
+               " ltrim(a.ccodmodulo) = ltrim(b.Tipo) and  " +
+               " ltrim(a.ccoddoc) = ltrim(b.codtipdocu) and  " +
+               " ltrim(a.cserie) = ltrim(b.cserie)  " +
+               " where es_con_migracion =2 AND " +
+               " ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "' and obserror='" + Objet.Estado.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();
                 grilla.Load(carga);
@@ -344,13 +401,14 @@ namespace Contasis.Clase
             }
         }
         /*******************************************************************************************************/
-        public string Actualizarmasivosql(Clase.Comercial_productos_propiedades Objet)
+        public string Actualizarmasivosql(Clase.Comercial_documentoPropiedades Objet)
         {
             string cadena = "";
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "update  com_producto  SET obserror='',es_con_migracion=0 where idproducto=" + Objet.Id + "";
+                string query = "update com_documento  SET obserror='',es_con_migracion= 0 where iddocumento=" + Objet.Id + "";
+                MessageBox.Show(query);
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
@@ -371,7 +429,7 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string Actualizarmasivopos(Clase.Comercial_productos_propiedades Objet)
+        public string Actualizarmasivopos(Clase.Comercial_documentoPropiedades Objet)
         {
             string cadena = "";
             NpgsqlConnection conexion = new NpgsqlConnection();
@@ -379,7 +437,7 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "update  com_producto  SET obserror='',es_con_migracion=0 where idproducto=" + Objet.Id + "";
+                string query = "update  com_documento  SET obserror='',es_con_migracion=0 where iddocumento=" + Objet.Id + "";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
 
@@ -400,12 +458,12 @@ namespace Contasis.Clase
             return cadena;
         }
         /*******************************************************************************************************/
-        public void ActualizaEstadoSQL(Clase.Comercial_productos_propiedades Objet)
+        public void ActualizaEstadoSQL(Clase.Comercial_documentoPropiedades Objet)
         {
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "update  com_producto  SET es_con_migracion=2  " +
+                string query = "update  com_documento  SET es_con_migracion=2  " +
                                "where  es_con_migracion=0 and  convert(char(900),obserror)<>''  and  " +
                                " ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim() + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
@@ -427,7 +485,7 @@ namespace Contasis.Clase
             }
 
         }
-        public void ActualizaEstadoPOS(Clase.Comercial_productos_propiedades Objet)
+        public void ActualizaEstadoPOS(Clase.Comercial_documentoPropiedades Objet)
         {
 
             NpgsqlConnection conexion = new NpgsqlConnection();
@@ -435,7 +493,7 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "update  com_producto  SET es_con_migracion=2  where es_con_migracion=0 and obserror<>''  and  ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim() + "'";
+                string query = "update  com_documento  SET es_con_migracion=2  where es_con_migracion=0 and obserror<>''  and  ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim() + "'";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 command3.ExecuteNonQuery();
 
@@ -457,4 +515,4 @@ namespace Contasis.Clase
 
     }
 }
-}
+

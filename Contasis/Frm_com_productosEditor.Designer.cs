@@ -1063,6 +1063,7 @@ namespace Contasis
             this.txtModulo.Name = "txtModulo";
             this.txtModulo.Size = new System.Drawing.Size(96, 20);
             this.txtModulo.TabIndex = 167;
+            this.txtModulo.Visible = false;
             // 
             // label13
             // 
@@ -1072,6 +1073,7 @@ namespace Contasis
             this.label13.Size = new System.Drawing.Size(55, 15);
             this.label13.TabIndex = 166;
             this.label13.Text = "Modulo :";
+            this.label13.Visible = false;
             // 
             // txtObservacion
             // 

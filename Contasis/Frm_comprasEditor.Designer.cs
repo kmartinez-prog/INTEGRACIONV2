@@ -558,7 +558,7 @@ namespace Contasis
             // txtpresupuesto
             // 
             this.txtpresupuesto.Location = new System.Drawing.Point(162, 452);
-            this.txtpresupuesto.MaxLength = 9;
+            this.txtpresupuesto.MaxLength = 10;
             this.txtpresupuesto.Name = "txtpresupuesto";
             this.txtpresupuesto.Size = new System.Drawing.Size(81, 20);
             this.txtpresupuesto.TabIndex = 120;
@@ -568,9 +568,9 @@ namespace Contasis
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(18, 455);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(100, 15);
+            this.label24.Size = new System.Drawing.Size(138, 15);
             this.label24.TabIndex = 119;
-            this.label24.Text = "Centro de Costo :";
+            this.label24.Text = "Codigo de Presupuesto:";
             // 
             // Frm_comprasEditor
             // 

@@ -21,7 +21,7 @@ namespace Contasis.Clase
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "SELECT idproducto as ID,ccodmodulo AS MODULO,ccodfamg AS COD_GRUPO,cdesfamg AS DESCRIPCION_GRUPO,ccodfamf AS COD_FAMILIA,cdesfamf AS DESC_FAMILIA,"+
+                string query = "SELECT idproducto as ID,'' AS MODULO,ccodfamg AS COD_GRUPO,cdesfamg AS DESCRIPCION_GRUPO,ccodfamf AS COD_FAMILIA,cdesfamf AS DESC_FAMILIA,"+
                                "ccodprod AS COD_PRODUCTO,cdesprod AS DESCRIPCION_PRODUCTO,cdesprodGen AS DESCRIPCION_GENERAL,ccodtes AS EXISTENCIA,cdesmar AS MARCA,"+	
                                "ccodmed AS UNIDAD_MEDIDA,ccodcatbs AS COD_OSCE,cdescatbs AS DESCRIP_OSCE,ntipoprod AS TIPO,nunidsec AS UNID_SECUNDARIA,npesoprod AS PESO ,"+
                                "ccodbarras AS COD_BARRA,ninprod AS INHABILITAR_PROD,nanuprod AS PARA_ANULAR,nlote AS LOTE,nseruni AS SERIE_UNICA,nicbper AS ICBPER,"+
@@ -64,7 +64,7 @@ namespace Contasis.Clase
             DataTable grilla = new DataTable();
             try
             {
-                string query = "SELECT idproducto as ID,ccodmodulo AS MODULO,ccodfamg AS COD_GRUPO,cdesfamg AS DESCRIPCION_GRUPO,ccodfamf AS COD_FAMILIA,cdesfamf AS DESC_FAMILIA," +
+                string query = "SELECT idproducto as ID,'' AS MODULO,ccodfamg AS COD_GRUPO,cdesfamg AS DESCRIPCION_GRUPO,ccodfamf AS COD_FAMILIA,cdesfamf AS DESC_FAMILIA," +
                               "ccodprod AS COD_PRODUCTO,cdesprod AS DESCRIPCION_PRODUCTO,cdesprodGen AS DESCRIPCION_GENERAL,ccodtes AS EXISTENCIA,cdesmar AS MARCA," +
                               "ccodmed AS UNIDAD_MEDIDA,ccodcatbs AS COD_OSCE,cdescatbs AS DESCRIP_OSCE,ntipoprod AS TIPO,nunidsec AS UNID_SECUNDARIA,npesoprod AS PESO ," +
                               "ccodbarras AS COD_BARRA,ninprod AS INHABILITAR_PROD,nanuprod AS PARA_ANULAR,nlote AS LOTE,nseruni AS SERIE_UNICA,nicbper AS ICBPER," +
@@ -265,20 +265,20 @@ namespace Contasis.Clase
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "SELECT idproducto as ID,ccodmodulo AS MODULO,ccodfamg AS COD_GRUPO,cdesfamg AS DESCRIPCION_GRUPO,ccodfamf AS COD_FAMILIA,cdesfamf AS DESC_FAMILIA," +
-                               "ccodprod AS COD_PRODUCTO,cdesprod AS DESCRIPCION_PRODUCTO,cdesprodGen AS DESCRIPCION_GENERAL,ccodtes AS EXISTENCIA,cdesmar AS MARCA," +
-                               "ccodmed AS UNIDAD_MEDIDA,ccodcatbs AS COD_OSCE,cdescatbs AS DESCRIP_OSCE,ntipoprod AS TIPO,nunidsec AS UNID_SECUNDARIA,npesoprod AS PESO ," +
-                               "ccodbarras AS COD_BARRA,ninprod AS INHABILITAR_PROD,nanuprod AS PARA_ANULAR,nlote AS LOTE,nseruni AS SERIE_UNICA,nicbper AS ICBPER," +
-                               "nprodanti AS PROD_ANTICIPO,ngasrela AS GASTO_RELACIONADO,nprodsafniif AS PROD_SAFNIF,ccomcue AS CUENTA_COMPRAS,cvencue AS CUENTA_VENTAS," +
-                               "cdebicue AS COSTO_DEBITO_SALIDA,ccredcue AS COSTOS_CREDITO_SALIDA,cdebicuei AS DEBITO_COSTO_INGRESOS,ccredcuei AS CREDITO_COSTO_INGRESOS," +
-                               "ccodcos AS CCostos,ccodcos2 AS CCostos2,ccodpresu AS PRESUPUESTO,ccomprod AS REG_COMPRAS,cvenprod AS REG_VENTAS,ccodisc AS AFECTO_ISC,cmoneda AS MONEDA," +
-                               "npreunit1 AS PRECIO1,npreunit2 AS PRECIO2,npreunit3 AS PRECIO3,npreunit4 AS PRECIO4,npreunit5 AS PRECIO5,npreunit6 AS PRECIO6,npreunit7 AS PRECIO7,npreunit8 AS PRECIO8," +
-                               "npreunit9 AS PRECIO9,npreunit10 AS PRECIO10,npreunit11 AS PRECIO11,npreunit12 AS PRECIO12,npreunit13 AS PRECIO13,npreunit14 AS PRECIO14,npreunit15 AS PRECIO15," +
-                               "nstockmin AS STOCK_MINIMO,nstockmax AS STOCK_MAXIMO,nrango1 AS LIMITE_INFERIOR_PRECIO,nrango2 AS LIMITE_SUPERIOR_PRECIO," +
-                               "nresp AS REGIMEN_ESPECIAL,ccodpps AS CODIGO_PERCEPCION,ccodpds AS CODIGO_DETRACCION,nagemonmin AS MONTO_MINIMO,ccodlabora AS CODIGO_LABORATORIO," +
-                               "cdeslabora AS DESCRIPCION_LABORATORIO,es_con_migracion AS ESTADO,obserror AS OBSERVACION " +
-                               "FROM com_producto with(nolock) " +
-                               "where es_con_migracion =2 and " +
+                string query = "SELECT idproducto as ID,'' AS MODULO,ccodfamg AS COD_GRUPO,cdesfamg AS DESCRIPCION_GRUPO,ccodfamf AS COD_FAMILIA,cdesfamf AS DESC_FAMILIA," +
+                              "ccodprod AS COD_PRODUCTO,cdesprod AS DESCRIPCION_PRODUCTO,cdesprodGen AS DESCRIPCION_GENERAL,ccodtes AS EXISTENCIA,cdesmar AS MARCA," +
+                              "ccodmed AS UNIDAD_MEDIDA,ccodcatbs AS COD_OSCE,cdescatbs AS DESCRIP_OSCE,ntipoprod AS TIPO,nunidsec AS UNID_SECUNDARIA,npesoprod AS PESO ," +
+                              "ccodbarras AS COD_BARRA,ninprod AS INHABILITAR_PROD,nanuprod AS PARA_ANULAR,nlote AS LOTE,nseruni AS SERIE_UNICA,nicbper AS ICBPER," +
+                              "nprodanti AS PROD_ANTICIPO,ngasrela AS GASTO_RELACIONADO,nprodsafniif AS PROD_SAFNIF,ccomcue AS CUENTA_COMPRAS,cvencue AS CUENTA_VENTAS," +
+                              "cdebicue AS COSTO_DEBITO_SALIDA,ccredcue AS COSTOS_CREDITO_SALIDA,cdebicuei AS DEBITO_COSTO_INGRESOS,ccredcuei AS CREDITO_COSTO_INGRESOS," +
+                              "ccodcos AS CCostos,ccodcos2 AS CCostos2,ccodpresu AS PRESUPUESTO,ccomprod AS REG_COMPRAS,cvenprod AS REG_VENTAS,ccodisc AS AFECTO_ISC,cmoneda AS MONEDA," +
+                              "npreunit1 AS PRECIO1,npreunit2 AS PRECIO2,npreunit3 AS PRECIO3,npreunit4 AS PRECIO4,npreunit5 AS PRECIO5,npreunit6 AS PRECIO6,npreunit7 AS PRECIO7,npreunit8 AS PRECIO8," +
+                              "npreunit9 AS PRECIO9,npreunit10 AS PRECIO10,npreunit11 AS PRECIO11,npreunit12 AS PRECIO12,npreunit13 AS PRECIO13,npreunit14 AS PRECIO14,npreunit15 AS PRECIO15," +
+                              "nstockmin AS STOCK_MINIMO,nstockmax AS STOCK_MAXIMO,nrango1 AS LIMITE_INFERIOR_PRECIO,nrango2 AS LIMITE_SUPERIOR_PRECIO," +
+                              "nresp AS REGIMEN_ESPECIAL,ccodpps AS CODIGO_PERCEPCION,ccodpds AS CODIGO_DETRACCION,nagemonmin AS MONTO_MINIMO,ccodlabora AS CODIGO_LABORATORIO," +
+                              "cdeslabora AS DESCRIPCION_LABORATORIO,es_con_migracion AS ESTADO,obserror AS OBSERVACION " +
+                              " FROM com_producto with(nolock) " +
+                              "where es_con_migracion =2 and " +
                                "ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "' and convert(varchar(900),obserror) ='" + Objet.Estado.Trim() + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
@@ -310,19 +310,19 @@ namespace Contasis.Clase
             ;
             try
             {
-                string query = "SELECT idproducto as ID,ccodmodulo AS MODULO,ccodfamg AS COD_GRUPO,cdesfamg AS DESCRIPCION_GRUPO,ccodfamf AS COD_FAMILIA,cdesfamf AS DESC_FAMILIA," +
-                               "ccodprod AS COD_PRODUCTO,cdesprod AS DESCRIPCION_PRODUCTO,cdesprodGen AS DESCRIPCION_GENERAL,ccodtes AS EXISTENCIA,cdesmar AS MARCA," +
-                               "ccodmed AS UNIDAD_MEDIDA,ccodcatbs AS COD_OSCE,cdescatbs AS DESCRIP_OSCE,ntipoprod AS TIPO,nunidsec AS UNID_SECUNDARIA,npesoprod AS PESO ," +
-                               "ccodbarras AS COD_BARRA,ninprod AS INHABILITAR_PROD,nanuprod AS PARA_ANULAR,nlote AS LOTE,nseruni AS SERIE_UNICA,nicbper AS ICBPER," +
-                               "nprodanti AS PROD_ANTICIPO,ngasrela AS GASTO_RELACIONADO,nprodsafniif AS PROD_SAFNIF,ccomcue AS CUENTA_COMPRAS,cvencue AS CUENTA_VENTAS," +
-                               "cdebicue AS COSTO_DEBITO_SALIDA,ccredcue AS COSTOS_CREDITO_SALIDA,cdebicuei AS DEBITO_COSTO_INGRESOS,ccredcuei AS CREDITO_COSTO_INGRESOS," +
-                               "ccodcos AS CCostos,ccodcos2 AS CCostos2,ccodpresu AS PRESUPUESTO,ccomprod AS REG_COMPRAS,cvenprod AS REG_VENTAS,ccodisc AS AFECTO_ISC,cmoneda AS MONEDA," +
-                               "npreunit1 AS PRECIO1,npreunit2 AS PRECIO2,npreunit3 AS PRECIO3,npreunit4 AS PRECIO4,npreunit5 AS PRECIO5,npreunit6 AS PRECIO6,npreunit7 AS PRECIO7,npreunit8 AS PRECIO8," +
-                               "npreunit9 AS PRECIO9,npreunit10 AS PRECIO10,npreunit11 AS PRECIO11,npreunit12 AS PRECIO12,npreunit13 AS PRECIO13,npreunit14 AS PRECIO14,npreunit15 AS PRECIO15," +
-                               "nstockmin AS STOCK_MINIMO,nstockmax AS STOCK_MAXIMO,nrango1 AS LIMITE_INFERIOR_PRECIO,nrango2 AS LIMITE_SUPERIOR_PRECIO," +
-                               "nresp AS REGIMEN_ESPECIAL,ccodpps AS CODIGO_PERCEPCION,ccodpds AS CODIGO_DETRACCION,nagemonmin AS MONTO_MINIMO,ccodlabora AS CODIGO_LABORATORIO," +
-                               "cdeslabora AS DESCRIPCION_LABORATORIO,es_con_migracion AS ESTADO,obserror AS OBSERVACION " +
-                               "FROM com_producto "+
+                string query  = "SELECT idproducto as ID,'' AS MODULO,ccodfamg AS COD_GRUPO,cdesfamg AS DESCRIPCION_GRUPO,ccodfamf AS COD_FAMILIA,cdesfamf AS DESC_FAMILIA," +
+                              "ccodprod AS COD_PRODUCTO,cdesprod AS DESCRIPCION_PRODUCTO,cdesprodGen AS DESCRIPCION_GENERAL,ccodtes AS EXISTENCIA,cdesmar AS MARCA," +
+                              "ccodmed AS UNIDAD_MEDIDA,ccodcatbs AS COD_OSCE,cdescatbs AS DESCRIP_OSCE,ntipoprod AS TIPO,nunidsec AS UNID_SECUNDARIA,npesoprod AS PESO ," +
+                              "ccodbarras AS COD_BARRA,ninprod AS INHABILITAR_PROD,nanuprod AS PARA_ANULAR,nlote AS LOTE,nseruni AS SERIE_UNICA,nicbper AS ICBPER," +
+                              "nprodanti AS PROD_ANTICIPO,ngasrela AS GASTO_RELACIONADO,nprodsafniif AS PROD_SAFNIF,ccomcue AS CUENTA_COMPRAS,cvencue AS CUENTA_VENTAS," +
+                              "cdebicue AS COSTO_DEBITO_SALIDA,ccredcue AS COSTOS_CREDITO_SALIDA,cdebicuei AS DEBITO_COSTO_INGRESOS,ccredcuei AS CREDITO_COSTO_INGRESOS," +
+                              "ccodcos AS CCostos,ccodcos2 AS CCostos2,ccodpresu AS PRESUPUESTO,ccomprod AS REG_COMPRAS,cvenprod AS REG_VENTAS,ccodisc AS AFECTO_ISC,cmoneda AS MONEDA," +
+                              "npreunit1 AS PRECIO1,npreunit2 AS PRECIO2,npreunit3 AS PRECIO3,npreunit4 AS PRECIO4,npreunit5 AS PRECIO5,npreunit6 AS PRECIO6,npreunit7 AS PRECIO7,npreunit8 AS PRECIO8," +
+                              "npreunit9 AS PRECIO9,npreunit10 AS PRECIO10,npreunit11 AS PRECIO11,npreunit12 AS PRECIO12,npreunit13 AS PRECIO13,npreunit14 AS PRECIO14,npreunit15 AS PRECIO15," +
+                              "nstockmin AS STOCK_MINIMO,nstockmax AS STOCK_MAXIMO,nrango1 AS LIMITE_INFERIOR_PRECIO,nrango2 AS LIMITE_SUPERIOR_PRECIO," +
+                              "nresp AS REGIMEN_ESPECIAL,ccodpps AS CODIGO_PERCEPCION,ccodpds AS CODIGO_DETRACCION,nagemonmin AS MONTO_MINIMO,ccodlabora AS CODIGO_LABORATORIO," +
+                              "cdeslabora AS DESCRIPCION_LABORATORIO,es_con_migracion AS ESTADO,obserror AS OBSERVACION " +
+                               "FROM com_producto " +
                                "where es_con_migracion =2 AND " +
                                " ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "' and obserror='" + Objet.Estado.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);

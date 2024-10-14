@@ -53,6 +53,9 @@ namespace Contasis
         {
             if (rbfinanciero.Checked == true)
             {
+                Properties.Settings.Default.TipModulo = "1";
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
                 MessageBox.Show("Se crean las tablas,procedimiento,funciones e indexes para Financiero.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (txtopcion1.Text == "0")
                 {
@@ -64,6 +67,9 @@ namespace Contasis
                     objetconexion2.crearadicional(txtcadena.Text);
                     crearfinanciero objetconexion3 = new crearfinanciero();
                     objetconexion3.crearindex(txtcadena.Text);
+                  
+
+
                 }
                 if (txtopcion1.Text == "1")
                 {
@@ -156,6 +162,10 @@ namespace Contasis
 
             if (rbcomercial.Checked == true)
             {
+                Properties.Settings.Default.TipModulo = "2";
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
                 MessageBox.Show("Se crean las tablas,procedimiento,funciones e indexes para Comercial. ", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (txtopcion1.Text == "0")
                 {
@@ -165,6 +175,7 @@ namespace Contasis
                     objetconexion1.crearproductocomercial(txtcadena.Text);
                     objetconexion1.creartablasdelsistema(txtcadena.Text);
                     objetconexion1.crearotros(txtcadena.Text);
+
                 }
                 if (txtopcion1.Text == "1")
                 {

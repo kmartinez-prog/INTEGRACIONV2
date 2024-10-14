@@ -16,7 +16,9 @@ namespace Contasis.Clase
         public int checkcompras { get; set; }
         public int checkcobranzas { get; set; }
         public int checkpagos { get; set; }
-
+        public int ncomproductoflg { get; set; }
+        public int ncomcompraflg { get; set; }
+        public int ncomventaflg { get; set; }
 
     }
 }

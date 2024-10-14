@@ -347,7 +347,6 @@ namespace Contasis
                 }
             }
         }
-
         private void btnMostrar_Click(object sender, EventArgs e)
         {
             if (cmbempresas.Text == "")
@@ -562,7 +561,7 @@ namespace Contasis
                         
                         if (dataGridView2.Rows[i].Cells[0].Value.ToString() == "Checked")
                         {
-                           /// MessageBox.Show(dataGridView2.Rows[i].Cells[2].Value.ToString());
+                           ////MessageBox.Show(dataGridView2.Rows[i].Cells[2].Value.ToString());
                            string valor = dataGridView2.Rows[i].Cells[2].Value.ToString();
                            this.actualizamotivo(valor);
                        
@@ -650,9 +649,9 @@ namespace Contasis
                 try
                 {
 
-                    Clase.Cobranzas_propiedades obj = new Clase.Cobranzas_propiedades();
-                    Clase.Conbranzas_Inconsistencia listapos = new Clase.Conbranzas_Inconsistencia();
-                    Clase.Conbranzas_Inconsistencia actualizar = new Clase.Conbranzas_Inconsistencia();
+                    Clase.Comercial_productos_propiedades obj = new Clase.Comercial_productos_propiedades();
+                    Clase.Productos_comercial_Inconsistencia listapos = new Clase.Productos_comercial_Inconsistencia();
+                    Clase.Productos_comercial_Inconsistencia actualizar = new Clase.Productos_comercial_Inconsistencia();
 
                     obj.Ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
                     obj.Empresa = cmbempresas.Text.Trim().Substring(0, 3);
@@ -755,7 +754,6 @@ namespace Contasis
             { }
             else
             {
-
                 txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[32].Value).Trim();
                 Refresh();
 

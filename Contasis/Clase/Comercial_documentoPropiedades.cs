@@ -8,6 +8,8 @@ namespace Contasis.Clase
 {
     class Comercial_documentoPropiedades
     {
+        /// Porpiedades para Inconsistencias en cabecera de documento
+        /// Fecha: 07/10/2024
         public string Ruc { get; set; }
         public string Empresa { get; set; }
         public string Estado { get; set; }

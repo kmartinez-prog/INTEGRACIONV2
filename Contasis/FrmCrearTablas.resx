@@ -858,6 +858,9 @@ CREATE TABLE cg_empemisor(
 	ncompraflg numeric(1,0)   NULL,
 	ncobranzaflg numeric(1,0)   NULL,
 	npagoflg numeric(1,0)   NULL,
+	ncomproductoflg numeric(1,0)   NULL,
+    ncomcompraflg numeric(1,0)   NULL,
+    ncomventaflg numeric(1,0)   NULL,
 PRIMARY KEY  (ccodrucemisor) );
 
 
@@ -898,9 +901,44 @@ CREATE TABLE cg_usuario_acceso(
 );
 
 create table modulo_comercial(
-ccodmudulo Char(5) null,
+ccodmudulo Char(6) null,
 cdesmodulo char(50) null
 );
+
+CREATE TABLE configuracion(
+	ccod_empresa char(3) NULL,
+	cper char(4) NULL,
+	crazemp char(100) NULL,
+	crucemp char(15) NULL,
+	cEntidad char(3) NULL,
+	csub1_vta char(3) NULL,
+	clreg1_vta char(20) NULL,
+	csub2_vta char(3) NULL,
+	clreg2_vta char(20) NULL,
+	cconts_vta char(20) NULL,
+	ccontd_vta char(20) NULL,
+	cfefec_vta char(4) NULL,
+	ctares_vta numeric(1, 0) NULL,
+	ctaimp_vta numeric(1, 0) NULL,
+	Ctaact_vta numeric(1, 0) NULL,
+	asientos_vta numeric(1, 0) NULL,
+	csub1_com char(3) NULL,
+	clreg1_com char(20) NULL,
+	csub2_com char(3) NULL,
+	clreg2_com char(20) NULL,
+	cconts_com char(20) NULL,
+	ccontd_com char(20) NULL,
+	cfefec_com char(4) NULL,
+	ctares_com numeric(1, 0) NULL,
+	ctaimp_com numeric(1, 0) NULL,
+	Ctapas_com numeric(1, 0) NULL,
+	asientos_com numeric(1, 0) NULL,
+	cTipo char(2) NULL,
+	cEnt_anula char(15) NULL
+);
+
+
+
 
 create sequence sec_id minvalue 1 maxvalue 99999999999 increment by 1 ;
 CREATE TABLE configuracion2(
@@ -927,20 +965,6 @@ CREATE TABLE com_documento (
 	ccod_empresa character(3),
 	cper character(4),
 	cmes character(2),
-	--
-	ccodori character(3),
-    ccodsu character(2),
-    ccodori_p character(3),
-    ccodsu_p character(2),
-    ccodcue_ps character(20),
-    ccodcue_pd character(20),
-    ccodflu character(4),
-    flgctares numeric(1,0),
-    flgctaimp numeric(1,0),
-    flgctaact numeric(1,0),
-    flggencomp numeric(1,0),
-    --ccodtipent character(3), -- se repite
-	--
 	ccodmodulo character(6),
 	ccodmov character(5),
 	ccoddoc character(2),
@@ -966,7 +990,7 @@ CREATE TABLE com_documento (
 	mdsc text,
 	ccodvend character(4),
 	ccodclas character(1),
-	ccodcon character(4),
+	ccodocon character(4),
 	cnumordc character(20),
 	crefdoc character(2),
 	freffec date,
@@ -1015,6 +1039,8 @@ CREATE TABLE com_detalledocumento (
 	ccodprod character(20),
 	ccodmed character(15),
 	ccodlote character(20),
+	ffecfablote date NULL,
+    ffecvenlote date NULL,
 	nuniori numeric(20,10),
 	nvvori numeric(20,10),
 	npvori numeric(20,10),
@@ -1022,9 +1048,6 @@ CREATE TABLE com_detalledocumento (
 	nigvtot numeric(15,2),
 	ntotori numeric(15,2),
 	npigv numeric(5,2),
-	nconvnum numeric(9,2),
-	nconvden numeric(9,2),
-	clibprod character(1),
 	ccodcos character(9),
 	ccodcos2 character(9),
 	ccodpresu character(10),
@@ -1044,12 +1067,10 @@ CREATE TABLE com_detalledocumento (
 create sequence sec_idproducto minvalue 1 maxvalue 99999999999 increment by 1 ;
 CREATE TABLE com_producto (
 	idproducto numeric(20,0) not null,
-	--
+	ccodrucemisor character(15) NOT NULL, 
 	ccod_empresa character(3),
 	cper character(4),
 	cmes character(2),
-	ccodmodulo character(6),
-	--
 	ccodfamg character(20),
 	cdesfamg character(50),
 	ccodfamf character(20),
@@ -1058,10 +1079,12 @@ CREATE TABLE com_producto (
 	cdesprod character(150),
 	cdesprodGen character varying(500),
 	ccodtes character(2),
+	ccodmar character(4) NULL,
 	cdesmar character(80),
 	ccodmed character(15),
-	ccodcatbs character(8),
-	cdescatbs character(100),
+	ccodums character(3) NULL,
+	ccodcatbs character(16),
+	cdescatbs character(250),
 	ntipoprod character(8),
 	nunidsec character(2),
 	npesoprod numeric(10,4),

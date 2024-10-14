@@ -77,7 +77,7 @@ namespace Contasis
                     "	mdsc text NULL, " +
                     "	ccodvend char(4) NULL, " +
                     "	ccodclas char(1) NULL, " +
-                    "	ccodcon char(4) NULL, " +
+                    "	ccodocon char(4) NULL, " +
                     "	cnumordc char(20) NULL, " +
                     "	crefdoc char(2) NULL, " +
                     "	freffec date NULL, " +
@@ -175,6 +175,8 @@ namespace Contasis
                     "	ccodprod char(20) NULL, \n" +
                     "	ccodmed char(15) NULL, \n" +
                     "	ccodlote char(20) NULL, \n" +
+                    "   ffecfablote date NULL,\n" +
+                    "   ffecvenlote date NULL,\n" +
                     "	nuniori numeric(20, 10) NULL, \n" +
                     "	nvvori numeric(20, 10) NULL, \n" +
                     "	npvori numeric(20, 10) NULL, \n" +
@@ -182,9 +184,6 @@ namespace Contasis
                     "	nigvtot numeric(15, 2) NULL, \n" +
                     "	ntotori numeric(15, 2) NULL, \n" +
                     "	npigv numeric(5, 2) NULL, \n" +
-                    "	nconvnum numeric(9, 2) NULL, \n" +
-                    "	nconvden numeric(9, 2) NULL, \n" +
-                    "	clibprod char(1) NULL, \n" +
                     "	ccodcos char(9) NULL, \n" +
                     "	ccodcos2 char(9) NULL, \n" +
                     "	ccodpresu char(10) NULL, \n" +
@@ -263,7 +262,6 @@ namespace Contasis
                     "   ccod_empresa char(3),\n" +
                     "   cper char(4),\n" +
                     "   cmes char(2),\n" +
-                    "   ccodmodulo character(6),\n" +
                     "	ccodfamg char(20) NULL,\n" +
                     "	cdesfamg char(50) NULL,\n" +
                     "	ccodfamf char(20) NULL,\n" +
@@ -272,8 +270,10 @@ namespace Contasis
                     "	cdesprod char(150) NULL,\n" +
                     "	cdesprodGen varchar(500) NULL,\n" +
                     "	ccodtes char(2) NULL,\n" +
+                    "   ccodmar character(4) NULL, \n"+
                     "	cdesmar char(80) NULL,\n" +
                     "	ccodmed char(15) NULL,\n" +
+                    "   ccodums char(3) NULL,\n"+
                     "	ccodcatbs char(8) NULL,\n" +
                     "	cdescatbs char(100) NULL,\n" +
                     "	ntipoprod char(8) NULL,\n" +
@@ -519,7 +519,7 @@ namespace Contasis
 
                         /*****************************************************************************************************/
                         string modulocomer = "create table modulo_comercial( " +
-                        "ccodmudulo Char(5) null, " +
+                        "ccodmudulo Char(6) null, " +
                         "cdesmodulo char(50) null)";
                         SqlCommand myCommand041 = new SqlCommand(modulocomer, conex2);
                         try
@@ -538,6 +538,8 @@ namespace Contasis
                         "cdesrucemisor char(200) NULL," +
                         "flgActivo bit NULL, nventaflg  int NOT NULL,ncompraflg int NOT NULL, " +
                         "ncobranzaflg int NOT NULL,npagoflg int NOT NULL," +
+                        "ncomproductoflg int NOT NULL,ncomcompraflg  int NOT NULL," +
+                        "ncomventaflg  int NOT NULL," +
                         "PRIMARY KEY CLUSTERED " +
                         " (ccodrucemisor  ASC))";
                         SqlCommand myCommand04 = new SqlCommand(sconfigura, conex2);
@@ -648,102 +650,92 @@ namespace Contasis
 
                         /****************************************************************/
                         funcion1 = "CREATE FUNCTION fn_documento_envio(   \n" +
-                                    "	@prucEmisor char(15),     \n" +
-                                    "	@empresa char(3), \n" +
-                                    "	@tipo char(2) \n" +
+                                    "    @prucEmisor char(15), \n" +
+                                    "    @empresa char(3), \n" +
+                                    "    @tipo char(5) \n" +
                                     ") RETURNS TABLE \n" +
-                                    "AS    \n" +
-                                    "RETURN ( \n" +
-                                    "	select top 500 -- los detalles elevaran el numero de filas devueltas \n" +
-                                    "		iddocumento, \n" +
-                                    "		d.ccod_empresa, \n" +
-                                    "		d.cper, \n" +
-                                    "		d.cmes, \n" +
-                                    "		-- configuracion compras?    \n" +
-                                    "		ltrim(rtrim(c.csub1_com)) AS ccodori, \n" +
-                                    "        ltrim(rtrim(c.clreg1_com)) AS ccodsu, \n" +
-                                    "        ltrim(rtrim(c.csub2_com)) AS ccodori_p, \n" +
-                                    "        ltrim(rtrim(c.clreg2_com)) AS ccodsu_p, \n" +
-                                    "        ltrim(rtrim(c.cconts_com)) AS ccodcue_ps, \n" +
-                                    "        ltrim(rtrim(c.ccontd_com)) AS ccodcue_pd, \n" +
-                                    "        ltrim(rtrim(c.cfefec_com)) AS  ccodflu, \n" +
-                                    "        ltrim(rtrim(c.ctares_com)) AS flgctares, \n" +
-                                    "        ltrim(rtrim(c.ctaimp_com)) AS flgctaimp, \n" +
-                                    "        ltrim(rtrim(c.Ctapas_com)) AS flgctaact, \n" +
-                                    "        ltrim(rtrim(c.asientos_com)) AS flggencomp, \n" +
-                                    "        --ltrim(rtrim(c.cEntidad)) AS ccodtipent, \n" +
-                                    "		 \n" +
-                                    "		-- tabla documento \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodmodulo, ''))) as ccodmodulo, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodmov, ''))) as ccodmov, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccoddoc, ''))) as ccoddoc, \n" +
-                                    "		ltrim(rtrim(isnull(d.cserie, ''))) as cserie, \n" +
-                                    "		ltrim(rtrim(isnull(d.cnumero, ''))) as cnumero, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodenti, ''))) as ccodenti, \n" +
-                                    "		ltrim(rtrim(isnull(d.cdesenti, ''))) as cdesenti, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodtipent, ''))) as ccodtipent, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodruc, ''))) as ccodruc, \n" +
-                                    "		ltrim(rtrim(isnull(d.crazsoc, ''))) as crazsoc, \n" +
-                                    "		ltrim(rtrim(isnull(d.cdirecc, ''))) as cdirecc, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodubi, ''))) as ccodubi, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodcontac, ''))) as ccodcontac, \n" +
-                                    "		ltrim(rtrim(isnull(d.cdescontacto, ''))) as cdescontacto, \n" +
-                                    "		ffecha, \n" +
-                                    "		ffechaven, \n" +
-                                    "		ffechaalm, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodpag, ''))) as ccodpag, \n" +
-                                    "		ltrim(rtrim(isnull(d.cmoneda, ''))) as cmoneda, \n" +
-                                    "		isnull(ntcigv, 0.00) as ntcigv, \n" +
-                                    "		ltrim(rtrim(isnull(d.cguiaser, ''))) as cguiaser, \n" +
-                                    "		ltrim(rtrim(isnull(d.cguianum, ''))) as cguianum, \n" +
-                                    "		ltrim(rtrim(isnull(cast(d.mdsc as varchar(max)), ''))) as mdsc, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodvend, ''))) as ccodvend, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodclas, ''))) as ccodclas, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodcon, ''))) as ccodcon, \n" +
-                                    "		ltrim(rtrim(isnull(d.cnumordc, ''))) as cnumordc, \n" +
-                                    "		ltrim(rtrim(isnull(d.crefdoc, ''))) as crefdoc, \n" +
-                                    "		freffec, \n" +
-                                    "		ltrim(rtrim(isnull(d.crefser, ''))) as crefser, \n" +
-                                    "		ltrim(rtrim(isnull(d.crefnum, ''))) as crefnum, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccat09, ''))) as ccat09, \n" +
-                                    "		ltrim(rtrim(isnull(d.cmotinc, ''))) as cmotinc, \n" +
-                                    "		isnull(nresp, 0.00) as nresp, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodpds, ''))) as ccodpds, \n" +
-                                    "		isnull(nporre, 0.00) as nporre, \n" +
-                                    "		ffecre, \n" +
-                                    "		ltrim(rtrim(isnull(d.cnumdere, ''))) as cnumdere, \n" +
-                                    "		ltrim(rtrim(isnull(d.ccodpps, ''))) as ccodpps, \n" +
-                                    "		isnull(nporre2, 0.00) as nporre2, \n" +
-                                    "		isnull(nperdenre, 0.00) as nperdenre, \n" +
-                                    "		isnull(nbase1, 0.00) as nbase1, \n" +
-                                    "		isnull(nigv1, 0.00) as nigv1, \n" +
-                                    "		isnull(nbase2, 0.00) as nbase2, \n" +
-                                    "		isnull(nigv2, 0.00) as nigv2, \n" +
-                                    "		isnull(nbase3, 0.00) as nbase3, \n" +
-                                    "		isnull(nigv3, 0.00) as nigv3, \n" +
-                                    "		isnull(nimpicbper, 0.00) as nimpicbper, \n" +
-                                    "		isnull(nina, 0.00) as nina, \n" +
-                                    "		isnull(nexo, 0.00) as nexo, \n" +
-                                    "		isnull(nisc, 0.00) as nisc, \n" +
-                                    "		isnull(nivabase, 0.00) as nivabase, \n" +
-                                    "		isnull(nivaimp, 0.00) as nivaimp, \n" +
-                                    "		isnull(nimpant, 0.00) as nimpant, \n" +
-                                    "		isnull(ntot, 0.00) as ntot, \n" +
-                                    "		---- \n" +
-                                    "		isnull(en_ambiente_de, '!') as en_ambiente_de, \n" +
-                                    "		isnull(es_con_migracion, 0) as es_con_migracion, \n" +
-                                    "		case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end as estado, \n" +
-                                    "		case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3, \n" +
-                                    "		case when es_con_migracion = 3  then ltrim(rtrim(c.cEnt_anula))  else '' end as ccodrucanula \n" +
-                                    "       from com_documento d    \n" +
-                                    "       inner join configuracion c ON d.ccod_empresa = c.ccod_empresa AND d.cper = c.cper \n" +
-                                    "       inner join cg_empresa e on d.ccodrucemisor = e.ccodrucemisor and d.ccod_empresa = e.ccod_empresa  \n" +
-                                    "       inner join cg_empemisor ee on e.ccodrucemisor = ee.ccodrucemisor and flgactivo = 1  \n" +
-                                    "       where d.ccodrucemisor = @prucEmisor  \n" +
-                                    "       and d.ccod_empresa = @empresa \n" +
-                                    "       and d.es_con_migracion in (0, 3)  \n" +
-                                    "       and c.ctipo = @tipo \n" +
-                                    "       and d.ccodmodulo = case when @tipo = '01' then 'VENTA' else 'COMPRA' end);";
+                                    "AS \n" +
+                                    "RETURN( \n" +
+                                    "    select \n" +
+                                    "        top 500-- los detalles elevaran el numero de filas devueltas \n" +
+                                    "        d.iddocumento, \n" +
+                                    "        d.ccod_empresa, \n" +
+                                    "        d.cper, \n" +
+                                    "        d.cmes, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodmodulo, ''))) as ccodmodulo, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodmov, ''))) as ccodmov, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccoddoc, ''))) as ccoddoc, \n" +
+                                    "        ltrim(rtrim(isnull(d.cserie, ''))) as cserie, \n" +
+                                    "        ltrim(rtrim(isnull(d.cnumero, ''))) as cnumero, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodenti, ''))) as ccodenti, \n" +
+                                    "        ltrim(rtrim(isnull(d.cdesenti, ''))) as cdesenti, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodtipent, ''))) as ccodtipent, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodruc, ''))) as ccodruc, \n" +
+                                    "        ltrim(rtrim(isnull(d.crazsoc, ''))) as crazsoc, \n" +
+                                    "        ltrim(rtrim(isnull(d.cdirecc, ''))) as cdirecc, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodubi, ''))) as ccodubi, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodcontac, ''))) as ccodcontac, \n" +
+                                    "        ltrim(rtrim(isnull(d.cdescontacto, ''))) as cdescontacto, \n" +
+                                    "        d.ffecha, \n" +
+                                    "        d.ffechaven, \n" +
+                                    "        d.ffechaalm, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodpag, ''))) as ccodpag, \n" +
+                                    "        ltrim(rtrim(isnull(d.cmoneda, ''))) as cmoneda, \n" +
+                                    "        isnull(d.ntcigv, 0.00) as ntcigv, \n" +
+                                    "        ltrim(rtrim(isnull(d.cguiaser, ''))) as cguiaser, \n" +
+                                    "        ltrim(rtrim(isnull(d.cguianum, ''))) as cguianum, \n" +
+                                    "        ltrim(rtrim(isnull(cast(d.mdsc as varchar(max)), ''))) as mdsc, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodvend, ''))) as ccodvend, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodclas, ''))) as ccodclas, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodocon, ''))) as ccodocon, \n" +
+                                    "        ltrim(rtrim(isnull(d.cnumordc, ''))) as cnumordc, \n" +
+                                    "        ltrim(rtrim(isnull(d.crefdoc, ''))) as crefdoc, \n" +
+                                    "        d.freffec, \n" +
+                                    "        ltrim(rtrim(isnull(d.crefser, ''))) as crefser, \n" +
+                                    "        ltrim(rtrim(isnull(d.crefnum, ''))) as crefnum, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccat09, ''))) as ccat09, \n" +
+                                    "        ltrim(rtrim(isnull(d.cmotinc, ''))) as cmotinc, \n" +
+                                    "        isnull(d.nresp, 0.00) as nresp, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodpds, ''))) as ccodpds, \n" +
+                                    "        isnull(d.nporre, 0.00) as nporre, \n" +
+                                    "        d.ffecre, \n" +
+                                    "        ltrim(rtrim(isnull(d.cnumdere, ''))) as cnumdere, \n" +
+                                    "        ltrim(rtrim(isnull(d.ccodpps, ''))) as ccodpps, \n" +
+                                    "        isnull(d.nporre2, 0.00) as nporre2, \n" +
+                                    "        isnull(d.nperdenre, 0.00) as nperdenre,  \n" +
+                                    "        isnull(d.nbase1, 0.00) as nbase1, \n" +
+                                    "        isnull(d.nigv1, 0.00) as nigv1, \n" +
+                                    "        isnull(d.nbase2, 0.00) as nbase2, \n" +
+                                    "        isnull(d.nigv2, 0.00) as nigv2, \n" +
+                                    "        isnull(d.nbase3, 0.00) as nbase3, \n" +
+                                    "        isnull(d.nigv3, 0.00) as nigv3, \n" +
+                                    "        isnull(d.nimpicbper, 0.00) as nimpicbper, \n" +
+                                    "        isnull(d.nina, 0.00) as nina, \n" +
+                                    "        isnull(d.nexo, 0.00) as nexo, \n" +
+                                    "        isnull(d.nisc, 0.00) as nisc, \n" +
+                                    "        isnull(d.nivabase, 0.00) as nivabase, \n" +
+                                    "        isnull(d.nivaimp, 0.00) as nivaimp, \n" +
+                                    "        isnull(d.nimpant, 0.00) as nimpant, \n" +
+                                    "        isnull(d.ntot, 0.00) as ntot, \n" +
+                                    "        isnull(d.en_ambiente_de, '!') as en_ambiente_de, \n" +
+                                    "        isnull(d.es_con_migracion, 0) as es_con_migracion, \n" +
+                                    "		case when ltrim(rtrim(isnull(d.estado, ''))) = '' then '' else ltrim(rtrim(d.estado))  end as estado,  \n" +
+                                    "		case when ltrim(rtrim(isnull(d.ccodcos3,''))) = '' then '' else ltrim(rtrim(d.ccodcos3))  end as ccodcos3, \n" +
+                                    "		case when d.es_con_migracion = 3 then ltrim(rtrim(c.Ent_anula))  else '' end as ccodrucanula, \n" +
+                                    "		case when d.es_con_migracion = 3 then 1 else 0 end as nflgexisteanular \n" +
+                                    "    from com_documento d \n" +
+                                    "    inner \n" +
+                                    "    join configuracion2 c \n" +
+                                    "    on d.ccod_empresa = c.ccod_empresa and d.ccodrucemisor = crucemp \n" +
+                                    "        and d.ccodmodulo = c.Tipo \n" +
+                                    "        and d.ccodmov = c.ccodmov \n" +
+                                    "        and( \n" +
+                                    "            (@tipo = 'VENTA' and right((replicate('0', 20) + ltrim(rtrim(d.cserie))), 20) = right((replicate('0', 20) + ltrim(rtrim(c.cserie))), 20)) \n" +
+                                    "            or(@tipo <> 'VENTA') \n" +
+                                    "        )	where d.es_con_migracion in (0, 3) \n" +
+                                    "        and d.ccodrucemisor = @prucEmisor \n" +
+                                    "        and d.ccod_empresa = @empresa \n" +
+                                    "        and d.ccodmodulo = @tipo);";
                         SqlCommand myCommand520 = new SqlCommand(funcion1, conex2);
                         try
                         {
@@ -773,86 +765,90 @@ namespace Contasis
                             MessageBox.Show(ex.ToString(), "Contasis Corp. Creacion de  FUNCTION fn_detalledocumento_envio", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                         }
-                        funcion3= "CREATE FUNCTION fn_productos_envio(  \n" +
-                                    "	@prucEmisor char(15),     \n" +
-                                    "	@empresa char(3) \n" +
-                                    ") RETURNS TABLE \n" +
-                                    "AS    \n" +
-                                    "RETURN ( \n" +
-                                    "	select top 1000 \n" +
-                                    "		p.idproducto, \n" +
-                                    "		ltrim(rtrim(p.ccodfamg)) as ccodfamg, \n" +
-                                    "		ltrim(rtrim(p.cdesfamg)) as cdesfamg, \n" +
-                                    "		ltrim(rtrim(p.ccodfamf)) as ccodfamf, \n" +
-                                    "		ltrim(rtrim(p.cdesfamf)) as cdesfamf, \n" +
-                                    "		ltrim(rtrim(p.ccodprod)) as ccodprod, \n" +
-                                    "		ltrim(rtrim(p.cdesprod)) as cdesprod, \n" +
-                                    "		ltrim(rtrim(p.cdesprodGen)) as cdesprodGen, \n" +
-                                    "		ltrim(rtrim(p.ccodtes)) as ccodtes, \n" +
-                                    "		ltrim(rtrim(p.cdesmar)) as cdesmar, \n" +
-                                    "		ltrim(rtrim(p.ccodmed)) as ccodmed, \n" +
-                                    "		ltrim(rtrim(p.ccodcatbs)) as ccodcatbs, \n" +
-                                    "		ltrim(rtrim(p.cdescatbs)) as cdescatbs, \n" +
-                                    "		ltrim(rtrim(p.ntipoprod)) as ntipoprod, \n" +
-                                    "		ltrim(rtrim(p.nunidsec)) as nunidsec, \n" +
-                                    "		isnull(p.npesoprod, 0.0) as npesoprod, \n" +
-                                    "		ltrim(rtrim(p.ccodbarras)) as ccodbarras, \n" +
-                                    "		ltrim(rtrim(p.ninprod)) as ninprod, \n" +
-                                    "		ltrim(rtrim(p.nanuprod)) as nanuprod, \n" +
-                                    "		ltrim(rtrim(p.nlote)) as nlote, \n" +
-                                    "		ltrim(rtrim(p.nseruni)) as nseruni, \n" +
-                                    "		ltrim(rtrim(p.nicbper)) as nicbper, \n" +
-                                    "		ltrim(rtrim(p.nprodanti)) as nprodanti, \n" +
-                                    "		ltrim(rtrim(p.ngasrela)) as ngasrela, \n" +
-                                    "		ltrim(rtrim(p.nprodsafniif)) as nprodsafniif, \n" +
-                                    "		ltrim(rtrim(p.ccomcue)) as ccomcue, \n" +
-                                    "		ltrim(rtrim(p.cvencue)) as cvencue, \n" +
-                                    "		ltrim(rtrim(p.cdebicue)) as cdebicue, \n" +
-                                    "		ltrim(rtrim(p.ccredcue)) as ccredcue, \n" +
-                                    "		ltrim(rtrim(p.cdebicuei)) as cdebicuei, \n" +
-                                    "		ltrim(rtrim(p.ccredcuei)) as ccredcuei, \n" +
-                                    "		ltrim(rtrim(p.ccodcos)) as ccodcos, \n" +
-                                    "		ltrim(rtrim(p.ccodcos2)) as ccodcos2, \n" +
-                                    "		ltrim(rtrim(p.ccodpresu)) as ccodpresu, \n" +
-                                    "		ltrim(rtrim(p.ccomprod)) as ccomprod, \n" +
-                                    "		ltrim(rtrim(p.cvenprod)) as cvenprod, \n" +
-                                    "		ltrim(rtrim(p.ccodisc)) as ccodisc, \n" +
-                                    "		ltrim(rtrim(p.cmoneda)) as cmoneda, \n" +
-                                    "		isnull(p.npreunit1, 0.0) as npreunit1, \n" +
-                                    "		isnull(p.npreunit2, 0.0) as npreunit2, \n" +
-                                    "		isnull(p.npreunit3, 0.0) as npreunit3, \n" +
-                                    "		isnull(p.npreunit4, 0.0) as npreunit4, \n" +
-                                    "		isnull(p.npreunit5, 0.0) as npreunit5, \n" +
-                                    "		isnull(p.npreunit6, 0.0) as npreunit6, \n" +
-                                    "		isnull(p.npreunit7, 0.0) as npreunit7, \n" +
-                                    "		isnull(p.npreunit8, 0.0) as npreunit8, \n" +
-                                    "		isnull(p.npreunit9, 0.0) as npreunit9, \n" +
-                                    "		isnull(p.npreunit10, 0.0) as npreunit10, \n" +
-                                    "		isnull(p.npreunit11, 0.0) as npreunit11, \n" +
-                                    "		isnull(p.npreunit12, 0.0) as npreunit12, \n" +
-                                    "		isnull(p.npreunit13, 0.0) as npreunit13, \n" +
-                                    "		isnull(p.npreunit14, 0.0) as npreunit14, \n" +
-                                    "		isnull(p.npreunit15, 0.0) as npreunit15, \n" +
-                                    "		isnull(p.nstockmin, 0.0) as nstockmin, \n" +
-                                    "		isnull(p.nstockmax, 0.0) as nstockmax, \n" +
-                                    "		isnull(p.nrango1, 0.0) as nrango1, \n" +
-                                    "		isnull(p.nrango2, 0.0) as nrango2, \n" +
-                                    "		isnull(p.nresp, 0.0) as nresp, \n" +
-                                    "		ltrim(rtrim(p.ccodpps)) as ccodpps, \n" +
-                                    "		ltrim(rtrim(p.ccodpds)) as ccodpds, \n" +
-                                    "		isnull(p.nagemonmin, 0.0) as nagemonmin, \n" +
-                                    "		ltrim(rtrim(p.ccodlabora)) as ccodlabora, \n" +
-                                    "		ltrim(rtrim(p.cdeslabora)) as cdeslabora, \n" +
-                                    "		isnull(en_ambiente_de, '!') as en_ambiente_de, \n" +
-                                    "		isnull(es_con_migracion, 0) as es_con_migracion, \n" +
-                                    "		case when ltrim(rtrim(isnull(estado,''))) = '' then '' else ltrim(rtrim(estado))  end as estado, \n" +
-                                    "		case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3 \n" +
-                                    "		--case when es_con_migracion = 3  then ltrim(rtrim(c.cEnt_anula))  else '' end as ccodrucanula \n" +
-                                    "	from com_producto p \n" +
-                                    "	inner join cg_empresa e on p.ccodrucemisor = e.ccodrucemisor and p.ccod_empresa = e.ccod_empresa    \n" +
-                                    "		where p.ccodrucemisor = @prucEmisor \n" +
-                                    "		and p.ccod_empresa = @empresa  \n" +
-                                    "		and p.es_con_migracion in (0, 3)); ";
+                        funcion3 = "CREATE FUNCTION fn_productos_envio(  \n" +
+                                "  @prucEmisor char(15),      \n" +
+                                " @empresa char(3)  \n" +
+                                ") RETURNS TABLE  \n" +
+                                " AS  \n" +
+                                " RETURN(  \n" +
+                                "  \n" +
+                                " select top 1000  \n" +
+                                "    p.idproducto,  \n" +
+                                "    p.ccod_empresa, p.cper, p.cmes,  \n" +
+                                "    ltrim(rtrim(p.ccodfamg)) as ccodfamg,  \n" +
+                                "    ltrim(rtrim(p.cdesfamg)) as cdesfamg,  \n" +
+                                "    ltrim(rtrim(p.ccodfamf)) as ccodfamf,  \n" +
+                                "    ltrim(rtrim(p.cdesfamf)) as cdesfamf,  \n" +
+                                "    ltrim(rtrim(p.ccodprod)) as ccodprod,  \n" +
+                                "    ltrim(rtrim(p.cdesprod)) as cdesprod,  \n" +
+                                "    ltrim(rtrim(p.ccodtes)) as ccodtes,  \n" +
+                                "    ltrim(rtrim(p.ccodmar)) as ccodmar,  \n" +
+                                "    ltrim(rtrim(p.cdesmar)) as cdesmar,  \n" +
+                                "    ltrim(rtrim(p.ccodmed)) as ccodmed,  \n" +
+                                "    ltrim(rtrim(p.ccodums)) as ccodums,  \n" +
+                                "    ltrim(rtrim(p.ccodcatbs)) as ccodcatbs,  \n" +
+                                "    ltrim(rtrim(p.cdescatbs)) as cdescatbs,  \n" +
+                                "    ltrim(rtrim(p.ntipoprod)) as ntipoprod,  \n" +
+                                "    ltrim(rtrim(p.nunidsec)) as nunidsec,  \n" +
+                                "    isnull(p.npesoprod, 0.0) as npesoprod,  \n" +
+                                "    ltrim(rtrim(p.ccodbarras)) as ccodbarras,  \n" +
+                                "    ltrim(rtrim(p.ninprod)) as ninprod,  \n" +
+                                "    ltrim(rtrim(p.nanuprod)) as nanuprod,  \n" +
+                                "    ltrim(rtrim(p.nlote)) as nlote,  \n" +
+                                "    ltrim(rtrim(p.nseruni)) as nseruni,  \n" +
+                                "    ltrim(rtrim(p.nicbper)) as nicbper,  \n" +
+                                "    ltrim(rtrim(p.nprodanti)) as nprodanti,  \n" +
+                                "    ltrim(rtrim(p.ngasrela)) as ngasrela,  \n" +
+                                "    ltrim(rtrim(p.nprodsafniif)) as nprodsafniif,  \n" +
+                                "    ltrim(rtrim(p.ccomcue)) as ccomcue,  \n" +
+                                "    ltrim(rtrim(p.cvencue)) as cvencue,  \n" +
+                                "    ltrim(rtrim(p.cdebicue)) as cdebicue,  \n" +
+                                "    ltrim(rtrim(p.ccredcue)) as ccredcue,  \n" +
+                                "    ltrim(rtrim(p.cdebicuei)) as cdebicuei,  \n" +
+                                "    ltrim(rtrim(p.ccredcuei)) as ccredcuei,  \n" +
+                                "    ltrim(rtrim(p.ccodcos)) as ccodcos,  \n" +
+                                "    ltrim(rtrim(p.ccodcos2)) as ccodcos2,  \n" +
+                                "    ltrim(rtrim(p.ccodpresu)) as ccodpresu,  \n" +
+                                "    ltrim(rtrim(p.ccomprod)) as ccomprod,  \n" +
+                                "    ltrim(rtrim(p.cvenprod)) as cvenprod,  \n" +
+                                "    ltrim(rtrim(p.ccodisc)) as ccodisc,  \n" +
+                                "    ltrim(rtrim(p.cmoneda)) as cmoneda,  \n" +
+                                "    isnull(p.npreunit1, 0.0) as npreunit1,  \n" +
+                                "    isnull(p.npreunit2, 0.0) as npreunit2,  \n" +
+                                "    isnull(p.npreunit3, 0.0) as npreunit3,  \n" +
+                                "    isnull(p.npreunit4, 0.0) as npreunit4,  \n" +
+                                "    isnull(p.npreunit5, 0.0) as npreunit5,  \n" +
+                                "    isnull(p.npreunit6, 0.0) as npreunit6,  \n" +
+                                "    isnull(p.npreunit7, 0.0) as npreunit7,  \n" +
+                                "    isnull(p.npreunit8, 0.0) as npreunit8,  \n" +
+                                "    isnull(p.npreunit9, 0.0) as npreunit9,  \n" +
+                                "    isnull(p.npreunit10, 0.0) as npreunit10,  \n" +
+                                "    isnull(p.npreunit11, 0.0) as npreunit11,  \n" +
+                                "    isnull(p.npreunit12, 0.0) as npreunit12,  \n" +
+                                "    isnull(p.npreunit13, 0.0) as npreunit13,  \n" +
+                                "    isnull(p.npreunit14, 0.0) as npreunit14,  \n" +
+                                "    isnull(p.npreunit15, 0.0) as npreunit15,  \n" +
+                                "    isnull(p.nstockmin, 0.0) as nstockmin,  \n" +
+                                "    isnull(p.nstockmax, 0.0) as nstockmax,  \n" +
+                                "    isnull(p.nrango1, 0.0) as nrango1,  \n" +
+                                "    isnull(p.nrango2, 0.0) as nrango2,  \n" +
+                                "    isnull(p.nresp, 0.0) as nresp,  \n" +
+                                "    ltrim(rtrim(p.ccodpps)) as ccodpps,  \n" +
+                                "    ltrim(rtrim(p.ccodpds)) as ccodpds,  \n" +
+                                "    isnull(p.nagemonmin, 0.0) as nagemonmin,  \n" +
+                                "    ltrim(rtrim(p.ccodlabora)) as ccodlabora,  \n" +
+                                "    ltrim(rtrim(p.cdeslabora)) as cdeslabora,  \n" +
+                                "    ----  \n" +
+                                "    isnull(en_ambiente_de, '!') as en_ambiente_de,  \n" +
+                                "    isnull(es_con_migracion, 0) as es_con_migracion,  \n" +
+                                "	case when ltrim(rtrim(isnull(estado, ''))) = '' then '' else ltrim(rtrim(estado))  end as estado,  \n" +
+                                "	case when ltrim(rtrim(isnull(ccodcos3,''))) = '' then '' else ltrim(rtrim(ccodcos3))  end as ccodcos3  \n" +
+                                "                     \n" +
+                                "  --case when es_con_migracion = 3  then ltrim(rtrim(c.cEnt_anula))  else '' end as ccodrucanula  \n" +
+                                " from com_producto p  \n" +
+                                " where p.ccodrucemisor = @prucEmisor   \n" +
+                                " and p.ccod_empresa = @empresa   \n" +
+                                " and p.es_con_migracion in (0, 3)); ";
                         SqlCommand myCommand522 = new SqlCommand(funcion3, conex2);
                         try
                         {
@@ -1106,9 +1102,6 @@ namespace Contasis
 
                  }
              }
-         
-                     
-
         public void activartime()
         {
             FrmCrearTablas.instance.timer5.Enabled = true;

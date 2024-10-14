@@ -148,7 +148,7 @@
 	mdsc text,
 	ccodvend character(4),
 	ccodclas character(1),
-	ccodcon character(4),
+	ccodocon character(4),
 	cnumordc character(20),
 	crefdoc character(2),
 	freffec date,
@@ -189,16 +189,18 @@
 	resultado_migracion numeric(1, 0),
 	nflgexisteanular integer NOT NULL DEFAULT 0,
 	constraint pk_documento PRIMARY KEY (iddocumento)
-);</value>
+);
+</value>
   </data>
   <data name="txtdetalledocu.Text" xml:space="preserve">
-    <value>
-CREATE TABLE com_detalledocumento (
+    <value>CREATE TABLE com_detalledocumento (
 	iddetalledocumento numeric(20, 0) not null,
 	ccodalma character(3),
 	ccodprod character(20),
 	ccodmed character(15),
 	ccodlote character(20),
+	ffecfablote date,
+	ffecvenlote date,
 	nuniori numeric(20,10),
 	nvvori numeric(20,10),
 	npvori numeric(20,10),
@@ -206,9 +208,6 @@ CREATE TABLE com_detalledocumento (
 	nigvtot numeric(15,2),
 	ntotori numeric(15,2),
 	npigv numeric(5,2),
-	nconvnum numeric(9,2),
-	nconvden numeric(9,2),
-	clibprod character(1),
 	ccodcos character(9),
 	ccodcos2 character(9),
 	ccodpresu character(10),
@@ -226,91 +225,104 @@ CREATE TABLE com_detalledocumento (
 );</value>
   </data>
   <data name="txtproducto.Text" xml:space="preserve">
-    <value>CREATE TABLE com_producto (
-	idproducto numeric(20,0) not null,
-	ccod_empresa character(3),
-	cper character(4),
-	cmes character(2),
-	ccodmodulo character(6),
-	ccodfamg character(20),
-	cdesfamg character(50),
-	ccodfamf character(20),
-	cdesfamf character(50),
-	ccodprod character(20),
-	cdesprod character(150),
-	cdesprodGen character varying(500),
-	ccodtes character(2),
-	cdesmar character(80),
-	ccodmed character(15),
-	ccodcatbs character(8),
-	cdescatbs character(100),
-	ntipoprod character(8),
-	nunidsec character(2),
-	npesoprod numeric(10,4),
-	ccodbarras character(15),
-	ninprod character(2),
-	nanuprod character(2),
-	nlote character(2),
-	nseruni character(2),
-	nicbper character(2),
-	nprodanti character(2),
-	ngasrela character(2),
-	nprodsafniif character(2),
-	ccomcue character(20),
-	cvencue character(20),
-	cdebicue character(20),
-	ccredcue character(20),
-	cdebicuei character(20),
-	ccredcuei character(20),
-	ccodcos character(9),
-	ccodcos2 character(9),
-	ccodpresu character(10),
-	ccomprod character(1),
-	cvenprod character(1),
-	ccodisc character(5),
-	cmoneda character(1),
-	npreunit1 numeric(15,4),
-	npreunit2 numeric(15,4),
-	npreunit3 numeric(15,4),
-	npreunit4 numeric(15,4),
-	npreunit5 numeric(15,4),
-	npreunit6 numeric(15,4),
-	npreunit7 numeric(15,4),
-	npreunit8 numeric(15,4),
-	npreunit9 numeric(15,4),
-	npreunit10 numeric(15,4),
-	npreunit11 numeric(15,4),
-	npreunit12 numeric(15,4),
-	npreunit13 numeric(15,4),
-	npreunit14 numeric(15,4),
-	npreunit15 numeric(15,4),
-	nstockmin numeric(15,4),
-	nstockmax numeric(15,4),
-	nrango1 numeric(15,0),
-	nrango2 numeric(15,0),
-	nresp numeric(1,0),
-	ccodpps character(2),
-	ccodpds character(5),
-	nagemonmin numeric(15,2),
-	ccodlabora character(4),
-	cdeslabora character(60),
-	
-	estado varchar(255),
-	en_ambiente_de varchar(255),
-	es_con_migracion numeric(1,0),
-	ccodcos3 nchar(15),
-	obserror text,
-	resultado_migracion numeric(1, 0)
-);</value>
+    <value>CREATE TABLE IF NOT EXISTS public.com_producto
+(
+    idproducto numeric(20,0) NOT NULL,
+    ccod_empresa character(3) COLLATE pg_catalog."default",
+    cper character(4) COLLATE pg_catalog."default",
+    cmes character(2) COLLATE pg_catalog."default",
+    ccodfamg character(20) COLLATE pg_catalog."default",
+    cdesfamg character(50) COLLATE pg_catalog."default",
+    ccodfamf character(20) COLLATE pg_catalog."default",
+    cdesfamf character(50) COLLATE pg_catalog."default",
+    ccodprod character(20) COLLATE pg_catalog."default",
+    cdesprod character(150) COLLATE pg_catalog."default",
+    cdesprodgen character varying(500) COLLATE pg_catalog."default",
+    ccodtes character(2) COLLATE pg_catalog."default",
+    ccodmar character(4) COLLATE pg_catalog."default",
+    cdesmar character(80) COLLATE pg_catalog."default",
+    ccodmed character(15) COLLATE pg_catalog."default",
+    ccodums character(3) COLLATE pg_catalog."default",
+    ccodcatbs character(16) COLLATE pg_catalog."default",
+    cdescatbs character(250) COLLATE pg_catalog."default",
+    ntipoprod character(8) COLLATE pg_catalog."default",
+    nunidsec character(2) COLLATE pg_catalog."default",
+    npesoprod numeric(10,4),
+    ccodbarras character(15) COLLATE pg_catalog."default",
+    ninprod character(2) COLLATE pg_catalog."default",
+    nanuprod character(2) COLLATE pg_catalog."default",
+    nlote character(2) COLLATE pg_catalog."default",
+    nseruni character(2) COLLATE pg_catalog."default",
+    nicbper character(2) COLLATE pg_catalog."default",
+    nprodanti character(2) COLLATE pg_catalog."default",
+    ngasrela character(2) COLLATE pg_catalog."default",
+    nprodsafniif character(2) COLLATE pg_catalog."default",
+    ccomcue character(20) COLLATE pg_catalog."default",
+    cvencue character(20) COLLATE pg_catalog."default",
+    cdebicue character(20) COLLATE pg_catalog."default",
+    ccredcue character(20) COLLATE pg_catalog."default",
+    cdebicuei character(20) COLLATE pg_catalog."default",
+    ccredcuei character(20) COLLATE pg_catalog."default",
+    ccodcos character(9) COLLATE pg_catalog."default",
+    ccodcos2 character(9) COLLATE pg_catalog."default",
+    ccodpresu character(10) COLLATE pg_catalog."default",
+    ccomprod character(1) COLLATE pg_catalog."default",
+    cvenprod character(1) COLLATE pg_catalog."default",
+    ccodisc character(5) COLLATE pg_catalog."default",
+    cmoneda character(1) COLLATE pg_catalog."default",
+    npreunit1 numeric(15,4),
+    npreunit2 numeric(15,4),
+    npreunit3 numeric(15,4),
+    npreunit4 numeric(15,4),
+    npreunit5 numeric(15,4),
+    npreunit6 numeric(15,4),
+    npreunit7 numeric(15,4),
+    npreunit8 numeric(15,4),
+    npreunit9 numeric(15,4),
+    npreunit10 numeric(15,4),
+    npreunit11 numeric(15,4),
+    npreunit12 numeric(15,4),
+    npreunit13 numeric(15,4),
+    npreunit14 numeric(15,4),
+    npreunit15 numeric(15,4),
+    nstockmin numeric(15,4),
+    nstockmax numeric(15,4),
+    nrango1 numeric(15,0),
+    nrango2 numeric(15,0),
+    nresp numeric(1,0),
+    ccodpps character(2) COLLATE pg_catalog."default",
+    ccodpds character(5) COLLATE pg_catalog."default",
+    nagemonmin numeric(15,2),
+    ccodlabora character(4) COLLATE pg_catalog."default",
+    cdeslabora character(60) COLLATE pg_catalog."default",
+    estado character varying(255) COLLATE pg_catalog."default",
+    en_ambiente_de character varying(255) COLLATE pg_catalog."default",
+    es_con_migracion numeric(1,0),
+    ccodcos3 character(15) COLLATE pg_catalog."default",
+    obserror text COLLATE pg_catalog."default",
+    resultado_migracion numeric(1,0)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.com_producto
+    OWNER to postgres;</value>
   </data>
   <data name="txtguardardocu.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION public.func_guardar_com_documento(
+    <value>-- FUNCTION: public.func_guardar_com_documento(text, character)
+
+-- DROP FUNCTION IF EXISTS public.func_guardar_com_documento(text, character);
+
+CREATE OR REPLACE FUNCTION public.func_guardar_com_documento(
 	OUT resultado text,
-	IN pjson text,
-	IN ptipo character(2)
-)
-RETURNS text AS
-$BODY$
+	pjson text,
+	ptipo character)
+    RETURNS text
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+
 declare 
 	a_json json;
 	a_documento json;
@@ -320,7 +332,8 @@ begin
 	01: Venta
 	02: Compra
 	*/
-    -- 0. Truncar tabla
+
+	-- 0. Truncar tabla
     truncate table com_detalledocumento;
 	truncate table com_documento cascade;
     a_json		:= pjson::json;
@@ -328,23 +341,21 @@ begin
 	a_detalle	:= a_json-&gt;'detalles';
     -- 1. Importar datos
     INSERT INTO com_documento(
-		iddocumento, ccod_empresa, cper, cmes,
-		ccodmodulo, ccodmov, ccoddoc,
-		cserie, cnumero, ccodenti, cdesenti, ccodtipent, ccodruc, crazsoc, cdirecc, ccodubi,
-		ccodcontac, cdescontacto, ffecha, ffechaven, ffechaalm, ccodpag, cmoneda, ntcigv,
-		cguiaser, cguianum, mdsc, ccodvend, ccodclas, ccodcon, cnumordc, crefdoc, freffec,
-		crefser, crefnum, ccat09, cmotinc, nresp, ccodpds, nporre, ffecre, cnumdere, ccodpps,
-		nporre2, nperdenre, nbase1, nigv1, nbase2, nigv2, nbase3, nigv3, nimpicbper, nina, nexo,
-		nisc, nivabase, nivaimp, nimpant, ntot, estado, en_ambiente_de,
-		es_con_migracion, ccodcos3, ccodrucanula
+		iddocumento, ccod_empresa, cper, cmes, ccodmodulo, ccodmov, ccoddoc, cserie, cnumero,
+		ccodenti, cdesenti, ccodtipent, ccodruc, crazsoc, cdirecc, ccodubi, ccodcontac, cdescontacto,
+		ffecha, ffechaven, ffechaalm, ccodpag, cmoneda, ntcigv, cguiaser, cguianum, mdsc, ccodvend,
+		ccodclas, ccodocon, cnumordc, crefdoc, freffec, crefser, crefnum, ccat09, cmotinc, nresp, ccodpds,
+		nporre, ffecre, cnumdere, ccodpps, nporre2, nperdenre, nbase1, nigv1, nbase2, nigv2, nbase3, nigv3,
+		nimpicbper, nina, nexo, nisc, nivabase, nivaimp, nimpant, ntot, estado,
+		en_ambiente_de, es_con_migracion, ccodrucanula, nflgexisteanular
     )
     select
-		iddocumento, ccod_empresa, cper, cmes,
+		iddocumento, ccod_empresa, cper, lpad(cmes,2,'0'),
 		coalesce(ccodmodulo,'') as ccodmodulo,
 		coalesce(ccodmov,'') as ccodmov,
 		coalesce(ccoddoc,'') as ccoddoc,
-		coalesce(cserie,'') as cserie,
-		coalesce(cnumero,'') as cnumero,
+		lpad(coalesce(cserie,''), 20, '0') as cserie,
+		lpad(coalesce(cnumero,''), 20, '0') as cnumero,
 		coalesce(ccodenti,'') as ccodenti,
 		coalesce(cdesenti,'') as cdesenti,
 		coalesce(ccodtipent,'') as ccodtipent,
@@ -365,7 +376,7 @@ begin
 		coalesce(mdsc,'') as mdsc,
 		coalesce(ccodvend,'') as ccodvend,
 		coalesce(ccodclas,'') as ccodclas,
-		coalesce(ccodcon,'') as ccodcon,
+		coalesce(ccodocon,'') as ccodocon,
 		coalesce(cnumordc,'') as cnumordc,
 		coalesce(crefdoc,'') as crefdoc,
 		freffec,
@@ -398,12 +409,11 @@ begin
 		estado,
 		en_ambiente_de,
 		es_con_migracion,
-		coalesce(ccodcos3,'') as ccodcos3,
-		coalesce(ccodrucanula,'') as ccodrucanula
+		coalesce(ccodrucanula,'') as ccodrucanula,
+		coalesce(nflgexisteanular, 0) as nflgexisteanular
     from json_to_recordset(a_documento)
     as t (
-        iddocumento numeric,
-		ccodrucemisor character(15),
+		iddocumento numeric(20,0),
 		ccod_empresa character(3),
 		cper character(4),
 		cmes character(2),
@@ -432,7 +442,7 @@ begin
 		mdsc text,
 		ccodvend character(4),
 		ccodclas character(1),
-		ccodcon character(4),
+		ccodocon character(4),
 		cnumordc character(20),
 		crefdoc character(2),
 		freffec date,
@@ -453,7 +463,7 @@ begin
 		nbase2 numeric(15,2),
 		nigv2 numeric(15,2),
 		nbase3 numeric(15,2),
-		nigv3 numeric(15,2) ,
+		nigv3 numeric(15,2),
 		nimpicbper numeric(15,2),
 		nina numeric(15,2),
 		nexo numeric(15,2),
@@ -462,21 +472,21 @@ begin
 		nivaimp numeric(15,2),
 		nimpant numeric(15,2),
 		ntot numeric(15,2),
-		created_at timestamp,
-		updated_at timestamp,
 		estado character varying(255),
 		en_ambiente_de character varying(255),
-		es_con_migracion numeric(1, 0),
-		ccodcos3 character(15),	
-		ccodrucanula character(15)
+		es_con_migracion numeric(1,0),
+		ccodrucanula character(15),
+		obserror text,
+		nflgexisteanular integer
     );
 	
 	-- 2. Insert detalle
 	INSERT INTO public.com_detalledocumento(
 		iddetalledocumento, ccodalma, ccodprod, ccodmed, ccodlote, nuniori,
-		nvvori, npvori, nvalor, nigvtot, ntotori, npigv, nconvnum, nconvden,
-		clibprod, ccodcos, ccodcos2, ccodpresu, cctaprod, npordscu, ndsctos,
-		ccodisc, nporisc, nisc, tipo_isc, mdscl, iddocumento
+		nvvori, npvori, nvalor, nigvtot, ntotori, npigv,
+		ccodcos, ccodcos2, ccodpresu, cctaprod, npordscu, ndsctos,
+		ccodisc, nporisc, nisc, tipo_isc, mdscl, iddocumento,
+		ffecfablote, ffecvenlote
 	)
 	select
 		dd.iddetalledocumento,
@@ -491,9 +501,6 @@ begin
 		coalesce(dd.nigvtot,0.0) as nigvtot,
 		coalesce(dd.ntotori,0.0) as ntotori,
 		coalesce(dd.npigv,0.0) as npigv,
-		coalesce(dd.nconvnum,0.0) as nconvnum,
-		coalesce(dd.nconvden,0.0) as nconvden,
-		coalesce(dd.clibprod,'') as clibprod,
 		coalesce(dd.ccodcos,'') as ccodcos,
 		coalesce(dd.ccodcos2,'') as ccodcos2,
 		coalesce(dd.ccodpresu,'') as ccodpresu,
@@ -505,7 +512,7 @@ begin
 		coalesce(dd.nisc,0.0) as nisc,
 		coalesce(dd.tipo_isc,0.0) as tipo_isc,
 		coalesce(dd.mdscl,'') as mdscl,
-		dd.iddocumento
+		dd.iddocumento, dd.ffecfablote, dd.ffecvenlote
 	from json_to_recordset(a_detalle)
     as dd (
 		iddetalledocumento numeric(20,0),
@@ -520,9 +527,6 @@ begin
 		nigvtot numeric(15,2),
 		ntotori numeric(15,2),
 		npigv numeric(5,2),
-		nconvnum numeric(9,2),
-		nconvden numeric(9,2),
-		clibprod character(1),
 		ccodcos character(9),
 		ccodcos2 character(9),
 		ccodpresu character(10),
@@ -534,18 +538,66 @@ begin
 		nisc numeric(15,2),
 		tipo_isc numeric(1,0),
 		mdscl text,
-		iddocumento integer
+		iddocumento integer,
+		ffecfablote date,
+		ffecvenlote date
 	);
 
-    --3. Validar/generar registros | 01: Venta - 02: Compra
-	if(ptipo='01')then
-		-- perform com_ventas_integracion_principal(); -- Crear funcion...
-	elsif(ptipo='02')then
-		-- perform com_compras_integracion_principal(); -- Crear funcion...
+	-- 1. validar que compra tenga detalles	
+	update com_documento x
+	set resultado_migracion=2, obserror='Documento no tiene productos'
+	from (
+		select d.iddocumento
+		from com_documento d
+		left join com_detalledocumento dc ON d.iddocumento = dc.iddocumento
+		group by d.iddocumento
+		having count(dc.iddocumento)=0
+	) t
+	where x.iddocumento=t.iddocumento;
+
+	-- 2. Validar producto y almacen existe
+	with cte_documento as (
+		select d.iddocumento, d.cper, dc.ccodalma, dc.ccodprod
+		from com_documento d
+		join com_detalledocumento dc on d.iddocumento = dc.iddocumento
+		where d.resultado_migracion is null
+	)
+	update com_documento x
+	set resultado_migracion=2,
+		obserror=
+			case when p.ccodprod  is null then 'Producto '||dc.ccodprod||' no existe: '
+				 when pc.ccodprod is null then 'Producto '||dc.ccodprod||' no existe en el periodo '||dc.cper
+				 when a.ccodalma  is null then 'Almacen no existe: '||dc.ccodalma
+			end
+	from cte_documento dc
+	left join cc_productos p on dc.ccodprod = p.ccodprod
+	left join cc_productosc pc on p.ccodprod = pc.ccodprod and pc.cper=dc.cper
+	left join cc_almacen a on dc.ccodalma=a.ccodalma
+	where x.iddocumento=dc.iddocumento
+		and (p.ccodprod is null or pc.ccodprod is null or a.ccodalma is null);
+
+	if((select true from com_documento where resultado_migracion is not null limit 1))then
+		raise notice 'fin';
+		select json_agg(json_build_object(
+	        'id', t.iddocumento,
+			'obserror', t.obserror,
+			'es_con_migracion', t.es_con_migracion,
+			'resultado_migracion', t.resultado_migracion
+	    ))::text
+	    from com_documento t
+	    into resultado;	
+		return;
+	end if;
+
+    --3. generar registros
+	if(ptipo='VENTA')then
+		perform com_importar_ventas_principal(); -- Crear funcion...
+	elsif(ptipo='COMPR')then
+		perform com_importar_compras_principal(); -- Crear funcion...
 	end if;
 
 	--3.1 Test.. (Eliminar cuando las funciones anteriores (2) ya esten creadas)
-    update com_documento set obserror='Test Habilitado '||iddocumento, resultado_migracion=2;
+---------update com_documento set obserror='Test Habilitado '||iddocumento, resultado_migracion=2;
 
     --4. Informe de importacion    
     select json_agg(json_build_object(
@@ -558,17 +610,24 @@ begin
     into resultado;	
     
 end; 
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;</value>
+$BODY$;
+
+ALTER FUNCTION public.func_guardar_com_documento(text, character)
+    OWNER TO postgres;</value>
   </data>
   <data name="txtguardarproducto.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION public.func_guardar_com_producto(
+    <value>-- FUNCTION: public.func_guardar_com_producto(text)
+
+-- DROP FUNCTION IF EXISTS public.func_guardar_com_producto(text);
+
+CREATE OR REPLACE FUNCTION public.func_guardar_com_producto(
 	OUT resultado text,
-	IN pjson text
-)
-RETURNS text AS
-$BODY$
+	pjson text)
+    RETURNS text
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
 declare 
 	a_json json;
 begin
@@ -578,8 +637,8 @@ begin
     -- 1. Importar datos
     INSERT INTO com_producto(
 		idproducto, ccod_empresa, cper, cmes,
-		ccodmodulo, ccodfamg, cdesfamg, ccodfamf, cdesfamf, ccodprod, cdesprod,
-		cdesprodgen, ccodtes, cdesmar, ccodmed, ccodcatbs, cdescatbs, ntipoprod,
+		ccodfamg, cdesfamg, ccodfamf, cdesfamf, ccodprod, cdesprod,
+		cdesprodgen, ccodtes, ccodmar, cdesmar, ccodmed, ccodums, ccodcatbs, cdescatbs, ntipoprod,
 		nunidsec, npesoprod, ccodbarras, ninprod, nanuprod, nlote, nseruni, nicbper,
 		nprodanti, ngasrela, nprodsafniif, ccomcue, cvencue, cdebicue, ccredcue, cdebicuei,
 		ccredcuei, ccodcos, ccodcos2, ccodpresu, ccomprod, cvenprod, ccodisc, cmoneda,
@@ -591,44 +650,45 @@ begin
     )
     select
 		idproducto, ccod_empresa, cper, cmes,
-		coalesce(ccodmodulo, ''),
-		coalesce(ccodfamg, ''),
-		coalesce(cdesfamg, ''),
-		coalesce(ccodfamf, ''),
-		coalesce(cdesfamf, ''),
-		coalesce(ccodprod, ''),
-		coalesce(cdesprod, ''),
-		coalesce(cdesprodGen, ''),
-		coalesce(ccodtes, ''),
-		coalesce(cdesmar, ''),
-		coalesce(ccodmed, ''),
-		coalesce(ccodcatbs, ''),
-		coalesce(cdescatbs, ''),
-		coalesce(ntipoprod, ''),
-		coalesce(nunidsec, ''),
+		coalesce(REGEXP_REPLACE(ccodfamg, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(cdesfamg, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccodfamf, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(cdesfamf, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccodprod, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(cdesprod, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(cdesprodgen, '^\s+|\s+$', '', 'g'), ''),
+		lpad(coalesce(REGEXP_REPLACE(ccodtes, '^\s+|\s+$', '', 'g'), ''), 2, '0'),
+		coalesce(REGEXP_REPLACE(ccodmar, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(cdesmar, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccodmed, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccodums, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccodcatbs, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(cdescatbs, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ntipoprod, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(nunidsec, '^\s+|\s+$', '', 'g'), ''),
 		coalesce(npesoprod, 0.00),
-		coalesce(ccodbarras, ''),
-		coalesce(ninprod, ''),
-		coalesce(nanuprod, ''),
-		coalesce(nlote, ''),
-		coalesce(nseruni, ''),
-		coalesce(nicbper, ''),
-		coalesce(nprodanti, ''),
-		coalesce(ngasrela, ''),
-		coalesce(nprodsafniif, ''),
-		coalesce(ccomcue, ''),
-		coalesce(cvencue, ''),
-		coalesce(cdebicue, ''),
-		coalesce(ccredcue, ''),
-		coalesce(cdebicuei, ''),
-		coalesce(ccredcuei, ''),
-		coalesce(ccodcos, ''),
-		coalesce(ccodcos2, ''),
-		coalesce(ccodpresu, ''),
-		coalesce(ccomprod, ''),
-		coalesce(cvenprod, ''),
-		coalesce(ccodisc, ''),
-		coalesce(cmoneda, ''),
+		coalesce(REGEXP_REPLACE(ccodbarras, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ninprod, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(nanuprod, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(nlote, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(nseruni, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(nicbper, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(nprodanti, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ngasrela, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(nprodsafniif, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccomcue, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(cvencue, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(cdebicue, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccredcue, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(cdebicuei, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccredcuei, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccodcos, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccodcos2, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccodpresu, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccomprod, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(cvenprod, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccodisc, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(cmoneda, '^\s+|\s+$', '', 'g'), ''),
 		coalesce(npreunit1, 0.00),
 		coalesce(npreunit2, 0.00),
 		coalesce(npreunit3, 0.00),
@@ -649,15 +709,15 @@ begin
 		coalesce(nrango1, 0.00),
 		coalesce(nrango2, 0.00),
 		coalesce(nresp, 0.00),
-		coalesce(ccodpps, ''),
-		coalesce(ccodpds, ''),
+		coalesce(REGEXP_REPLACE(ccodpps, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(ccodpds, '^\s+|\s+$', '', 'g'), ''),
 		coalesce(nagemonmin, 0.00),
-		coalesce(ccodlabora, ''),
-		coalesce(cdeslabora, ''),
-		coalesce(estado, ''),
+		coalesce(REGEXP_REPLACE(ccodlabora, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(cdeslabora, '^\s+|\s+$', '', 'g'), ''),
+		coalesce(REGEXP_REPLACE(estado, '^\s+|\s+$', '', 'g'), ''),
 		en_ambiente_de,
 		es_con_migracion,
-		coalesce(ccodcos3, '')
+		coalesce(REGEXP_REPLACE(ccodcos3, '^\s+|\s+$', '', 'g'), '')
     from json_to_recordset(a_json)
     as t (
 		idproducto numeric(20,0),
@@ -666,7 +726,6 @@ begin
 		ccod_empresa character(3),
 		cper character(4),
 		cmes character(2),
-		ccodmodulo character(6),
 		--
 		ccodfamg character(20),
 		cdesfamg character(50),
@@ -674,12 +733,14 @@ begin
 		cdesfamf character(50),
 		ccodprod character(20),
 		cdesprod character(150),
-		cdesprodGen character varying(500),
+		cdesprodgen character varying(500),
 		ccodtes character(2),
+		ccodmar character(4),
 		cdesmar character(80),
 		ccodmed character(15),
-		ccodcatbs character(8),
-		cdescatbs character(100),
+		ccodums character(3),
+		ccodcatbs character(16),
+		cdescatbs character(250),
 		ntipoprod character(8),
 		nunidsec character(2),
 		npesoprod numeric(10,4),
@@ -736,10 +797,9 @@ begin
 		es_con_migracion numeric(1,0),
 		ccodcos3 nchar(15)
     );
-	--
-   
-	--2.1 Test.. (Eliminar cuando las funciones anteriores (2) ya esten creadas)
-    update com_producto set obserror='Test Habilitado '||idproducto, resultado_migracion=2;
+
+	--2 Procesar
+    perform func_guardar_com_producto_principal();
 
     --3. Informe de importacion    
     select json_agg(json_build_object(
@@ -752,10 +812,849 @@ begin
     into resultado;	
     
 end; 
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
+$BODY$;
+
+ALTER FUNCTION public.func_guardar_com_producto(text)
+    OWNER TO postgres;
 </value>
+  </data>
+  <data name="txtproductoprincipal.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION public.func_guardar_com_producto_principal(
+	)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+declare
+begin
+	-- 0. validaciones
+	drop table if exists temp_cte_dato;
+	create temp table temp_cte_dato (
+        ccod character varying(255),
+        cdes character varying(255)
+    );
+
+	-- 1. Grupo: Mismo codigo diferente nombre
+	update com_producto x
+	set resultado_migracion=2,
+		obserror = coalesce(obserror, '')||'- Código de grupo se ha espcificado más de 1 vez con diferente descripción '
+	from (
+		select cp.ccodfamg
+		from com_producto cp
+		where cp.ccodfamg&lt;&gt;''
+		group by cp.ccodfamg
+		having count(distinct cp.cdesfamg) &gt; 1
+	)t
+	where x.ccodfamg = t.ccodfamg;
+	
+	-- 2. Familia: Mismo codigo diferente nombre
+	update com_producto x
+	set resultado_migracion=2,
+		obserror = coalesce(obserror, '')||'- Código de familia se ha espcificado más de 1 vez con diferente descripción '
+	from (
+		select cp.ccodfamf
+		from com_producto cp
+		where cp.ccodfamf&lt;&gt;''
+		group by cp.ccodfamf
+		having count(distinct cp.cdesfamf) &gt; 1
+	)t
+	where x.ccodfamf = t.ccodfamf;
+	
+	-- 3. Marca: Mismo codigo diferente nombre
+	update com_producto x
+	set resultado_migracion=2,
+		obserror = coalesce(obserror, '')||'- Código de marca se ha espcificado más de 1 vez con diferente descripción '
+	from (
+		select cp.ccodmar
+		from com_producto cp
+		where cp.ccodmar&lt;&gt;''
+		group by cp.ccodmar
+		having count(distinct cp.cdesmar) &gt; 1
+	) t
+	where x.ccodmar = t.ccodmar;
+	
+	-- 4. Unidad de medida SUNAT no existe
+	update com_producto x
+	set resultado_migracion=2,
+		obserror = coalesce(obserror, '')||'- Unidad de medida de SUNAT no es válida '
+	from (
+		select cp.ccodums
+		from com_producto cp
+		left join cg_umsunat cu on cp.ccodums=cu.ccodums 
+		where cu.ccodums is null
+	) t
+	where x.ccodums=t.ccodums;
+	
+	-- 5. OSE: Mismo codigo diferente nombre
+	update com_producto x
+	set resultado_migracion=2,
+		obserror = coalesce(obserror, '')||'- Código de OSCE se ha espcificado más de 1 vez con diferente descripción '
+	from (
+		select cp.ccodcatbs
+		from com_producto cp
+		where cp.ccodcatbs&lt;&gt;''
+		group by cp.ccodcatbs
+		having count(distinct cp.cdescatbs) &gt; 1
+	) t
+	where x.ccodcatbs = t.ccodcatbs;
+	
+	-- 6. Laboratorio 
+	update com_producto x
+	set resultado_migracion=2,
+		obserror = coalesce(obserror, '')||'- Código de OSCE se ha espcificado más de 1 vez con diferente descripción '
+	from (
+		select cp.ccodlabora
+		from com_producto cp
+		where cp.ccodlabora&lt;&gt;''
+		group by cp.ccodlabora
+		having count(distinct cp.cdeslabora) &gt; 1
+	) t
+	where x.ccodlabora = t.ccodlabora;
+	
+	-- 7. Tipo de existencia no existe
+	update com_producto x
+	set resultado_migracion=2,
+		obserror = coalesce(obserror, '')||'- Tipo de existencia no es válida '
+	from (
+		select cp.ccodtes
+		from com_producto cp
+		left join cg_tesunat cu on cp.ccodtes=cu.ccodtes 
+		where cu.ccodtes is null
+	) t
+	where x.ccodtes=t.ccodtes;
+	
+	-- 8. Producto: Mismo codigo diferente nombre (Temporal... se debe cambiar para unidades adicionales)
+	update com_producto x
+	set resultado_migracion=2, obserror=coalesce(obserror, '')||'- Código de producto ha sido especificado más de una 1 vez '
+	from (
+		select p.ccodprod
+		from com_producto p
+		group by p.ccodprod
+		having count(*) &gt; 1
+	) t
+	where t.ccodprod=x.ccodprod;
+	
+	--1. Grupo
+	truncate table temp_cte_dato;
+	insert into temp_cte_dato(ccod, cdes)
+	select distinct cp.ccodfamg, cp.cdesfamg
+	from com_producto cp
+	left join cc_familia t on cp.ccodfamg=t.ccodfam
+	where cp.ccodfamg&lt;&gt;'' and t.ccodfam is null;
+
+	if(found)then
+		--1. Validar
+		update com_producto x
+		set resultado_migracion=2,
+			obserror = coalesce(obserror, '')||'- Descripción de grupo no puede ser vacía '
+		from temp_cte_dato t
+		where x.ccodfamg=t.ccod and trim(t.cdes)='';
+		--2. Registrar
+		insert into cc_familia(ccodfam, cdesfam, cnivfam) 
+		select t.ccod, t.cdes, 1
+		from temp_cte_dato t
+		where trim(t.cdes)&lt;&gt;'';
+	end if;
+	
+	--2. Familia
+	truncate table temp_cte_dato;
+	insert into temp_cte_dato(ccod, cdes)
+	select distinct cp.ccodfamf, cp.cdesfamf
+	from com_producto cp
+	left join cc_familia t on cp.ccodfamf=t.ccodfam
+	where cp.ccodfamf&lt;&gt;'' and t.ccodfam is null;
+
+	if(found)then
+		--1. Validar
+		update com_producto x
+		set resultado_migracion=2,
+			obserror = coalesce(obserror, '')||'- Descripción de familia no puede ser vacía '
+		from temp_cte_dato t
+		where x.ccodfamf=t.ccod and trim(t.cdes)='';
+		--2. Registrar
+		insert into cc_familia(ccodfam, cdesfam, cnivfam) 
+		select t.ccod, t.cdes, 2
+		from temp_cte_dato t
+		where trim(t.cdes)&lt;&gt;'';
+	end if;
+
+	-- select * from cc_unimed	(ccodmed, cdesmed)
+	-- select * from cc_unimedl order by 2	(cper, ccodmed, ccodums)
+	-- 3. Unidades de Medida -&gt; cc_unimed, cc_unimedl, cg_umsunat
+	---3.1 Unidad Medida
+	insert into cc_unimed(ccodmed, cdesmed) 
+	select distinct cp.ccodmed, cp.ccodmed
+	from com_producto cp
+	left join cc_unimed t on cp.ccodmed=t.ccodmed
+	where cp.ccodmed&lt;&gt;'' and t.ccodmed is null;
+	---3.2 Unidad Medida L
+	insert into cc_unimedl(cper, ccodmed, ccodums) 
+	select distinct cp.cper, cp.ccodmed, cp.ccodums
+	from com_producto cp
+	left join cc_unimedl t on cp.ccodmed=t.ccodmed and cp.cper=t.cper
+	where cp.resultado_migracion is null and cp.ccodmed&lt;&gt;'' and t.ccodmed is null;
+
+	-- 4. Marca		cc_marca
+	truncate table temp_cte_dato;
+	insert into temp_cte_dato(ccod, cdes)
+	select distinct cp.ccodmar, cp.cdesmar
+	from com_producto cp
+	left join cc_marca t on cp.ccodmar=t.ccodmar
+	where cp.ccodmar&lt;&gt;'' and t.ccodmar is null;
+
+	if(found)then
+		--1. Validar
+		update com_producto x
+		set resultado_migracion=2,
+			obserror = coalesce(obserror, '')||'- Descripción de marca no puede ser vacía '
+		from temp_cte_dato t
+		where x.ccodmar=t.ccod and trim(t.cdes)='';
+		--2. Registrar
+		insert into cc_marca(ccodmar, cdesmar) 
+		select t.ccod, t.cdes
+		from temp_cte_dato t
+		where trim(t.cdes)&lt;&gt;'';
+	end if;
+	
+	-- 5. OSCE			cg_catbbss
+	truncate table temp_cte_dato;
+	insert into temp_cte_dato(ccod, cdes)
+	select distinct cp.ccodcatbs, cp.cdescatbs
+	from com_producto cp
+	left join cg_catbbss t on cp.ccodcatbs=t.ccodcatbs
+	where cp.ccodcatbs&lt;&gt;'' and t.ccodcatbs is null;
+
+	if(found)then
+		--1. Validar
+		update com_producto x
+		set resultado_migracion=2,
+			obserror = coalesce(obserror, '')||'- Descripción de marca no puede ser vacía '
+		from temp_cte_dato t
+		where x.ccodcatbs=t.ccod and trim(t.cdes)='';
+		--2. Registrar
+		insert into cg_catbbss(ccodcatbs, cdescatbs) 
+		select t.ccod, t.cdes
+		from temp_cte_dato t
+		where trim(t.cdes)&lt;&gt;'';
+	end if;
+
+	-- 6. Laboratorio	cc_laboratorio
+	truncate table temp_cte_dato;
+	insert into temp_cte_dato(ccod, cdes)
+	select distinct cp.ccodlabora, cp.cdeslabora
+	from com_producto cp
+	left join cc_laboratorio t on cp.ccodlabora=t.ccodlabora
+	where cp.ccodlabora&lt;&gt;'' and t.ccodlabora is null;
+
+	if(found)then
+		--1. Validar
+		update com_producto x
+		set resultado_migracion=2,
+			obserror = coalesce(obserror, '')||'- Descripción de laboratorio no puede ser vacía '
+		from temp_cte_dato t
+		where x.ccodlabora=t.ccod and trim(t.cdes)='';
+		--2. Registrar
+		insert into cc_laboratorio(ccodlabora, cdeslabora) 
+		select t.ccod, t.cdes
+		from temp_cte_dato t
+		where trim(t.cdes)&lt;&gt;'';
+	end if;
+
+	-- 0. Excluir ya registrados
+	update com_producto x
+	set resultado_migracion=1, obserror = 'Ya registrado'
+	from (
+		select cp.ccodprod, cp.cper
+		from com_producto cp
+		join cc_productos ccp on cp.ccodprod=ccp.ccodprod
+		join cc_productosc ccpc on ccp.ccodprod=ccpc.ccodprod and cp.cper=ccpc.cper
+	)t
+	where x.ccodprod = t.ccodprod;
+
+	-- 1. productos 
+    INSERT INTO public.cc_productos(
+		ccodprod, cdesprod, ccodmed, ccodcatbs, ccodfam, ccodmar, ngasrela, nunidsec, ninprod, nanuprod,
+		nlote, nseruni, ntipoprod, npesoprod, ccodbarras,
+		npreunit1, npreunit2, npreunit3, npreunit4, npreunit5, npreunit6, npreunit7, npreunit8, npreunit9,
+		npreunit10, npreunit11, npreunit12, npreunit13,
+		npreunit14, npreunit15, nstockmin, nstockmax, nrango1, nrango2, nresp, ccodpds, ccodpps, nagemonmin,
+		mdsc, nprodcontrol, ccodlabora, npvdoris, npvdorid,
+		ccodarancel, nprodsafniif, nicbper, cpdf, nprodanti, cmoneda, nprccomision, cdesprodgen, nflgkit,
+		ffechainiciokit, ffechafinkit, ccoduniadic, nflgbarra
+	)
+	select
+	    p.ccodprod, p.cdesprod, p.ccodmed, p.ccodcatbs, p.ccodfamf, p.ccodmar,
+		case when lower(p.ngasrela)='si' then 1 else 0 end, case when lower(p.nunidsec)='si' then 1 else 0 end,
+		case when lower(p.ninprod)='si' then 1 else 0 end, case when lower(p.nanuprod)='si' then 1 else 0 end,
+		case when lower(p.nlote)='si' then 1 else 0 end, case when lower(p.nseruni)='si' then 1 else 0 end,
+		case when lower(p.ntipoprod)='bien' then 1 else 2 end, p.npesoprod, p.ccodbarras,
+	    p.npreunit1, p.npreunit2, p.npreunit3, p.npreunit4, p.npreunit5, p.npreunit6, p.npreunit7, p.npreunit8,
+		p.npreunit9, p.npreunit10, p.npreunit11, p.npreunit12, p.npreunit13, p.npreunit14, p.npreunit15,
+		p.nstockmin, p.nstockmax, p.nrango1, p.nrango2, p.nresp, p.ccodpds, p.ccodpps, p.nagemonmin,
+		'', 0, p.ccodlabora, 0, 0, '',
+		case when lower(p.nprodsafniif)='si' then 1 else 0 end,
+		case when lower(p.nicbper)='si' then 1 else 0 end, '',
+		case when lower(p.nprodanti)='si' then 1 else 0 end, p.cmoneda,
+		0, p.cdesprodgen, 0, null, null, 0, case when p.ccodbarras is not null then 1 else 0 end
+    from com_producto p
+	left join cc_productos cp on p.ccodprod=cp.ccodprod
+	where resultado_migracion is null and cp.ccodprod is null;
+
+	-- 2. productosc
+	INSERT INTO public.cc_productosc(
+		cper, ccodprod, ccodtes, ccomcue, cvencue, cdebicue, ccredcue, ccodcos, ccodcos2, ccodpresu,
+		ccomprod, cvenprod, ccodisc, cdebicuei, ccredcuei
+		-- cdebicuets, ccredcuets, cdebicueti, ccredcueti -- sin datos
+	)
+	select
+	    p.cper, p.ccodprod, p.ccodtes, p.ccomcue, p.cvencue, p.cdebicue, p.ccredcue,
+		p.ccodcos, p.ccodcos2, p.ccodpresu, p.ccomprod, p.cvenprod, p.ccodisc,
+		p.cdebicuei, p.ccredcuei
+	from com_producto p
+	left join cc_productosc cp on p.ccodprod=cp.ccodprod and p.cper=cp.cper
+	where resultado_migracion is null and cp.ccodprod is null;
+
+	-- Confirmacion
+	update com_producto set resultado_migracion=1 where resultado_migracion is null;
+
+end; 
+$BODY$;
+
+ALTER FUNCTION public.func_guardar_com_producto_principal()
+    OWNER TO postgres;</value>
+  </data>
+  <data name="txtcompras_comercial.Text" xml:space="preserve">
+    <value>
+CREATE OR REPLACE FUNCTION public.com_importar_compras_principal(
+	)
+    RETURNS integer
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+DECLARE 
+	vnIdreg integer; 
+	vrwAsi record; 
+BEGIN
+	vnIdreg := (SELECT coalesce((MAX(cc_Registro.nIdReg)+ 1),1)  As nIdReg FROM cc_Registro); 
+		/*
+	--  Cargar Clientes - cg_entidad
+	select ccodenti, cdesenti ,* from com_documento 
+	--- cg_entitrib  
+	select ccodtipent, ccodruc, crazsoc, cdirecc, ccodubi  from com_documento 
+	-- - cg_entitribll 
+	select  ccodruc,ccodcontac, cdescontacto as ccontnomb from com_documento 
+
+	-- Cargar Lotes Nuevos 
+	select cper, ccodalma, ccodprod,ccodlote, ffecfablote, ffecvenlote 
+	from com_detalledocumento 
+	inner join com_documento using(iddocumento)
+
+	-- VALIDACIONES DE LA CABECERA  
+	-- Validar si el documento ya existe 
+	-- Validar condicion pago exista
+	-- Conversiond e soles a dolares 
+	-- cper, ccoddoc, cserie,cnumero,ccodruc  -- PK en compras 
+	-- cper, ccoddoc, cserie,cnumero  -- PK en Ventas
+
+	-- VALIDACIONES DEL DETALLE 
+
+	-- Conversiond e soles a dolares 
+	-- Validar Almacen exista 
+	-- validar Unidad de medida exista para el producto  
+	-- Validar el producto exista 
+	-- Validar el lote exista para el producto 
+	-- Validar si el producto trabaja con lotes obligar que llene lote al documento siempre encuando el documento este afecto stock  
+
+*/	
+	-- Creando correlativos para cada documento 
+	DROP TABLE IF EXISTS tmpNumnIdreg;
+	create temp table tmpNumnIdreg as 
+	select a.iddocumento,  vnIdreg + ROW_NUMBER() OVER( order by a.iddocumento) as nidreg,
+			m.nregcom2 as  ntipafec,m.nafestock,m.ctiptrans,m.nimpmon, 
+		    ml.cctares,ml.cdefcos1, ml.cdefcos2,ml.cdefpresu,
+			ent.ccodcos, ent.ccodcos2, ml.nexpcon 
+	from com_documento a
+	inner join cc_movimiento m on a.ccodmov = m.ccodmov and m.ctipmov = 'I'
+	inner join cc_movimientol  ml on a.cper = ml.cper and m.ccodmov = ml.ccodmov and m.ctipmov = ml.ctipmov 
+	inner join cg_entitrib ent on a.ccodruc = ent.ccodruc 
+	where a.es_con_migracion = 0 and  trim(coalesce(a.obserror,'')) = ''; 
+
+	-- Instanado cabecera 
+	insert into cc_registro(nidreg, cper, cmes, ccodmov, ccoddoc, cserie, cnumero, ccodenti,
+		    ccodruc,ccodcontac, ffecha, ffechaven, ffechaalm, ccodpag, cmoneda, ntcigv, 
+			ntcbas,	ntctot,	cguiaser, cguianum, mdsc, ccodvend, 
+			ccodclas, ccodocon,cnumordc, crefdoc, freffec,crefser, crefnum, ccat09, cmotinc, 
+			nresp, ccodpds, nporre, ffecre, cnumdere, 
+			ccodpps, nperdenre, nbase1, nigv1, nbase2, nigv2, nbase3, nigv3, nimpicbper, nina, nexo, nisc, 
+			nivabase, nivaimp,nimpant, ntot,ntipafec,nafestock,ctiptrans,nimpmon) 
+		
+	select idr.nidreg, a.cper, a.cmes, a.ccodmov, a.ccoddoc, a.cserie, a.cnumero, a.ccodenti,
+		    a.ccodruc, 	a.ccodcontac, a.ffecha, a.ffechaven, a.ffechaalm, a.ccodpag, a.cmoneda, a.ntcigv, 
+			a.ntcigv as ntcbas,	a.ntcigv as ntctot,	a.cguiaser, a.cguianum, a.mdsc, a.ccodvend, 
+			a.ccodclas, a.ccodocon,a.cnumordc, a.crefdoc, a.freffec, a.crefser, a.crefnum, a.ccat09, a.cmotinc, 
+			a.nresp, a.ccodpds, case when a.nresp = 1 then a.nporre else a.nporre2 end as nporre, a.ffecre, a.cnumdere, 
+			a.ccodpps, a.nperdenre, a.nbase1, a.nigv1, a.nbase2, a.nigv2, a.nbase3, a.nigv3, a.nimpicbper, a.nina, a.nexo, a.nisc, 
+			a.nivabase, a.nivaimp,a.nimpant, a.ntot,idr.ntipafec,idr.nafestock,idr.ctiptrans,idr.nimpmon	
+	from com_documento a
+	inner join tmpNumnIdreg idr on a.iddocumento = idr.iddocumento 
+	where a.es_con_migracion = 0 and  trim(coalesce(a.obserror,'')) = ''; 
+
+	-- Isertar detalle 
+		insert into cc_registrol(nidreg, nidlin, cper, cmes, ccodalma, ccodalmas, ccodalmades, ccodalmasdes, ccodprod, cdesprod, 
+		ccodlote, nuniori, nvvori, npvori, ntotori, npigv, ncolreg, nvalor, nigvtot, ccodmed, nconvnum, nconvden,
+		clibprod, 
+		nunikar, npukar, ntotkar,
+		nvvoris, npvoris, ntotoris,
+		nvvorid, npvorid, ntotorid, 
+		nvalors, nigvtots, nvalord, nigvtotd, 
+		npukars, ntotkars, 
+	    npukard, ntotkard, 
+		ccodcos, ccodcos2, ccodpresu, ncostos, ncostod
+	    ,cctaprod,npordscu, ndsctos, 
+		ccodisc, nporisc, nisc, mdscl)
+	select idr.nidreg,ROW_NUMBER() OVER(partition by a.iddocumento order by a.iddocumento) as nidlin, ac.cper, ac.cmes,a.ccodalma,d.ccodalmas, a.ccodprod, b.cdesprod, a.ccodmed, a.ccodlote, 
+			a.nuniori, a.nvvori, a.npvori, a.nvalor, a.nigvtot, a.ntotori, a.npigv, 1 as ncolreg, 1 as nconvnum, 1 as nconvden, 
+			case when idr.ntipafec = 2 then '4' else c.ccomprod end::character(1) as clibprod,  
+			a.nuniori as nunikar , 
+			a.nvvori/1 as npukar ,a.nvalor as ntotkar,
+	  	    a.nvvori as nvvoris, a.npvori as npvoris, a.ntotori as ntotoris,
+			round((a.nvvori/ac.ntcigv),2) as nvvorid, round((a.nvvori/ac.ntcigv),2) as npvorid, round((a.ntotori/ac.ntcigv),2) as ntotorid, a.nvalor as nvalors,
+			a.nigvtot as nigvtots, round((a.nvalor/ac.ntcigv),2) as  nvalord, 
+			round((a.nigvtot/ac.ntcigv),2) as nigvtotd,  
+			a.nuniori as npukars,a.nvalor as  ntotkars,
+		    round(((a.nvvori/1)/ac.ntcigv),2) as npukard, round((a.a.nvalor/ac.ntcigv),2) as  ntotkard, 
+			case when trim(coalesce(a.ccodcos,'')) &lt;&gt; '' then trim(a.ccodcos) 
+			else 
+				case when trim(coalesce(idr.ccodcos,'')) &lt;&gt; '' then trim(idr.ccodcos) 
+				else 
+					case when trim(coalesce(c.ccodcos)) &lt;&gt; '' then trim(c.ccodcos) else  trim(idr.cdefcos1)	end 
+				end 
+			end::character(9) as ccodcos,
+
+			case when trim(coalesce(a.ccodcos2,'')) &lt;&gt; '' then trim(a.ccodcos2) 
+			else 
+				case when trim(coalesce(idr.ccodcos2,'')) &lt;&gt; '' then trim(idr.ccodcos2) 
+				else 
+					case when trim(coalesce(c.ccodcos2)) &lt;&gt; '' then trim(c.ccodcos2) else  trim(idr.cdefcos2)	end 
+				end 
+			end::character(9) as ccodcos2,
+		
+			case when trim(coalesce(a.ccodpresu,'')) &lt;&gt; '' then trim(a.ccodpresu) 
+			else case when trim(c.ccodpresu) &lt;&gt; '' then trim(c.ccodpresu) else trim(idr.cdefcos1) end 
+			end::character(10) as ccodpresu, 	
+		
+			case when trim(coalesce(a.cctaprod,'')) &lt;&gt; '' then trim(a.cctaprod) 
+			else 
+				case when trim(coalesce(c.ccomcue,'')) &lt;&gt; '' then trim(c.ccomcue) else trim(idr.cctares) end 
+			end::character(20) as cctaprod, 
+		
+			a.npordscu, a.ndsctos, 
+			a.ccodisc, a.nporisc, a.nisc, a.tipo_isc, a.mdscl
+	from com_detalledocumento a
+	inner join tmpNumnIdreg idr on a.iddocumento = idr.iddocumento 
+	inner join com_documento ac on a.iddocumento = ac.iddocumento 
+	inner join cc_productos b on a.ccodprod = b.ccodprod 
+	inner join cc_productosc c on b.ccodprod = c.ccodprod and c.cper = '2024'
+	inner join cc_almacen d on a.ccodalma = d.ccodalma 
+	where ac.es_con_migracion = 0 and  trim(coalesce(ac.obserror,'')) = '';
+
+	-- Proceso de alimentacion y descuento de stock por unidades y lotes  
+	
+
+	-- Generar Asientos contables de todos los registros cargados 
+	for vrwAsi in select idr.nidreg,nexpcon from com_documento a 
+					inner join tmpNumnIdreg idr on a.iddocumento = idr.iddocumento  
+					where idr.nexpcon = 1 and  a.es_con_migracion = 0 and  trim(coalesce(a.obserror,'')) = ''  loop 
+		perform com_importar_compras_genasiento(vncper::char(4), vrwAsi.nidreg) ;
+		
+	end loop; 
+
+	-- Retirnar Registrsos migrados y los que no pasaron para enviarlos al integrador 
+	RETURN 1; 
+END; 
+$BODY$;
+
+ALTER FUNCTION public.com_importar_compras_principal()
+    OWNER TO postgres;</value>
+  </data>
+  <data name="txtventascomercial.Text" xml:space="preserve">
+    <value>
+CREATE OR REPLACE FUNCTION public.com_importar_ventas_principal(
+	)
+    RETURNS integer
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+DECLARE 
+	vnIdreg integer; 
+	vnnidlote integer;
+	vnntc numeric(10,2);
+	vncper char(4);
+	vrwAsi record; 
+	vrlote record;
+BEGIN
+	vnIdreg := (SELECT coalesce((MAX(cc_Registro.nIdReg)+ 1),1)  As nIdReg FROM cc_Registro); 
+
+		/*
+	--  Cargar Clientes - cg_entidad
+	--  select  * from cg_entidad
+	*/
+
+	--- select ccodtipent, ccodruc, crazsoc, cdirecc, ccodubi  from com_documento 
+	--- select ccodruc,crazsoc,ctipdoc,CNATJUR,cdirec,ccodubi  from cg_entitrib
+	-- insertando entidades tributarias 
+	Insert into cg_entitrib (ccodruc,crazsoc, ctipdoc,CNATJUR,cdirec,ccodubi) 
+	select DISTINCT ccodruc,crazsoc,ccodtipent as ctipdoc,case 
+	when ccodtipent='1' and Length(ltrim(ccodruc))=8 then '1'
+	when ccodtipent='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='10' then '1'
+	when ccodtipent='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
+	when ccodtipent='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
+	when ccodtipent='7' and Length(ltrim(ccodruc))=12  then '1'
+	when ccodtipent='4' and Length(ltrim(ccodruc))=12  then '1'
+	END ::CHAR(1) AS CNATJUR,cdirecc,ccodubi  FROM com_documento
+	WHERE ccodruc not in (select ccodruc from cg_entitrib); 
+	
+
+	----select *  from cg_entitribll
+	insert into cg_entitribll(ccodruc,ccodcontac,ccontitulo,ccontnomb,cdirec)
+	select  distinct ccodruc,ccodcontac,cdescontacto as ccontitulo,cdescontacto as ccontnomb,cdirecc as cdirec from com_documento 
+	where 	ccodruc not in (select ccodruc from cg_entitribll);
+
+		
+	-- Cargar Lotes Nuevos 
+	--  select  * from cc_productoslote
+	for vrlote in select * 	from com_detalledocumento inner join com_documento using(iddocumento)
+	          where coalesce(ccodlote,'') &lt;&gt;''  and 	com_detalledocumento.iddocumento  not in (	select b.iddocumento from 
+              cc_productoslote  a inner join com_detalledocumento b on trim(a.ccodprod)=trim(b.ccodprod) and a.ccodlote=b.ccodlote and a.ccodalma=b.ccodalma  )
+    loop
+		
+	vnnidlote  := (SELECT coalesce((MAX(cc_productoslote.nidlote)+ 1),1)  As nidlote FROM cc_productoslote);
+	vncper :=vrlote.cper;
+	vnntc  :=vnntc.ntcigv;
+	insert into cc_productoslote(nidlote,ccodalma,ccodprod,ccodlote,ffecfablote,ffecvenlote,cper)
+	values(vnnidlote,vrlote.ccodalma,vrlote.ccodprod,vrlote.ccodlote,vrlote.ffecfablote,vrlote.ffecvenlote,vrlote.cper);
+		
+	end loop; 
+----------------------------------------------------------------------------------------------------------
+
+
+
+	-- VALIDACIONES DE LA CABECERA  
+	-- cper, ccoddoc, cserie,cnumero,ccodruc  -- PK en compras 
+
+	Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' error no tiene monto total'), resultado_migracion = 2  
+    where coalesce(ntot,0)=0 and es_con_migracion=0; 
+
+	Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' error no tiene ruc'), resultado_migracion = 2  
+    where coalesce(ccodruc,'')='' and es_con_migracion=0; 
+
+-- Validar codigo de ubigeo
+   Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' Codigo de ubigeo no existe'), resultado_migracion = 2  
+   where  com_documento.ccodubi not in (select ccodubi  from cc_ubigeo);
+
+   Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' Codigo de ubigeo no debe estar vacio'), resultado_migracion = 2  
+   where  coalesce(com_documento.ccodubi,'')='';
+
+	   -- Validar si el documento ya existe 
+	Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' Documento ya fue procesado anteriormente'), resultado_migracion = 2  
+	where iddocumento 	in (select a.iddocumento
+	From com_documento a inner join cc_registro c on 
+    a.cper=c.cper and a.ccoddoc=c.ccoddoc and a.cserie=c.cserie and a.cnumero =c.cnumero and a.ccodruc=c.ccodruc 
+    where a.es_con_migracion=0); 
+		
+-- Validar condicion pago exista
+   Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' Codigo pago no existe'), resultado_migracion = 2  
+   where  com_documento.ccodpag not in (select distinct ncondicion::char(1)  from cc_pago);
+
+	-- Conversiond e soles a dolares 	
+	----select nbase1, nigv1, nbase2, nigv2, nbase3, nigv3, nimpicbper, nina, nexo, nisc, 
+	---	nivabase, nivaimp,nimpant, ntot,
+	---	coalesce(nbase1d,round((nbase1/ntcigv),2)) as nbase1d, nigv1d, nbase2d, nigv2d, nbase3d, nigv3d,  ninad, nexod, niscd, 
+	----nivabased, nivaimpd,nimpantd, ntotd,*  from cc_registro where cper='2024'
+
+
+	
+	-- cper, ccoddoc, cserie,cnumero  -- PK en Ventas
+
+
+
+	-- VALIDACIONES DEL DETALLE 
+	-- Conversiond e soles a dolares 
+
+-- Validar Almacen exista 
+  	 Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' Almacen no existe'), resultado_migracion = 2  
+	 where iddocumento in (
+	 select iddocumento from com_detalledocumento
+	 where  com_detalledocumento.ccodalma not in (select ccodalma  from cc_almacen));
+-- validar Unidad de medida exista para el producto  
+	 Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' Unidad de medida no existe en tabla producto '), resultado_migracion = 2  
+	 where iddocumento in (
+	 select iddocumento from com_detalledocumento
+	 where  com_detalledocumento.ccodmed not in (select ccodmed  from cc_unimed));
+-- Validar el producto exista 
+	 Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' codigo de producto no existe en tabla producto '), resultado_migracion = 2  
+	 where iddocumento in (
+	 select iddocumento from com_detalledocumento
+	 where  com_detalledocumento.ccodprod not in (select ccodprod  from cc_unimed));
+-- Validar el lote exista para el producto 
+	 Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' codigo de lote no existe'), resultado_migracion = 2  
+	 where iddocumento in (
+	 select iddocumento from com_detalledocumento
+	 where  CONCAT(com_detalledocumento.ccodprod,com_detalledocumento.ccodlote)    
+     not in (select CONCAT(ccodprod,ccodlote)  from cc_productoslote));
+-- Validar si el producto trabaja con lotes obligar que llene lote al documento siempre encuando el documento este afecto stock  
+	 Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' codigo de lote no puede estar vacio'), resultado_migracion = 2  
+	 where iddocumento in (
+	 select iddocumento from com_detalledocumento
+	 where  com_detalledocumento.ccodprod
+     in (select A.ccodprod from com_detalledocumento A INNER JOIN CC_PRODUCTOS B ON A.ccodprod=B.ccodprod
+	 inner join com_documento C ON A.IDDOCUMENTO=C.IDDOCUMENTO
+	 INNER JOIN CC_MOVIMIENTO D on C.ccodmov=d.ccodmov
+	 where B.NLOTE=1 and d.nafestock=1) and coalesce(com_detalledocumento.ccodlote,'')='');
+-----*********************************************************************************************************************
+	 
+
+-- Creando correlativos para cada documento 
+	DROP TABLE IF EXISTS tmpNumnIdreg;
+	create temp table tmpNumnIdreg as 
+	select a.iddocumento, vnIdreg +  ROW_NUMBER() OVER( order by a.iddocumento) as nidreg,
+			m.nregcom2 as  ntipafec,m.nafestock,m.ctiptrans,m.nimpmon, 
+		    ml.cctares,ml.cdefcos1, ml.cdefcos2,ml.cdefpresu,
+			ent.ccodcos, ent.ccodcos2, ml.nexpcon,a 
+	from com_documento a
+	inner join cc_movimiento m on a.ccodmov = m.ccodmov and m.ctipmov = 'I'
+	inner join cc_movimientol  ml on a.cper = ml.cper and m.ccodmov = ml.ccodmov and m.ctipmov = ml.ctipmov 
+	inner join cg_entitrib ent on a.ccodruc = ent.ccodruc 
+	where a.es_con_migracion = 0 and  trim(coalesce(a.obserror,'')) = ''; 
+
+	-- Instanado cabecera 
+	insert into cc_registro(nidreg, cper, cmes, ccodmov, ccoddoc, cserie, cnumero, ccodenti,
+		    ccodruc,ccodcontac, ffecha, ffechaven, ffechaalm, ccodpag, cmoneda, ntcigv, 
+			ntcbas,	ntctot,	cguiaser, cguianum, mdsc, ccodvend, 
+			ccodclas, ccodocon,cnumordc, crefdoc, freffec,crefser, crefnum, ccat09, cmotinc, 
+			nresp, ccodpds, nporre, ffecre, cnumdere, 
+			ccodpps, nperdenre, nbase1, nigv1, nbase2, nigv2, nbase3, nigv3, nimpicbper, nina, nexo, nisc, 
+			nivabase, nivaimp,nimpant, ntot,
+			nbase1s, nigv1s, nbase2s, nigv2s, nbase3s, nigv3s,  ninas, nexos, niscs, 
+			nivabases, nivaimps,nimpants, ntots,
+			nbase1d, nigv1d, nbase2d, 
+		    nigv2d, 
+		    nbase3d, nigv3d,  ninad, nexod, niscd, 
+			nivabased, nivaimpd,nimpantd, ntotd,
+			ntipafec,nafestock,ctiptrans,nimpmon) 
+		
+	select idr.nidreg, a.cper, a.cmes, a.ccodmov, a.ccoddoc, a.cserie, a.cnumero, a.ccodenti,
+		    a.ccodruc, 	a.ccodcontac, a.ffecha, a.ffechaven, a.ffechaalm, a.ccodpag, a.cmoneda, a.ntcigv, 
+			a.ntcigv as ntcbas,	a.ntcigv as ntctot,	a.cguiaser, a.cguianum, a.mdsc, a.ccodvend, 
+			a.ccodclas, a.ccodocon,a.cnumordc, a.crefdoc, a.freffec, a.crefser, a.crefnum, a.ccat09, a.cmotinc, 
+			a.nresp, a.ccodpds, case when a.nresp = 1 then a.nporre else a.nporre2 end as nporre, a.ffecre, a.cnumdere, 
+			a.ccodpps, a.nperdenre, a.nbase1, a.nigv1, a.nbase2, a.nigv2, a.nbase3, a.nigv3, a.nimpicbper, a.nina, a.nexo, a.nisc, 
+			a.nivabase, a.nivaimp,a.nimpant, a.ntot,
+		    a.nbase1 as nbase1s, a.nigv1 as nigv1s, a.nbase2 as nbase2s, a.nigv2 as nigv2s, a.nbase3 as nbase3s, a.nigv3 as nigv3s,  a.nina as ninas,
+			a.nexo as nexos, a.nisc as niscs, 
+			a.nivabase as nivabases, a.nivaimp as nivaimps,a.nimpant as nimpants, a.ntot as ntots,
+		    round((a.nbase1/a.ntcigv),2) as nbase1d,round((a.nigv1/a.ntcigv),2) as  nigv1d,round((a.nbase2/a.ntcigv),2) as  nbase2d,
+	        round((a.nigv2/a.ntcigv),2) as  nigv2d,round((a.nbase3/a.ntcigv),2) as  nbase3d,	round((a.nigv3/a.ntcigv),2) as  nigv3d,
+			round((a.nina/a.ntcigv),2) as  ninad,	round((a.nexo/a.ntcigv),2) as  nexod,
+	round((a.nisc/a.ntcigv),2) as niscd,	round((a.nivabase/a.ntcigv),2) as  nivabased,	round((a.nivaimp/a.ntcigv),2) as nivaimpd,
+	round((a.nimpant/a.ntcigv),2) as  nimpantd,	round((a.ntot/a.ntcigv),2)as ntotd,	   
+	idr.ntipafec,idr.nafestock,idr.ctiptrans,idr.nimpmon	
+	from com_documento a
+	inner join tmpNumnIdreg idr on a.iddocumento = idr.iddocumento 
+	where a.es_con_migracion = 0 and  trim(coalesce(a.obserror,'')) = ''; 
+
+-- Isertar detalle 
+	insert into cc_registrol(nidreg, nidlin, cper, cmes, ccodalma, ccodalmas, ccodalmades, ccodalmasdes, ccodprod, cdesprod, 
+		ccodlote, nuniori, nvvori, npvori, ntotori, npigv, ncolreg, nvalor, nigvtot, ccodmed, nconvnum, nconvden,
+		clibprod, 
+		nunikar, npukar, ntotkar,
+		nvvoris, npvoris, ntotoris,
+		nvvorid, npvorid, ntotorid, 
+		nvalors, nigvtots, nvalord, nigvtotd, 
+		npukars, ntotkars, 
+	    npukard, ntotkard, 
+		ccodcos, ccodcos2, ccodpresu, ncostos, ncostod
+	    ,cctaprod,npordscu, ndsctos, 
+		ccodisc, nporisc, nisc, mdscl)
+	
+	select idr.nidreg,ROW_NUMBER() OVER(partition by a.iddocumento order by a.iddocumento) as nidlin, ac.cper, ac.cmes,a.ccodalma,d.ccodalmas, a.ccodprod, b.cdesprod, 
+		 a.ccodlote,a.nuniori, a.nvvori, a.npvori, a.ntotori, a.npigv, 1 as ncolreg, a.nvalor, a.nigvtot,a.ccodmed, 1 as nconvnum, 1 as nconvden, 
+			case when idr.ntipafec = 2 then '4' else c.ccomprod end::character(1) as clibprod, 
+	   	    a.nuniori as nunikar , 
+			a.nvvori/1 as npukar ,a.nvalor as ntotkar,
+	  	    a.nvvori as nvvoris, a.npvori as npvoris, a.ntotori as ntotoris,
+			round((a.nvvori/ac.ntcigv),2) as nvvorid, round((a.nvvori/ac.ntcigv),2) as npvorid, round((a.ntotori/ac.ntcigv),2) as ntotorid, a.nvalor as nvalors,
+			a.nigvtot as nigvtots, round((a.nvalor/ac.ntcigv),2) as  nvalord, 
+			round((a.nigvtot/ac.ntcigv),2) as nigvtotd,  
+			a.nuniori as npukars,a.nvalor as  ntotkars,
+		    round(((a.nvvori/1)/ac.ntcigv),2) as npukard, round((a.a.nvalor/ac.ntcigv),2) as  ntotkard, 
+			case when trim(coalesce(a.ccodcos,'')) &lt;&gt; '' then trim(a.ccodcos) 
+			else 
+   		    case when trim(coalesce(idr.ccodcos,'')) &lt;&gt; '' then trim(idr.ccodcos) 
+			else 
+					case when trim(coalesce(c.ccodcos)) &lt;&gt; '' then trim(c.ccodcos) else  trim(idr.cdefcos1)	end 
+			end end::character(9) as ccodcos,
+			case when trim(coalesce(a.ccodcos2,'')) &lt;&gt; '' then trim(a.ccodcos2) 
+			else 
+			case when trim(coalesce(idr.ccodcos2,'')) &lt;&gt; '' then trim(idr.ccodcos2) 
+				else 
+					case when trim(coalesce(c.ccodcos2)) &lt;&gt; '' then trim(c.ccodcos2) else  trim(idr.cdefcos2)	end 
+				end 
+			end::character(9) as ccodcos2,
+			case when trim(coalesce(a.ccodpresu,'')) &lt;&gt; '' then trim(a.ccodpresu) 
+			else case when trim(c.ccodpresu) &lt;&gt; '' then trim(c.ccodpresu) else trim(idr.cdefcos1) end 
+			end::character(10) as ccodpresu, 0 as ncostos, 0 as ncostod,  
+			case when trim(coalesce(a.cctaprod,'')) &lt;&gt; '' then trim(a.cctaprod) 
+			else 
+			case when trim(coalesce(c.ccomcue,'')) &lt;&gt; '' then trim(c.ccomcue) else trim(idr.cctares) end 
+			end::character(20) as cctaprod, a.npordscu, a.ndsctos, 
+			a.ccodisc, a.nporisc, a.nisc, a.mdscl
+			from com_detalledocumento a
+	inner join tmpNumnIdreg idr on a.iddocumento = idr.iddocumento 
+	inner join com_documento ac on a.iddocumento = ac.iddocumento 
+	inner join cc_productos b on a.ccodprod = b.ccodprod 
+	inner join cc_productosc c on b.ccodprod = c.ccodprod and c.cper = '2024'
+	inner join cc_almacen d on a.ccodalma = d.ccodalma 
+	where ac.es_con_migracion = 0 and  trim(coalesce(ac.obserror,'')) = '';
+
+	-- Proceso de alimentacion y descuento de stock por unidades y lotes  
+	
+
+	-- Generar Asientos contables de todos los registros cargados 
+	for vrwAsi in select idr.nidreg,nexpcon from com_documento a 
+					inner join tmpNumnIdreg idr on a.iddocumento = idr.iddocumento  
+					where idr.nexpcon = 1 and  a.es_con_migracion = 0 and  trim(coalesce(a.obserror,'')) = ''  loop 
+		
+		perform com_importar_ventas_generaasiento(vncper::char(4), vrwAsi.nidreg) ;
+		
+	end loop; 
+
+	-- Retirnar Registrsos migrados y los que no pasaron para enviarlos al integrador 
+	RETURN 1; 
+END; 
+$BODY$;
+
+ALTER FUNCTION public.com_importar_ventas_principal()
+    OWNER TO postgres;</value>
+  </data>
+  <data name="txtasientoscompras.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION com_importar_compras_genasiento(vPer char(4), vnIdreg integer)
+RETURNS integer
+AS 
+$BODY$
+DECLARE 
+	rwemp record; 
+	vctaigv char(20);
+	vctaigv2 char(20); 
+	vctaigv3 char(20);
+	vctaicbper char(20); 
+	vctaper char(20);
+	vctaperd char(20); 
+	vctaperh char(20);
+	vctagan char(20);
+	vctaIVAP char(20); 	
+
+	/*
+		select * from fin_importar_compras_genasiento('2024'::char(4), 6967::integer) 
+
+	 	select * from cc_registro order by nidreg desc limit 10
+	*/
+    
+BEGIN
+		-- Capuras las variables 
+		vctaigv 	= ''; 
+		vctaigv2 	= '';
+		vctaigv3 	= '';
+		vctaicbper 	= '';
+		vctaper 	= '';		    
+		vctaperd 	= '';  
+		vctaperh 	= '';		    
+		vctagan 	= '';	
+		vctaIVAP 	= ''; 
+
+		for rwemp in select cper,cctaigv,ccueimp2c,ccueimp3c,cctaicbper, cctaper, cctagan, civacue from cg_emppro where cper = vPer loop		
+		   
+			    vctaigv = rwemp.cctaigv; 
+			    vctaigv2 = rwemp.ccueimp2c;
+				vctaigv3 = rwemp.ccueimp3c;
+				vctaicbper = rwemp.cctaicbper; 
+			    vctaper 	= rwemp.cctaper;		    
+			    vctaperd 	= (select cdesdeb from cf_plan where cper = rwemp.cper and ccodcue = rwemp.cctaper);  
+			    vctaperh 	= (select cdeshab from cf_plan where cper = rwemp.cper and ccodcue = rwemp.cctaper);		    
+			    vctagan 	= rwemp.cctagan;	
+				vctaIVAP 	= rwemp.civacue;	
+
+		end loop; 
+		
+		if trim(coalesce(vctaigv,'')) &lt;&gt; '' then 
+			-- Funcion que genera asiento contable 
+			perform  func_genera_asientocompra(vnIdreg,vctaigv,vctaigv2,vctaigv3,vctaicbper,vctaper,vctaperd,vctaperh,vctagan,vctaIVAP,0); 
+
+		end if; 
+	RETURN 1; 
+
+END; 
+$BODY$
+ LANGUAGE 'plpgsql' VOLATILE; 
+</value>
+  </data>
+  <data name="txtventasasientos.Text" xml:space="preserve">
+    <value>
+CREATE OR REPLACE FUNCTION com_importar_ventas_generaasiento(vPer char(4), vnIdreg integer)
+RETURNS integer
+AS 
+$BODY$
+DECLARE 
+	rwemp record; 
+	vctaigv char(20); 
+	vctaicbper char(20); 
+	vctaper char(20);
+	vctaperd char(20); 
+	vctaperh char(20);
+	vctagan char(20);
+	vctaIVAP char(20); 	
+
+	/*
+		select * from fin_importar_ventas_genasiento('2024'::char(4), 6968::integer) 
+
+	 	select * from cc_registro order by nidreg desc limit 10
+	*/
+
+BEGIN
+		-- Capuras las variables 
+		vctaigv 	= ''; 
+		vctaicbper 	= '';
+		vctaper 	= '';		    
+		vctaperd 	= '';  
+		vctaperh 	= '';		    
+		vctagan 	= '';	
+		vctaIVAP 	= ''; 
+
+		for rwemp in select cper,cctaigv,cctaicbper, cctaper, cctagan, civacue from cg_emppro where cper = vPer loop		
+		   
+			    vctaigv 	= rwemp.cctaigv; 
+				vctaicbper 	= rwemp.cctaicbper; 
+			    vctaper 	= rwemp.cctaper;		    
+			    vctaperd 	= (select cdesdeb from cf_plan where cper = rwemp.cper and ccodcue = rwemp.cctaper);  
+			    vctaperh 	= (select cdeshab from cf_plan where cper = rwemp.cper and ccodcue = rwemp.cctaper);		    
+			    vctagan 	= rwemp.cctagan;	
+				vctaIVAP 	= rwemp.civacue;
+
+		end loop; 
+		
+		if trim(coalesce(vctaigv,'')) &lt;&gt; '' then 			
+			-- Funcion que genera asiento contable 
+			perform  func_genera_asientonew(vnIdreg,vctaigv,vctaicbper,vctaper,vctaperd,vctaperh,vctagan,vctaIVAP,0); 
+
+		end if; 
+
+	RETURN 1; 
+END; 
+$BODY$
+ LANGUAGE 'plpgsql' VOLATILE;</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

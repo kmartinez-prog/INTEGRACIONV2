@@ -536,7 +536,7 @@ namespace Contasis
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(639, 368);
+            this.ClientSize = new System.Drawing.Size(631, 372);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.func_guardar_com_producto);
             this.Controls.Add(this.func_guardar_com_documento);

@@ -48,6 +48,7 @@ namespace Contasis
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label34 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.lblTotales = new System.Windows.Forms.Label();
             this.cboanulacionproducto = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -81,6 +82,11 @@ namespace Contasis
             this.txtproducto = new System.Windows.Forms.TextBox();
             this.txtguardardocu = new System.Windows.Forms.TextBox();
             this.txtguardarproducto = new System.Windows.Forms.TextBox();
+            this.txtproductoprincipal = new System.Windows.Forms.TextBox();
+            this.txtcompras_comercial = new System.Windows.Forms.TextBox();
+            this.txtventascomercial = new System.Windows.Forms.TextBox();
+            this.txtasientoscompras = new System.Windows.Forms.TextBox();
+            this.txtventasasientos = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -257,6 +263,7 @@ namespace Contasis
             // 
             this.panel6.BackColor = System.Drawing.Color.White;
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel6.Controls.Add(this.button1);
             this.panel6.Controls.Add(this.lblTotales);
             this.panel6.Controls.Add(this.cboanulacionproducto);
             this.panel6.Controls.Add(this.label11);
@@ -287,6 +294,21 @@ namespace Contasis
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(558, 444);
             this.panel6.TabIndex = 35;
+            this.panel6.Paint += new System.Windows.Forms.PaintEventHandler(this.panel6_Paint);
+            // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = global::Contasis.Properties.Resources._5__Icono_Boton___Aceptar;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(426, 213);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 32);
+            this.button1.TabIndex = 66;
+            this.button1.Text = "Refrescar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lblTotales
             // 
@@ -463,7 +485,6 @@ namespace Contasis
             this.cmbseries.Size = new System.Drawing.Size(135, 23);
             this.cmbseries.TabIndex = 5;
             this.cmbseries.SelectedIndexChanged += new System.EventHandler(this.cmbseries_SelectedIndexChanged);
-            this.cmbseries.Click += new System.EventHandler(this.cmbseries_Click);
             // 
             // label4
             // 
@@ -599,25 +620,80 @@ namespace Contasis
             this.txtguardardocu.Location = new System.Drawing.Point(939, 276);
             this.txtguardardocu.Multiline = true;
             this.txtguardardocu.Name = "txtguardardocu";
-            this.txtguardardocu.Size = new System.Drawing.Size(273, 108);
+            this.txtguardardocu.Size = new System.Drawing.Size(273, 69);
             this.txtguardardocu.TabIndex = 5;
             this.txtguardardocu.Text = resources.GetString("txtguardardocu.Text");
             // 
             // txtguardarproducto
             // 
             this.txtguardarproducto.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.txtguardarproducto.Location = new System.Drawing.Point(939, 390);
+            this.txtguardarproducto.Location = new System.Drawing.Point(939, 348);
             this.txtguardarproducto.Multiline = true;
             this.txtguardarproducto.Name = "txtguardarproducto";
             this.txtguardarproducto.Size = new System.Drawing.Size(273, 108);
             this.txtguardarproducto.TabIndex = 6;
             this.txtguardarproducto.Text = resources.GetString("txtguardarproducto.Text");
             // 
+            // txtproductoprincipal
+            // 
+            this.txtproductoprincipal.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.txtproductoprincipal.Location = new System.Drawing.Point(939, 462);
+            this.txtproductoprincipal.Multiline = true;
+            this.txtproductoprincipal.Name = "txtproductoprincipal";
+            this.txtproductoprincipal.Size = new System.Drawing.Size(273, 67);
+            this.txtproductoprincipal.TabIndex = 7;
+            this.txtproductoprincipal.Text = resources.GetString("txtproductoprincipal.Text");
+            // 
+            // txtcompras_comercial
+            // 
+            this.txtcompras_comercial.BackColor = System.Drawing.Color.PapayaWhip;
+            this.txtcompras_comercial.Location = new System.Drawing.Point(1218, 9);
+            this.txtcompras_comercial.Multiline = true;
+            this.txtcompras_comercial.Name = "txtcompras_comercial";
+            this.txtcompras_comercial.Size = new System.Drawing.Size(274, 118);
+            this.txtcompras_comercial.TabIndex = 8;
+            this.txtcompras_comercial.Text = resources.GetString("txtcompras_comercial.Text");
+            // 
+            // txtventascomercial
+            // 
+            this.txtventascomercial.BackColor = System.Drawing.Color.PapayaWhip;
+            this.txtventascomercial.Location = new System.Drawing.Point(1218, 133);
+            this.txtventascomercial.Multiline = true;
+            this.txtventascomercial.Name = "txtventascomercial";
+            this.txtventascomercial.Size = new System.Drawing.Size(274, 118);
+            this.txtventascomercial.TabIndex = 9;
+            this.txtventascomercial.Text = resources.GetString("txtventascomercial.Text");
+            // 
+            // txtasientoscompras
+            // 
+            this.txtasientoscompras.BackColor = System.Drawing.Color.PapayaWhip;
+            this.txtasientoscompras.Location = new System.Drawing.Point(1218, 269);
+            this.txtasientoscompras.Multiline = true;
+            this.txtasientoscompras.Name = "txtasientoscompras";
+            this.txtasientoscompras.Size = new System.Drawing.Size(274, 118);
+            this.txtasientoscompras.TabIndex = 10;
+            this.txtasientoscompras.Text = resources.GetString("txtasientoscompras.Text");
+            // 
+            // txtventasasientos
+            // 
+            this.txtventasasientos.BackColor = System.Drawing.Color.PapayaWhip;
+            this.txtventasasientos.Location = new System.Drawing.Point(1218, 400);
+            this.txtventasasientos.Multiline = true;
+            this.txtventasasientos.Name = "txtventasasientos";
+            this.txtventasasientos.Size = new System.Drawing.Size(274, 118);
+            this.txtventasasientos.TabIndex = 11;
+            this.txtventasasientos.Text = resources.GetString("txtventasasientos.Text");
+            // 
             // FrmIntegradorComercial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 556);
+            this.ClientSize = new System.Drawing.Size(643, 554);
+            this.Controls.Add(this.txtventasasientos);
+            this.Controls.Add(this.txtasientoscompras);
+            this.Controls.Add(this.txtventascomercial);
+            this.Controls.Add(this.txtcompras_comercial);
+            this.Controls.Add(this.txtproductoprincipal);
             this.Controls.Add(this.txtguardarproducto);
             this.Controls.Add(this.txtguardardocu);
             this.Controls.Add(this.txtproducto);
@@ -698,5 +774,11 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtproducto;
         private System.Windows.Forms.TextBox txtguardardocu;
         private System.Windows.Forms.TextBox txtguardarproducto;
+        private System.Windows.Forms.TextBox txtproductoprincipal;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtcompras_comercial;
+        private System.Windows.Forms.TextBox txtventascomercial;
+        private System.Windows.Forms.TextBox txtasientoscompras;
+        private System.Windows.Forms.TextBox txtventasasientos;
     }
 }

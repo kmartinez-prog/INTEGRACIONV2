@@ -63,6 +63,8 @@ namespace Contasis
                 dataGrid1.Columns[2].MinimumWidth = 50;
                 dataGrid1.Columns[2].Width = 100;
 
+                if (Properties.Settings.Default.TipModulo == "1")
+                {
                 dataGrid1.Columns[3].HeaderText = "EST_VENTAS";
                 dataGrid1.Columns[3].MinimumWidth = 50;
                 dataGrid1.Columns[3].Width = 100;
@@ -80,6 +82,27 @@ namespace Contasis
                 dataGrid1.Columns[6].HeaderText = "EST_PAGO";
                 dataGrid1.Columns[6].MinimumWidth = 50;
                 dataGrid1.Columns[6].Width = 100;
+                }
+
+                if (Properties.Settings.Default.TipModulo == "2")
+                {
+                    dataGrid1.Columns[3].HeaderText = "COM_PRODUCTOS";
+                    dataGrid1.Columns[3].MinimumWidth = 50;
+                    dataGrid1.Columns[3].Width = 100;
+
+
+                    dataGrid1.Columns[4].HeaderText = "COM_COMPRAS";
+                    dataGrid1.Columns[4].MinimumWidth = 50;
+                    dataGrid1.Columns[4].Width = 100;
+
+                    dataGrid1.Columns[5].HeaderText = "COM_VENTAS";
+                    dataGrid1.Columns[5].MinimumWidth = 50;
+                    dataGrid1.Columns[5].Width = 100;
+
+                }
+
+
+
 
                 dataGrid1.AllowUserToAddRows = false;
 
@@ -224,7 +247,7 @@ namespace Contasis
         }
         private void btnnuevo_Click_1(object sender, EventArgs e)
         {
-            FrmRuceditor Frnuevo = new FrmRuceditor(1, "", "", "",0,0,0,0);
+            FrmRuceditor Frnuevo = new FrmRuceditor(1, "", "", "",0,0,0,0,0,0,0);
             Frnuevo.Text = "Registrar Ruc Nuevo";
             Frnuevo.ShowDialog();
 
@@ -247,44 +270,82 @@ namespace Contasis
                     obj.estado = "0";
                 }
                 /***********************/
-                if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[3].Value).Trim() == "1")
+                if (Properties.Settings.Default.TipModulo == "1")
                 {
-                    obj.checkventas = 1;
-                }
-                else
-                {
-                    obj.checkventas = 0;
+
+                    if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[3].Value).Trim() == "1")
+                    {
+                        obj.checkventas = 1;
+                    }
+                    else
+                    {
+                        obj.checkventas = 0;
+                    }
+
+                    if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[4].Value).Trim() == "1")
+                    {
+                        obj.checkcompras = 1;
+                    }
+                    else
+                    {
+                        obj.checkcompras = 0;
+                    }
+
+                    if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[5].Value).Trim() == "1")
+                    {
+                        obj.checkcobranzas = 1;
+                    }
+                    else
+                    {
+                        obj.checkcobranzas = 0;
+                    }
+
+                    if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[6].Value).Trim() == "1")
+                    {
+                        obj.checkpagos = 1;
+                    }
+                    else
+                    {
+                        obj.checkpagos = 0;
+                    }
                 }
 
-                if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[4].Value).Trim() == "1")
+                if (Properties.Settings.Default.TipModulo == "2")
                 {
-                    obj.checkcompras = 1;
-                }
-                else
-                {
-                    obj.checkcompras = 0;
+
+                    if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[3].Value).Trim() == "1")
+                    {
+                        obj.ncomproductoflg = 1;
+                    }
+                    else
+                    {
+                        obj.ncomproductoflg = 0;
+                    }
+
+                    if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[4].Value).Trim() == "1")
+                    {
+                        obj.ncomcompraflg = 1;
+                    }
+                    else
+                    {
+                        obj.ncomcompraflg = 0;
+                    }
+
+                    if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[5].Value).Trim() == "1")
+                    {
+                        obj.ncomventaflg = 1;
+                    }
+                    else
+                    {
+                        obj.ncomventaflg = 0;
+                    }
+
+                  
                 }
 
-                if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[5].Value).Trim() == "1")
-                {
-                    obj.checkcobranzas = 1;
-                }
-                else
-                {
-                    obj.checkcobranzas = 0;
-                }
-
-                if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[6].Value).Trim() == "1")
-                {
-                    obj.checkpagos = 1;
-                }
-                else
-                {
-                    obj.checkpagos = 0;
-                }
 
                 /***********************/
-                FrmRuceditor Fredit = new FrmRuceditor(2, obj.ruc, obj.empresa, obj.estado, obj.checkventas, obj.checkcompras, obj.checkcobranzas, obj.checkpagos);
+                FrmRuceditor Fredit = new FrmRuceditor(2, obj.ruc, obj.empresa, obj.estado, obj.checkventas, obj.checkcompras, obj.checkcobranzas, obj.checkpagos,obj.ncomproductoflg, obj.ncomcompraflg, obj.ncomventaflg);
                 Fredit.Text = "Actualizar datos del Ruc";
                 Fredit.ShowDialog();
 

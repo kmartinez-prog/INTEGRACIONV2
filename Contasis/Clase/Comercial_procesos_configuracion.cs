@@ -13,7 +13,7 @@ namespace Contasis.Clase
 {
     class Comercial_procesos_configuracion
     {
-    //*********************************************************************************************//
+    //*************Procesos de configuracion de comercial *************************//
         public string comer_insert(Clase.Configuracion_comercial Objet)
         {
             string cadena = "";

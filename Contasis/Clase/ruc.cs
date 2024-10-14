@@ -12,10 +12,11 @@ namespace Contasis.Clase
 {
     class ruc
     {
+        string query = "";
         public string Insertar(Clase.rucpropiedades Objet)
         {
             string cadena = "";
-
+            
             DataTable Tabla = new DataTable();
             SqlConnection cone = new SqlConnection();
 
@@ -32,12 +33,23 @@ namespace Contasis.Clase
                 { }
                 else
                     {
-
-                        string query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg) values(" +
+                    if (Properties.Settings.Default.TipModulo == "1")
+                    {
+                         query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflgncomproductoflg,ncomcompraflg,ncomventaflg) values(" +
                             "'" + Objet.ruc + "', " +
                             "'" + Objet.empresa + "', " +
-                            "'" + Objet.estado + "',"+ Objet.checkventas+","+ Objet.checkcompras+","+ Objet.checkcobranzas+","+ Objet.checkpagos+")";
-                        cone = ConexionSql.Instancial().establecerconexion();
+                            "'" + Objet.estado + "'," + Objet.checkventas + "," + Objet.checkcompras + "," + Objet.checkcobranzas + "," + Objet.checkpagos + ",0,0,0)";
+                    }
+
+                    if (Properties.Settings.Default.TipModulo == "2")
+                    {
+                        query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,ncomproductoflg,ncomcompraflg,ncomventaflg,nventaflg,ncompraflg,ncobranzaflg,npagoflg) values(" +
+                           "'" + Objet.ruc + "', " +
+                           "'" + Objet.empresa + "', " +
+                           "'" + Objet.estado + "'," + Objet.ncomproductoflg + "," + Objet.ncomcompraflg + "," + Objet.ncomventaflg +  ",0,0,0,0)";
+                    }
+
+                    cone = ConexionSql.Instancial().establecerconexion();
                         SqlCommand commando1 = new SqlCommand(query, cone);
                         cone.Open();
                         cadena = commando1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
@@ -66,8 +78,18 @@ namespace Contasis.Clase
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "update  cg_empemisor SET cdesrucemisor='" + Objet.empresa + "'," +
-                "flgactivo='" + Objet.estado + "',nventaflg=" + Objet.checkventas + ",ncompraflg=" + Objet.checkcompras+ ", ncobranzaflg="+Objet.checkcobranzas+ ", npagoflg="+Objet.checkpagos+ " where ccodrucemisor='" + Objet.ruc + "'";
+                if (Properties.Settings.Default.TipModulo == "1")
+                {
+                 query = "update  cg_empemisor SET cdesrucemisor='" + Objet.empresa + "'," +
+                "flgactivo='" + Objet.estado + "',nventaflg=" + Objet.checkventas + ",ncompraflg=" + Objet.checkcompras + ", ncobranzaflg=" + Objet.checkcobranzas + ", npagoflg=" + Objet.checkpagos + " where ccodrucemisor='" + Objet.ruc + "'";
+                }
+                if (Properties.Settings.Default.TipModulo == "2")
+                {
+                    query = "update  cg_empemisor SET cdesrucemisor='" + Objet.empresa + "'," +
+                   "flgactivo='" + Objet.estado + "',ncomproductoflg=" + Objet.ncomproductoflg + ",ncomcompraflg=" + Objet.ncomcompraflg + ", ncomventaflg=" + Objet.ncomventaflg +  " where ccodrucemisor='" + Objet.ruc + "'";
+                }
+
+                
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();

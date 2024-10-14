@@ -379,6 +379,12 @@
     <Compile Include="Frm_comprasEditor.Designer.cs">
       <DependentUpon>Frm_comprasEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frm_com_DocumentosEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_com_DocumentosEditor.Designer.cs">
+      <DependentUpon>Frm_com_DocumentosEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_com_productosEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -515,6 +521,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_comprasEditor.resx">
       <DependentUpon>Frm_comprasEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_com_DocumentosEditor.resx">
+      <DependentUpon>Frm_com_DocumentosEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_com_productosEditor.resx">
       <DependentUpon>Frm_com_productosEditor.cs</DependentUpon>

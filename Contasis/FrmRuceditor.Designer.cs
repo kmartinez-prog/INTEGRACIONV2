@@ -44,6 +44,9 @@ namespace Contasis
             this.checkCobranza = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkventascom = new System.Windows.Forms.CheckBox();
+            this.checkcomprascom = new System.Windows.Forms.CheckBox();
+            this.checkPRODUCTO = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -184,6 +187,9 @@ namespace Contasis
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panel1.Controls.Add(this.checkventascom);
+            this.panel1.Controls.Add(this.checkcomprascom);
+            this.panel1.Controls.Add(this.checkPRODUCTO);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.checkPagos);
             this.panel1.Controls.Add(this.checkCompras);
@@ -198,12 +204,46 @@ namespace Contasis
             this.panel1.Size = new System.Drawing.Size(406, 156);
             this.panel1.TabIndex = 14;
             // 
+            // checkventascom
+            // 
+            this.checkventascom.AutoSize = true;
+            this.checkventascom.Location = new System.Drawing.Point(143, 128);
+            this.checkventascom.Name = "checkventascom";
+            this.checkventascom.Size = new System.Drawing.Size(104, 19);
+            this.checkventascom.TabIndex = 19;
+            this.checkventascom.Text = "Activar Ventas";
+            this.checkventascom.UseVisualStyleBackColor = true;
+            this.checkventascom.Visible = false;
+            // 
+            // checkcomprascom
+            // 
+            this.checkcomprascom.AutoSize = true;
+            this.checkcomprascom.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.checkcomprascom.Location = new System.Drawing.Point(268, 103);
+            this.checkcomprascom.Name = "checkcomprascom";
+            this.checkcomprascom.Size = new System.Drawing.Size(117, 19);
+            this.checkcomprascom.TabIndex = 20;
+            this.checkcomprascom.Text = "Activar Compras";
+            this.checkcomprascom.UseVisualStyleBackColor = false;
+            this.checkcomprascom.Visible = false;
+            // 
+            // checkPRODUCTO
+            // 
+            this.checkPRODUCTO.AutoSize = true;
+            this.checkPRODUCTO.Location = new System.Drawing.Point(143, 103);
+            this.checkPRODUCTO.Name = "checkPRODUCTO";
+            this.checkPRODUCTO.Size = new System.Drawing.Size(125, 19);
+            this.checkPRODUCTO.TabIndex = 18;
+            this.checkPRODUCTO.Text = "Activar Productos ";
+            this.checkPRODUCTO.UseVisualStyleBackColor = true;
+            this.checkPRODUCTO.Visible = false;
+            // 
             // FrmRuceditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(418, 210);
+            this.ClientSize = new System.Drawing.Size(420, 210);
             this.Controls.Add(this.checkCobranza);
             this.Controls.Add(this.txtempresa);
             this.Controls.Add(this.BtnActualizar);
@@ -240,5 +280,8 @@ namespace Contasis
         private System.Windows.Forms.CheckBox checkCobranza;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox checkventascom;
+        private System.Windows.Forms.CheckBox checkcomprascom;
+        private System.Windows.Forms.CheckBox checkPRODUCTO;
     }
 }
