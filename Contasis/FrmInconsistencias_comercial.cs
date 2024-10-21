@@ -355,7 +355,11 @@ namespace Contasis
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
                     command.CommandText = "SELECT distinct convert(varchar(900),obserror) as obserror " +
-                    "  FROM com_documento where es_con_migracion =2 and ccodrucemisor='" + vruc.Trim() + "' and ccod_empresa='" + vempresa.Trim() + "'";
+                    " FROM com_documento a inner join configuracion2 b on  " +
+                    " ltrim(a.ccodmodulo) = ltrim(b.Tipo) and  " +
+                    " ltrim(a.ccoddoc) = ltrim(b.codtipdocu) and  " +
+                    " ltrim(a.cserie) = ltrim(b.cserie)  " +
+                    " where a.es_con_migracion = 2 AND  a.ccodrucemisor='" + vruc.Trim() + "' and a.ccod_empresa='" + vempresa.Trim() + "'";
                     var adapter = new System.Data.SqlClient.SqlDataAdapter(command);
                     var dataset = new DataSet();
                     adapter.Fill(dataset);
@@ -751,80 +755,80 @@ namespace Contasis
             {
                 txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[57].Value).Trim();
                 Refresh();
+                Clase.Comercial_documentoPropiedades obj = new Clase.Comercial_documentoPropiedades();
+                obj.Id = dataGridView2.CurrentRow.Cells[1].Value.ToString();
+                obj.Modulo = dataGridView2.CurrentRow.Cells[2].Value.ToString();
+                obj.Cod_movimiento = dataGridView2.CurrentRow.Cells[3].Value.ToString();
+                obj.Cod_documento = dataGridView2.CurrentRow.Cells[4].Value.ToString();
+                obj.Serie = dataGridView2.CurrentRow.Cells[5].Value.ToString();
+                obj.Numero = dataGridView2.CurrentRow.Cells[6].Value.ToString();
+                obj.Cod_entiedad = dataGridView2.CurrentRow.Cells[7].Value.ToString();
+                obj.Nombre_entidad = dataGridView2.CurrentRow.Cells[8].Value.ToString();
+                obj.Tipo_doc_entidad = dataGridView2.CurrentRow.Cells[9].Value.ToString();
+                obj.Ruc_rz = dataGridView2.CurrentRow.Cells[10].Value.ToString();
+                obj.Razon_social = dataGridView2.CurrentRow.Cells[11].Value.ToString();
+                obj.Direc_cliente = dataGridView2.CurrentRow.Cells[12].Value.ToString();
+                obj.Ubigeo = dataGridView2.CurrentRow.Cells[13].Value.ToString();
+                obj.Contacto = dataGridView2.CurrentRow.Cells[14].Value.ToString();
+                obj.Nomb_contacto = dataGridView2.CurrentRow.Cells[15].Value.ToString();
+                obj.Fec_documento = dataGridView2.CurrentRow.Cells[16].Value.ToString();
+                obj.Fec_vencimiento = dataGridView2.CurrentRow.Cells[17].Value.ToString();
+                obj.Fec_almacen = dataGridView2.CurrentRow.Cells[18].Value.ToString();
+                obj.Condicion_pago = dataGridView2.CurrentRow.Cells[19].Value.ToString();
+                obj.Moneda = dataGridView2.CurrentRow.Cells[20].Value.ToString();
+                obj.Tipo_cambio = dataGridView2.CurrentRow.Cells[21].Value.ToString();
+                obj.Serie_guia = dataGridView2.CurrentRow.Cells[22].Value.ToString();
+                obj.Numero_guia = dataGridView2.CurrentRow.Cells[23].Value.ToString();
+                obj.Inf_adicional_doc = dataGridView2.CurrentRow.Cells[24].Value.ToString();
+                obj.Cod_vendedor = dataGridView2.CurrentRow.Cells[25].Value.ToString();
+                obj.Cod_clasi_bbss = dataGridView2.CurrentRow.Cells[26].Value.ToString();
+                obj.Otros_conceptos = dataGridView2.CurrentRow.Cells[27].Value.ToString();
+                obj.Orden_compra = dataGridView2.CurrentRow.Cells[28].Value.ToString();
+                obj.Tip_referencia = dataGridView2.CurrentRow.Cells[29].Value.ToString();
+                obj.Fec_doc_referencia = dataGridView2.CurrentRow.Cells[30].Value.ToString();
+                obj.Serie_doc_referencia = dataGridView2.CurrentRow.Cells[31].Value.ToString();
+                obj.Numero_referencia = dataGridView2.CurrentRow.Cells[32].Value.ToString();
+                obj.Cod_motivo_notacredito = dataGridView2.CurrentRow.Cells[33].Value.ToString();
+                obj.Motivo_notacredito = dataGridView2.CurrentRow.Cells[34].Value.ToString();
+                obj.Reg_especial = dataGridView2.CurrentRow.Cells[35].Value.ToString();
+                obj.Cod_detraccion = dataGridView2.CurrentRow.Cells[36].Value.ToString();
+                obj.Porcentaje_detraccion = dataGridView2.CurrentRow.Cells[37].Value.ToString();
+                obj.Fec_deposito = dataGridView2.CurrentRow.Cells[38].Value.ToString();
+                obj.Contancia_deposito = dataGridView2.CurrentRow.Cells[39].Value.ToString();
+                obj.Cod_percepcion = dataGridView2.CurrentRow.Cells[40].Value.ToString();
+                obj.Porcentaje_percepcion = dataGridView2.CurrentRow.Cells[41].Value.ToString();
+                obj.Documento_dentrofuera = dataGridView2.CurrentRow.Cells[42].Value.ToString();
+                obj.Base_imp1 = dataGridView2.CurrentRow.Cells[43].Value.ToString();
+                obj.Igv1 = dataGridView2.CurrentRow.Cells[44].Value.ToString();
+                obj.Base_imp2 = dataGridView2.CurrentRow.Cells[45].Value.ToString();
+                obj.Igv2 = dataGridView2.CurrentRow.Cells[46].Value.ToString();
+                obj.Base_imp3 = dataGridView2.CurrentRow.Cells[47].Value.ToString();
+                obj.Igv3 = dataGridView2.CurrentRow.Cells[48].Value.ToString();
+                obj.Imp_icbper = dataGridView2.CurrentRow.Cells[49].Value.ToString();
+                obj.Imp_inafecto = dataGridView2.CurrentRow.Cells[50].Value.ToString();
+                obj.Imp_exonerado = dataGridView2.CurrentRow.Cells[51].Value.ToString();
+                obj.Imp_isc = dataGridView2.CurrentRow.Cells[52].Value.ToString();
+                obj.Base_ivap = dataGridView2.CurrentRow.Cells[53].Value.ToString();
+                obj.Igv_ivap = dataGridView2.CurrentRow.Cells[54].Value.ToString();
+                obj.Imp_anticipo = dataGridView2.CurrentRow.Cells[55].Value.ToString();
+                obj.Total = dataGridView2.CurrentRow.Cells[56].Value.ToString();
+                obj.Observacion = dataGridView2.CurrentRow.Cells[57].Value.ToString();
 
-/***
-                Clase.Comercial_productos_propiedades obj = new Clase.Comercial_productos_propiedades();
-                //// obj.Id = dataGridView2.CurrentRow.Cells[1].Value.ToString();
-                obj.Id = dataGridView2.CurrentRow.Cells[2].Value.ToString();
-                obj.Modulo = dataGridView2.CurrentRow.Cells[3].Value.ToString();
-                obj.Cod_grupo = dataGridView2.CurrentRow.Cells[4].Value.ToString();
-                obj.Descripcion_grupo = dataGridView2.CurrentRow.Cells[5].Value.ToString();
-                obj.Cod_familia = dataGridView2.CurrentRow.Cells[6].Value.ToString();
-                obj.Desc_familia = dataGridView2.CurrentRow.Cells[7].Value.ToString();
-                obj.Cod_producto = dataGridView2.CurrentRow.Cells[8].Value.ToString();
-                obj.Descripcion_producto = dataGridView2.CurrentRow.Cells[9].Value.ToString();
-                obj.Descripcion_general = dataGridView2.CurrentRow.Cells[10].Value.ToString();
-                obj.Existencia = dataGridView2.CurrentRow.Cells[11].Value.ToString();
-                obj.Marca = dataGridView2.CurrentRow.Cells[12].Value.ToString();
-                obj.Unidad_medida = dataGridView2.CurrentRow.Cells[13].Value.ToString();
-                obj.Cod_osce = dataGridView2.CurrentRow.Cells[14].Value.ToString();
-                obj.Descrip_osce = dataGridView2.CurrentRow.Cells[15].Value.ToString();
-                obj.Tipo = dataGridView2.CurrentRow.Cells[16].Value.ToString();
-                obj.Unid_secundaria = dataGridView2.CurrentRow.Cells[17].Value.ToString();
-                obj.Peso = dataGridView2.CurrentRow.Cells[18].Value.ToString();
-                obj.Cod_barra = dataGridView2.CurrentRow.Cells[19].Value.ToString();
-                obj.Inhabilitar_prod = dataGridView2.CurrentRow.Cells[20].Value.ToString();
-                obj.Para_anular = dataGridView2.CurrentRow.Cells[21].Value.ToString();
-                obj.Lote = dataGridView2.CurrentRow.Cells[22].Value.ToString();
-                obj.Serie_unica = dataGridView2.CurrentRow.Cells[23].Value.ToString();
-                obj.Icbper = dataGridView2.CurrentRow.Cells[24].Value.ToString();
-                obj.Prod_anticipo = dataGridView2.CurrentRow.Cells[25].Value.ToString();
-                obj.Gasto_relacionado = dataGridView2.CurrentRow.Cells[26].Value.ToString();
-                obj.Prod_safnif = dataGridView2.CurrentRow.Cells[27].Value.ToString();
-                obj.Cuenta_compras = dataGridView2.CurrentRow.Cells[28].Value.ToString();
-                obj.Cuenta_ventas = dataGridView2.CurrentRow.Cells[29].Value.ToString();
-                obj.Costo_debito_salida = dataGridView2.CurrentRow.Cells[30].Value.ToString();
-                obj.Costos_credito_salida = dataGridView2.CurrentRow.Cells[31].Value.ToString();
-                obj.Debito_costo_ingresos = dataGridView2.CurrentRow.Cells[32].Value.ToString();
-                obj.Credito_costo_ingresos = dataGridView2.CurrentRow.Cells[33].Value.ToString();
-                obj.Ccostos = dataGridView2.CurrentRow.Cells[34].Value.ToString();
-                obj.Ccostos2 = dataGridView2.CurrentRow.Cells[35].Value.ToString();
-                obj.Presupuesto = dataGridView2.CurrentRow.Cells[36].Value.ToString();
-                obj.Reg_compras = dataGridView2.CurrentRow.Cells[37].Value.ToString();
-                obj.Reg_ventas = dataGridView2.CurrentRow.Cells[38].Value.ToString();
-                obj.Afecto_isc = dataGridView2.CurrentRow.Cells[39].Value.ToString();
-                obj.Moneda = dataGridView2.CurrentRow.Cells[40].Value.ToString();
-                obj.Precio1 = dataGridView2.CurrentRow.Cells[41].Value.ToString();
-                obj.Precio2 = dataGridView2.CurrentRow.Cells[42].Value.ToString();
-                obj.Precio3 = dataGridView2.CurrentRow.Cells[43].Value.ToString();
-                obj.Precio4 = dataGridView2.CurrentRow.Cells[44].Value.ToString();
-                obj.Precio5 = dataGridView2.CurrentRow.Cells[45].Value.ToString();
-                obj.Precio6 = dataGridView2.CurrentRow.Cells[46].Value.ToString();
-                obj.Precio7 = dataGridView2.CurrentRow.Cells[47].Value.ToString();
-                obj.Precio8 = dataGridView2.CurrentRow.Cells[48].Value.ToString();
-                obj.Precio9 = dataGridView2.CurrentRow.Cells[49].Value.ToString();
-                obj.Precio10 = dataGridView2.CurrentRow.Cells[50].Value.ToString();
-                obj.Precio11 = dataGridView2.CurrentRow.Cells[51].Value.ToString();
-                obj.Precio12 = dataGridView2.CurrentRow.Cells[52].Value.ToString();
-                obj.Precio13 = dataGridView2.CurrentRow.Cells[53].Value.ToString();
-                obj.Precio14 = dataGridView2.CurrentRow.Cells[54].Value.ToString();
-                obj.Precio15 = dataGridView2.CurrentRow.Cells[55].Value.ToString();
-                obj.Stock_minimo = dataGridView2.CurrentRow.Cells[56].Value.ToString();
-                obj.Stock_maximo = dataGridView2.CurrentRow.Cells[57].Value.ToString();
-                obj.Limite_inferior_precio = dataGridView2.CurrentRow.Cells[58].Value.ToString();
-                obj.Limite_superior_precio = dataGridView2.CurrentRow.Cells[59].Value.ToString();
-                obj.Regimen_especial = dataGridView2.CurrentRow.Cells[60].Value.ToString();
-                obj.Codigo_percepcion = dataGridView2.CurrentRow.Cells[61].Value.ToString();
-                obj.Codigo_detraccion = dataGridView2.CurrentRow.Cells[62].Value.ToString();
-                obj.Monto_minimo = dataGridView2.CurrentRow.Cells[63].Value.ToString();
-                obj.Codigo_laboratorio = dataGridView2.CurrentRow.Cells[64].Value.ToString();
-                obj.Descripcion_laboratorio = dataGridView2.CurrentRow.Cells[65].Value.ToString();
-                obj.Estado = dataGridView2.CurrentRow.Cells[66].Value.ToString();
-                obj.Observacion = dataGridView2.CurrentRow.Cells[67].Value.ToString();
 
-                Frm_com_productosEditor editorproducto = new Frm_com_productosEditor(obj);
-                editorproducto.ShowDialog();
-***/
+                
+                Frm_com_DocumentosEditor editdocumento = new Frm_com_DocumentosEditor(obj.Id,obj.Modulo,obj.Cod_movimiento,
+                obj.Cod_documento,obj.Serie,obj.Numero,obj.Cod_entiedad,obj.Nombre_entidad,obj.Tipo_doc_entidad,
+                obj.Ruc_rz,obj.Razon_social, obj.Direc_cliente, obj.Ubigeo, obj.Contacto, obj.Nomb_contacto,
+                obj.Fec_documento,obj.Fec_vencimiento, obj.Fec_almacen, obj.Condicion_pago, obj.Moneda,obj.Tipo_cambio,
+                obj.Serie_guia, obj.Numero_guia, obj.Inf_adicional_doc, obj.Cod_vendedor,obj.Cod_clasi_bbss,
+                obj.Otros_conceptos,obj.Orden_compra,obj.Tip_referencia,obj.Fec_doc_referencia,obj.Serie_doc_referencia,
+                obj.Numero_referencia, obj.Cod_motivo_notacredito,obj.Motivo_notacredito, obj.Reg_especial,obj.Cod_detraccion,
+                obj.Porcentaje_detraccion,obj.Fec_deposito,obj.Contancia_deposito,obj.Cod_percepcion,obj.Porcentaje_percepcion,
+                obj.Documento_dentrofuera,obj.Base_imp1,obj.Igv1,obj.Base_imp2, obj.Igv2,obj.Base_imp3,
+                obj.Igv3,obj.Imp_icbper,obj.Imp_inafecto,obj.Imp_exonerado,obj.Imp_isc,obj.Base_ivap,obj.Igv_ivap,
+                obj.Imp_anticipo,obj.Total,obj.Observacion);
+                 editdocumento.ShowDialog();
+
             }
         }
 

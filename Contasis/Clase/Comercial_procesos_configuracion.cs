@@ -96,10 +96,21 @@ namespace Contasis.Clase
                                " where ccod_empresa = '"+empresa.ToString()+"' and cper='"+periodo+ "' and TIPO='"+modulo+"'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
+                DataTable dt = new DataTable();
                 cone.Open();
                 carga = commando.ExecuteReader();
                 Grilla.Load(carga);
+                SqlDataAdapter data = new SqlDataAdapter(commando);
+                data.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                }
+                else
+                {
+                    MessageBox.Show("No existe configuración para el periodo que ha seleccionado.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 return Grilla;
+
             }
             catch (Exception ex1)
             {
@@ -147,14 +158,14 @@ namespace Contasis.Clase
             }
         }
         //*********************************************************************************************//
-        public string verifica_movimientosql(string movimiento)
+        public string verifica_movimientosql(string movimiento,string tipo,string periodo)
         {
             string aviso;
             SqlConnection cone = new SqlConnection();
             try
             {
                 string query = "Select * From configuracion2 " +
-                               "  where ccodmov='" + movimiento.ToString() + "'";
+                               "  where ccodmov='" + movimiento.ToString() + "' and tipo='" + tipo.ToString() + "' and cper='" + periodo.ToString() + "'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 DataTable dt = new DataTable();
@@ -164,7 +175,8 @@ namespace Contasis.Clase
                 if (dt.Rows.Count > 0){
                     aviso= "1";
                 }
-                else { 
+                else {
+                    ////MessageBox.Show("No existe configuración para el periodo que ha seleccionado.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     aviso = "0";
                 }
                 return aviso;
@@ -183,7 +195,7 @@ namespace Contasis.Clase
 
             }
         }
-        public string verifica_movimientopossql(string movimiento)
+        public string verifica_movimientopossql(string movimiento, string tipo, string periodo)
         {
             string aviso;
                       
@@ -193,7 +205,7 @@ namespace Contasis.Clase
             try
             {
                 string query = "Select * From configuracion2 " +
-                               "  where ccodmov='" + movimiento.ToString() + "'";
+                       "  where ccodmov='" + movimiento.ToString() + "' and tipo='" + tipo.ToString() + "' and cper='" + periodo.ToString() + "'";
                 NpgsqlCommand cmdp = new NpgsqlCommand(query, conexion);
                 DataTable dt = new DataTable();
                 NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
@@ -204,6 +216,7 @@ namespace Contasis.Clase
                 }
                 else
                 {
+                  ///  MessageBox.Show("No existe configuración para el periodo que ha seleccionado.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     aviso = "0";
                 }
                 return aviso;
@@ -281,5 +294,84 @@ namespace Contasis.Clase
 
         
         }
+        //********************************************************************************************//
+        public string comer_actualizar(Clase.Configuracion_comercial Objet)
+        {
+            string cadena = "";
+
+            DataTable Tabla = new DataTable();
+            SqlConnection cone = new SqlConnection();
+
+            try
+            {
+                string query = "update configuracion2 set Entidad='" + Objet.Entidad.Trim() + "'," +
+                               "Tipo ='" + Objet.Tipo.Trim() + "'," +
+                               "codtipdocu ='" + Objet.Codtipdocu.Trim() + "'," +
+                               "cserie ='" + Objet.Cserie.Trim() + "'," +
+                               "ccodpag ='" + Objet.Ccodpag.Trim() + "'," +
+                               "ccodvend ='" + Objet.Ccodvend.Trim() + "'," +
+                               "ccodalma ='" + Objet.Ccodalma.Trim() + "'," +
+                               "Ent_anula ='" + Objet.Ent_anula.Trim() + "'," +
+                               "Prodanula ='" + Objet.Prodanula.Trim() + "' where ccod_empresa ='" + Objet.Ccod_empresa.Trim() + "' and crucemp='" +
+                               Objet.Crucemp.Trim() + "' and cper ='" + Objet.Cper.Trim() + "' and ccodmov ='" + Objet.Ccodmov.Trim() + "';";
+                cone = ConexionSql.Instancial().establecerconexion();
+               //// MessageBox.Show(query);
+                SqlCommand commando1 = new SqlCommand(query, cone);
+                cone.Open();
+                cadena = commando1.ExecuteNonQuery() > 0 ? "Actualizado" : "No se actualizo";
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+
+            }
+            finally
+            {
+                if (cone.State == ConnectionState.Open)
+                {
+                    cone.Close();
+                }
+            }
+            return cadena;
+        }
+        public string comer_actualizarpostgres(Clase.Configuracion_comercial Objet)
+        {
+            string cadena = "";
+
+            DataTable Tabla = new DataTable();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+            try
+            {
+                string query = "update configuracion2 set Entidad='" + Objet.Entidad.Trim() + "'," +
+                                "Tipo ='" + Objet.Tipo.Trim() + "'," +
+                                "codtipdocu ='" + Objet.Codtipdocu.Trim() + "'," +
+                                "cserie ='" + Objet.Cserie.Trim() + "'," +
+                                "ccodpag ='" + Objet.Ccodpag.Trim() + "'," +
+                                "ccodvend ='" + Objet.Ccodvend.Trim() + "'," +
+                                "ccodalma ='" + Objet.Ccodalma.Trim() + "'," +
+                                "Ent_anula ='" + Objet.Ent_anula.Trim() + "'," +
+                                "Prodanula ='" + Objet.Prodanula.Trim() + "' where ccod_empresa ='" + Objet.Ccod_empresa.Trim() + "' and crucemp='" +
+                                Objet.Crucemp.Trim() + "' and cper ='" + Objet.Cper.Trim() + "' and ccodmov ='" + Objet.Ccodmov.Trim() + "';";
+                NpgsqlCommand cmdp = new NpgsqlCommand(query, conexion);
+                cadena = cmdp.ExecuteNonQuery() > 0 ? "Actualizado" : "No se actualizo";
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+            }
+            return cadena;
+        }
+
+
     }
 }

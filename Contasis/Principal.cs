@@ -721,6 +721,19 @@ namespace Contasis
 
         private void documentosComercialToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            foreach (Form OpenForm in Application.OpenForms)
+            {
+                if (OpenForm.Name == "master17")
+                { }
+                else
+                {
+                    master17 = null;
+                }
+
+            }
+
+
+
             if (master17 == null)
             {
                 master17 = new FrmInconsistencias_comercial();
@@ -730,7 +743,6 @@ namespace Contasis
                 master17.FormClosed += new FormClosedEventHandler(cerrardcoumento);
                 ////  master7.Show();
             }
-
         }
         private void cerrardcoumento(object sender, EventArgs e)
         {

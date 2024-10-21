@@ -113,7 +113,7 @@ namespace Contasis
                     "	en_ambiente_de varchar(255) NULL,   \n" +
                     "	es_con_migracion numeric(1, 0)  DEFAULT (0),\n" +
                     "	ccodcos3 nchar(15) NULL,   \n" +
-                    "	obserror text NULL) ";
+                    "	obserror text DEFAULT '') ";
                         SqlCommand myCommand = new SqlCommand(cabeceracomercial, conex);
                         try
                         {

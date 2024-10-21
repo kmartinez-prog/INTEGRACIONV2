@@ -1483,6 +1483,7 @@ namespace Contasis
             this.Name = "Frm_com_productosEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Editar inconsistencias de Productos Comercial";
+            this.Load += new System.EventHandler(this.Frm_com_productosEditor_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

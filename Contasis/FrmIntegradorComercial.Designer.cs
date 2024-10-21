@@ -87,6 +87,11 @@ namespace Contasis
             this.txtventascomercial = new System.Windows.Forms.TextBox();
             this.txtasientoscompras = new System.Windows.Forms.TextBox();
             this.txtventasasientos = new System.Windows.Forms.TextBox();
+            this.txtActualizastock = new System.Windows.Forms.TextBox();
+            this.txtAnularcompras = new System.Windows.Forms.TextBox();
+            this.txtanulasventas = new System.Windows.Forms.TextBox();
+            this.txtActualizarstocanular = new System.Windows.Forms.TextBox();
+            this.txtubigeo = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -294,7 +299,6 @@ namespace Contasis
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(558, 444);
             this.panel6.TabIndex = 35;
-            this.panel6.Paint += new System.Windows.Forms.PaintEventHandler(this.panel6_Paint);
             // 
             // button1
             // 
@@ -557,6 +561,7 @@ namespace Contasis
             // 
             // btngrabar
             // 
+            this.btngrabar.Enabled = false;
             this.btngrabar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btngrabar.Image = global::Contasis.Properties.Resources._93;
             this.btngrabar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -657,7 +662,7 @@ namespace Contasis
             // txtventascomercial
             // 
             this.txtventascomercial.BackColor = System.Drawing.Color.PapayaWhip;
-            this.txtventascomercial.Location = new System.Drawing.Point(1218, 133);
+            this.txtventascomercial.Location = new System.Drawing.Point(1218, 129);
             this.txtventascomercial.Multiline = true;
             this.txtventascomercial.Name = "txtventascomercial";
             this.txtventascomercial.Size = new System.Drawing.Size(274, 118);
@@ -667,7 +672,7 @@ namespace Contasis
             // txtasientoscompras
             // 
             this.txtasientoscompras.BackColor = System.Drawing.Color.PapayaWhip;
-            this.txtasientoscompras.Location = new System.Drawing.Point(1218, 269);
+            this.txtasientoscompras.Location = new System.Drawing.Point(1218, 253);
             this.txtasientoscompras.Multiline = true;
             this.txtasientoscompras.Name = "txtasientoscompras";
             this.txtasientoscompras.Size = new System.Drawing.Size(274, 118);
@@ -677,18 +682,73 @@ namespace Contasis
             // txtventasasientos
             // 
             this.txtventasasientos.BackColor = System.Drawing.Color.PapayaWhip;
-            this.txtventasasientos.Location = new System.Drawing.Point(1218, 400);
+            this.txtventasasientos.Location = new System.Drawing.Point(1218, 384);
             this.txtventasasientos.Multiline = true;
             this.txtventasasientos.Name = "txtventasasientos";
             this.txtventasasientos.Size = new System.Drawing.Size(274, 118);
             this.txtventasasientos.TabIndex = 11;
             this.txtventasasientos.Text = resources.GetString("txtventasasientos.Text");
             // 
+            // txtActualizastock
+            // 
+            this.txtActualizastock.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.txtActualizastock.Location = new System.Drawing.Point(939, 539);
+            this.txtActualizastock.Multiline = true;
+            this.txtActualizastock.Name = "txtActualizastock";
+            this.txtActualizastock.Size = new System.Drawing.Size(273, 118);
+            this.txtActualizastock.TabIndex = 12;
+            this.txtActualizastock.Text = resources.GetString("txtActualizastock.Text");
+            // 
+            // txtAnularcompras
+            // 
+            this.txtAnularcompras.BackColor = System.Drawing.Color.DarkOrange;
+            this.txtAnularcompras.Location = new System.Drawing.Point(658, 539);
+            this.txtAnularcompras.Multiline = true;
+            this.txtAnularcompras.Name = "txtAnularcompras";
+            this.txtAnularcompras.Size = new System.Drawing.Size(274, 118);
+            this.txtAnularcompras.TabIndex = 13;
+            this.txtAnularcompras.Text = resources.GetString("txtAnularcompras.Text");
+            // 
+            // txtanulasventas
+            // 
+            this.txtanulasventas.BackColor = System.Drawing.Color.DarkOrange;
+            this.txtanulasventas.Location = new System.Drawing.Point(658, 663);
+            this.txtanulasventas.Multiline = true;
+            this.txtanulasventas.Name = "txtanulasventas";
+            this.txtanulasventas.Size = new System.Drawing.Size(274, 118);
+            this.txtanulasventas.TabIndex = 14;
+            this.txtanulasventas.Text = resources.GetString("txtanulasventas.Text");
+            // 
+            // txtActualizarstocanular
+            // 
+            this.txtActualizarstocanular.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.txtActualizarstocanular.Location = new System.Drawing.Point(939, 663);
+            this.txtActualizarstocanular.Multiline = true;
+            this.txtActualizarstocanular.Name = "txtActualizarstocanular";
+            this.txtActualizarstocanular.Size = new System.Drawing.Size(274, 118);
+            this.txtActualizarstocanular.TabIndex = 15;
+            this.txtActualizarstocanular.Text = resources.GetString("txtActualizarstocanular.Text");
+            // 
+            // txtubigeo
+            // 
+            this.txtubigeo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtubigeo.Location = new System.Drawing.Point(1218, 587);
+            this.txtubigeo.Multiline = true;
+            this.txtubigeo.Name = "txtubigeo";
+            this.txtubigeo.Size = new System.Drawing.Size(274, 118);
+            this.txtubigeo.TabIndex = 16;
+            this.txtubigeo.Text = resources.GetString("txtubigeo.Text");
+            // 
             // FrmIntegradorComercial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(643, 554);
+            this.ClientSize = new System.Drawing.Size(641, 557);
+            this.Controls.Add(this.txtubigeo);
+            this.Controls.Add(this.txtActualizarstocanular);
+            this.Controls.Add(this.txtanulasventas);
+            this.Controls.Add(this.txtAnularcompras);
+            this.Controls.Add(this.txtActualizastock);
             this.Controls.Add(this.txtventasasientos);
             this.Controls.Add(this.txtasientoscompras);
             this.Controls.Add(this.txtventascomercial);
@@ -706,7 +766,7 @@ namespace Contasis
             this.MinimizeBox = false;
             this.Name = "FrmIntegradorComercial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Configuración de Entorno para Comercial";
+            this.Text = "Configuracion de comercial";
             this.Load += new System.EventHandler(this.FrmIntegradorComercial_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -780,5 +840,10 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtventascomercial;
         private System.Windows.Forms.TextBox txtasientoscompras;
         private System.Windows.Forms.TextBox txtventasasientos;
+        private System.Windows.Forms.TextBox txtActualizastock;
+        private System.Windows.Forms.TextBox txtAnularcompras;
+        private System.Windows.Forms.TextBox txtanulasventas;
+        private System.Windows.Forms.TextBox txtActualizarstocanular;
+        private System.Windows.Forms.TextBox txtubigeo;
     }
 }

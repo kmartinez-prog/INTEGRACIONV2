@@ -30,7 +30,7 @@ namespace Contasis.Clase
                 " convert(varchar, a.ffechaalm, 103)  AS FEC_ALMACEN, isnull(a.ccodpag, b.ccodpag) AS CONDICION_PAGO, isnull(a.cmoneda, '') AS MONEDA"+
                 ", a.ntcigv AS TIPO_CAMBIO,a.cguiaser AS SERIE_GUIA,a.cguianum AS NUMERO_GUIA,a.mdsc AS INF_ADICIONAL_DOC,b.ccodvend AS COD_VENDEDOR,a.ccodclas AS COD_CLASI_BBSS"+
                 ",isnull(a.ccodocon, '') AS OTROS_CONCEPTOS, isnull(a.cnumordc, '') AS ORDEN_COMPRA, isnull(a.crefdoc, '') AS TIP_REFERENCIA,"+
-                " isnull(a.freffec, '') AS FEC_DOC_REFERENCIA, isnull(a.crefser, '') AS SERIE_DOC_REFERENCIA, isnull(a.crefnum, '') AS NUMERO_REFERENCIA,"+
+                "convert(varchar, a.freffec, 103)  AS FEC_DOC_REFERENCIA, isnull(a.crefser, '') AS SERIE_DOC_REFERENCIA, isnull(a.crefnum, '') AS NUMERO_REFERENCIA," +
                 " isnull(a.ccat09, '') AS COD_MOTIVO_NOTACREDITO, isnull(a.cmotinc, '') AS MOTIVO_NOTACREDITO, isnull(a.nresp, 0) AS REG_ESPECIAL, isnull(a.ccodpds, '') AS COD_DETRACCION"+
                 ", isnull(a.nporre, 0.00) AS PORCENTAJE_DETRACCION,"+
                 " convert(varchar, a.ffecre, 103) AS FEC_DEPOSITO"+
@@ -124,25 +124,107 @@ namespace Contasis.Clase
             }
         }
 
+        public DataTable listar_detalle_sql(Clase.Comercial_documentoPropiedades Objet)
+        {
+
+            SqlDataReader carga;
+            DataTable grilla = new DataTable();
+            SqlConnection cone = new SqlConnection();
+            try
+            {
+                string query = "SELECT ccodalma as COD_ALMACEN,ccodprod AS COD_PROD ,ccodmed as COD_MEDIDA" +
+                               ", ccodlote as COD_LOTE,nuniori as CANTIDAD  ,nvvori AS VALOR_VENTA  ,npvori AS PRECIO_VENTA  ,nvalor AS VALOR" +
+                               ", nigvtot AS VALOR_IMPUESTO,ntotori AS  TOTAL,npigv as IGV ,ccodcos AS COD_CENTROCOSTO ,ccodcos2 AS COD_CENTROCOSTO2" +
+                               ",ccodpresu AS COD_PRESUPUESTO ,cctaprod AS CUENTA_PRODUCTO,npordscu AS PORS_DESCUENTO,ndsctos AS MONTO_DESCUENTO,ccodisc AS COD_ISC" +
+                               ",nporisc AS PORCISC,nisc AS MONTO_ISC,tipo_isc AS TIPO_ISC,mdscl AS DESCRIP_ADICIONAL ,convert(varchar, ffecfablote, 103)  AS FECHA_FABLOTE" +
+                               ", convert(varchar, ffecvenlote, 103)  AS FECHA_VENLOTE,iddetalledocumento AS IDUNICO" +
+                               " FROM com_detalledocumento where iddocumento ='" + Objet.Id.Trim() + "'";
+                cone = ConexionSql.Instancial().establecerconexion();
+                SqlCommand commando = new SqlCommand(query, cone);
+                cone.Open();
+                carga = commando.ExecuteReader();
+                grilla.Load(carga);
+                return grilla;
+            }
+            catch (Exception ex1)
+            {
+
+                throw ex1;
+            }
+            finally
+            {
+                if (cone.State == ConnectionState.Open)
+                {
+                    cone.Close();
+                }
+
+            }
+        }
+        public DataTable listar_detalle_postgres(Clase.Comercial_documentoPropiedades Objet)
+        {
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+            NpgsqlDataReader carga;
+            DataTable grilla = new DataTable();
+            try
+            {
+
+                string query = "SELECT ccodalma as COD_ALMACEN,ccodprod AS COD_PROD ,ccodmed as COD_MEDIDA" +
+                               ", ccodlote as COD_LOTE,nuniori as CANTIDAD  ,nvvori AS VALOR_VENTA  ,npvori AS PRECIO_VENTA  ,nvalor AS VALOR" +
+                               ", nigvtot AS VALOR_IMPUESTO,ntotori AS  TOTAL,npigv as IGV ,ccodcos AS COD_CENTROCOSTO ,ccodcos2 AS COD_CENTROCOSTO2" +
+                               ",ccodpresu AS COD_PRESUPUESTO ,cctaprod AS CUENTA_PRODUCTO,npordscu AS PORS_DESCUENTO,ndsctos AS MONTO_DESCUENTO,ccodisc AS COD_ISC" +
+                               ",nporisc AS PORCISC,nisc AS MONTO_ISC,tipo_isc AS TIPO_ISC,mdscl AS DESCRIP_ADICIONAL ," +
+                               "to_char(ffecfablote, 'yyyymmdd')    AS FECHA_FABLOTE," +
+                               "to_char(ffecvenlote, 'yyyymmdd')    AS FECHA_VENLOTE,iddetalledocumento AS IDUNICO" +
+                               " FROM com_detalledocumento where iddocumento ='" + Objet.Id.Trim() + "'";
+                NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
+                carga = commando.ExecuteReader();
+                grilla.Load(carga);
+                return grilla;
+            }
+            catch (Exception ex1)
+            {
+                throw ex1;
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+
+            }
+        }
 
 
 
 
 
-        public string eliminarsql(Clase.Comercial_productos_propiedades Objet)
+
+
+        public string eliminarsql(Clase.Comercial_documentoPropiedades Objet)
         {
             string cadena = "";
+            string cadena2 = "";
 
             DataTable Tabla = new DataTable();
             SqlConnection cone = new SqlConnection();
 
             try
             {
-                string cadena1 = "Delete from com_producto  where idproducto=" + Objet.Id + "";
+                string cadena1 = "Delete from com_detalledocumento  where iddocumento=" + Objet.Id + "";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(cadena1, cone);
                 cone.Open();
                 cadena = commando.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
+
+                string cadena3 = "Delete from com_documento  where iddocumento=" + Objet.Id + "";
+                cone = ConexionSql.Instancial().establecerconexion();
+                SqlCommand commando2 = new SqlCommand(cadena3, cone);
+                cone.Open();
+                cadena2 = commando2.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
+
             }
             catch (Exception ex1)
             {
@@ -159,7 +241,7 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string eliminarpos(Clase.Comercial_productos_propiedades Objet)
+        public string eliminarpos(Clase.Comercial_documentoPropiedades Objet)
         {
             string cadena = "";
             NpgsqlConnection conexion = new NpgsqlConnection();
@@ -167,9 +249,14 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string cadena1 = "Delete from com_producto  where idproducto=" + Objet.Id + "";
+                string cadena1 = "Delete from com_detalledocumento  where iddocumento=" + Objet.Id + "";
                 NpgsqlCommand command3 = new NpgsqlCommand(cadena1, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
+
+                string cadena2 = "Delete from com_documento  where iddocumento=" + Objet.Id + "";
+                NpgsqlCommand command4 = new NpgsqlCommand(cadena1, conexion);
+                cadena = command4.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
+
             }
             catch (Exception ex1)
             {
@@ -187,36 +274,68 @@ namespace Contasis.Clase
 
             return cadena;
         }
-        public string Actualizarsql(Clase.Comercial_productos_propiedades Objet)
+        /*******************************************************************************************************/
+        public string Actualizarsql(Clase.Comercial_documentoPropiedades Objet)
         {
             string cadena = "";
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "UPDATE com_producto SET ccodfamg ='" + Objet.Cod_grupo.Trim() + "',cdesfamg = '" + Objet.Descripcion_grupo.Trim() + "'" +
-                ",ccodfamf = '" + Objet.Cod_familia.Trim() + "',cdesfamf = '" + Objet.Desc_familia.Trim() + "',ccodprod = '" + Objet.Cod_producto.Trim() + "'" +
-                ",cdesprod = '" + Objet.Descripcion_producto.Trim() + "',cdesprodGen =  '" + Objet.Descripcion_general.Trim() + "',ccodtes =  '" + Objet.Existencia.Trim() + "'" +
-                ",cdesmar =  '" + Objet.Marca.Trim() + "',ccodmed =  '" + Objet.Unidad_medida.Trim() + "',ccodcatbs =  '" + Objet.Cod_osce.Trim() + "'" +
-                ",cdescatbs ='" + Objet.Descrip_osce.Trim() + "',ntipoprod ='" + Objet.Tipo.Trim() + "',nunidsec ='" + Objet.Unid_secundaria.Trim() + "',npesoprod =  '" + Objet.Peso.Trim() + "'" +
-                ",ccodbarras ='" + Objet.Cod_barra.Trim() + "',ninprod =  '" + Objet.Inhabilitar_prod.Trim() + "',nanuprod ='" + Objet.Para_anular.Trim() + "',nlote =  '" + Objet.Lote.Trim() + "'" +
-                ",nseruni =  '" + Objet.Serie_unica.Trim() + "',nicbper =  '" + Objet.Icbper.Trim() + "',nprodanti =  '" + Objet.Prod_anticipo.Trim() + "'" +
-                ",ngasrela = '" + Objet.Gasto_relacionado.Trim() + "',nprodsafniif =  '" + Objet.Prod_safnif.Trim() + "'" +
-                ",ccomcue =  '" + Objet.Cuenta_compras.Trim() + "',cvencue =  '" + Objet.Cuenta_ventas.Trim() + "'" +
-                ",cdebicue = '" + Objet.Costo_debito_salida.Trim() + "',ccredcue =  '" + Objet.Costos_credito_salida.Trim() + "'" +
-                ",cdebicuei ='" + Objet.Debito_costo_ingresos.Trim() + "',ccredcuei =  '" + Objet.Credito_costo_ingresos.Trim() + "'" +
-                ",ccodcos =  '" + Objet.Ccostos.Trim() + "',ccodcos2 =  '" + Objet.Ccostos2.Trim() + "',ccodpresu =  '" + Objet.Presupuesto.Trim() + "'" +
-                ",ccomprod = '" + Objet.Reg_compras.Trim() + "',cvenprod =  '" + Objet.Reg_ventas.Trim() + "',ccodisc =  '" + Objet.Afecto_isc.Trim() + "'" +
-                ",cmoneda =  '" + Objet.Moneda.Trim() + "',npreunit1 =  '" + Objet.Precio1.Trim() + "',npreunit2 =  '" + Objet.Precio2.Trim() + "'" +
-                ",npreunit3 ='" + Objet.Precio3.Trim() + "',npreunit4 =  '" + Objet.Precio4.Trim() + "',npreunit5 =  '" + Objet.Precio5.Trim() + "'" +
-                ",npreunit6 ='" + Objet.Precio6.Trim() + "',npreunit7 =  '" + Objet.Precio7.Trim() + "',npreunit8 =  '" + Objet.Precio8.Trim() + "'" +
-                ",npreunit9 ='" + Objet.Precio9.Trim() + "',npreunit10 =  '" + Objet.Precio10.Trim() + "',npreunit11 =  '" + Objet.Precio11.Trim() + "'" +
-                ",npreunit12 =  '" + Objet.Precio12.Trim() + "',npreunit13 =  '" + Objet.Precio13.Trim() + "',npreunit14 =  '" + Objet.Precio14.Trim() + "'" +
-                ",npreunit15 =  '" + Objet.Precio15.Trim() + "',nstockmin =  '" + Objet.Stock_minimo.Trim() + "',nstockmax =  '" + Objet.Stock_maximo.Trim() + "'" +
-                ",nrango1 =  '" + Objet.Limite_inferior_precio.Trim() + "',nrango2 =  '" + Objet.Limite_superior_precio.Trim() + "'" +
-                ",nresp =  '" + Objet.Regimen_especial.Trim() + "',ccodpps =  '" + Objet.Codigo_percepcion.Trim() + "',ccodpds =  '" + Objet.Codigo_detraccion.Trim() + "'" +
-                ",nagemonmin =  '" + Objet.Monto_minimo.Trim() + "',ccodlabora =  '" + Objet.Codigo_laboratorio.Trim() + "'" +
-                ",cdeslabora =  '" + Objet.Descripcion_laboratorio.Trim() + "',es_con_migracion =0 " +
-                ",obserror ='' WHERE idproducto=" + Objet.Id + "";
+                string query= "UPDATE com_documento SET ccodmov ='" + Objet.Cod_movimiento.Trim() + "'" +
+                ", ccoddoc ='" + Objet.Cod_documento.Trim() + "'" +
+                ",cserie ='" + Objet.Serie.Trim() + "'" +
+                ", cnumero = '" + Objet.Numero.Trim() + "'" +
+                ",ccodenti ='" + Objet.Cod_entiedad.Trim() + "'" +
+                ",cdesenti ='" + Objet.Nombre_entidad.Trim() + "'" +
+                ",ccodtipent ='" + Objet.Tipo_doc_entidad.Trim() + "'" +
+                ",ccodruc ='" + Objet.Ruc_rz.Trim() + "'" +
+                ",crazsoc ='" + Objet.Razon_social.Trim() + "'" +
+                ",cdirecc ='" + Objet.Direc_cliente.Trim() + "'" +
+                ",ccodubi ='" + Objet.Ubigeo.Trim() + "'" +
+                ",ccodcontac ='" + Objet.Contacto.Trim() + "'" +
+                ",cdescontacto ='" + Objet.Nomb_contacto.Trim() + "'" +
+                ",ffecha ='" + Objet.Fec_documento.Trim() +"'" +
+                ",ffechaven = '" + Objet.Fec_vencimiento.Trim() + "'" +
+                ",ffechaalm = '" + Objet.Fec_almacen.Trim()+ "'" +
+                ",ccodpag =  '" + Objet.Condicion_pago.Trim() + "'" +
+                ",cmoneda =  '" + Objet.Moneda.Trim() + "'" +
+                ",ntcigv =  '" + Objet.Tipo_cambio.Trim() + "'" +
+                ",cguiaser =  '" + Objet.Serie_guia.Trim() + "'" +
+                ",cguianum =  '" + Objet.Numero_guia.Trim() + "'" +
+                ",mdsc =  '" + Objet.Inf_adicional_doc.Trim() + "'" +
+                ",ccodvend =  '" + Objet.Cod_vendedor.Trim() + "'" +
+                ",ccodclas =  '" + Objet.Cod_clasi_bbss.Trim() + "'" +
+                ",ccodocon =  '" + Objet.Otros_conceptos.Trim() + "'" +
+                ",cnumordc =  '" + Objet.Orden_compra.Trim() + "'" +
+                ",crefdoc =  '" + Objet.Tip_referencia.Trim() + "'" +
+                ",freffec =  '" + Objet.Fec_doc_referencia.Trim() + "'" +
+                ",crefser =  '" + Objet.Serie_doc_referencia.Trim() + "'" +
+                ",crefnum =  '" + Objet.Numero_referencia.Trim() + "'" +
+                ",ccat09 =  '" + Objet.Cod_motivo_notacredito.Trim() + "'" +
+                ",cmotinc =  '" + Objet.Motivo_notacredito.Trim() + "'" +
+                ",nresp =  '" + Objet.Reg_especial.Trim() + "'" +
+                ",ccodpds =  '" + Objet.Cod_detraccion.Trim() + "'" +
+                ",nporre =  '" + Objet.Porcentaje_detraccion.Trim() + "'" +
+                ",ffecre =  '" + Objet.Fec_deposito.Trim() + "'" +
+                ",cnumdere =  '" + Objet.Contancia_deposito.Trim() + "'" +
+                ",ccodpps =  '" + Objet.Cod_percepcion.Trim() + "'" +
+                ",nporre2 =  '" + Objet.Porcentaje_percepcion.Trim() + "'" +
+                ",nperdenre =  '" + Objet.Documento_dentrofuera.Trim() + "'" +
+                ",nbase1 =  '" + Objet.Base_imp1.Trim() + "'" +
+                ",nigv1 =  '" + Objet.Igv1.Trim() + "'" +
+                ",nbase2 =  '" + Objet.Base_imp2.Trim() + "'" +
+                ",nigv2 =  '" + Objet.Igv2.Trim() + "'" +
+                ",nbase3 =  '" + Objet.Base_imp3.Trim() + "'" +
+                ",nigv3 =  '" + Objet.Igv3.Trim() + "'" +
+                ",nimpicbper =  '" + Objet.Imp_icbper.Trim() + "'" +
+                ",nina =  '" + Objet.Imp_inafecto.Trim() + "'" +
+                ",nexo =  '" + Objet.Imp_exonerado.Trim() + "'" +
+                ",nisc =  '" + Objet.Imp_isc.Trim() + "'" +
+                ",nivabase =  '" + Objet.Base_ivap.Trim() + "'" +
+                ",nivaimp =  '" + Objet.Igv_ivap.Trim() + "'" +
+                ",nimpant =  '" + Objet.Imp_anticipo.Trim() + "'" +
+                ",ntot =  '" + Objet.Total.Trim() + "'" +
+                ", es_con_migracion = 0,obserror = '' WHERE iddocumento ='" + Objet.Id.Trim()+"'";
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
@@ -237,7 +356,7 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string Actualizarpos(Clase.Comercial_productos_propiedades Objet)
+        public string Actualizarpos(Clase.Comercial_documentoPropiedades Objet)
         {
             string cadena = "";
             NpgsqlConnection conexion = new NpgsqlConnection();
@@ -245,32 +364,61 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-
-
-                string query = "UPDATE com_producto SET ccodfamg ='" + Objet.Cod_grupo + "',cdesfamg = '" + Objet.Descripcion_grupo + "'" +
-                ",ccodfamf = '" + Objet.Cod_familia + "',cdesfamf = '" + Objet.Desc_familia + "',ccodprod = '" + Objet.Cod_producto + "'" +
-                ",cdesprod = '" + Objet.Descripcion_producto + "',cdesprodGen =  '" + Objet.Descripcion_general + "',ccodtes =  '" + Objet.Existencia + "'" +
-                ",cdesmar =  '" + Objet.Marca + "',ccodmed =  '" + Objet.Unidad_medida + "',ccodcatbs =  '" + Objet.Cod_osce + "'" +
-                ",cdescatbs ='" + Objet.Descrip_osce + "',ntipoprod ='" + Objet.Tipo + "',nunidsec ='" + Objet.Unid_secundaria + "',npesoprod =  '" + Objet.Peso + "'" +
-                ",ccodbarras ='" + Objet.Cod_barra + "',ninprod =  '" + Objet.Inhabilitar_prod + "',nanuprod ='" + Objet.Para_anular + "',nlote =  '" + Objet.Lote + "'" +
-                ",nseruni =  '" + Objet.Serie_unica + "',nicbper =  '" + Objet.Icbper + "',nprodanti =  '" + Objet.Prod_anticipo + "'" +
-                ",ngasrela = '" + Objet.Gasto_relacionado + "',nprodsafniif =  '" + Objet.Prod_safnif + "'" +
-                ",ccomcue =  '" + Objet.Cuenta_compras + "',cvencue =  '" + Objet.Cuenta_ventas + "'" +
-                ",cdebicue = '" + Objet.Costo_debito_salida + "',ccredcue =  '" + Objet.Costos_credito_salida + "'" +
-                ",cdebicuei ='" + Objet.Debito_costo_ingresos + "',ccredcuei =  '" + Objet.Credito_costo_ingresos + "'" +
-                ",ccodcos =  '" + Objet.Ccostos + "',ccodcos2 =  '" + Objet.Ccostos2 + "',ccodpresu =  '" + Objet.Presupuesto + "'" +
-                ",ccomprod = '" + Objet.Reg_compras + "',cvenprod =  '" + Objet.Reg_ventas + "',ccodisc =  '" + Objet.Afecto_isc + "'" +
-                ",cmoneda =  '" + Objet.Moneda + "',npreunit1 =  '" + Objet.Precio1 + "',npreunit2 =  '" + Objet.Precio2 + "'" +
-                ",npreunit3 ='" + Objet.Precio3 + "',npreunit4 =  '" + Objet.Precio4 + "',npreunit5 =  '" + Objet.Precio5 + "'" +
-                ",npreunit6 ='" + Objet.Precio6 + "',npreunit7 =  '" + Objet.Precio7 + "',npreunit8 =  '" + Objet.Precio8 + "'" +
-                ",npreunit9 ='" + Objet.Precio9 + "',npreunit10 =  '" + Objet.Precio10 + "',npreunit11 =  '" + Objet.Precio11 + "'" +
-                ",npreunit12 =  '" + Objet.Precio12 + "',npreunit13 =  '" + Objet.Precio13 + "',npreunit14 =  '" + Objet.Precio14 + "'" +
-                ",npreunit15 =  '" + Objet.Precio15 + "',nstockmin =  '" + Objet.Stock_minimo + "',nstockmax =  '" + Objet.Stock_maximo + "'" +
-                ",nrango1 =  '" + Objet.Limite_inferior_precio + "',nrango2 =  '" + Objet.Limite_superior_precio + "'" +
-                ",nresp =  '" + Objet.Regimen_especial + "',ccodpps =  '" + Objet.Codigo_percepcion + "',ccodpds =  '" + Objet.Codigo_detraccion + "'" +
-                ",nagemonmin =  '" + Objet.Monto_minimo + "',ccodlabora =  '" + Objet.Codigo_laboratorio + "'" +
-                ",cdeslabora =  '" + Objet.Descripcion_laboratorio + "',es_con_migracion =0 " +
-                ",obserror ='' WHERE idproducto=" + Objet.Id + "";
+                string query = "UPDATE com_documento SET ccodmov ='" + Objet.Cod_movimiento.Trim() + "'" +
+               ", ccoddoc ='" + Objet.Cod_documento.Trim() + "'" +
+               ",cserie ='" + Objet.Serie.Trim() + "'" +
+               ", cnumero = '" + Objet.Numero.Trim() + "'" +
+               ",ccodenti ='" + Objet.Cod_entiedad.Trim() + "'" +
+               ",cdesenti ='" + Objet.Nombre_entidad.Trim() + "'" +
+               ",ccodtipent ='" + Objet.Tipo_doc_entidad.Trim() + "'" +
+               ",ccodruc ='" + Objet.Ruc_rz.Trim() + "'" +
+               ",crazsoc ='" + Objet.Razon_social.Trim() + "'" +
+               ",cdirecc ='" + Objet.Direc_cliente.Trim() + "'" +
+               ",ccodubi ='" + Objet.Ubigeo.Trim() + "'" +
+               ",ccodcontac ='" + Objet.Contacto.Trim() + "'" +
+               ",cdescontacto ='" + Objet.Nomb_contacto.Trim() + "'" +
+               ",ffecha ='" + Objet.Fec_documento.Trim() + "'" +
+               ",ffechaven = '" + Objet.Fec_vencimiento.Trim() + "'" +
+               ",ffechaalm = '" + Objet.Fec_almacen.Trim() + "'" +
+               ",ccodpag =  '" + Objet.Condicion_pago.Trim() + "'" +
+               ",cmoneda =  '" + Objet.Moneda.Trim() + "'" +
+               ",ntcigv =  '" + Objet.Tipo_cambio.Trim() + "'" +
+               ",cguiaser =  '" + Objet.Serie_guia.Trim() + "'" +
+               ",cguianum =  '" + Objet.Numero_guia.Trim() + "'" +
+               ",mdsc =  '" + Objet.Inf_adicional_doc.Trim() + "'" +
+               ",ccodvend =  '" + Objet.Cod_vendedor.Trim() + "'" +
+               ",ccodclas =  '" + Objet.Cod_clasi_bbss.Trim() + "'" +
+               ",ccodocon =  '" + Objet.Otros_conceptos.Trim() + "'" +
+               ",cnumordc =  '" + Objet.Orden_compra.Trim() + "'" +
+               ",crefdoc =  '" + Objet.Tip_referencia.Trim() + "'" +
+               ",freffec =  '" + Objet.Fec_doc_referencia.Trim() + "'" +
+               ",crefser =  '" + Objet.Serie_doc_referencia.Trim() + "'" +
+               ",crefnum =  '" + Objet.Numero_referencia.Trim() + "'" +
+               ",ccat09 =  '" + Objet.Cod_motivo_notacredito.Trim() + "'" +
+               ",cmotinc =  '" + Objet.Motivo_notacredito.Trim() + "'" +
+               ",nresp =  '" + Objet.Reg_especial.Trim() + "'" +
+               ",ccodpds =  '" + Objet.Cod_detraccion.Trim() + "'" +
+               ",nporre =  '" + Objet.Porcentaje_detraccion.Trim() + "'" +
+               ",ffecre =  '" + Objet.Fec_deposito.Trim() + "'" +
+               ",cnumdere =  '" + Objet.Contancia_deposito.Trim() + "'" +
+               ",ccodpps =  '" + Objet.Cod_percepcion.Trim() + "'" +
+               ",nporre2 =  '" + Objet.Porcentaje_percepcion.Trim() + "'" +
+               ",nperdenre =  '" + Objet.Documento_dentrofuera.Trim() + "'" +
+               ",nbase1 =  '" + Objet.Base_imp1.Trim() + "'" +
+               ",nigv1 =  '" + Objet.Igv1.Trim() + "'" +
+               ",nbase2 =  '" + Objet.Base_imp2.Trim() + "'" +
+               ",nigv2 =  '" + Objet.Igv2.Trim() + "'" +
+               ",nbase3 =  '" + Objet.Base_imp3.Trim() + "'" +
+               ",nigv3 =  '" + Objet.Igv3.Trim() + "'" +
+               ",nimpicbper =  '" + Objet.Imp_icbper.Trim() + "'" +
+               ",nina =  '" + Objet.Imp_inafecto.Trim() + "'" +
+               ",nexo =  '" + Objet.Imp_exonerado.Trim() + "'" +
+               ",nisc =  '" + Objet.Imp_isc.Trim() + "'" +
+               ",nivabase =  '" + Objet.Base_ivap.Trim() + "'" +
+               ",nivaimp =  '" + Objet.Igv_ivap.Trim() + "'" +
+               ",nimpant =  '" + Objet.Imp_anticipo.Trim() + "'" +
+               ",ntot =  '" + Objet.Total.Trim() + "'" +
+               ", es_con_migracion = 0,obserror = '' WHERE iddocumento ='" + Objet.Id.Trim() + "'";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
 
@@ -299,32 +447,33 @@ namespace Contasis.Clase
             try
             {
                 string query = "SELECT a.iddocumento AS ID,a.ccodmodulo AS MODULO,b.ccodmov AS COD_MOVIMIENTO,a.ccoddoc AS COD_DOCUMENTO,b.cserie AS SERIE" +
-               ", a.cnumero AS NUMERO,b.Entidad AS COD_ENTIEDAD,a.cdesenti AS NOMBRE_ENTIDAD,a.ccodtipent AS TIPO_DOC_ENTIDAD,a.ccodruc AS RUC" +
-               ",a.crazsoc AS RAZON_SOCIAL,isnull(a.cdirecc, '') AS DIREC_CLIENTE, isnull(a.ccodubi, '') AS UBIGEO, isnull(a.ccodcontac, '') AS CONTACTO" +
-               ", a.cdescontacto AS NOMB_CONTACTO," +
-               " convert(varchar, a.ffecha, 103) AS FEC_DOCUMENTO," +
-               " convert(varchar, a.ffechaven, 103)  AS FEC_VENCIMIENTO," +
-               " convert(varchar, a.ffechaalm, 103)  AS FEC_ALMACEN, isnull(a.ccodpag, b.ccodpag) AS CONDICION_PAGO, isnull(a.cmoneda, '') AS MONEDA" +
-               ", a.ntcigv AS TIPO_CAMBIO,a.cguiaser AS SERIE_GUIA,a.cguianum AS NUMERO_GUIA,a.mdsc AS INF_ADICIONAL_DOC,b.ccodvend AS COD_VENDEDOR,a.ccodclas AS COD_CLASI_BBSS" +
-               ",isnull(a.ccodocon, '') AS OTROS_CONCEPTOS, isnull(a.cnumordc, '') AS ORDEN_COMPRA, isnull(a.crefdoc, '') AS TIP_REFERENCIA," +
-               " isnull(a.freffec, '') AS FEC_DOC_REFERENCIA, isnull(a.crefser, '') AS SERIE_DOC_REFERENCIA, isnull(a.crefnum, '') AS NUMERO_REFERENCIA," +
-               " isnull(a.ccat09, '') AS COD_MOTIVO_NOTACREDITO, isnull(a.cmotinc, '') AS MOTIVO_NOTACREDITO, isnull(a.nresp, 0) AS REG_ESPECIAL, isnull(a.ccodpds, '') AS COD_DETRACCION" +
-               ", isnull(a.nporre, 0.00) AS PORCENTAJE_DETRACCION," +
-               " convert(varchar, a.ffecre, 103) AS FEC_DEPOSITO" +
-               " , a.cnumdere AS CONTANCIA_DEPOSITO,isnull(a.ccodpps, '') AS COD_PERCEPCION, isnull(a.nporre2, 0.00) AS PORCENTAJE_PERCEPCION" +
-               ", isnull(a.nperdenre, 0.00) AS DOCUMENTO_DENTROFUERA, isnull(a.nbase1, 0.00) AS BASE_IMP1, isnull(a.nigv1, 0.00) AS IGV1, isnull(nbase2, 0.00) AS BASE_IMP2," +
-               " isnull(nigv2, 0.00) AS IGV2, isnull(nbase3, 0.00) AS BASE_IMP3, isnull(nigv3, 00) AS IGV3" +
-               ",isnull(a.nimpicbper, 0.00) AS IMP_ICBPER, isnull(a.nina, 0.00) AS IMP_INAFECTO, Isnull(a.nexo, 0.00) AS IMP_EXONERADO, Isnull(a.nisc, 0.00) AS IMP_ISC," +
-               " isnull(a.nivabase, 0.00) AS BASE_IVAP," +
-               " isnull(a.nivaimp, 0.00) AS IGV_IVAP, isnull(a.nimpant, 0.00) AS IMP_ANTICIPO" +
-               ",isnull(a.ntot, 0.00) AS TOTAL," +
-               " isnull(a.obserror, '') as OBSERVACION " +
-               " FROM com_documento a with(nolock) inner join configuracion2 b on  " +
-               " ltrim(a.ccodmodulo) = ltrim(b.Tipo) and  " +
-               " ltrim(a.ccoddoc) = ltrim(b.codtipdocu) and  " +
-               " ltrim(a.cserie) = ltrim(b.cserie)  " +
-               " where es_con_migracion =2 and " +
-               " ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "' and convert(varchar(900),obserror) ='" + Objet.Estado.Trim() + "'";
+                ", a.cnumero AS NUMERO,b.Entidad AS COD_ENTIEDAD,a.cdesenti AS NOMBRE_ENTIDAD,a.ccodtipent AS TIPO_DOC_ENTIDAD,a.ccodruc AS RUC" +
+                ",a.crazsoc AS RAZON_SOCIAL,isnull(a.cdirecc, '') AS DIREC_CLIENTE, isnull(a.ccodubi, '') AS UBIGEO, isnull(a.ccodcontac, '') AS CONTACTO" +
+                ", a.cdescontacto AS NOMB_CONTACTO," +
+                " convert(varchar, a.ffecha, 103) AS FEC_DOCUMENTO," +
+                " convert(varchar, a.ffechaven, 103)  AS FEC_VENCIMIENTO," +
+                " convert(varchar, a.ffechaalm, 103)  AS FEC_ALMACEN, isnull(a.ccodpag, b.ccodpag) AS CONDICION_PAGO, isnull(a.cmoneda, '') AS MONEDA" +
+                ", a.ntcigv AS TIPO_CAMBIO,a.cguiaser AS SERIE_GUIA,a.cguianum AS NUMERO_GUIA,a.mdsc AS INF_ADICIONAL_DOC,b.ccodvend AS COD_VENDEDOR,a.ccodclas AS COD_CLASI_BBSS" +
+                ",isnull(a.ccodocon, '') AS OTROS_CONCEPTOS, isnull(a.cnumordc, '') AS ORDEN_COMPRA, isnull(a.crefdoc, '') AS TIP_REFERENCIA," +
+                " isnull(a.freffec, '') AS FEC_DOC_REFERENCIA, isnull(a.crefser, '') AS SERIE_DOC_REFERENCIA, isnull(a.crefnum, '') AS NUMERO_REFERENCIA," +
+                " isnull(a.ccat09, '') AS COD_MOTIVO_NOTACREDITO, isnull(a.cmotinc, '') AS MOTIVO_NOTACREDITO, isnull(a.nresp, 0) AS REG_ESPECIAL, isnull(a.ccodpds, '') AS COD_DETRACCION" +
+                ", isnull(a.nporre, 0.00) AS PORCENTAJE_DETRACCION," +
+                " convert(varchar, a.ffecre, 103) AS FEC_DEPOSITO" +
+                " , a.cnumdere AS CONTANCIA_DEPOSITO,isnull(a.ccodpps, '') AS COD_PERCEPCION, isnull(a.nporre2, 0.00) AS PORCENTAJE_PERCEPCION" +
+                ", isnull(a.nperdenre, 0.00) AS DOCUMENTO_DENTROFUERA, isnull(a.nbase1, 0.00) AS BASE_IMP1, isnull(a.nigv1, 0.00) AS IGV1, isnull(nbase2, 0.00) AS BASE_IMP2," +
+                " isnull(nigv2, 0.00) AS IGV2, isnull(nbase3, 0.00) AS BASE_IMP3, isnull(nigv3, 00) AS IGV3" +
+                ",isnull(a.nimpicbper, 0.00) AS IMP_ICBPER, isnull(a.nina, 0.00) AS IMP_INAFECTO, Isnull(a.nexo, 0.00) AS IMP_EXONERADO, Isnull(a.nisc, 0.00) AS IMP_ISC," +
+                " isnull(a.nivabase, 0.00) AS BASE_IVAP," +
+                " isnull(a.nivaimp, 0.00) AS IGV_IVAP, isnull(a.nimpant, 0.00) AS IMP_ANTICIPO" +
+                ",isnull(a.ntot, 0.00) AS TOTAL," +
+                " isnull(a.obserror, '') as OBSERVACION " +
+                " FROM com_documento a with(nolock) inner join configuracion2 b on  " +
+                " ltrim(a.ccodmodulo) = ltrim(b.Tipo) and  " +
+                " ltrim(a.ccoddoc) = ltrim(b.codtipdocu) and  " +
+                " ltrim(a.cserie) = ltrim(b.cserie)  " +
+                " where a.es_con_migracion = 2  and a.ccodrucemisor='" + Objet.Ruc.Trim() + "' and a.ccod_empresa='" + Objet.Empresa.Trim() + "' and convert(varchar(900),obserror) like '%" + Objet.Estado.Trim() + "%'";
+
+
                 cone = ConexionSql.Instancial().establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();

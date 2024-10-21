@@ -271,5 +271,10 @@ namespace Contasis
                 this.Close();
             }
         }
+
+        private void Frm_com_productosEditor_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -1456,7 +1456,7 @@ namespace Contasis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(638, 556);
+            this.ClientSize = new System.Drawing.Size(641, 556);
             this.Controls.Add(this.txt_cobra04);
             this.Controls.Add(this.txt_cobra03);
             this.Controls.Add(this.txt_cobra02);
