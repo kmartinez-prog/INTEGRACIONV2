@@ -39,6 +39,13 @@ namespace Contasis
             this.button1 = new System.Windows.Forms.Button();
             this.BtnSalir = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtLista = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.cmbrucemisor = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbempresas = new System.Windows.Forms.ComboBox();
+            this.btnMostrar = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,13 +96,6 @@ namespace Contasis
             this.Column48 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column49 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtLista = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.cmbrucemisor = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cmbempresas = new System.Windows.Forms.ComboBox();
-            this.btnMostrar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -103,6 +103,7 @@ namespace Contasis
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Controls.Add(this.checkSeleccionar);
@@ -117,7 +118,7 @@ namespace Contasis
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 23);
+            this.comboBox1.Location = new System.Drawing.Point(11, 23);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(409, 21);
             this.comboBox1.TabIndex = 22;
@@ -127,7 +128,7 @@ namespace Contasis
             // 
             this.checkSeleccionar.AutoSize = true;
             this.checkSeleccionar.Enabled = false;
-            this.checkSeleccionar.Location = new System.Drawing.Point(147, 60);
+            this.checkSeleccionar.Location = new System.Drawing.Point(11, 47);
             this.checkSeleccionar.Name = "checkSeleccionar";
             this.checkSeleccionar.Size = new System.Drawing.Size(121, 19);
             this.checkSeleccionar.TabIndex = 2;
@@ -138,7 +139,7 @@ namespace Contasis
             // btnseleccionar
             // 
             this.btnseleccionar.Enabled = false;
-            this.btnseleccionar.Location = new System.Drawing.Point(16, 58);
+            this.btnseleccionar.Location = new System.Drawing.Point(11, 67);
             this.btnseleccionar.Name = "btnseleccionar";
             this.btnseleccionar.Size = new System.Drawing.Size(126, 27);
             this.btnseleccionar.TabIndex = 1;
@@ -259,6 +260,77 @@ namespace Contasis
             this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
             this.dataGridView2.Click += new System.EventHandler(this.dataGridView2_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(16, 442);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(130, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Total de Registros : 0";
+            // 
+            // txtLista
+            // 
+            this.txtLista.BackColor = System.Drawing.SystemColors.Info;
+            this.txtLista.Location = new System.Drawing.Point(453, 475);
+            this.txtLista.Multiline = true;
+            this.txtLista.Name = "txtLista";
+            this.txtLista.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLista.Size = new System.Drawing.Size(494, 101);
+            this.txtLista.TabIndex = 20;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(22, 118);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(130, 15);
+            this.label25.TabIndex = 22;
+            this.label25.Text = "Seleccione ruc Emisor";
+            // 
+            // cmbrucemisor
+            // 
+            this.cmbrucemisor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbrucemisor.FormattingEnabled = true;
+            this.cmbrucemisor.Location = new System.Drawing.Point(22, 136);
+            this.cmbrucemisor.Name = "cmbrucemisor";
+            this.cmbrucemisor.Size = new System.Drawing.Size(356, 21);
+            this.cmbrucemisor.TabIndex = 21;
+            this.cmbrucemisor.SelectedIndexChanged += new System.EventHandler(this.cmbrucemisor_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(388, 118);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(121, 15);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Seleccione Empresa";
+            // 
+            // cmbempresas
+            // 
+            this.cmbempresas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbempresas.FormattingEnabled = true;
+            this.cmbempresas.Location = new System.Drawing.Point(384, 136);
+            this.cmbempresas.Name = "cmbempresas";
+            this.cmbempresas.Size = new System.Drawing.Size(228, 21);
+            this.cmbempresas.TabIndex = 24;
+            this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.cmbempresas_SelectedIndexChanged);
+            // 
+            // btnMostrar
+            // 
+            this.btnMostrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMostrar.Image = global::Contasis.Properties.Resources._3__Icono_Boton___Modificar;
+            this.btnMostrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMostrar.Location = new System.Drawing.Point(633, 131);
+            this.btnMostrar.Name = "btnMostrar";
+            this.btnMostrar.Size = new System.Drawing.Size(93, 28);
+            this.btnMostrar.TabIndex = 25;
+            this.btnMostrar.Text = "Filtrar";
+            this.btnMostrar.UseVisualStyleBackColor = true;
+            this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
+            // 
             // Column1
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
@@ -283,7 +355,6 @@ namespace Contasis
             this.Column3.HeaderText = "COD EMPRESA";
             this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
             this.Column3.Width = 125;
             // 
             // Column4
@@ -292,43 +363,43 @@ namespace Contasis
             this.Column4.HeaderText = "FECHA DE EMISIÓN DEL COMPROBANTE DE PAGO O DOCUMENTO";
             this.Column4.MinimumWidth = 6;
             this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
             this.Column4.Width = 125;
             // 
             // Column5
             // 
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Column5.DataPropertyName = "ffechaven";
             this.Column5.HeaderText = "FECHA DE VENCIMIENTO O FECHA DE PAGO";
             this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 125;
+            this.Column5.Width = 122;
             // 
             // Column6
             // 
+            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Column6.DataPropertyName = "ccoddoc";
             this.Column6.HeaderText = "TIPO COMPROBANTE";
             this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
-            this.Column6.Width = 125;
+            this.Column6.Width = 145;
             // 
             // Column7
             // 
+            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Column7.DataPropertyName = "cserie";
             this.Column7.HeaderText = "SERIE";
             this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.Width = 125;
+            this.Column7.Width = 72;
             // 
             // Column8
             // 
+            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Column8.DataPropertyName = "cnumero";
             this.Column8.HeaderText = "NUMERO";
             this.Column8.MinimumWidth = 6;
             this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Width = 125;
+            this.Column8.Width = 91;
             // 
             // Column9
             // 
@@ -344,7 +415,6 @@ namespace Contasis
             this.Column10.HeaderText = "DESCRIP. ENTIDAD";
             this.Column10.MinimumWidth = 6;
             this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
             this.Column10.Width = 125;
             // 
             // Column11
@@ -353,7 +423,6 @@ namespace Contasis
             this.Column11.HeaderText = "TIPO DOC.ENTIDAD";
             this.Column11.MinimumWidth = 6;
             this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
             this.Column11.Width = 125;
             // 
             // Column12
@@ -362,7 +431,6 @@ namespace Contasis
             this.Column12.HeaderText = "RUC";
             this.Column12.MinimumWidth = 6;
             this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
             this.Column12.Width = 125;
             // 
             // Column13
@@ -515,7 +583,6 @@ namespace Contasis
             this.Column31.HeaderText = "CONDICIÓN CONTADO ó CRÉDITO";
             this.Column31.MinimumWidth = 6;
             this.Column31.Name = "Column31";
-            this.Column31.ReadOnly = true;
             this.Column31.Width = 125;
             // 
             // Column32
@@ -524,7 +591,6 @@ namespace Contasis
             this.Column32.HeaderText = "CÓDIGO CENTRO DE COSTOS";
             this.Column32.MinimumWidth = 6;
             this.Column32.Name = "Column32";
-            this.Column32.ReadOnly = true;
             this.Column32.Width = 125;
             // 
             // Column33
@@ -533,7 +599,6 @@ namespace Contasis
             this.Column33.HeaderText = "CÓDIGO CENTRO DE COSTOS 2";
             this.Column33.MinimumWidth = 6;
             this.Column33.Name = "Column33";
-            this.Column33.ReadOnly = true;
             this.Column33.Width = 125;
             // 
             // Column34
@@ -542,7 +607,6 @@ namespace Contasis
             this.Column34.HeaderText = "CUENTA CONTABLE BASE IMPONIBLE";
             this.Column34.MinimumWidth = 6;
             this.Column34.Name = "Column34";
-            this.Column34.ReadOnly = true;
             this.Column34.Width = 125;
             // 
             // Column35
@@ -551,7 +615,6 @@ namespace Contasis
             this.Column35.HeaderText = "CUENTA CONTABLE ICBPER";
             this.Column35.MinimumWidth = 6;
             this.Column35.Name = "Column35";
-            this.Column35.ReadOnly = true;
             this.Column35.Width = 125;
             // 
             // Column36
@@ -560,7 +623,6 @@ namespace Contasis
             this.Column36.HeaderText = "CUENTA CONTABLE OTROS TRIBUTOS Y CARGOS";
             this.Column36.MinimumWidth = 6;
             this.Column36.Name = "Column36";
-            this.Column36.ReadOnly = true;
             this.Column36.Width = 125;
             // 
             // Column37
@@ -569,7 +631,6 @@ namespace Contasis
             this.Column37.HeaderText = "CUENTA CONTABLE TOTAL";
             this.Column37.MinimumWidth = 6;
             this.Column37.Name = "Column37";
-            this.Column37.ReadOnly = true;
             this.Column37.Width = 125;
             // 
             // Column38
@@ -578,7 +639,6 @@ namespace Contasis
             this.Column38.HeaderText = "REGIMEN ESPECIAL";
             this.Column38.MinimumWidth = 6;
             this.Column38.Name = "Column38";
-            this.Column38.ReadOnly = true;
             this.Column38.Width = 125;
             // 
             // Column39
@@ -587,7 +647,6 @@ namespace Contasis
             this.Column39.HeaderText = "PORCENTAJE RÉGIMEN ESPECIAL";
             this.Column39.MinimumWidth = 6;
             this.Column39.Name = "Column39";
-            this.Column39.ReadOnly = true;
             this.Column39.Width = 125;
             // 
             // Column40
@@ -596,7 +655,6 @@ namespace Contasis
             this.Column40.HeaderText = "IMPORTE RÉGIMEN ESPECIAL";
             this.Column40.MinimumWidth = 6;
             this.Column40.Name = "Column40";
-            this.Column40.ReadOnly = true;
             this.Column40.Width = 125;
             // 
             // Column41
@@ -605,7 +663,6 @@ namespace Contasis
             this.Column41.HeaderText = "SERIE DOCUMENTO RÉGIMEN ESPECIAL";
             this.Column41.MinimumWidth = 6;
             this.Column41.Name = "Column41";
-            this.Column41.ReadOnly = true;
             this.Column41.Width = 125;
             // 
             // Column42
@@ -614,7 +671,6 @@ namespace Contasis
             this.Column42.HeaderText = "NÚMERO DOCUMENTO RÉGIMEN ESPECIAL";
             this.Column42.MinimumWidth = 6;
             this.Column42.Name = "Column42";
-            this.Column42.ReadOnly = true;
             this.Column42.Width = 125;
             // 
             // Column43
@@ -623,7 +679,6 @@ namespace Contasis
             this.Column43.HeaderText = "FECHA DOCUMENTO RÉGIMEN ESPECIAL";
             this.Column43.MinimumWidth = 6;
             this.Column43.Name = "Column43";
-            this.Column43.ReadOnly = true;
             this.Column43.Width = 125;
             // 
             // Column44
@@ -632,7 +687,6 @@ namespace Contasis
             this.Column44.HeaderText = "CÓDIGO PRESUPUESTO";
             this.Column44.MinimumWidth = 6;
             this.Column44.Name = "Column44";
-            this.Column44.ReadOnly = true;
             this.Column44.Width = 125;
             // 
             // Column45
@@ -641,7 +695,6 @@ namespace Contasis
             this.Column45.HeaderText = "PORCENTAJE I.G.V.";
             this.Column45.MinimumWidth = 6;
             this.Column45.Name = "Column45";
-            this.Column45.ReadOnly = true;
             this.Column45.Width = 125;
             // 
             // Column46
@@ -650,7 +703,6 @@ namespace Contasis
             this.Column46.HeaderText = "MEDIO DE PAGO";
             this.Column46.MinimumWidth = 6;
             this.Column46.Name = "Column46";
-            this.Column46.ReadOnly = true;
             this.Column46.Width = 125;
             // 
             // Column47
@@ -659,7 +711,6 @@ namespace Contasis
             this.Column47.HeaderText = "CONDICIÓN DE PERCEPCIÓN";
             this.Column47.MinimumWidth = 6;
             this.Column47.Name = "Column47";
-            this.Column47.ReadOnly = true;
             this.Column47.Width = 125;
             // 
             // Column48
@@ -668,7 +719,6 @@ namespace Contasis
             this.Column48.HeaderText = "IMPORTE PARA CÁLCULO RÉGIMEN ESPECIAL";
             this.Column48.MinimumWidth = 6;
             this.Column48.Name = "Column48";
-            this.Column48.ReadOnly = true;
             this.Column48.Width = 125;
             // 
             // Column49
@@ -677,7 +727,6 @@ namespace Contasis
             this.Column49.HeaderText = "CUENTA CONTABLE PERCEPCIONES";
             this.Column49.MinimumWidth = 6;
             this.Column49.Name = "Column49";
-            this.Column49.ReadOnly = true;
             this.Column49.Width = 125;
             // 
             // Column50
@@ -686,79 +735,7 @@ namespace Contasis
             this.Column50.HeaderText = "OBSERVACIONES";
             this.Column50.MinimumWidth = 6;
             this.Column50.Name = "Column50";
-            this.Column50.ReadOnly = true;
             this.Column50.Width = 125;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(16, 442);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 13);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "Total de Registros : 0";
-            // 
-            // txtLista
-            // 
-            this.txtLista.BackColor = System.Drawing.SystemColors.Info;
-            this.txtLista.Location = new System.Drawing.Point(453, 475);
-            this.txtLista.Multiline = true;
-            this.txtLista.Name = "txtLista";
-            this.txtLista.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLista.Size = new System.Drawing.Size(494, 101);
-            this.txtLista.TabIndex = 20;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(22, 118);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(130, 15);
-            this.label25.TabIndex = 22;
-            this.label25.Text = "Seleccione ruc Emisor";
-            // 
-            // cmbrucemisor
-            // 
-            this.cmbrucemisor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbrucemisor.FormattingEnabled = true;
-            this.cmbrucemisor.Location = new System.Drawing.Point(22, 136);
-            this.cmbrucemisor.Name = "cmbrucemisor";
-            this.cmbrucemisor.Size = new System.Drawing.Size(356, 21);
-            this.cmbrucemisor.TabIndex = 21;
-            this.cmbrucemisor.SelectedIndexChanged += new System.EventHandler(this.cmbrucemisor_SelectedIndexChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(388, 118);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 15);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "Seleccione Empresa";
-            // 
-            // cmbempresas
-            // 
-            this.cmbempresas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbempresas.FormattingEnabled = true;
-            this.cmbempresas.Location = new System.Drawing.Point(384, 136);
-            this.cmbempresas.Name = "cmbempresas";
-            this.cmbempresas.Size = new System.Drawing.Size(228, 21);
-            this.cmbempresas.TabIndex = 24;
-            this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.cmbempresas_SelectedIndexChanged);
-            // 
-            // btnMostrar
-            // 
-            this.btnMostrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMostrar.Image = global::Contasis.Properties.Resources._3__Icono_Boton___Modificar;
-            this.btnMostrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMostrar.Location = new System.Drawing.Point(633, 131);
-            this.btnMostrar.Name = "btnMostrar";
-            this.btnMostrar.Size = new System.Drawing.Size(93, 28);
-            this.btnMostrar.TabIndex = 25;
-            this.btnMostrar.Text = "Filtrar";
-            this.btnMostrar.UseVisualStyleBackColor = true;
-            this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
             // 
             // FrmInconsistencia
             // 
@@ -811,6 +788,7 @@ namespace Contasis
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbempresas;
         private System.Windows.Forms.Button btnMostrar;
+        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -861,6 +839,5 @@ namespace Contasis
         private System.Windows.Forms.DataGridViewTextBoxColumn Column48;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column49;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column50;
-        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

@@ -525,7 +525,7 @@ namespace Contasis
                     label5.Text = "Tipo de movimiento de Ingreso:";
                     text03 = "select cserie::char(20) as serie,cserie::char(20) as serie2  from cc_movimiento where  ctipmov='I' and ccoddoc='" + codigo.ToString() + "';";
                 }
-                MessageBox.Show(text03);
+                
                 NpgsqlCommand cmd = new NpgsqlCommand(text03, cone1);
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
                 DataTable dt = new DataTable();

@@ -833,6 +833,24 @@ namespace Contasis
             }
         }
 
+        private void FrmInconsistencia_productos_comercial_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+                this.Hide();
+            }
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+
+            if (keyData == (Keys.Escape))
+            {
+                Close();
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         /*********************************************************************************/
     }
 }

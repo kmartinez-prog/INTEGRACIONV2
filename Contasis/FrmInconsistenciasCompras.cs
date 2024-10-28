@@ -733,7 +733,7 @@ namespace Contasis
         }
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+            if (dataGridView2.Rows[0].Cells[1].Value == null)
             { }
             else
             {

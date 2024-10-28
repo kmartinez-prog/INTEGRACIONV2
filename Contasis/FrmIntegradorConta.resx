@@ -149,23 +149,66 @@ begin
         idcompras, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodori_p, 
         ccodsu_p, ccodcue_ps, ccodcue_pd, ccodflu, flgctares, flgctaimp, 
         flgctaact, flggencomp, ccodtipent,
+        
         case when trim(coalesce(ffechadoc, ''))='' then null else ffechadoc::date end,
         case when trim(coalesce(fechaven, ''))='' then null else fechaven::date end,     
-        coalesce(ccoddoc,'') as ccoddoc, 
-        coalesce(ccoddas,'') as ccoddas, coalesce(cyeardas,'')as cyeardas, lpad(coalesce(cserie,''),20,'0') as cserie, lpad(coalesce(cnumero,''),20,'0') as cnumero, coalesce(ccodenti,'') as ccodenti, 
-	coalesce(cdesenti,'') as cdesenti, coalesce(ctipdoc,'') as ctipdoc, 
-        coalesce(ccodruc,'') as ccodruc, coalesce(crazsoc,'') as crazsoc, coalesce(ccodclas,'')as ccodclas, coalesce(nbase1, 0.00), coalesce(nigv1, 0.00) as nigv1, coalesce(nbase2, 0.00) as nbase2, coalesce(nigv2, 0.00) as nigv2, coalesce(nbase3, 0.00) as nbase3, 
-        coalesce(nigv3, 0.00) as nigv3, coalesce(nina,0.00) as nina, coalesce(nisc,0.00) as niac, coalesce(nicbper,0.00) as nicbper, coalesce(nexo,0.00) as nexo , coalesce(ntots,0.00) as ntots, coalesce(cdocnodom,'') as cdocnodom, coalesce(cnumdere,'') as cnumdere, 
+        coalesce(replace(ccoddoc, chr(141), ''),'') as ccoddoc, 
+        coalesce(replace(ccoddas, chr(141), ''),'') as ccoddas,
+        coalesce(replace(cyeardas, chr(141), ''),'')as cyeardas,
+        lpad(coalesce(replace(cserie, chr(141), ''),''),20,'0') as cserie,
+        lpad(coalesce(replace(cnumero, chr(141), ''),''),20,'0') as cnumero,
+        coalesce(replace(ccodenti, chr(141), ''),'') as ccodenti, 
+        coalesce(replace(cdesenti, chr(141), ''),'') as cdesenti,
+        coalesce(replace(ctipdoc, chr(141), ''),'') as ctipdoc, 
+        coalesce(replace(ccodruc, chr(141), ''),'') as ccodruc,
+        coalesce(replace(crazsoc, chr(141), ''),'') as crazsoc,
+        coalesce(replace(ccodclas, chr(141), ''),'')as ccodclas,
+        coalesce(nbase1, 0.00),
+        coalesce(nigv1, 0.00) as nigv1,
+        coalesce(nbase2, 0.00) as nbase2,
+        coalesce(nigv2, 0.00) as nigv2,
+        coalesce(nbase3, 0.00) as nbase3, 
+        coalesce(nigv3, 0.00) as nigv3,
+        coalesce(nina,0.00) as nina,
+        coalesce(nisc,0.00) as niac,
+        coalesce(nicbper,0.00) as nicbper,
+        coalesce(nexo,0.00) as nexo,
+        coalesce(ntots,0.00) as ntots,
+        coalesce(replace(cdocnodom, chr(141), ''),'') as cdocnodom,
+        coalesce(replace(cnumdere, chr(141), ''),'') as cnumdere, 
         case when trim(coalesce(ffecre, ''))='' then null else ffecre::date end,
-        ntc, case when trim(coalesce(freffec, ''))='' then null else freffec::date end,
-        coalesce(crefdoc,'') as crefdoc, coalesce(crefser,'') as crefser, coalesce(crefnum,'') as crefnum, coalesce(cmreg,'') as cmreg, coalesce(ndolar,0.00) as ndolar, 
+        ntc,
+        case when trim(coalesce(freffec, ''))='' then null else freffec::date end,
+        coalesce(replace(crefdoc, chr(141), ''),'') as crefdoc,
+        coalesce(replace(crefser, chr(141), ''),'') as crefser,
+        coalesce(replace(crefnum, chr(141), ''),'') as crefnum,
+        coalesce(replace(cmreg, chr(141), ''),'') as cmreg,
+        coalesce(ndolar,0.00) as ndolar, 
         case when trim(coalesce(ffechaven2, ''))='' then null else ffechaven2::date end,
-        coalesce(ccond,'') as ccod, coalesce(cctabase,'') as cctabase, coalesce(cctaicbper,'') as cctaicbper, coalesce(cctaotrib,'') as cctaotrib, coalesce(cctatot,'') as cctatot, 
-        coalesce(ccodcos,'') as ccodcos, coalesce(ccodcos2,'') as ccodcos2, 
-        coalesce(nresp,0.0) as nresp, coalesce(nporre,0.00) as nporre, coalesce(nimpres,0.00) as nimpres, coalesce(cserre,'') as cserre, coalesce(cnumre,'') as cnumre,
+        coalesce(replace(ccond, chr(141), ''),'') as ccod,
+        coalesce(replace(cctabase, chr(141), ''),'') as cctabase,
+        coalesce(replace(cctaicbper, chr(141), ''),'') as cctaicbper,
+        coalesce(replace(cctaotrib, chr(141), ''),'') as cctaotrib,
+        coalesce(replace(cctatot, chr(141), ''),'') as cctatot, 
+        coalesce(replace(ccodcos, chr(141), ''),'') as ccodcos,
+        coalesce(replace(ccodcos2, chr(141), ''),'') as ccodcos2, 
+        coalesce(nresp,0.0) as nresp,
+        coalesce(nporre,0.00) as nporre,
+        coalesce(nimpres,0.00) as nimpres,
+        coalesce(replace(cserre, chr(141), ''),'') as cserre,
+        coalesce(replace(cnumre, chr(141), ''),'') as cnumre,
         case when trim(coalesce(ffecre2, ''))='' then null else ffecre2::date end, 
-        coalesce(ccodpresu,'') as ccodpresu, nigv, coalesce(cglosa,'') as cglosa, coalesce(nperdenre,0.00) as nperdenre, coalesce(nbaseres,0.00) as nbaseres, coalesce(cigvxacre,'') as cigvxacre, 
-        estado, en_ambiente_de, es_con_migracion, ccodcos3,coalesce(ccodrucanula,'') as ccodrucanula
+        coalesce(replace(ccodpresu, chr(141), ''),'') as ccodpresu,
+        nigv,
+        coalesce(replace(cglosa, chr(141), ''),'') as cglosa,
+        coalesce(nperdenre,0.00) as nperdenre,
+        coalesce(nbaseres,0.00) as nbaseres,
+        coalesce(replace(cigvxacre, chr(141), ''),'') as cigvxacre, 
+        estado,
+        en_ambiente_de,
+        es_con_migracion,
+        ccodcos3,
+        coalesce(ccodrucanula,'') as ccodrucanula
     from json_to_recordset(a_json)
     as t(
         idcompras numeric(20,0),
@@ -265,10 +308,10 @@ $BODY$
   COST 100;</value>
   </data>
   <data name="txtguardarventas.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION public.func_guardar_fin_ventas(
-	OUT resultado text,
-	pjson text)
-    RETURNS text AS
+    <value>CREATE OR REPLACE FUNCTION func_guardar_fin_ventas(
+    OUT resultado text,
+    IN pjson text)
+  RETURNS text AS
 $BODY$
 
 declare 
@@ -279,14 +322,6 @@ begin
     Tipo:   1: Provision
             2: Anulacion
     */
-
-    /*
-        Observaciones
-        created_at timestamp without time zone,
-        updated_at timestamp without time zone,
-        se usan o no?
-        cual es su finalidad? (En postgres)
-    :*/
 
     -- 0. Truncar tabla
     truncate table fin_ventas;
@@ -302,25 +337,64 @@ begin
         ccond, ccodcos, ccodcos2, cctabase, cctaicbper, cctaotrib, cctatot, 
         nresp, nporre, nimpres, cserre, cnumre, ffecre, ccodpresu, nigv, 
         cglosa, ccodpago, nperdenre, nbaseres, cctaperc, -- created_at,updated_at, 
-	estado, en_ambiente_de, es_con_migracion, ccodcos3,ccodrucanula
+		estado, en_ambiente_de, es_con_migracion, ccodcos3,ccodrucanula
     )
     
     select
         idventas, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodori_p, 
-        ccodsu_p, ccodcue_ps, ccodcue_pd, ccodflu, flgctares, flgctaimp, 
-        flgctaact, flggencomp, ccodtipent,ffechadoc, ffechaven, ccoddoc, 
-        lpad(trim(coalesce(cserie,'')),20,'0') as cserie, lpad(trim(coalesce(cnumero,'')),20,'0') as cnumero, trim(ccodenti) as ccodenti, cdesenti, ctipdoc, trim(ccodruc) as ccodruc, crazsoc, 
-        coalesce(nbase2,0.00) as nbase2, coalesce(nbase1,0.00) as nbase1, coalesce(nexo,0.00) as nexo, coalesce(nina,0.00) as nina, coalesce(nisc,0.00) as nisc,
-        coalesce(nigv1,0.00) as nigv1, coalesce(nicbpers,0.00) as nicbpers, coalesce(nbase3,0.00) as nbase3, coalesce(ntots,0.00) as ntots, 
-        coalesce(ntc,0.00) as ntc,  case when freffec='' then null else freffec::date end freffec      , coalesce(crefdoc,'') as crefdoc, coalesce(crefser,'') as crefser, coalesce(crefnum,''), coalesce(cmreg,'') cmreg, ndolar, 
-        case when ffechaven2='' then null else ffechaven2::date end ffechaven2 , 
-       coalesce(ccond,'') as ccond, coalesce(ccodcos,'') as ccodcos, coalesce(ccodcos2,'') as ccodcos2, coalesce(cctabase,'') as cctabase, coalesce(cctaicbper,'') as cctaicbper, coalesce(cctaotrib,'') as cctaotrib, coalesce(cctatot,'') as cctatot, 
-        coalesce(nresp,0) as nresp, coalesce(nporre,0.00) as nporre, coalesce(nimpres,0.00) as nimpres, coalesce(cserre,'') as cserre, coalesce(cnumre,'') as cnumre, 
-        case when ffecre='' then null else ffecre::date end ffecre 
+		ccodsu_p, ccodcue_ps, ccodcue_pd, ccodflu, flgctares, flgctaimp, 
+		flgctaact, flggencomp, ccodtipent,
 
-        , coalesce(ccodpresu,'') as ccodpresu, coalesce(nigv,0.00) as nigv, 
-        coalesce(cglosa, '') as cglosa, coalesce(ccodpago,'') as ccodpago, coalesce(nperdenre,0) as nperdenre, coalesce(nbaseres,0.00) as nbaseres, coalesce(cctaperc,'') as cctaperc, -- current_timestamp as created_at, updated_at, 
-        coalesce(estado,'') as estado, coalesce(en_ambiente_de,'') as en_ambiente_de, es_con_migracion, coalesce(ccodcos3,'') as ccodcos3 ,coalesce(ccodrucanula,'') as ccodrucanula
+		ffechadoc, ffechaven, ccoddoc, 
+		lpad(trim(coalesce(replace(cserie, chr(141), ''),'')),20,'0') as cserie,
+		lpad(trim(coalesce(replace(cnumero, chr(141), ''),'')),20,'0') as cnumero,
+		trim(replace(ccodenti, chr(141), '')) as ccodenti,
+		replace(cdesenti, chr(141), ''),
+		replace(ctipdoc, chr(141), ''),
+		trim(replace(ccodruc, chr(141), '')) as ccodruc,
+		replace(crazsoc, chr(141), ''),
+		coalesce(nbase2,0.00) as nbase2,
+		coalesce(nbase1,0.00) as nbase1,
+		coalesce(nexo,0.00) as nexo,
+		coalesce(nina,0.00) as nina,
+		coalesce(nisc,0.00) as nisc,
+		coalesce(nigv1,0.00) as nigv1,
+		coalesce(nicbpers,0.00) as nicbpers,
+		coalesce(nbase3,0.00) as nbase3,
+		coalesce(ntots,0.00) as ntots, 
+		coalesce(ntc,0.00) as ntc,
+		case when freffec='' then null else freffec::date end freffec,
+		coalesce(replace(crefdoc, chr(141), ''),'') as crefdoc,
+		coalesce(replace(crefser, chr(141), ''),'') as crefser,
+		coalesce(replace(crefnum, chr(141), ''),''),
+		coalesce(replace(cmreg, chr(141), ''),'') cmreg,
+		ndolar, 
+		case when ffechaven2='' then null else ffechaven2::date end ffechaven2 , 
+		coalesce(replace(ccond, chr(141), ''),'') as ccond,
+		coalesce(replace(ccodcos, chr(141), ''),'') as ccodcos,
+		coalesce(replace(ccodcos2, chr(141), ''),'') as ccodcos2,
+		coalesce(replace(cctabase, chr(141), ''),'') as cctabase,
+		coalesce(replace(cctaicbper, chr(141), ''),'') as cctaicbper,
+		coalesce(replace(cctaotrib, chr(141), ''),'') as cctaotrib,
+		coalesce(replace(cctatot, chr(141), ''),'') as cctatot, 
+		coalesce(nresp,0) as nresp,
+		coalesce(nporre,0.00) as nporre,
+		coalesce(nimpres,0.00) as nimpres,
+		coalesce(replace(cserre, chr(141), ''),'') as cserre,
+		coalesce(replace(cnumre, chr(141), ''),'') as cnumre, 
+		case when ffecre='' then null else ffecre::date end ffecre,
+		coalesce(replace(ccodpresu, chr(141), ''),'') as ccodpresu,
+		coalesce(nigv,0.00) as nigv, 
+		coalesce(replace(cglosa, chr(141), ''), '') as cglosa,
+		coalesce(replace(ccodpago, chr(141), ''),'') as ccodpago,
+		coalesce(nperdenre,0) as nperdenre,
+		coalesce(nbaseres,0.00) as nbaseres,
+		coalesce(replace(cctaperc, chr(141), ''),'') as cctaperc,
+		coalesce(estado,'') as estado,
+		coalesce(en_ambiente_de,'') as en_ambiente_de,
+		es_con_migracion,
+		coalesce(ccodcos3,'') as ccodcos3,
+		coalesce(ccodrucanula,'') as ccodrucanula
     from json_to_recordset(a_json)
     as t(
         idventas numeric(20,0),
@@ -392,34 +466,10 @@ begin
         ccodcos3 character(15),
         ccodrucanula character(15)
     );
-	-- created_at timestamp without time zone,
-       -- updated_at timestamp without time zone,
-       
 
-    --2. llamar funcion de validar/generar asientos..., debe actualizar campo: resultado_migracion
-        -- resultado_migracion se debe completar luego de validar y/o generar el asiento
-        -- en vez de reemplazar el codigo en es_con_migracion, se debe agregar el estado en  "resultado_migracion"
-
+	-- 
 	perform fin_ventas_integracion_principal();
-    
-
-	/*
-        --=================================================
-        --=================== SIMULACION =====================
-        --==================================================
-        --if(tipo = 1)then
-            -- ok (1)
-            update fin_ventas set resultado_migracion=1 where idventas in (3, 5, 2);            
-        --elsif(tipo = 3)then
-            -- anulacion (4)
-            --update fin_ventas set resultado_migracion=4 where idventas in (3, 5, 2);
-        ---end if;
-
-        -- error (2)
-        update fin_ventas set resultado_migracion=2, obserror='Falta cuenta contable de igv' where idventas=1;
-        update fin_ventas set resultado_migracion=2, obserror='Error de numero de identidad de cliente' where idventas=4;    */   
-
-        
+            
 
     --3. Informe de importacion    
     select json_agg(json_build_object(
@@ -432,9 +482,7 @@ begin
 end; 
 $BODY$
   LANGUAGE plpgsql VOLATILE
-  COST 100;
-ALTER FUNCTION func_guardar_fin_ventas(text)
-  OWNER TO postgres;</value>
+  COST 100;</value>
   </data>
   <data name="txtanulacioncompras.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION func_guardar_integracion_anuladoc(pxml xml)
@@ -8815,6 +8863,325 @@ return 1;
 END; 
 $BODY$
   LANGUAGE plpgsql VOLATILE</value>
+  </data>
+  <data name="anteriofinventas.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION public.func_guardar_fin_ventas(
+	OUT resultado text,
+	pjson text)
+    RETURNS text AS
+$BODY$
+
+declare 
+	a_json json;
+begin
+
+    /*
+    Tipo:   1: Provision
+            2: Anulacion
+    */
+
+    /*
+        Observaciones
+        created_at timestamp without time zone,
+        updated_at timestamp without time zone,
+        se usan o no?
+        cual es su finalidad? (En postgres)
+    :*/
+
+    -- 0. Truncar tabla
+    truncate table fin_ventas;
+    a_json = pjson::json;
+    -- 1. Importar datos
+    INSERT INTO fin_ventas(
+        idventas, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodori_p, 
+        ccodsu_p, ccodcue_ps, ccodcue_pd, ccodflu, flgctares, flgctaimp, 
+        flgctaact, flggencomp, ccodtipent, ffechadoc, ffechaven, ccoddoc, 
+        cserie, cnumero, ccodenti, cdesenti, ctipdoc, ccodruc, crazsoc, 
+        nbase2, nbase1, nexo, nina, nisc, nigv1, nicbpers, nbase3, ntots, 
+        ntc, freffec, crefdoc, crefser, crefnum, cmreg, ndolar, ffechaven2, 
+        ccond, ccodcos, ccodcos2, cctabase, cctaicbper, cctaotrib, cctatot, 
+        nresp, nporre, nimpres, cserre, cnumre, ffecre, ccodpresu, nigv, 
+        cglosa, ccodpago, nperdenre, nbaseres, cctaperc, -- created_at,updated_at, 
+	estado, en_ambiente_de, es_con_migracion, ccodcos3,ccodrucanula
+    )
+    
+    select
+        idventas, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodori_p, 
+        ccodsu_p, ccodcue_ps, ccodcue_pd, ccodflu, flgctares, flgctaimp, 
+        flgctaact, flggencomp, ccodtipent,ffechadoc, ffechaven, ccoddoc, 
+        lpad(trim(coalesce(cserie,'')),20,'0') as cserie, lpad(trim(coalesce(cnumero,'')),20,'0') as cnumero, trim(ccodenti) as ccodenti, cdesenti, ctipdoc, trim(ccodruc) as ccodruc, crazsoc, 
+        coalesce(nbase2,0.00) as nbase2, coalesce(nbase1,0.00) as nbase1, coalesce(nexo,0.00) as nexo, coalesce(nina,0.00) as nina, coalesce(nisc,0.00) as nisc,
+        coalesce(nigv1,0.00) as nigv1, coalesce(nicbpers,0.00) as nicbpers, coalesce(nbase3,0.00) as nbase3, coalesce(ntots,0.00) as ntots, 
+        coalesce(ntc,0.00) as ntc,  case when freffec='' then null else freffec::date end freffec      , coalesce(crefdoc,'') as crefdoc, coalesce(crefser,'') as crefser, coalesce(crefnum,''), coalesce(cmreg,'') cmreg, ndolar, 
+        case when ffechaven2='' then null else ffechaven2::date end ffechaven2 , 
+       coalesce(ccond,'') as ccond, coalesce(ccodcos,'') as ccodcos, coalesce(ccodcos2,'') as ccodcos2, coalesce(cctabase,'') as cctabase, coalesce(cctaicbper,'') as cctaicbper, coalesce(cctaotrib,'') as cctaotrib, coalesce(cctatot,'') as cctatot, 
+        coalesce(nresp,0) as nresp, coalesce(nporre,0.00) as nporre, coalesce(nimpres,0.00) as nimpres, coalesce(cserre,'') as cserre, coalesce(cnumre,'') as cnumre, 
+        case when ffecre='' then null else ffecre::date end ffecre 
+
+        , coalesce(ccodpresu,'') as ccodpresu, coalesce(nigv,0.00) as nigv, 
+        coalesce(cglosa, '') as cglosa, coalesce(ccodpago,'') as ccodpago, coalesce(nperdenre,0) as nperdenre, coalesce(nbaseres,0.00) as nbaseres, coalesce(cctaperc,'') as cctaperc, -- current_timestamp as created_at, updated_at, 
+        coalesce(estado,'') as estado, coalesce(en_ambiente_de,'') as en_ambiente_de, es_con_migracion, coalesce(ccodcos3,'') as ccodcos3 ,coalesce(ccodrucanula,'') as ccodrucanula
+    from json_to_recordset(a_json)
+    as t(
+        idventas numeric(20,0),
+        ccod_empresa character(3),
+        cper character(4),
+        cmes character(2),
+        ccodori character(3),
+        ccodsu character(2),
+        ccodori_p character(3),
+        ccodsu_p character(2),
+        ccodcue_ps character(20),
+        ccodcue_pd character(20),
+        ccodflu character(4),
+        flgctares numeric(1,0),
+        flgctaimp numeric(1,0),
+        flgctaact numeric(1,0),
+        flggencomp numeric(1,0),
+        ccodtipent character(3),
+        ffechadoc date,
+        ffechaven date,
+        ccoddoc character(2),
+        cserie character(20),
+        cnumero character(20),
+        ccodenti character(11),
+        cdesenti character(100),
+        ctipdoc character(1),
+        ccodruc character(15),
+        crazsoc character(100),
+        nbase2 numeric(15,2),
+        nbase1 numeric(15,2),
+        nexo numeric(15,2),
+        nina numeric(15,2),
+        nisc numeric(15,2),
+        nigv1 numeric(15,2),
+        nicbpers numeric(15,2),
+        nbase3 numeric(15,2),
+        ntots numeric(15,2),
+        ntc numeric(10,6),
+        freffec character(10),
+        crefdoc character(2),
+        crefser character(6),
+        crefnum character(13),
+        cmreg character(1),
+        ndolar numeric(15,2),
+        ffechaven2 character(10),
+        ccond character(3),
+        ccodcos character(9),
+        ccodcos2 character(9),
+        cctabase character(20),
+        cctaicbper character(20),
+        cctaotrib character(20),
+        cctatot character(20),
+        nresp numeric(1,0),
+        nporre numeric(5,2),
+        nimpres numeric(15,2),
+        cserre character(6),
+        cnumre character(13),
+        ffecre character(10),
+        ccodpresu character(10),
+        nigv numeric(5,2),
+        cglosa character(80),
+        ccodpago character(3),
+        nperdenre numeric(1,0),
+        nbaseres numeric(15,2),
+        cctaperc character(20),
+        estado character varying(255),
+        en_ambiente_de character varying(255),
+        es_con_migracion numeric(1,0),
+        ccodcos3 character(15),
+        ccodrucanula character(15)
+    );
+	-- created_at timestamp without time zone,
+       -- updated_at timestamp without time zone,
+       
+
+    --2. llamar funcion de validar/generar asientos..., debe actualizar campo: resultado_migracion
+        -- resultado_migracion se debe completar luego de validar y/o generar el asiento
+        -- en vez de reemplazar el codigo en es_con_migracion, se debe agregar el estado en  "resultado_migracion"
+
+	perform fin_ventas_integracion_principal();
+    
+
+	/*
+        --=================================================
+        --=================== SIMULACION =====================
+        --==================================================
+        --if(tipo = 1)then
+            -- ok (1)
+            update fin_ventas set resultado_migracion=1 where idventas in (3, 5, 2);            
+        --elsif(tipo = 3)then
+            -- anulacion (4)
+            --update fin_ventas set resultado_migracion=4 where idventas in (3, 5, 2);
+        ---end if;
+
+        -- error (2)
+        update fin_ventas set resultado_migracion=2, obserror='Falta cuenta contable de igv' where idventas=1;
+        update fin_ventas set resultado_migracion=2, obserror='Error de numero de identidad de cliente' where idventas=4;    */   
+
+        
+
+    --3. Informe de importacion    
+    select json_agg(json_build_object(
+        'idventas', fc.idventas, 'obserror', fc.obserror, 'es_con_migracion', fc.es_con_migracion, 'resultado_migracion', fc.resultado_migracion
+    ))::text
+    from fin_ventas fc
+    into resultado;
+
+    
+end; 
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+ALTER FUNCTION func_guardar_fin_ventas(text)
+  OWNER TO postgres;</value>
+  </data>
+  <data name="anteriorcompras.Text" xml:space="preserve">
+    <value>CREATE OR REPLACE FUNCTION func_guardar_fin_compras(
+    OUT resultado text,
+    IN pjson text)
+  RETURNS text AS
+$BODY$
+declare 
+	a_json json;
+begin
+
+
+    -- 0. Truncar tabla
+    truncate table fin_compras;
+    a_json = pjson::json;
+    -- 1. Importar datos
+    INSERT INTO fin_compras(
+		    idcompras, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodori_p, 
+		    ccodsu_p, ccodcue_ps, ccodcue_pd, ccodflu, flgctares, flgctaimp, 
+		    flgctaact, flggencomp, ccodtipent, ffechadoc, fechaven, ccoddoc, 
+		    ccoddas, cyeardas, cserie, cnumero, ccodenti, cdesenti, ctipdoc, 
+		    ccodruc, crazsoc, ccodclas, nbase1, nigv1, nbase2, nigv2, nbase3, 
+		    nigv3, nina, nisc, nicbper, nexo, ntots, cdocnodom, cnumdere, 
+		    ffecre, ntc, freffec, crefdoc, crefser, crefnum, cmreg, ndolar, 
+		    ffechaven2, ccond, cctabase, cctaicbper, cctaotrib, cctatot, 
+		    ccodcos, ccodcos2, nresp, nporre, nimpres, cserre, cnumre, ffecre2, 
+		    ccodpresu, nigv, cglosa, nperdenre, nbaseres, cigvxacre, 
+		    estado, en_ambiente_de, es_con_migracion, ccodcos3,ccodrucanula
+    )
+    select
+        idcompras, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodori_p, 
+        ccodsu_p, ccodcue_ps, ccodcue_pd, ccodflu, flgctares, flgctaimp, 
+        flgctaact, flggencomp, ccodtipent,
+        case when trim(coalesce(ffechadoc, ''))='' then null else ffechadoc::date end,
+        case when trim(coalesce(fechaven, ''))='' then null else fechaven::date end,     
+        coalesce(ccoddoc,'') as ccoddoc, 
+        coalesce(ccoddas,'') as ccoddas, coalesce(cyeardas,'')as cyeardas, lpad(coalesce(cserie,''),20,'0') as cserie, lpad(coalesce(cnumero,''),20,'0') as cnumero, coalesce(ccodenti,'') as ccodenti, 
+	coalesce(cdesenti,'') as cdesenti, coalesce(ctipdoc,'') as ctipdoc, 
+        coalesce(ccodruc,'') as ccodruc, coalesce(crazsoc,'') as crazsoc, coalesce(ccodclas,'')as ccodclas, coalesce(nbase1, 0.00), coalesce(nigv1, 0.00) as nigv1, coalesce(nbase2, 0.00) as nbase2, coalesce(nigv2, 0.00) as nigv2, coalesce(nbase3, 0.00) as nbase3, 
+        coalesce(nigv3, 0.00) as nigv3, coalesce(nina,0.00) as nina, coalesce(nisc,0.00) as niac, coalesce(nicbper,0.00) as nicbper, coalesce(nexo,0.00) as nexo , coalesce(ntots,0.00) as ntots, coalesce(cdocnodom,'') as cdocnodom, coalesce(cnumdere,'') as cnumdere, 
+        case when trim(coalesce(ffecre, ''))='' then null else ffecre::date end,
+        ntc, case when trim(coalesce(freffec, ''))='' then null else freffec::date end,
+        coalesce(crefdoc,'') as crefdoc, coalesce(crefser,'') as crefser, coalesce(crefnum,'') as crefnum, coalesce(cmreg,'') as cmreg, coalesce(ndolar,0.00) as ndolar, 
+        case when trim(coalesce(ffechaven2, ''))='' then null else ffechaven2::date end,
+        coalesce(ccond,'') as ccod, coalesce(cctabase,'') as cctabase, coalesce(cctaicbper,'') as cctaicbper, coalesce(cctaotrib,'') as cctaotrib, coalesce(cctatot,'') as cctatot, 
+        coalesce(ccodcos,'') as ccodcos, coalesce(ccodcos2,'') as ccodcos2, 
+        coalesce(nresp,0.0) as nresp, coalesce(nporre,0.00) as nporre, coalesce(nimpres,0.00) as nimpres, coalesce(cserre,'') as cserre, coalesce(cnumre,'') as cnumre,
+        case when trim(coalesce(ffecre2, ''))='' then null else ffecre2::date end, 
+        coalesce(ccodpresu,'') as ccodpresu, nigv, coalesce(cglosa,'') as cglosa, coalesce(nperdenre,0.00) as nperdenre, coalesce(nbaseres,0.00) as nbaseres, coalesce(cigvxacre,'') as cigvxacre, 
+        estado, en_ambiente_de, es_con_migracion, ccodcos3,coalesce(ccodrucanula,'') as ccodrucanula
+    from json_to_recordset(a_json)
+    as t(
+        idcompras numeric(20,0),
+        ccod_empresa character(3),
+        cper character(4),
+        cmes character(2),
+        ccodori character(3),
+        ccodsu character(2),
+        ccodori_p character(3),
+        ccodsu_p character(2),
+        ccodcue_ps character(20),
+        ccodcue_pd character(20),
+        ccodflu character(4),
+        flgctares numeric(1,0),
+        flgctaimp numeric(1,0),
+        flgctaact numeric(1,0),
+        flggencomp numeric(1,0),
+        ccodtipent character(3),
+        ffechadoc text, -- date,
+        fechaven text,  -- date,
+        ccoddoc character(2),
+        ccoddas character(3),
+        cyeardas character(4),
+        cserie character(20),
+        cnumero character(20),
+        ccodenti character(11),
+        cdesenti character(100),
+        ctipdoc character(1),
+        ccodruc character(15),
+        crazsoc character(100),
+        ccodclas character(1),
+        nbase1 numeric(15,2),
+        nigv1 numeric(15,2),
+        nbase2 numeric(15,2),
+        nigv2 numeric(15,2),
+        nbase3 numeric(15,2),
+        nigv3 numeric(15,2),
+        nina numeric(15,2),
+        nisc numeric(15,2),
+        nicbper numeric(15,2),
+        nexo numeric(15,2),
+        ntots numeric(15,2),
+        cdocnodom character(20),
+        cnumdere character(15),
+        ffecre text, -- date,
+        ntc numeric(10,6),
+        freffec text, -- date,
+        crefdoc character(2),
+        crefser character(6),
+        crefnum character(13),
+        cmreg character(1),
+        ndolar numeric(15,2),
+        ffechaven2 text, --date,
+        ccond character(3),
+        cctabase character(10),
+        cctaicbper character(10),
+        cctaotrib character(10),
+        cctatot character(10),
+        ccodcos character(9),
+        ccodcos2 character(9),
+        nresp numeric(1,0),
+        nporre numeric(5,2),
+        nimpres numeric(15,2),
+        cserre character(6),
+        cnumre character(13),
+        ffecre2 text, --date,
+        ccodpresu character(10),
+        nigv numeric(5,2),
+        cglosa character(50),
+        nperdenre numeric(15,2),
+        nbaseres numeric(15,2),
+        cigvxacre character(1),
+        estado character varying(255),
+        en_ambiente_de character varying(255),
+        es_con_migracion numeric(1,0),
+        ccodcos3 character(15),
+        ccodrucanula character(15)
+    );
+	--
+
+    --2. Validar/generar asientos
+    perform fin_compras_integracion_principal();
+    
+
+    --3. Informe de importacion    
+    select json_agg(json_build_object(
+        'idcompras', fc.idcompras, 'obserror', fc.obserror, 'es_con_migracion', fc.es_con_migracion, 'resultado_migracion', fc.resultado_migracion
+    ))::text
+    from fin_compras fc
+    into resultado;
+
+
+    
+end; 
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

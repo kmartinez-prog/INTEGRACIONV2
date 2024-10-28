@@ -147,6 +147,8 @@ namespace Contasis
             this.txt_cobra02 = new System.Windows.Forms.TextBox();
             this.txt_cobra03 = new System.Windows.Forms.TextBox();
             this.txt_cobra04 = new System.Windows.Forms.TextBox();
+            this.anteriofinventas = new System.Windows.Forms.TextBox();
+            this.anteriorcompras = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -1303,14 +1305,14 @@ namespace Contasis
             // txtcadena
             // 
             this.txtcadena.Enabled = false;
-            this.txtcadena.Location = new System.Drawing.Point(14, 584);
+            this.txtcadena.Location = new System.Drawing.Point(14, 618);
             this.txtcadena.Name = "txtcadena";
             this.txtcadena.Size = new System.Drawing.Size(525, 20);
             this.txtcadena.TabIndex = 3;
             // 
             // txtquery2
             // 
-            this.txtquery2.Location = new System.Drawing.Point(51, 650);
+            this.txtquery2.Location = new System.Drawing.Point(51, 684);
             this.txtquery2.Name = "txtquery2";
             this.txtquery2.Size = new System.Drawing.Size(186, 20);
             this.txtquery2.TabIndex = 13;
@@ -1452,11 +1454,38 @@ namespace Contasis
             this.txt_cobra04.TabIndex = 26;
             this.txt_cobra04.Text = resources.GetString("txt_cobra04.Text");
             // 
+            // anteriofinventas
+            // 
+            this.anteriofinventas.BackColor = System.Drawing.SystemColors.Info;
+            this.anteriofinventas.Location = new System.Drawing.Point(9, 580);
+            this.anteriofinventas.Multiline = true;
+            this.anteriofinventas.Name = "anteriofinventas";
+            this.anteriofinventas.Size = new System.Drawing.Size(585, 58);
+            this.anteriofinventas.TabIndex = 27;
+            this.anteriofinventas.Text = resources.GetString("anteriofinventas.Text");
+            this.anteriofinventas.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // anteriorcompras
+            // 
+            this.anteriorcompras.AccessibleRole = System.Windows.Forms.AccessibleRole.ScrollBar;
+            this.anteriorcompras.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.anteriorcompras.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.anteriorcompras.Location = new System.Drawing.Point(7, 637);
+            this.anteriorcompras.Multiline = true;
+            this.anteriorcompras.Name = "anteriorcompras";
+            this.anteriorcompras.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.anteriorcompras.Size = new System.Drawing.Size(594, 41);
+            this.anteriorcompras.TabIndex = 28;
+            this.anteriorcompras.Text = resources.GetString("anteriorcompras.Text");
+            this.anteriorcompras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // FrmIntegradorConta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 556);
+            this.ClientSize = new System.Drawing.Size(640, 556);
+            this.Controls.Add(this.anteriorcompras);
+            this.Controls.Add(this.anteriofinventas);
             this.Controls.Add(this.txt_cobra04);
             this.Controls.Add(this.txt_cobra03);
             this.Controls.Add(this.txt_cobra02);
@@ -1633,5 +1662,7 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtcobranza;
         private System.Windows.Forms.TextBox txtcompras;
         private System.Windows.Forms.TextBox txtventa;
+        private System.Windows.Forms.TextBox anteriofinventas;
+        private System.Windows.Forms.TextBox anteriorcompras;
     }
 }

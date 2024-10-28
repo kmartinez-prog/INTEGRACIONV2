@@ -33,6 +33,7 @@ namespace Contasis
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label58 = new System.Windows.Forms.Label();
             this.txtFec_deposito = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -173,7 +174,6 @@ namespace Contasis
             this.Column21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label58 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -321,6 +321,19 @@ namespace Contasis
             this.panel2.Size = new System.Drawing.Size(856, 656);
             this.panel2.TabIndex = 88;
             // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label58.ForeColor = System.Drawing.Color.Blue;
+            this.label58.Location = new System.Drawing.Point(-1, 631);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(762, 17);
+            this.label58.TabIndex = 269;
+            this.label58.Text = "Seleccionar la Fila para modificar y luego Enter para grabar cambios., Luego Puls" +
+    "ar Modificar para enviar el documento";
+            this.label58.Click += new System.EventHandler(this.label58_Click);
+            // 
             // txtFec_deposito
             // 
             this.txtFec_deposito.Location = new System.Drawing.Point(691, 283);
@@ -341,7 +354,6 @@ namespace Contasis
             // dataGridView2
             // 
             this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.AllowUserToOrderColumns = true;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column2,
@@ -1568,6 +1580,7 @@ namespace Contasis
             this.Column20.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Column20.DataPropertyName = "DESCRIP_ADICIONAL";
             this.Column20.HeaderText = "DESCRIP_ADICIONAL";
+            this.Column20.MaxInputLength = 100;
             this.Column20.MinimumWidth = 6;
             this.Column20.Name = "Column20";
             this.Column20.Width = 158;
@@ -1577,6 +1590,7 @@ namespace Contasis
             this.Column21.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Column21.DataPropertyName = "FECHA_FABLOTE";
             this.Column21.HeaderText = "FECHA_FABLOTE";
+            this.Column21.MaxInputLength = 10;
             this.Column21.MinimumWidth = 6;
             this.Column21.Name = "Column21";
             this.Column21.Width = 135;
@@ -1586,6 +1600,7 @@ namespace Contasis
             this.Column22.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Column22.DataPropertyName = "FECHA_VENLOTE";
             this.Column22.HeaderText = "FECHA_VENLOTE";
+            this.Column22.MaxInputLength = 10;
             this.Column22.MinimumWidth = 6;
             this.Column22.Name = "Column22";
             this.Column22.Width = 137;
@@ -1598,19 +1613,6 @@ namespace Contasis
             this.Column23.MinimumWidth = 6;
             this.Column23.Name = "Column23";
             this.Column23.Width = 86;
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label58.ForeColor = System.Drawing.Color.Blue;
-            this.label58.Location = new System.Drawing.Point(-1, 631);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(762, 17);
-            this.label58.TabIndex = 269;
-            this.label58.Text = "Seleccionar la Fila para modificar y luego Enter para grabar cambios., Luego Puls" +
-    "ar Modificar para enviar el documento";
-            this.label58.Click += new System.EventHandler(this.label58_Click);
             // 
             // Frm_com_DocumentosEditor
             // 
@@ -1765,6 +1767,7 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtFec_deposito;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Label label58;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
@@ -1787,6 +1790,5 @@ namespace Contasis
         private System.Windows.Forms.DataGridViewTextBoxColumn Column21;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column22;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column23;
-        private System.Windows.Forms.Label label58;
     }
 }

@@ -703,7 +703,7 @@ namespace Contasis
         {
             try
             {
-                if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+                if (dataGridView2.Rows[0].Cells[1].Value == null)
                 { }
                 else
                 {
@@ -718,7 +718,7 @@ namespace Contasis
         {
             try
             {
-                if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+                if (dataGridView2.Rows[0].Cells[1].Value == null)
                 { }
                 else
                 {
@@ -731,7 +731,7 @@ namespace Contasis
         }
         private void dataGridView2_SelectionChanged(object sender, EventArgs e)
         {
-            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+            if (dataGridView2.Rows[0].Cells[1].Value == null)
             { }
             else
             {
@@ -746,7 +746,7 @@ namespace Contasis
         }
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+            if (dataGridView2.Rows[0].Cells[1].Value == null)
             { }
             else
             {
@@ -843,7 +843,7 @@ namespace Contasis
 
         private void dataGridView2_Click(object sender, EventArgs e)
         {
-            if (Convert.ToString(dataGridView2.Rows.Count) == "0")
+            if (dataGridView2.Rows[0].Cells[1].Value == null)
             { }
             else
             {
@@ -867,6 +867,21 @@ namespace Contasis
         private void BtnSalir_Click_1(object sender, EventArgs e)
         {
 
+            this.Close();
+            this.Hide();
         }
+
+        private void dataGridView2_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView2.Rows[0].Cells[1].Value == null)
+            { }
+            else
+            {
+
+                txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
+                Refresh();
+            }
+
+            }
     }
 }

@@ -31,21 +31,6 @@ namespace Contasis
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInconsistencia_productos_comercial));
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.cmbrucemisor = new System.Windows.Forms.ComboBox();
-            this.txtLista = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.checkSeleccionar = new System.Windows.Forms.CheckBox();
-            this.btnseleccionar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmbempresas = new System.Windows.Forms.ComboBox();
-            this.btnMostrar = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.BtnSalir = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -112,6 +97,21 @@ namespace Contasis
             this.DESCRIPCION_LABORATORIO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ESTADO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OBSERVACION = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.cmbrucemisor = new System.Windows.Forms.ComboBox();
+            this.txtLista = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.checkSeleccionar = new System.Windows.Forms.CheckBox();
+            this.btnseleccionar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbempresas = new System.Windows.Forms.ComboBox();
+            this.btnMostrar = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.BtnSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -197,167 +197,6 @@ namespace Contasis
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(389, 116);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 15);
-            this.label3.TabIndex = 59;
-            this.label3.Text = "Seleccione Empresa";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(23, 116);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(130, 15);
-            this.label25.TabIndex = 58;
-            this.label25.Text = "Seleccione ruc Emisor";
-            // 
-            // cmbrucemisor
-            // 
-            this.cmbrucemisor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbrucemisor.FormattingEnabled = true;
-            this.cmbrucemisor.Location = new System.Drawing.Point(23, 134);
-            this.cmbrucemisor.Name = "cmbrucemisor";
-            this.cmbrucemisor.Size = new System.Drawing.Size(356, 21);
-            this.cmbrucemisor.TabIndex = 57;
-            this.cmbrucemisor.SelectedIndexChanged += new System.EventHandler(this.cmbrucemisor_SelectedIndexChanged);
-            // 
-            // txtLista
-            // 
-            this.txtLista.BackColor = System.Drawing.SystemColors.Info;
-            this.txtLista.Location = new System.Drawing.Point(454, 473);
-            this.txtLista.Multiline = true;
-            this.txtLista.Name = "txtLista";
-            this.txtLista.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtLista.Size = new System.Drawing.Size(494, 109);
-            this.txtLista.TabIndex = 56;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(17, 440);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 13);
-            this.label2.TabIndex = 55;
-            this.label2.Text = "Total de Registros : 0";
-            // 
-            // panel1
-            // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Controls.Add(this.checkSeleccionar);
-            this.panel1.Controls.Add(this.btnseleccionar);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(20, 471);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(426, 110);
-            this.panel1.TabIndex = 53;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(22, 23);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(397, 21);
-            this.comboBox1.TabIndex = 22;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // checkSeleccionar
-            // 
-            this.checkSeleccionar.AutoSize = true;
-            this.checkSeleccionar.Enabled = false;
-            this.checkSeleccionar.Location = new System.Drawing.Point(22, 47);
-            this.checkSeleccionar.Name = "checkSeleccionar";
-            this.checkSeleccionar.Size = new System.Drawing.Size(121, 19);
-            this.checkSeleccionar.TabIndex = 2;
-            this.checkSeleccionar.Text = "Seleccionar todo";
-            this.checkSeleccionar.UseVisualStyleBackColor = true;
-            this.checkSeleccionar.CheckedChanged += new System.EventHandler(this.checkSeleccionar_CheckedChanged);
-            // 
-            // btnseleccionar
-            // 
-            this.btnseleccionar.Enabled = false;
-            this.btnseleccionar.Location = new System.Drawing.Point(22, 67);
-            this.btnseleccionar.Name = "btnseleccionar";
-            this.btnseleccionar.Size = new System.Drawing.Size(126, 27);
-            this.btnseleccionar.TabIndex = 1;
-            this.btnseleccionar.Text = "Marcar para enviar";
-            this.btnseleccionar.UseVisualStyleBackColor = true;
-            this.btnseleccionar.Click += new System.EventHandler(this.btnseleccionar_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(191, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Seleccionar Motivo para marcar ";
-            // 
-            // cmbempresas
-            // 
-            this.cmbempresas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbempresas.FormattingEnabled = true;
-            this.cmbempresas.Location = new System.Drawing.Point(385, 134);
-            this.cmbempresas.Name = "cmbempresas";
-            this.cmbempresas.Size = new System.Drawing.Size(228, 21);
-            this.cmbempresas.TabIndex = 60;
-            this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.cmbempresas_SelectedIndexChanged);
-            // 
-            // btnMostrar
-            // 
-            this.btnMostrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMostrar.Image = global::Contasis.Properties.Resources._3__Icono_Boton___Modificar;
-            this.btnMostrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMostrar.Location = new System.Drawing.Point(634, 129);
-            this.btnMostrar.Name = "btnMostrar";
-            this.btnMostrar.Size = new System.Drawing.Size(93, 28);
-            this.btnMostrar.TabIndex = 61;
-            this.btnMostrar.Text = "Filtrar";
-            this.btnMostrar.UseVisualStyleBackColor = true;
-            this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Contasis.Properties.Resources.Logo___Contasis;
-            this.pictureBox1.Location = new System.Drawing.Point(26, 10);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(287, 74);
-            this.pictureBox1.TabIndex = 54;
-            this.pictureBox1.TabStop = false;
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = global::Contasis.Properties.Resources._6__Icono_Boton___Excel;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(966, 524);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 44);
-            this.button1.TabIndex = 52;
-            this.button1.Text = "Exportar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            // 
-            // BtnSalir
-            // 
-            this.BtnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSalir.Image = global::Contasis.Properties.Resources._110;
-            this.BtnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnSalir.Location = new System.Drawing.Point(1099, 524);
-            this.BtnSalir.Name = "BtnSalir";
-            this.BtnSalir.Size = new System.Drawing.Size(110, 44);
-            this.BtnSalir.TabIndex = 51;
-            this.BtnSalir.Text = "Salir";
-            this.BtnSalir.UseVisualStyleBackColor = true;
-            this.BtnSalir.Click += new System.EventHandler(this.BtnSalir_Click);
             // 
             // Column1
             // 
@@ -949,6 +788,167 @@ namespace Contasis
             this.OBSERVACION.ReadOnly = true;
             this.OBSERVACION.Width = 121;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(389, 116);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(121, 15);
+            this.label3.TabIndex = 59;
+            this.label3.Text = "Seleccione Empresa";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(23, 116);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(130, 15);
+            this.label25.TabIndex = 58;
+            this.label25.Text = "Seleccione ruc Emisor";
+            // 
+            // cmbrucemisor
+            // 
+            this.cmbrucemisor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbrucemisor.FormattingEnabled = true;
+            this.cmbrucemisor.Location = new System.Drawing.Point(23, 134);
+            this.cmbrucemisor.Name = "cmbrucemisor";
+            this.cmbrucemisor.Size = new System.Drawing.Size(356, 21);
+            this.cmbrucemisor.TabIndex = 57;
+            this.cmbrucemisor.SelectedIndexChanged += new System.EventHandler(this.cmbrucemisor_SelectedIndexChanged);
+            // 
+            // txtLista
+            // 
+            this.txtLista.BackColor = System.Drawing.SystemColors.Info;
+            this.txtLista.Location = new System.Drawing.Point(454, 473);
+            this.txtLista.Multiline = true;
+            this.txtLista.Name = "txtLista";
+            this.txtLista.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLista.Size = new System.Drawing.Size(494, 109);
+            this.txtLista.TabIndex = 56;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(17, 440);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(130, 13);
+            this.label2.TabIndex = 55;
+            this.label2.Text = "Total de Registros : 0";
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.checkSeleccionar);
+            this.panel1.Controls.Add(this.btnseleccionar);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(20, 471);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(426, 110);
+            this.panel1.TabIndex = 53;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(22, 23);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(397, 21);
+            this.comboBox1.TabIndex = 22;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // checkSeleccionar
+            // 
+            this.checkSeleccionar.AutoSize = true;
+            this.checkSeleccionar.Enabled = false;
+            this.checkSeleccionar.Location = new System.Drawing.Point(22, 47);
+            this.checkSeleccionar.Name = "checkSeleccionar";
+            this.checkSeleccionar.Size = new System.Drawing.Size(121, 19);
+            this.checkSeleccionar.TabIndex = 2;
+            this.checkSeleccionar.Text = "Seleccionar todo";
+            this.checkSeleccionar.UseVisualStyleBackColor = true;
+            this.checkSeleccionar.CheckedChanged += new System.EventHandler(this.checkSeleccionar_CheckedChanged);
+            // 
+            // btnseleccionar
+            // 
+            this.btnseleccionar.Enabled = false;
+            this.btnseleccionar.Location = new System.Drawing.Point(22, 67);
+            this.btnseleccionar.Name = "btnseleccionar";
+            this.btnseleccionar.Size = new System.Drawing.Size(126, 27);
+            this.btnseleccionar.TabIndex = 1;
+            this.btnseleccionar.Text = "Marcar para enviar";
+            this.btnseleccionar.UseVisualStyleBackColor = true;
+            this.btnseleccionar.Click += new System.EventHandler(this.btnseleccionar_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(15, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(191, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Seleccionar Motivo para marcar ";
+            // 
+            // cmbempresas
+            // 
+            this.cmbempresas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbempresas.FormattingEnabled = true;
+            this.cmbempresas.Location = new System.Drawing.Point(385, 134);
+            this.cmbempresas.Name = "cmbempresas";
+            this.cmbempresas.Size = new System.Drawing.Size(228, 21);
+            this.cmbempresas.TabIndex = 60;
+            this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.cmbempresas_SelectedIndexChanged);
+            // 
+            // btnMostrar
+            // 
+            this.btnMostrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMostrar.Image = global::Contasis.Properties.Resources._3__Icono_Boton___Modificar;
+            this.btnMostrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMostrar.Location = new System.Drawing.Point(634, 129);
+            this.btnMostrar.Name = "btnMostrar";
+            this.btnMostrar.Size = new System.Drawing.Size(93, 28);
+            this.btnMostrar.TabIndex = 61;
+            this.btnMostrar.Text = "Filtrar";
+            this.btnMostrar.UseVisualStyleBackColor = true;
+            this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Contasis.Properties.Resources.Logo___Contasis;
+            this.pictureBox1.Location = new System.Drawing.Point(26, 10);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(287, 74);
+            this.pictureBox1.TabIndex = 54;
+            this.pictureBox1.TabStop = false;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = global::Contasis.Properties.Resources._6__Icono_Boton___Excel;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(966, 524);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 44);
+            this.button1.TabIndex = 52;
+            this.button1.Text = "Exportar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            // 
+            // BtnSalir
+            // 
+            this.BtnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSalir.Image = global::Contasis.Properties.Resources._110;
+            this.BtnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnSalir.Location = new System.Drawing.Point(1099, 524);
+            this.BtnSalir.Name = "BtnSalir";
+            this.BtnSalir.Size = new System.Drawing.Size(110, 44);
+            this.BtnSalir.TabIndex = 51;
+            this.BtnSalir.Text = "Salir";
+            this.BtnSalir.UseVisualStyleBackColor = true;
+            this.BtnSalir.Click += new System.EventHandler(this.BtnSalir_Click);
+            // 
             // FrmInconsistencia_productos_comercial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -974,6 +974,7 @@ namespace Contasis
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inconsistencia productos comercial";
             this.Load += new System.EventHandler(this.FrmInconsistencia_productos_comercial_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmInconsistencia_productos_comercial_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -134,6 +134,7 @@ namespace Contasis
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Controls.Add(this.checkSeleccionar);
@@ -157,7 +158,7 @@ namespace Contasis
             // 
             this.checkSeleccionar.AutoSize = true;
             this.checkSeleccionar.Enabled = false;
-            this.checkSeleccionar.Location = new System.Drawing.Point(147, 60);
+            this.checkSeleccionar.Location = new System.Drawing.Point(12, 47);
             this.checkSeleccionar.Name = "checkSeleccionar";
             this.checkSeleccionar.Size = new System.Drawing.Size(121, 19);
             this.checkSeleccionar.TabIndex = 2;
@@ -167,7 +168,7 @@ namespace Contasis
             // btnseleccionar
             // 
             this.btnseleccionar.Enabled = false;
-            this.btnseleccionar.Location = new System.Drawing.Point(16, 58);
+            this.btnseleccionar.Location = new System.Drawing.Point(12, 65);
             this.btnseleccionar.Name = "btnseleccionar";
             this.btnseleccionar.Size = new System.Drawing.Size(126, 27);
             this.btnseleccionar.TabIndex = 1;
@@ -227,6 +228,7 @@ namespace Contasis
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.Size = new System.Drawing.Size(1189, 262);
             this.dataGridView2.TabIndex = 30;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick_1);
             // 
             // Column1
             // 
