@@ -333,6 +333,7 @@ namespace Contasis
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.label26);
             this.panel2.Controls.Add(this.cmbanuladosventas);
@@ -663,6 +664,7 @@ namespace Contasis
             // 
             // panel4
             // 
+            this.panel4.BackColor = System.Drawing.Color.OldLace;
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel4.Controls.Add(this.label27);
             this.panel4.Controls.Add(this.cmbanuladoscompras);
@@ -1483,7 +1485,7 @@ namespace Contasis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 556);
+            this.ClientSize = new System.Drawing.Size(635, 559);
             this.Controls.Add(this.anteriorcompras);
             this.Controls.Add(this.anteriofinventas);
             this.Controls.Add(this.txt_cobra04);

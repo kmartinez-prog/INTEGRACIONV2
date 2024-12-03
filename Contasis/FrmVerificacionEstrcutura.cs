@@ -2330,8 +2330,131 @@ namespace Contasis
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.barraprogreso(respuesta);
                 #endregion
+                #region fn_integracion_cobranza_importar
+
+                NombreSP = "fn_integracion_cobranza_importar";
+                Query = "CREATE OR REPLACE FUNCTION public.fn_integracion_cobranza_importar( \n" +
+                        " \n" +
+                        " OUT resultado text, \n" +
+                        " p_datos text, \n" +
+                        " p_cod_emp text) \n" +
+                        " RETURNS text  \n" +
+                        " AS $BODY$  \n" +
+                        " \n" +
+                        " \n" + 
+                        " DECLARE  \n" +
+                        " v_data json;  \n" +
+                        " BEGIN \n" +
+                        " v_data:= p_datos::json; \n" +
+                        " p_datos = null; \n" +
+                        " \n" +
+                        " INSERT INTO fin_cobranzapago( \n" +
+       " idcobranzas, ccodrucemisor, ccod_empresa, cper, cmes, ntipocobpag, ffechacan, \n" +
+       " cdoccan, csercan, cnumcan, ccuecan, cmoncan, \n" +
+       " nimporcan, ntipcam, ccodpago, \n" +
+       " ccoddoc, cserie, cnumero, ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, \n" +
+       " nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, nperdenre, \n" +
+       " cserre, cnumre, ffecre, created_at, updated_at, estado, en_ambiente_de, \n" +
+       " es_con_migracion, ccodcos3 \n" +
+       ") \n" +
+    " SELECT \n" +
+    " t.id, t.numero_documento_emisor, p_cod_emp, extract(year from to_date(t.ffechadoccobra, 'DD/MM/YYYY'))::text,    \n" +
+    " lpad(extract(month from to_date(t.ffechadoccobra, 'DD/MM/YYYY'))::text, 2, '0'), 1,   \n" +
+    " case when coalesce(t.ffechadoccobra, '')= '' then null else to_date(t.ffechadoccobra, 'DD/MM/YYYY') end, --1 \n" +
+    " trim(coalesce(t.cdoccan, '')) as cdoccan,    \n" +
+           " trim(coalesce(t.csercan, '')) as csercan,    \n" +
+    " trim(coalesce(t.cnumcan, '')) as cnumcan,    \n" +
+    " trim(coalesce(t.ccuecan, '')) as ccuecan,    \n" +
+    " trim(coalesce(t.cmoncan, '')) as cmoncan, --2 \n" +
+    " case when trim(coalesce(t.nimporcan, '')) = '' then 0 else t.nimporcan::numeric end as nimporcan,    \n" +
+    " case when trim(coalesce(t.ntipcam, '')) = '' then 0 else t.ntipcam::numeric end as ntipcam,    \n" +
+    " coalesce(trim(t.ccodpago), '') as ccodpago, --3 \n" +
+    " coalesce(trim(t.ccoddoc), '') as ccoddoc,    \n" +
+    " coalesce(trim(t.cserie), '') as cserie,    \n" +
+    " coalesce(trim(t.cnumero), '') as cnumero,    \n" +
+    " case when coalesce(t.ffechadoc, '')= '' then null else to_date(t.ffechadoc, 'DD/MM/YYYY') end as ffechadoc,    \n" +
+    " case when coalesce(t.ffechaven, '')= '' then null else to_date(t.ffechaven, 'DD/MM/YYYY') end as ffechaven,    \n" +
+    " '' as ccodenti , trim(coalesce(t.ccodruc, '')) as ccodruc, trim(coalesce(t.crazsoc, '')),  \n" +
+    " case when trim(coalesce(t.nimportes, '')) = '' then 0 else t.nimportes::numeric end as nimportes, --4 \n" +
+    " case when trim(coalesce(t.nimported, '')) = '' then 0 else t.nimported::numeric end as nimported,    \n" +
+    " trim(coalesce(t.ccodcue, '')) as ccodcue,    \n" +
+    " trim(coalesce(t.cglosa, '')) as cglosa,     \n" +
+    " trim(coalesce(t.ccodcos, '')) as ccodcos,    \n" +
+    " trim(coalesce(t.ccodcos2, '')) as ccodcos2,    \n" +
+    " case when trim(coalesce(t.nporre, '')) = '' then 0 else t.nporre::numeric end as nporre,    \n" +
+    " case when trim(coalesce(t.nimpperc, '')) = '' then 0 else t.nimpperc::numeric end as nimpperc,    \n" +
+    " case when trim(coalesce(t.nperdenre, '')) = '' then 0 else t.nperdenre::numeric end as nperdenre, --5 \n" +
+    " coalesce(trim(t.cserre), '') as cserre, coalesce(trim(t.cnumre), '') as cnumre,    \n" +
+    " case when coalesce(t.ffecre, '')= '' then null else to_date(t.ffecre, 'DD/MM/YYYY') end as ffecre,    \n" +
+    " t.created_at::date, t.updated_at::date,    \n" +
+    " coalesce(trim(t.estado), ''),    \n" +
+    " coalesce(trim(t.en_ambiente_de), ''),  \n" +  
+    " case when t.estado = 'CANCELADO' then 0 else 3 end, '' \n" +
+    " FROM json_to_recordset(v_data)  \n" +
+    " as t( \n" +
+    " id integer, \n" +
+    " numero_documento_emisor character varying(20),    \n" +
+    " ffechadoccobra character varying(20),    \n" +
+    " cdoccan character varying(5),    \n" +
+    " csercan character varying(50),    \n" +
+    " cnumcan character varying(50),    \n" +
+    " ccuecan character varying(50),    \n" +
+    " cmoncan character varying(50),    \n" +
+    " nimporcan character varying(50),    \n" +
+    " ntipcam character varying(50),    \n" +
+    " ccodpago character varying(50),    \n" +
+    " ccoddoc character varying(20),    \n" +
+    " cserie character varying(50),    \n" +
+    " cnumero character varying(50),    \n" +
+    " ffechadoc character varying(50),    \n" +
+    " ffechaven character varying(50),  \n" +
+    " ccodenti character varying(50),  \n" +
+    " ccodruc character varying(50),  \n" +
+    " crazsoc text, \n" +
+    " nimportes character varying(50),    \n" +
+    "  nimported character varying(50),    \n" +
+    "  ccodcue character varying(50),    \n" +
+    "  cglosa text, \n" +
+    "  ccodcos character varying(50),    \n" +
+    "  ccodcos2 character varying(50),    \n" +
+    "  nporre character varying(50),    \n" +
+    "  nimpperc character varying(50),    \n" +
+    "  nperdenre character varying(50),    \n" +
+    "  cserre character varying(50),    \n" +
+    " cnumre character varying(50),    \n" +
+    " ffecre character varying(50),    \n" +
+    "  created_at timestamp without time zone,    \n" +
+    "   updated_at timestamp without time zone,    \n" +
+    "   estado character varying(50),    \n" +
+    "     en_ambiente_de character varying(255),    \n" +
+    "         es_con_migracion boolean \n" +
+    " )    \n" +
+    "     left join fin_cobranzapago v on t.id = v.idcobranzas \n" +
+    "     where v.idcobranzas is null; \n" +
+    "                 --Modificados \n" +
+    "     update fin_cobranzapago v \n" +
+    "     set es_con_migracion =case when t.estado = 'CANCELADO' then 0 else 3 end,    \n" +
+    "     estado = t.estado \n" +
+    "     from json_to_recordset(v_data) \n" +
+    " as t (id integer, estado character varying(255), es_con_migracion boolean )        \n" +
+    " where v.idcobranzas = t.id; \n" +
+    "                 --resultado de confirmacion.    \n" +
+    " select json_agg(json_build_object('idcobranzas', id, 'es_con_migracion', es_con_migracion))::text \n" +
+    " from json_to_recordset(v_data) \n" +
+    " as t (id integer, es_con_migracion boolean) \n" +
+    " into resultado; \n" +
+    "   end;    \n" +
+    " \n" +
+    " $BODY$  \n" +
+    " LANGUAGE 'plpgsql'; \n" +
+    " ALTER FUNCTION public.fn_integracion_cobranza_importar(text, text)  \n" +
+    " OWNER TO postgres; ";
+
+                respuesta = obj.crear_funcion(NombreSP, Query);
+                this.barraprogreso(respuesta);
+                #endregion
             }
-           
+
             if (Properties.Settings.Default.TipModulo == "2")
             {
                 // Area para tablas comerciales //

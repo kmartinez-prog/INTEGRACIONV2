@@ -16,7 +16,7 @@ namespace Contasis
         {
             string cadena = "";
 
-            DataTable Tabla = new DataTable();
+            DataTable tabla = new DataTable();
             NpgsqlConnection conexion = new NpgsqlConnection();
             conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
             conexion.Open();

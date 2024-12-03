@@ -338,15 +338,15 @@ namespace Contasis
             // 
             // timer2
             // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
             // timer3
             // 
-            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
+            this.timer3.Tick += new System.EventHandler(this.Timer3_Tick);
             // 
             // timer4
             // 
-            this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
+            this.timer4.Tick += new System.EventHandler(this.Timer4_Tick);
             // 
             // BtnSalir
             // 
@@ -397,7 +397,7 @@ namespace Contasis
             // 
             // timer5
             // 
-            this.timer5.Tick += new System.EventHandler(this.timer5_Tick);
+            this.timer5.Tick += new System.EventHandler(this.Timer5_Tick);
             // 
             // txtventa1
             // 
@@ -487,7 +487,7 @@ namespace Contasis
             // 
             // timer6
             // 
-            this.timer6.Tick += new System.EventHandler(this.timer6_Tick);
+            this.timer6.Tick += new System.EventHandler(this.Timer6_Tick);
             // 
             // Funcion_comercial
             // 
@@ -536,7 +536,7 @@ namespace Contasis
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(631, 372);
+            this.ClientSize = new System.Drawing.Size(631, 370);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.func_guardar_com_producto);
             this.Controls.Add(this.func_guardar_com_documento);

@@ -111,7 +111,7 @@ namespace Contasis
                             if (Properties.Settings.Default.cadenaPostPrincipal == "")
                             {
                                 ConexionPostgrelSql objetconexionPls = new ConexionPostgrelSql();
-                                estadoconepos = objetconexionPls.crearCadena(txtcadena.Text);
+                                estadoconepos = objetconexionPls.CrearCadena(txtcadena.Text);
                                 
                                 SqlConnection connection2 = new SqlConnection(Properties.Settings.Default.cadenaSql);
                                 connection2.Open();

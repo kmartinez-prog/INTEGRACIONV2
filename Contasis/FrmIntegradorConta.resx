@@ -588,18 +588,35 @@ DECLARE
 BEGIN
 	varcentro2=0;
 	-- Validaciones fin_compras
-	-- Insetandoi entidades 	
+	-- Insetandoi entidades 
+
+	Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Razon social(crazoc) no puede estar vacio'), 
+		resultado_migracion = 2  
+		where  FIN_COMPRAS.crazsoc='';
+	
+	Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Ruc o codigo de Identidad(ccodruc) no puede estar vacio'), 
+		resultado_migracion = 2  
+		where  FIN_COMPRAS.ccodruc='';
+
+	Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Tipos de Identidad(ctipdoc) no puede estar vacio'), 
+		resultado_migracion = 2  
+		where  FIN_COMPRAS.ctipdoc='';
+
+
+
 	insert into cg_entidad (ccodenti, cdesenti, ccodtipent) 
 	select distinct ccodenti, cdesenti, ccodtipent from fin_compras where ccodenti not in (select ccodenti from cg_entidad); 
 	-- insertando entidades tributarias 
 	Insert into cg_entitrib (ccodruc,crazsoc,ctipdoc,CNATJUR,ccodtipent) 
 	select DISTINCT ccodruc,crazsoc,ctipdoc,case 
 	when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
-	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='10' then '1'
+	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)in('10','15') then '1'
 	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
 	when ctipdoc='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
 	when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
+	when ctipdoc='7' then '1'				
 	when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
+	when ctipdoc='4' and Length(ltrim(ccodruc))&lt;11  then '3'		
 	END ::CHAR(1) AS CNATJUR,ccodtipent   FROM FIN_COMPRAS
 	WHERE ccodruc not in (select ccodruc from cg_entitrib); 
 	
@@ -634,6 +651,27 @@ BEGIN
 			update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CTRO DE COSTO2 NO PUEDE ESTA VACIO&lt;REV.PROP.EMPRESA&gt;') ,  resultado_migracion = 2 
 		where  ltrim(fin_compras.ccodcos2) ='' ;
 		END IF ;
+
+
+		-- Validar serie no vacia
+		Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-',' Serie no puede estar vacia, valor obligatorio'), 
+		resultado_migracion = 2  
+		where  FIN_COMPRAS.cserie='';
+
+		-- Validar Numero no vacia
+		Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-',' Numero de serie no puede estar vacia, valor obligatorio'), 
+		resultado_migracion = 2  
+		where  FIN_COMPRAS.cnumero='';
+
+		Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-',' Tipo de doc.(ccoddoc) estar vacia, valor obligatorio'), 
+		resultado_migracion = 2  
+		where  FIN_COMPRAS.cnumero='';
+
+
+		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' Tipo de documento(ccoddoc) NO EXISTE ') ,  resultado_migracion = 2 
+		where  fin_compras.cper=rwperproceso.cperproceso and   fin_compras.es_con_migracion=0 and  fin_compras.ccoddoc&lt;&gt;' ' AND idcompras not in(
+		Select idcompras From fin_compras inner join cg_doc on
+		fin_compras.ccoddoc=cg_doc.ccoddoc  WHERE  fin_compras.cper=rwperproceso.cperproceso); 
 
 
 -------select *  from fin_compras where   ltrim(fin_compras.cctabase) in (select rtrim(ccodcue)  from cf_plan where cf_plan.cper='2024' and cf_plan.nafepre=1 );
@@ -7155,7 +7193,8 @@ $BODY$
   LANGUAGE plpgsql VOLATILE</value>
   </data>
   <data name="txtasientoventas1.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION public.fin_ventas_integracion_principal(
+    <value>
+CREATE OR REPLACE FUNCTION public.fin_ventas_integracion_principal(
 	)
     RETURNS void
 AS $BODY$
@@ -7211,18 +7250,30 @@ BEGIN
 	varcentro2=0;
 	-- Validaciones fin_ventas
 	-- Insetandoi entidades 	
-	insert into cg_entidad (ccodenti, cdesenti, ccodtipent) 
-	select distinct ccodenti, cdesenti, ccodtipent from fin_ventas where ccodenti not in (select ccodenti from cg_entidad); 
-	-- insertando entidades tributarias 
-	insert into cg_entitrib (ccodruc,crazsoc,ctipdoc,CNATJUR,ccodtipent) 
-	select DISTINCT ccodruc,crazsoc,ctipdoc,case 
+
+	Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-','Razon social(crazoc) no puede estar vacio'), 
+		resultado_migracion = 2  
+		where  fin_ventas.crazsoc='';
+	
+	Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-','Ruc o codigo de Identidad(ccodruc) no puede estar vacio'), 
+		resultado_migracion = 2  
+		where  fin_ventas.ccodruc='';
+
+	Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-','Tipos de Identidad(ctipdoc) no puede estar vacio'), 
+		resultado_migracion = 2  
+		where  fin_ventas.ctipdoc='';
+
+	Insert into cg_entitrib (ccodruc,crazsoc, ctipdoc,CNATJUR) 
+	select DISTINCT ccodruc,crazsoc, ctipdoc,case 
 	when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
-	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='10' then '1'
+	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)in('10','15') then '1'
 	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
-	when ctipdoc='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
+	when trim(ctipdoc)='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
 	when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
+	when ctipdoc='7' then '1'		
 	when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
-	 END ::CHAR(1) AS CNATJUR,ccodtipent   FROM FIN_VENTAS
+	when ctipdoc='4' and Length(ltrim(ccodruc))&lt;11  then '3'
+	 END ::CHAR(1) AS CNATJUR   FROM FIN_VENTAS
 	 WHERE crazsoc NOT LIKE('%ANULAD%') AND    ccodruc not in (select ccodruc from cg_entitrib); 
 
 	for rwperproceso in select distinct cper as cperproceso from fin_ventas loop 	
@@ -7251,6 +7302,30 @@ BEGIN
 		update fin_ventas set ccodenti=varccodenti,cdesenti=varcdesenti;
 
 		
+
+		-- Validar serie no vacia
+		Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Serie no puede estar vacia, valor obligatorio'), 
+		resultado_migracion = 2  
+		where  fin_ventas.cserie='';
+
+		-- Validar Numero no vacia
+		Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Numero de serie no puede estar vacia, valor obligatorio'), 
+		resultado_migracion = 2  
+		where  fin_ventas.cnumero='';
+
+
+		Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Tipo de doc.(ccoddoc) estar vacia, valor obligatorio'), 
+		resultado_migracion = 2  
+		where  fin_ventas.cnumero='';
+	
+
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Tipo de documento(ccoddoc) NO EXISTE ') ,  resultado_migracion = 2 
+		where  fin_ventas.cper=rwperproceso.cperproceso and   fin_ventas.es_con_migracion=0 and  fin_ventas.ccoddoc&lt;&gt;' ' AND idventas not in(
+		Select idventas From fin_ventas inner join cg_doc on
+		fin_ventas.ccoddoc=cg_doc.ccoddoc  WHERE  fin_ventas.cper=rwperproceso.cperproceso); 
+
+
+			
 		-- Validar cctabase,cctaicbper cctaotrib, cctatot, ccodcos, ccodcos2,	
 		Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Codigo de Presupuesto no debe estar vacio, la cuenta obliga'), 
 		resultado_migracion = 2  
@@ -7530,15 +7605,9 @@ BEGIN
 			end loop;
 		
 	end loop; -- Periodo 
-
-	
-	
 END; 
 $BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
-ALTER FUNCTION public.fin_ventas_integracion_principal()
-OWNER TO postgres;</value>
+  LANGUAGE plpgsql VOLATILE</value>
   </data>
   <data name="txt_cobra01.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION fin_guardar_cobranzapago_integrador(

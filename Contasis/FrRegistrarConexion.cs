@@ -227,7 +227,7 @@ namespace Contasis
                             string estadoconepos;
                             txtcadena.Text = "server=" + txtServidor.Text + "; port=" + txtpuerto.Text + ";user id=" + Txtusuario.Text + ";password=" + txtClave.Text + ";database=contasis;";
                             ConexionPostgrelSql objetconexionPls = new ConexionPostgrelSql();
-                            estadoconepos = objetconexionPls.crearCadena(txtcadena.Text);
+                            estadoconepos = objetconexionPls.CrearCadena(txtcadena.Text);
                             Clase.esconder esconde1 = new Clase.esconder();
                        
                             try
@@ -378,7 +378,7 @@ namespace Contasis
                 String parametercadena = txtcadena.Text;
                 FrmCrearTablas frm = new FrmCrearTablas(parametercadena,opcion, 0);
                 frm.Show();
-            this.btnGrabar.Enabled = false;
+                this.btnGrabar.Enabled = false;
             
 
         }
@@ -503,26 +503,9 @@ namespace Contasis
 
 
         }
+     }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
+ }
+    
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            int opcion = cmbOrigen.SelectedIndex;
-            String parametercadena = txtcadena.Text;
-            FrmCrearTablas frm = new FrmCrearTablas(parametercadena, opcion, 0);
-            frm.Show();
-            this.btnGrabar.Enabled = false;
-        }
-    }
-}
 

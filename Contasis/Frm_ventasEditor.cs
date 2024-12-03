@@ -86,6 +86,7 @@ namespace Contasis
                     {
                         
                         MessageBox.Show("Venta fue eliminada.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        FrmInconsistencia.instance.llenar_grilla();
                         this.Close();
                     }
                     else
@@ -116,6 +117,7 @@ namespace Contasis
                     {
                         
                         MessageBox.Show("Venta fue eliminada.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        FrmInconsistencia.instance.llenar_grilla();
                         this.Close();
                     }
                     else

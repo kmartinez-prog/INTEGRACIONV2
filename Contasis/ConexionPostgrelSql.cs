@@ -15,7 +15,7 @@ namespace Contasis
 
         public string Cadena { get => cadena; set => cadena = value; }
 
-        public string  crearCadena(string _cadena)
+        public string  CrearCadena(string _cadena)
         {
             cadena = _cadena;
             string resultado;

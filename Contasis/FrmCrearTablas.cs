@@ -66,7 +66,7 @@ namespace Contasis
                     crearfinanciero objetconexion2 = new crearfinanciero();
                     objetconexion2.crearadicional(txtcadena.Text);
                     crearfinanciero objetconexion3 = new crearfinanciero();
-                    objetconexion3.crearindex(txtcadena.Text);
+                    objetconexion3.Crearindex(txtcadena.Text);
                   
 
 
@@ -75,7 +75,7 @@ namespace Contasis
                 {
 
                     crearfinanciero objetconexion3 = new crearfinanciero();
-                    objetconexion3.activartime();
+                    objetconexion3.Activartime();
 
                     NpgsqlConnection conexion = new NpgsqlConnection();
                     conexion.ConnectionString = txtcadena.Text.Trim();
@@ -288,7 +288,7 @@ namespace Contasis
             }
 
         }
-        private void timer2_Tick(object sender, EventArgs e)
+        private void Timer2_Tick(object sender, EventArgs e)
         {
             contador1++;
             lblcompras.Text = "creando tabla " + contador1.ToString() + " %";
@@ -302,7 +302,7 @@ namespace Contasis
             }
 
         }
-        private void timer3_Tick(object sender, EventArgs e)
+        private void Timer3_Tick(object sender, EventArgs e)
         {
             contador2++;
             lblotros.Text = "creando tabla " + contador2.ToString() + " %";
@@ -325,7 +325,7 @@ namespace Contasis
             }
 
         }
-        private void timer4_Tick(object sender, EventArgs e)
+        private void Timer4_Tick(object sender, EventArgs e)
         {
             contador3++;
             
@@ -368,7 +368,7 @@ namespace Contasis
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        private void timer5_Tick(object sender, EventArgs e)
+        private void Timer5_Tick(object sender, EventArgs e)
         {
             contador++;
             lblventa.Text = "creando tabla " + contador.ToString() + " %";
@@ -477,7 +477,7 @@ namespace Contasis
 
         }
 
-        private void timer6_Tick(object sender, EventArgs e)
+        private void Timer6_Tick(object sender, EventArgs e)
         {
             contador6++;
             label8.Text = "creando tabla " + contador6.ToString() + " %";

@@ -511,7 +511,7 @@ namespace Contasis
 
             }
         }
-        public void crearindex(string _cadena)
+        public void Crearindex(string _cadena)
         {
             cadena = _cadena;
             if (cadena == "")
@@ -1353,7 +1353,7 @@ namespace Contasis
                 }
             }
         }
-        public void activartime()
+        public void Activartime()
         {
             FrmCrearTablas.instance.timer5.Enabled = true;
         }
