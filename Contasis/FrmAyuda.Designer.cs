@@ -69,7 +69,7 @@ namespace Contasis
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(12, 261);
+            this.button4.Location = new System.Drawing.Point(24, 271);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(178, 45);
             this.button4.TabIndex = 3;
@@ -80,7 +80,7 @@ namespace Contasis
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 174);
+            this.button3.Location = new System.Drawing.Point(24, 184);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(178, 45);
             this.button3.TabIndex = 2;
@@ -91,7 +91,7 @@ namespace Contasis
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 97);
+            this.button2.Location = new System.Drawing.Point(24, 107);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(178, 45);
             this.button2.TabIndex = 1;
@@ -102,7 +102,7 @@ namespace Contasis
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 23);
+            this.button1.Location = new System.Drawing.Point(24, 33);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(178, 45);
             this.button1.TabIndex = 0;
@@ -113,7 +113,7 @@ namespace Contasis
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.Info;
+            this.panel2.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.payuda2);
             this.panel2.Controls.Add(this.payuda3);
@@ -187,9 +187,9 @@ namespace Contasis
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
             this.label2.Location = new System.Drawing.Point(15, 39);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(342, 24);
+            this.label2.Size = new System.Drawing.Size(270, 18);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Versión 01-00-00-00 Fecha : 15/07/2024";
+            this.label2.Text = "Versión 01-00-00-00 Fecha : 04/12/2024";
             // 
             // label1
             // 
@@ -197,7 +197,7 @@ namespace Contasis
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(15, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(474, 24);
+            this.label1.Size = new System.Drawing.Size(383, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "Contasis Corp Modulo de Integración Online 2024";
             // 
@@ -229,7 +229,7 @@ namespace Contasis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.OldLace;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);

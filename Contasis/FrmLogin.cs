@@ -410,7 +410,10 @@ namespace Contasis
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
-
+         /*   Clase.esconder Mostrar = new Clase.esconder();
+            textBox3.Text = Mostrar.Mostrar("cwBlAHIAdgBlAHIAPQBsAG8AYwBhAGwAaABvAHMAdAA7ACAAcABvAHIAdAA9ADUANAAzADIAOwB1AHMAZQByACAAaQBkAD0AcABvAHMAdABnAHIAZQBzADsAcABhAHMAcwB3AG8AcgBkAD0AcABvAHMAdABnAHIAZQBzADsAZABhAHQAYQBiAGEAcwBlAD0AYwBvAG4AdABhAHMAaQBzADsA");
+            textBox4.Text = Mostrar.Mostrar("cwBlAHIAdgBlAHIAPQBkAGEAdABhAGIAYQBzAGUALQBzAHEAbABjAG8AbgB0AGEAcwBpAHMALQBkAGEAcgB3AGkAbgAuAGMAbwBhADAAbgB1AGgANwA3AHcAbQBwAC4AdQBzAC0AZQBhAHMAdAAtADIALgByAGQAcwAuAGEAbQBhAHoAbwBuAGEAdwBzAC4AYwBvAG0AOwAgAHAAbwByAHQAPQA1ADQAMwAyADsAdQBzAGUAcgAgAGkAZAA9AHAAbwBzAHQAZwByAGUAcwA7AHAAYQBzAHMAdwBvAHIAZAA9AFMAUQBMAGMAMABuAHQANABzADEAcwAqADIAMgA7AGQAYQB0AGEAYgBhAHMAZQA9AG8AbgBwAHIAZQBtAGkAcwBzAGUAZABiADsA");
+         */
 
             this.revisar();
             if (control == "0" || control=="")
@@ -569,6 +572,10 @@ namespace Contasis
                     this.capturarclave();
                     Clase.esconder Mostrar = new Clase.esconder();
                     txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
+
+
+                   
+
                     txtfrase.Refresh();
                 }
                 else
@@ -851,6 +858,12 @@ namespace Contasis
 
             }
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
         public void Modulo_Sql()
         {
             try
@@ -899,11 +912,13 @@ namespace Contasis
         }
         public void Modulo_postgres()
         {
-            try
-            {
+            
                 NpgsqlConnection conexionNew = new NpgsqlConnection();
                 conexionNew.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            try
+            {
                 conexionNew.Open();
+
                 Clase.Estructura_postgres obj = new Clase.Estructura_postgres();
                 string NombreTable = "conexiones";
                 string Nombrecampo = "nmodulo";
@@ -941,9 +956,28 @@ namespace Contasis
                 }
                 conexionNew.Close();
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+               /* string fileName = @"C:\\Users\\Public\\Documents\\PostgreSQL.txt";
+
+                if (File.Exists(fileName))
+                {
+                    try
+                    {
+                        File.Delete(fileName);
+                    }
+                    catch (Exception e)
+                    {
+                        
+                    }
+                }
+                else
+                {
+                   
+                }
+               */
+
+                MessageBox.Show("Error no Existe Información de conexión a empresa.","Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
         }

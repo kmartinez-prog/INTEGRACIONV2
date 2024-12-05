@@ -34,21 +34,26 @@ namespace Contasis
         {
 
             NpgsqlConnection cone = new NpgsqlConnection();
-            string text01 = "select ccodemp as Cod_emp,cdesemp as Empresa from  cg_contasis order by ccodemp";
+            string text01 = "select ccodemp as cod_emp,cdesemp as empresa from  cg_contasis order by ccodemp;";
             cone = Clase.ConexionPostgreslContasis.Instancial().establecerconexion();
             NpgsqlCommand cmdp = new NpgsqlCommand(text01, cone);
-            cone.Open();
-            NpgsqlDataReader grilla = cmdp.ExecuteReader();
-            dataGridView1.Rows.Clear();
-            while (grilla.Read())
-            {
-                dataGridView1.Rows.Add(grilla[0], grilla[1]);
-
-            }
             
-            grilla.Close();
+            try
+            {
+                cone.Open();
+                NpgsqlDataReader grilla = cmdp.ExecuteReader();
+                dataGridView1.Rows.Clear();
+                while (grilla.Read())
+                {
+                    dataGridView1.Rows.Add(grilla[0], grilla[1]);
 
-
+                }
+                grilla.Close();
+            }
+            catch
+            {
+                MessageBox.Show("No existe información de las Empresas dentro de Contasis.","Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
         private void btnnuevo_Click(object sender, EventArgs e)
         {
@@ -81,7 +86,7 @@ namespace Contasis
                     try
                     {
                         NpgsqlConnection cone1 = new NpgsqlConnection();
-                        string text01 = "SELECT crucemp as ruc FROM cg_emppro order by cper desc limit 1";
+                        string text01 = "select crucemp as ruc from cg_emppro order by cper desc limit 1;";
                         cone1 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(cadenanew);
                         cone1.Open();
                         NpgsqlCommand cmdp = new NpgsqlCommand(text01, cone1);
@@ -154,7 +159,7 @@ namespace Contasis
                     try
                     {
                         NpgsqlConnection cone1 = new NpgsqlConnection();
-                        string text01 = "SELECT crucemp as ruc FROM cg_emppro order by cper desc limit 1";
+                        string text01 = "select crucemp as ruc from cg_emppro order by cper desc limit 1;";
                         cone1 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(cadenanew);
                         cone1.Open();
                         NpgsqlCommand cmdp = new NpgsqlCommand(text01, cone1);
@@ -245,13 +250,13 @@ namespace Contasis
             {
                 if (Cmbseleccion.SelectedIndex == 0)
                 {
-                    string query1 = "select ccodemp as Cod_emp,cdesemp as Empresa from  cg_contasis where ccodemp like '%" + txtbuscar.Text + "%' order by ccodemp";
+                    string query1 = "select ccodemp as Cod_emp,cdesemp as Empresa from  cg_contasis where ccodemp like '%" + txtbuscar.Text + "%' order by ccodemp;";
                     this.cargar_codigo(query1);
                     dataGridView1.Focus(); 
                 }
                 else
                 {
-                    string query1 = "select ccodemp as Cod_emp,cdesemp as Empresa from  cg_contasis where  cdesemp like '%" + txtbuscar.Text + "%' order by ccodemp";
+                    string query1 = "select ccodemp as Cod_emp,cdesemp as Empresa from  cg_contasis where  cdesemp like '%" + txtbuscar.Text + "%' order by ccodemp;";
                     this.cargar_codigo(query1);
                     dataGridView1.Focus();
                 }

@@ -187,8 +187,8 @@ namespace Contasis
                                                             txtcadena.Enabled = false;
                                                             btnGrabar.Enabled = true;
                                                             btnGrabar.Focus();
-
-                                                        }
+                                                            botonsiguiente();
+                                                    }
                                                         catch 
                                                         {
                                                             MessageBox.Show("Error, favor revise.", "Contasis Corp. No se grabo las Credenciales", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -314,15 +314,18 @@ namespace Contasis
                                         txtcadena.Text = conexionnewpos;
                                         btnGrabar.Enabled = true;
                                         btnGrabar.Focus();
+                                        botonsiguiente();
+
+
                                         conexionNew.Close();
                                         this.captura2();
                                         Principal.instance.txtcontrol.Text = "1";
                                 }
                                 
                             }
-                            catch (System.Exception ex1)
+                            catch 
                             {
-                                MessageBox.Show(ex1.ToString(), "Contasis Corp. no se ha creado la base de datos en Postgrel", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                MessageBox.Show("Error en los datos ingresados.Debe de revisar el puerto , usuario o Clave.", "Contasis Corp. no se ha creado la base de datos en Postgrel", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             }
 
 
@@ -372,15 +375,7 @@ namespace Contasis
         }
         private void btnGrabar_Click_1(object sender, EventArgs e)
         {
-            int opcion = cmbOrigen.SelectedIndex;
-            
-            
-                String parametercadena = txtcadena.Text;
-                FrmCrearTablas frm = new FrmCrearTablas(parametercadena,opcion, 0);
-                frm.Show();
-                this.btnGrabar.Enabled = false;
-            
-
+            botonsiguiente();
         }
         private void cmbOrigen_SelectedIndexChanged_1(object sender, EventArgs e)
         {
@@ -471,6 +466,18 @@ namespace Contasis
                /// MessageBox.Show("Error no existe información de conexión a empresa " , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
+        public void botonsiguiente()
+        {
+            int opcion = cmbOrigen.SelectedIndex;
+
+
+            String parametercadena = txtcadena.Text;
+            FrmCrearTablas frm = new FrmCrearTablas(parametercadena, opcion, 0);
+            frm.Show();
+            this.btnGrabar.Enabled = false;
+
+
+        }
         public void captura2()
         {
             try
@@ -503,7 +510,15 @@ namespace Contasis
 
 
         }
-     }
+
+        private void txtpuerto_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+    }
 
  }
     

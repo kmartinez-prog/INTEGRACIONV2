@@ -40,6 +40,8 @@ namespace Contasis
             this.txtclave = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -94,7 +96,7 @@ namespace Contasis
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(387, 208);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(114, 25);
+            this.label3.Size = new System.Drawing.Size(92, 20);
             this.label3.TabIndex = 11;
             this.label3.Text = "Contraseña";
             // 
@@ -107,7 +109,7 @@ namespace Contasis
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(387, 148);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 25);
+            this.label2.Size = new System.Drawing.Size(64, 20);
             this.label2.TabIndex = 10;
             this.label2.Text = "Usuario";
             // 
@@ -130,6 +132,7 @@ namespace Contasis
             this.label1.TabIndex = 7;
             this.label1.Text = "Sistema Integración Contasis";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
@@ -147,6 +150,24 @@ namespace Contasis
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(31, 23);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(271, 151);
+            this.textBox3.TabIndex = 12;
+            this.textBox3.Visible = false;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(31, 180);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(271, 151);
+            this.textBox4.TabIndex = 13;
+            this.textBox4.Visible = false;
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,6 +175,8 @@ namespace Contasis
             this.BackColor = System.Drawing.Color.Aqua;
             this.BackgroundImage = global::Contasis.Properties.Resources.LOGIN;
             this.ClientSize = new System.Drawing.Size(704, 376);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.cmbusuario);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -190,5 +213,7 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtclave;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }

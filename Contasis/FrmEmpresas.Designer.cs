@@ -59,6 +59,7 @@ namespace Contasis
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.btnnuevo);
             this.panel1.Controls.Add(this.btnmodificar);
@@ -132,7 +133,7 @@ namespace Contasis
             // 
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 13);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 13);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
@@ -144,7 +145,7 @@ namespace Contasis
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(16, 42);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(130, 15);
+            this.label25.Size = new System.Drawing.Size(112, 13);
             this.label25.TabIndex = 12;
             this.label25.Text = "Seleccione ruc Emisor";
             // 

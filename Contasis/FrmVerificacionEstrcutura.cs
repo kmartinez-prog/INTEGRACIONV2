@@ -80,6 +80,11 @@ namespace Contasis
 
             Clase.Estructura_SQL obj = new Clase.Estructura_SQL();
             //Area para crear la estructura de las Tablas inicia para el integrador con contable ////
+
+
+
+
+
             #region ruc_emisor
 
             NombreTable = "cg_empemisor";
@@ -154,6 +159,13 @@ namespace Contasis
                     "fechahora datetime default Getdate()," +
                     "PRIMARY KEY CLUSTERED(id  ASC) )";
             respuesta = obj.crear_tablas(NombreTable, Query);
+            this.barraprogreso(respuesta);
+            #endregion
+            #region campos_para_configuracion
+            NombreTable = "configuracion";
+            Nombrecampo = "ffecha_inicioproceso";
+            Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
+            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
             this.barraprogreso(respuesta);
             #endregion
 
@@ -1629,7 +1641,13 @@ namespace Contasis
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
             this.barraprogreso(respuesta);
             #endregion
-
+            #region campos_para_configuracion
+            NombreTable = "configuracion";
+            Nombrecampo = "ffecha_inicioproceso";
+            Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
+            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.barraprogreso(respuesta);
+            #endregion
             #region fn_actualizar_version
 
             NombreSP = "fn_actualizar_version";

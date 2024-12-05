@@ -134,6 +134,7 @@ namespace Contasis
 
             }
 
+            
 
 
             // this.desacactivar();///
@@ -163,17 +164,17 @@ namespace Contasis
             {
                 toolStripStatusLabel7.Text = "|Modulo Financiero|";
 
-                this.Text = "Configuración del Integrador Contasis 2024 - Contable Financiero SQL 2024 - PERIODO 2024";
+                this.Text = "Configuración del Integrador Contasis 2024 - Contable Financiero SQL 2024 - PERIODO ACTUAL "+DateTime.Now.ToString("yyyy");
             }
             if (Properties.Settings.Default.TipModulo == "2")
             {
                 toolStripStatusLabel7.Text = "|Modulo Comercial|";
-                this.Text = "Configuración del Integrador Contasis 2024 - Comercial SQL 2024 - PERIODO 2024";
+                this.Text = "Configuración del Integrador Contasis 2024 - Comercial SQL 2024 - PERIODO ACTUAL " + DateTime.Now.ToString("yyyy");
             }
 
             if (Properties.Settings.Default.TipModulo == "")
             {
-                this.Text = "Configuración del Integrador Contasis 2024";
+                this.Text = "Configuración del Integrador Contasis " + DateTime.Now.ToString("yyyy");
                 toolStripStatusLabel7.Text = "";
             }
 

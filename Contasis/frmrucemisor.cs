@@ -49,7 +49,7 @@ namespace Contasis
                 }
                
 
-                lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count-1);
+                lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count);
                 lblTotales.Refresh();
                 dataGrid1.AllowUserToAddRows = false;
                 

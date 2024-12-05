@@ -16,6 +16,7 @@ namespace Contasis
     {
         string xCodempresa;
         string rucemisor;
+        string ffechainicio;
         
         
         public static FrmIntegradorConta  instance = null;
@@ -254,6 +255,7 @@ namespace Contasis
             this.dataGridView_compra.DataSource = null;
             this.dataGridView_cobranza.DataSource = null;
             this.dataGridView_pago.DataSource = null;
+            this.txtFechaInicio.Text = null;
             if (cmbempresas.Text == "")
             {
                 return;
@@ -1878,6 +1880,8 @@ namespace Contasis
                             this.Mostrar_registros_compras();
                             this.Mostrar_registros_cobranzas();
                             this.Mostrar_registros_pagos();
+                            this.Cargar_Fecha_inicio();
+                            FechaInicio.Enabled = true;
                         }
 
                         else
@@ -1903,6 +1907,8 @@ namespace Contasis
                             this.Mostrar_registros_compras();
                             this.Mostrar_registros_cobranzas();
                             this.Mostrar_registros_pagos();
+                            this.Cargar_Fecha_inicio();
+                            FechaInicio.Enabled = true;
                         }
 
                         else
@@ -3599,6 +3605,81 @@ namespace Contasis
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void Grabar_fecha_inicio()
+        { 
+        }
+        private void Cargar_Fecha_inicio()
+        {
+            string query10 = "select ffecha_inicioproceso from configuracion where ccod_empresa='" + cmbempresas.Text.Substring(0, 3) + "' and cper='" + cmbperiodo.Text + "';";
+            if (cmbempresas.Text == "")
+            {
+                txtFechaInicio.Text = null;
+            }
+            else
+            {
+            DataTable Tabla = new DataTable();
+            SqlConnection cone = new SqlConnection();
+
+                try
+                {
+                    if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                    {
+                        cone = Clase.ConexionSql.Instancial().establecerconexion();
+                        MessageBox.Show(query10);
+                        SqlCommand commando = new SqlCommand(query10, cone);
+                        DataTable dt = new DataTable();
+                        cone.Open();
+                        SqlDataAdapter data = new SqlDataAdapter(commando);
+                        data.Fill(dt);
+                        txtFechaInicio.Text = dt.Rows[1].ToString();
+                    }
+
+                    else
+                    {
+
+                        NpgsqlConnection conexion = new NpgsqlConnection();
+                        conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                        conexion.Open();
+                        MessageBox.Show(query10);
+                        NpgsqlCommand cmdp = new NpgsqlCommand(query10, conexion);
+                        NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
+                        NpgsqlDataReader leer = cmdp.ExecuteReader();
+                        if (leer.Read())
+                        {
+                            txtFechaInicio.Text = Convert.ToString(leer["ffecha_inicioproceso"]);
+                        }
+
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Debe de Existir un error, pase verificación de Estructura.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+            }
+
+        }
+
+        private void FechaInicio_ValueChanged(object sender, EventArgs e)
+        {
+            txtFechaInicio.Text = FechaInicio.Value.ToString("dd/MM/yyyy");
+
+
+            /* if (txtFechaInicio.SelectionLength==10)
+             {
+
+             }
+             /*else
+             {
+                 txtFechaInicio.Text = "0" + FechaInicio.Value.ToString();
+             }*/
+        }
+
+        private void txtFechaInicio_TextChanged(object sender, EventArgs e)
         {
 
         }
