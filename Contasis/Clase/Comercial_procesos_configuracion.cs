@@ -14,11 +14,9 @@ namespace Contasis.Clase
     class Comercial_procesos_configuracion
     {
     //*************Procesos de configuracion de comercial *************************//
-        public string comer_insert(Clase.Configuracion_comercial Objet)
+        public string Comer_insert(Clase.Configuracion_comercial Objet)
         {
             string cadena = "";
-
-            DataTable Tabla = new DataTable();
             SqlConnection cone = new SqlConnection();
             
             try
@@ -49,11 +47,9 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string comer_insert_postgres(Clase.Configuracion_comercial Objet)
+        public string Comer_insert_postgres(Clase.Configuracion_comercial Objet)
         {
             string cadena = "";
-
-            DataTable Tabla = new DataTable();
             NpgsqlConnection conexion = new NpgsqlConnection();
             conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
             conexion.Open();
@@ -158,7 +154,7 @@ namespace Contasis.Clase
             }
         }
         //*********************************************************************************************//
-        public string verifica_movimientosql(string movimiento,string tipo,string periodo)
+        public string Verifica_movimientosql(string movimiento,string tipo,string periodo)
         {
             string aviso;
             SqlConnection cone = new SqlConnection();
@@ -195,7 +191,7 @@ namespace Contasis.Clase
 
             }
         }
-        public string verifica_movimientopossql(string movimiento, string tipo, string periodo)
+        public string Verifica_movimientopossql(string movimiento, string tipo, string periodo)
         {
             string aviso;
                       
@@ -236,7 +232,7 @@ namespace Contasis.Clase
         }
 
         //*********************************************************************************************//
-        public string eliminar_movimientosql(string id)
+        public string Eliminar_movimientosql(string id)
         {
             string cadena = "";
             SqlConnection cone = new SqlConnection();
@@ -264,7 +260,7 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string eliminar_movimientopossql(string id)
+        public string Eliminar_movimientopossql(string id)
         {
             string cadena = "";
 
@@ -295,11 +291,9 @@ namespace Contasis.Clase
         
         }
         //********************************************************************************************//
-        public string comer_actualizar(Clase.Configuracion_comercial Objet)
+        public string Comer_actualizar(Clase.Configuracion_comercial Objet)
         {
             string cadena = "";
-
-            DataTable Tabla = new DataTable();
             SqlConnection cone = new SqlConnection();
 
             try
@@ -334,11 +328,9 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string comer_actualizarpostgres(Clase.Configuracion_comercial Objet)
+        public string Comer_actualizarpostgres(Clase.Configuracion_comercial Objet)
         {
             string cadena = "";
-
-            DataTable Tabla = new DataTable();
             NpgsqlConnection conexion = new NpgsqlConnection();
             conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
             conexion.Open();

@@ -31,6 +31,9 @@ namespace Contasis
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmIntegradorConta));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtFechaInicio = new System.Windows.Forms.TextBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.FechaInicio = new System.Windows.Forms.DateTimePicker();
             this.txtpago = new System.Windows.Forms.TextBox();
             this.txtcobranza = new System.Windows.Forms.TextBox();
             this.txtcompras = new System.Windows.Forms.TextBox();
@@ -149,9 +152,6 @@ namespace Contasis
             this.txt_cobra04 = new System.Windows.Forms.TextBox();
             this.anteriofinventas = new System.Windows.Forms.TextBox();
             this.anteriorcompras = new System.Windows.Forms.TextBox();
-            this.FechaInicio = new System.Windows.Forms.DateTimePicker();
-            this.label38 = new System.Windows.Forms.Label();
-            this.txtFechaInicio = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -197,7 +197,36 @@ namespace Contasis
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(622, 504);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // txtFechaInicio
+            // 
+            this.txtFechaInicio.Enabled = false;
+            this.txtFechaInicio.Location = new System.Drawing.Point(380, 24);
+            this.txtFechaInicio.MaxLength = 10;
+            this.txtFechaInicio.Name = "txtFechaInicio";
+            this.txtFechaInicio.Size = new System.Drawing.Size(66, 20);
+            this.txtFechaInicio.TabIndex = 17;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(377, 7);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(151, 13);
+            this.label38.TabIndex = 16;
+            this.label38.Text = "Fecha de Inicio de Integración";
+            // 
+            // FechaInicio
+            // 
+            this.FechaInicio.CustomFormat = "dd/mm/yyyy";
+            this.FechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.FechaInicio.Location = new System.Drawing.Point(446, 24);
+            this.FechaInicio.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
+            this.FechaInicio.MinDate = new System.DateTime(2024, 1, 1, 0, 0, 0, 0);
+            this.FechaInicio.Name = "FechaInicio";
+            this.FechaInicio.Size = new System.Drawing.Size(17, 20);
+            this.FechaInicio.TabIndex = 15;
+            this.FechaInicio.ValueChanged += new System.EventHandler(this.FechaInicio_ValueChanged_1);
             // 
             // txtpago
             // 
@@ -369,7 +398,6 @@ namespace Contasis
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(558, 398);
             this.panel2.TabIndex = 0;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // label26
             // 
@@ -411,6 +439,7 @@ namespace Contasis
             this.dataGridView_venta.Size = new System.Drawing.Size(543, 118);
             this.dataGridView_venta.TabIndex = 26;
             this.dataGridView_venta.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_venta_CellClick);
+            this.dataGridView_venta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_venta_CellContentClick);
             this.dataGridView_venta.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_venta_CellDoubleClick);
             // 
             // txtCFEFEC
@@ -470,7 +499,7 @@ namespace Contasis
             // txtCLREG1
             // 
             this.txtCLREG1.Location = new System.Drawing.Point(147, 62);
-            this.txtCLREG1.MaxLength = 10;
+            this.txtCLREG1.MaxLength = 2;
             this.txtCLREG1.Name = "txtCLREG1";
             this.txtCLREG1.Size = new System.Drawing.Size(82, 18);
             this.txtCLREG1.TabIndex = 5;
@@ -485,7 +514,6 @@ namespace Contasis
             this.txtCSUB1.Name = "txtCSUB1";
             this.txtCSUB1.Size = new System.Drawing.Size(82, 18);
             this.txtCSUB1.TabIndex = 4;
-            this.txtCSUB1.TextChanged += new System.EventHandler(this.txtCSUB1_TextChanged);
             this.txtCSUB1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCSUB1_KeyDown);
             this.txtCSUB1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCSUB1_KeyPress);
             this.txtCSUB1.Validated += new System.EventHandler(this.txtCSUB1_Validated);
@@ -1108,7 +1136,6 @@ namespace Contasis
             this.txtsubdiario_cobra.Name = "txtsubdiario_cobra";
             this.txtsubdiario_cobra.Size = new System.Drawing.Size(82, 18);
             this.txtsubdiario_cobra.TabIndex = 36;
-            this.txtsubdiario_cobra.TextChanged += new System.EventHandler(this.txtsubdiario_cobra_TextChanged);
             this.txtsubdiario_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_cobra_KeyDown);
             this.txtsubdiario_cobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtsubdiario_cobra_KeyPress);
             this.txtsubdiario_cobra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_cobra_KeyUp);
@@ -1259,7 +1286,6 @@ namespace Contasis
             this.txtsubdiario_pago.Name = "txtsubdiario_pago";
             this.txtsubdiario_pago.Size = new System.Drawing.Size(82, 18);
             this.txtsubdiario_pago.TabIndex = 45;
-            this.txtsubdiario_pago.TextChanged += new System.EventHandler(this.txtsubdiario_pago_TextChanged);
             this.txtsubdiario_pago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_pago_KeyDown);
             this.txtsubdiario_pago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtsubdiario_pago_KeyPress);
             this.txtsubdiario_pago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_pago_KeyUp);
@@ -1392,7 +1418,6 @@ namespace Contasis
             this.txtasientoventas2.Size = new System.Drawing.Size(192, 105);
             this.txtasientoventas2.TabIndex = 21;
             this.txtasientoventas2.Text = resources.GetString("txtasientoventas2.Text");
-            this.txtasientoventas2.TextChanged += new System.EventHandler(this.txtasientoventas2_TextChanged);
             // 
             // txtasientoventas1
             // 
@@ -1443,11 +1468,11 @@ namespace Contasis
             // txt_cobra03
             // 
             this.txt_cobra03.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.txt_cobra03.Location = new System.Drawing.Point(977, 421);
+            this.txt_cobra03.Location = new System.Drawing.Point(954, 421);
             this.txt_cobra03.Multiline = true;
             this.txt_cobra03.Name = "txt_cobra03";
             this.txt_cobra03.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_cobra03.Size = new System.Drawing.Size(318, 264);
+            this.txt_cobra03.Size = new System.Drawing.Size(344, 264);
             this.txt_cobra03.TabIndex = 24;
             this.txt_cobra03.Text = resources.GetString("txt_cobra03.Text");
             // 
@@ -1487,43 +1512,11 @@ namespace Contasis
             this.anteriorcompras.Text = resources.GetString("anteriorcompras.Text");
             this.anteriorcompras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // FechaInicio
-            // 
-            this.FechaInicio.CustomFormat = "dd/mm/yyyy";
-            this.FechaInicio.Enabled = false;
-            this.FechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.FechaInicio.Location = new System.Drawing.Point(448, 24);
-            this.FechaInicio.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
-            this.FechaInicio.MinDate = new System.DateTime(2024, 1, 1, 0, 0, 0, 0);
-            this.FechaInicio.Name = "FechaInicio";
-            this.FechaInicio.Size = new System.Drawing.Size(17, 20);
-            this.FechaInicio.TabIndex = 15;
-            this.FechaInicio.ValueChanged += new System.EventHandler(this.FechaInicio_ValueChanged);
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(377, 7);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(151, 13);
-            this.label38.TabIndex = 16;
-            this.label38.Text = "Fecha de Inicio de Integración";
-            // 
-            // txtFechaInicio
-            // 
-            this.txtFechaInicio.Enabled = false;
-            this.txtFechaInicio.Location = new System.Drawing.Point(380, 24);
-            this.txtFechaInicio.MaxLength = 10;
-            this.txtFechaInicio.Name = "txtFechaInicio";
-            this.txtFechaInicio.Size = new System.Drawing.Size(69, 20);
-            this.txtFechaInicio.TabIndex = 17;
-            this.txtFechaInicio.TextChanged += new System.EventHandler(this.txtFechaInicio_TextChanged);
-            // 
             // FrmIntegradorConta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(635, 559);
+            this.ClientSize = new System.Drawing.Size(637, 557);
             this.Controls.Add(this.anteriorcompras);
             this.Controls.Add(this.anteriofinventas);
             this.Controls.Add(this.txt_cobra04);

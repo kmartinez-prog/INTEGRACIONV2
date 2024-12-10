@@ -108,8 +108,6 @@ namespace Contasis.Clase
         public string eliminarsql(Clase.Compras_propiedadescs Objet)
         {
             string cadena = "";
-
-            DataTable Tabla = new DataTable();
             SqlConnection cone = new SqlConnection();
 
             try

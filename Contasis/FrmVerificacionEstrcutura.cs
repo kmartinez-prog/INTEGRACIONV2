@@ -168,7 +168,35 @@ namespace Contasis
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
             this.barraprogreso(respuesta);
             #endregion
+            #region configuracion2
 
+            NombreTable = "configuracion2";
+            Query = "CREATE TABLE configuracion2( " +
+                    "id int IDENTITY(1,1) NOT NULL, " +
+                    "ccod_empresa char(3) NULL, " +
+                    "cper char(4) NULL, " +
+                    "crazemp char(100) NULL, " +
+                    "crucemp char(15) NULL, " +
+                    "Entidad char(3) NULL, " +
+                    "Tipo char(5) NULL, " +
+                    "codtipdocu char(4) NULL, " +
+                    "cserie char(20) NULL, " +
+                    "ccodmov char(10) NULL, " +
+                    "ccodpag char(5) NULL, " +
+                    "ccodvend char(10) NULL, " +
+                    "ccodalma char(10) NULL, " +
+                    "Ent_anula char(15) NULL, " +
+                    "Prodanula char(15) NULL) ";
+            respuesta = obj.crear_tablas(NombreTable, Query);
+            this.barraprogreso(respuesta);
+            #endregion
+            #region campos_para_configuracion2
+            NombreTable = "configuracion2";
+            Nombrecampo = "ffecha_inicioproceso";
+            Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
+            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.barraprogreso(respuesta);
+            #endregion
             #region campos_para_rucemiso
             NombreTable = "cg_empemisor";
             Nombrecampo = "nventaflg";
@@ -1551,6 +1579,13 @@ namespace Contasis
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.barraprogreso(respuesta);
                 #endregion
+                #region campos_para_configuracion2
+                NombreTable = "configuracion2";
+                Nombrecampo = "ffecha_inicioproceso";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
+                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.barraprogreso(respuesta);
+                #endregion
             }
         }
         private void proceso_postgresl()
@@ -1633,7 +1668,13 @@ namespace Contasis
             respuesta = obj.crear_tablas(NombreTable, Query);
             this.barraprogreso(respuesta);
             #endregion
-
+            #region campos_para_configuracion2
+            NombreTable = "configuracion2";
+            Nombrecampo = "ffecha_inicioproceso";
+            Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
+            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.barraprogreso(respuesta);
+            #endregion
             #region campos_para_conexiones
             NombreTable = "conexiones";
             Nombrecampo = "nModulo";
@@ -1954,7 +1995,30 @@ namespace Contasis
 
 
                 #endregion
+                #region configuracion2
 
+                NombreTable = "configuracion2";
+                Query = "drop sequence if exists sec_id;" +
+                "create sequence sec_id minvalue 1 maxvalue 99999999999 increment by 1; " +
+                "CREATE TABLE configuracion2( " +
+                 "   id numeric(20, 0), " +
+                 "   ccod_empresa char(3) NULL, " +
+                 "   cper char(4) NULL, " +
+                 "   crazemp char(100) NULL, " +
+                 "   crucemp char(15) NULL, " +
+                 "   Entidad char(3) NULL, " +
+                 "   Tipo char(2) NULL, " +
+                 "   codtipdocu char(4) NULL, " +
+                 "   serie char(20) NULL, " +
+                 "   ccodmov char(10) NULL, " +
+                 "   ccodpag char(5) NULL, " +
+                 "   ccodvend char(10) NULL, " +
+                 "   ccodalma char(10) NULL, " +
+                 "   Ent_anula char(15) NULL, " +
+                 "   Prodanula char(15) NULL); ";
+                respuesta = obj.crear_tablas(NombreTable, Query);
+                this.barraprogreso(respuesta);
+                #endregion
 
                 #region fn_cobranzaspago_envio
 
@@ -2152,16 +2216,15 @@ namespace Contasis
                         " and fin_compras.ccod_empresa = p_empresa::character(3)  \n" +
                         " and es_con_migracion in (0, 3)  \n" +
                         " and configuracion.CTIPO = '02'  \n" +
+                        " and to_char(fin_compras.ffechadoc, 'YYYY-MM-DD')>=to_char(configuracion.ffechainicioproceso, 'YYYY-MM-DD') \n" +
                         " ) t   \n" +
                         "    \n" +
                         " into resultado;  \n" +
                         "    \n" +
                         " END; \n" +
-                        " $BODY$ \n" +
+                        " $BODY$   \n" +
                         " LANGUAGE plpgsql VOLATILE  \n" +
-                        " COST 100;  \n" +
-                        " ALTER FUNCTION fn_compras_envio(character, character)  \n" +
-                        " OWNER TO postgres;  ";
+                        " COST 100; ";
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.barraprogreso(respuesta);
                 #endregion
@@ -2471,6 +2534,104 @@ namespace Contasis
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.barraprogreso(respuesta);
                 #endregion
+
+                #region fn_ventas_envio
+                NombreSP = "fn_ventas_envio";
+                Query = " CREATE OR REPLACE FUNCTION public.fn_ventas_envio( \n" +
+                        " 	OUT resultado text, \n" +
+                        " 	p_ruc_emisor character, \n" +
+                        " 	p_empresa character) \n" +
+                        "     RETURNS text \n" +
+                        " AS $BODY$ \n" +
+                        " BEGIN  \n" +
+                        "        select json_agg(to_json(t))::text \n" +
+                        "     from ( \n" +
+                        "         select \n" +
+                        "             idventas, fin_ventas.ccod_empresa,fin_ventas.cper,cmes,     \n" +
+                        "             trim(configuracion.csub1_vta) AS ccodori,    \n" +
+                        "             trim(configuracion.clreg1_vta) AS ccodsu,    \n" +
+                        "             trim(configuracion.csub2_vta) AS ccodori_p,    \n" +
+                        "             trim(configuracion.clreg2_vta) AS ccodsu_p,    \n" +
+                        "             trim(configuracion.cconts_vta) AS ccodcue_ps,    \n" +
+                        "             trim(configuracion.ccontd_vta) AS ccodcue_pd,   \n" +
+                        "             trim(configuracion.cfefec_vta) AS ccodflu,    \n" +
+                        "             configuracion.ctares_vta AS flgctares,    \n" +
+                        "             configuracion.ctaimp_vta AS flgctaimp,   \n" +
+                        "             configuracion.Ctaact_vta AS flgctaact,   \n" +
+                        "             configuracion.asientos_vta AS flggencomp,   \n" +
+                        "             trim(configuracion.cEntidad) AS ccodtipent,    \n" +
+                        "             to_char(ffechadoc, 'YYYY-MM-DD') AS ffechadoc, -- trim(Convert(char(10), ffechadoc, 112)) AS ffechadoc,    \n" +
+                        "             to_char(ffechaven, 'YYYY-MM-DD') AS ffechaven, -- trim(Convert(char(10), ffechaven, 112)) AS ffechaven,    \n" +
+                        "             trim(ccoddoc) AS ccoddoc,   \n" +
+                        "             trim(cserie) AS cserie,   \n" +
+                        "             trim(cnumero) AS cnumero,   \n" +
+                        "             trim(ccodenti) AS ccodenti,   \n" +
+                        "             trim(cdesenti) AS cdesenti,  \n" +
+                        "             trim(ctipdoc) AS ctipdoc,   \n" +
+                        "             trim(ccodruc) AS ccodruc,   \n" +
+                        "             trim(crazsoc) AS crazsoc,   \n" +
+                        "             coalesce(nbase2, 0.00) as nbase2, \n" +
+                        "             coalesce(nbase1, 0.00) as nbase1,   \n" +
+                        "             coalesce(nexo, 0.00) as nexo,   \n" +
+                        "             coalesce(nina, 0.00) as nina,    \n" +
+                        "             coalesce(nisc, 0.00) as nisc,  \n" +
+                        "             coalesce(nigv1, 0.00) as nigv1,  \n" +
+                        "             coalesce(nicbpers, 0.00) as nicbpers,  \n" +
+                        "             coalesce(nbase3, 0.00) as nbase3,   \n" +
+                        "             coalesce(ntots, 0.00) as ntots,   \n" +
+                        "             coalesce(ntc, 0.00) as ntc,   \n" +
+                        "             to_char(freffec, 'YYYY-MM-DD') AS freffec, --trim(coalesce(Convert(char(10), freffec, 112), ' ')) AS freffec, \n" +
+                        "             case when trim(coalesce(crefdoc,'')) = '' then ' ' else trim(crefdoc)  end as crefdoc,   \n" +
+                        "             case when trim(coalesce(crefser,'')) = '' then ' ' else trim(crefser)  end as crefser,   \n" +
+                        "             case when trim(coalesce(crefnum,'')) = '' then ' ' else trim(crefnum)  end as crefnum,  \n" +
+                        "             case when trim(coalesce(cmreg,'')) = '' then ' ' else trim(cmreg)  end as cmreg,   \n" +
+                        "             coalesce(ndolar, 0.00) as ndolar,    \n" +
+                        "             to_char(ffechaven2, 'YYYY-MM-DD') AS ffechaven2, --trim(coalesce(Convert(char(10), ffechaven2, 112), ' ') AS ffechaven2,    \n" +
+                        "             case when trim(coalesce(ccond,'')) = '' then ' ' else trim(ccond)  end as ccond,    \n" +
+                        "             case when trim(coalesce(substring(ccodcos,1,9),'')) = '' then ' ' else trim(substring(ccodcos,1,9))  end as ccodcos, \n" +
+                        "             case when trim(coalesce(substring(ccodcos2,1,9),'')) = '' then ' ' else trim(substring(ccodcos2,1,9))  end as ccodcos2, \n" +
+                        "             case when trim(coalesce(cctabase,'')) = '' then ' ' else trim(cctabase)  end as cctabase,    \n" +
+                        "             case when trim(coalesce(cctaicbper,'')) = '' then ' ' else trim(cctaicbper)  end as cctaicbper,    \n" +
+                        "             case when trim(coalesce(cctaotrib,'')) = '' then ' ' else trim(cctaotrib)  end as cctaotrib,    \n" +
+                        "             case when trim(coalesce(cctatot,'')) = '' then ' ' else trim(cctatot)  end as cctatot,    \n" +
+                        "             coalesce(nresp, 0.00) as nresp,    \n" +
+                        "             coalesce(nporre, 0.00) as nporre,    \n" +
+                        "             coalesce(nimpres, 0.00) as nimpres,    \n" +
+                        "             case when trim(coalesce(cserre,'')) = '' then ' ' else trim(cserre)  end as cserre,    \n" +
+                        "             case when trim(coalesce(cnumre,'')) = '' then ' ' else trim(cnumre)  end as cnumre,    \n" +
+                        "             to_char(ffecre, 'YYYY-MM-DD') AS ffecre, -- trim(coalesce(Convert(char(10), ffecre, 112), ' ') AS ffecre, \n" +
+                        "             case when trim(coalesce(ccodpresu,'')) = '' then ' ' else trim(ccodpresu)  end as ccodpresu,    \n" +
+                        "             coalesce(nigv, 0.00) as nigv,    \n" +
+                        "             case when trim(coalesce(substring(cglosa,1,80),'')) = '' then ' ' else trim(substring(cglosa,1,80))  end::character(80) as cglosa,   \n" +
+                        "             case when trim(coalesce(ccodpago,'')) = '' then ' ' else trim(ccodpago)  end as ccodpago,    \n" +
+                        "             coalesce(nperdenre, 0.00) as nperdenre,    \n" +
+                        "             coalesce(nbaseres, 0.00) as nbaseres,    \n" +
+                        "             case when trim(coalesce(cctaperc,'')) = '' then ' ' else trim(cctaperc)  end as cctaperc,   \n" +
+                        "             case when trim(coalesce(estado,'')) = '' then ' ' else trim(estado)  end as estado,    \n" +
+                        "             case when trim(coalesce(en_ambiente_de,'')) = '' then ' ' else trim(en_ambiente_de)  end as en_ambiente_de,    \n" +
+                        "             es_con_migracion,    \n" +
+                        "             case when trim(coalesce(ccodcos3,'')) = '' then ' ' else trim(ccodcos3)  end as ccodcos3,    \n" +
+                        "             case when es_con_migracion=3  then  trim(configuracion.cEnt_anula)  else '' end  as ccodrucanula   \n" +
+                        "         from fin_ventas \n" +
+                        "         join configuracion ON fin_ventas.CCOD_EMPRESA = configuracion.CCOD_EMPRESA and fin_ventas.CPER = configuracion.CPER   \n" +
+                        "         join CG_EMPRESA emp on fin_ventas.ccodrucemisor = emp.ccodrucemisor and fin_ventas.ccod_empresa = emp.CCOD_EMPRESA  \n" +
+                        "         join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1::bit     \n" +
+                        "         where   fin_ventas.ccodrucemisor= p_ruc_emisor::character(15) \n" +
+                        "             and fin_ventas.ccod_empresa = p_empresa::character(3) \n" +
+                        "             and es_con_migracion in (0, 3) \n" +
+                        "             and configuracion.ctipo = '01'  \n" +
+                        " 			and to_char(fin_ventas.ffechadoc, 'YYYY-MM-DD')>=to_char(configuracion.ffechainicioproceso, 'YYYY-MM-DD') \n" +
+                        "    ) t \n" +
+                        "     into resultado; \n" +
+                        " END; \n" +
+                        " $BODY$   \n" +
+                        " LANGUAGE plpgsql VOLATILE  \n" +
+                        " COST 100; ";
+                respuesta = obj.crear_funcion(NombreSP, Query);
+                this.barraprogreso(respuesta);
+                #endregion
+
+
             }
 
             if (Properties.Settings.Default.TipModulo == "2")
@@ -2506,6 +2667,13 @@ namespace Contasis
                  "   Ent_anula char(15) NULL, " +
                  "   Prodanula char(15) NULL); ";
                 respuesta = obj.crear_tablas(NombreTable, Query);
+                this.barraprogreso(respuesta);
+                #endregion
+                #region campos_para_configuracion2
+                NombreTable = "configuracion2";
+                Nombrecampo = "ffecha_inicioproceso";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
+                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
                 this.barraprogreso(respuesta);
                 #endregion
                 #region com_producto

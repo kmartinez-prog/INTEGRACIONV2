@@ -589,6 +589,38 @@ BEGIN
 	varcentro2=0;
 	-- Validaciones fin_compras
 	-- Insetandoi entidades 
+	
+/*****************************************validad empresa ****************************************/
+Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Codigo no corresponde a la empresa Emisor.'), 
+		resultado_migracion = 2  
+		where  FIN_COMPRAS.idcompras in (
+select idcompras from FIN_COMPRAS where ccod_empresa not in (select substr(current_database(),10,3))
+);
+	
+/******************************** entidades validaciones *************************************************/	
+	
+	/***** 05/12/2024 actualizacion de funcion para evitar ruc duplicados con diferente razon social*******************/
+	Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Ruc duplicado con descripcion o tipo de doc.diferente'), 
+		resultado_migracion = 2  
+		where  FIN_COMPRAS.ccodruc in(
+		select ccodruc  from (
+		select ccodruc,crazsoc, ctipdoc,CNATJUR,count(*) as cnt  from (
+		select DISTINCT ccodruc,crazsoc, ctipdoc,case 
+			when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
+			when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)in('10','15') then '1'
+			when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
+			when trim(ctipdoc)='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
+			when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
+			when ctipdoc='7' then '1'		
+			when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
+			when ctipdoc='4' and Length(ltrim(ccodruc))&lt;11  then '3' else '0'
+			 END ::CHAR(1) AS CNATJUR  FROM FIN_COMPRAS
+			 WHERE crazsoc NOT LIKE('%ANULAD%') 
+		) as data where data.ccodruc not in (select ccodruc from cg_entitrib) group by ccodruc,crazsoc, ctipdoc,CNATJUR ) 
+			as cliente where cnt&gt;1); 
+	
+	
+	
 
 	Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Razon social(crazoc) no puede estar vacio'), 
 		resultado_migracion = 2  
@@ -604,21 +636,25 @@ BEGIN
 
 
 
-	insert into cg_entidad (ccodenti, cdesenti, ccodtipent) 
-	select distinct ccodenti, cdesenti, ccodtipent from fin_compras where ccodenti not in (select ccodenti from cg_entidad); 
-	-- insertando entidades tributarias 
-	Insert into cg_entitrib (ccodruc,crazsoc,ctipdoc,CNATJUR,ccodtipent) 
-	select DISTINCT ccodruc,crazsoc,ctipdoc,case 
-	when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
-	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)in('10','15') then '1'
-	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
-	when ctipdoc='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
-	when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
-	when ctipdoc='7' then '1'				
-	when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
-	when ctipdoc='4' and Length(ltrim(ccodruc))&lt;11  then '3'		
-	END ::CHAR(1) AS CNATJUR,ccodtipent   FROM FIN_COMPRAS
-	WHERE ccodruc not in (select ccodruc from cg_entitrib); 
+	/***** 05/12/2024 actualizacion de funcion para evitar ruc duplicados con diferente razon social*******************/
+	Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Ruc duplicado con descripcion o tipo de doc.diferente'), 
+		resultado_migracion = 2  
+		where  FIN_COMPRAS.ccodruc in(
+		select ccodruc  from (
+		select ccodruc,crazsoc, ctipdoc,CNATJUR,count(*) as cnt  from (
+		select DISTINCT ccodruc,crazsoc, ctipdoc,case 
+			when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
+			when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)in('10','15') then '1'
+			when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
+			when trim(ctipdoc)='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
+			when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
+			when ctipdoc='7' then '1'		
+			when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
+			when ctipdoc='4' and Length(ltrim(ccodruc))&lt;11  then '3' else '0'
+			 END ::CHAR(1) AS CNATJUR  FROM FIN_COMPRAS
+			 WHERE crazsoc NOT LIKE('%ANULAD%') 
+		) as data where data.ccodruc not in (select ccodruc from cg_entitrib) group by ccodruc,crazsoc, ctipdoc,CNATJUR ) 
+			as cliente where cnt&gt;1); 
 	
 
 	for rwperproceso in select distinct cper as cperproceso from fin_compras loop 	
@@ -4259,11 +4295,7 @@ ALTER FUNCTION fin_registro_compras_integracion_estandar(character, character, c
   OWNER TO postgres;</value>
   </data>
   <data name="txtasientoventas2.Text" xml:space="preserve">
-    <value>
-select Drop_si_existe_function_postgres('fin_registro_ventas_integracion_estandar'); 
-
-
-
+    <value>select Drop_si_existe_function_postgres('fin_registro_ventas_integracion_estandar'); 
 CREATE OR REPLACE FUNCTION fin_registro_ventas_integracion_estandar(
     varper character,
     varmes character,
@@ -4307,7 +4339,7 @@ $BODY$
 
 
 			BEGIN
-
+			DROP TABLE IF EXISTS RESDIF;
 			CREATE TEMPORARY TABLE RESDIF(
 			  ccodori character(3) NOT NULL DEFAULT ''::bpchar,
 			   nidlin numeric(6,0) NOT NULL DEFAULT 0,
@@ -4399,7 +4431,7 @@ $BODY$
 			 ) on commit drop;
 
 
-
+			DROP TABLE IF EXISTS resultado;	
 			create temporary table resultado(
 			 cper character(4)  NOT NULL DEFAULT ''::bpchar,
 			  cmes character(2) NOT NULL DEFAULT ''::bpchar,
@@ -4547,7 +4579,7 @@ $BODY$
 			  ) on commit drop;
 
 
-
+			DROP TABLE IF EXISTS tmpregcv;	
 			create temporary table tmpregcv(
 			 cper character(4)  NOT NULL DEFAULT ''::bpchar,
 			  cmes character(2) NOT NULL DEFAULT ''::bpchar,
@@ -4694,6 +4726,7 @@ $BODY$
 			  nigv numeric(5,2) NOT NULL DEFAULT 0		  
 			  ) on commit drop;
 
+			DROP TABLE IF EXISTS tmpregcv1;	
 			create temporary table tmpregcv1(
 			 cper character(4)  NOT NULL DEFAULT ''::bpchar,
 			  cmes character(2) NOT NULL DEFAULT ''::bpchar,
@@ -4840,6 +4873,7 @@ $BODY$
 			  nigv numeric(5,2) NOT NULL DEFAULT 0			
 			  ) on commit drop;
 
+			DROP TABLE IF EXISTS tmpregcv2;	
 			create temporary table tmpregcv2(
 			 cper character(4)  NOT NULL DEFAULT ''::bpchar,
 			  cmes character(2) NOT NULL DEFAULT ''::bpchar,
@@ -4986,6 +5020,7 @@ $BODY$
 			  nigv numeric(5,2) NOT NULL DEFAULT 0			  
 			  ) on commit drop;
 
+			DROP TABLE IF EXISTS tmpregcv3;	
 			create temporary table tmpregcv3(
 			 cper character(4)  NOT NULL DEFAULT ''::bpchar,
 			  cmes character(2) NOT NULL DEFAULT ''::bpchar,
@@ -7250,6 +7285,13 @@ BEGIN
 	varcentro2=0;
 	-- Validaciones fin_ventas
 	-- Insetandoi entidades 	
+/*****************************************validad empresa ****************************************/
+Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-','Codigo no corresponde a la empresa Emisor.'), 
+		resultado_migracion = 2  
+		where  fin_ventas.idventas in (
+select idventas,*  from fin_ventas where ccod_empresa not in (select substr(current_database(),10,3)));
+/******************************** entidades validaciones *************************************************/
+	
 
 	Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-','Razon social(crazoc) no puede estar vacio'), 
 		resultado_migracion = 2  
@@ -7262,7 +7304,28 @@ BEGIN
 	Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-','Tipos de Identidad(ctipdoc) no puede estar vacio'), 
 		resultado_migracion = 2  
 		where  fin_ventas.ctipdoc='';
+		
+/***** 05/12/2024 actualizacion de funcion para evitar ruc duplicados con diferente razon social*******************/
+	Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-','Ruc duplicado con descripcion o tipo de doc.diferente'), 
+		resultado_migracion = 2  
+		where  fin_ventas.ccodruc in(
+		select ccodruc  from (
+		select ccodruc,crazsoc, ctipdoc,CNATJUR,count(*) as cnt  from (
+		select DISTINCT ccodruc,crazsoc, ctipdoc,case 
+			when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
+			when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)in('10','15') then '1'
+			when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
+			when trim(ctipdoc)='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
+			when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
+			when ctipdoc='7' then '1'		
+			when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
+			when ctipdoc='4' and Length(ltrim(ccodruc))&lt;11  then '3' else '0'
+			 END ::CHAR(1) AS CNATJUR  FROM FIN_VENTAS
+			 WHERE crazsoc NOT LIKE('%ANULAD%') 
+		) as data where data.ccodruc not in (select ccodruc from cg_entitrib) group by ccodruc,crazsoc, ctipdoc,CNATJUR ) 
+			as cliente where cnt&gt;1); 		
 
+/****************************************************************************/
 	Insert into cg_entitrib (ccodruc,crazsoc, ctipdoc,CNATJUR) 
 	select DISTINCT ccodruc,crazsoc, ctipdoc,case 
 	when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
@@ -7272,9 +7335,12 @@ BEGIN
 	when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
 	when ctipdoc='7' then '1'		
 	when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
-	when ctipdoc='4' and Length(ltrim(ccodruc))&lt;11  then '3'
+	when ctipdoc='4' and Length(ltrim(ccodruc))&lt;11  then '3' else '0'
 	 END ::CHAR(1) AS CNATJUR   FROM FIN_VENTAS
-	 WHERE crazsoc NOT LIKE('%ANULAD%') AND    ccodruc not in (select ccodruc from cg_entitrib); 
+	 WHERE fin_ventas.es_con_migracion=0 and fin_ventas.resultado_migracion not in(2)  and
+		crazsoc NOT LIKE('%ANULAD%') AND    ccodruc not in (select ccodruc from cg_entitrib)  ; 
+/****************************************************************************/
+
 
 	for rwperproceso in select distinct cper as cperproceso from fin_ventas loop 	
 
@@ -7340,12 +7406,21 @@ BEGIN
 			fin_ventas.cper=cf_plan.cper and 
 			fin_ventas.cctabase=cf_plan.ccodcue where fin_ventas.cper=rwperproceso.cperproceso group by concat(ccoddoc,cserie,cnumero,ccodruc)); 
 
+   		Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' cuenta total&lt;&lt;cctatot&gt;&gt;  no debe estar vacio'), 
+		resultado_migracion = 2  
+		where  fin_ventas.CCTATOT='';
+
+		Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' cuenta base&lt;&lt;cctabase&gt;&gt;  no debe estar vacio'), 
+		resultado_migracion = 2  
+		where  fin_ventas.cctabase='';	
+
 		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE ICBPER NO EXISTE '),  resultado_migracion = 2 
 		where  fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.es_con_migracion=0  and  fin_ventas.cctaicbper&lt;&gt;' '  
 		AND concat(ccoddoc,cserie,cnumero,ccodruc)  not in(
 		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc)  From fin_ventas inner join cf_plan on
 		fin_ventas.cper=cf_plan.cper and 
-		fin_ventas.cctaicbper=cf_plan.ccodcue  WHERE  fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.cctaicbper&lt;&gt;' ' group by concat(ccoddoc,cserie,cnumero,ccodruc) );
+		fin_ventas.cctaicbper=cf_plan.ccodcue  
+		WHERE  fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.cctaicbper&lt;&gt;' ' group by concat(ccoddoc,cserie,cnumero,ccodruc) );
 
 		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE OTROS TRIBUTOS Y CARGOS NO EXISTE ') ,  
 		resultado_migracion = 2 
@@ -7607,7 +7682,8 @@ BEGIN
 	end loop; -- Periodo 
 END; 
 $BODY$
-  LANGUAGE plpgsql VOLATILE</value>
+  LANGUAGE plpgsql VOLATILE
+</value>
   </data>
   <data name="txt_cobra01.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION fin_guardar_cobranzapago_integrador(

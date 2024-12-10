@@ -350,6 +350,7 @@ namespace Contasis
             this.carga3();
             this.modulos();
             this.button1.Enabled = true;
+            Cargar_Fecha_inicio();
         }
         private void anulados()
         {
@@ -622,12 +623,12 @@ namespace Contasis
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
                 label5.Text = "Tipo de movimiento:";
-                SqlConnection cone = new SqlConnection();
+                SqlConnection Cone = new SqlConnection();
                 string text02 = "select ccodmudulo,cdesmodulo  from modulo_comercial;";
-                cone = Clase.ConexionSql.Instancial().establecerconexion();
-                SqlCommand cmd = new SqlCommand(text02,cone);
+                Cone = Clase.ConexionSql.Instancial().establecerconexion();
+                SqlCommand cmd = new SqlCommand(text02,Cone);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
-                cone.Open();
+                Cone.Open();
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 
@@ -635,7 +636,7 @@ namespace Contasis
                 cmbtipo.DisplayMember = "cdesmodulo";
                 cmbtipo.DataSource = dt;
                 cmbtipo.Refresh();
-                cone.Close();
+                Cone.Close();
             }
             else
             {
@@ -672,6 +673,7 @@ namespace Contasis
         }
         private void cmbentidad_SelectedIndexChanged(object sender, EventArgs e)
         {
+            FechaInicio.Enabled = true;
             if (cmbentidad.SelectedValue.ToString() != null)
             {
              ////   MessageBox.Show(cmbentidad.SelectedValue.ToString());
@@ -679,6 +681,7 @@ namespace Contasis
         }
         private void cmbanulados_SelectedIndexChanged(object sender, EventArgs e)
         {
+            FechaInicio.Enabled = true;
             if (cmbanulados.SelectedValue.ToString() != null)
             {
               ////  MessageBox.Show(cmbanulados.SelectedValue.ToString());
@@ -686,17 +689,20 @@ namespace Contasis
         }
         private void cmbdocumento_SelectedIndexChanged(object sender, EventArgs e)
         {
-           /// MessageBox.Show(cmbdocumento.SelectedValue.ToString());
+            FechaInicio.Enabled = true;
+            /// MessageBox.Show(cmbdocumento.SelectedValue.ToString());
             ///MessageBox.Show(xtipomovi);
-            
+
             series(cmbdocumento.SelectedValue.ToString(), xtipomovi);
         }
         private void cmbseries_SelectedIndexChanged(object sender, EventArgs e)
         {
+            FechaInicio.Enabled = true;
             this.movimiento(cmbdocumento.SelectedValue.ToString(), cmbseries.SelectedValue.ToString(), xtipomovi);
         }
          private void cmbtipo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            FechaInicio.Enabled = true;
             label5.Text = "Tipo de movimiento:";
             xmodulo = cmbtipo.SelectedValue.ToString().Trim();
             if (xmodulo == "COMPR")
@@ -758,11 +764,11 @@ namespace Contasis
                 Clase.Comercial_procesos_configuracion ver = new Clase.Comercial_procesos_configuracion();
                 if (Properties.Settings.Default.cadenaPostPrincipal == "")
                 {
-                    respuesta = ver.verifica_movimientosql(cmbmovimiento.SelectedValue.ToString(), cmbtipo.Text.Substring(0, 5), txtperiodo.Text.Trim());
+                    respuesta = ver.Verifica_movimientosql(cmbmovimiento.SelectedValue.ToString(), cmbtipo.Text.Substring(0, 5), txtperiodo.Text.Trim());
                 }
                 else
                 {
-                    respuesta = ver.verifica_movimientopossql(cmbmovimiento.SelectedValue.ToString(), cmbtipo.Text.Substring(0, 5), txtperiodo.Text.Trim());
+                    respuesta = ver.Verifica_movimientopossql(cmbmovimiento.SelectedValue.ToString(), cmbtipo.Text.Substring(0, 5), txtperiodo.Text.Trim());
                 }
 
                 ////MessageBox.Show(cmbmovimiento.SelectedValue.ToString());
@@ -775,7 +781,7 @@ namespace Contasis
                     if (Properties.Settings.Default.cadenaPostPrincipal == "")
                     {
                         Clase.Comercial_procesos_configuracion ds = new Clase.Comercial_procesos_configuracion();
-                        respuesta = ds.comer_actualizar(obj);
+                        respuesta = ds.Comer_actualizar(obj);
                         if (respuesta.Equals("Actualizado"))
                         {
                             MessageBox.Show("Registro actualizado en tabla configuración comercial", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -792,7 +798,7 @@ namespace Contasis
                     else
                     {
                         Clase.Comercial_procesos_configuracion ds = new Clase.Comercial_procesos_configuracion();
-                        respuesta = ds.comer_actualizarpostgres(obj);
+                        respuesta = ds.Comer_actualizarpostgres(obj);
                         if (respuesta.Equals("Actualizado"))
                         {
                             MessageBox.Show("Registro actualizado en tabla configuración comercial", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -815,7 +821,7 @@ namespace Contasis
                     if (Properties.Settings.Default.cadenaPostPrincipal == "")
                     {
                         Clase.Comercial_procesos_configuracion ds = new Clase.Comercial_procesos_configuracion();
-                        respuesta = ds.comer_insert(obj);
+                        respuesta = ds.Comer_insert(obj);
                         if (respuesta.Equals("Grabado"))
                         {
                             MessageBox.Show("Registro grabado en tabla configuración comercial", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -832,7 +838,7 @@ namespace Contasis
                     else
                      {
                         Clase.Comercial_procesos_configuracion ds = new Clase.Comercial_procesos_configuracion();
-                        respuesta = ds.comer_insert_postgres(obj);
+                        respuesta = ds.Comer_insert_postgres(obj);
                         if (respuesta.Equals("Grabado"))
                        {
                           MessageBox.Show("Registro grabado en tabla configuración comercial", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -896,6 +902,7 @@ namespace Contasis
         private void btngrabar_Click(object sender, EventArgs e)
         {
             this.grabar();
+            grabar_Fecha_inicio();
             btngrabar.Enabled = false;
             this.com_documento();
             this.com_detalledocumento();
@@ -904,6 +911,7 @@ namespace Contasis
         }
         private void cmbmovimiento_SelectedIndexChanged(object sender, EventArgs e)
         {
+            FechaInicio.Enabled = true;
             xmovimiento = cmbmovimiento.SelectedValue.ToString();
             btngrabar.Enabled = true;
         }
@@ -919,12 +927,12 @@ namespace Contasis
                     if (Properties.Settings.Default.cadenaPostPrincipal == "")
                     {
                         Clase.Comercial_procesos_configuracion regis = new Clase.Comercial_procesos_configuracion();
-                        dataGrid.DataSource = regis.eliminar_movimientosql(codigo);
+                        dataGrid.DataSource = regis.Eliminar_movimientosql(codigo);
                     }
                     else
                     {
                         Clase.Comercial_procesos_configuracion regis = new Clase.Comercial_procesos_configuracion();
-                        dataGrid.DataSource = regis.eliminar_movimientopossql(codigo);
+                        dataGrid.DataSource = regis.Eliminar_movimientopossql(codigo);
                     }
                     this.mostrar_grilla();
                 }
@@ -1131,6 +1139,128 @@ namespace Contasis
             this.funciones();
         }
 
+        private void FechaInicio_ValueChanged(object sender, EventArgs e)
+        {
+            txtFechaInicio.Text = FechaInicio.Value.ToString("dd/MM/yyyy");
+        }
+        private void grabar_Fecha_inicio()
+        {
+            string query10 = "Update  configuracion2 set ffecha_inicioproceso='" + txtFechaInicio.Text + "'  where   ccod_empresa='" + cmbempresas.Text.Substring(0, 3) + "' and cper='" + cmbperiodo.Text + "';";
+            if (cmbempresas.Text == "")
+            {
+                txtFechaInicio.Text = null;
+            }
+            else
+            {
+                SqlConnection Cone = new SqlConnection();
 
+                try
+                {
+                    if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                    {
+                        Cone = Clase.ConexionSql.Instancial().establecerconexion();
+
+                        SqlCommand commando = new SqlCommand(query10, Cone);
+                        commando.ExecuteNonQuery();
+                        Cone.Close();
+                    }
+
+                    else
+                    {
+
+                        NpgsqlConnection conexion = new NpgsqlConnection();
+                        conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                        conexion.Open();
+
+                        NpgsqlCommand cmdp = new NpgsqlCommand(query10, conexion);
+                        cmdp.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Debe de Existir un error, pase verificación de Estructura.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+            }
+
+        }
+
+        private void Cargar_Fecha_inicio()
+        {
+
+            FechaInicio.Enabled = false;
+
+            string query10 = "select ffecha_inicioproceso from configuracion2 where ccod_empresa='" + cmbempresas.Text.Substring(0, 3) + "' and cper='" + cmbperiodo.Text + "';";
+            if (cmbempresas.Text == "")
+            {
+                txtFechaInicio.Text = null;
+            }
+            else
+            {
+                SqlConnection cone = new SqlConnection();
+
+                try
+                {
+                    if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                    {
+                        cone = Clase.ConexionSql.Instancial().establecerconexion();
+
+                        SqlCommand commando = new SqlCommand(query10, cone);
+                        DataTable dt = new DataTable();
+                        cone.Open();
+                        SqlDataAdapter data = new SqlDataAdapter(commando);
+                        data.Fill(dt);
+                        txtFechaInicio.Text = dt.Rows[1].ToString();
+                    }
+
+                    else
+                    {
+
+                        NpgsqlConnection conexion = new NpgsqlConnection();
+                        conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                        conexion.Open();
+
+                        NpgsqlCommand cmdp = new NpgsqlCommand(query10, conexion);
+                        NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
+                        NpgsqlDataReader leer = cmdp.ExecuteReader();
+                        if (leer.Read())
+                        {
+                            txtFechaInicio.Text = Convert.ToString(leer["ffecha_inicioproceso"]);
+                        }
+
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Debe de Existir un error, pase verificación de Estructura.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+            }
+
+        }
+
+        private void cmbpagos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FechaInicio.Enabled = true;
+        }
+
+        private void cmbvendedor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FechaInicio.Enabled = true;
+        }
+
+        private void cmbalmacen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FechaInicio.Enabled = true;
+        }
+
+        private void cboanulacionproducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FechaInicio.Enabled = true;
+        }
+        /***************************************************************************************************************/
     }
 }
