@@ -473,6 +473,22 @@ namespace Contasis
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
                 this.barraprogreso(respuesta);
                 #endregion
+                #region campos_para_configuracion
+                NombreTable = "configuracion";
+                Nombrecampo = "ffecha_inicioproceso";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
+                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.barraprogreso(respuesta);
+                #endregion
+
+                #region campos_para_configuracion2
+                NombreTable = "configuracion2";
+                Nombrecampo = "ffecha_inicioproceso";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
+                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.barraprogreso(respuesta);
+                #endregion
+
                 //Area para Agregar Nuevas funciones////
                 #region fn_cobranzapago_envio
 
@@ -710,7 +726,7 @@ namespace Contasis
                         "		where fin_ventas.ccodrucemisor = @prucEmisor   \n" +
                         "		and fin_ventas.ccod_empresa = @empresa  \n" +
                         "		and es_con_migracion in (0, 3)  \n" +
-                        "		and configuracion.ctipo = '01'); ";
+                        "		and configuracion.ctipo = '01'    ); ";
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.barraprogreso(respuesta);
                 #endregion
@@ -848,6 +864,7 @@ namespace Contasis
                 "		 and fin_ventas.ccod_empresa = @empresa \n" +
                 "		 and es_con_migracion in (0, 3) \n" +
                 "		 and configuracion.ctipo = '01'; \n" +
+                " 	     and  fin_ventas.ffechadoc >=  configuracion.ffecha_inicioproceso) \n" +
                 "        END   ";
                 respuesta = obj.crear_procedimiento(NombreSP, Query);
                 this.barraprogreso(respuesta);
@@ -957,7 +974,7 @@ namespace Contasis
                         "	inner join cg_empemisor empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1   \n" +
                         "	where fin_compras.ccodrucemisor = @prucEmisor  \n" +
                         "		and fin_compras.ccod_empresa = @empresa \n" +
-                        "		and es_con_migracion in (0, 3) \n" +
+                        "		and es_con_migracion in (0, 3)  and fin_compras.ffechadoc >= configuracion.ffecha_inicioproceso) \n" + 
                         "		and configuracion.CTIPO = '02'; \n" +
                         "END; ";
                 respuesta = obj.crear_procedimiento(NombreSP, Query);
@@ -1018,7 +1035,7 @@ namespace Contasis
                 "	inner join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1      \n" +
                 "		and fin_cobranzapago.CCOD_EMPRESA = @empresa  \n" +
                 "		and es_con_migracion in (0, 3)     \n" +
-                "		and CONFIGURACION.CTIPO = '03'  \n" +
+                "		and CONFIGURACION.CTIPO = '03'  and fin_cobranzapago.ffechadoc >= configuracion.ffecha_inicioproceso \n" +
                 "END";
                 respuesta = obj.crear_procedimiento(NombreSP, Query);
                 this.barraprogreso(respuesta);
@@ -2620,7 +2637,7 @@ namespace Contasis
                         "             and fin_ventas.ccod_empresa = p_empresa::character(3) \n" +
                         "             and es_con_migracion in (0, 3) \n" +
                         "             and configuracion.ctipo = '01'  \n" +
-                        " 			and to_char(fin_ventas.ffechadoc, 'YYYY-MM-DD')>=to_char(configuracion.ffechainicioproceso, 'YYYY-MM-DD') \n" +
+                        " 			  and to_char(fin_ventas.ffechadoc, 'YYYY-MM-DD')>=to_char(configuracion.ffecha_inicioproceso, 'YYYY-MM-DD') \n" +
                         "    ) t \n" +
                         "     into resultado; \n" +
                         " END; \n" +

@@ -15,7 +15,7 @@ namespace Contasis
     {
         private string cadena;
         public string Cadena { get => cadena; set => cadena = value; }
-        public void crearCadena(string _cadena)
+        public void CrearCadena(string _cadena)
         {
             cadena = _cadena;
             String str;

@@ -7228,8 +7228,7 @@ $BODY$
   LANGUAGE plpgsql VOLATILE</value>
   </data>
   <data name="txtasientoventas1.Text" xml:space="preserve">
-    <value>
-CREATE OR REPLACE FUNCTION public.fin_ventas_integracion_principal(
+    <value>CREATE OR REPLACE FUNCTION public.fin_ventas_integracion_principal(
 	)
     RETURNS void
 AS $BODY$
@@ -7286,25 +7285,27 @@ BEGIN
 	-- Validaciones fin_ventas
 	-- Insetandoi entidades 	
 /*****************************************validad empresa ****************************************/
+/*** PDI-148 06/12/2024**/
+
 Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-','Codigo no corresponde a la empresa Emisor.'), 
 		resultado_migracion = 2  
 		where  fin_ventas.idventas in (
-select idventas,*  from fin_ventas where ccod_empresa not in (select substr(current_database(),10,3)));
+select idventas  from fin_ventas where ccod_empresa not in (select substr(current_database(),10,3)));
 /******************************** entidades validaciones *************************************************/
-	
+/*** PDI-148 06/12/2024**/
 
 	Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-','Razon social(crazoc) no puede estar vacio'), 
 		resultado_migracion = 2  
 		where  fin_ventas.crazsoc='';
-	
+/*** PDI-148 06/12/2024**/
 	Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-','Ruc o codigo de Identidad(ccodruc) no puede estar vacio'), 
 		resultado_migracion = 2  
 		where  fin_ventas.ccodruc='';
-
+/*** PDI-148 06/12/2024**/
 	Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-','Tipos de Identidad(ctipdoc) no puede estar vacio'), 
 		resultado_migracion = 2  
 		where  fin_ventas.ctipdoc='';
-		
+/*** PDI-148 06/12/2024**/	
 /***** 05/12/2024 actualizacion de funcion para evitar ruc duplicados con diferente razon social*******************/
 	Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-','Ruc duplicado con descripcion o tipo de doc.diferente'), 
 		resultado_migracion = 2  
@@ -7323,8 +7324,9 @@ select idventas,*  from fin_ventas where ccod_empresa not in (select substr(curr
 			 END ::CHAR(1) AS CNATJUR  FROM FIN_VENTAS
 			 WHERE crazsoc NOT LIKE('%ANULAD%') 
 		) as data where data.ccodruc not in (select ccodruc from cg_entitrib) group by ccodruc,crazsoc, ctipdoc,CNATJUR ) 
-			as cliente where cnt&gt;1); 		
+			as cliente where cnt&gt;1); 
 
+/*** PDI-148 06/12/2024**/
 /****************************************************************************/
 	Insert into cg_entitrib (ccodruc,crazsoc, ctipdoc,CNATJUR) 
 	select DISTINCT ccodruc,crazsoc, ctipdoc,case 
@@ -7439,6 +7441,7 @@ select idventas,*  from fin_ventas where ccod_empresa not in (select substr(curr
 			WHERE  fin_ventas.cper=rwperproceso.cperproceso
 			group by concat(ccoddoc,cserie,cnumero,ccodruc)); 
 
+		
 		if varBeneficio=1 then
 		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Ctro DE COSTO Benef.NO EXISTE ') ,  resultado_migracion = 2 
 		where  fin_ventas.cper=rwperproceso.cperproceso and  fin_ventas.es_con_migracion=0
@@ -7682,8 +7685,7 @@ select idventas,*  from fin_ventas where ccod_empresa not in (select substr(curr
 	end loop; -- Periodo 
 END; 
 $BODY$
-  LANGUAGE plpgsql VOLATILE
-</value>
+  LANGUAGE plpgsql VOLATILE</value>
   </data>
   <data name="txt_cobra01.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION fin_guardar_cobranzapago_integrador(

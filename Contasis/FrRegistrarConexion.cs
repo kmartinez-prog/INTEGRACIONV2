@@ -58,7 +58,7 @@ namespace Contasis
                                 txtcadena.Text = "Data Source=" + txtServidor.Text + ";Initial Catalog=Master;user id=" + Txtusuario.Text + ";password=" + txtClave.Text + "";
 
                                 Establecerconexion objetconexion = new Establecerconexion();
-                                objetconexion.crearCadena(txtcadena.Text);
+                                objetconexion.CrearCadena(txtcadena.Text);
                                 SqlConnection c = new SqlConnection(txtcadena.Text);
                                 try
                                 {
@@ -101,7 +101,7 @@ namespace Contasis
                                     connection.Close();
 
                                     Establecerconexion objetconexion1 = new Establecerconexion();
-                                    objetconexion1.crearCadena(txtcadena.Text);
+                                    objetconexion1.CrearCadena(txtcadena.Text);
                                     SqlConnection connection1 = new SqlConnection(txtcadena.Text);
                                     connection1.Open();
                                     String verifica = "SELECT * FROM SYSDATABASES WHERE NAME='bdintegradorContasis'";
@@ -187,7 +187,7 @@ namespace Contasis
                                                             txtcadena.Enabled = false;
                                                             btnGrabar.Enabled = true;
                                                             btnGrabar.Focus();
-                                                            botonsiguiente();
+                                                            Botonsiguiente();
                                                     }
                                                         catch 
                                                         {
@@ -314,7 +314,7 @@ namespace Contasis
                                         txtcadena.Text = conexionnewpos;
                                         btnGrabar.Enabled = true;
                                         btnGrabar.Focus();
-                                        botonsiguiente();
+                                        Botonsiguiente();
 
 
                                         conexionNew.Close();
@@ -375,7 +375,7 @@ namespace Contasis
         }
         private void btnGrabar_Click_1(object sender, EventArgs e)
         {
-            botonsiguiente();
+            Botonsiguiente();
         }
         private void cmbOrigen_SelectedIndexChanged_1(object sender, EventArgs e)
         {
@@ -466,7 +466,7 @@ namespace Contasis
                /// MessageBox.Show("Error no existe información de conexión a empresa " , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
-        public void botonsiguiente()
+        public void Botonsiguiente()
         {
             int opcion = cmbOrigen.SelectedIndex;
 

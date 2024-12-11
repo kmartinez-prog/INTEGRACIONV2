@@ -15,7 +15,7 @@ namespace Contasis
     public partial class FrmIntegradorConta : Form
     {
         string xCodempresa;
-        string rucemisor;
+        string xRucemisor;
       
         
         
@@ -29,11 +29,8 @@ namespace Contasis
         int posicion;
         string combo;
 
-        private void ruc()
+        /*private void  Ruc_empresa()
         {
-
-
-
             try
             {
                 if (Properties.Settings.Default.cadenaPostPrincipal == "")
@@ -136,7 +133,8 @@ namespace Contasis
        
 
 
-        }
+        }*/
+
         private void empresas()
         {
             try
@@ -244,7 +242,7 @@ namespace Contasis
             ////// MessageBox.Show("" + Properties.Settings.Default.cadenaPost);
 
             this.cmbempresas.Focus();
-       ///     this.ruc();
+       
             this.empresas();
             
             
@@ -1571,10 +1569,11 @@ namespace Contasis
 
         }
         private void button1_Click(object sender, EventArgs e)
-        {
-            if (cmbempresas.Text == "")
+        {/*** PDI-148 06/12/2024**/
+            if (txtFechaInicio.Text == "")
             {
                 MessageBox.Show("Favor ingrese una fecha para el inicio del proceso de Integración.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
             else
             {
@@ -1583,10 +1582,11 @@ namespace Contasis
             }
         }
         private void button2_Click(object sender, EventArgs e)
-        {
-            if (cmbempresas.Text == "")
+        {/*** PDI-148 06/12/2024**/
+            if (txtFechaInicio.Text == "")
             {
                 MessageBox.Show("Favor ingrese una fecha para el inicio del proceso de Integración.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
             else
             {
@@ -3342,15 +3342,16 @@ namespace Contasis
         }
         private void cmbrucemisor_SelectedIndexChanged(object sender, EventArgs e)
         {
-         rucemisor = cmbrucemisor.Text.Trim().Substring(0,11);
+         xRucemisor = cmbrucemisor.Text.Trim().Substring(0,11);
             
         }
         /****************************************************************************************************************/
         private void button4_Click(object sender, EventArgs e)
         {
-            if (cmbempresas.Text == "")
+            if (txtFechaInicio.Text == "")
             {
                 MessageBox.Show("Favor ingrese una fecha para el inicio del proceso de Integración.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
             else
             {
@@ -3359,10 +3360,11 @@ namespace Contasis
             }
         }
         private void button3_Click(object sender, EventArgs e)
-        {
-            if (cmbempresas.Text == "")
+        {/*** PDI-148 06/12/2024**/
+            if (txtFechaInicio.Text == "")
             {
                 MessageBox.Show("Favor ingrese una fecha para el inicio del proceso de Integración.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
             else
             {
@@ -3681,7 +3683,7 @@ namespace Contasis
                 }
                 catch
                 {
-                    MessageBox.Show("Debe de Existir un error, pase verificación de Estructura.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                   /* MessageBox.Show("Debe de Existir un error, pase verificación de Estructura.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);*/
                     return;
                 }
 
@@ -3695,58 +3697,68 @@ namespace Contasis
         }
         private void Grabar_Fecha_inicio()
         {
-
-
-
-            string query10 = "Update  configuracion set ffecha_inicioproceso='" + txtFechaInicio.Text.ToString()+"'  where   ccod_empresa='" + cmbempresas.Text.Substring(0, 3) + "' and cper='" + cmbperiodo.Text + "';";
-            if (cmbempresas.Text == "")
+            /*** PDI-148 06/12/2024**/
+            if (txtFechaInicio.Text == "")
             {
-                txtFechaInicio.Text = null;
+                MessageBox.Show("Debe de grabar la fecha de Inicio.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             else
             {
-            SqlConnection cone = new SqlConnection();
 
-                try
+                string query10 = "Update  configuracion set ffecha_inicioproceso='" + txtFechaInicio.Text.ToString() + "'  where   ccod_empresa='" + cmbempresas.Text.Substring(0, 3) + "' and cper='" + cmbperiodo.Text + "';";
+                if (cmbempresas.Text == "")
                 {
-                    if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                    txtFechaInicio.Text = null;
+                }
+                else
+                {
+                    SqlConnection cone = new SqlConnection();
+
+                    try
                     {
-                        cone = Clase.ConexionSql.Instancial().establecerconexion();
-                        
-                        SqlCommand commando = new SqlCommand(query10, cone);
-                        commando.ExecuteNonQuery();
-                        cone.Close();
+                        if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                        {
+                            cone = Clase.ConexionSql.Instancial().establecerconexion();
+
+                            SqlCommand commando = new SqlCommand(query10, cone);
+                            commando.ExecuteNonQuery();
+                            cone.Close();
+                        }
+
+                        else
+                        {
+
+                            NpgsqlConnection conexion = new NpgsqlConnection();
+                            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                            conexion.Open();
+
+                            NpgsqlCommand cmdp = new NpgsqlCommand(query10, conexion);
+                            cmdp.ExecuteNonQuery();
+                            
+                            conexion.Close();
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Debe de Existir un error, pase verificación de Estructura.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
                     }
 
-                    else
-                    {
-
-                        NpgsqlConnection conexion = new NpgsqlConnection();
-                        conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
-                        conexion.Open();
-                        
-                        NpgsqlCommand cmdp = new NpgsqlCommand(query10, conexion);
-                        cmdp.ExecuteNonQuery();
-                        conexion.Close();
-                    }
                 }
-                catch
-                {
-                    MessageBox.Show("Debe de Existir un error, pase verificación de Estructura.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
             }
-
         }
         private void FechaInicio_ValueChanged_1(object sender, EventArgs e)
         {
+            /*** PDI-148 06/12/2024**/
             txtFechaInicio.Text = FechaInicio.Value.ToString("dd/MM/yyyy");
         }
         private void dataGridView_venta_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            /*** PDI-148 06/12/2024**/
             FechaInicio.Enabled = true;
         }
+
         /****************************************************************************************************************/
     }
 }

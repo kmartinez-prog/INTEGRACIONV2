@@ -39,7 +39,9 @@ namespace Contasis
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.origenDeDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.estructuraDeDatosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.servicioDeIntegraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +49,9 @@ namespace Contasis
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.procesosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.integradorContableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.financieroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.integradorComercialSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inconsistenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ventasContableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,7 +68,7 @@ namespace Contasis
             this.toolStripButton1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -73,10 +77,6 @@ namespace Contasis
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
             this.txtcontrol = new System.Windows.Forms.TextBox();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -124,7 +124,7 @@ namespace Contasis
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(244, 26);
             this.toolStripMenuItem2.Text = "&Ruc Emisor";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.ToolStripMenuItem2_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -132,7 +132,7 @@ namespace Contasis
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(244, 26);
             this.toolStripMenuItem1.Text = "E&mpresas";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
             // 
             // accesoAUsuariosToolStripMenuItem
             // 
@@ -140,7 +140,7 @@ namespace Contasis
             this.accesoAUsuariosToolStripMenuItem.Name = "accesoAUsuariosToolStripMenuItem";
             this.accesoAUsuariosToolStripMenuItem.Size = new System.Drawing.Size(244, 26);
             this.accesoAUsuariosToolStripMenuItem.Text = "&Acceso a usuarios";
-            this.accesoAUsuariosToolStripMenuItem.Click += new System.EventHandler(this.accesoAUsuariosToolStripMenuItem_Click);
+            this.accesoAUsuariosToolStripMenuItem.Click += new System.EventHandler(this.AccesoAUsuariosToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
@@ -153,7 +153,7 @@ namespace Contasis
             this.origenDeDatosToolStripMenuItem.Name = "origenDeDatosToolStripMenuItem";
             this.origenDeDatosToolStripMenuItem.Size = new System.Drawing.Size(244, 26);
             this.origenDeDatosToolStripMenuItem.Text = "&Origen de datos";
-            this.origenDeDatosToolStripMenuItem.Click += new System.EventHandler(this.origenDeDatosToolStripMenuItem_Click);
+            this.origenDeDatosToolStripMenuItem.Click += new System.EventHandler(this.OrigenDeDatosToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -161,7 +161,12 @@ namespace Contasis
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(244, 26);
             this.toolStripMenuItem3.Text = "&Destino de datos";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.ToolStripMenuItem3_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(241, 6);
             // 
             // toolStripMenuItem4
             // 
@@ -169,7 +174,11 @@ namespace Contasis
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(244, 26);
             this.toolStripMenuItem4.Text = "Fuente Datos (Externo)";
-            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(241, 6);
             // 
             // estructuraDeDatosToolStripMenuItem
             // 
@@ -178,7 +187,7 @@ namespace Contasis
             this.estructuraDeDatosToolStripMenuItem.ShowShortcutKeys = false;
             this.estructuraDeDatosToolStripMenuItem.Size = new System.Drawing.Size(244, 26);
             this.estructuraDeDatosToolStripMenuItem.Text = "&Estructura de datos";
-            this.estructuraDeDatosToolStripMenuItem.Click += new System.EventHandler(this.estructuraDeDatosToolStripMenuItem_Click);
+            this.estructuraDeDatosToolStripMenuItem.Click += new System.EventHandler(this.EstructuraDeDatosToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -190,7 +199,7 @@ namespace Contasis
             this.servicioDeIntegraciónToolStripMenuItem.Name = "servicioDeIntegraciónToolStripMenuItem";
             this.servicioDeIntegraciónToolStripMenuItem.Size = new System.Drawing.Size(244, 26);
             this.servicioDeIntegraciónToolStripMenuItem.Text = "Servicio de Integración";
-            this.servicioDeIntegraciónToolStripMenuItem.Click += new System.EventHandler(this.servicioDeIntegraciónToolStripMenuItem_Click);
+            this.servicioDeIntegraciónToolStripMenuItem.Click += new System.EventHandler(this.ServicioDeIntegraciónToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -203,7 +212,7 @@ namespace Contasis
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(244, 26);
             this.salirToolStripMenuItem.Text = "&Salir";
-            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.SalirToolStripMenuItem_Click);
             // 
             // procesosToolStripMenuItem
             // 
@@ -224,7 +233,12 @@ namespace Contasis
             this.integradorContableToolStripMenuItem.Name = "integradorContableToolStripMenuItem";
             this.integradorContableToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.integradorContableToolStripMenuItem.Text = "Integrador Contable";
-            this.integradorContableToolStripMenuItem.Click += new System.EventHandler(this.integradorContableToolStripMenuItem_Click);
+            this.integradorContableToolStripMenuItem.Click += new System.EventHandler(this.IntegradorContableToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(260, 6);
             // 
             // financieroToolStripMenuItem
             // 
@@ -234,13 +248,18 @@ namespace Contasis
             this.financieroToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.financieroToolStripMenuItem.Text = "Financiero";
             // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(260, 6);
+            // 
             // integradorComercialSQLToolStripMenuItem
             // 
             this.integradorComercialSQLToolStripMenuItem.Image = global::Contasis.Properties.Resources.file_del;
             this.integradorComercialSQLToolStripMenuItem.Name = "integradorComercialSQLToolStripMenuItem";
             this.integradorComercialSQLToolStripMenuItem.Size = new System.Drawing.Size(263, 26);
             this.integradorComercialSQLToolStripMenuItem.Text = "Integrador Comercial SQL";
-            this.integradorComercialSQLToolStripMenuItem.Click += new System.EventHandler(this.integradorComercialSQLToolStripMenuItem_Click);
+            this.integradorComercialSQLToolStripMenuItem.Click += new System.EventHandler(this.IntegradorComercialSQLToolStripMenuItem_Click);
             // 
             // inconsistenciasToolStripMenuItem
             // 
@@ -256,7 +275,7 @@ namespace Contasis
             this.inconsistenciasToolStripMenuItem.Name = "inconsistenciasToolStripMenuItem";
             this.inconsistenciasToolStripMenuItem.Size = new System.Drawing.Size(110, 32);
             this.inconsistenciasToolStripMenuItem.Text = "Inconsistencias";
-            this.inconsistenciasToolStripMenuItem.Click += new System.EventHandler(this.inconsistenciasToolStripMenuItem_Click);
+            this.inconsistenciasToolStripMenuItem.Click += new System.EventHandler(this.InconsistenciasToolStripMenuItem_Click);
             // 
             // ventasContableToolStripMenuItem
             // 
@@ -264,7 +283,7 @@ namespace Contasis
             this.ventasContableToolStripMenuItem.Name = "ventasContableToolStripMenuItem";
             this.ventasContableToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.ventasContableToolStripMenuItem.Text = "Ventas Contable";
-            this.ventasContableToolStripMenuItem.Click += new System.EventHandler(this.ventasContableToolStripMenuItem_Click);
+            this.ventasContableToolStripMenuItem.Click += new System.EventHandler(this.VentasContableToolStripMenuItem_Click);
             // 
             // comprasContableToolStripMenuItem
             // 
@@ -272,7 +291,6 @@ namespace Contasis
             this.comprasContableToolStripMenuItem.Name = "comprasContableToolStripMenuItem";
             this.comprasContableToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.comprasContableToolStripMenuItem.Text = " Compras Contable";
-            this.comprasContableToolStripMenuItem.Click += new System.EventHandler(this.comprasContableToolStripMenuItem_Click);
             // 
             // cobranzasContableToolStripMenuItem
             // 
@@ -280,7 +298,7 @@ namespace Contasis
             this.cobranzasContableToolStripMenuItem.Name = "cobranzasContableToolStripMenuItem";
             this.cobranzasContableToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.cobranzasContableToolStripMenuItem.Text = "Cobranzas Contable";
-            this.cobranzasContableToolStripMenuItem.Click += new System.EventHandler(this.cobranzasContableToolStripMenuItem_Click);
+            this.cobranzasContableToolStripMenuItem.Click += new System.EventHandler(this.CobranzasContableToolStripMenuItem_Click);
             // 
             // pagosContableToolStripMenuItem
             // 
@@ -289,7 +307,7 @@ namespace Contasis
             this.pagosContableToolStripMenuItem.Name = "pagosContableToolStripMenuItem";
             this.pagosContableToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.pagosContableToolStripMenuItem.Text = "Pagos Contable";
-            this.pagosContableToolStripMenuItem.Click += new System.EventHandler(this.pagosContableToolStripMenuItem_Click);
+            this.pagosContableToolStripMenuItem.Click += new System.EventHandler(this.PagosContableToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -302,7 +320,7 @@ namespace Contasis
             this.documentosComercialToolStripMenuItem.Name = "documentosComercialToolStripMenuItem";
             this.documentosComercialToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.documentosComercialToolStripMenuItem.Text = "Documentos Comercial";
-            this.documentosComercialToolStripMenuItem.Click += new System.EventHandler(this.documentosComercialToolStripMenuItem_Click);
+            this.documentosComercialToolStripMenuItem.Click += new System.EventHandler(this.DocumentosComercialToolStripMenuItem_Click);
             // 
             // productosToolStripMenuItem
             // 
@@ -310,7 +328,7 @@ namespace Contasis
             this.productosToolStripMenuItem.Name = "productosToolStripMenuItem";
             this.productosToolStripMenuItem.Size = new System.Drawing.Size(247, 26);
             this.productosToolStripMenuItem.Text = "Productos";
-            this.productosToolStripMenuItem.Click += new System.EventHandler(this.productosToolStripMenuItem_Click);
+            this.productosToolStripMenuItem.Click += new System.EventHandler(this.ProductosToolStripMenuItem_Click);
             // 
             // ayudaToolStripMenuItem
             // 
@@ -318,7 +336,7 @@ namespace Contasis
             this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(110, 32);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
-            this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.ayudaToolStripMenuItem_Click);
+            this.ayudaToolStripMenuItem.Click += new System.EventHandler(this.AyudaToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
@@ -351,7 +369,7 @@ namespace Contasis
             this.toolStripButton1.Size = new System.Drawing.Size(100, 27);
             this.toolStripButton1.Text = "Estructura";
             this.toolStripButton1.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.toolStripButton1.Click += new System.EventHandler(this.ToolStripButton1_Click);
             // 
             // toolStripTextBox1
             // 
@@ -368,10 +386,10 @@ namespace Contasis
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(151, 23);
             this.toolStripStatusLabel3.Text = "toolStripStatusLabel3";
             // 
-            // timer1
+            // Timer1
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.Timer1.Enabled = true;
+            this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // toolStripStatusLabel1
             // 
@@ -408,21 +426,20 @@ namespace Contasis
             this.statusStrip1.Size = new System.Drawing.Size(1316, 29);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
-            this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
             // 
             // toolStripStatusLabel5
             // 
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
             this.toolStripStatusLabel5.Size = new System.Drawing.Size(151, 23);
             this.toolStripStatusLabel5.Text = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Click += new System.EventHandler(this.toolStripStatusLabel5_Click);
+          
             // 
             // toolStripStatusLabel6
             // 
             this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
             this.toolStripStatusLabel6.Size = new System.Drawing.Size(151, 23);
             this.toolStripStatusLabel6.Text = "toolStripStatusLabel6";
-            this.toolStripStatusLabel6.Click += new System.EventHandler(this.toolStripStatusLabel6_Click);
+           
             // 
             // toolStripStatusLabel7
             // 
@@ -436,26 +453,6 @@ namespace Contasis
             this.txtcontrol.Name = "txtcontrol";
             this.txtcontrol.Size = new System.Drawing.Size(112, 20);
             this.txtcontrol.TabIndex = 4;
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(260, 6);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(260, 6);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(241, 6);
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(241, 6);
             // 
             // Principal
             // 
@@ -479,7 +476,7 @@ namespace Contasis
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Principal_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Principal_FormClosed);
             this.Load += new System.EventHandler(this.Principal_Load);
-            this.BackgroundImageChanged += new System.EventHandler(this.ventasContableToolStripMenuItem_Click);
+            this.BackgroundImageChanged += new System.EventHandler(this.VentasContableToolStripMenuItem_Click);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -508,7 +505,7 @@ namespace Contasis
         private System.Windows.Forms.ToolStripTextBox toolStripButton1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer Timer1;
         private System.Windows.Forms.ToolStripMenuItem integradorContableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem financieroToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem integradorComercialSQLToolStripMenuItem;

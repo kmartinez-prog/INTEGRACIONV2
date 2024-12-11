@@ -22,7 +22,7 @@ namespace Contasis
             InitializeComponent();
             txtfrase.Text = "contasis";
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             if (cmbusuario.Text == "")
             {
@@ -60,7 +60,7 @@ namespace Contasis
                     }
             }
         }
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             this.Close();
             this.Hide();
@@ -73,7 +73,7 @@ namespace Contasis
                 this.Hide();
             }
         }
-        public void llenarcombo()
+        public void Llenarcombo()
         {
             try
             {
@@ -105,7 +105,7 @@ namespace Contasis
 
 
         }
-        public void version1()
+        public void Version1()
         {
             try
             {
@@ -135,7 +135,7 @@ namespace Contasis
 
 
         }
-        public void llenarcombo2()
+        public void Llenarcombo2()
         {
             try
             {
@@ -190,7 +190,7 @@ namespace Contasis
 
 
         }
-        public void version2()
+        public void Version2()
         {
             try
             {
@@ -223,7 +223,7 @@ namespace Contasis
 
 
         }
-        public void capturarclave()
+        public void Capturarclave()
         {
             try
             {
@@ -249,7 +249,7 @@ namespace Contasis
 
             }
         }
-        public void capturarclave2()
+        public void Capturarclave2()
         {
             try
             {
@@ -281,19 +281,19 @@ namespace Contasis
         }
         public string Mostrar(string _cadena)
         {
-            string resultado = string.Empty;
+            string Resultado = string.Empty;
             Byte[] descrcriptar = Convert.FromBase64String(_cadena);
-            resultado = System.Text.Encoding.Unicode.GetString(descrcriptar);
-            return resultado;
+            Resultado = System.Text.Encoding.Unicode.GetString(descrcriptar);
+            return Resultado;
         }
-        public void revisar()
+        public void Revisar()
         {
 
             string ubicacion = @"C:\\Users\\Public\\Documents\\SQL.txt";
             if (File.Exists(ubicacion))
             {
-                this.conexiones();
-                this.conexion0();
+                this.Conexiones();
+                this.Conexion0();
                 this.Modulo_Sql();
                 control2 = "1";
             }
@@ -303,22 +303,22 @@ namespace Contasis
             }
 
             /**** valida que exista bbase de datos ***/
-            string respuesta = "";
+            string Respuesta = "";
             Clase.LeerUsuarios ds = new Clase.LeerUsuarios();
-            respuesta = ds.validaUsuario();
-            control = respuesta;
+            Respuesta = ds.validaUsuario();
+            control = Respuesta;
             if (control == "1")
             {
-                this.existetablausuario();
+                this.Existetablausuario();
             }
 
             if (control == "1" && control2 == "1" && control3 == "1")
             {
                 control = "1";
-                this.llenarcombo();
-                this.captura1();
-                this.captura2();
-                this.version1();
+                this.Llenarcombo();
+                this.Captura1();
+                this.Captura2();
+                this.Version1();
                 return;
             }
 
@@ -333,13 +333,13 @@ namespace Contasis
             }
 
         }
-        public void revisar2()
+        public void Revisar2()
         {
             string ubicacion = @"C:\\Users\\Public\\Documents\\PostgreSQL.txt";
             if (File.Exists(ubicacion))
             {
-                this.conexion2();
-                this.conexion0();
+                this.Conexion2();
+                this.Conexion0();
                 this.Modulo_postgres();
                 control2 = "1";
             }
@@ -349,21 +349,21 @@ namespace Contasis
             }
             
             /**** valida que exista bbase de datos postgrel ***/
-            string respuesta = "";
+            string Respuesta = "";
             Clase.LeerUsuarios ds = new Clase.LeerUsuarios();
-            respuesta = ds.validaUsuario2();
-            control = respuesta;
+            Respuesta = ds.validaUsuario2();
+            control = Respuesta;
             if (control == "1")
             {
-                this.existetablausuario2();
+                this.Existetablausuario2();
             }
                 if (control=="1"  && control2== "1" && control3 == "1")
                 {
                      control = "1";
-                    this.llenarcombo2();
-                    this.version2();
-                    this.captura3();
-                    this.captura4();
+                    this.Llenarcombo2();
+                    this.Version2();
+                    this.Captura3();
+                    this.Captura4();
                    
                 }
         
@@ -415,10 +415,10 @@ namespace Contasis
             textBox4.Text = Mostrar.Mostrar("cwBlAHIAdgBlAHIAPQBkAGEAdABhAGIAYQBzAGUALQBzAHEAbABjAG8AbgB0AGEAcwBpAHMALQBkAGEAcgB3AGkAbgAuAGMAbwBhADAAbgB1AGgANwA3AHcAbQBwAC4AdQBzAC0AZQBhAHMAdAAtADIALgByAGQAcwAuAGEAbQBhAHoAbwBuAGEAdwBzAC4AYwBvAG0AOwAgAHAAbwByAHQAPQA1ADQAMwAyADsAdQBzAGUAcgAgAGkAZAA9AHAAbwBzAHQAZwByAGUAcwA7AHAAYQBzAHMAdwBvAHIAZAA9AFMAUQBMAGMAMABuAHQANABzADEAcwAqADIAMgA7AGQAYQB0AGEAYgBhAHMAZQA9AG8AbgBwAHIAZQBtAGkAcwBzAGUAZABiADsA");
          */
 
-            this.revisar();
+            this.Revisar();
             if (control == "0" || control=="")
             {
-                this.revisar2();
+                this.Revisar2();
                 if (control=="0" || control=="")
                         {
 
@@ -431,20 +431,20 @@ namespace Contasis
             await new Clase.ValidarVersion().Validar();
 
         }
-        private void cmbusuario_SelectedIndexChanged(object sender, EventArgs e)
+        private void Cmbusuario_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (control == "1")
             {
                 if (Properties.Settings.Default.cadenaPostPrincipal == "")
                 {
-                    this.capturarclave();
+                    this.Capturarclave();
                     Clase.esconder Mostrar = new Clase.esconder();
                     txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
                     txtfrase.Refresh();
                 }
                 else
                 {
-                    this.capturarclave2();
+                    this.Capturarclave2();
                     Clase.esconder Mostrar = new Clase.esconder();
                     txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
                     txtfrase.Refresh();
@@ -457,7 +457,7 @@ namespace Contasis
             }
 
         }
-        public void captura1()
+        public void Captura1()
         {
             try
             {
@@ -493,7 +493,7 @@ namespace Contasis
 
 
         }
-        public void captura2()
+        public void Captura2()
         {
             try
             {
@@ -525,7 +525,7 @@ namespace Contasis
 
 
         }
-        private void button1_Click_1(object sender, EventArgs e)
+        private void Button1_Click_1(object sender, EventArgs e)
         {
             if (cmbusuario.Text == "")
             {
@@ -563,13 +563,13 @@ namespace Contasis
                 }
             }
         }
-        private void cmbusuario_SelectedValueChanged(object sender, EventArgs e)
+        private void Cmbusuario_SelectedValueChanged(object sender, EventArgs e)
         {
             if (control == "1")
             {
                 if (Properties.Settings.Default.cadenaPostPrincipal == "")
                 {
-                    this.capturarclave();
+                    this.Capturarclave();
                     Clase.esconder Mostrar = new Clase.esconder();
                     txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
 
@@ -580,7 +580,7 @@ namespace Contasis
                 }
                 else
                 {
-                    this.capturarclave2();
+                    this.Capturarclave2();
                     Clase.esconder Mostrar = new Clase.esconder();
                     txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
                     txtfrase.Refresh();
@@ -592,7 +592,7 @@ namespace Contasis
 
             }
         }
-        private void cmbusuario_SelectedIndexChanged_1(object sender, EventArgs e)
+        private void Cmbusuario_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (control == "1")
             {
@@ -602,14 +602,14 @@ namespace Contasis
                 {
                     if (Properties.Settings.Default.cadenaPostPrincipal == "")
                     {
-                        this.capturarclave();
+                        this.Capturarclave();
                         Clase.esconder Mostrar = new Clase.esconder();
                         txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
                         txtfrase.Refresh();
                     }
                     else
                     {
-                        this.capturarclave2();
+                        this.Capturarclave2();
                         Clase.esconder Mostrar = new Clase.esconder();
                         txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
                         txtfrase.Refresh();
@@ -624,7 +624,7 @@ namespace Contasis
 
             }
         }
-        public void conexiones()
+        public void Conexiones()
         {
             string ubicacion = @"C:\\Users\\Public\\Documents\\SQL.txt";
             if (File.Exists(ubicacion))
@@ -660,7 +660,7 @@ namespace Contasis
             }
 
         }
-        public void conexion2()
+        public void Conexion2()
         {
 
             Properties.Settings.Default.cadenaSql = "";
@@ -704,7 +704,7 @@ namespace Contasis
             }
 
         }
-        public void conexion0()
+        public void Conexion0()
         {
             try
             {
@@ -726,7 +726,7 @@ namespace Contasis
             }
 
         }
-        public void existetablausuario()
+        public void Existetablausuario()
         {
             SqlConnection connection = new SqlConnection(Properties.Settings.Default.cadenaSql);
             connection.Open();
@@ -764,7 +764,7 @@ namespace Contasis
                 connection.Close();
                 }
             }
-        public void existetablausuario2()
+        public void Existetablausuario2()
         {
             NpgsqlConnection conexionNew = new NpgsqlConnection();
             conexionNew.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
@@ -797,7 +797,7 @@ namespace Contasis
             }
             conexionNew.Close();
         }
-        public void captura3()
+        public void Captura3()
         {
             try
             {
@@ -829,7 +829,7 @@ namespace Contasis
 
 
         }
-        public void captura4()
+        public void Captura4()
         {
             try
             {
@@ -859,10 +859,7 @@ namespace Contasis
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
+   
 
         public void Modulo_Sql()
         {

@@ -374,7 +374,7 @@ namespace Contasis
             this.btneliminar.TabIndex = 63;
             this.btneliminar.Text = "Borrar";
             this.btneliminar.UseVisualStyleBackColor = true;
-            this.btneliminar.Click += new System.EventHandler(this.btneliminar_Click);
+            this.btneliminar.Click += new System.EventHandler(this.Btneliminar_Click);
             // 
             // cmbanulados
             // 
@@ -567,7 +567,7 @@ namespace Contasis
             this.dataGrid.RowHeadersWidth = 51;
             this.dataGrid.Size = new System.Drawing.Size(543, 144);
             this.dataGrid.TabIndex = 42;
-            this.dataGrid.Click += new System.EventHandler(this.dataGrid_Click);
+            this.dataGrid.Click += new System.EventHandler(this.DataGrid_Click);
             // 
             // btngrabar
             // 

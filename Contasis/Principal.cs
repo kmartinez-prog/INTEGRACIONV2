@@ -39,7 +39,7 @@ namespace Contasis
             instance = this;
         }
 
-        private void origenDeDatosToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OrigenDeDatosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
                 if (master13 == null)
@@ -57,16 +57,16 @@ namespace Contasis
             {
                     master13 = new FrRegistrarConexion();
                     master13.ShowDialog();
-                    master13.FormClosed += new FormClosedEventHandler(cierraconexion);
+                    master13.FormClosed += new FormClosedEventHandler(Cierraconexion);
                     
                 }
 }
-            void cierraconexion(object sender, EventArgs e)
+            void Cierraconexion(object sender, EventArgs e)
             {
                 master13 = null;
             }
 
-        private void accesoAUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AccesoAUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
         {
            if (txtcontrol.Text == "1")
             {
@@ -86,7 +86,7 @@ namespace Contasis
                     /// master2.WindowState = FormWindowState.Normal ;
                     master2.ShowDialog();
                    //// master2.MdiParent = this;
-                    master2.FormClosed += new FormClosedEventHandler(cerrarusuarios);
+                    master2.FormClosed += new FormClosedEventHandler(Cerrarusuarios);
                     
                 }
                 
@@ -96,7 +96,7 @@ namespace Contasis
                 MessageBox.Show("No existe la base de datos.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-        void cerrarusuarios(object sender, EventArgs e)
+        void Cerrarusuarios(object sender, EventArgs e)
         {
             master2 = null;
         }
@@ -177,19 +177,50 @@ namespace Contasis
                 this.Text = "Configuración del Integrador Contasis " + DateTime.Now.ToString("yyyy");
                 toolStripStatusLabel7.Text = "";
             }
+            /*************************************************************************************************
+            if (Properties.Settings.Default.cadenaPostPrincipal == "")
+            {
+                this.capturarclave();
+                Clase.esconder Mostrar = new Clase.esconder();
+                txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
 
+
+
+
+                txtfrase.Refresh();
+            }
+            else
+            {
+                this.capturarclave2();
+                Clase.esconder Mostrar = new Clase.esconder();
+                txtfrase.Text = Mostrar.Mostrar(txtfrase.Text);
+                txtfrase.Refresh();
+            }
         }
-        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+            else
+            {
+                txtfrase.Text = "contasis";
+
+            }
+
+    /*************************************************************************************************/
+
+
+
+
+
+}
+private void SalirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit(); 
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             toolStripStatusLabel2.Text = "| Hora Actual : " + DateTime.Now.ToString("hh:mm:ss");
         }
 
-        private void ayudaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AyudaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
                 if (master7 == null)
@@ -198,16 +229,16 @@ namespace Contasis
                 ///master7.MdiParent = this;
 
                 master7.ShowDialog();
-                master7.FormClosed += new FormClosedEventHandler(cerrarayuda);
+                master7.FormClosed += new FormClosedEventHandler(Cerrarayuda);
               ////  master7.Show();
                  }
             
         }
-        private void cerrarayuda(object sender, EventArgs e)
+        private void Cerrarayuda(object sender, EventArgs e)
             {
                 master7 = null;
             }
-        private void integradorContableToolStripMenuItem_Click(object sender, EventArgs e)
+        private void IntegradorContableToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Properties.Settings.Default.TipModulo == "1")
             {
@@ -230,7 +261,7 @@ namespace Contasis
                         master4 = new FrmIntegradorConta();
                         /// master4.MdiParent = this;
                         master4.ShowDialog();
-                        master4.FormClosed += new FormClosedEventHandler(cerrarconta);
+                        master4.FormClosed += new FormClosedEventHandler(Cerrarconta);
                         /////master4.Show();
                     }
                 }
@@ -247,11 +278,11 @@ namespace Contasis
             }
 
         }
-        void cerrarconta(object sender, EventArgs e)
+        void Cerrarconta(object sender, EventArgs e)
         {
             master4 = null;
         }
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (txtcontrol.Text == "1")
             {
@@ -271,7 +302,7 @@ namespace Contasis
                     ////master1.MdiParent = this;
                     master1.ShowDialog();
                    // master1 = null;
-                    master1.FormClosed += new FormClosedEventHandler(cerrarempresa);
+                    master1.FormClosed += new FormClosedEventHandler(Cerrarempresa);
                     
                 }
             }
@@ -280,14 +311,15 @@ namespace Contasis
                 MessageBox.Show("No existe información para el sistema", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-        void cerrarempresa(object sender, EventArgs e)
+        void Cerrarempresa(object sender, EventArgs e)
         {
             master1 = null;
         }
-        private void activar()
+  /*      private void Activar()
         { 
         }
-        private void desacactivar()
+  */
+        private void Desacactivar()
         {
             if (Properties.Settings.Default.Usuario.Trim() == "ADMIN")
             {
@@ -312,7 +344,7 @@ namespace Contasis
             }
         }
         
-        private void ventasContableToolStripMenuItem_Click(object sender, EventArgs e)
+        private void VentasContableToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (txtcontrol.Text == "1")
             {
@@ -331,7 +363,7 @@ namespace Contasis
                     master5 = new FrmInconsistencia();
                     // master5.MdiParent = this;
                     master5.ShowDialog();
-                    master5.FormClosed += new FormClosedEventHandler(cerrarventas);
+                    master5.FormClosed += new FormClosedEventHandler(Cerrarventas);
                     
                 }
             }
@@ -341,11 +373,11 @@ namespace Contasis
             }
 
         }
-        void cerrarventas(object sender, EventArgs e)
+        void Cerrarventas(object sender, EventArgs e)
         {
             master5 = null;
         }
-        private void comprasContableToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ComprasContableToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (txtcontrol.Text == "1")
             {
@@ -365,7 +397,7 @@ namespace Contasis
                     master6 = new FrmInconsistenciasCompras();
                     ///master6.MdiParent = this;
                     master6.ShowDialog();
-                    master6.FormClosed += new FormClosedEventHandler(cerrarcompras);
+                    master6.FormClosed += new FormClosedEventHandler(Cerrarcompras);
                     
                 }
             }
@@ -376,11 +408,11 @@ namespace Contasis
 
 
         }
-        void cerrarcompras(object sender, EventArgs e)
+        void Cerrarcompras(object sender, EventArgs e)
         {
             master6 = null;
         }
-        public void validar()
+        public void Validar()
         {
             string respuesta = "";
             Clase.Inicio ds = new Clase.Inicio();
@@ -407,7 +439,7 @@ namespace Contasis
             Application.Exit();  
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem2_Click(object sender, EventArgs e)
         {
           //  if (txtcontrol.Text == "0")
            /// {
@@ -427,7 +459,7 @@ namespace Contasis
                     ////master1.MdiParent = this;
                     master8.ShowDialog();
                     // master1 = null;
-                    master8.FormClosed += new FormClosedEventHandler(cerrarruc);
+                    master8.FormClosed += new FormClosedEventHandler(Cerrarruc);
 
                 }
            /// }
@@ -438,12 +470,12 @@ namespace Contasis
 
 
         }
-        void cerrarruc(object sender, EventArgs e)
+        void Cerrarruc(object sender, EventArgs e)
         {
             master8 = null;
         }
 
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             if (txtcontrol.Text == "1")
             {
@@ -463,7 +495,7 @@ namespace Contasis
                     ////master1.MdiParent = this;
                     master9.ShowDialog();
                     // master1 = null;
-                    master9.FormClosed += new FormClosedEventHandler(cerrardestino);
+                    master9.FormClosed += new FormClosedEventHandler(Cerrardestino);
 
                 }
             }
@@ -472,12 +504,12 @@ namespace Contasis
                 MessageBox.Show("No existe información para el sistema.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-        void cerrardestino(object sender, EventArgs e)
+        void Cerrardestino(object sender, EventArgs e)
         {
             master9 = null;
         }
 
-        private void servicioDeIntegraciónToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ServicioDeIntegraciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (Form OpenForm in Application.OpenForms)
             {
@@ -504,7 +536,7 @@ namespace Contasis
             master10 = null;
         }
 
-        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem4_Click(object sender, EventArgs e)
         {
             foreach (Form OpenForm in Application.OpenForms)
             {
@@ -531,22 +563,8 @@ namespace Contasis
             master11 = null;
         }
 
-        private void toolStripStatusLabel5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void toolStripStatusLabel6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        
+        private void ToolStripButton1_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("Deseas actualizar las tablas y funciones del sistema Integrador ?", "Contasis Corpo. Cambios en Estructura", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
@@ -576,12 +594,12 @@ namespace Contasis
         
          }
 
-        private void inconsistenciasToolStripMenuItem_Click(object sender, EventArgs e)
+        private void InconsistenciasToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void estructuraDeDatosToolStripMenuItem_Click(object sender, EventArgs e)
+        private void EstructuraDeDatosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("Deseas actualizar las tablas y funciones del sistema Integrador ?", "Contasis Corpo. Cambios en Estructura", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
@@ -614,7 +632,7 @@ namespace Contasis
             master12 = null;
         }
 
-        private void cobranzasContableToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CobranzasContableToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
             foreach (Form OpenForm in Application.OpenForms)
@@ -633,17 +651,17 @@ namespace Contasis
                 master15 = new FrmInconsistencias_Cobranza();
                 ///master6.MdiParent = this;
                 master15.ShowDialog();
-                master15.FormClosed += new FormClosedEventHandler(cerrarcobranza);
+                master15.FormClosed += new FormClosedEventHandler(Cerrarcobranza);
             }
 
         }
 
-        void cerrarcobranza(object sender, EventArgs e)
+        void Cerrarcobranza(object sender, EventArgs e)
         {
             master15 = null;
         }
 
-        private void pagosContableToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PagosContableToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (Form OpenForm in Application.OpenForms)
             {
@@ -661,15 +679,15 @@ namespace Contasis
                 master14 = new FrmInconsistencias_Pago();
                 ///master6.MdiParent = this;
                 master14.ShowDialog();
-                master14.FormClosed += new FormClosedEventHandler(cerrarpagos);
+                master14.FormClosed += new FormClosedEventHandler(Cerrarpagos);
             }
         }
-        void cerrarpagos(object sender, EventArgs e)
+        void Cerrarpagos(object sender, EventArgs e)
         {
             master14 = null;
         }
 
-        private void integradorComercialSQLToolStripMenuItem_Click(object sender, EventArgs e)
+        private void IntegradorComercialSQLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Properties.Settings.Default.TipModulo == "2")
             {
@@ -692,7 +710,7 @@ namespace Contasis
                         master16 = new FrmIntegradorComercial();
                         /// master4.MdiParent = this;
                         master16.ShowDialog();
-                        master16.FormClosed += new FormClosedEventHandler(cerrarcomercial);
+                        master16.FormClosed += new FormClosedEventHandler(Cerrarcomercial);
                         /////master4.Show();
                     }
                 }
@@ -710,17 +728,17 @@ namespace Contasis
                 MessageBox.Show("Opcion no disponible.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        void cerrarcomercial(object sender, EventArgs e)
+        void Cerrarcomercial(object sender, EventArgs e)
         {
             master16 = null;
         }
 
-        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem6_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void documentosComercialToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DocumentosComercialToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (Form OpenForm in Application.OpenForms)
             {
@@ -741,15 +759,15 @@ namespace Contasis
                 ///master7.MdiParent = this;
 
                 master17.ShowDialog();
-                master17.FormClosed += new FormClosedEventHandler(cerrardcoumento);
+                master17.FormClosed += new FormClosedEventHandler(Cerrardcoumento);
                 ////  master7.Show();
             }
         }
-        private void cerrardcoumento(object sender, EventArgs e)
+        private void Cerrardcoumento(object sender, EventArgs e)
         {
             master17 = null;
         }
-        private void productosToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ProductosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (Form OpenForm in Application.OpenForms)
             {
@@ -770,11 +788,11 @@ namespace Contasis
                 ///master7.MdiParent = this;
 
                 master18.ShowDialog();
-                master18.FormClosed += new FormClosedEventHandler(cerrarproducto);
+                master18.FormClosed += new FormClosedEventHandler(Cerrarproducto);
                 ////  master7.Show();
             }
         }
-        private void cerrarproducto(object sender, EventArgs e)
+        private void Cerrarproducto(object sender, EventArgs e)
         {
             master18 = null;
         }

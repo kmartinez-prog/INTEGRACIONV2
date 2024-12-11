@@ -146,7 +146,7 @@ namespace Contasis.Clase
                 }
                 else if (versionBD != VersionApp)
                 {
-                    ExecScriptUpdatePostgres(conexion);
+                    /*ExecScriptUpdatePostgres(conexion);*/
                     ExecUpdateVersionPostgres(conexion, VersionApp);
                 }
                 versionBD = VersionApp;
@@ -181,16 +181,17 @@ namespace Contasis.Clase
             }
         }
 
-        private void ExecScriptUpdatePostgres(NpgsqlConnection conexion)
+     /*   private void ExecScriptUpdatePostgres(NpgsqlConnection conexion)
         {
             /*string sql = Properties.Resources.ScriptActualizacionPostgres;
             using (NpgsqlCommand cmdp1 = new NpgsqlCommand(sql, conexion))
             {                
                 cmdp1.ExecuteNonQuery();
-            }*/
-        }
-
+            }
+        } 
+    
         // sql server
+    */    
         private bool SincronizarVersionSqlServer(string newVersion)
         {
             bool requiereActualizacion = false;
@@ -204,7 +205,7 @@ namespace Contasis.Clase
                 }
                 else if (versionBD != VersionApp)
                 {
-                    ExecScriptUpdateSqlServer(conexion);
+                    /*ExecScriptUpdateSqlServer(conexion);*/
                     ExecUpdateVersionSqlServer(conexion, VersionApp);
                 }
                 versionBD = VersionApp;
@@ -244,7 +245,7 @@ namespace Contasis.Clase
                 cmd.ExecuteNonQuery();
             }
         }
-
+        /*
         private void ExecScriptUpdateSqlServer(SqlConnection conexion)
         {
             /*string sql = Properties.Resources.ScriptActualizacionSQLServer;
@@ -253,8 +254,8 @@ namespace Contasis.Clase
                 command.CommandTimeout = 5000;
                 command.ExecuteNonQuery();
             }*/
-        }
-
+      
+    
         // General
         private async Task<string> ConsultarVersionAsync()
         {

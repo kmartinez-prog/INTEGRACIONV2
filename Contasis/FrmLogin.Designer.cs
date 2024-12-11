@@ -84,8 +84,8 @@ namespace Contasis
             this.cmbusuario.Name = "cmbusuario";
             this.cmbusuario.Size = new System.Drawing.Size(264, 21);
             this.cmbusuario.TabIndex = 6;
-            this.cmbusuario.SelectedIndexChanged += new System.EventHandler(this.cmbusuario_SelectedIndexChanged_1);
-            this.cmbusuario.SelectedValueChanged += new System.EventHandler(this.cmbusuario_SelectedValueChanged);
+            this.cmbusuario.SelectedIndexChanged += new System.EventHandler(this.Cmbusuario_SelectedIndexChanged_1);
+            this.cmbusuario.SelectedValueChanged += new System.EventHandler(this.Cmbusuario_SelectedValueChanged);
             // 
             // label3
             // 
@@ -132,7 +132,7 @@ namespace Contasis
             this.label1.TabIndex = 7;
             this.label1.Text = "Sistema Integración Contasis";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+           
             // 
             // button1
             // 
@@ -148,7 +148,7 @@ namespace Contasis
             this.button1.TabIndex = 9;
             this.button1.Text = "Ingresar";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
             // textBox3
             // 
