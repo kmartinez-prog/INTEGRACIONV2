@@ -89,7 +89,7 @@ namespace Contasis
             this.btnnuevo.TabIndex = 17;
             this.btnnuevo.Text = "Nuevo";
             this.btnnuevo.UseVisualStyleBackColor = false;
-            this.btnnuevo.Click += new System.EventHandler(this.btnnuevo_Click_1);
+            this.btnnuevo.Click += new System.EventHandler(this.Btnnuevo_Click_1);
             // 
             // btnmodificar
             // 
@@ -103,7 +103,7 @@ namespace Contasis
             this.btnmodificar.TabIndex = 16;
             this.btnmodificar.Text = "Modificar";
             this.btnmodificar.UseVisualStyleBackColor = false;
-            this.btnmodificar.Click += new System.EventHandler(this.btnmodificar_Click_1);
+            this.btnmodificar.Click += new System.EventHandler(this.Btnmodificar_Click_1);
             // 
             // btneliminar
             // 
@@ -117,7 +117,7 @@ namespace Contasis
             this.btneliminar.TabIndex = 15;
             this.btneliminar.Text = "Eliminar";
             this.btneliminar.UseVisualStyleBackColor = false;
-            this.btneliminar.Click += new System.EventHandler(this.btneliminar_Click_1);
+            this.btneliminar.Click += new System.EventHandler(this.Btneliminar_Click_1);
             // 
             // btncerrar
             // 
@@ -131,7 +131,7 @@ namespace Contasis
             this.btncerrar.TabIndex = 13;
             this.btncerrar.Text = "Salir";
             this.btncerrar.UseVisualStyleBackColor = false;
-            this.btncerrar.Click += new System.EventHandler(this.btncerrar_Click_1);
+            this.btncerrar.Click += new System.EventHandler(this.Btncerrar_Click_1);
             // 
             // FrmRucemisor
             // 

@@ -36,7 +36,7 @@ namespace Contasis
             try
             {
                 string query = "Select ccodusu as CODIGO,CDESUSU as USUARIOS From CG_usuario order by ccodusu asc";
-                cone = Clase.ConexionSql.Instancial().establecerconexion();
+                cone = Clase.ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();

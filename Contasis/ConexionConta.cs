@@ -315,7 +315,7 @@ namespace Contasis
                                     "csub2_com char(3) null," +
                                     "clreg2_com  char(20) null,cconts_com  char(20) null,ccontd_com  char(20) null," +
                                     "cfefec_com char(4),ctares_com numeric(1,0),ctaimp_com numeric(1,0) ,Ctapas_com numeric(1,0), asientos_com numeric(1,0),"+
-                                    "cTipo char(2) null,cEnt_anula char(15) null)";
+                                    "cTipo char(2) null,cEnt_anula char(15) null,ffecha_inicioproceso date null)";
 
                         SqlCommand myCommand4 = new SqlCommand(sconfigura, conex2);
                         try
@@ -344,7 +344,10 @@ namespace Contasis
                         "ccodrucemisor char(15) NOT NULL, "+
                         "cdesrucemisor char(200) NULL,"+
                         "flgActivo bit NULL, nventaflg  int NOT NULL,ncompraflg int NOT NULL, " +
-                        "ncobranzaflg int NOT NULL,npagoflg int NOT NULL,"+ 
+                        "ncobranzaflg int NOT NULL,npagoflg int NOT NULL,"+
+                        "ncomproductoflg int NOT NULL," +
+                        "ncomcompraflg int NOT NULL," +
+                        "ncomventaflg int NOT NULL," +
                         "PRIMARY KEY CLUSTERED " +
                         " (ccodrucemisor  ASC))";
 

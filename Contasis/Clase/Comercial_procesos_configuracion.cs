@@ -28,7 +28,7 @@ namespace Contasis.Clase
                     "'" + Objet.Cper + "','" + Objet.Crazemp + "','" + Objet.Crucemp + "','" + Objet.Entidad + "','" + Objet.Tipo + "','" + Objet.Codtipdocu + "'," +
                     "'" + Objet.Cserie + "','" + Objet.Ccodmov + "','" + Objet.Ccodpag + "','" + Objet.Ccodvend + "','" + Objet.Ccodalma + "','" + Objet.Ent_anula + "'," +
                     "'" + Objet.Prodanula + "')";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 cadena = commando1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
@@ -90,7 +90,7 @@ namespace Contasis.Clase
                                "ccodpag AS CODIGO_PAGO,ccodmov AS TIPO_MOVIMIENTO,ccodvend AS CODIGO_VENDEDOR,ccodalma AS CODIGO_ALMACEN, Prodanula AS CODIGO_ANULACION_PRODUCTO " +
                                "From configuracion2 " +
                                " where ccod_empresa = '"+empresa.ToString()+"' and cper='"+periodo+ "' and TIPO='"+modulo+"'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 DataTable dt = new DataTable();
                 cone.Open();
@@ -162,7 +162,7 @@ namespace Contasis.Clase
             {
                 string query = "Select * From configuracion2 " +
                                "  where ccodmov='" + movimiento.ToString() + "' and tipo='" + tipo.ToString() + "' and cper='" + periodo.ToString() + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 DataTable dt = new DataTable();
                 cone.Open();
@@ -240,7 +240,7 @@ namespace Contasis.Clase
             {
                 string query = "delete From configuracion2 " +
                                "  where id=" + id + "";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 cadena = commando1.ExecuteNonQuery() > 0 ? "Eliminado" : "No se elimino";
@@ -308,7 +308,7 @@ namespace Contasis.Clase
                                "Ent_anula ='" + Objet.Ent_anula.Trim() + "'," +
                                "Prodanula ='" + Objet.Prodanula.Trim() + "' where ccod_empresa ='" + Objet.Ccod_empresa.Trim() + "' and crucemp='" +
                                Objet.Crucemp.Trim() + "' and cper ='" + Objet.Cper.Trim() + "' and ccodmov ='" + Objet.Ccodmov.Trim() + "';";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                //// MessageBox.Show(query);
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();

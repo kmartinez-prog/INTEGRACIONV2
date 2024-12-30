@@ -871,7 +871,7 @@ namespace Contasis
                 string NombreTable = "conexiones";
                 string Nombrecampo = "nModulo";
                 string Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-                string respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                string respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
 
 
                 string query0 = "SELECT* FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'com_documento'";

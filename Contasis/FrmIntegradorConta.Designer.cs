@@ -278,7 +278,7 @@ namespace Contasis
             this.cmbrucemisor.Name = "cmbrucemisor";
             this.cmbrucemisor.Size = new System.Drawing.Size(226, 21);
             this.cmbrucemisor.TabIndex = 1;
-            this.cmbrucemisor.SelectedIndexChanged += new System.EventHandler(this.cmbrucemisor_SelectedIndexChanged);
+            this.cmbrucemisor.SelectedIndexChanged += new System.EventHandler(this.Cmbrucemisor_SelectedIndexChanged);
             // 
             // txtestado
             // 
@@ -308,7 +308,7 @@ namespace Contasis
             this.txtperiodo.Name = "txtperiodo";
             this.txtperiodo.Size = new System.Drawing.Size(97, 20);
             this.txtperiodo.TabIndex = 6;
-            this.txtperiodo.TextChanged += new System.EventHandler(this.txtperiodo_TextChanged);
+            this.txtperiodo.TextChanged += new System.EventHandler(this.Txtperiodo_TextChanged);
             // 
             // label22
             // 
@@ -327,7 +327,7 @@ namespace Contasis
             this.cmbperiodo.Name = "cmbperiodo";
             this.cmbperiodo.Size = new System.Drawing.Size(121, 21);
             this.cmbperiodo.TabIndex = 3;
-            this.cmbperiodo.SelectedIndexChanged += new System.EventHandler(this.cmbperiodo_SelectedIndexChanged);
+            this.cmbperiodo.SelectedIndexChanged += new System.EventHandler(this.Cmbperiodo_SelectedIndexChanged);
             // 
             // Tablero
             // 
@@ -418,7 +418,7 @@ namespace Contasis
             this.cmbanuladosventas.Name = "cmbanuladosventas";
             this.cmbanuladosventas.Size = new System.Drawing.Size(169, 23);
             this.cmbanuladosventas.TabIndex = 16;
-            this.cmbanuladosventas.SelectedIndexChanged += new System.EventHandler(this.cmbanuladosventas_SelectedIndexChanged);
+            this.cmbanuladosventas.SelectedIndexChanged += new System.EventHandler(this.Cmbanuladosventas_SelectedIndexChanged);
             // 
             // label23
             // 
@@ -439,9 +439,9 @@ namespace Contasis
             this.dataGridView_venta.RowHeadersWidth = 51;
             this.dataGridView_venta.Size = new System.Drawing.Size(543, 118);
             this.dataGridView_venta.TabIndex = 26;
-            this.dataGridView_venta.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_venta_CellClick);
-            this.dataGridView_venta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_venta_CellContentClick);
-            this.dataGridView_venta.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_venta_CellDoubleClick);
+            this.dataGridView_venta.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_venta_CellClick);
+            this.dataGridView_venta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_venta_CellContentClick);
+            this.dataGridView_venta.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_venta_CellDoubleClick);
             // 
             // txtCFEFEC
             // 
@@ -450,9 +450,9 @@ namespace Contasis
             this.txtCFEFEC.Name = "txtCFEFEC";
             this.txtCFEFEC.Size = new System.Drawing.Size(75, 21);
             this.txtCFEFEC.TabIndex = 10;
-            this.txtCFEFEC.TextChanged += new System.EventHandler(this.txtCFEFEC_TextChanged);
-            this.txtCFEFEC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCFEFEC_KeyDown);
-            this.txtCFEFEC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCFEFEC_KeyPress);
+            this.txtCFEFEC.TextChanged += new System.EventHandler(this.TxtCFEFEC_TextChanged);
+            this.txtCFEFEC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCFEFEC_KeyDown);
+            this.txtCFEFEC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCFEFEC_KeyPress);
             // 
             // txtCCONTD
             // 
@@ -461,9 +461,9 @@ namespace Contasis
             this.txtCCONTD.Name = "txtCCONTD";
             this.txtCCONTD.Size = new System.Drawing.Size(75, 21);
             this.txtCCONTD.TabIndex = 9;
-            this.txtCCONTD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCCONTD_KeyDown);
-            this.txtCCONTD.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCCONTD_KeyPress);
-            this.txtCCONTD.Validated += new System.EventHandler(this.txtCCONTD_Validated);
+            this.txtCCONTD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCCONTD_KeyDown);
+            this.txtCCONTD.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCCONTD_KeyPress);
+            this.txtCCONTD.Validated += new System.EventHandler(this.TxtCCONTD_Validated);
             // 
             // txtCCONTS
             // 
@@ -472,9 +472,9 @@ namespace Contasis
             this.txtCCONTS.Name = "txtCCONTS";
             this.txtCCONTS.Size = new System.Drawing.Size(75, 21);
             this.txtCCONTS.TabIndex = 8;
-            this.txtCCONTS.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCCONTS_KeyDown);
-            this.txtCCONTS.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCCONTS_KeyPress);
-            this.txtCCONTS.Validated += new System.EventHandler(this.txtCCONTS_Validated);
+            this.txtCCONTS.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCCONTS_KeyDown);
+            this.txtCCONTS.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCCONTS_KeyPress);
+            this.txtCCONTS.Validated += new System.EventHandler(this.TxtCCONTS_Validated);
             // 
             // txtCLREG2
             // 
@@ -483,9 +483,9 @@ namespace Contasis
             this.txtCLREG2.Name = "txtCLREG2";
             this.txtCLREG2.Size = new System.Drawing.Size(75, 21);
             this.txtCLREG2.TabIndex = 7;
-            this.txtCLREG2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCLREG2_KeyDown);
-            this.txtCLREG2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCLREG2_KeyPress);
-            this.txtCLREG2.Validated += new System.EventHandler(this.txtCLREG2_Validated);
+            this.txtCLREG2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCLREG2_KeyDown);
+            this.txtCLREG2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCLREG2_KeyPress);
+            this.txtCLREG2.Validated += new System.EventHandler(this.TxtCLREG2_Validated);
             // 
             // txtCSUB2
             // 
@@ -494,8 +494,8 @@ namespace Contasis
             this.txtCSUB2.Name = "txtCSUB2";
             this.txtCSUB2.Size = new System.Drawing.Size(75, 21);
             this.txtCSUB2.TabIndex = 6;
-            this.txtCSUB2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCSUB2_KeyDown);
-            this.txtCSUB2.Validated += new System.EventHandler(this.txtCSUB2_Validated);
+            this.txtCSUB2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCSUB2_KeyDown);
+            this.txtCSUB2.Validated += new System.EventHandler(this.TxtCSUB2_Validated);
             // 
             // txtCLREG1
             // 
@@ -504,9 +504,9 @@ namespace Contasis
             this.txtCLREG1.Name = "txtCLREG1";
             this.txtCLREG1.Size = new System.Drawing.Size(75, 21);
             this.txtCLREG1.TabIndex = 5;
-            this.txtCLREG1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCLREG1_KeyDown);
-            this.txtCLREG1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCLREG1_KeyPress);
-            this.txtCLREG1.Validated += new System.EventHandler(this.txtCLREG1_Validated);
+            this.txtCLREG1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCLREG1_KeyDown);
+            this.txtCLREG1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCLREG1_KeyPress);
+            this.txtCLREG1.Validated += new System.EventHandler(this.TxtCLREG1_Validated);
             // 
             // txtCSUB1
             // 
@@ -515,9 +515,9 @@ namespace Contasis
             this.txtCSUB1.Name = "txtCSUB1";
             this.txtCSUB1.Size = new System.Drawing.Size(75, 21);
             this.txtCSUB1.TabIndex = 4;
-            this.txtCSUB1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCSUB1_KeyDown);
-            this.txtCSUB1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCSUB1_KeyPress);
-            this.txtCSUB1.Validated += new System.EventHandler(this.txtCSUB1_Validated);
+            this.txtCSUB1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCSUB1_KeyDown);
+            this.txtCSUB1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCSUB1_KeyPress);
+            this.txtCSUB1.Validated += new System.EventHandler(this.TxtCSUB1_Validated);
             // 
             // button1
             // 
@@ -531,7 +531,7 @@ namespace Contasis
             this.button1.TabIndex = 17;
             this.button1.Text = "Grabar";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // checkAsientovta
             // 
@@ -748,7 +748,7 @@ namespace Contasis
             this.cmbanuladoscompras.Name = "cmbanuladoscompras";
             this.cmbanuladoscompras.Size = new System.Drawing.Size(169, 23);
             this.cmbanuladoscompras.TabIndex = 38;
-            this.cmbanuladoscompras.SelectedIndexChanged += new System.EventHandler(this.cmbanuladoscompras_SelectedIndexChanged);
+            this.cmbanuladoscompras.SelectedIndexChanged += new System.EventHandler(this.Cmbanuladoscompras_SelectedIndexChanged);
             // 
             // label24
             // 
@@ -778,8 +778,8 @@ namespace Contasis
             this.dataGridView_compra.RowHeadersWidth = 51;
             this.dataGridView_compra.Size = new System.Drawing.Size(543, 118);
             this.dataGridView_compra.TabIndex = 33;
-            this.dataGridView_compra.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_compra_CellClick);
-            this.dataGridView_compra.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_compra_CellDoubleClick);
+            this.dataGridView_compra.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_compra_CellClick);
+            this.dataGridView_compra.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_compra_CellDoubleClick);
             // 
             // txtCFEFEC_com
             // 
@@ -788,9 +788,9 @@ namespace Contasis
             this.txtCFEFEC_com.Name = "txtCFEFEC_com";
             this.txtCFEFEC_com.Size = new System.Drawing.Size(76, 21);
             this.txtCFEFEC_com.TabIndex = 32;
-            this.txtCFEFEC_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCFEFEC_com_KeyDown);
-            this.txtCFEFEC_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCFEFEC_com_KeyPress);
-            this.txtCFEFEC_com.Validated += new System.EventHandler(this.txtCFEFEC_com_Validated);
+            this.txtCFEFEC_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCFEFEC_com_KeyDown);
+            this.txtCFEFEC_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCFEFEC_com_KeyPress);
+            this.txtCFEFEC_com.Validated += new System.EventHandler(this.TxtCFEFEC_com_Validated);
             // 
             // txtCCONTD_com
             // 
@@ -799,9 +799,9 @@ namespace Contasis
             this.txtCCONTD_com.Name = "txtCCONTD_com";
             this.txtCCONTD_com.Size = new System.Drawing.Size(76, 21);
             this.txtCCONTD_com.TabIndex = 31;
-            this.txtCCONTD_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCCONTD_com_KeyDown);
-            this.txtCCONTD_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCCONTD_com_KeyPress);
-            this.txtCCONTD_com.Validated += new System.EventHandler(this.txtCCONTD_com_Validated);
+            this.txtCCONTD_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCCONTD_com_KeyDown);
+            this.txtCCONTD_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCCONTD_com_KeyPress);
+            this.txtCCONTD_com.Validated += new System.EventHandler(this.TxtCCONTD_com_Validated);
             // 
             // txtCCONTS_com
             // 
@@ -810,9 +810,9 @@ namespace Contasis
             this.txtCCONTS_com.Name = "txtCCONTS_com";
             this.txtCCONTS_com.Size = new System.Drawing.Size(76, 21);
             this.txtCCONTS_com.TabIndex = 30;
-            this.txtCCONTS_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCCONTS_com_KeyDown);
-            this.txtCCONTS_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCCONTS_com_KeyPress);
-            this.txtCCONTS_com.Validated += new System.EventHandler(this.txtCCONTS_com_Validated);
+            this.txtCCONTS_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCCONTS_com_KeyDown);
+            this.txtCCONTS_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCCONTS_com_KeyPress);
+            this.txtCCONTS_com.Validated += new System.EventHandler(this.TxtCCONTS_com_Validated);
             // 
             // txtCLREG2_com
             // 
@@ -821,9 +821,9 @@ namespace Contasis
             this.txtCLREG2_com.Name = "txtCLREG2_com";
             this.txtCLREG2_com.Size = new System.Drawing.Size(76, 21);
             this.txtCLREG2_com.TabIndex = 29;
-            this.txtCLREG2_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCLREG2_com_KeyDown);
-            this.txtCLREG2_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCLREG2_com_KeyPress);
-            this.txtCLREG2_com.Validated += new System.EventHandler(this.txtCLREG2_com_Validated);
+            this.txtCLREG2_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCLREG2_com_KeyDown);
+            this.txtCLREG2_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCLREG2_com_KeyPress);
+            this.txtCLREG2_com.Validated += new System.EventHandler(this.TxtCLREG2_com_Validated);
             // 
             // txtCSUB2_com
             // 
@@ -832,9 +832,9 @@ namespace Contasis
             this.txtCSUB2_com.Name = "txtCSUB2_com";
             this.txtCSUB2_com.Size = new System.Drawing.Size(76, 21);
             this.txtCSUB2_com.TabIndex = 28;
-            this.txtCSUB2_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCSUB2_com_KeyDown);
-            this.txtCSUB2_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCSUB2_com_KeyPress);
-            this.txtCSUB2_com.Validated += new System.EventHandler(this.txtCSUB2_com_Validated);
+            this.txtCSUB2_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCSUB2_com_KeyDown);
+            this.txtCSUB2_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCSUB2_com_KeyPress);
+            this.txtCSUB2_com.Validated += new System.EventHandler(this.TxtCSUB2_com_Validated);
             // 
             // txtCLREG1_com
             // 
@@ -843,9 +843,9 @@ namespace Contasis
             this.txtCLREG1_com.Name = "txtCLREG1_com";
             this.txtCLREG1_com.Size = new System.Drawing.Size(76, 21);
             this.txtCLREG1_com.TabIndex = 27;
-            this.txtCLREG1_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCLREG1_com_KeyDown);
-            this.txtCLREG1_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCLREG1_com_KeyPress);
-            this.txtCLREG1_com.Validated += new System.EventHandler(this.txtCLREG1_com_Validated);
+            this.txtCLREG1_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCLREG1_com_KeyDown);
+            this.txtCLREG1_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCLREG1_com_KeyPress);
+            this.txtCLREG1_com.Validated += new System.EventHandler(this.TxtCLREG1_com_Validated);
             // 
             // txtCSUB1_com
             // 
@@ -855,9 +855,9 @@ namespace Contasis
             this.txtCSUB1_com.Size = new System.Drawing.Size(76, 21);
             this.txtCSUB1_com.TabIndex = 26;
             this.txtCSUB1_com.Tag = "18";
-            this.txtCSUB1_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCSUB1_com_KeyDown);
-            this.txtCSUB1_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCSUB1_com_KeyPress);
-            this.txtCSUB1_com.Validated += new System.EventHandler(this.txtCSUB1_com_Validated);
+            this.txtCSUB1_com.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCSUB1_com_KeyDown);
+            this.txtCSUB1_com.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCSUB1_com_KeyPress);
+            this.txtCSUB1_com.Validated += new System.EventHandler(this.TxtCSUB1_com_Validated);
             // 
             // button2
             // 
@@ -871,7 +871,7 @@ namespace Contasis
             this.button2.TabIndex = 19;
             this.button2.Text = "Grabar";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // check_asicom_com
             // 
@@ -1088,8 +1088,8 @@ namespace Contasis
             this.dataGridView_cobranza.RowHeadersWidth = 51;
             this.dataGridView_cobranza.Size = new System.Drawing.Size(543, 118);
             this.dataGridView_cobranza.TabIndex = 42;
-            this.dataGridView_cobranza.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_cobranza_CellClick);
-            this.dataGridView_cobranza.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_cobranza_CellDoubleClick);
+            this.dataGridView_cobranza.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_cobranza_CellClick);
+            this.dataGridView_cobranza.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_cobranza_CellDoubleClick);
             // 
             // button3
             // 
@@ -1103,7 +1103,7 @@ namespace Contasis
             this.button3.TabIndex = 41;
             this.button3.Text = "Grabar";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // txtflujocobra
             // 
@@ -1112,11 +1112,11 @@ namespace Contasis
             this.txtflujocobra.Name = "txtflujocobra";
             this.txtflujocobra.Size = new System.Drawing.Size(82, 21);
             this.txtflujocobra.TabIndex = 38;
-            this.txtflujocobra.TextChanged += new System.EventHandler(this.txtflujocobra_TextChanged);
-            this.txtflujocobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtflujocobra_KeyDown);
-            this.txtflujocobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtflujocobra_KeyPress);
-            this.txtflujocobra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtflujocobra_KeyUp);
-            this.txtflujocobra.Validated += new System.EventHandler(this.txtflujocobra_Validated);
+            this.txtflujocobra.TextChanged += new System.EventHandler(this.Txtflujocobra_TextChanged);
+            this.txtflujocobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txtflujocobra_KeyDown);
+            this.txtflujocobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txtflujocobra_KeyPress);
+            this.txtflujocobra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txtflujocobra_KeyUp);
+            this.txtflujocobra.Validated += new System.EventHandler(this.Txtflujocobra_Validated);
             // 
             // txtregistro_cobra
             // 
@@ -1125,10 +1125,10 @@ namespace Contasis
             this.txtregistro_cobra.Name = "txtregistro_cobra";
             this.txtregistro_cobra.Size = new System.Drawing.Size(82, 21);
             this.txtregistro_cobra.TabIndex = 37;
-            this.txtregistro_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtregistro_cobra_KeyDown);
-            this.txtregistro_cobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtregistro_cobra_KeyPress);
-            this.txtregistro_cobra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtregistro_cobra_KeyUp);
-            this.txtregistro_cobra.Validated += new System.EventHandler(this.txtregistro_cobra_Validated);
+            this.txtregistro_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txtregistro_cobra_KeyDown);
+            this.txtregistro_cobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txtregistro_cobra_KeyPress);
+            this.txtregistro_cobra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txtregistro_cobra_KeyUp);
+            this.txtregistro_cobra.Validated += new System.EventHandler(this.Txtregistro_cobra_Validated);
             // 
             // txtsubdiario_cobra
             // 
@@ -1137,10 +1137,10 @@ namespace Contasis
             this.txtsubdiario_cobra.Name = "txtsubdiario_cobra";
             this.txtsubdiario_cobra.Size = new System.Drawing.Size(82, 21);
             this.txtsubdiario_cobra.TabIndex = 36;
-            this.txtsubdiario_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_cobra_KeyDown);
-            this.txtsubdiario_cobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtsubdiario_cobra_KeyPress);
-            this.txtsubdiario_cobra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_cobra_KeyUp);
-            this.txtsubdiario_cobra.Validated += new System.EventHandler(this.txtsubdiario_cobra_Validated);
+            this.txtsubdiario_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txtsubdiario_cobra_KeyDown);
+            this.txtsubdiario_cobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txtsubdiario_cobra_KeyPress);
+            this.txtsubdiario_cobra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txtsubdiario_cobra_KeyUp);
+            this.txtsubdiario_cobra.Validated += new System.EventHandler(this.Txtsubdiario_cobra_Validated);
             // 
             // label28
             // 
@@ -1240,8 +1240,8 @@ namespace Contasis
             this.dataGridView_pago.RowHeadersWidth = 51;
             this.dataGridView_pago.Size = new System.Drawing.Size(543, 118);
             this.dataGridView_pago.TabIndex = 51;
-            this.dataGridView_pago.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_pago_CellClick);
-            this.dataGridView_pago.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_pago_CellDoubleClick);
+            this.dataGridView_pago.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_pago_CellClick);
+            this.dataGridView_pago.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_pago_CellDoubleClick);
             // 
             // button4
             // 
@@ -1255,7 +1255,7 @@ namespace Contasis
             this.button4.TabIndex = 50;
             this.button4.Text = "Grabar";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // txtflujopago
             // 
@@ -1264,10 +1264,10 @@ namespace Contasis
             this.txtflujopago.Name = "txtflujopago";
             this.txtflujopago.Size = new System.Drawing.Size(82, 21);
             this.txtflujopago.TabIndex = 47;
-            this.txtflujopago.TextChanged += new System.EventHandler(this.txtflujopago_TextChanged);
-            this.txtflujopago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtflujopago_KeyDown);
-            this.txtflujopago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtflujopago_KeyPress);
-            this.txtflujopago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtflujopago_KeyUp);
+            this.txtflujopago.TextChanged += new System.EventHandler(this.Txtflujopago_TextChanged);
+            this.txtflujopago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txtflujopago_KeyDown);
+            this.txtflujopago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txtflujopago_KeyPress);
+            this.txtflujopago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txtflujopago_KeyUp);
             // 
             // txtregistro_pago
             // 
@@ -1276,9 +1276,9 @@ namespace Contasis
             this.txtregistro_pago.Name = "txtregistro_pago";
             this.txtregistro_pago.Size = new System.Drawing.Size(82, 21);
             this.txtregistro_pago.TabIndex = 46;
-            this.txtregistro_pago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtregistro_pago_KeyDown);
-            this.txtregistro_pago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtregistro_pago_KeyPress);
-            this.txtregistro_pago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtregistro_pago_KeyUp);
+            this.txtregistro_pago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txtregistro_pago_KeyDown);
+            this.txtregistro_pago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txtregistro_pago_KeyPress);
+            this.txtregistro_pago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txtregistro_pago_KeyUp);
             // 
             // txtsubdiario_pago
             // 
@@ -1287,9 +1287,9 @@ namespace Contasis
             this.txtsubdiario_pago.Name = "txtsubdiario_pago";
             this.txtsubdiario_pago.Size = new System.Drawing.Size(82, 21);
             this.txtsubdiario_pago.TabIndex = 45;
-            this.txtsubdiario_pago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_pago_KeyDown);
-            this.txtsubdiario_pago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtsubdiario_pago_KeyPress);
-            this.txtsubdiario_pago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_pago_KeyUp);
+            this.txtsubdiario_pago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txtsubdiario_pago_KeyDown);
+            this.txtsubdiario_pago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txtsubdiario_pago_KeyPress);
+            this.txtsubdiario_pago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txtsubdiario_pago_KeyUp);
             // 
             // label31
             // 
@@ -1335,7 +1335,7 @@ namespace Contasis
             this.cmbempresas.Name = "cmbempresas";
             this.cmbempresas.Size = new System.Drawing.Size(228, 21);
             this.cmbempresas.TabIndex = 2;
-            this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.cmbempresas_SelectedIndexChanged);
+            this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.Cmbempresas_SelectedIndexChanged);
             // 
             // txtcadena
             // 

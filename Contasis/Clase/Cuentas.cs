@@ -25,7 +25,7 @@ namespace Contasis.Clase
             {
                 
                 string query0 = "SELECT CPER FROM CONFIGURACION WHERE CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='"+ Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query0, cone);
                 DataTable dt = new DataTable();
                 cone.Open();
@@ -56,7 +56,7 @@ namespace Contasis.Clase
                           " asientos_vta =" + Objet.ASIENTOS_vta + "," +
                           " cEnt_anula ='" + Objet.CENT_ANULA + "' " +
                           " where CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
-                        cone = ConexionSql.Instancial().establecerconexion();
+                        cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando2 = new SqlCommand(query1, cone);
                         cone.Open();
                         cadena = commando2.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -87,7 +87,7 @@ namespace Contasis.Clase
                            "" + Objet.ASIENTOS_vta + "," +
                            "'" + Objet.CTIPO + "',"+
                            "'" + Objet.CENT_ANULA + "')";
-                        cone = ConexionSql.Instancial().establecerconexion();
+                        cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando1 = new SqlCommand(query, cone);
                         cone.Open();
                         cadena = commando1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
@@ -118,7 +118,7 @@ namespace Contasis.Clase
                           " asientos_com =" + Objet.ASIENTOS_com + "," +
                           " cEnt_anula ='" + Objet.CENT_ANULA + "' " +
                           " where CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
-                        cone = ConexionSql.Instancial().establecerconexion();
+                        cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando2 = new SqlCommand(query1, cone);
                         cone.Open();
                         cadena = commando2.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -149,7 +149,7 @@ namespace Contasis.Clase
                            "" + Objet.ASIENTOS_com + "," +
                            "'" + Objet.CTIPO + "'," +
                            "'" + Objet.CENT_ANULA + "')";
-                           cone = ConexionSql.Instancial().establecerconexion();
+                           cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando1 = new SqlCommand(query, cone);
                         cone.Open();
                         cadena = commando1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
@@ -171,7 +171,7 @@ namespace Contasis.Clase
                         " clreg1_vta =' " + Objet.CLREG1_vta + "', " +
                         " cfefec_vta ='" + Objet.CFEFEC_vta + "'" +
                         " where CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
-                        cone = ConexionSql.Instancial().establecerconexion();
+                        cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando2 = new SqlCommand(query1, cone);
                         cone.Open();
                         cadena = commando2.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -202,7 +202,7 @@ namespace Contasis.Clase
                            "" + Objet.ASIENTOS_vta + "," +
                            "'" + Objet.CTIPO + "'," +
                            "'" + Objet.CENT_ANULA + "')";
-                        cone = ConexionSql.Instancial().establecerconexion();
+                        cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando1 = new SqlCommand(query, cone);
                         cone.Open();
                         cadena = commando1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
@@ -233,7 +233,7 @@ namespace Contasis.Clase
                           " asientos_com =" + Objet.ASIENTOS_com + "," +
                           " cEnt_anula ='" + Objet.CENT_ANULA + "' " +
                           " where CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
-                        cone = ConexionSql.Instancial().establecerconexion();
+                        cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando2 = new SqlCommand(query1, cone);
                         cone.Open();
                         cadena = commando2.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -264,7 +264,7 @@ namespace Contasis.Clase
                            "" + Objet.ASIENTOS_com + "," +
                            "'" + Objet.CTIPO + "'," +
                            "'" + Objet.CENT_ANULA + "')";
-                        cone = ConexionSql.Instancial().establecerconexion();
+                        cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando1 = new SqlCommand(query, cone);
                         cone.Open();
                         cadena = commando1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
@@ -303,7 +303,7 @@ namespace Contasis.Clase
                 "cEntidad AS ENTIDAD_VENTA ,csub1_vta,clreg1_vta,csub2_vta,clreg2_vta,cconts_vta,ccontd_vta,cfefec_vta"+
                 ",ctares_vta AS RESULTADO,ctaimp_vta AS IMPUESTOS,Ctaact_vta ACTIVO_VTA, asientos_vta AS ASIENTO_VTA, cTipo AS TIPO,cEnt_anula as ENT_ANULADO " +
                 "FROM CONFIGURACION where CCOD_EMPRESA='"+xempresa+"' and cper='"+xPeriodo+"' and   ctipo = '01' order by cper desc";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -338,7 +338,7 @@ namespace Contasis.Clase
                 "cEntidad AS ENTIDAD_COMPRA,csub1_com,clreg1_com,csub2_com ,clreg2_com,cconts_com,ccontd_com"+
                 ",cfefec_com,ctares_com AS RESULTADO_COM,ctaimp_com AS IMPUESTOS_COM ,Ctapas_com AS ACTIVO_COM ,asientos_com as ASIENTO_COM,"+
                 "cTipo AS TIPO,cEnt_anula as ENT_ANULADO  FROM CONFIGURACION where  CCOD_EMPRESA='" + xempresa + "' and cper='" + xPeriodo + "' and    ctipo = '02' order by cper desc";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -372,7 +372,7 @@ namespace Contasis.Clase
                 "cEntidad AS ENTIDAD_COBRANZA ,csub1_vta AS SUBDIARIO_COBRANZA ,clreg1_vta as REGISTRO_COBRANZA ,cfefec_vta as FLUJO_COBRANZA" +
                 ",cTipo AS TIPO,cEnt_anula as ENT_ANULADO " +
                 "FROM CONFIGURACION where CCOD_EMPRESA='" + xempresa + "' and cper='" + xPeriodo + "' and   ctipo = '03' order by cper desc";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -407,7 +407,7 @@ namespace Contasis.Clase
                "cEntidad AS ENTIDAD_PAGOS,csub1_com AS SUBDIARIO_PAGO ,clreg1_com as REGISTRO_PAGO ,cfefec_com as FLUJO_PAGOS" +
                ",cTipo AS TIPO,cEnt_anula as ENT_ANULADO " +
                "FROM CONFIGURACION where CCOD_EMPRESA='" + xempresa + "' and cper='" + xPeriodo + "' and   ctipo = '04' order by cper desc";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();

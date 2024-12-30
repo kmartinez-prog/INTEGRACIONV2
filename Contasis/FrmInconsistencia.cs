@@ -62,6 +62,7 @@ namespace Contasis
                     Clase.VENTAS_PROPIEDADES obj = new Clase.VENTAS_PROPIEDADES();
                     Clase.Ventas_inconsistencias listasql = new Clase.Ventas_inconsistencias();
                     Clase.Ventas_inconsistencias actuasql = new Clase.Ventas_inconsistencias();
+                    
 
                     obj.Ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
                     obj.Empresa = cmbempresas.Text.Trim().Substring(0, 3);
@@ -614,6 +615,7 @@ namespace Contasis
             else
             {
                 this.llenar_grilla();
+                this.txtLista.Text = "";
                 this.motivo();
 
             }

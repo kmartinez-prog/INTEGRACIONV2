@@ -143,6 +143,9 @@ CREATE TABLE cg_empemisor(
 	ncompraflg numeric(1,0)   NULL,
 	ncobranzaflg numeric(1,0)   NULL,
 	npagoflg numeric(1,0)   NULL,
+	ncomproductoflg  numeric(1,0)   NULL,
+	ncomcompraflg   numeric(1,0)   NULL,
+	ncomventaflg   numeric(1,0)   NULL,
 PRIMARY KEY  (ccodrucemisor) );
 
 CREATE TABLE cg_empresa(
@@ -210,7 +213,8 @@ CREATE TABLE configuracion(
 	Ctapas_com numeric(1, 0) NULL,
 	asientos_com numeric(1, 0) NULL,
 	cTipo char(2) NULL,
-	cEnt_anula char(15) NULL
+	cEnt_anula char(15) NULL,
+	ffecha_inicioproceso date NULL
 );
 
 create sequence sec_id_compras minvalue 1 maxvalue 9999999999 increment by 1 ;
@@ -400,6 +404,7 @@ CREATE TABLE fin_cobranzapago
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
+
 </value>
   </data>
   <metadata name="timer5.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

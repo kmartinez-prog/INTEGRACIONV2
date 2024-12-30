@@ -15,7 +15,7 @@ namespace Contasis.Clase
             try
             {
                 string query = "Select ccodusu as CODIGO,CDESUSU as USUARIOS,password as CLAVE From CG_usuario order by ccodusu asc";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();

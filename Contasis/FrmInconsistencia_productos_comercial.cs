@@ -355,6 +355,7 @@ namespace Contasis
             }
             else
             {
+                this.txtLista.Text = "";
                 this.llenar_grilla();
 
                 if (dataGridView2.Rows.Count > 0)
@@ -542,7 +543,7 @@ namespace Contasis
             }
 
         }
-        private void btnseleccionar_Click(object sender, EventArgs e)
+        private void Btnseleccionar_Click(object sender, EventArgs e)
         {
             if (comboBox1.Text.Trim() == "")
             {
@@ -571,7 +572,7 @@ namespace Contasis
                 }
             }
         }
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.Text.Trim() == "")
             { }
@@ -716,7 +717,7 @@ namespace Contasis
             }
         }
 
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (Convert.ToString(dataGridView2.Rows.Count) == "0")
             { }
@@ -732,7 +733,7 @@ namespace Contasis
             }
         }
 
-        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
@@ -748,7 +749,7 @@ namespace Contasis
             { }
         }
 
-        private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (Convert.ToString(dataGridView2.Rows.Count) == "0")
             { }

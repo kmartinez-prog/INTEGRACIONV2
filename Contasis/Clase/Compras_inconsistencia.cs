@@ -31,7 +31,7 @@ namespace Contasis.Clase
                 ", nigv,  ccodpago, nperdenre, nbaseres, cctaperc, " +
                 " obserror " +
                 "  FROM fin_compras where es_con_migracion = 2  and ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();

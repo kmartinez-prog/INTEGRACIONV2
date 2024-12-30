@@ -193,9 +193,9 @@ namespace Contasis
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.Size = new System.Drawing.Size(1189, 262);
             this.dataGridView2.TabIndex = 62;
-            this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
-            this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
+            this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellClick);
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellContentClick);
+            this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellDoubleClick);
             this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
             // 
             // Column1
@@ -856,7 +856,7 @@ namespace Contasis
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(397, 21);
             this.comboBox1.TabIndex = 22;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
             // checkSeleccionar
             // 
@@ -879,7 +879,7 @@ namespace Contasis
             this.btnseleccionar.TabIndex = 1;
             this.btnseleccionar.Text = "Marcar para enviar";
             this.btnseleccionar.UseVisualStyleBackColor = true;
-            this.btnseleccionar.Click += new System.EventHandler(this.btnseleccionar_Click);
+            this.btnseleccionar.Click += new System.EventHandler(this.Btnseleccionar_Click);
             // 
             // label1
             // 

@@ -23,7 +23,7 @@ namespace Contasis.Clase
             try
             {
                 string query0 = "select ccodrucemisor as  ruc  from cg_empemisor  where ccodrucemisor='" + Objet.ruc + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query0, cone);
                 cone.Open();
                 DataTable dt = new DataTable();
@@ -35,7 +35,7 @@ namespace Contasis.Clase
                     {
                     if (Properties.Settings.Default.TipModulo == "1")
                     {
-                         query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflgncomproductoflg,ncomcompraflg,ncomventaflg) values(" +
+                         query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg,ncomproductoflg,ncomcompraflg,ncomventaflg) values(" +
                             "'" + Objet.ruc + "', " +
                             "'" + Objet.empresa + "', " +
                             "'" + Objet.estado + "'," + Objet.checkventas + "," + Objet.checkcompras + "," + Objet.checkcobranzas + "," + Objet.checkpagos + ",0,0,0)";
@@ -48,8 +48,7 @@ namespace Contasis.Clase
                            "'" + Objet.empresa + "', " +
                            "'" + Objet.estado + "'," + Objet.ncomproductoflg + "," + Objet.ncomcompraflg + "," + Objet.ncomventaflg +  ",0,0,0,0)";
                     }
-
-                    cone = ConexionSql.Instancial().establecerconexion();
+                    cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando1 = new SqlCommand(query, cone);
                         cone.Open();
                         cadena = commando1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
@@ -90,7 +89,7 @@ namespace Contasis.Clase
                 }
 
                 
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 cadena = commando1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -119,7 +118,7 @@ namespace Contasis.Clase
 
             string query0 = "select cg_empresa.NOMEMPRESA as Empresa From cg_empemisor inner join cg_empresa on cg_empemisor.ccodrucemisor=CG_EMPRESA.ccodrucemisor "+
                             " where  cg_empemisor.ccodrucemisor='" + Objet.ruc + "'";
-            cone = ConexionSql.Instancial().establecerconexion();
+            cone = ConexionSql.Instancial().Establecerconexion();
             SqlCommand commando = new SqlCommand(query0, cone);
             cone.Open();
             DataTable dt = new DataTable();
@@ -135,7 +134,7 @@ namespace Contasis.Clase
                 try
                 {
                     string cadena1 = "Delete from cg_empemisor  where ccodrucemisor='" + Objet.ruc + "'";
-                    cone = ConexionSql.Instancial().establecerconexion();
+                    cone = ConexionSql.Instancial().Establecerconexion();
                     SqlCommand commando1 = new SqlCommand(cadena1, cone);
                     cone.Open();
                     cadena = commando1.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";

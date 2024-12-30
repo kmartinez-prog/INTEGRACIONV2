@@ -46,11 +46,11 @@ namespace Contasis
 
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
-                this.proceso_sql();
+                this.Proceso_sql();
             }
             else
             {
-                this.proceso_postgresl();
+                this.Proceso_postgresl();
             }
            
         }
@@ -64,18 +64,18 @@ namespace Contasis
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        private void btncerrar_Click(object sender, EventArgs e)
+        private void Btncerrar_Click(object sender, EventArgs e)
         {
             this.Hide();
             this.Close();
         }
-        private void barraprogreso(string texto)
+        private void Barraprogreso(string texto)
         {
-            timer1.Start();
+            Timer1.Start();
         //    this.txtMensaje.Text = "" + texto;
           ///  this.txtMensaje.Refresh();
         }
-        private void proceso_sql()
+        private void Proceso_sql()
         {
 
             Clase.Estructura_SQL obj = new Clase.Estructura_SQL();
@@ -102,8 +102,8 @@ namespace Contasis
                         "PRIMARY KEY CLUSTERED " +
                         " (ccodrucemisor  ASC))";
 
-            respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_tablas(NombreTable, Query);
+            this.Barraprogreso(respuesta);
 
             #endregion
             #region empresa
@@ -111,8 +111,8 @@ namespace Contasis
             NombreTable = "cg_empresa";
             Query = "CREATE TABLE cg_empresa(ccodrucemisor character(15), " +
                     "ccod_empresa character(3),nomempresa character(80))  ";
-            respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_tablas(NombreTable, Query);
+            this.Barraprogreso(respuesta);
             #endregion
             #region usuarios
 
@@ -121,16 +121,16 @@ namespace Contasis
                    "cdesusu character(60) NOT NULL DEFAULT ''," +
                    "password character(250) NOT NULL DEFAULT ''," +
                    "fec_ultacceso datetime default getdate(),PRIMARY KEY CLUSTERED(ccodusu  ASC) )";
-            respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_tablas(NombreTable, Query);
+            this.Barraprogreso(respuesta);
             #endregion
             
             #region modulos
 
             NombreTable = "cg_modulos";
             Query = "CREATE TABLE cg_modulos(ccodmod character(10),cdesmod character(100))";
-            respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_tablas(NombreTable, Query);
+            this.Barraprogreso(respuesta);
             #endregion
             #region acceso_usuario
 
@@ -138,8 +138,8 @@ namespace Contasis
             Query = "CREATE TABLE cg_usuario_acceso(ccodusu character(10) not null DEFAULT ''," +
                     "ccodmod  character(10) not null DEFAULT ''," +
                     "flgacceso NUMERIC(1,0) default 0)";
-            respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_tablas(NombreTable, Query);
+            this.Barraprogreso(respuesta);
             #endregion
             #region version
 
@@ -147,8 +147,8 @@ namespace Contasis
             Query = "create table cg_version (" +
                     " cversion varchar(15) not null, " +
                     " cfecha datetime2 default GETDATE() not null,);";
-            respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_tablas(NombreTable, Query);
+            this.Barraprogreso(respuesta);
             #endregion
             #region log
 
@@ -158,15 +158,15 @@ namespace Contasis
                     "error_mensaje TEXT NULL," +
                     "fechahora datetime default Getdate()," +
                     "PRIMARY KEY CLUSTERED(id  ASC) )";
-            respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_tablas(NombreTable, Query);
+            this.Barraprogreso(respuesta);
             #endregion
             #region campos_para_configuracion
             NombreTable = "configuracion";
             Nombrecampo = "ffecha_inicioproceso";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
             #endregion
             #region configuracion2
 
@@ -187,53 +187,53 @@ namespace Contasis
                     "ccodalma char(10) NULL, " +
                     "Ent_anula char(15) NULL, " +
                     "Prodanula char(15) NULL) ";
-            respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_tablas(NombreTable, Query);
+            this.Barraprogreso(respuesta);
             #endregion
             #region campos_para_configuracion2
             NombreTable = "configuracion2";
             Nombrecampo = "ffecha_inicioproceso";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
             #endregion
             #region campos_para_rucemiso
             NombreTable = "cg_empemisor";
             Nombrecampo = "nventaflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
 
 
             Nombrecampo = "ncompraflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
 
             Nombrecampo = "ncobranzaflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
 
             Nombrecampo = "npagoflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
 
             Nombrecampo = "ncomproductoflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
 
             Nombrecampo = "ncomcompraflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
 
             Nombrecampo = "ncomventaflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
 
 
             #endregion
@@ -241,24 +241,24 @@ namespace Contasis
             NombreTable = "conexiones";
             Nombrecampo = "nModulo";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
 
 
             Nombrecampo = "ncompraflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
 
             Nombrecampo = "ncobranzaflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
 
             Nombrecampo = "npagoflg";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-            respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+            this.Barraprogreso(respuesta);
 
 
             #endregion
@@ -271,16 +271,16 @@ namespace Contasis
                     "obserror NVARCHAR(MAX)," +
                     "es_con_migracion INT," +
                     "resultado_migracion INT);";
-            respuesta = obj.crear_types(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_types(NombreTable, Query);
+            this.Barraprogreso(respuesta);
             #endregion
             #region tp_id
 
             NombreTable = "tp_id";
             Query = "CREATE TYPE tp_id AS TABLE(" +
                     " id int ) ";
-            respuesta = obj.crear_types(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            respuesta = obj.Crear_types(NombreTable, Query);
+            this.Barraprogreso(respuesta);
             #endregion
             if (Properties.Settings.Default.TipModulo == "1")
             {
@@ -304,8 +304,8 @@ namespace Contasis
                         "cfefec_com char(4),ctares_com numeric(1,0),ctaimp_com numeric(1,0) ,Ctapas_com numeric(1,0), asientos_com numeric(1,0)," +
                         "cTipo char(2) null,cEnt_anula char(15) null)";
                 string respuesta = "";
-                respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_tablas(NombreTable, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region fin_ventas
                 NombreTable = "fin_ventas";
@@ -371,8 +371,8 @@ namespace Contasis
                            "obserror text NULL,PRIMARY KEY CLUSTERED (idventas  ASC) )";
                 
                 
-                respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_tablas(NombreTable, Query);
+                this.Barraprogreso(respuesta);
 
                 #endregion
                 #region fin_compras
@@ -401,8 +401,8 @@ namespace Contasis
                 "ccodcos3 nchar(15)   NULL," +
                 "obserror text NULL,PRIMARY KEY CLUSTERED (idcompras  ASC) )";
 
-                respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_tablas(NombreTable, Query);
+                this.Barraprogreso(respuesta);
 
                 #endregion
                 #region fin_cobranza
@@ -452,8 +452,8 @@ namespace Contasis
                 "resultado_migracion numeric(1,0) NULL," +
                 "obserror text NULL) ";
 
-                respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_tablas(NombreTable, Query);
+                this.Barraprogreso(respuesta);
 
                 #endregion
                 //Area para Agregar Nuevos Campos a la tabla////
@@ -462,31 +462,70 @@ namespace Contasis
                 NombreTable = "fin_ventas";
                 Nombrecampo = "cubigeo";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " nchar(6) not null default '';";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region campos_para_compras
 
                 NombreTable = "fin_comparas";
                 Nombrecampo = "cubigeo";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " nchar(6) not null default '';";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region campos_para_configuracion
                 NombreTable = "configuracion";
                 Nombrecampo = "ffecha_inicioproceso";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
+                #region campos_para_rucemiso
+                NombreTable = "cg_empemisor";
+                Nombrecampo = "nventaflg";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
 
+
+                Nombrecampo = "ncompraflg";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
+
+                Nombrecampo = "ncobranzaflg";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
+
+                Nombrecampo = "npagoflg";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
+
+                Nombrecampo = "ncomproductoflg";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
+
+                Nombrecampo = "ncomcompraflg";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
+
+                Nombrecampo = "ncomventaflg";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
+
+
+                #endregion
                 #region campos_para_configuracion2
                 NombreTable = "configuracion2";
                 Nombrecampo = "ffecha_inicioproceso";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
 
                 //Area para Agregar Nuevas funciones////
@@ -549,8 +588,8 @@ namespace Contasis
                                         " 		and es_con_migracion in (0, 3)    \n" +
                                         " 		and CONFIGURACION.CTIPO = '03' \n" +
                                         " 		and cast(fin_cobranzapago.ntipocobpag as int) = @tipo); ";
-                respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_funcion(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_compras_envio
 
@@ -641,8 +680,8 @@ namespace Contasis
     "		and fin_compras.ccod_empresa = @empresa \n" +
     "		and es_con_migracion in (0, 3) \n" +
     "		and configuracion.CTIPO = '02');";
-                respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_funcion(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_ventas_envio
 
@@ -727,8 +766,8 @@ namespace Contasis
                         "		and fin_ventas.ccod_empresa = @empresa  \n" +
                         "		and es_con_migracion in (0, 3)  \n" +
                         "		and configuracion.ctipo = '01'    ); ";
-                respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_funcion(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 //Area para crear o actualizar Store Procedure == Todo de empezar con create porque primero se borrar y se vuelve a crear  ////
                 #region version
@@ -739,8 +778,8 @@ namespace Contasis
                                         " select cversion   \n" +
                                         " From dbo.cg_version   \n" +
                                         " end; ";
-                respuesta = obj.crear_procedimiento(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_procedimiento(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region version_actualiza
 
@@ -760,8 +799,8 @@ namespace Contasis
                                         " values(@p_version); \n" +
                                         " end  \n" +
                                         "  end; ";
-                respuesta = obj.crear_procedimiento(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_procedimiento(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region ventas_envio_resultado
 
@@ -778,8 +817,8 @@ namespace Contasis
                 "	JOIN @resultado r \n" +
                 "	ON t.idventas = r.id and t.es_con_migracion = r.es_con_migracion; \n" +
                 "	END ;";
-                respuesta = obj.crear_procedimiento(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_procedimiento(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
 
                 #region envio_ventas
@@ -863,11 +902,11 @@ namespace Contasis
                 "	     where fin_ventas.ccodrucemisor = @prucEmisor \n" +
                 "		 and fin_ventas.ccod_empresa = @empresa \n" +
                 "		 and es_con_migracion in (0, 3) \n" +
-                "		 and configuracion.ctipo = '01'; \n" +
-                " 	     and  fin_ventas.ffechadoc >=  configuracion.ffecha_inicioproceso) \n" +
+                "		 and configuracion.ctipo = '01' \n" +
+                " 	     and  fin_ventas.ffechadoc >=  configuracion.ffecha_inicioproceso \n" +
                 "        END   ";
-                respuesta = obj.crear_procedimiento(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_procedimiento(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region compras_envio_resultado
 
@@ -888,8 +927,8 @@ namespace Contasis
                         "  \n" +
                         " ON t.idcompras = r.id and t.es_con_migracion = r.es_con_migracion; \n" +
                         " END; ";
-                respuesta = obj.crear_procedimiento(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_procedimiento(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region envio_compras
 
@@ -974,11 +1013,11 @@ namespace Contasis
                         "	inner join cg_empemisor empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1   \n" +
                         "	where fin_compras.ccodrucemisor = @prucEmisor  \n" +
                         "		and fin_compras.ccod_empresa = @empresa \n" +
-                        "		and es_con_migracion in (0, 3)  and fin_compras.ffechadoc >= configuracion.ffecha_inicioproceso) \n" + 
+                        "		and es_con_migracion in (0, 3)  and fin_compras.ffechadoc >= configuracion.ffecha_inicioproceso \n" + 
                         "		and configuracion.CTIPO = '02'; \n" +
                         "END; ";
-                respuesta = obj.crear_procedimiento(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_procedimiento(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region cobranzapago_envio
 
@@ -1037,8 +1076,8 @@ namespace Contasis
                 "		and es_con_migracion in (0, 3)     \n" +
                 "		and CONFIGURACION.CTIPO = '03'  and fin_cobranzapago.ffechadoc >= configuracion.ffecha_inicioproceso \n" +
                 "END";
-                respuesta = obj.crear_procedimiento(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_procedimiento(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region cobranzapagos_envio_resultado
 
@@ -1060,8 +1099,8 @@ namespace Contasis
                         "     \n" +
                         " ON t.idcobranzapago = r.id and t.es_con_migracion = r.es_con_migracion;   \n" +
                         " END;  ";
-                respuesta = obj.crear_procedimiento(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_procedimiento(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
             }
 
@@ -1075,47 +1114,47 @@ namespace Contasis
                        "ccodmudulo Char(6) null, " +
                        "cdesmodulo char(50) null)";
                 
-                respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_tablas(NombreTable, Query);
+                this.Barraprogreso(respuesta);
                 obj.Insertar_datos_fijos();
                 #endregion
                 #region campos_para_rucemiso
                 NombreTable = "cg_empemisor";
                 Nombrecampo = "nventaflg";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
 
 
                 Nombrecampo = "ncompraflg";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
 
                 Nombrecampo = "ncobranzaflg";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
 
                 Nombrecampo = "npagoflg";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
 
                 Nombrecampo = "ncomproductoflg";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
 
                 Nombrecampo = "ncomcompraflg";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
 
                 Nombrecampo = "ncomventaflg";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " int not null default 0;";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
 
 
                 #endregion
@@ -1139,8 +1178,8 @@ namespace Contasis
                         "cfefec_com char(4),ctares_com numeric(1,0),ctaimp_com numeric(1,0) ,Ctapas_com numeric(1,0), asientos_com numeric(1,0)," +
                         "cTipo char(2) null,cEnt_anula char(15) null)";
                 
-                respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_tablas(NombreTable, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region configuracion2
 
@@ -1161,8 +1200,8 @@ namespace Contasis
                         "ccodalma char(10) NULL, " +
                         "Ent_anula char(15) NULL, " +
                         "Prodanula char(15) NULL) ";
-                respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_tablas(NombreTable, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region com_documento
                 NombreTable = "com_documento";
@@ -1234,8 +1273,8 @@ namespace Contasis
                         "	es_con_migracion numeric(1, 0)  DEFAULT (0),\n" +
                         "	ccodcos3 nchar(15) NULL,   \n" +
                         "	obserror text NULL) ";
-                respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_tablas(NombreTable, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region com_detalledocumento
                 NombreTable = "com_detalledocumento";
@@ -1267,21 +1306,21 @@ namespace Contasis
                         "	mdscl text NULL, \n" +
                         "	iddocumento int NOT NULL \n" +
                         "   constraint fk_detalle_documento FOREIGN KEY (iddocumento) references com_documento(iddocumento) ) ";
-                respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_tablas(NombreTable, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region index_1_com_detalledocumento
                 NombreTable = "com_detalledocumento";
                 Query = "ALTER TABLE com_detalledocumento  WITH CHECK ADD  CONSTRAINT [fk_detalle_documento] FOREIGN KEY([iddocumento]) \n" +
                         " REFERENCES.com_documento(iddocumento)";
-                respuesta = obj.crear_tablas_index(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_tablas_index(NombreTable, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region index_2_com_detalledocumento
                 NombreTable = "com_detalledocumento";
                 Query = "ALTER TABLE com_detalledocumento CHECK CONSTRAINT fk_detalle_documento";
-                respuesta = obj.crear_tablas_index(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_tablas_index(NombreTable, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region com_producto
                 NombreTable = "com_producto";
@@ -1361,8 +1400,8 @@ namespace Contasis
                         "	es_con_migracion numeric(1, 0) NULL,\n" +
                         "	ccodcos3 nchar(15) NULL,\n" +
                         "	obserror text )   ";
-                respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_tablas(NombreTable, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region sp_documento_envio_resultado
 
@@ -1379,8 +1418,8 @@ namespace Contasis
                         " JOIN @resultado r   \n" +
                         "  ON t.iddocumento = r.id and t.es_con_migracion = r.es_con_migracion;   \n" +
                         "  END; ";
-                respuesta = obj.crear_procedimiento(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_procedimiento(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region sp_producto_envio_resultado
 
@@ -1397,8 +1436,8 @@ namespace Contasis
                         " JOIN @resultado r   \n" +
                         " ON t.idproducto = r.id and t.es_con_migracion = r.es_con_migracion;   \n" +
                         " END; ";
-                respuesta = obj.crear_procedimiento(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_procedimiento(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 //Area para Agregar Nuevas funciones comercial////
                 #region fn_documento_envio
@@ -1491,8 +1530,8 @@ namespace Contasis
                                  "        and d.ccodrucemisor = @prucEmisor \n" +
                                  "        and d.ccod_empresa = @empresa \n" +
                                  "        and d.ccodmodulo = @tipo);";
-                respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_funcion(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_detalledocumento_envio
                 NombreSP = "fn_detalledocumento_envio";
@@ -1504,8 +1543,8 @@ namespace Contasis
                             " select * \n" +
                             " from com_detalledocumento d \n" +
                             " inner join @iddocumentos ids on d.iddocumento = ids.id);";
-                respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_funcion(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_productos_envio
                 NombreSP = "fn_productos_envio";
@@ -1593,19 +1632,19 @@ namespace Contasis
                                 " where p.ccodrucemisor = @prucEmisor   \n" +
                                 " and p.ccod_empresa = @empresa   \n" +
                                 " and p.es_con_migracion in (0, 3)); ";
-                respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_funcion(NombreSP, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region campos_para_configuracion2
                 NombreTable = "configuracion2";
                 Nombrecampo = "ffecha_inicioproceso";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
                 #endregion
             }
         }
-        private void proceso_postgresl()
+        private void Proceso_postgresl()
         {
             Clase.Estructura_postgres obj = new Clase.Estructura_postgres();
             
@@ -1618,7 +1657,7 @@ namespace Contasis
             " flgActivo bit NULL," +
             " PRIMARY KEY(ccodrucemisor) ); ";
             respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            this.Barraprogreso(respuesta);
 
             #endregion
             #region empresa
@@ -1630,7 +1669,7 @@ namespace Contasis
             "  nomempresa char(80) NULL, " +
             "  PRIMARY KEY(ccodrucemisor, ccod_empresa) );";
             respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            this.Barraprogreso(respuesta);
             #endregion
             #region usuarios
 
@@ -1643,7 +1682,7 @@ namespace Contasis
                     " PRIMARY KEY(ccodusu));";
 
             respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            this.Barraprogreso(respuesta);
             #endregion
             
             #region modulos
@@ -1653,7 +1692,7 @@ namespace Contasis
                     " ccodmod char(10) NULL," +
                     " cdesmod char(100) NULL) ;";
             respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            this.Barraprogreso(respuesta);
             #endregion
             #region acceso_usuario
 
@@ -1662,7 +1701,7 @@ namespace Contasis
             " ccodmod char(10) NOT NULL,"+
             " flgacceso numeric(1, 0) NULL);";
             respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            this.Barraprogreso(respuesta);
             #endregion
             #region version
             
@@ -1670,7 +1709,7 @@ namespace Contasis
             Query = txtversion.Text;
 
             respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            this.Barraprogreso(respuesta);
             #endregion
             #region log
             
@@ -1683,28 +1722,28 @@ namespace Contasis
             " fechahora date NULL," +
             " PRIMARY KEY(id));"; 
             respuesta = obj.crear_tablas(NombreTable, Query);
-            this.barraprogreso(respuesta);
+            this.Barraprogreso(respuesta);
             #endregion
             #region campos_para_configuracion2
             NombreTable = "configuracion2";
             Nombrecampo = "ffecha_inicioproceso";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            this.Barraprogreso(respuesta);
             #endregion
             #region campos_para_conexiones
             NombreTable = "conexiones";
             Nombrecampo = "nModulo";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add column " + Nombrecampo.Trim().ToLower() + " int Integer;";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            this.Barraprogreso(respuesta);
             #endregion
             #region campos_para_configuracion
             NombreTable = "configuracion";
             Nombrecampo = "ffecha_inicioproceso";
             Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-            this.barraprogreso(respuesta);
+            this.Barraprogreso(respuesta);
             #endregion
             #region fn_actualizar_version
 
@@ -1724,7 +1763,7 @@ namespace Contasis
                     " LANGUAGE plpgsql VOLATILE  \n" +
                     " COST 100;  ";
             respuesta = obj.crear_funcion(NombreSP, Query);
-            this.barraprogreso(respuesta);
+            this.Barraprogreso(respuesta);
             #endregion
             if (Properties.Settings.Default.TipModulo == "1")
             {
@@ -1763,7 +1802,7 @@ namespace Contasis
                 " cEnt_anula char(15) NULL);";
                 string respuesta = "";
                 respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region fin_ventas
 
@@ -1833,7 +1872,7 @@ namespace Contasis
 
                 
                 respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
 
                 #endregion
                 #region fin_compras
@@ -1910,7 +1949,7 @@ namespace Contasis
                         " PRIMARY KEY(idcompras)); ";
 
                 respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
 
                 #endregion
                 #region fin_cobranzapago
@@ -1964,7 +2003,7 @@ namespace Contasis
                 " ccodcos3 character(15) NOT NULL DEFAULT ''::bpchar, " +
                 " primary key(idcobranzas)); ";
                 respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
 
                 #endregion
                 //Area para Agregar Nuevos Campos a la tabla////
@@ -1974,7 +2013,7 @@ namespace Contasis
                 Nombrecampo = "cubigeo";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " nchar(6) not null default '';";
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region campos_para_compras
 
@@ -1982,7 +2021,7 @@ namespace Contasis
                 Nombrecampo = "cubigeo";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " nchar(6) not null default '';";
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
 
                 #region campos_para_rucemiso
@@ -1991,24 +2030,24 @@ namespace Contasis
                 Nombrecampo = "nventaflg";
                 Query = "alter table " + NombreTable.Trim().ToLower() + "  add column  " + Nombrecampo.Trim().ToLower() + "  int Integer;";
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 
 
                 Nombrecampo = "ncompraflg";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add column " + Nombrecampo.Trim().ToLower() + "  int Integer;";
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
                 txtMensaje.Refresh();
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
 
                 Nombrecampo = "ncobranzaflg";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add column " + Nombrecampo.Trim().ToLower() + "  int Integer;";
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
 
                 Nombrecampo = "npagoflg";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add column " + Nombrecampo.Trim().ToLower() + " int Integer;";
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
 
 
                 #endregion
@@ -2034,7 +2073,7 @@ namespace Contasis
                  "   Ent_anula char(15) NULL, " +
                  "   Prodanula char(15) NULL); ";
                 respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
 
                 #region fn_cobranzaspago_envio
@@ -2110,7 +2149,7 @@ namespace Contasis
                         " LANGUAGE 'plpgsql' VOLATILE  \n" +
                         " COST 100;  ";
                 respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_cobranzaspago_envio_resultado
 
@@ -2138,7 +2177,7 @@ namespace Contasis
                      "LANGUAGE 'plpgsql' VOLATILE \n" +
                      " COST 100; ";
                 respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_compras_envio
 
@@ -2243,7 +2282,7 @@ namespace Contasis
                         " LANGUAGE plpgsql VOLATILE  \n" +
                         " COST 100; ";
                 respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_compras_envio_resultado
 
@@ -2267,7 +2306,7 @@ namespace Contasis
                         " LANGUAGE plpgsql VOLATILE  \n" +
                         " COST 100; ";
                 respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_integracion_ventas_importar
 
@@ -2426,7 +2465,7 @@ namespace Contasis
             " LANGUAGE plpgsql VOLATILE  \n" +
             " COST 100;  ";
                 respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_integracion_cobranza_importar
 
@@ -2549,7 +2588,7 @@ namespace Contasis
     " OWNER TO postgres; ";
 
                 respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
 
                 #region fn_ventas_envio
@@ -2645,7 +2684,7 @@ namespace Contasis
                         " LANGUAGE plpgsql VOLATILE  \n" +
                         " COST 100; ";
                 respuesta = obj.crear_funcion(NombreSP, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
 
 
@@ -2660,7 +2699,7 @@ namespace Contasis
                        "ccodmudulo Char(6) null, " +
                        "cdesmodulo char(50) null)";
                 respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region configuracion2
 
@@ -2684,14 +2723,14 @@ namespace Contasis
                  "   Ent_anula char(15) NULL, " +
                  "   Prodanula char(15) NULL); ";
                 respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region campos_para_configuracion2
                 NombreTable = "configuracion2";
                 Nombrecampo = "ffecha_inicioproceso";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  date null ";
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region com_producto
 
@@ -2776,7 +2815,7 @@ namespace Contasis
                 "	ccodcos3 character(15) NULL,\n" +
                 "	obserror text NULL,CONSTRAINT com_producto_pkey PRIMARY KEY (idproducto));";
                 respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region com_documento
                 NombreTable = "com_documento";
@@ -2851,7 +2890,7 @@ namespace Contasis
                     " ccodcos3 character(15) NULL, \n" +
                     " obserror text NULL, CONSTRAINT com_documento_pkey PRIMARY KEY(iddocumento));";
                 respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
                 #region com_detalledocumento
                 NombreTable = "com_detalledocumento";
@@ -2885,19 +2924,19 @@ namespace Contasis
                         "   tipo_isc numeric(1, 0) NULL, \n" +
                         "   mdscl text NULL,	CONSTRAINT com_detalledocumento_pkey PRIMARY KEY (iddetalledocumento)); ";
                 respuesta = obj.crear_tablas(NombreTable, Query);
-                this.barraprogreso(respuesta);
+                this.Barraprogreso(respuesta);
                 #endregion
             }
         }
         /*********************************************************************************************************************/
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             pBarra.Value = progreso;
             progreso += 1;
             this.label1.Text = (progreso-1).ToString() + "%";
             if (progreso > pBarra.Maximum)
             {
-                timer1.Stop();
+                Timer1.Stop();
                 progreso = 0;
                 this.Refresh();
                 txtMensaje.Text = "Proceso terminado.";

@@ -34,7 +34,7 @@ namespace Contasis
             this.pBarra = new System.Windows.Forms.ProgressBar();
             this.btncerrar = new System.Windows.Forms.Button();
             this.txtMensaje = new System.Windows.Forms.TextBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Timer1 = new System.Windows.Forms.Timer(this.components);
             this.txtversion = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -59,7 +59,7 @@ namespace Contasis
             this.btncerrar.TabIndex = 5;
             this.btncerrar.Text = "Salir";
             this.btncerrar.UseVisualStyleBackColor = false;
-            this.btncerrar.Click += new System.EventHandler(this.btncerrar_Click);
+            this.btncerrar.Click += new System.EventHandler(this.Btncerrar_Click);
             // 
             // txtMensaje
             // 
@@ -73,10 +73,10 @@ namespace Contasis
             this.txtMensaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMensaje.TextChanged += new System.EventHandler(this.txtMensaje_TextChanged);
             // 
-            // timer1
+            // Timer1
             // 
-            this.timer1.Interval = 50;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.Timer1.Interval = 50;
+            this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // txtversion
             // 
@@ -95,7 +95,7 @@ namespace Contasis
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.Location = new System.Drawing.Point(194, 57);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(14, 15);
+            this.label1.Size = new System.Drawing.Size(13, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = "0";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -128,7 +128,7 @@ namespace Contasis
         private System.Windows.Forms.ProgressBar pBarra;
         private System.Windows.Forms.Button btncerrar;
         private System.Windows.Forms.TextBox txtMensaje;
-        public System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.Timer Timer1;
         private System.Windows.Forms.TextBox txtversion;
         private System.Windows.Forms.Label label1;
     }

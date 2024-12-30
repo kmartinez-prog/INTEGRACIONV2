@@ -31,6 +31,9 @@ namespace Contasis
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmIntegradorComercial));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtFechaInicio = new System.Windows.Forms.TextBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.FechaInicio = new System.Windows.Forms.DateTimePicker();
             this.txtcadena = new System.Windows.Forms.TextBox();
             this.txtpago = new System.Windows.Forms.TextBox();
             this.txtcobranza = new System.Windows.Forms.TextBox();
@@ -92,9 +95,6 @@ namespace Contasis
             this.txtanulasventas = new System.Windows.Forms.TextBox();
             this.txtActualizarstocanular = new System.Windows.Forms.TextBox();
             this.txtubigeo = new System.Windows.Forms.TextBox();
-            this.txtFechaInicio = new System.Windows.Forms.TextBox();
-            this.label38 = new System.Windows.Forms.Label();
-            this.FechaInicio = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -129,6 +129,41 @@ namespace Contasis
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(622, 550);
             this.panel1.TabIndex = 1;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // txtFechaInicio
+            // 
+            this.txtFechaInicio.Enabled = false;
+            this.txtFechaInicio.Location = new System.Drawing.Point(376, 23);
+            this.txtFechaInicio.MaxLength = 10;
+            this.txtFechaInicio.Name = "txtFechaInicio";
+            this.txtFechaInicio.Size = new System.Drawing.Size(66, 20);
+            this.txtFechaInicio.TabIndex = 20;
+            this.txtFechaInicio.Visible = false;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(373, 6);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(151, 13);
+            this.label38.TabIndex = 19;
+            this.label38.Text = "Fecha de Inicio de Integración";
+            this.label38.Visible = false;
+            // 
+            // FechaInicio
+            // 
+            this.FechaInicio.CustomFormat = "dd/mm/yyyy";
+            this.FechaInicio.Enabled = false;
+            this.FechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.FechaInicio.Location = new System.Drawing.Point(441, 23);
+            this.FechaInicio.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
+            this.FechaInicio.MinDate = new System.DateTime(2024, 1, 1, 0, 0, 0, 0);
+            this.FechaInicio.Name = "FechaInicio";
+            this.FechaInicio.Size = new System.Drawing.Size(17, 20);
+            this.FechaInicio.TabIndex = 18;
+            this.FechaInicio.Visible = false;
+            this.FechaInicio.ValueChanged += new System.EventHandler(this.FechaInicio_ValueChanged);
             // 
             // txtcadena
             // 
@@ -233,7 +268,7 @@ namespace Contasis
             this.cmbperiodo.Name = "cmbperiodo";
             this.cmbperiodo.Size = new System.Drawing.Size(121, 21);
             this.cmbperiodo.TabIndex = 3;
-            this.cmbperiodo.SelectedIndexChanged += new System.EventHandler(this.cmbperiodo_SelectedIndexChanged);
+            this.cmbperiodo.SelectedIndexChanged += new System.EventHandler(this.Cmbperiodo_SelectedIndexChanged);
             // 
             // Tablero
             // 
@@ -338,7 +373,7 @@ namespace Contasis
             this.cboanulacionproducto.Name = "cboanulacionproducto";
             this.cboanulacionproducto.Size = new System.Drawing.Size(331, 20);
             this.cboanulacionproducto.TabIndex = 10;
-            this.cboanulacionproducto.SelectedIndexChanged += new System.EventHandler(this.cboanulacionproducto_SelectedIndexChanged);
+            this.cboanulacionproducto.SelectedIndexChanged += new System.EventHandler(this.Cboanulacionproducto_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -384,7 +419,7 @@ namespace Contasis
             this.cmbanulados.Name = "cmbanulados";
             this.cmbanulados.Size = new System.Drawing.Size(134, 20);
             this.cmbanulados.TabIndex = 3;
-            this.cmbanulados.SelectedIndexChanged += new System.EventHandler(this.cmbanulados_SelectedIndexChanged);
+            this.cmbanulados.SelectedIndexChanged += new System.EventHandler(this.Cmbanulados_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -403,7 +438,7 @@ namespace Contasis
             this.cmbalmacen.Name = "cmbalmacen";
             this.cmbalmacen.Size = new System.Drawing.Size(215, 20);
             this.cmbalmacen.TabIndex = 9;
-            this.cmbalmacen.SelectedIndexChanged += new System.EventHandler(this.cmbalmacen_SelectedIndexChanged);
+            this.cmbalmacen.SelectedIndexChanged += new System.EventHandler(this.Cmbalmacen_SelectedIndexChanged);
             // 
             // label9
             // 
@@ -422,7 +457,7 @@ namespace Contasis
             this.cmbvendedor.Name = "cmbvendedor";
             this.cmbvendedor.Size = new System.Drawing.Size(279, 20);
             this.cmbvendedor.TabIndex = 8;
-            this.cmbvendedor.SelectedIndexChanged += new System.EventHandler(this.cmbvendedor_SelectedIndexChanged);
+            this.cmbvendedor.SelectedIndexChanged += new System.EventHandler(this.Cmbvendedor_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -441,7 +476,7 @@ namespace Contasis
             this.cmbpagos.Name = "cmbpagos";
             this.cmbpagos.Size = new System.Drawing.Size(134, 20);
             this.cmbpagos.TabIndex = 6;
-            this.cmbpagos.SelectedIndexChanged += new System.EventHandler(this.cmbpagos_SelectedIndexChanged);
+            this.cmbpagos.SelectedIndexChanged += new System.EventHandler(this.Cmbpagos_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -460,7 +495,7 @@ namespace Contasis
             this.cmbentidad.Name = "cmbentidad";
             this.cmbentidad.Size = new System.Drawing.Size(135, 20);
             this.cmbentidad.TabIndex = 2;
-            this.cmbentidad.SelectedIndexChanged += new System.EventHandler(this.cmbentidad_SelectedIndexChanged);
+            this.cmbentidad.SelectedIndexChanged += new System.EventHandler(this.Cmbentidad_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -498,7 +533,7 @@ namespace Contasis
             this.cmbseries.Name = "cmbseries";
             this.cmbseries.Size = new System.Drawing.Size(135, 20);
             this.cmbseries.TabIndex = 5;
-            this.cmbseries.SelectedIndexChanged += new System.EventHandler(this.cmbseries_SelectedIndexChanged);
+            this.cmbseries.SelectedIndexChanged += new System.EventHandler(this.Cmbseries_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -517,7 +552,7 @@ namespace Contasis
             this.cmbdocumento.Name = "cmbdocumento";
             this.cmbdocumento.Size = new System.Drawing.Size(212, 20);
             this.cmbdocumento.TabIndex = 4;
-            this.cmbdocumento.SelectedIndexChanged += new System.EventHandler(this.cmbdocumento_SelectedIndexChanged);
+            this.cmbdocumento.SelectedIndexChanged += new System.EventHandler(this.Cmbdocumento_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -536,7 +571,7 @@ namespace Contasis
             this.cmbtipo.Name = "cmbtipo";
             this.cmbtipo.Size = new System.Drawing.Size(212, 20);
             this.cmbtipo.TabIndex = 1;
-            this.cmbtipo.SelectedIndexChanged += new System.EventHandler(this.cmbtipo_SelectedIndexChanged);
+            this.cmbtipo.SelectedIndexChanged += new System.EventHandler(this.Cmbtipo_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -581,7 +616,7 @@ namespace Contasis
             this.btngrabar.TabIndex = 11;
             this.btngrabar.Text = "Grabar";
             this.btngrabar.UseVisualStyleBackColor = true;
-            this.btngrabar.Click += new System.EventHandler(this.btngrabar_Click);
+            this.btngrabar.Click += new System.EventHandler(this.Btngrabar_Click);
             // 
             // label1
             // 
@@ -600,7 +635,7 @@ namespace Contasis
             this.cmbempresas.Name = "cmbempresas";
             this.cmbempresas.Size = new System.Drawing.Size(228, 21);
             this.cmbempresas.TabIndex = 2;
-            this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.cmbempresas_SelectedIndexChanged);
+            this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.Cmbempresas_SelectedIndexChanged);
             // 
             // txtdocumento
             // 
@@ -742,48 +777,18 @@ namespace Contasis
             // txtubigeo
             // 
             this.txtubigeo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.txtubigeo.Location = new System.Drawing.Point(1218, 587);
+            this.txtubigeo.Location = new System.Drawing.Point(1218, 504);
             this.txtubigeo.Multiline = true;
             this.txtubigeo.Name = "txtubigeo";
             this.txtubigeo.Size = new System.Drawing.Size(274, 118);
             this.txtubigeo.TabIndex = 16;
             this.txtubigeo.Text = resources.GetString("txtubigeo.Text");
             // 
-            // txtFechaInicio
-            // 
-            this.txtFechaInicio.Enabled = false;
-            this.txtFechaInicio.Location = new System.Drawing.Point(376, 23);
-            this.txtFechaInicio.MaxLength = 10;
-            this.txtFechaInicio.Name = "txtFechaInicio";
-            this.txtFechaInicio.Size = new System.Drawing.Size(66, 20);
-            this.txtFechaInicio.TabIndex = 20;
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(373, 6);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(151, 13);
-            this.label38.TabIndex = 19;
-            this.label38.Text = "Fecha de Inicio de Integración";
-             // 
-            // FechaInicio
-            // 
-            this.FechaInicio.CustomFormat = "dd/mm/yyyy";
-            this.FechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.FechaInicio.Location = new System.Drawing.Point(442, 23);
-            this.FechaInicio.MaxDate = new System.DateTime(2050, 12, 31, 0, 0, 0, 0);
-            this.FechaInicio.MinDate = new System.DateTime(2024, 1, 1, 0, 0, 0, 0);
-            this.FechaInicio.Name = "FechaInicio";
-            this.FechaInicio.Size = new System.Drawing.Size(17, 20);
-            this.FechaInicio.TabIndex = 18;
-            this.FechaInicio.ValueChanged += new System.EventHandler(this.FechaInicio_ValueChanged);
-            // 
             // FrmIntegradorComercial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(636, 557);
+            this.ClientSize = new System.Drawing.Size(636, 563);
             this.Controls.Add(this.txtubigeo);
             this.Controls.Add(this.txtActualizarstocanular);
             this.Controls.Add(this.txtanulasventas);

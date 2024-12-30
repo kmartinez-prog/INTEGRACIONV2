@@ -12,7 +12,7 @@ namespace Contasis.Clase
 {
     class Estructura_SQL
     {
-        public string crear_tablas(string NombreTable,string Estructura)
+        public string Crear_tablas(string NombreTable,string Estructura)
         {
             string cadena = "";
             int cadena1 = 0;
@@ -23,7 +23,7 @@ namespace Contasis.Clase
             try
             {
                 string query0 = "SELECT* FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME = '"+ NombreTable.Trim().ToLower() + "'";
-                coneconexionsql = ConexionSql.Instancial().establecerconexion();
+                coneconexionsql = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query0, coneconexionsql);
                 coneconexionsql.Open();
                 DataTable dt = new DataTable();
@@ -76,7 +76,7 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string crear_tablas_index(string NombreTable, string Estructura)
+        public string Crear_tablas_index(string NombreTable, string Estructura)
         {
             string cadena = "";
             int cadena1 = 0;
@@ -87,7 +87,7 @@ namespace Contasis.Clase
             try
             {
                 string query0 = "SELECT* FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME = '" + NombreTable.Trim().ToLower() + "'";
-                coneconexionsql = ConexionSql.Instancial().establecerconexion();
+                coneconexionsql = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query0, coneconexionsql);
                 coneconexionsql.Open();
                 DataTable dt = new DataTable();
@@ -136,7 +136,7 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string crear_types(string NombreTable, string Estructura)
+        public string Crear_types(string NombreTable, string Estructura)
         {
             string cadena = "";
             int cadena1 = 0;
@@ -147,7 +147,7 @@ namespace Contasis.Clase
             try
             {
                 string query0 = "Select * from sys.Types where name = '" + NombreTable.Trim().ToLower() + "'";
-                coneconexionsql = ConexionSql.Instancial().establecerconexion();
+                coneconexionsql = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query0, coneconexionsql);
                 coneconexionsql.Open();
                 DataTable dt = new DataTable();
@@ -200,7 +200,7 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string crear_procedimiento(string NombreSp, string EstructuraSp)
+        public string Crear_procedimiento(string NombreSp, string EstructuraSp)
         {
             string cadena = "";
             int cadena1 = 0;
@@ -211,7 +211,7 @@ namespace Contasis.Clase
             try
             {
                 string query0 = "Select NAME  From Sys.objects where type='P' and  lower(NAME) = '" + NombreSp.Trim().ToLower() + "'";
-                coneconexionsql = ConexionSql.Instancial().establecerconexion();
+                coneconexionsql = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query0, coneconexionsql);
                 coneconexionsql.Open();
                 DataTable dt = new DataTable();
@@ -270,7 +270,7 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string crear_funcion(string NombreSp, string EstructuraSp)
+        public string Crear_funcion(string NombreSp, string EstructuraSp)
         {
             string cadena = "";
             int cadena1 = 0;
@@ -281,7 +281,7 @@ namespace Contasis.Clase
             try
             {
                 string query0 = "Select NAME  From Sys.objects where type='IF' and  lower(NAME) = '" + NombreSp.Trim().ToLower() + "'";
-                coneconexionsql = ConexionSql.Instancial().establecerconexion();
+                coneconexionsql = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query0, coneconexionsql);
                 coneconexionsql.Open();
                 DataTable dt = new DataTable();
@@ -340,7 +340,7 @@ namespace Contasis.Clase
             }
             return cadena;
         }
-        public string crear_Campos_nuevos_en_tablas(string NombreTable,string Nombrecampo ,string campolargo)
+        public string Crear_Campos_nuevos_en_tablas(string NombreTable,string Nombrecampo ,string campolargo)
         {
             string cadena = "";
             int cadena1 = 0;
@@ -352,7 +352,7 @@ namespace Contasis.Clase
             {
                 string query0 = "SELECT COLUMN_NAME,DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS " +
                                 " where TABLE_NAME ='" + NombreTable.Trim().ToLower() + "' AND COLUMN_NAME = '" + Nombrecampo.Trim().ToLower() + "'";
-                coneconexionsql = ConexionSql.Instancial().establecerconexion();
+                coneconexionsql = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query0, coneconexionsql);
                 coneconexionsql.Open();
                 DataTable dt = new DataTable();
@@ -407,7 +407,7 @@ namespace Contasis.Clase
         {
             DataTable Tabla = new DataTable();
             SqlConnection coneconexionsql = new SqlConnection();
-            coneconexionsql = ConexionSql.Instancial().establecerconexion();
+            coneconexionsql = ConexionSql.Instancial().Establecerconexion();
             coneconexionsql.Open();
 
             try

@@ -177,6 +177,11 @@ namespace Contasis
                 this.Text = "Configuración del Integrador Contasis " + DateTime.Now.ToString("yyyy");
                 toolStripStatusLabel7.Text = "";
             }
+
+            ///*Properties.Settings.Default.version*/
+
+
+
             /*************************************************************************************************
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
@@ -797,8 +802,28 @@ private void SalirToolStripMenuItem_Click(object sender, EventArgs e)
             master18 = null;
         }
 
+        private void ToolStripMenuItem4_Click_1(object sender, EventArgs e)
+        {
+            foreach (Form OpenForm in Application.OpenForms)
+            {
+                if (OpenForm.Name == "master11")
+                { }
+                else
+                {
+                    master11 = null;
+                }
 
+            }
 
+            if (master11 == null)
+            {
+                master11 = new FrRegistrarConexionNube();
+                ///master6.MdiParent = this;
+                master11.ShowDialog();
+                master11.FormClosed += new FormClosedEventHandler(CerrarConfiguracionServicionube);
+
+            }
+        }
     }
 }
 

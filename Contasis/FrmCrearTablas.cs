@@ -520,7 +520,10 @@ namespace Contasis
             progreotrastablas.Visible = false;
         }
 
-      
+        private void txtxcrearfuncion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }   
 }
 

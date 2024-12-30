@@ -135,7 +135,7 @@ namespace Contasis
 
         }*/
 
-        private void empresas()
+        private void Empresas()
         {
             try
             {
@@ -243,11 +243,11 @@ namespace Contasis
 
             this.cmbempresas.Focus();
        
-            this.empresas();
+            this.Empresas();
             
             
         }
-        private void cmbempresas_SelectedIndexChanged(object sender, EventArgs e)
+        private void Cmbempresas_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.dataGridView_venta.DataSource = null;
             this.dataGridView_compra.DataSource = null;
@@ -264,14 +264,14 @@ namespace Contasis
                 txtcadena.Text = Properties.Settings.Default.cadenaPost;
                 xCodempresa = "contasis_" + cmbempresas.Text.Substring(0, 3).ToLower();
                 txtcadena.Text = txtcadena.Text.Replace("contasis", xCodempresa.Trim());
-                this.cargar();
-                this.cargarentidad();
-                this.anulados();
+                this.Cargar();
+                this.Cargarentidad();
+                this.Anulados();
                 Tablero.Enabled = false;
-                this.limpiar();
+                this.Limpiar();
             }
         }
-        private void grabar_ventas()
+        private void Grabar_ventas()
         {
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
@@ -328,19 +328,19 @@ namespace Contasis
                         cmbanuladosventas.Focus();
                     }
 
-                    this.crear_ventas_recepcion();
-                    this.crear_ventas_asientos();
+                    this.Crear_ventas_recepcion();
+                    this.Crear_ventas_asientos();
 
                     obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
-                    obj.PERIODO = txtperiodo.Text;
-                    obj.RAZONSOCIAL = txtrazon.Text;
-                    obj.RUC = txtruc.Text;
+                    obj.PERIODO = txtperiodo.Text.Trim();
+                    obj.RAZONSOCIAL = txtrazon.Text.Trim();
+                    obj.RUC = txtruc.Text.Trim();
                     obj.ENTIDAD = cmbentidadvta.Text.Substring(0, 3);
-                    obj.CSUB1_vta = txtCSUB1.Text;
-                    obj.CLREG1_vta = txtCLREG1.Text;
-                    obj.CSUB2_vta = txtCSUB2.Text;
-                    obj.CLREG2_vta = txtCLREG2.Text;
-                    obj.CCONTS_vta = txtCCONTS.Text;
+                    obj.CSUB1_vta = txtCSUB1.Text.Trim();
+                    obj.CLREG1_vta = txtCLREG1.Text.Trim();
+                    obj.CSUB2_vta = txtCSUB2.Text.Trim();
+                    obj.CLREG2_vta = txtCLREG2.Text.Trim();
+                    obj.CCONTS_vta = txtCCONTS.Text.Trim();
                     obj.CCONTD_vta = txtCCONTD.Text;
                     obj.CFEFEC_vta = txtCFEFEC.Text;
                     obj.CENT_ANULA = cmbanuladosventas.Text.Substring(0, 15);
@@ -460,8 +460,8 @@ namespace Contasis
                         cmbanuladosventas.Focus();
                     }
 
-                    this.crear_ventas_recepcion();
-                    this.crear_ventas_asientos();
+                    this.Crear_ventas_recepcion();
+                    this.Crear_ventas_asientos();
 
                     obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
                     obj.PERIODO = txtperiodo.Text;
@@ -547,7 +547,7 @@ namespace Contasis
 
 
       }
-        private void grabar_compras()
+        private void Grabar_compras()
         {
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
@@ -602,22 +602,22 @@ namespace Contasis
                         MessageBox.Show("Favor de seleccionar la entidad de anulacion.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         cmbanuladoscompras.Focus();
                     }
-                    this.crear_compras_recepcion();
-                    this.crear_compras_asientos();
+                    this.Crear_compras_recepcion();
+                    this.Crear_compras_asientos();
                     ///this.crear_compras_anulaciones();
 
                     obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
-                    obj.PERIODO = txtperiodo.Text;
-                    obj.RAZONSOCIAL = txtrazon.Text;
-                    obj.RUC = txtruc.Text;
+                    obj.PERIODO = txtperiodo.Text.Trim();
+                    obj.RAZONSOCIAL = txtrazon.Text.Trim();
+                    obj.RUC = txtruc.Text.Trim();
                     obj.ENTIDAD = cmbentidadcrp.Text.Substring(0, 3);
-                    obj.CSUB1_com = txtCSUB1_com.Text;
-                    obj.CLREG1_com = txtCLREG1_com.Text;
-                    obj.CSUB2_com = txtCSUB2_com.Text;
-                    obj.CLREG2_com = txtCLREG2_com.Text;
-                    obj.CCONTS_com = txtCCONTS_com.Text;
-                    obj.CCONTD_com = txtCCONTD_com.Text;
-                    obj.CFEFEC_com = txtCFEFEC_com.Text;
+                    obj.CSUB1_com = txtCSUB1_com.Text.Trim();
+                    obj.CLREG1_com = txtCLREG1_com.Text.Trim();
+                    obj.CSUB2_com = txtCSUB2_com.Text.Trim();
+                    obj.CLREG2_com = txtCLREG2_com.Text.Trim();
+                    obj.CCONTS_com = txtCCONTS_com.Text.Trim();
+                    obj.CCONTD_com = txtCCONTD_com.Text.Trim();
+                    obj.CFEFEC_com = txtCFEFEC_com.Text.Trim();
                     obj.CENT_ANULA = cmbanuladoscompras.Text.Substring(0, 15);
                     if (check_ctare_com.Checked == true)
                     {
@@ -734,8 +734,8 @@ namespace Contasis
                         MessageBox.Show("Favor de seleccionar la entidad de anulacion.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         cmbanuladoscompras.Focus();
                     }
-                    this.crear_compras_recepcion();
-                    this.crear_compras_asientos();
+                    this.Crear_compras_recepcion();
+                    this.Crear_compras_asientos();
                     ///this.crear_compras_anulaciones();
 
                     obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
@@ -820,7 +820,7 @@ namespace Contasis
 
 
         }
-        private void grabar_cobranzas()
+        private void Grabar_cobranzas()
         {
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
@@ -847,8 +847,8 @@ namespace Contasis
                         return;
                     }
 
-                    this.crear_fin_cobranzapago_asientos();
-                    this.crear_fin_cobranzapago_integra_asientos();
+                    this.Crear_fin_cobranzapago_asientos();
+                    this.Crear_fin_cobranzapago_integra_asientos();
 
                     obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
                     obj.PERIODO = txtperiodo.Text;
@@ -923,8 +923,8 @@ namespace Contasis
                         return;
                     }
                  
-                    this.crear_fin_cobranzapago_asientos();
-                    this.crear_fin_cobranzapago_integra_asientos();
+                    this.Crear_fin_cobranzapago_asientos();
+                    this.Crear_fin_cobranzapago_integra_asientos();
 
                     obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
                     obj.PERIODO = txtperiodo.Text;
@@ -981,7 +981,7 @@ namespace Contasis
 
 
         }
-        private void grabar_pagos()
+        private void Grabar_pagos()
         {
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
@@ -1009,8 +1009,8 @@ namespace Contasis
                         cmbperiodo.Focus();
                         return;
                     }
-                    this.crear_fin_cobranzapago_asientos();
-                    this.crear_fin_cobranzapago_integra_asientos();
+                    this.Crear_fin_cobranzapago_asientos();
+                    this.Crear_fin_cobranzapago_integra_asientos();
 
                     obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
                     obj.PERIODO = txtperiodo.Text;
@@ -1085,8 +1085,8 @@ namespace Contasis
                     }
                     
 
-                    this.crear_fin_cobranzapago_asientos();
-                    this.crear_fin_cobranzapago_integra_asientos();
+                    this.Crear_fin_cobranzapago_asientos();
+                    this.Crear_fin_cobranzapago_integra_asientos();
 
                     obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
                     obj.PERIODO = txtperiodo.Text;
@@ -1140,7 +1140,7 @@ namespace Contasis
 
 
         }
-        private void carga2()
+        private void Carga2()
         //*   proceso para jalar de la empresa seleccionada la informacion del cg_emppro*//
         {
             try
@@ -1206,7 +1206,7 @@ namespace Contasis
                 cmbperiodo.Items.Clear();
             }
         }
-        private void carga3()
+        private void Carga3()
         {          
                 try
                 {
@@ -1222,7 +1222,7 @@ namespace Contasis
 
                     txtrazon.Text = grilla[0].ToString().Replace("'"," ");
                     txtruc.Text = grilla[1].ToString();
-                    this.seleccion();
+                    this.Seleccion();
 
                 //  if (rucemisor.Trim() == txtruc.Text.Trim())
                 //{
@@ -1244,7 +1244,7 @@ namespace Contasis
                     
                 }
             }
-        private void cargar()
+        private void Cargar()
         {
             try
             {
@@ -1271,7 +1271,7 @@ namespace Contasis
             }
 
         }
-        private void cargarentidad()
+        private void Cargarentidad()
         {
             try
             {
@@ -1306,7 +1306,7 @@ namespace Contasis
             this.Hide();
             this.Close();
         }
-        public  void cmbperiodo_SelectedIndexChanged(object sender, EventArgs e)
+        public  void Cmbperiodo_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtperiodo.Text = cmbperiodo.Text.Trim();
 
@@ -1325,7 +1325,7 @@ namespace Contasis
             { this.tabPage4.Parent = null; }
 
 
-            this.carga3();
+            this.Carga3();
             
             
         }
@@ -1366,7 +1366,7 @@ namespace Contasis
             return base.ProcessCmdKey(ref msg, keyData);
 
         }
-        private void txtCSUB1_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCSUB1_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1377,13 +1377,13 @@ namespace Contasis
 
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("1", txtCSUB1.Text);
+                this.Validar_cuentas("1", txtCSUB1.Text);
             }
 
 
 
         }
-        private void txtCLREG1_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCLREG1_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1393,12 +1393,12 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("2", txtCLREG1.Text);
+                this.Validar_cuentas("2", txtCLREG1.Text);
             }
 
 
         }
-        private void txtCSUB2_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCSUB2_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1408,12 +1408,12 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("3", txtCSUB2.Text);
+                this.Validar_cuentas("3", txtCSUB2.Text);
             }
 
 
         }
-        private void txtCLREG2_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCLREG2_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1423,11 +1423,11 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("4", txtCLREG2.Text);
+                this.Validar_cuentas("4", txtCLREG2.Text);
             }
 
         }
-        private void txtCCONTS_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCCONTS_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1437,11 +1437,11 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("5", txtCCONTS.Text);
+                this.Validar_cuentas("5", txtCCONTS.Text);
             }
 
         }
-        private void txtCCONTD_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCCONTD_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1451,10 +1451,10 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("6", txtCCONTD.Text);
+                this.Validar_cuentas("6", txtCCONTD.Text);
             }
         }
-        private void txtCFEFEC_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCFEFEC_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1464,14 +1464,14 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("7", txtCFEFEC.Text);
+                this.Validar_cuentas("7", txtCFEFEC.Text);
             }
         }
-        public  void txtperiodo_TextChanged(object sender, EventArgs e)
+        public  void Txtperiodo_TextChanged(object sender, EventArgs e)
         {
             txtperiodo.Text = cmbperiodo.Text;
         }
-        private void txtCSUB1_com_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCSUB1_com_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1481,10 +1481,10 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("8", txtCSUB1_com.Text);
+                this.Validar_cuentas("8", txtCSUB1_com.Text);
             }
         }
-        private void txtCLREG1_com_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCLREG1_com_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1494,10 +1494,10 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("9", txtCLREG1_com.Text);
+                this.Validar_cuentas("9", txtCLREG1_com.Text);
             }
         }
-        private void txtCSUB2_com_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCSUB2_com_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1507,10 +1507,10 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("10", txtCSUB2_com.Text);
+                this.Validar_cuentas("10", txtCSUB2_com.Text);
             }
         }
-        private void txtCLREG2_com_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCLREG2_com_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1520,10 +1520,10 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("11", txtCLREG2_com.Text);
+                this.Validar_cuentas("11", txtCLREG2_com.Text);
             }
         }
-        private void txtCCONTS_com_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCCONTS_com_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1533,10 +1533,10 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("12", txtCCONTS_com.Text);
+                this.Validar_cuentas("12", txtCCONTS_com.Text);
             }
         }
-        private void txtCCONTD_com_KeyDown(object sender, KeyEventArgs e)
+        private void TxtCCONTD_com_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1546,10 +1546,10 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("13", txtCCONTD_com.Text);
+                this.Validar_cuentas("13", txtCCONTD_com.Text);
             }
         }
-        private void txtCFEFEC_com_KeyDown(object sender, KeyEventArgs e)
+            private void TxtCFEFEC_com_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -1559,16 +1559,16 @@ namespace Contasis
             }
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("14", txtCFEFEC_com.Text);
+                this.Validar_cuentas("14", txtCFEFEC_com.Text);
             }
             if (e.KeyCode == Keys.Tab)
             {
-                this.validar_cuentas("14", txtCFEFEC_com.Text);
+                this.Validar_cuentas("14", txtCFEFEC_com.Text);
             }
 
 
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {/*** PDI-148 06/12/2024**/
             if (txtFechaInicio.Text == "")
             {
@@ -1577,11 +1577,11 @@ namespace Contasis
             }
             else
             {
-                this.grabar_ventas();
+                this.Grabar_ventas();
                 this.Mostrar_registros_ventas();
             }
         }
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {/*** PDI-148 06/12/2024**/
             if (txtFechaInicio.Text == "")
             {
@@ -1590,7 +1590,7 @@ namespace Contasis
             }
             else
             {
-                this.grabar_compras();
+                this.Grabar_compras();
                 this.Mostrar_registros_compras();
             }
         }
@@ -1850,7 +1850,7 @@ namespace Contasis
 
 
         }
-        public void seleccion()
+        public void Seleccion()
         {
             if (cmbperiodo.Text == " ")
             {
@@ -1904,7 +1904,7 @@ namespace Contasis
                     {
 
                         string query0 = "SELECT * FROM CONFIGURACION WHERE CPER='" + txtperiodo.Text + "' AND CCOD_EMPRESA='" + cmbempresas.Text.Substring(0, 3) + "'";
-                        cone = Clase.ConexionSql.Instancial().establecerconexion();
+                        cone = Clase.ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando = new SqlCommand(query0, cone);
                         DataTable dt = new DataTable();
                         cone.Open();
@@ -1924,7 +1924,7 @@ namespace Contasis
 
                         else
                         {
-                            this.carga2();
+                            this.Carga2();
                         }
 
                     }
@@ -1951,7 +1951,7 @@ namespace Contasis
 
                         else
                         {
-                            this.carga2();
+                            this.Carga2();
                         }
 
 
@@ -1979,11 +1979,11 @@ namespace Contasis
             }
             
         }
-        private void dataGridView_venta_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_venta_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             posicion = e.RowIndex;
         }
-        private void dataGridView_venta_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_venta_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
             if (posicion == 1)
@@ -2041,15 +2041,15 @@ namespace Contasis
                 {
                     checkAsientovta.Checked = false;
                 }
-                this.cargarentidad2(dataGridView_venta.Rows[posicion].Cells["ENTIDAD_VENTA"].Value.ToString());
+                this.Cargarentidad2(dataGridView_venta.Rows[posicion].Cells["ENTIDAD_VENTA"].Value.ToString());
                 cmbentidadvta.Text = combo;
 
-                this.anulados2(dataGridView_venta.Rows[posicion].Cells["ENT_ANULADO"].Value.ToString());
+                this.Anulados2(dataGridView_venta.Rows[posicion].Cells["ENT_ANULADO"].Value.ToString());
                 cmbanuladosventas.Text = combo;
 
             }
         }
-        private void cargarentidad2(string valor)
+        private void Cargarentidad2(string valor)
         {
             try
             {
@@ -2075,7 +2075,7 @@ namespace Contasis
             }
             
         }
-        private void anulados()
+        private void Anulados()
         {
             try
             {
@@ -2106,7 +2106,7 @@ namespace Contasis
             }
 
         }
-        private void anulados2(string valor)
+        private void Anulados2(string valor)
         {
             try
             {
@@ -2132,11 +2132,11 @@ namespace Contasis
             }
 
         }
-        private void dataGridView_compra_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_compra_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             posicion = e.RowIndex;
         }
-        private void dataGridView_compra_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_compra_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (posicion == 1)
             {
@@ -2188,15 +2188,15 @@ namespace Contasis
                 {
                     check_asicom_com.Checked = false;
                 }
-                this.cargarentidad2(dataGridView_compra.Rows[posicion].Cells["ENTIDAD_COMPRA"].Value.ToString());
+                this.Cargarentidad2(dataGridView_compra.Rows[posicion].Cells["ENTIDAD_COMPRA"].Value.ToString());
                 cmbentidadcrp.Text = combo;
 
-                this.anulados2(dataGridView_venta.Rows[posicion].Cells["ENT_ANULADO"].Value.ToString());
+                this.Anulados2(dataGridView_venta.Rows[posicion].Cells["ENT_ANULADO"].Value.ToString());
                 cmbanuladoscompras.Text = combo;
 
             }
         }
-        public void crear_compras_anulaciones()
+        public void Crear_compras_anulaciones()
         {
 
             NpgsqlConnection cone01 = new NpgsqlConnection();
@@ -2258,7 +2258,7 @@ namespace Contasis
             }
 
         }
-        public void crear_compras_recepcion()
+        public void Crear_compras_recepcion()
         {
             
             NpgsqlConnection cone01 = new NpgsqlConnection();
@@ -2346,7 +2346,7 @@ namespace Contasis
             }
 
         }
-        public void crear_ventas_recepcion()
+        public void Crear_ventas_recepcion()
         {
 
             NpgsqlConnection cone01 = new NpgsqlConnection();
@@ -2430,7 +2430,7 @@ namespace Contasis
             }
 
         }
-        public void crear_compras_asientos()
+        public void Crear_compras_asientos()
         {
 
             NpgsqlConnection cone01 = new NpgsqlConnection();
@@ -2514,7 +2514,7 @@ namespace Contasis
             }
 
         }
-        public void crear_ventas_asientos()
+        public void Crear_ventas_asientos()
         {
 
             NpgsqlConnection cone01 = new NpgsqlConnection();
@@ -2653,7 +2653,7 @@ namespace Contasis
             }
 
         }
-        public void crear_fin_cobranzapago_asientos()
+        public void Crear_fin_cobranzapago_asientos()
         {
 
             NpgsqlConnection cone01 = new NpgsqlConnection();
@@ -2766,7 +2766,7 @@ namespace Contasis
             }
 
         }
-        public void crear_fin_cobranzapago_integra_asientos()
+        public void Crear_fin_cobranzapago_integra_asientos()
         {
 
             NpgsqlConnection cone01 = new NpgsqlConnection();
@@ -2868,91 +2868,91 @@ namespace Contasis
             }
 
         }
-        private void txtCSUB1_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCSUB1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtCLREG1_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCLREG1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtCLREG2_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCLREG2_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtCCONTS_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCCONTS_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtCCONTD_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCCONTD_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtCFEFEC_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCFEFEC_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtCSUB1_com_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCSUB1_com_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtCLREG1_com_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCLREG1_com_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtCSUB2_com_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCSUB2_com_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtCLREG2_com_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCLREG2_com_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtCCONTS_com_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCCONTS_com_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtCCONTD_com_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCCONTD_com_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtCFEFEC_com_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtCFEFEC_com_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
@@ -2960,7 +2960,7 @@ namespace Contasis
             }
         }
           /********************************************************************/
-        private void validar_cuentas(string valor,string valor2)
+        private void Validar_cuentas(string valor,string valor2)
         {
             try
             {
@@ -3176,7 +3176,7 @@ namespace Contasis
             }
             
         }
-        private void txtCSUB1_Validated(object sender, EventArgs e)
+        private void TxtCSUB1_Validated(object sender, EventArgs e)
         {
             if (txtCSUB1.Text == "")
             {
@@ -3184,7 +3184,7 @@ namespace Contasis
                 txtCSUB1.Focus();
             }
         }
-        private void txtCLREG1_Validated(object sender, EventArgs e)
+        private void TxtCLREG1_Validated(object sender, EventArgs e)
         {
             if (txtCLREG1.Text == "")
             {
@@ -3192,7 +3192,7 @@ namespace Contasis
                 txtCLREG1.Focus();
             }
         }
-        private void txtCSUB2_Validated(object sender, EventArgs e)
+        private void TxtCSUB2_Validated(object sender, EventArgs e)
         {
             if (txtCSUB2.Text == "")
             {
@@ -3200,7 +3200,7 @@ namespace Contasis
                 txtCSUB2.Focus();
             }
         }
-        private void txtCLREG2_Validated(object sender, EventArgs e)
+        private void TxtCLREG2_Validated(object sender, EventArgs e)
         {
             if (txtCLREG2.Text == "")
             {
@@ -3208,7 +3208,7 @@ namespace Contasis
                 txtCLREG2.Focus();
             }
         }
-        private void txtCCONTS_Validated(object sender, EventArgs e)
+        private void TxtCCONTS_Validated(object sender, EventArgs e)
         {
 
             if (txtCCONTS.Text == "")
@@ -3217,7 +3217,7 @@ namespace Contasis
                 txtCCONTS.Focus();
             }
         }
-        private void txtCCONTD_Validated(object sender, EventArgs e)
+        private void TxtCCONTD_Validated(object sender, EventArgs e)
         {
             if (txtCCONTD.Text == "")
             {
@@ -3225,7 +3225,7 @@ namespace Contasis
                 txtCCONTD.Focus();
             }
         }
-        private void txtCFEFEC_TextChanged(object sender, EventArgs e)
+        private void TxtCFEFEC_TextChanged(object sender, EventArgs e)
         {
             if (txtCFEFEC.Text == "")
             {
@@ -3233,7 +3233,7 @@ namespace Contasis
                 txtCFEFEC.Focus();
             }
         }
-        private void txtCSUB1_com_Validated(object sender, EventArgs e)
+        private void TxtCSUB1_com_Validated(object sender, EventArgs e)
         {
             if (txtCSUB1_com.Text == "")
             {
@@ -3241,7 +3241,7 @@ namespace Contasis
                 txtCSUB1_com.Focus();
             }
         }
-        private void txtCLREG1_com_Validated(object sender, EventArgs e)
+        private void TxtCLREG1_com_Validated(object sender, EventArgs e)
         {
             if (txtCLREG1_com.Text == "")
             {
@@ -3249,7 +3249,7 @@ namespace Contasis
                 txtCLREG1_com.Focus();
             }
         }
-        private void txtCSUB2_com_Validated(object sender, EventArgs e)
+        private void TxtCSUB2_com_Validated(object sender, EventArgs e)
         {
             
                 if (txtCSUB2_com.Text == "")
@@ -3259,7 +3259,7 @@ namespace Contasis
             }
 
         }
-        private void txtCLREG2_com_Validated(object sender, EventArgs e)
+        private void TxtCLREG2_com_Validated(object sender, EventArgs e)
         {
             if (txtCLREG2_com.Text == "")
             {
@@ -3267,7 +3267,7 @@ namespace Contasis
                 txtCLREG2_com.Focus();
             }
         }
-        private void txtCCONTS_com_Validated(object sender, EventArgs e)
+        private void TxtCCONTS_com_Validated(object sender, EventArgs e)
         {
             if (txtCCONTS_com.Text == "")
             {
@@ -3276,7 +3276,7 @@ namespace Contasis
             }
 
         }
-        private void txtCCONTD_com_Validated(object sender, EventArgs e)
+        private void TxtCCONTD_com_Validated(object sender, EventArgs e)
         {
             if (txtCCONTD_com.Text == "")
             {
@@ -3285,7 +3285,7 @@ namespace Contasis
             }
 
         }
-        private void txtCFEFEC_com_Validated(object sender, EventArgs e)
+        private void TxtCFEFEC_com_Validated(object sender, EventArgs e)
         {
             if (txtCFEFEC_com.Text == "")
             {
@@ -3294,18 +3294,18 @@ namespace Contasis
             }
 
         }
-        private void cmbanuladosventas_SelectedIndexChanged(object sender, EventArgs e)
+        private void Cmbanuladosventas_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.button1.Enabled = true;
             FechaInicio.Enabled = true;
         }
-        private void cmbanuladoscompras_SelectedIndexChanged(object sender, EventArgs e)
+        private void Cmbanuladoscompras_SelectedIndexChanged(object sender, EventArgs e)
         {
             
             this.button2.Enabled = true;
             FechaInicio.Enabled = true;
         }
-        public void limpiar()
+        public void Limpiar()
         {
             txtCSUB1.Text = "";
             txtCLREG1.Text = "";
@@ -3340,13 +3340,13 @@ namespace Contasis
             txtflujocobra.Text = "";
             txtflujopago.Text = "";
         }
-        private void cmbrucemisor_SelectedIndexChanged(object sender, EventArgs e)
+        private void Cmbrucemisor_SelectedIndexChanged(object sender, EventArgs e)
         {
          xRucemisor = cmbrucemisor.Text.Trim().Substring(0,11);
             
         }
         /****************************************************************************************************************/
-        private void button4_Click(object sender, EventArgs e)
+        private void Button4_Click(object sender, EventArgs e)
         {
             if (txtFechaInicio.Text == "")
             {
@@ -3355,11 +3355,11 @@ namespace Contasis
             }
             else
             {
-                this.grabar_pagos();
+                this.Grabar_pagos();
                 this.Mostrar_registros_pagos();
             }
         }
-        private void button3_Click(object sender, EventArgs e)
+        private void Button3_Click(object sender, EventArgs e)
         {/*** PDI-148 06/12/2024**/
             if (txtFechaInicio.Text == "")
             {
@@ -3368,11 +3368,11 @@ namespace Contasis
             }
             else
             {
-                this.grabar_cobranzas();
+                this.Grabar_cobranzas();
                 this.Mostrar_registros_cobranzas();
             }
         }
-        private void txtsubdiario_cobra_KeyDown(object sender, KeyEventArgs e)
+        private void Txtsubdiario_cobra_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -3383,11 +3383,11 @@ namespace Contasis
 
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("15", txtsubdiario_cobra.Text);
+                this.Validar_cuentas("15", txtsubdiario_cobra.Text);
             }
           
         }
-        private void txtsubdiario_cobra_KeyPress(object sender, KeyPressEventArgs e)
+        private void Txtsubdiario_cobra_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
@@ -3395,7 +3395,7 @@ namespace Contasis
             }
 
         }
-        private void txtregistro_cobra_KeyDown(object sender, KeyEventArgs e)
+        private void Txtregistro_cobra_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -3406,18 +3406,18 @@ namespace Contasis
 
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("16", txtsubdiario_cobra.Text);
+                this.Validar_cuentas("16", txtsubdiario_cobra.Text);
             }
 
         }
-        private void txtregistro_cobra_KeyPress(object sender, KeyPressEventArgs e)
+        private void Txtregistro_cobra_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtflujocobra_KeyDown(object sender, KeyEventArgs e)
+        private void Txtflujocobra_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -3428,17 +3428,17 @@ namespace Contasis
 
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("17", txtflujocobra.Text);
+                this.Validar_cuentas("17", txtflujocobra.Text);
             }
         }
-        private void txtflujocobra_KeyPress(object sender, KeyPressEventArgs e)
+        private void Txtflujocobra_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtsubdiario_cobra_Validated(object sender, EventArgs e)
+        private void Txtsubdiario_cobra_Validated(object sender, EventArgs e)
         {
             if (txtsubdiario_cobra.Text == "")
             {
@@ -3446,7 +3446,7 @@ namespace Contasis
                 txtsubdiario_cobra.Focus();
             }
         }
-        private void txtregistro_cobra_Validated(object sender, EventArgs e)
+        private void Txtregistro_cobra_Validated(object sender, EventArgs e)
         {
             if (txtregistro_cobra.Text == "")
             {
@@ -3454,12 +3454,12 @@ namespace Contasis
                 txtregistro_cobra.Focus();
             }
         }
-        private void txtflujocobra_TextChanged(object sender, EventArgs e)
+        private void Txtflujocobra_TextChanged(object sender, EventArgs e)
         {
             this.button3.Enabled = true;
             FechaInicio.Enabled = true;
         }
-        private void txtflujocobra_Validated(object sender, EventArgs e)
+        private void Txtflujocobra_Validated(object sender, EventArgs e)
         {
             if (txtflujocobra.Text == "")
             {
@@ -3467,7 +3467,7 @@ namespace Contasis
                 txtflujocobra.Focus();
             }
         }
-        private void txtsubdiario_pago_KeyDown(object sender, KeyEventArgs e)
+        private void Txtsubdiario_pago_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -3478,10 +3478,10 @@ namespace Contasis
 
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("18", txtsubdiario_pago.Text);
+                this.Validar_cuentas("18", txtsubdiario_pago.Text);
             }
         }
-        private void txtregistro_pago_KeyDown(object sender, KeyEventArgs e)
+        private void Txtregistro_pago_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -3492,10 +3492,10 @@ namespace Contasis
 
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("19", txtregistro_pago.Text);
+                this.Validar_cuentas("19", txtregistro_pago.Text);
             }
         }
-        private void txtflujopago_KeyDown(object sender, KeyEventArgs e)
+        private void Txtflujopago_KeyDown(object sender, KeyEventArgs e)
         {
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
@@ -3506,102 +3506,102 @@ namespace Contasis
 
             if (e.KeyCode == Keys.Enter)
             {
-                this.validar_cuentas("20", txtflujopago.Text);
+                this.Validar_cuentas("20", txtflujopago.Text);
             }
         }
-        private void txtsubdiario_pago_KeyPress(object sender, KeyPressEventArgs e)
+        private void Txtsubdiario_pago_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtregistro_pago_KeyPress(object sender, KeyPressEventArgs e)
+        private void Txtregistro_pago_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtflujopago_KeyPress(object sender, KeyPressEventArgs e)
+        private void Txtflujopago_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
-        private void txtsubdiario_pago_KeyUp(object sender, KeyEventArgs e)
+        private void Txtsubdiario_pago_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Tab)
             {
-                this.validar_cuentas("18", txtsubdiario_pago.Text);
+                this.Validar_cuentas("18", txtsubdiario_pago.Text);
             }
         }
-        private void txtsubdiario_cobra_KeyUp(object sender, KeyEventArgs e)
+        private void Txtsubdiario_cobra_KeyUp(object sender, KeyEventArgs e)
         {
                 if (e.KeyCode == Keys.Tab)
             {
-                this.validar_cuentas("15", txtsubdiario_cobra.Text);
+                this.Validar_cuentas("15", txtsubdiario_cobra.Text);
                 if (txtsubdiario_cobra.Text.Trim() == "")
                 {
                     txtsubdiario_cobra.Focus();
                 }
             }
         }
-        private void txtregistro_cobra_KeyUp(object sender, KeyEventArgs e)
+        private void Txtregistro_cobra_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Tab)
             {
-                this.validar_cuentas("15", txtsubdiario_cobra.Text);
+                this.Validar_cuentas("15", txtsubdiario_cobra.Text);
                 if (txtsubdiario_cobra.Text == "")
                 {
                     txtsubdiario_cobra.Focus();
                 }
             }
         }
-        private void txtflujocobra_KeyUp(object sender, KeyEventArgs e)
+        private void Txtflujocobra_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Tab)
             {
-                this.validar_cuentas("16", txtregistro_cobra.Text);
+                this.Validar_cuentas("16", txtregistro_cobra.Text);
                 if (txtregistro_cobra.Text == "")
                 {
                     txtregistro_cobra.Focus();
                 }
             }
         }
-        private void txtregistro_pago_KeyUp(object sender, KeyEventArgs e)
+        private void Txtregistro_pago_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Tab)
             {
-                this.validar_cuentas("19", txtregistro_pago.Text);
+                this.Validar_cuentas("19", txtregistro_pago.Text);
                 if (txtregistro_pago.Text == "")
                 {
                     txtregistro_pago.Focus();
                 }
             }
         }
-        private void txtflujopago_KeyUp(object sender, KeyEventArgs e)
+        private void Txtflujopago_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Tab)
             {
-                this.validar_cuentas("20", txtflujopago.Text);
+                this.Validar_cuentas("20", txtflujopago.Text);
                 if (txtflujopago.Text == "")
                 {
                     txtflujopago.Focus();
                 }
             }
         }
-        private void txtflujopago_TextChanged(object sender, EventArgs e)
+        private void Txtflujopago_TextChanged(object sender, EventArgs e)
         {
             FechaInicio.Enabled = true;
             this.button4.Enabled = true;
         }
-        private void dataGridView_cobranza_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_cobranza_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             posicion = e.RowIndex;
         }
-        private void dataGridView_cobranza_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_cobranza_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
 
             if (posicion == 1)
@@ -3617,11 +3617,11 @@ namespace Contasis
             }
 
         }
-        private void dataGridView_pago_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_pago_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             posicion = e.RowIndex;
         }
-        private void dataGridView_pago_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_pago_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (posicion == 1)
             {
@@ -3641,55 +3641,44 @@ namespace Contasis
             FechaInicio.Enabled = false;
                 
             string query10 = "select ffecha_inicioproceso from configuracion where ccod_empresa='" + cmbempresas.Text.Substring(0, 3) + "' and cper='" + cmbperiodo.Text + "';";
-            if (cmbempresas.Text == "")
-            {
-                txtFechaInicio.Text = null;
-            }
-            else
-            {
-                
-                SqlConnection CONE = new SqlConnection();
-
                 try
                 {
-                    if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                {
+                    SqlConnection cone = new SqlConnection();
+                    cone = Clase.ConexionSql.Instancial().Establecerconexion();
+                    SqlCommand commando = new SqlCommand(query10, cone);
+                    cone.Open();
+                    SqlDataAdapter data = new SqlDataAdapter(commando);
+                    SqlDataReader carga = commando.ExecuteReader();
+                    if (carga.Read())
                     {
-                        CONE = Clase.ConexionSql.Instancial().establecerconexion();
-                        
-                        SqlCommand commando = new SqlCommand(query10, CONE);
-                        DataTable dt = new DataTable();
-                        CONE.Open();
-                        SqlDataAdapter data = new SqlDataAdapter(commando);
-                        data.Fill(dt);
-                        txtFechaInicio.Text = dt.Rows[1].ToString();
+                        txtFechaInicio.Text = Convert.ToString(carga["ffecha_inicioproceso"]);
+                        cone.Close();
                     }
-
-                    else
+                }
+                else
+                {
+                    NpgsqlConnection conexion = new NpgsqlConnection();
+                    conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                    conexion.Open();
+                    NpgsqlCommand cmdp = new NpgsqlCommand(query10, conexion);
+                    NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
+                    NpgsqlDataReader leer = cmdp.ExecuteReader();
+                    if (leer.Read())
                     {
-
-                        NpgsqlConnection conexion = new NpgsqlConnection();
-                        conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
-                        conexion.Open();
-                        
-                        NpgsqlCommand cmdp = new NpgsqlCommand(query10, conexion);
-                        NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
-                        NpgsqlDataReader leer = cmdp.ExecuteReader();
-                        if (leer.Read())
-                        {
-                            txtFechaInicio.Text = Convert.ToString(leer["ffecha_inicioproceso"]);
-                        }
-
+                        txtFechaInicio.Text = Convert.ToString(leer["ffecha_inicioproceso"]);
                     }
+                    conexion.Close();
+                }
                 }
                 catch
                 {
-                   /* MessageBox.Show("Debe de Existir un error, pase verificación de Estructura.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);*/
+                    MessageBox.Show("Debe de Existir un error, pase verificación de Estructura.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
             }
-
-        }
         private void FechaInicio_ValueChanged(object sender, EventArgs e)
         {
             txtFechaInicio.Text = FechaInicio.Value.ToString("dd/MM/yyyy");
@@ -3706,7 +3695,7 @@ namespace Contasis
             else
             {
 
-                string query10 = "Update  configuracion set ffecha_inicioproceso='" + txtFechaInicio.Text.ToString() + "'  where   ccod_empresa='" + cmbempresas.Text.Substring(0, 3) + "' and cper='" + cmbperiodo.Text + "';";
+                
                 if (cmbempresas.Text == "")
                 {
                     txtFechaInicio.Text = null;
@@ -3719,8 +3708,9 @@ namespace Contasis
                     {
                         if (Properties.Settings.Default.cadenaPostPrincipal == "")
                         {
-                            cone = Clase.ConexionSql.Instancial().establecerconexion();
-
+                            cone = Clase.ConexionSql.Instancial().Establecerconexion();
+                            string query10 = "Update  configuracion set ffecha_inicioproceso=cast('" + FechaInicio.Value.ToString("dd/MM/yyyy") + "' as date)  where   ccod_empresa='" + cmbempresas.Text.Substring(0, 3) + "' and cper='" + cmbperiodo.Text + "';";
+                            cone.Open();
                             SqlCommand commando = new SqlCommand(query10, cone);
                             commando.ExecuteNonQuery();
                             cone.Close();
@@ -3732,7 +3722,9 @@ namespace Contasis
                             NpgsqlConnection conexion = new NpgsqlConnection();
                             conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
                             conexion.Open();
+                            string query10 = "Update  configuracion set ffecha_inicioproceso='" + FechaInicio.Value.ToString("dd/MM/yyyy") + "'  where   ccod_empresa='" + cmbempresas.Text.Substring(0, 3) + "' and cper='" + cmbperiodo.Text + "';";
 
+                            
                             NpgsqlCommand cmdp = new NpgsqlCommand(query10, conexion);
                             cmdp.ExecuteNonQuery();
                             
@@ -3753,12 +3745,13 @@ namespace Contasis
             /*** PDI-148 06/12/2024**/
             txtFechaInicio.Text = FechaInicio.Value.ToString("dd/MM/yyyy");
         }
-        private void dataGridView_venta_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_venta_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             /*** PDI-148 06/12/2024**/
             FechaInicio.Enabled = true;
         }
 
+        
         /****************************************************************************************************************/
     }
 }

@@ -564,8 +564,8 @@ namespace Contasis
             }
             else
             {
+                this.txtLista.Text = "";
                 this.llenar_grilla();
-
                 if (dataGridView2.Rows.Count > 0)
 
                 {
@@ -578,6 +578,7 @@ namespace Contasis
                     }
                    this.motivo();
                 }
+                
             }
         }
         private void checkSeleccionar_CheckedChanged(object sender, EventArgs e)

@@ -42,12 +42,12 @@ namespace Contasis.Clase
                 " isnull(a.nivaimp, 0.00) AS IGV_IVAP, isnull(a.nimpant, 0.00) AS IMP_ANTICIPO"+
                 ",isnull(a.ntot, 0.00) AS TOTAL,"+
                 " isnull(a.obserror, '') as OBSERVACION " +
-                " FROM com_documento a with(nolock) inner join configuracion2 b on  "+ 
-                " ltrim(a.ccodmodulo) = ltrim(b.Tipo) and  "+
+                " FROM com_documento a with(nolock) inner join configuracion2 b on  "+
+                " ltrim(a.ccodmodulo) = ltrim(b.Tipo)  and   b.ccodmov=a.ccodmov and" +
                 " ltrim(a.ccoddoc) = ltrim(b.codtipdocu) and  "+
                 " ltrim(a.cserie) = ltrim(b.cserie)  "+
                 " where a.es_con_migracion = 2  and a.ccodrucemisor='" + Objet.Ruc.Trim() + "' and a.ccod_empresa='" + Objet.Empresa.Trim() + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
 
 
                 SqlCommand commando = new SqlCommand(query, cone);
@@ -139,7 +139,7 @@ namespace Contasis.Clase
                                ",nporisc AS PORCISC,nisc AS MONTO_ISC,tipo_isc AS TIPO_ISC,mdscl AS DESCRIP_ADICIONAL ,convert(varchar, ffecfablote, 103)  AS FECHA_FABLOTE" +
                                ", convert(varchar, ffecvenlote, 103)  AS FECHA_VENLOTE,iddetalledocumento AS IDUNICO" +
                                " FROM com_detalledocumento where iddocumento ='" + Objet.Id.Trim() + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -214,13 +214,13 @@ namespace Contasis.Clase
             try
             {
                 string cadena1 = "Delete from com_detalledocumento  where iddocumento=" + Objet.Id + "";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(cadena1, cone);
                 cone.Open();
                 cadena = commando.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
 
                 string cadena3 = "Delete from com_documento  where iddocumento=" + Objet.Id + "";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando2 = new SqlCommand(cadena3, cone);
                 cone.Open();
                 cadena2 = commando2.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
@@ -336,7 +336,7 @@ namespace Contasis.Clase
                 ",nimpant =  '" + Objet.Imp_anticipo.Trim() + "'" +
                 ",ntot =  '" + Objet.Total.Trim() + "'" +
                 ", es_con_migracion = 0,obserror = '' WHERE iddocumento ='" + Objet.Id.Trim()+"'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 cadena = commando1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -474,7 +474,7 @@ namespace Contasis.Clase
                 " where a.es_con_migracion = 2  and a.ccodrucemisor='" + Objet.Ruc.Trim() + "' and a.ccod_empresa='" + Objet.Empresa.Trim() + "' and convert(varchar(900),obserror) like '%" + Objet.Estado.Trim() + "%'";
 
 
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -558,7 +558,7 @@ namespace Contasis.Clase
             {
                 string query = "update com_documento  SET obserror='',es_con_migracion= 0 where iddocumento=" + Objet.Id + "";
                 MessageBox.Show(query);
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 cadena = commando1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -615,7 +615,7 @@ namespace Contasis.Clase
                 string query = "update  com_documento  SET es_con_migracion=2  " +
                                "where  es_con_migracion=0 and  convert(char(900),obserror)<>''  and  " +
                                " ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim() + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 commando1.ExecuteNonQuery();

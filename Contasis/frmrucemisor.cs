@@ -30,9 +30,9 @@ namespace Contasis
         private void FrmRucemisor_Load(object sender, EventArgs e)
         {
             
-            grilla1();
+            Grilla1();
         }
-        public void grilla1()
+        public void Grilla1()
         {
             try
             {
@@ -40,18 +40,21 @@ namespace Contasis
                 {
                     Clase.rucemisor regis = new Clase.rucemisor();
                     dataGrid1.DataSource = regis.Cargar();
+                    lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count);
+                    dataGrid1.AllowUserToAddRows = false;
+                    lblTotales.Refresh();
                 }
                 else
                 {
                     Clase.rucemisor regis = new Clase.rucemisor();
                     dataGrid1.DataSource = regis.Cargarpostgres();
+                    lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count);
                     dataGrid1.AllowUserToAddRows = false;
+                    lblTotales.Refresh();
                 }
                
 
-                lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count);
-                lblTotales.Refresh();
-                dataGrid1.AllowUserToAddRows = false;
+                
                 
                 dataGrid1.Columns[0].HeaderText = "RUC";
                 dataGrid1.Columns[0].MinimumWidth = 50;
@@ -100,10 +103,6 @@ namespace Contasis
                     dataGrid1.Columns[5].Width = 100;
 
                 }
-
-
-
-
                 dataGrid1.AllowUserToAddRows = false;
 
 
@@ -116,7 +115,10 @@ namespace Contasis
                     this.dataGrid1.Refresh();
                 }
                 this.dataGrid1.Refresh();
-                
+                lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count );
+                dataGrid1.AllowUserToAddRows = false;
+                lblTotales.Refresh();
+
             }
             catch 
             {
@@ -124,9 +126,9 @@ namespace Contasis
                 
             }
         }
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
-            grilla1();
+            Grilla1();
         }
         private void BtnExcel_Click(object sender, EventArgs e)
         {
@@ -217,7 +219,7 @@ namespace Contasis
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        private void btnAccesso_Click(object sender, EventArgs e)
+        private void BtnAccesso_Click(object sender, EventArgs e)
         {
             if (dataGrid1.Rows.Count > 0)
             {
@@ -240,20 +242,22 @@ namespace Contasis
             }
 
         }
-        private void btncerrar_Click_1(object sender, EventArgs e)
+        private void Btncerrar_Click_1(object sender, EventArgs e)
         {
             this.Hide();
             this.Close();
         }
-        private void btnnuevo_Click_1(object sender, EventArgs e)
+        private void Btnnuevo_Click_1(object sender, EventArgs e)
         {
             FrmRuceditor Frnuevo = new FrmRuceditor(1, "", "", "",0,0,0,0,0,0,0);
             Frnuevo.Text = "Registrar Ruc Nuevo";
             Frnuevo.ShowDialog();
+            this.Grilla1();
 
         }
-        private void btnmodificar_Click_1(object sender, EventArgs e)
+        private void Btnmodificar_Click_1(object sender, EventArgs e)
         {
+            this.Grilla1();
             if (dataGrid1.Rows.Count > 0)
             {
                 Clase.rucpropiedades obj = new Clase.rucpropiedades();
@@ -356,26 +360,25 @@ namespace Contasis
                 return;
             }
         }
-        private void btneliminar_Click_1(object sender, EventArgs e)
+        private void Btneliminar_Click_1(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("Deseas eliminar el ruc seleccionado.?", "Contasis Corp.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
                 if (dataGrid1.Rows.Count > 0)
                 {
-
-
-
                     Clase.rucpropiedades obj = new Clase.rucpropiedades();
                     obj.ruc = Convert.ToString(dataGrid1.SelectedRows[0].Cells[0].Value).Trim();
                     obj.empresa = Convert.ToString(dataGrid1.SelectedRows[0].Cells[1].Value).Trim();
                         FrmEliminarruc Frmeliruc = new FrmEliminarruc(obj.ruc, obj.empresa);
                         Frmeliruc.ShowDialog();
+                    this.Grilla1();
 
                 }
             }
             else if (dialogResult == DialogResult.No)
             {
+                this.Grilla1();
                 return;
             }
 

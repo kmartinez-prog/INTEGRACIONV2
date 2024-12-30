@@ -40,7 +40,7 @@ namespace Contasis.Clase
                 ",isnull(cnumre, '') as cnumre,convert(varchar, ffecre, 103) as ffecre,obserror "+
                 "FROM fin_cobranzapago with(nolock) where ntipocobpag= 1 and  "+
                 "es_con_migracion = 2  and ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -106,7 +106,7 @@ namespace Contasis.Clase
             try
             {
                 string cadena1 = "Delete from fin_cobranzapago  where idcobranzapago=" + Objet.Idcobranzas + "";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(cadena1, cone);
                 cone.Open();
                 cadena = commando.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
@@ -164,7 +164,7 @@ namespace Contasis.Clase
                 string query = "update  fin_cobranzapago  SET Ccuecan='" + Objet.Ccuecan.Trim() + "',Ccodcue='" + Objet.Ccodcue.Trim() + "'," +
                                   "Nimportes=" + Objet.Nimportes + ",Nimported=" + Objet.Nimported + ",ccodcos='" + Objet.Ccodcos.Trim() + "'," +
                                   "ccodcos2='" + Objet.Ccodcos2.Trim() + "',obserror='',es_con_migracion=0 where idcobranzapago=" + Objet.Idcobranzas + "";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 cadena = commando1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -240,7 +240,7 @@ namespace Contasis.Clase
                 "FROM fin_cobranzapago with(nolock) where ntipocobpag= 1 and " +
                 "es_con_migracion =2 and " +
                 "ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "' and convert(varchar(900),obserror) ='" + Objet.Estado.Trim() + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -305,7 +305,7 @@ namespace Contasis.Clase
             try
             {
                 string query = "update  fin_cobranzapago  SET obserror='',es_con_migracion=0 where idcobranzapago=" + Objet.Idcobranzas + "";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 cadena = commando1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -360,9 +360,9 @@ namespace Contasis.Clase
             try
             {
                 string query = "update  fin_cobranzapago  SET es_con_migracion=2  " +
-                               "where  es_con_migracion=0 and  convert(char(900),obserror)<>''  and  " + 
+                               "where   obserror like '%-error-%' and  convert(char(900),obserror)<>''  and  " + 
                                " ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim() + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 commando1.ExecuteNonQuery();
@@ -389,7 +389,7 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "update  fin_cobranzapago  SET es_con_migracion=2  where es_con_migracion=0 and obserror<>''  and  ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim() + "'";
+                string query = "update  fin_cobranzapago  SET es_con_migracion=2  where  obserror like '%-error-%' and obserror<>''  and  ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim() + "'";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 command3.ExecuteNonQuery();
 

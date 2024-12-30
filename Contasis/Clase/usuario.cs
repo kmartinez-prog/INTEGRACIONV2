@@ -25,7 +25,7 @@ namespace Contasis.Clase
             try
             {
                 string query0 = "select top 1 right('00000'+ltrim(cast(max(cast(ccodusu as int))+1 as varchar)),5) as codigo from CG_usuario";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query0, cone);
                 cone.Open();
                 SqlDataReader leer = commando.ExecuteReader();
@@ -43,7 +43,7 @@ namespace Contasis.Clase
                         "'" + Objet.codigo + "', " +
                         "'" + Objet.nombre + "', " +
                         "'" + Objet.password + "')";
-                    cone = ConexionSql.Instancial().establecerconexion();
+                    cone = ConexionSql.Instancial().Establecerconexion();
                     SqlCommand commando1 = new SqlCommand(query, cone);
                     cone.Open();
                     cadena = commando1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
@@ -73,7 +73,7 @@ namespace Contasis.Clase
             {
                 string query = "UPDATE CG_usuario SET CDESUSU='" + Objet.nombre + "'," +
                 "PASSWORD='" + Objet.password + "' where ccodusu='" + Objet.codigo + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 cadena = commando1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -103,7 +103,7 @@ namespace Contasis.Clase
             try
             {
                 string cadena1 = "Delete from cg_usuario  where ccodusu='" + Objet.codigo + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(cadena1, cone);
                 cone.Open();
                 cadena = commando.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
@@ -132,7 +132,7 @@ namespace Contasis.Clase
             {
                 string query = "SELECT A.CCODMOD as CODIGO,B.CDESMOD AS OPCION,A.FLGACCESO  AS ACCESO FROM CG_USUARIO_ACCESO A " +
                                 " INNER JOIN CG_MODULOS B ON A.CCODMOD = B.CCODMOD WHERE ccodusu = '" + Objet.codigo.Trim() + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();

@@ -786,6 +786,7 @@ namespace Contasis
             }
             else
             {
+                this.txtLista.Text = "";
                 this.llenar_grilla();
                 this.motivo();
 

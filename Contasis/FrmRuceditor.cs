@@ -127,7 +127,7 @@ namespace Contasis
                 this.checkPRODUCTO.Visible = false;
                 this.checkcomprascom.Visible = false;
                 this.checkventascom.Visible = false;
-                limpiarcasilla();
+                Limpiarcasilla();
             }
             if (Properties.Settings.Default.TipModulo == "1")
             {
@@ -156,12 +156,12 @@ namespace Contasis
             txtempresa.CharacterCasing = CharacterCasing.Upper;
             this.txtruc.Focus();
         }
-        private void btncerrar_Click(object sender, EventArgs e)
+        private void Btncerrar_Click(object sender, EventArgs e)
         {
             this.Hide();
             this.Close();
         }
-        private void limpiarcasilla()
+        private void Limpiarcasilla()
         {
             this.txtruc.Clear();
             this.txtempresa.Clear();
@@ -304,7 +304,7 @@ namespace Contasis
                         if (respuesta.Equals("Grabado"))
                         {
                             MessageBox.Show("Registro grabado en tabla ruc emisor", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.limpiarcasilla();
+                            this.Limpiarcasilla();
                             this.Close();
 
                         }
@@ -312,7 +312,7 @@ namespace Contasis
                         {
                             MessageBox.Show("No se puedo regitrar este ruc emisor", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        FrmRucemisor.instance.grilla1();
+                        FrmRucemisor.instance.Grilla1();
                     }
                     else
                     {
@@ -402,14 +402,14 @@ namespace Contasis
                         if (respuesta.Equals("Grabado"))
                         {
                             MessageBox.Show("Registro grabado en tabla ruc emisor", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.limpiarcasilla();
+                            this.Limpiarcasilla();
                             this.Close();
                         }
                         else
                         {
                             MessageBox.Show("No se puedo regitrar este ruc emisor", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        FrmRucemisor.instance.grilla1();
+                        FrmRucemisor.instance.Grilla1();
 
                         this.Hide();
                         this.Close();
@@ -525,7 +525,7 @@ namespace Contasis
                     if (respuesta.Equals("Actualizado"))
                     {
                         MessageBox.Show("Registro ha sido actualizado en tabla ruc emisor", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.limpiarcasilla();
+                        this.Limpiarcasilla();
 
                         this.Hide();
                         this.Close();
@@ -535,7 +535,7 @@ namespace Contasis
                     {
                         MessageBox.Show("No se puedo actualizar este ruc.", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    FrmRucemisor.instance.grilla1();
+                    FrmRucemisor.instance.Grilla1();
 
                 }
                 catch (Exception ex)
@@ -556,7 +556,7 @@ namespace Contasis
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        private void txtruc_KeyPress(object sender, KeyPressEventArgs e)
+        private void Txtruc_KeyPress(object sender, KeyPressEventArgs e)
         {
               if  (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 {
@@ -568,7 +568,7 @@ namespace Contasis
             txtruc.Focus(); 
         }
 
-        private void txtruc_KeyDown(object sender, KeyEventArgs e)
+        private void Txtruc_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -576,7 +576,7 @@ namespace Contasis
             }
         }
 
-        private void checkBoxestado_KeyDown(object sender, KeyEventArgs e)
+        private void CheckBoxestado_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -591,12 +591,22 @@ namespace Contasis
             }
         }
 
-        private void txtempresa_KeyDown(object sender, KeyEventArgs e)
+        private void Txtempresa_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 checkBoxestado.Focus();
             }
+        }
+
+        private void Txtruc_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Txtempresa_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

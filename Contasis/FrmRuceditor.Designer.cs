@@ -76,25 +76,25 @@ namespace Contasis
             this.btncerrar.TabIndex = 12;
             this.btncerrar.Text = "Salir";
             this.btncerrar.UseVisualStyleBackColor = false;
-            this.btncerrar.Click += new System.EventHandler(this.btncerrar_Click);
+            this.btncerrar.Click += new System.EventHandler(this.Btncerrar_Click);
             // 
             // checkBoxestado
             // 
             this.checkBoxestado.AutoSize = true;
             this.checkBoxestado.Location = new System.Drawing.Point(11, 104);
             this.checkBoxestado.Name = "checkBoxestado";
-            this.checkBoxestado.Size = new System.Drawing.Size(129, 19);
+            this.checkBoxestado.Size = new System.Drawing.Size(116, 17);
             this.checkBoxestado.TabIndex = 6;
             this.checkBoxestado.Text = "Check para activar";
             this.checkBoxestado.UseVisualStyleBackColor = true;
-            this.checkBoxestado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.checkBoxestado_KeyDown);
+            this.checkBoxestado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CheckBoxestado_KeyDown);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(11, 86);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 15);
+            this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "Estado";
             // 
@@ -105,14 +105,15 @@ namespace Contasis
             this.txtempresa.Name = "txtempresa";
             this.txtempresa.Size = new System.Drawing.Size(383, 20);
             this.txtempresa.TabIndex = 5;
-            this.txtempresa.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtempresa_KeyDown);
+            this.txtempresa.TextChanged += new System.EventHandler(this.Txtempresa_TextChanged);
+            this.txtempresa.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txtempresa_KeyDown);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(11, 44);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 15);
+            this.label2.Size = new System.Drawing.Size(102, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Nombre de empresa";
             // 
@@ -123,14 +124,15 @@ namespace Contasis
             this.txtruc.Name = "txtruc";
             this.txtruc.Size = new System.Drawing.Size(124, 20);
             this.txtruc.TabIndex = 4;
-            this.txtruc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtruc_KeyDown);
+            this.txtruc.TextChanged += new System.EventHandler(this.Txtruc_TextChanged);
+            this.txtruc.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txtruc_KeyDown);
             // 
             // lblcodigo
             // 
             this.lblcodigo.AutoSize = true;
             this.lblcodigo.Location = new System.Drawing.Point(11, 3);
             this.lblcodigo.Name = "lblcodigo";
-            this.lblcodigo.Size = new System.Drawing.Size(32, 15);
+            this.lblcodigo.Size = new System.Drawing.Size(30, 13);
             this.lblcodigo.TabIndex = 1;
             this.lblcodigo.Text = "Ruc:";
             // 
@@ -139,7 +141,7 @@ namespace Contasis
             this.checkventa.AutoSize = true;
             this.checkventa.Location = new System.Drawing.Point(165, 104);
             this.checkventa.Name = "checkventa";
-            this.checkventa.Size = new System.Drawing.Size(104, 19);
+            this.checkventa.Size = new System.Drawing.Size(95, 17);
             this.checkventa.TabIndex = 7;
             this.checkventa.Text = "Activar Ventas";
             this.checkventa.UseVisualStyleBackColor = true;
@@ -149,7 +151,7 @@ namespace Contasis
             this.checkCompras.AutoSize = true;
             this.checkCompras.Location = new System.Drawing.Point(165, 129);
             this.checkCompras.Name = "checkCompras";
-            this.checkCompras.Size = new System.Drawing.Size(117, 19);
+            this.checkCompras.Size = new System.Drawing.Size(103, 17);
             this.checkCompras.TabIndex = 8;
             this.checkCompras.Text = "Activar Compras";
             this.checkCompras.UseVisualStyleBackColor = true;
@@ -159,7 +161,7 @@ namespace Contasis
             this.checkPagos.AutoSize = true;
             this.checkPagos.Location = new System.Drawing.Point(284, 130);
             this.checkPagos.Name = "checkPagos";
-            this.checkPagos.Size = new System.Drawing.Size(102, 19);
+            this.checkPagos.Size = new System.Drawing.Size(92, 17);
             this.checkPagos.TabIndex = 10;
             this.checkPagos.Text = "Activar Pagos";
             this.checkPagos.UseVisualStyleBackColor = true;
@@ -170,7 +172,7 @@ namespace Contasis
             this.checkCobranza.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.checkCobranza.Location = new System.Drawing.Point(290, 108);
             this.checkCobranza.Name = "checkCobranza";
-            this.checkCobranza.Size = new System.Drawing.Size(120, 19);
+            this.checkCobranza.Size = new System.Drawing.Size(107, 17);
             this.checkCobranza.TabIndex = 9;
             this.checkCobranza.Text = "Activar Cobranza";
             this.checkCobranza.UseVisualStyleBackColor = false;
@@ -180,7 +182,7 @@ namespace Contasis
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(164, 86);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 15);
+            this.label1.Size = new System.Drawing.Size(86, 13);
             this.label1.TabIndex = 13;
             this.label1.Text = "Activar Servicios";
             // 
@@ -209,7 +211,7 @@ namespace Contasis
             this.checkventascom.AutoSize = true;
             this.checkventascom.Location = new System.Drawing.Point(143, 128);
             this.checkventascom.Name = "checkventascom";
-            this.checkventascom.Size = new System.Drawing.Size(104, 19);
+            this.checkventascom.Size = new System.Drawing.Size(95, 17);
             this.checkventascom.TabIndex = 19;
             this.checkventascom.Text = "Activar Ventas";
             this.checkventascom.UseVisualStyleBackColor = true;
@@ -221,7 +223,7 @@ namespace Contasis
             this.checkcomprascom.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.checkcomprascom.Location = new System.Drawing.Point(268, 103);
             this.checkcomprascom.Name = "checkcomprascom";
-            this.checkcomprascom.Size = new System.Drawing.Size(117, 19);
+            this.checkcomprascom.Size = new System.Drawing.Size(103, 17);
             this.checkcomprascom.TabIndex = 20;
             this.checkcomprascom.Text = "Activar Compras";
             this.checkcomprascom.UseVisualStyleBackColor = false;
@@ -232,7 +234,7 @@ namespace Contasis
             this.checkPRODUCTO.AutoSize = true;
             this.checkPRODUCTO.Location = new System.Drawing.Point(143, 103);
             this.checkPRODUCTO.Name = "checkPRODUCTO";
-            this.checkPRODUCTO.Size = new System.Drawing.Size(125, 19);
+            this.checkPRODUCTO.Size = new System.Drawing.Size(113, 17);
             this.checkPRODUCTO.TabIndex = 18;
             this.checkPRODUCTO.Text = "Activar Productos ";
             this.checkPRODUCTO.UseVisualStyleBackColor = true;
