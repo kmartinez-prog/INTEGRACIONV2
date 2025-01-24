@@ -7818,7 +7818,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Contasis Integrador"
         "ProductCode" = "8:{0FB66062-8ADD-4107-995E-DC0DE518E623}"
-        "PackageCode" = "8:{65AFFEB1-E64B-4A61-98FE-773FE27FD329}"
+        "PackageCode" = "8:{80920EE2-54F3-4311-81D1-190674DACF83}"
         "UpgradeCode" = "8:{EEB09360-ACA0-48EF-B218-D3F45113DDF8}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -8367,7 +8367,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_55110AC811AD4D7F9B927D730A03F46C"
             {
-            "SourcePath" = "8:..\\Contasis\\obj\\Debug\\Integracion Online.exe"
+            "SourcePath" = "8:..\\Contasis\\obj\\Release\\Integracion Online.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5EE495FDBAED4C258F5F144C01784EE2"
@@ -8395,7 +8395,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FE43B6A85D6B4754A937DEA778BC02B8"
             {
-            "SourcePath" = "8:..\\Actualizador\\obj\\Debug\\Actualizador.exe"
+            "SourcePath" = "8:..\\Actualizador\\obj\\Release\\Actualizador.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5EE495FDBAED4C258F5F144C01784EE2"
