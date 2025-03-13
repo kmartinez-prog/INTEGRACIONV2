@@ -40,16 +40,16 @@ namespace Contasis.Clase
                     {
 
                         string query1 = "UPDATE CONFIGURACION  " +
-                        "SET crazemp ='" + Objet.RAZONSOCIAL + "', " +
-                        " crucemp ='" + Objet.RUC + "', " +
-                        " cEntidad ='" + Objet.ENTIDAD + "', " +
-                        " csub1_vta ='" + Objet.CSUB1_vta + "', " +
-                          " clreg1_vta =' " + Objet.CLREG1_vta + "', " +
-                          " csub2_vta ='" + Objet.CSUB2_vta + "', " +
-                          " clreg2_vta ='" + Objet.CLREG2_vta + "', " +
-                          " cconts_vta ='" + Objet.CCONTS_vta + "', " +
-                          " ccontd_vta ='" + Objet.CCONTD_vta + "', " +
-                          " cfefec_vta ='" + Objet.CFEFEC_vta + "', " +
+                        "SET crazemp ='" + Objet.RAZONSOCIAL.Trim() + "', " +
+                        " crucemp ='" + Objet.RUC.Trim() + "', " +
+                        " cEntidad ='" + Objet.ENTIDAD.Trim() + "', " +
+                        " csub1_vta ='" + Objet.CSUB1_vta.Trim() + "', " +
+                          " clreg1_vta =' " + Objet.CLREG1_vta.Trim() + "', " +
+                          " csub2_vta ='" + Objet.CSUB2_vta.Trim() + "', " +
+                          " clreg2_vta ='" + Objet.CLREG2_vta.Trim() + "', " +
+                          " cconts_vta ='" + Objet.CCONTS_vta.Trim() + "', " +
+                          " ccontd_vta ='" + Objet.CCONTD_vta.Trim() + "', " +
+                          " cfefec_vta ='" + Objet.CFEFEC_vta.Trim() + "', " +
                           " ctares_vta =" + Objet.CTARES_vta + "," +
                           " ctaimp_vta =" + Objet.CTAIMP_vta + "," +
                           " Ctaact_vta =" + Objet.CTAACT_Vta + "," +
@@ -69,18 +69,18 @@ namespace Contasis.Clase
                            "csub1_vta, clreg1_vta, csub2_vta, clreg2_vta, cconts_vta," +
                            "ccontd_vta, cfefec_vta, ctares_vta, ctaimp_vta, Ctaact_vta, asientos_vta," +
                            "cTipo,cEnt_anula) values(" +
-                           "'" + Objet.EMPRESA + "', " +
-                           "'" + Objet.PERIODO + "', " +
-                           "'" + Objet.RAZONSOCIAL + "', " +
-                           "'" + Objet.RUC + "', " +
-                           "'" + Objet.ENTIDAD + "', " +
-                           "'" + Objet.CSUB1_vta + "', " +
-                           "'" + Objet.CLREG1_vta + "', " +
-                           "'" + Objet.CSUB2_vta + "', " +
-                           "'" + Objet.CLREG2_vta + "', " +
-                           "'" + Objet.CCONTS_vta + "', " +
-                           "'" + Objet.CCONTD_vta + "', " +
-                           "'" + Objet.CFEFEC_vta + "', " +
+                           "'" + Objet.EMPRESA.Trim() + "', " +
+                           "'" + Objet.PERIODO.Trim() + "', " +
+                           "'" + Objet.RAZONSOCIAL.Trim() + "', " +
+                           "'" + Objet.RUC.Trim() + "', " +
+                           "'" + Objet.ENTIDAD.Trim() + "', " +
+                           "'" + Objet.CSUB1_vta.Trim() + "', " +
+                           "'" + Objet.CLREG1_vta.Trim() + "', " +
+                           "'" + Objet.CSUB2_vta.Trim() + "', " +
+                           "'" + Objet.CLREG2_vta.Trim() + "', " +
+                           "'" + Objet.CCONTS_vta.Trim() + "', " +
+                           "'" + Objet.CCONTD_vta.Trim() + "', " +
+                           "'" + Objet.CFEFEC_vta.Trim() + "', " +
                            "" + Objet.CTARES_vta + "," +
                            "" + Objet.CTAIMP_vta + "," +
                            "" + Objet.CTAACT_Vta + "," +
@@ -102,16 +102,16 @@ namespace Contasis.Clase
                     {
 
                         string query1 = "UPDATE CONFIGURACION  " +
-                        "SET crazemp ='" + Objet.RAZONSOCIAL + "', " +
-                        " crucemp ='" + Objet.RUC + "', " +
-                        " cEntidad ='" + Objet.ENTIDAD + "', " +
-                        " csub1_com ='" + Objet.CSUB1_com + "', " +
-                          " clreg1_com =' " + Objet.CLREG1_com + "', " +
-                          " csub2_com ='" + Objet.CSUB2_com + "', " +
-                          " clreg2_com ='" + Objet.CLREG2_com + "', " +
-                          " cconts_com ='" + Objet.CCONTS_com + "', " +
-                          " ccontd_com ='" + Objet.CCONTD_com + "', " +
-                          " cfefec_com ='" + Objet.CFEFEC_com + "', " +
+                        "SET crazemp ='" + Objet.RAZONSOCIAL.Trim() + "', " +
+                        " crucemp ='" + Objet.RUC.Trim() + "', " +
+                        " cEntidad ='" + Objet.ENTIDAD.Trim() + "', " +
+                        " csub1_com ='" + Objet.CSUB1_com.Trim() + "', " +
+                          " clreg1_com =' " + Objet.CLREG1_com.Trim() + "', " +
+                          " csub2_com ='" + Objet.CSUB2_com.Trim() + "', " +
+                          " clreg2_com ='" + Objet.CLREG2_com.Trim() + "', " +
+                          " cconts_com ='" + Objet.CCONTS_com.Trim() + "', " +
+                          " ccontd_com ='" + Objet.CCONTD_com.Trim() + "', " +
+                          " cfefec_com ='" + Objet.CFEFEC_com.Trim() + "', " +
                           " ctares_com =" + Objet.CTARES_com + "," +
                           " ctaimp_com =" + Objet.CTAIMP_com + "," +
                           " Ctapas_com =" + Objet.CTAPAS_com + "," +
@@ -131,10 +131,10 @@ namespace Contasis.Clase
                           "csub1_com, clreg1_com, csub2_com, clreg2_com, cconts_com," +
                            "ccontd_com, cfefec_com, ctares_com, ctaimp_com, Ctapas_com, asientos_com," +
                            "cTipo,cEnt_anula) values(" +
-                           "'" + Objet.EMPRESA + "', " +
-                           "'" + Objet.PERIODO + "', " +
-                           "'" + Objet.RAZONSOCIAL + "', " +
-                           "'" + Objet.RUC + "', " +
+                           "'" + Objet.EMPRESA.Trim() + "', " +
+                           "'" + Objet.PERIODO.Trim() + "', " +
+                           "'" + Objet.RAZONSOCIAL.Trim() + "', " +
+                           "'" + Objet.RUC.Trim() + "', " +
                            "'" + Objet.ENTIDAD + "', " +
                            "'" + Objet.CSUB1_com + "', " +
                            "'" + Objet.CLREG1_com + "', " +
@@ -169,7 +169,9 @@ namespace Contasis.Clase
                         " cEntidad ='" + Objet.ENTIDAD + "', " +
                         " csub1_vta ='" + Objet.CSUB1_vta + "', " +
                         " clreg1_vta =' " + Objet.CLREG1_vta + "', " +
-                        " cfefec_vta ='" + Objet.CFEFEC_vta + "'" +
+                        " cfefec_vta ='" + Objet.CFEFEC_vta + "'," +
+                        " csub1_vta ='" + Objet.Csub_anticipo + "', " +
+                        " nactiva_anticipo="+ Objet.Nactiva_anticipo +" "+
                         " where CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
                         cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando2 = new SqlCommand(query1, cone);
@@ -183,7 +185,7 @@ namespace Contasis.Clase
                         string query = "INSERT INTO CONFIGURACION(CCOD_EMPRESA, cper, crazemp, crucemp, cEntidad," +
                            "csub1_vta, clreg1_vta, csub2_vta, clreg2_vta, cconts_vta," +
                            "ccontd_vta, cfefec_vta, ctares_vta, ctaimp_vta, Ctaact_vta, asientos_vta," +
-                           "cTipo,cEnt_anula) values(" +
+                           "cTipo,cEnt_anula,csub_anticipo,nactiva_anticipo) values(" +
                            "'" + Objet.EMPRESA + "', " +
                            "'" + Objet.PERIODO + "', " +
                            "'" + Objet.RAZONSOCIAL + "', " +
@@ -201,7 +203,9 @@ namespace Contasis.Clase
                            "" + Objet.CTAACT_Vta + "," +
                            "" + Objet.ASIENTOS_vta + "," +
                            "'" + Objet.CTIPO + "'," +
-                           "'" + Objet.CENT_ANULA + "')";
+                           "'" + Objet.CENT_ANULA + "'," +
+                           "'" + Objet.Csub_anticipo+ "', " +
+                           "" + Objet.Nactiva_anticipo  +")";
                         cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando1 = new SqlCommand(query, cone);
                         cone.Open();
@@ -217,17 +221,17 @@ namespace Contasis.Clase
                     {
 
                         string query1 = "UPDATE CONFIGURACION  " +
-                        "SET crazemp ='" + Objet.RAZONSOCIAL + "', " +
-                        " crucemp ='" + Objet.RUC + "', " +
-                        " cEntidad ='" + Objet.ENTIDAD + "', " +
-                        " csub1_com ='" + Objet.CSUB1_com + "', " +
-                          " clreg1_com =' " + Objet.CLREG1_com + "', " +
-                          " csub2_com ='" + Objet.CSUB2_com + "', " +
-                          " clreg2_com ='" + Objet.CLREG2_com + "', " +
-                          " cconts_com ='" + Objet.CCONTS_com + "', " +
-                          " ccontd_com ='" + Objet.CCONTD_com + "', " +
-                          " cfefec_com ='" + Objet.CFEFEC_com + "', " +
-                          " ctares_com =" + Objet.CTARES_com + "," +
+                        "SET crazemp ='" + Objet.RAZONSOCIAL.Trim() + "', " +
+                        " crucemp ='" + Objet.RUC.Trim() + "', " +
+                        " cEntidad ='" + Objet.ENTIDAD.Trim() + "', " +
+                        " csub1_com ='" + Objet.CSUB1_com.Trim() + "', " +
+                          " clreg1_com =' " + Objet.CLREG1_com.Trim() + "', " +
+                          " csub2_com ='" + Objet.CSUB2_com.Trim() + "', " +
+                          " clreg2_com ='" + Objet.CLREG2_com.Trim() + "', " +
+                          " cconts_com ='" + Objet.CCONTS_com.Trim() + "', " +
+                          " ccontd_com ='" + Objet.CCONTD_com.Trim() + "', " +
+                          " cfefec_com ='" + Objet.CFEFEC_com.Trim() + "', " +
+                          " ctares_com =" + Objet.CTARES_com+ "," +
                           " ctaimp_com =" + Objet.CTAIMP_com + "," +
                           " Ctapas_com =" + Objet.CTAPAS_com + "," +
                           " asientos_com =" + Objet.ASIENTOS_com + "," +
@@ -246,18 +250,18 @@ namespace Contasis.Clase
                           "csub1_com, clreg1_com, csub2_com, clreg2_com, cconts_com," +
                            "ccontd_com, cfefec_com, ctares_com, ctaimp_com, Ctapas_com, asientos_com," +
                            "cTipo,cEnt_anula) values(" +
-                           "'" + Objet.EMPRESA + "', " +
-                           "'" + Objet.PERIODO + "', " +
-                           "'" + Objet.RAZONSOCIAL + "', " +
-                           "'" + Objet.RUC + "', " +
-                           "'" + Objet.ENTIDAD + "', " +
-                           "'" + Objet.CSUB1_com + "', " +
-                           "'" + Objet.CLREG1_com + "', " +
-                           "'" + Objet.CSUB2_com + "', " +
-                           "'" + Objet.CLREG2_com + "', " +
-                           "'" + Objet.CCONTS_com + "', " +
-                           "'" + Objet.CCONTD_com + "', " +
-                           "'" + Objet.CFEFEC_com + "', " +
+                           "'" + Objet.EMPRESA.Trim() + "', " +
+                           "'" + Objet.PERIODO.Trim() + "', " +
+                           "'" + Objet.RAZONSOCIAL.Trim() + "', " +
+                           "'" + Objet.RUC.Trim() + "', " +
+                           "'" + Objet.ENTIDAD.Trim() + "', " +
+                           "'" + Objet.CSUB1_com.Trim() + "', " +
+                           "'" + Objet.CLREG1_com.Trim() + "', " +
+                           "'" + Objet.CSUB2_com.Trim() + "', " +
+                           "'" + Objet.CLREG2_com.Trim() + "', " +
+                           "'" + Objet.CCONTS_com.Trim() + "', " +
+                           "'" + Objet.CCONTD_com.Trim() + "', " +
+                           "'" + Objet.CFEFEC_com.Trim() + "', " +
                            "" + Objet.CTARES_com + "," +
                            "" + Objet.CTAIMP_com + "," +
                            "" + Objet.CTAPAS_com + "," +
@@ -369,7 +373,7 @@ namespace Contasis.Clase
             try
             {
                 string query = "SELECT CCOD_EMPRESA as EMPRESA,cper AS PERIODO,crazemp AS RAZON,crucemp AS RUC," +
-                "cEntidad AS ENTIDAD_COBRANZA ,csub1_vta AS SUBDIARIO_COBRANZA ,clreg1_vta as REGISTRO_COBRANZA ,cfefec_vta as FLUJO_COBRANZA" +
+                "cEntidad AS ENTIDAD_COBRANZA ,csub1_vta AS SUBDIARIO_COBRANZA ,TRIM(clreg1_vta) as REGISTRO_COBRANZA ,cfefec_vta as FLUJO_COBRANZA, CSUB_ANTICIPO AS SUBDIARIO_ALTERNATIVO" +
                 ",cTipo AS TIPO,cEnt_anula as ENT_ANULADO " +
                 "FROM CONFIGURACION where CCOD_EMPRESA='" + xempresa + "' and cper='" + xPeriodo + "' and   ctipo = '03' order by cper desc";
                 cone = ConexionSql.Instancial().Establecerconexion();
@@ -428,6 +432,43 @@ namespace Contasis.Clase
             }
         }
 
+        public DataTable Cargar_fondos(string mEmpresa, string mPeriodo)
+        {
+
+            string xempresa = mEmpresa;
+            string xPeriodo = mPeriodo;
+
+            SqlDataReader carga;
+            DataTable Grilla = new DataTable();
+            SqlConnection cone = new SqlConnection();
+            try
+            {
+                string query = "SELECT CCOD_EMPRESA as EMPRESA,cper AS PERIODO,crazemp AS RAZON,crucemp AS RUC," +
+               "cEntidad AS ENTIDAD_FONDO,csub1_com AS SUBDIARIO_FONDO ,clreg1_com as REGISTRO_FONDO ,cfefec_com as FLUJO_FONDO" +
+               ",cTipo AS TIPO,cEnt_anula as ENT_ANULADO " +
+               "FROM CONFIGURACION where CCOD_EMPRESA='" + xempresa + "' and cper='" + xPeriodo + "' and   ctipo = '05' order by cper desc";
+                cone = ConexionSql.Instancial().Establecerconexion();
+                SqlCommand commando = new SqlCommand(query, cone);
+                cone.Open();
+                carga = commando.ExecuteReader();
+                Grilla.Load(carga);
+                return Grilla;
+            }
+            catch (Exception ex1)
+            {
+                throw ex1;
+            }
+            finally
+            {
+                if (cone.State == ConnectionState.Open)
+                {
+                    cone.Close();
+                }
+
+            }
+        }
+
+
 
         public string Insertar_postgres(Clase.CuentasPropiedad Objet)
         {
@@ -445,7 +486,7 @@ namespace Contasis.Clase
                 NpgsqlCommand cmdp = new NpgsqlCommand(query0, conexion);
                 DataTable dt = new DataTable();
                 NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
-                
+
                 data.Fill(dt);
 
                 if (Objet.CTIPO == "01")
@@ -456,16 +497,16 @@ namespace Contasis.Clase
                     {
 
                         string query1 = "UPDATE CONFIGURACION  " +
-                        "SET crazemp ='" + Objet.RAZONSOCIAL + "', " +
-                        " crucemp ='" + Objet.RUC + "', " +
-                        " cEntidad ='" + Objet.ENTIDAD + "', " +
-                        " csub1_vta ='" + Objet.CSUB1_vta + "', " +
-                          " clreg1_vta =' " + Objet.CLREG1_vta + "', " +
-                          " csub2_vta ='" + Objet.CSUB2_vta + "', " +
-                          " clreg2_vta ='" + Objet.CLREG2_vta + "', " +
-                          " cconts_vta ='" + Objet.CCONTS_vta + "', " +
-                          " ccontd_vta ='" + Objet.CCONTD_vta + "', " +
-                          " cfefec_vta ='" + Objet.CFEFEC_vta + "', " +
+                        "SET crazemp ='" + Objet.RAZONSOCIAL.Trim() + "', " +
+                        " crucemp ='" + Objet.RUC.Trim() + "', " +
+                        " cEntidad ='" + Objet.ENTIDAD.Trim() + "', " +
+                        " csub1_vta ='" + Objet.CSUB1_vta.Trim() + "', " +
+                          " clreg1_vta =' " + Objet.CLREG1_vta.Trim() + "', " +
+                          " csub2_vta ='" + Objet.CSUB2_vta.Trim() + "', " +
+                          " clreg2_vta ='" + Objet.CLREG2_vta.Trim() + "', " +
+                          " cconts_vta ='" + Objet.CCONTS_vta.Trim() + "', " +
+                          " ccontd_vta ='" + Objet.CCONTD_vta.Trim() + "', " +
+                          " cfefec_vta ='" + Objet.CFEFEC_vta.Trim() + "', " +
                           " ctares_vta =" + Objet.CTARES_vta + "," +
                           " ctaimp_vta =" + Objet.CTAIMP_vta + "," +
                           " Ctaact_vta =" + Objet.CTAACT_Vta + "," +
@@ -484,13 +525,13 @@ namespace Contasis.Clase
                            "ccontd_vta, cfefec_vta, ctares_vta, ctaimp_vta, Ctaact_vta, asientos_vta," +
                            "cTipo,cEnt_anula) values(" +
                            "'" + Objet.EMPRESA + "', " +
-                           "'" + Objet.PERIODO + "', " +
-                           "'" + Objet.RAZONSOCIAL + "', " +
-                           "'" + Objet.RUC + "', " +
-                           "'" + Objet.ENTIDAD + "', " +
-                           "'" + Objet.CSUB1_vta + "', " +
-                           "'" + Objet.CLREG1_vta + "', " +
-                           "'" + Objet.CSUB2_vta + "', " +
+                           "'" + Objet.PERIODO.Trim() + "', " +
+                           "'" + Objet.RAZONSOCIAL.Trim() + "', " +
+                           "'" + Objet.RUC.Trim() + "', " +
+                           "'" + Objet.ENTIDAD.Trim() + "', " +
+                           "'" + Objet.CSUB1_vta.Trim() + "', " +
+                           "'" + Objet.CLREG1_vta.Trim() + "', " +
+                           "'" + Objet.CSUB2_vta.Trim() + "', " +
                            "'" + Objet.CLREG2_vta + "', " +
                            "'" + Objet.CCONTS_vta + "', " +
                            "'" + Objet.CCONTD_vta + "', " +
@@ -572,21 +613,23 @@ namespace Contasis.Clase
                     {
 
                         string query1 = "UPDATE CONFIGURACION  " +
-                        "SET crazemp ='" + Objet.RAZONSOCIAL + "', " +
-                        " crucemp ='" + Objet.RUC + "', " +
-                        " cEntidad ='" + Objet.ENTIDAD + "', " +
-                        " csub1_vta ='" + Objet.CSUB1_vta + "', " +
-                          " clreg1_vta =' " + Objet.CLREG1_vta + "', " +
-                          " csub2_vta ='" + Objet.CSUB2_vta + "', " +
-                          " clreg2_vta ='" + Objet.CLREG2_vta + "', " +
-                          " cconts_vta ='" + Objet.CCONTS_vta + "', " +
-                          " ccontd_vta ='" + Objet.CCONTD_vta + "', " +
-                          " cfefec_vta ='" + Objet.CFEFEC_vta + "', " +
+                        "SET crazemp ='" + Objet.RAZONSOCIAL.Trim() + "', " +
+                        " crucemp ='" + Objet.RUC.Trim() + "', " +
+                        " cEntidad ='" + Objet.ENTIDAD.Trim() + "', " +
+                        " csub1_vta ='" + Objet.CSUB1_vta.Trim() + "', " +
+                          " clreg1_vta =' " + Objet.CLREG1_vta.Trim() + "', " +
+                          " csub2_vta ='" + Objet.CSUB2_vta.Trim() + "', " +
+                          " clreg2_vta ='" + Objet.CLREG2_vta.Trim() + "', " +
+                          " cconts_vta ='" + Objet.CCONTS_vta.Trim() + "', " +
+                          " ccontd_vta ='" + Objet.CCONTD_vta.Trim() + "', " +
+                          " cfefec_vta ='" + Objet.CFEFEC_vta.Trim() + "', " +
                           " ctares_vta =" + Objet.CTARES_vta + "," +
                           " ctaimp_vta =" + Objet.CTAIMP_vta + "," +
                           " Ctaact_vta =" + Objet.CTAACT_Vta + "," +
                           " asientos_vta =" + Objet.ASIENTOS_vta + "," +
-                          " cEnt_anula ='" + Objet.CENT_ANULA + "' " +
+                          " cEnt_anula ='" + Objet.CENT_ANULA + "'," +
+                          " CSUB_ANTICIPO ='" + Objet.Csub_anticipo.Trim() + "', " +
+                          " clreg1vta_anticipo ='" + Objet.CLREG1_vta_anticipo.Trim() + "' " +
                           " where CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
                         NpgsqlCommand cmdp1 = new NpgsqlCommand(query1, conexion);
                         cadena = cmdp1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -598,25 +641,27 @@ namespace Contasis.Clase
                         string query = "INSERT INTO CONFIGURACION(CCOD_EMPRESA, cper, crazemp, crucemp, cEntidad," +
                            "csub1_vta, clreg1_vta, csub2_vta, clreg2_vta, cconts_vta," +
                            "ccontd_vta, cfefec_vta, ctares_vta, ctaimp_vta, Ctaact_vta, asientos_vta," +
-                           "cTipo,cEnt_anula) values(" +
-                           "'" + Objet.EMPRESA + "', " +
-                           "'" + Objet.PERIODO + "', " +
-                           "'" + Objet.RAZONSOCIAL + "', " +
-                           "'" + Objet.RUC + "', " +
-                           "'" + Objet.ENTIDAD + "', " +
-                           "'" + Objet.CSUB1_vta + "', " +
-                           "'" + Objet.CLREG1_vta + "', " +
-                           "'" + Objet.CSUB2_vta + "', " +
-                           "'" + Objet.CLREG2_vta + "', " +
-                           "'" + Objet.CCONTS_vta + "', " +
-                           "'" + Objet.CCONTD_vta + "', " +
-                           "'" + Objet.CFEFEC_vta + "', " +
+                           "cTipo,cEnt_anula,CSUB_ANTICIPO,clreg1vta_anticipo) values(" +
+                           "'" + Objet.EMPRESA.Trim() + "', " +
+                           "'" + Objet.PERIODO.Trim() + "', " +
+                           "'" + Objet.RAZONSOCIAL.Trim() + "', " +
+                           "'" + Objet.RUC.Trim() + "', " +
+                           "'" + Objet.ENTIDAD.Trim() + "', " +
+                           "'" + Objet.CSUB1_vta.Trim() + "', " +
+                           "'" + Objet.CLREG1_vta.Trim() + "', " +
+                           "'" + Objet.CSUB2_vta.Trim() + "', " +
+                           "'" + Objet.CLREG2_vta.Trim() + "', " +
+                           "'" + Objet.CCONTS_vta.Trim() + "', " +
+                           "'" + Objet.CCONTD_vta.Trim() + "', " +
+                           "'" + Objet.CFEFEC_vta.Trim() + "', " +
                            "" + Objet.CTARES_vta + "," +
                            "" + Objet.CTAIMP_vta + "," +
                            "" + Objet.CTAACT_Vta + "," +
                            "" + Objet.ASIENTOS_vta + "," +
-                           "'" + Objet.CTIPO + "'," +
-                           "'" + Objet.CENT_ANULA + "')";
+                           "'" + Objet.CTIPO.Trim() + "'," +
+                           "'" + Objet.CENT_ANULA.Trim() + "'," +
+                           "'" + Objet.Csub_anticipo.Trim() + "'," +
+                           "'" + Objet.CLREG1_vta_anticipo.Trim() + "')";
                         NpgsqlCommand cmdp1 = new NpgsqlCommand(query, conexion);
                         cadena = cmdp1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
 
@@ -630,12 +675,12 @@ namespace Contasis.Clase
                     {
 
                         string query1 = "UPDATE CONFIGURACION  " +
-                        "SET crazemp ='" + Objet.RAZONSOCIAL + "', " +
-                        " crucemp ='" + Objet.RUC + "', " +
-                        " cEntidad ='" + Objet.ENTIDAD + "', " +
-                        " csub1_com ='" + Objet.CSUB1_com + "', " +
-                          " clreg1_com =' " + Objet.CLREG1_com + "', " +
-                          " csub2_com ='" + Objet.CSUB2_com + "', " +
+                        "SET crazemp ='" + Objet.RAZONSOCIAL.Trim() + "', " +
+                        " crucemp ='" + Objet.RUC.Trim() + "', " +
+                        " cEntidad ='" + Objet.ENTIDAD.Trim() + "', " +
+                        " csub1_com ='" + Objet.CSUB1_com.Trim() + "', " +
+                          " clreg1_com =' " + Objet.CLREG1_com.Trim() + "', " +
+                          " csub2_com ='" + Objet.CSUB2_com.Trim() + "', " +
                           " clreg2_com ='" + Objet.CLREG2_com + "', " +
                           " cconts_com ='" + Objet.CCONTS_com + "', " +
                           " ccontd_com ='" + Objet.CCONTD_com + "', " +
@@ -650,6 +695,66 @@ namespace Contasis.Clase
                         cadena = cmdp1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
 
                     }
+                    else
+                    {
+                        string query = "INSERT INTO CONFIGURACION(CCOD_EMPRESA, cper, crazemp, crucemp, cEntidad," +
+                          "csub1_com, clreg1_com, csub2_com, clreg2_com, cconts_com," +
+                           "ccontd_com, cfefec_com, ctares_com, ctaimp_com, Ctapas_com, asientos_com," +
+                           "cTipo,cEnt_anula) values(" +
+                           "'" + Objet.EMPRESA + "', " +
+                           "'" + Objet.PERIODO + "', " +
+                           "'" + Objet.RAZONSOCIAL + "', " +
+                           "'" + Objet.RUC + "', " +
+                           "'" + Objet.ENTIDAD + "', " +
+                           "'" + Objet.CSUB1_com + "', " +
+                           "'" + Objet.CLREG1_com + "', " +
+                           "'" + Objet.CSUB2_com + "', " +
+                           "'" + Objet.CLREG2_com + "', " +
+                           "'" + Objet.CCONTS_com + "', " +
+                           "'" + Objet.CCONTD_com + "', " +
+                           "'" + Objet.CFEFEC_com + "', " +
+                           "" + Objet.CTARES_com + "," +
+                           "" + Objet.CTAIMP_com + "," +
+                           "" + Objet.CTAPAS_com + "," +
+                           "" + Objet.ASIENTOS_com + "," +
+                           "'" + Objet.CTIPO + "'," +
+                           "'" + Objet.CENT_ANULA + "')";
+                        NpgsqlCommand cmdp1 = new NpgsqlCommand(query, conexion);
+                        cadena = cmdp1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
+
+                    }
+
+                }
+
+                if (Objet.CTIPO == "05")
+                {
+                    /**solo fondos**/
+
+                    if (dt.Rows.Count > 0)
+                    {
+
+                        string query1 = "UPDATE CONFIGURACION  " +
+                        "SET crazemp ='" + Objet.RAZONSOCIAL.Trim() + "', " +
+                        " crucemp ='" + Objet.RUC.Trim() + "', " +
+                        " cEntidad ='" + Objet.ENTIDAD.Trim() + "', " +
+                        " csub1_com ='" + Objet.CSUB1_com.Trim() + "', " +
+                          " clreg1_com =' " + Objet.CLREG1_com.Trim() + "', " +
+                          " csub2_com ='" + Objet.CSUB2_com.Trim() + "', " +
+                          " clreg2_com ='" + Objet.CLREG2_com + "', " +
+                          " cconts_com ='" + Objet.CCONTS_com + "', " +
+                          " ccontd_com ='" + Objet.CCONTD_com + "', " +
+                          " cfefec_com ='" + Objet.CFEFEC_com + "', " +
+                          " ctares_com =" + Objet.CTARES_com + "," +
+                          " ctaimp_com =" + Objet.CTAIMP_com + "," +
+                          " Ctapas_com =" + Objet.CTAPAS_com + "," +
+                          " asientos_com =" + Objet.ASIENTOS_com + "," +
+                          " cEnt_anula ='" + Objet.CENT_ANULA + "' " +
+                          " where CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
+                        NpgsqlCommand cmdp1 = new NpgsqlCommand(query1, conexion);
+                        cadena = cmdp1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
+
+                    }
+
 
                     else
                     {
@@ -679,6 +784,7 @@ namespace Contasis.Clase
                         cadena = cmdp1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
 
                     }
+
                 }
             }
             catch (Exception ex1)
@@ -778,7 +884,7 @@ namespace Contasis.Clase
             try
             {
                 string query = "SELECT CCOD_EMPRESA as EMPRESA,cper AS PERIODO,crazemp AS RAZON,crucemp AS RUC," +
-                   "cEntidad AS ENTIDAD_COBRANZA ,csub1_vta AS SUBDIARIO_COBRANZA ,clreg1_vta as REGISTRO_COBRANZA ,cfefec_vta as FLUJO_COBRANZA" +
+                   "cEntidad AS ENTIDAD_COBRANZA ,csub1_vta AS SUBDIARIO_COBRANZA ,trim(clreg1_vta) as REGISTRO_COBRANZA ,cfefec_vta as FLUJO_COBRANZA, COALESCE(CSUB_ANTICIPO) AS SUBDIARIO_ALTERNATIVO,trim(CLREG1vta_anticipo) as REGISTRO_ALTERNATIVO " +
                    ",cTipo AS TIPO,cEnt_anula as ENT_ANULADO " +
                "FROM CONFIGURACION where CCOD_EMPRESA='" + xempresa + "' and cper='" + xPeriodo + "' and   ctipo = '03' order by cper desc";
                 NpgsqlCommand cmdp1 = new NpgsqlCommand(query, conexion);
@@ -834,5 +940,41 @@ namespace Contasis.Clase
 
             }
         }
+        public DataTable Cargar_fondos_postgres(string mEmpresa, string mPeriodo)
+        {
+
+            string xempresa = mEmpresa;
+            string xPeriodo = mPeriodo;
+
+            NpgsqlDataReader carga;
+            DataTable Grilla = new DataTable();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+            try
+            {
+                string query = "SELECT CCOD_EMPRESA as EMPRESA,cper AS PERIODO,crazemp AS RAZON,crucemp AS RUC," +
+                   "cEntidad AS ENTIDAD_FONDO,csub1_com AS SUBDIARIO_FONDO ,clreg1_com as REGISTRO_FONDO ,cfefec_com as FLUJO_FONDO" +
+                   ",cTipo AS TIPO,cEnt_anula as ENT_ANULADO " +
+                 " FROM CONFIGURACION where  CCOD_EMPRESA='" + xempresa + "' and cper='" + xPeriodo + "' and    ctipo = '05' order by cper desc";
+                NpgsqlCommand cmdp1 = new NpgsqlCommand(query, conexion);
+                carga = cmdp1.ExecuteReader();
+                Grilla.Load(carga);
+                return Grilla;
+            }
+            catch (Exception ex1)
+            {
+                throw ex1;
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+
+            }
+        }
+
     }
 }

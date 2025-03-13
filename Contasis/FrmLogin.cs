@@ -859,7 +859,18 @@ namespace Contasis
             }
         }
 
-   
+        private void txtclave_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }
+
+        private void txtclave_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1.Focus();
+            }
+        }
 
         public void Modulo_Sql()
         {

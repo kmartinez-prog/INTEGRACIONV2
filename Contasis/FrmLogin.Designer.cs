@@ -120,6 +120,8 @@ namespace Contasis
             this.txtclave.PasswordChar = '*';
             this.txtclave.Size = new System.Drawing.Size(264, 20);
             this.txtclave.TabIndex = 8;
+            this.txtclave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtclave_KeyDown);
+            this.txtclave.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtclave_KeyPress);
             // 
             // label1
             // 
@@ -132,7 +134,6 @@ namespace Contasis
             this.label1.TabIndex = 7;
             this.label1.Text = "Sistema Integración Contasis";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-           
             // 
             // button1
             // 

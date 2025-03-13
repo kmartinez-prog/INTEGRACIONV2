@@ -192,9 +192,9 @@ namespace Contasis.Clase
                         //// FrmCrearTablas.instance.timer1.Enabled = true;
                         conexion.Close();
                     }
-                    catch
+                    catch (System.Exception ex)
                     {
-                        ////(System.Exception ex) MessageBox.Show(ex.ToString(), "Contasis Corp.en Ventas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                         MessageBox.Show(ex.ToString(), "Contasis Corp.en Ventas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                     }
                 }
@@ -229,11 +229,11 @@ namespace Contasis.Clase
 
 
             try
-            {
+            {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
                 string query = "select *  from information_schema.columns where table_schema='public' and table_name='" + NombreTable.Trim().ToLower() + "' and column_name='" + Nombrecampo.Trim().ToLower() + "';";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 DataTable dt = new DataTable();
-                NpgsqlDataAdapter data = new NpgsqlDataAdapter(commando);
+                                                                                                                                                                                                                                                                                                                                                           NpgsqlDataAdapter data = new NpgsqlDataAdapter(commando);
                 data.Fill(dt);
                 if (dt.Rows.Count > 0)
                 { }

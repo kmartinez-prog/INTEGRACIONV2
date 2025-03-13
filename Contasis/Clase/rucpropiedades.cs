@@ -19,6 +19,7 @@ namespace Contasis.Clase
         public int ncomproductoflg { get; set; }
         public int ncomcompraflg { get; set; }
         public int ncomventaflg { get; set; }
+        public int nfondoM { get; set; }
 
     }
 }

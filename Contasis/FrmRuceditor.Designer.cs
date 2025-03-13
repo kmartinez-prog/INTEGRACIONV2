@@ -47,6 +47,7 @@ namespace Contasis
             this.checkventascom = new System.Windows.Forms.CheckBox();
             this.checkcomprascom = new System.Windows.Forms.CheckBox();
             this.checkPRODUCTO = new System.Windows.Forms.CheckBox();
+            this.checkBoxFondom = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -189,6 +190,7 @@ namespace Contasis
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panel1.Controls.Add(this.checkBoxFondom);
             this.panel1.Controls.Add(this.checkventascom);
             this.panel1.Controls.Add(this.checkcomprascom);
             this.panel1.Controls.Add(this.checkPRODUCTO);
@@ -240,6 +242,16 @@ namespace Contasis
             this.checkPRODUCTO.UseVisualStyleBackColor = true;
             this.checkPRODUCTO.Visible = false;
             // 
+            // checkBoxFondom
+            // 
+            this.checkBoxFondom.AutoSize = true;
+            this.checkBoxFondom.Location = new System.Drawing.Point(11, 128);
+            this.checkBoxFondom.Name = "checkBoxFondom";
+            this.checkBoxFondom.Size = new System.Drawing.Size(103, 17);
+            this.checkBoxFondom.TabIndex = 21;
+            this.checkBoxFondom.Text = "Fondo Mortuorio";
+            this.checkBoxFondom.UseVisualStyleBackColor = true;
+            // 
             // FrmRuceditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -285,5 +297,6 @@ namespace Contasis
         private System.Windows.Forms.CheckBox checkventascom;
         private System.Windows.Forms.CheckBox checkcomprascom;
         private System.Windows.Forms.CheckBox checkPRODUCTO;
+        private System.Windows.Forms.CheckBox checkBoxFondom;
     }
 }

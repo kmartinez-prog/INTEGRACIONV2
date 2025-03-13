@@ -16,7 +16,7 @@ namespace Contasis
     public partial class FrmRuceditor : Form
     {
         int tipo;
-     public FrmRuceditor(int ntipo, string ruc, string nombre, string frase,int venta,int compras,int cobranza,int pago, int productos, int comcompras, int conventas)
+     public FrmRuceditor(int ntipo, string ruc, string nombre, string frase,int venta,int compras,int cobranza,int pago, int productos, int comcompras, int conventas,int fondom)
         {
             InitializeComponent();
             tipo = ntipo;
@@ -32,8 +32,8 @@ namespace Contasis
             {
                 txtruc.Visible = true;
                 lblcodigo.Visible = true;
-                txtruc.Text = ruc;
-                txtempresa.Text = nombre;
+                txtruc.Text = ruc.Trim() ;
+                txtempresa.Text = nombre.Trim();
 
                 if (frase == "1")
                 {
@@ -80,6 +80,15 @@ namespace Contasis
                     else
                     {
                         checkPagos.Checked = false;
+                    }
+
+                    if (fondom == 1)
+                    {
+                        checkBoxFondom.Checked = true;
+                    }
+                    else
+                    {
+                        checkBoxFondom.Checked = false;
                     }
                 }
 
@@ -264,6 +273,19 @@ namespace Contasis
                             obj.checkpagos = 0;
                         }
 
+                        if (checkBoxFondom.Checked == true)
+                        {
+                            obj.nfondoM  = 1;
+                        }
+                        else
+                        {
+                            obj.nfondoM = 0;
+                        }
+
+
+
+
+
                         if (Properties.Settings.Default.TipModulo == "2")
                         {
                             if (checkPRODUCTO.Checked == true)
@@ -291,6 +313,15 @@ namespace Contasis
                             else
                             {
                                 obj.ncomventaflg = 0;
+                            }
+
+                            if (checkBoxFondom.Checked == true)
+                            {
+                                obj.nfondoM = 1;
+                            }
+                            else
+                            {
+                                obj.nfondoM = 0;
                             }
 
 
@@ -365,6 +396,20 @@ namespace Contasis
                         {
                             obj.checkpagos = 0;
                         }
+
+
+                        if (checkBoxFondom.Checked == true)
+                        {
+                            obj.nfondoM = 1;
+                        }
+                        else
+                        {
+                            obj.nfondoM = 0;
+                        }
+
+
+
+
                         if (Properties.Settings.Default.TipModulo == "2")
                         {
                             if (checkPRODUCTO.Checked == true)
@@ -475,6 +520,16 @@ namespace Contasis
                         obj.checkpagos = 0;
                     }
 
+
+                    if (checkBoxFondom.Checked == true)
+                    {
+                        obj.nfondoM = 1;
+                    }
+                    else
+                    {
+                        obj.nfondoM = 0;
+                    }
+
                     if (Properties.Settings.Default.TipModulo == "2")
                     {
                         if (checkPRODUCTO.Checked == true)
@@ -502,6 +557,15 @@ namespace Contasis
                         else
                         {
                             obj.ncomventaflg = 0;
+                        }
+
+                        if (checkBoxFondom.Checked == true)
+                        {
+                            obj.nfondoM = 1;
+                        }
+                        else
+                        {
+                            obj.nfondoM = 0;
                         }
 
 
@@ -601,7 +665,7 @@ namespace Contasis
 
         private void Txtruc_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void Txtempresa_TextChanged(object sender, EventArgs e)

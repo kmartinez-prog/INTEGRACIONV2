@@ -32,10 +32,10 @@ namespace Contasis
                 { }
                 else
                 {
-                    string query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg) values(" +
+                    string query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg,ncomfondom) values(" +
                                   "'" + Objet.ruc + "', " +
                                   "'" + Objet.empresa + "', " +
-                                  "'" + Objet.estado + "'," + Objet.checkventas + "," + Objet.checkcompras + "," + Objet.checkcobranzas + "," + Objet.checkpagos + ")";
+                                  "'" + Objet.estado + "'," + Objet.checkventas + "," + Objet.checkcompras + "," + Objet.checkcobranzas + "," + Objet.checkpagos + "," + Objet.nfondoM + ")";
                     NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                     cadena = command3.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
                     
@@ -65,7 +65,7 @@ namespace Contasis
             try
             {
                string query = "update  cg_empemisor SET cdesrucemisor='" + Objet.empresa + "'," +
-               "flgactivo='" + Objet.estado + "',nventaflg=" + Objet.checkventas + ",ncompraflg=" + Objet.checkcompras + ", ncobranzaflg=" + Objet.checkcobranzas + ", npagoflg=" + Objet.checkpagos + " where ccodrucemisor='" + Objet.ruc + "'";
+               "flgactivo='" + Objet.estado + "',nventaflg=" + Objet.checkventas + ",ncompraflg=" + Objet.checkcompras + ", ncobranzaflg=" + Objet.checkcobranzas + ", npagoflg=" + Objet.checkpagos + ", ncomfondom=" + Objet.nfondoM + " where ccodrucemisor='" + Objet.ruc + "'";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
                 

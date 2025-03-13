@@ -37,7 +37,6 @@ namespace Contasis
             this.txtpago = new System.Windows.Forms.TextBox();
             this.txtcobranza = new System.Windows.Forms.TextBox();
             this.txtcompras = new System.Windows.Forms.TextBox();
-            this.txtventa = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.cmbrucemisor = new System.Windows.Forms.ComboBox();
             this.txtestado = new System.Windows.Forms.TextBox();
@@ -50,6 +49,7 @@ namespace Contasis
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label39 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.cmbanuladosventas = new System.Windows.Forms.ComboBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -111,6 +111,10 @@ namespace Contasis
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label34 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.txtregistro_cobra_alternativo = new System.Windows.Forms.TextBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.txtanticipo = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label36 = new System.Windows.Forms.Label();
             this.dataGridView_cobranza = new System.Windows.Forms.DataGridView();
@@ -134,8 +138,22 @@ namespace Contasis
             this.label31 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label41 = new System.Windows.Forms.Label();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.dataGridView_fondo = new System.Windows.Forms.DataGridView();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.txtflujofondo = new System.Windows.Forms.TextBox();
+            this.txtregistro_fondo = new System.Windows.Forms.TextBox();
+            this.txtsubdiario_fondo = new System.Windows.Forms.TextBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbempresas = new System.Windows.Forms.ComboBox();
+            this.txtventa = new System.Windows.Forms.TextBox();
             this.txtcadena = new System.Windows.Forms.TextBox();
             this.txtquery2 = new System.Windows.Forms.TextBox();
             this.txtguardarcompras = new System.Windows.Forms.TextBox();
@@ -152,7 +170,12 @@ namespace Contasis
             this.txt_cobra04 = new System.Windows.Forms.TextBox();
             this.anteriofinventas = new System.Windows.Forms.TextBox();
             this.anteriorcompras = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txt_personalizado_pdda_ventas = new System.Windows.Forms.TextBox();
+            this.txtfondo = new System.Windows.Forms.TextBox();
+            this.txt_cobra04fm = new System.Windows.Forms.TextBox();
+            this.txt_cobra03fm = new System.Windows.Forms.TextBox();
+            this.txt_cobra02fm = new System.Windows.Forms.TextBox();
+            this.txt_cobra01fm = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -170,6 +193,9 @@ namespace Contasis
             this.tabPage4.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_pago)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_fondo)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -182,7 +208,6 @@ namespace Contasis
             this.panel1.Controls.Add(this.txtpago);
             this.panel1.Controls.Add(this.txtcobranza);
             this.panel1.Controls.Add(this.txtcompras);
-            this.panel1.Controls.Add(this.txtventa);
             this.panel1.Controls.Add(this.label25);
             this.panel1.Controls.Add(this.cmbrucemisor);
             this.panel1.Controls.Add(this.txtestado);
@@ -253,14 +278,6 @@ namespace Contasis
             this.txtcompras.Name = "txtcompras";
             this.txtcompras.Size = new System.Drawing.Size(42, 20);
             this.txtcompras.TabIndex = 12;
-            // 
-            // txtventa
-            // 
-            this.txtventa.Location = new System.Drawing.Point(380, -48);
-            this.txtventa.MaxLength = 1;
-            this.txtventa.Name = "txtventa";
-            this.txtventa.Size = new System.Drawing.Size(42, 20);
-            this.txtventa.TabIndex = 11;
             // 
             // label25
             // 
@@ -336,6 +353,7 @@ namespace Contasis
             this.Tablero.Controls.Add(this.tabPage2);
             this.Tablero.Controls.Add(this.tabPage3);
             this.Tablero.Controls.Add(this.tabPage4);
+            this.Tablero.Controls.Add(this.tabPage5);
             this.Tablero.Enabled = false;
             this.Tablero.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Tablero.Location = new System.Drawing.Point(15, 50);
@@ -372,6 +390,7 @@ namespace Contasis
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.label39);
             this.panel2.Controls.Add(this.label26);
             this.panel2.Controls.Add(this.cmbanuladosventas);
             this.panel2.Controls.Add(this.label23);
@@ -400,6 +419,19 @@ namespace Contasis
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(558, 398);
             this.panel2.TabIndex = 0;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label39.ForeColor = System.Drawing.Color.Navy;
+            this.label39.Location = new System.Drawing.Point(7, 360);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(254, 20);
+            this.label39.TabIndex = 29;
+            this.label39.Text = "Funcion sin IGV solo para  Iglesias";
+            this.label39.Visible = false;
+            this.label39.Click += new System.EventHandler(this.label39_Click);
             // 
             // label26
             // 
@@ -731,6 +763,7 @@ namespace Contasis
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(558, 398);
             this.panel4.TabIndex = 2;
+            this.panel4.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
             // label27
             // 
@@ -1042,6 +1075,10 @@ namespace Contasis
             // 
             this.panel6.BackColor = System.Drawing.Color.White;
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel6.Controls.Add(this.txtregistro_cobra_alternativo);
+            this.panel6.Controls.Add(this.label42);
+            this.panel6.Controls.Add(this.txtanticipo);
+            this.panel6.Controls.Add(this.label40);
             this.panel6.Controls.Add(this.textBox2);
             this.panel6.Controls.Add(this.label36);
             this.panel6.Controls.Add(this.dataGridView_cobranza);
@@ -1057,16 +1094,60 @@ namespace Contasis
             this.panel6.Size = new System.Drawing.Size(558, 398);
             this.panel6.TabIndex = 35;
             // 
+            // txtregistro_cobra_alternativo
+            // 
+            this.txtregistro_cobra_alternativo.Location = new System.Drawing.Point(369, 136);
+            this.txtregistro_cobra_alternativo.MaxLength = 2;
+            this.txtregistro_cobra_alternativo.Name = "txtregistro_cobra_alternativo";
+            this.txtregistro_cobra_alternativo.Size = new System.Drawing.Size(82, 18);
+            this.txtregistro_cobra_alternativo.TabIndex = 39;
+            this.txtregistro_cobra_alternativo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtregistro_cobra_alternativo_KeyDown);
+            this.txtregistro_cobra_alternativo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtregistro_cobra_alternativo_KeyPress);
+            this.txtregistro_cobra_alternativo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtregistro_cobra_alternativo_KeyUp);
+            this.txtregistro_cobra_alternativo.Validated += new System.EventHandler(this.txtregistro_cobra_alternativo_Validated);
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(251, 138);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(110, 13);
+            this.label42.TabIndex = 57;
+            this.label42.Text = "L/ Registro Alternativo";
+            // 
+            // txtanticipo
+            // 
+            this.txtanticipo.Location = new System.Drawing.Point(369, 110);
+            this.txtanticipo.MaxLength = 3;
+            this.txtanticipo.Name = "txtanticipo";
+            this.txtanticipo.Size = new System.Drawing.Size(82, 18);
+            this.txtanticipo.TabIndex = 37;
+            this.txtanticipo.Click += new System.EventHandler(this.txtanticipo_Click);
+            this.txtanticipo.TextChanged += new System.EventHandler(this.txtanticipo_TextChanged);
+            this.txtanticipo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtanticipo_KeyDown);
+            this.txtanticipo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtanticipo_KeyPress);
+            this.txtanticipo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtanticipo_KeyUp);
+            this.txtanticipo.Validated += new System.EventHandler(this.txtanticipo_Validated);
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(251, 112);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(109, 13);
+            this.label40.TabIndex = 55;
+            this.label40.Text = "Sub Diario Alternativo";
+            // 
             // textBox2
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.textBox2.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.Location = new System.Drawing.Point(23, 59);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(510, 21);
             this.textBox2.TabIndex = 54;
-            this.textBox2.Text = "Cuentas de Cobranzas asociadas a Ventas";
+            this.textBox2.Text = "Cuentas de Cobranzas asociadas a Cobranzas";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label36
@@ -1090,7 +1171,9 @@ namespace Contasis
             this.dataGridView_cobranza.Size = new System.Drawing.Size(543, 118);
             this.dataGridView_cobranza.TabIndex = 42;
             this.dataGridView_cobranza.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_cobranza_CellClick);
+            this.dataGridView_cobranza.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_cobranza_CellContentClick);
             this.dataGridView_cobranza.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_cobranza_CellDoubleClick);
+            this.dataGridView_cobranza.Click += new System.EventHandler(this.dataGridView_cobranza_Click);
             // 
             // button3
             // 
@@ -1112,7 +1195,7 @@ namespace Contasis
             this.txtflujocobra.MaxLength = 10;
             this.txtflujocobra.Name = "txtflujocobra";
             this.txtflujocobra.Size = new System.Drawing.Size(82, 18);
-            this.txtflujocobra.TabIndex = 38;
+            this.txtflujocobra.TabIndex = 40;
             this.txtflujocobra.TextChanged += new System.EventHandler(this.Txtflujocobra_TextChanged);
             this.txtflujocobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txtflujocobra_KeyDown);
             this.txtflujocobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txtflujocobra_KeyPress);
@@ -1125,7 +1208,8 @@ namespace Contasis
             this.txtregistro_cobra.MaxLength = 2;
             this.txtregistro_cobra.Name = "txtregistro_cobra";
             this.txtregistro_cobra.Size = new System.Drawing.Size(82, 18);
-            this.txtregistro_cobra.TabIndex = 37;
+            this.txtregistro_cobra.TabIndex = 38;
+            this.txtregistro_cobra.TextChanged += new System.EventHandler(this.txtregistro_cobra_TextChanged);
             this.txtregistro_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txtregistro_cobra_KeyDown);
             this.txtregistro_cobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txtregistro_cobra_KeyPress);
             this.txtregistro_cobra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txtregistro_cobra_KeyUp);
@@ -1134,10 +1218,12 @@ namespace Contasis
             // txtsubdiario_cobra
             // 
             this.txtsubdiario_cobra.Location = new System.Drawing.Point(140, 109);
-            this.txtsubdiario_cobra.MaxLength = 10;
+            this.txtsubdiario_cobra.MaxLength = 3;
             this.txtsubdiario_cobra.Name = "txtsubdiario_cobra";
             this.txtsubdiario_cobra.Size = new System.Drawing.Size(82, 18);
             this.txtsubdiario_cobra.TabIndex = 36;
+            this.txtsubdiario_cobra.Click += new System.EventHandler(this.txtsubdiario_cobra_Click);
+            this.txtsubdiario_cobra.TextChanged += new System.EventHandler(this.txtsubdiario_cobra_TextChanged);
             this.txtsubdiario_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txtsubdiario_cobra_KeyDown);
             this.txtsubdiario_cobra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txtsubdiario_cobra_KeyPress);
             this.txtsubdiario_cobra.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txtsubdiario_cobra_KeyUp);
@@ -1219,7 +1305,7 @@ namespace Contasis
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(510, 21);
             this.textBox1.TabIndex = 53;
-            this.textBox1.Text = "Cuentas de pagos asociadas a Compras";
+            this.textBox1.Text = "Cuentas de pagos asociadas a Pagos";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label37
@@ -1273,7 +1359,7 @@ namespace Contasis
             // txtregistro_pago
             // 
             this.txtregistro_pago.Location = new System.Drawing.Point(140, 137);
-            this.txtregistro_pago.MaxLength = 10;
+            this.txtregistro_pago.MaxLength = 2;
             this.txtregistro_pago.Name = "txtregistro_pago";
             this.txtregistro_pago.Size = new System.Drawing.Size(82, 18);
             this.txtregistro_pago.TabIndex = 46;
@@ -1284,10 +1370,11 @@ namespace Contasis
             // txtsubdiario_pago
             // 
             this.txtsubdiario_pago.Location = new System.Drawing.Point(140, 109);
-            this.txtsubdiario_pago.MaxLength = 10;
+            this.txtsubdiario_pago.MaxLength = 2;
             this.txtsubdiario_pago.Name = "txtsubdiario_pago";
             this.txtsubdiario_pago.Size = new System.Drawing.Size(82, 18);
             this.txtsubdiario_pago.TabIndex = 45;
+            this.txtsubdiario_pago.TextChanged += new System.EventHandler(this.txtsubdiario_pago_TextChanged);
             this.txtsubdiario_pago.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Txtsubdiario_pago_KeyDown);
             this.txtsubdiario_pago.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txtsubdiario_pago_KeyPress);
             this.txtsubdiario_pago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Txtsubdiario_pago_KeyUp);
@@ -1313,11 +1400,168 @@ namespace Contasis
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(29, 111);
+            this.label33.Location = new System.Drawing.Point(61, 111);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(88, 13);
+            this.label33.Size = new System.Drawing.Size(59, 13);
             this.label33.TabIndex = 43;
-            this.label33.Text = "Sub Diario R. Vta";
+            this.label33.Text = "Sub Diario ";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.label41);
+            this.tabPage5.Controls.Add(this.panel8);
+            this.tabPage5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage5.Location = new System.Drawing.Point(4, 21);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.tabPage5.Size = new System.Drawing.Size(576, 417);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Fondo Mortuorio";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.Location = new System.Drawing.Point(18, 7);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(281, 12);
+            this.label41.TabIndex = 3;
+            this.label41.Text = "Datos de Importación Automatica de Fondos Mortuorio";
+            // 
+            // panel8
+            // 
+            this.panel8.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel8.Controls.Add(this.dataGridView_fondo);
+            this.panel8.Controls.Add(this.textBox4);
+            this.panel8.Controls.Add(this.label44);
+            this.panel8.Controls.Add(this.txtflujofondo);
+            this.panel8.Controls.Add(this.txtregistro_fondo);
+            this.panel8.Controls.Add(this.txtsubdiario_fondo);
+            this.panel8.Controls.Add(this.button5);
+            this.panel8.Controls.Add(this.label48);
+            this.panel8.Controls.Add(this.label53);
+            this.panel8.Controls.Add(this.label54);
+            this.panel8.Location = new System.Drawing.Point(9, 11);
+            this.panel8.Name = "panel8";
+            this.panel8.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.panel8.Size = new System.Drawing.Size(558, 398);
+            this.panel8.TabIndex = 2;
+            // 
+            // dataGridView_fondo
+            // 
+            this.dataGridView_fondo.AllowUserToDeleteRows = false;
+            this.dataGridView_fondo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_fondo.Location = new System.Drawing.Point(6, 232);
+            this.dataGridView_fondo.Name = "dataGridView_fondo";
+            this.dataGridView_fondo.ReadOnly = true;
+            this.dataGridView_fondo.RowHeadersWidth = 51;
+            this.dataGridView_fondo.Size = new System.Drawing.Size(543, 118);
+            this.dataGridView_fondo.TabIndex = 55;
+            this.dataGridView_fondo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_fondo_CellClick);
+            this.dataGridView_fondo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_fondo_CellContentClick);
+            this.dataGridView_fondo.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_fondo_CellContentDoubleClick);
+            this.dataGridView_fondo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_fondo_CellDoubleClick);
+            // 
+            // textBox4
+            // 
+            this.textBox4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.Location = new System.Drawing.Point(22, 82);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(510, 21);
+            this.textBox4.TabIndex = 54;
+            this.textBox4.Text = "Cuentas  contables Asociadas";
+            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.ForeColor = System.Drawing.Color.Blue;
+            this.label44.Location = new System.Drawing.Point(360, 7);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(77, 13);
+            this.label44.TabIndex = 28;
+            this.label44.Text = "Ruc Emisor :";
+            // 
+            // txtflujofondo
+            // 
+            this.txtflujofondo.Location = new System.Drawing.Point(179, 196);
+            this.txtflujofondo.MaxLength = 10;
+            this.txtflujofondo.Name = "txtflujofondo";
+            this.txtflujofondo.Size = new System.Drawing.Size(75, 18);
+            this.txtflujofondo.TabIndex = 10;
+            this.txtflujofondo.TextAlignChanged += new System.EventHandler(this.txtflujofondo_TextAlignChanged);
+            this.txtflujofondo.TextChanged += new System.EventHandler(this.txtflujofondo_TextChanged);
+            this.txtflujofondo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtflujofondo_KeyDown);
+            this.txtflujofondo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtflujofondo_KeyPress);
+            this.txtflujofondo.Validated += new System.EventHandler(this.txtflujofondo_Validated);
+            // 
+            // txtregistro_fondo
+            // 
+            this.txtregistro_fondo.Location = new System.Drawing.Point(179, 166);
+            this.txtregistro_fondo.MaxLength = 3;
+            this.txtregistro_fondo.Name = "txtregistro_fondo";
+            this.txtregistro_fondo.Size = new System.Drawing.Size(33, 18);
+            this.txtregistro_fondo.TabIndex = 5;
+            this.txtregistro_fondo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtregistro_fondo_KeyDown);
+            this.txtregistro_fondo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtregistro_fondo_KeyPress);
+            this.txtregistro_fondo.Validated += new System.EventHandler(this.txtregistro_fondo_Validated);
+            // 
+            // txtsubdiario_fondo
+            // 
+            this.txtsubdiario_fondo.Location = new System.Drawing.Point(179, 139);
+            this.txtsubdiario_fondo.MaxLength = 10;
+            this.txtsubdiario_fondo.Name = "txtsubdiario_fondo";
+            this.txtsubdiario_fondo.Size = new System.Drawing.Size(33, 18);
+            this.txtsubdiario_fondo.TabIndex = 4;
+            this.txtsubdiario_fondo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_fondo_KeyDown);
+            this.txtsubdiario_fondo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtsubdiario_fondo_KeyPress);
+            this.txtsubdiario_fondo.Validated += new System.EventHandler(this.txtsubdiario_fondo_Validated);
+            // 
+            // button5
+            // 
+            this.button5.Enabled = false;
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.Image = global::Contasis.Properties.Resources._92;
+            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button5.Location = new System.Drawing.Point(453, 360);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(100, 32);
+            this.button5.TabIndex = 17;
+            this.button5.Text = "Grabar";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(91, 199);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(83, 13);
+            this.label48.TabIndex = 12;
+            this.label48.Text = "Flujo efectivo";
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(106, 168);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(68, 13);
+            this.label53.TabIndex = 2;
+            this.label53.Text = "L/ Registro";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(108, 141);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(66, 13);
+            this.label54.TabIndex = 0;
+            this.label54.Text = "Sub Diario";
             // 
             // label1
             // 
@@ -1337,6 +1581,14 @@ namespace Contasis
             this.cmbempresas.Size = new System.Drawing.Size(228, 21);
             this.cmbempresas.TabIndex = 2;
             this.cmbempresas.SelectedIndexChanged += new System.EventHandler(this.Cmbempresas_SelectedIndexChanged);
+            // 
+            // txtventa
+            // 
+            this.txtventa.Location = new System.Drawing.Point(614, 574);
+            this.txtventa.MaxLength = 1;
+            this.txtventa.Name = "txtventa";
+            this.txtventa.Size = new System.Drawing.Size(42, 20);
+            this.txtventa.TabIndex = 11;
             // 
             // txtcadena
             // 
@@ -1362,7 +1614,7 @@ namespace Contasis
             this.txtguardarcompras.Multiline = true;
             this.txtguardarcompras.Name = "txtguardarcompras";
             this.txtguardarcompras.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtguardarcompras.Size = new System.Drawing.Size(594, 41);
+            this.txtguardarcompras.Size = new System.Drawing.Size(584, 41);
             this.txtguardarcompras.TabIndex = 14;
             this.txtguardarcompras.Text = resources.GetString("txtguardarcompras.Text");
             this.txtguardarcompras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1381,16 +1633,16 @@ namespace Contasis
             // txtanulacioncompras
             // 
             this.txtanulacioncompras.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.txtanulacioncompras.Location = new System.Drawing.Point(708, 97);
+            this.txtanulacioncompras.Location = new System.Drawing.Point(681, 97);
             this.txtanulacioncompras.Name = "txtanulacioncompras";
-            this.txtanulacioncompras.Size = new System.Drawing.Size(573, 20);
+            this.txtanulacioncompras.Size = new System.Drawing.Size(585, 20);
             this.txtanulacioncompras.TabIndex = 17;
             this.txtanulacioncompras.Text = resources.GetString("txtanulacioncompras.Text");
             // 
             // txtasientocompas1
             // 
             this.txtasientocompas1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.txtasientocompas1.Location = new System.Drawing.Point(742, 120);
+            this.txtasientocompas1.Location = new System.Drawing.Point(681, 120);
             this.txtasientocompas1.Multiline = true;
             this.txtasientocompas1.Name = "txtasientocompas1";
             this.txtasientocompas1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -1401,7 +1653,7 @@ namespace Contasis
             // txtasientocompas2
             // 
             this.txtasientocompas2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.txtasientocompas2.Location = new System.Drawing.Point(742, 231);
+            this.txtasientocompas2.Location = new System.Drawing.Point(682, 229);
             this.txtasientocompas2.Multiline = true;
             this.txtasientocompas2.Name = "txtasientocompas2";
             this.txtasientocompas2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -1412,25 +1664,28 @@ namespace Contasis
             // 
             // txtasientoventas2
             // 
+            this.txtasientoventas2.AcceptsTab = true;
             this.txtasientoventas2.BackColor = System.Drawing.SystemColors.Info;
-            this.txtasientoventas2.Location = new System.Drawing.Point(742, 457);
+            this.txtasientoventas2.Location = new System.Drawing.Point(680, 443);
             this.txtasientoventas2.Multiline = true;
             this.txtasientoventas2.Name = "txtasientoventas2";
             this.txtasientoventas2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtasientoventas2.Size = new System.Drawing.Size(192, 192);
+            this.txtasientoventas2.Size = new System.Drawing.Size(194, 108);
             this.txtasientoventas2.TabIndex = 21;
             this.txtasientoventas2.Text = resources.GetString("txtasientoventas2.Text");
+            this.txtasientoventas2.TextChanged += new System.EventHandler(this.txtasientoventas2_TextChanged);
             // 
             // txtasientoventas1
             // 
             this.txtasientoventas1.BackColor = System.Drawing.SystemColors.Info;
-            this.txtasientoventas1.Location = new System.Drawing.Point(742, 340);
+            this.txtasientoventas1.Location = new System.Drawing.Point(680, 337);
             this.txtasientoventas1.Multiline = true;
             this.txtasientoventas1.Name = "txtasientoventas1";
             this.txtasientoventas1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtasientoventas1.Size = new System.Drawing.Size(195, 105);
             this.txtasientoventas1.TabIndex = 20;
             this.txtasientoventas1.Text = resources.GetString("txtasientoventas1.Text");
+            this.txtasientoventas1.TextChanged += new System.EventHandler(this.txtasientoventas1_TextChanged);
             // 
             // BtnSalir
             // 
@@ -1448,54 +1703,54 @@ namespace Contasis
             // txt_cobra01
             // 
             this.txt_cobra01.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.txt_cobra01.Location = new System.Drawing.Point(953, 120);
+            this.txt_cobra01.Location = new System.Drawing.Point(880, 120);
             this.txt_cobra01.Multiline = true;
             this.txt_cobra01.Name = "txt_cobra01";
             this.txt_cobra01.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_cobra01.Size = new System.Drawing.Size(342, 141);
+            this.txt_cobra01.Size = new System.Drawing.Size(164, 110);
             this.txt_cobra01.TabIndex = 22;
             this.txt_cobra01.Text = resources.GetString("txt_cobra01.Text");
             // 
             // txt_cobra02
             // 
             this.txt_cobra02.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.txt_cobra02.Location = new System.Drawing.Point(953, 267);
+            this.txt_cobra02.Location = new System.Drawing.Point(880, 237);
             this.txt_cobra02.Multiline = true;
             this.txt_cobra02.Name = "txt_cobra02";
             this.txt_cobra02.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_cobra02.Size = new System.Drawing.Size(342, 141);
+            this.txt_cobra02.Size = new System.Drawing.Size(164, 110);
             this.txt_cobra02.TabIndex = 23;
             this.txt_cobra02.Text = resources.GetString("txt_cobra02.Text");
             // 
             // txt_cobra03
             // 
             this.txt_cobra03.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.txt_cobra03.Location = new System.Drawing.Point(954, 421);
+            this.txt_cobra03.Location = new System.Drawing.Point(880, 352);
             this.txt_cobra03.Multiline = true;
             this.txt_cobra03.Name = "txt_cobra03";
             this.txt_cobra03.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_cobra03.Size = new System.Drawing.Size(344, 264);
+            this.txt_cobra03.Size = new System.Drawing.Size(166, 197);
             this.txt_cobra03.TabIndex = 24;
             this.txt_cobra03.Text = resources.GetString("txt_cobra03.Text");
             // 
             // txt_cobra04
             // 
             this.txt_cobra04.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.txt_cobra04.Location = new System.Drawing.Point(607, 568);
+            this.txt_cobra04.Location = new System.Drawing.Point(881, 555);
             this.txt_cobra04.Multiline = true;
             this.txt_cobra04.Name = "txt_cobra04";
             this.txt_cobra04.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_cobra04.Size = new System.Drawing.Size(342, 141);
+            this.txt_cobra04.Size = new System.Drawing.Size(165, 141);
             this.txt_cobra04.TabIndex = 26;
             this.txt_cobra04.Text = resources.GetString("txt_cobra04.Text");
             // 
             // anteriofinventas
             // 
             this.anteriofinventas.BackColor = System.Drawing.SystemColors.Info;
-            this.anteriofinventas.Location = new System.Drawing.Point(9, 580);
+            this.anteriofinventas.Location = new System.Drawing.Point(10, 574);
             this.anteriofinventas.Multiline = true;
             this.anteriofinventas.Name = "anteriofinventas";
-            this.anteriofinventas.Size = new System.Drawing.Size(585, 58);
+            this.anteriofinventas.Size = new System.Drawing.Size(529, 58);
             this.anteriofinventas.TabIndex = 27;
             this.anteriofinventas.Text = resources.GetString("anteriofinventas.Text");
             this.anteriofinventas.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1505,37 +1760,98 @@ namespace Contasis
             this.anteriorcompras.AccessibleRole = System.Windows.Forms.AccessibleRole.ScrollBar;
             this.anteriorcompras.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.anteriorcompras.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.anteriorcompras.Location = new System.Drawing.Point(7, 637);
+            this.anteriorcompras.Location = new System.Drawing.Point(7, 625);
             this.anteriorcompras.Multiline = true;
             this.anteriorcompras.Name = "anteriorcompras";
             this.anteriorcompras.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.anteriorcompras.Size = new System.Drawing.Size(594, 41);
+            this.anteriorcompras.Size = new System.Drawing.Size(530, 41);
             this.anteriorcompras.TabIndex = 28;
             this.anteriorcompras.Text = resources.GetString("anteriorcompras.Text");
             this.anteriorcompras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox3
+            // txt_personalizado_pdda_ventas
             // 
-            this.textBox3.BackColor = System.Drawing.SystemColors.Highlight;
-            this.textBox3.Location = new System.Drawing.Point(1301, 5);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox3.Size = new System.Drawing.Size(199, 192);
-            this.textBox3.TabIndex = 29;
-            this.textBox3.Text = resources.GetString("textBox3.Text");
+            this.txt_personalizado_pdda_ventas.AcceptsTab = true;
+            this.txt_personalizado_pdda_ventas.BackColor = System.Drawing.SystemColors.Highlight;
+            this.txt_personalizado_pdda_ventas.Location = new System.Drawing.Point(1267, 2);
+            this.txt_personalizado_pdda_ventas.Multiline = true;
+            this.txt_personalizado_pdda_ventas.Name = "txt_personalizado_pdda_ventas";
+            this.txt_personalizado_pdda_ventas.ReadOnly = true;
+            this.txt_personalizado_pdda_ventas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txt_personalizado_pdda_ventas.Size = new System.Drawing.Size(389, 539);
+            this.txt_personalizado_pdda_ventas.TabIndex = 29;
+            this.txt_personalizado_pdda_ventas.Text = resources.GetString("txt_personalizado_pdda_ventas.Text");
+            // 
+            // txtfondo
+            // 
+            this.txtfondo.Location = new System.Drawing.Point(614, 600);
+            this.txtfondo.MaxLength = 1;
+            this.txtfondo.Name = "txtfondo";
+            this.txtfondo.Size = new System.Drawing.Size(42, 20);
+            this.txtfondo.TabIndex = 30;
+            // 
+            // txt_cobra04fm
+            // 
+            this.txt_cobra04fm.BackColor = System.Drawing.Color.Lime;
+            this.txt_cobra04fm.Location = new System.Drawing.Point(1076, 555);
+            this.txt_cobra04fm.Multiline = true;
+            this.txt_cobra04fm.Name = "txt_cobra04fm";
+            this.txt_cobra04fm.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txt_cobra04fm.Size = new System.Drawing.Size(165, 141);
+            this.txt_cobra04fm.TabIndex = 34;
+            this.txt_cobra04fm.Text = resources.GetString("txt_cobra04fm.Text");
+            // 
+            // txt_cobra03fm
+            // 
+            this.txt_cobra03fm.BackColor = System.Drawing.Color.Lime;
+            this.txt_cobra03fm.Location = new System.Drawing.Point(1075, 352);
+            this.txt_cobra03fm.Multiline = true;
+            this.txt_cobra03fm.Name = "txt_cobra03fm";
+            this.txt_cobra03fm.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txt_cobra03fm.Size = new System.Drawing.Size(166, 197);
+            this.txt_cobra03fm.TabIndex = 33;
+            this.txt_cobra03fm.Text = resources.GetString("txt_cobra03fm.Text");
+            // 
+            // txt_cobra02fm
+            // 
+            this.txt_cobra02fm.BackColor = System.Drawing.Color.Lime;
+            this.txt_cobra02fm.Location = new System.Drawing.Point(1075, 237);
+            this.txt_cobra02fm.Multiline = true;
+            this.txt_cobra02fm.Name = "txt_cobra02fm";
+            this.txt_cobra02fm.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txt_cobra02fm.Size = new System.Drawing.Size(164, 110);
+            this.txt_cobra02fm.TabIndex = 32;
+            this.txt_cobra02fm.Text = resources.GetString("txt_cobra02fm.Text");
+            // 
+            // txt_cobra01fm
+            // 
+            this.txt_cobra01fm.BackColor = System.Drawing.Color.Lime;
+            this.txt_cobra01fm.Location = new System.Drawing.Point(1075, 120);
+            this.txt_cobra01fm.Multiline = true;
+            this.txt_cobra01fm.Name = "txt_cobra01fm";
+            this.txt_cobra01fm.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txt_cobra01fm.Size = new System.Drawing.Size(164, 110);
+            this.txt_cobra01fm.TabIndex = 31;
+            this.txt_cobra01fm.Text = resources.GetString("txt_cobra01fm.Text");
+            this.txt_cobra01fm.TextChanged += new System.EventHandler(this.txt_cobra01fm_TextChanged);
             // 
             // FrmIntegradorConta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(639, 556);
-            this.Controls.Add(this.textBox3);
+            this.ClientSize = new System.Drawing.Size(640, 559);
+            this.Controls.Add(this.txt_cobra04fm);
+            this.Controls.Add(this.txt_cobra03fm);
+            this.Controls.Add(this.txt_cobra02fm);
+            this.Controls.Add(this.txt_cobra01fm);
+            this.Controls.Add(this.txtfondo);
+            this.Controls.Add(this.txt_personalizado_pdda_ventas);
             this.Controls.Add(this.anteriorcompras);
             this.Controls.Add(this.anteriofinventas);
             this.Controls.Add(this.txt_cobra04);
             this.Controls.Add(this.txt_cobra03);
             this.Controls.Add(this.txt_cobra02);
+            this.Controls.Add(this.txtventa);
             this.Controls.Add(this.txt_cobra01);
             this.Controls.Add(this.txtasientoventas2);
             this.Controls.Add(this.txtasientoventas1);
@@ -1585,6 +1901,11 @@ namespace Contasis
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_pago)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_fondo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1714,6 +2035,29 @@ namespace Contasis
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.DateTimePicker FechaInicio;
         public System.Windows.Forms.TextBox txtFechaInicio;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.TextBox txt_personalizado_pdda_ventas;
+        public System.Windows.Forms.TextBox txtanticipo;
+        private System.Windows.Forms.Label label40;
+        public System.Windows.Forms.TextBox txtregistro_cobra_alternativo;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label44;
+        public System.Windows.Forms.TextBox txtflujofondo;
+        public System.Windows.Forms.TextBox txtregistro_fondo;
+        public System.Windows.Forms.TextBox txtsubdiario_fondo;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.TextBox txtfondo;
+        private System.Windows.Forms.DataGridView dataGridView_fondo;
+        private System.Windows.Forms.TextBox txt_cobra04fm;
+        private System.Windows.Forms.TextBox txt_cobra03fm;
+        private System.Windows.Forms.TextBox txt_cobra02fm;
+        private System.Windows.Forms.TextBox txt_cobra01fm;
     }
 }
