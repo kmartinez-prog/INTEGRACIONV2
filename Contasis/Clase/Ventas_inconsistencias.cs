@@ -162,9 +162,10 @@ namespace Contasis.Clase
             SqlConnection cone = new SqlConnection();
             try
             {
+                //ccoddoc, cserie, cnumero///
                 string query = "update  fin_ventas  SET cmreg='" + Objet.Cmreg.Trim() + "',ccond='" + Objet.Ccond.ToUpper().Trim() + "'," +
                                    "cctabase='" + Objet.Cctabase.Trim() + "',cctatot='" + Objet.Cctatot.Trim() + "',ccodcos='" + Objet.Ccodcos.Trim() + "'," +
-                                   "ccodcos2='" + Objet.Ccodcos2.Trim() + "',obserror='',es_con_migracion=0  where idventas=" + Objet.Idventas + "";
+                                   "ccodcos2='" + Objet.Ccodcos2.Trim() + "',obserror='',es_con_migracion=0 ,ccodpresu='"+Objet.Ccodpresu.Trim()+"'   where ccoddoc='" + Objet.Ccoddoc.Trim()+ "' and cserie='"+ Objet.Cserie.Trim()+ "' and cnumero='"+Objet.Cnumero.Trim()+ "' and ccodruc='"+Objet.Cruc.Trim()+"'" ;
                 cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
@@ -193,9 +194,14 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "update  fin_ventas  SET cmreg='"+Objet.Cmreg.Trim()+"',ccond='"+Objet.Ccond.ToUpper().Trim()+"',"+
+                /*string query = "update  fin_ventas  SET cmreg='"+Objet.Cmreg.Trim()+"',ccond='"+Objet.Ccond.ToUpper().Trim()+"',"+
                                   "cctabase='"+Objet.Cctabase.Trim()+ "',cctatot='"+Objet.Cctatot.Trim()+ "',ccodcos='"+Objet.Ccodcos.Trim()+"',"+
-                                  "ccodcos2='"+Objet.Ccodcos2.Trim()+ "',obserror='',es_con_migracion=0 where idventas=" + Objet.Idventas + "";
+                                  "ccodcos2='"+Objet.Ccodcos2.Trim()+ "',obserror='',es_con_migracion=0 where idventas=" + Objet.Idventas + "";*/
+                string query = "update  fin_ventas  SET cmreg='" + Objet.Cmreg.Trim() + "',ccond='" + Objet.Ccond.ToUpper().Trim() + "'," +
+                                   "cctabase='" + Objet.Cctabase.Trim() + "',cctatot='" + Objet.Cctatot.Trim() + "',ccodcos='" + Objet.Ccodcos.Trim() + "'," +
+                                   "ccodcos2='" + Objet.Ccodcos2.Trim() + "',obserror='',es_con_migracion=0 ,ccodpresu='" + Objet.Ccodpresu.Trim() + "'"+
+                                  " where ccoddoc='" + Objet.Ccoddoc.Trim() + "' and cserie='" + Objet.Cserie.Trim() + "' and cnumero='" + Objet.Cnumero.Trim() +"' "+
+                                  " and ccodruc='" + Objet.Cruc.Trim() + "';";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
 

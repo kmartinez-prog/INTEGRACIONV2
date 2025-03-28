@@ -2044,7 +2044,6 @@ namespace Contasis
                 this.Barraprogreso(respuesta);
 
                 #endregion
-
                 #region fin_cobranzafm
 
                 NombreTable = "fin_cobranzafm";
@@ -2093,8 +2092,8 @@ namespace Contasis
                 " es_con_migracion numeric(1, 0) NULL, " +
                 " ccodcos3 character(15) NOT NULL DEFAULT ''::bpchar, " +
                 " comprobante_item_id character(40) NOT NULL DEFAULT ''::bpchar, "+
-                " es_anticipo_automatico numeric(1, 0) NULL DEFAULT 0 ," +
-                " primary key(idcobranzasfm)); ";
+                " es_anticipo_automatico numeric(1, 0) NULL DEFAULT 0 " +
+                " )); ";
                 respuesta = obj.crear_tablas(NombreTable, Query);
                 this.Barraprogreso(respuesta);
 
@@ -2118,8 +2117,6 @@ namespace Contasis
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-
-
                 #region campos_para_combranza
 
                 NombreTable = "fin_cobranzapago";
@@ -2184,7 +2181,6 @@ namespace Contasis
                 respuesta = obj.crear_tablas(NombreTable, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-
                 #region fn_cobranzaspago_envio
 
                 NombreSP = "fn_cobranzaspago_envio";
@@ -2207,7 +2203,7 @@ namespace Contasis
                         " select  \n" +
                         " idcobranzas as idcobranzapago, fin_cobranzapago.ccod_empresa, fin_cobranzapago.cper, cmes,  \n" +
                         " case when es_anticipo_automatico=1 then trim(configuracion.CSUB_ANTICIPO) else trim(configuracion.csub1_vta) end AS ccodori,  \n" +
-                        " case when es_anticipo_automatico=1 then trim(configuracion.csub1_vta) else trim(configuracion.clreg1vta_anticipo) end  AS ccodsu,\n" +
+                        " case when es_anticipo_automatico = 1 then trim(configuracion.clreg1vta_anticipo) else trim(configuracion.clreg1_vta) end AS ccodsu,\n" +
                         " trim(configuracion.cfefec_vta) AS ccodflu,  \n" +
                         " fin_cobranzapago.ntipocobpag as ntipocobpag,  \n" +
                         " to_char(ffechacan, 'YYYY-MM-DD') AS ffechacan,  \n" +
@@ -2262,9 +2258,6 @@ namespace Contasis
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-
-
-
                 #region fn_cobranzaspagoFM_envio
 
                 NombreSP = "fn_cobranzaspagoFM_envio";
@@ -2276,8 +2269,6 @@ namespace Contasis
                         " p_empresa character,  \n" +
                         " p_tipo integer)  \n" +
                         " RETURNS text   \n" +
-                        " --- es_anticipo_automatico campo nuevo para colegio contadores 24/02/2025 \n" +
-                        " --- modificacion formulario PDI-277 \n" +
                         "  \n" +
                         " AS $BODY$   \n" +
                         "   \n" +
@@ -2285,11 +2276,11 @@ namespace Contasis
                         " select json_agg(to_json(t))::text  \n" +
                         " from(  \n" +
                         " select  \n" +
-                        " idcobranzas as idcobranzapago, fin_cobranzapago.ccod_empresa, fin_cobranzapago.cper, cmes,  \n" +
-                        " case when es_anticipo_automatico=1 then trim(configuracion.CSUB_ANTICIPO) else trim(configuracion.csub1_vta) end AS ccodori,  \n" +
-                        " case when es_anticipo_automatico=1 then trim(configuracion.csub1_vta) else trim(configuracion.clreg1vta_anticipo) end  AS ccodsu,\n" +
-                        " trim(configuracion.cfefec_vta) AS ccodflu,  \n" +
-                        " fin_cobranzapago.ntipocobpag as ntipocobpag,  \n" +
+                        " idcobranzasfm as idcobranzapago, fin_cobranzafm.ccod_empresa, fin_cobranzafm.cper, cmes,  \n" +
+                        " trim(configuracion.csub1_com)  AS ccodori,  \n" +
+                        " trim(configuracion.clreg1_com)  AS ccodsu,\n" +
+                        " trim(configuracion.cfefec_com) AS ccodflu,  \n" +
+                        " fin_cobranzafm.ntipocobpag as ntipocobpag,  \n" +
                         " to_char(ffechacan, 'YYYY-MM-DD') AS ffechacan,  \n" +
                         " trim(coalesce(cdoccan, '')) as cdoccan,        \n" +
                         " case when trim(coalesce(csercan,'')) = '' then ' ' else lpad(trim(csercan),20,'0')  end as csercan,     \n" +
@@ -2326,11 +2317,11 @@ namespace Contasis
                         " case when es_con_migracion = 3  then configuracion.cEnt_anula  else '' end as ccodrucanula,  \n" +
                         " coalesce(es_anticipo_automatico,0) as es_anticipo_automatico \n" +
                         " from fin_cobranzafm  \n" +
-                        " join configuracion ON fin_cobranzapago.CCOD_EMPRESA = configuracion.CCOD_EMPRESA and fin_cobranzapago.CPER = configuracion.CPER  \n" +
-                        " join CG_EMPRESA emp on fin_cobranzapago.ccodrucemisor = emp.ccodrucemisor and fin_cobranzapago.ccod_empresa = emp.CCOD_EMPRESA  \n" +
+                        " join configuracion ON fin_cobranzafm.CCOD_EMPRESA = configuracion.CCOD_EMPRESA and fin_cobranzafm.CPER = configuracion.CPER  \n" +
+                        " join CG_EMPRESA emp on fin_cobranzafm.ccodrucemisor = emp.ccodrucemisor and fin_cobranzafm.ccod_empresa = emp.CCOD_EMPRESA  \n" +
                         " join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1::bit  \n" +
-                        " where fin_cobranzapago.ccodrucemisor = p_ruc_emisor::character(15)  \n" +
-                        " and fin_cobranzapago.ccod_empresa = p_empresa::character(3)  and fin_cobranzapago.ntipocobpag = p_tipo::Numeric(1)  \n" +
+                        " where fin_cobranzafm.ccodrucemisor = p_ruc_emisor::character(15)  \n" +
+                        " and fin_cobranzafm.ccod_empresa = p_empresa::character(3)  and fin_cobranzafm.ntipocobpag = p_tipo::Numeric(1)  \n" +
                         " and es_con_migracion in (0, 3)  \n" +
                         " and configuracion.ctipo = '05'::  character(2)  )   \n" +
                         " as t  \n" +
@@ -2343,14 +2334,33 @@ namespace Contasis
                 this.Barraprogreso(respuesta);
                 #endregion
 
+                    #region fn_ventas_envio_resultado
 
-
-
-
-
-
-
-
+                NombreSP = "fn_ventas_envio_resultado";
+                Query = "CREATE OR REPLACE FUNCTION public.fn_ventas_envio_resultado(  \n" +
+                    "   \n" +
+                    "p_datos text)  \n" +
+                    "RETURNS void   \n" +
+                    "AS $BODY$   \n" +
+                    "  \n" +
+                    "DECLARE  \n" +
+                    "v_data json;  \n" +
+                    "        BEGIN  \n" +
+                    "   \n" +
+                    "  v_data:= p_datos::json;    \n" +
+                    "  UPDATE fin_ventas t  \n" +
+                    "  SET es_con_migracion =  coalesce(r.resultado_migracion,0),      \n" +
+                    "  obserror = r.obserror    \n" +
+                    " from json_to_recordset(v_data) as r (idventas integer, obserror text, es_con_migracion integer, resultado_migracion integer) \n" +
+                    " where t.idventas = r.idventas and t.es_con_migracion = r.es_con_migracion;    \n" +
+                    "    \n" +
+                    " END;    \n" +
+                     "$BODY$  \n" +
+                     "LANGUAGE 'plpgsql' VOLATILE \n" +
+                     " COST 100; ";
+                respuesta = obj.crear_funcion(NombreSP, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
 
 
 
@@ -2369,7 +2379,7 @@ namespace Contasis
                     "   \n" +
                     "  v_data:= p_datos::json;    \n" +
                     "  UPDATE fin_cobranzapago t  \n" +
-                    "  SET es_con_migracion = r.resultado_migracion,      \n" +
+                    "  SET es_con_migracion =  coalesce(r.resultado_migracion,0),      \n" +
                     "  obserror = r.obserror    \n" +
                     "  \n" +
                     " from json_to_recordset(v_data) as r (idcobranzapago integer, obserror text, es_con_migracion integer, resultado_migracion integer)  \n" +
@@ -2382,11 +2392,6 @@ namespace Contasis
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-
-
-
-
-
                 #region fn_cobranzasFM_envio_resultado
 
                 NombreSP = "fn_cobranzasFM_envio_resultado";
@@ -2402,11 +2407,11 @@ namespace Contasis
                     "   \n" +
                     "  v_data:= p_datos::json;    \n" +
                     "  UPDATE fin_cobranzafm t  \n" +
-                    "  SET es_con_migracion = r.resultado_migracion,      \n" +
+                    "  SET es_con_migracion = coalesce(r.resultado_migracion,0),      \n" +
                     "  obserror = r.obserror    \n" +
                     "  \n" +
                     " from json_to_recordset(v_data) as r (idcobranzapago integer, obserror text, es_con_migracion integer, resultado_migracion integer)  \n" +
-                    " where t.idcobranzas = r.idcobranzapago and t.es_con_migracion = r.es_con_migracion;    \n" +
+                    " where t.idcobranzasfm = r.idcobranzapago and t.es_con_migracion = r.es_con_migracion;    \n" +
                     "    \n" +
                     " END;    \n" +
                      "$BODY$  \n" +
@@ -2415,14 +2420,6 @@ namespace Contasis
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-
-
-
-
-
-
-
-
                 #region fn_compras_envio
 
                 NombreSP = "fn_compras_envio";
@@ -2540,7 +2537,7 @@ namespace Contasis
                         "           \n" +
                         " v_data:= p_datos::json; \n" +
                         " UPDATE fin_compras t \n" +
-                        " SET es_con_migracion = r.resultado_migracion, \n" +
+                        " SET es_con_migracion = coalesce(r.resultado_migracion,0), \n" +
                         " obserror = r.obserror \n" +
                         " from json_to_recordset(v_data) as r (idcompras integer, obserror text, es_con_migracion integer, resultado_migracion integer) \n" +
                         " where t.idcompras = r.idcompras and t.es_con_migracion = r.es_con_migracion; \n" +
@@ -2769,7 +2766,7 @@ namespace Contasis
     " t.created_at::date, t.updated_at::date,    \n" +
     " coalesce(trim(t.estado), ''),    \n" +
     " coalesce(trim(t.en_ambiente_de), ''),  \n" +  
-    " case when t.estado = 'CANCELADO' then 0 else 3 end, '', \n" +
+    " case when  trim(t.estado) = 'CANCELADO' then 0 else 3 end, '', \n" +
     " coalesce(cast(t.es_anticipo_automatico as integer) ,0) as es_anticipo_automatico \n" +
     " FROM json_to_recordset(v_data)  \n" +
     " as t( \n" +
@@ -2814,7 +2811,7 @@ namespace Contasis
     "     where v.idcobranzas is null; \n" +
     "                 --Modificados \n" +
     "     update fin_cobranzapago v \n" +
-    "     set es_con_migracion =case when t.estado = 'CANCELADO' then 0 else 3 end,    \n" +
+    "     set es_con_migracion =case when trim(t.estado) = 'CANCELADO' then 0 else 3 end,    \n" +
     "     estado = t.estado \n" +
     "     from json_to_recordset(v_data) \n" +
     " as t (id integer, estado character varying(255), es_con_migracion boolean )        \n" +
@@ -2834,12 +2831,6 @@ namespace Contasis
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-
-
-
-
-
-
                 #region fn_integracion_cobranza_importar
 
                 NombreSP = "fn_integracion_cobranzafm_importar";
@@ -2932,26 +2923,26 @@ namespace Contasis
     "  nimpperc character varying(50),    \n" +
     "  nperdenre character varying(50),    \n" +
     "  cserre character varying(50),    \n" +
-    " cnumre character varying(50),    \n" +
-    " ffecre character varying(50),    \n" +
+    "  cnumre character varying(50),    \n" +
+    "  ffecre character varying(50),    \n" +
     "  created_at timestamp without time zone,    \n" +
-    "   updated_at timestamp without time zone,    \n" +
-    "   estado character varying(50),    \n" +
-    "     en_ambiente_de character varying(255),    \n" +
-    "         es_con_migracion boolean, \n" +
-    "         comprobante_item_id character varying(40), \n" +
-    "         es_anticipo_automatico boolean   )\n" +
-    "     left join fin_cobranzapago v on t.id = v.idcobranzas \n" +
-    "     where v.idcobranzas is null; \n" +
+    "  updated_at timestamp without time zone,    \n" +
+    "  estado character varying(50),    \n" +
+    "  en_ambiente_de character varying(255),    \n" +
+    "  es_con_migracion boolean, \n" +
+    "  comprobante_item_id character varying(40), \n" +
+    "  es_anticipo_automatico boolean   )\n" +
+    "     left join fin_cobranzafm v on t.id = v.idcobranzasfm \n" +
+    "     where v.idcobranzasfm is null; \n" +
     "                 --Modificados \n" +
-    "     update fin_cobranzapago v \n" +
+    "     update fin_cobranzafm v \n" +
     "     set es_con_migracion =case when t.estado = 'CANCELADO' then 0 else 3 end,    \n" +
     "     estado = t.estado \n" +
     "     from json_to_recordset(v_data) \n" +
     " as t (id integer, estado character varying(255), es_con_migracion boolean )        \n" +
-    " where v.idcobranzas = t.id; \n" +
+    " where v.idcobranzasfm = t.id; \n" +
     "                 --resultado de confirmacion.    \n" +
-    " select json_agg(json_build_object('idcobranzas', id, 'es_con_migracion', es_con_migracion))::text \n" +
+    " select json_agg(json_build_object('idcobranzasfm', id, 'es_con_migracion', es_con_migracion))::text \n" +
     " from json_to_recordset(v_data) \n" +
     " as t (id integer, es_con_migracion boolean) \n" +
     " into resultado; \n" +
@@ -2965,23 +2956,6 @@ namespace Contasis
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 #region fn_ventas_envio
                 NombreSP = "fn_ventas_envio";
@@ -3064,7 +3038,7 @@ namespace Contasis
                         "         join configuracion ON fin_ventas.CCOD_EMPRESA = configuracion.CCOD_EMPRESA and fin_ventas.CPER = configuracion.CPER   \n" +
                         "         join CG_EMPRESA emp on fin_ventas.ccodrucemisor = emp.ccodrucemisor and fin_ventas.ccod_empresa = emp.CCOD_EMPRESA  \n" +
                         "         join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1::bit     \n" +
-                        "         where   fin_ventas.ccodrucemisor= p_ruc_emisor::character(15) \n" +
+                        "         where    trim(fin_ventas.ccodrucemisor)= trim(p_ruc_emisor)::character(15) \n" +
                         "             and fin_ventas.ccod_empresa = p_empresa::character(3) \n" +
                         "             and es_con_migracion in (0, 3) \n" +
                         "             and configuracion.ctipo = '01'  \n" +

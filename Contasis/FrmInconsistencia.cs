@@ -42,6 +42,9 @@ namespace Contasis
         private void FrmInconsistencia_Load(object sender, EventArgs e)
         {
             this.ruc();
+            this.dataGridView2.Rows.Clear();
+            this.dataGridView2.DataSource = null;
+            dataGridView2.AllowUserToAddRows = false;
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -697,8 +700,11 @@ namespace Contasis
         }
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView2.Rows[0].Cells[1].Value == null)
-            { }
+            if (dataGridView2.RowCount == 0)
+            {
+                MessageBox.Show("No existe Información de Inconsistencias para Mostrar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             else
             {
                 try
@@ -715,8 +721,11 @@ namespace Contasis
         {
             try
             {
-                if (dataGridView2.Rows[0].Cells[1].Value == null)
-                { }
+                if (dataGridView2.RowCount == 0)
+                {
+                    MessageBox.Show("No existe Información de Inconsistencias para Mostrar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
                 else
                 {
                     txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
@@ -730,8 +739,11 @@ namespace Contasis
         {
             try
             {
-                if (dataGridView2.Rows[0].Cells[1].Value == null)
-                { }
+                if (dataGridView2.RowCount == 0)
+                {
+                    MessageBox.Show("No existe Información de Inconsistencias para Mostrar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                 }
                 else
                 {
                     txtLista.Text = dataGridView2.CurrentRow.Cells["obserror"].Value.ToString();
@@ -743,8 +755,11 @@ namespace Contasis
         }
         private void dataGridView2_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView2.Rows[0].Cells[1].Value == null)
-            { }
+            if (dataGridView2.RowCount == 0)
+            {
+                MessageBox.Show("No existe Información de Inconsistencias para Mostrar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return; 
+             }
             else
             {
                 try
@@ -758,8 +773,11 @@ namespace Contasis
         }
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView2.Rows[0].Cells[1].Value == null)
-            { }
+            if (dataGridView2.RowCount == 0)
+            {
+                MessageBox.Show("No existe Información de Inconsistencias para Mostrar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             else
             {
                 txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
@@ -854,14 +872,34 @@ namespace Contasis
 
         private void dataGridView2_Click(object sender, EventArgs e)
         {
-            if (dataGridView2.Rows[0].Cells[1].Value == null)
-            { }
-            else
+            if (dataGridView2 == null || dataGridView2.Rows.Count == 0 || dataGridView2.Columns.Count == 0)
+            { 
+             MessageBox.Show("No existe Información de Inconsistencias para Mostrar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+
+            }
+                else
             {
+                if (cmbrucemisor.Text == null)
+                {
+                    MessageBox.Show("Seleccionar el ruc.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
-                txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
-                Refresh();
+                if (cmbempresas.Text == null)
+                {
+                    MessageBox.Show("Seleccionar la empresa asociada al ruc.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
+
+                else
+
+                {
+
+                    txtLista.Text = Convert.ToString(dataGridView2.SelectedRows[0].Cells[49].Value).Trim();
+                    Refresh();
+                }
 
             }
         }

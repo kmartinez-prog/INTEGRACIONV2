@@ -130,7 +130,7 @@ namespace Contasis
             this.checkSeleccionar.Enabled = false;
             this.checkSeleccionar.Location = new System.Drawing.Point(11, 47);
             this.checkSeleccionar.Name = "checkSeleccionar";
-            this.checkSeleccionar.Size = new System.Drawing.Size(121, 19);
+            this.checkSeleccionar.Size = new System.Drawing.Size(106, 17);
             this.checkSeleccionar.TabIndex = 2;
             this.checkSeleccionar.Text = "Seleccionar todo";
             this.checkSeleccionar.UseVisualStyleBackColor = true;
@@ -153,7 +153,7 @@ namespace Contasis
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(6, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(191, 13);
+            this.label1.Size = new System.Drawing.Size(169, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "Seleccionar Motivo para marcar ";
             // 
@@ -267,7 +267,7 @@ namespace Contasis
             this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column1.Width = 55;
+            this.Column1.Width = 51;
             // 
             // Column2
             // 
@@ -301,7 +301,7 @@ namespace Contasis
             this.Column5.HeaderText = "FECHA DE VENCIMIENTO O FECHA DE PAGO";
             this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
-            this.Column5.Width = 160;
+            this.Column5.Width = 144;
             // 
             // Column6
             // 
@@ -310,7 +310,7 @@ namespace Contasis
             this.Column6.HeaderText = "TIPO COMPROBANTE";
             this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
-            this.Column6.Width = 145;
+            this.Column6.Width = 131;
             // 
             // Column7
             // 
@@ -319,7 +319,7 @@ namespace Contasis
             this.Column7.HeaderText = "SERIE";
             this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
-            this.Column7.Width = 72;
+            this.Column7.Width = 64;
             // 
             // Column8
             // 
@@ -328,7 +328,7 @@ namespace Contasis
             this.Column8.HeaderText = "NUMERO";
             this.Column8.MinimumWidth = 6;
             this.Column8.Name = "Column8";
-            this.Column8.Width = 91;
+            this.Column8.Width = 80;
             // 
             // Column9
             // 
@@ -672,7 +672,7 @@ namespace Contasis
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(16, 442);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 13);
+            this.label2.Size = new System.Drawing.Size(113, 12);
             this.label2.TabIndex = 19;
             this.label2.Text = "Total de Registros : 0";
             // 
@@ -682,6 +682,7 @@ namespace Contasis
             this.txtLista.Location = new System.Drawing.Point(453, 475);
             this.txtLista.Multiline = true;
             this.txtLista.Name = "txtLista";
+            this.txtLista.ReadOnly = true;
             this.txtLista.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtLista.Size = new System.Drawing.Size(494, 101);
             this.txtLista.TabIndex = 20;
@@ -691,7 +692,7 @@ namespace Contasis
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(22, 118);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(130, 15);
+            this.label25.Size = new System.Drawing.Size(112, 13);
             this.label25.TabIndex = 22;
             this.label25.Text = "Seleccione ruc Emisor";
             // 
@@ -710,7 +711,7 @@ namespace Contasis
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(388, 118);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 15);
+            this.label3.Size = new System.Drawing.Size(104, 13);
             this.label3.TabIndex = 23;
             this.label3.Text = "Seleccione Empresa";
             // 

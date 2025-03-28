@@ -17,7 +17,7 @@ namespace Contasis.Clase
     public class ValidarVersion
     {
         private readonly HttpClient httpClient;
-        private readonly string VersionApp = "25.0.02";
+        private readonly string VersionApp = "25.0.03";
 
         private readonly string UrlVersion = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/version.txt?v=" + DateTime.Now.ToString("ddMMyyyyHHmmss");
         

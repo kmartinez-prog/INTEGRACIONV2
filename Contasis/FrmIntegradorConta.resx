@@ -200,7 +200,7 @@ begin
         case when trim(coalesce(ffecre2, ''))='' then null else ffecre2::date end, 
         coalesce(replace(ccodpresu, chr(141), ''),'') as ccodpresu,
         nigv,
-        coalesce(replace(cglosa, chr(141), ''),'') as cglosa,
+        coalesce(replace(cglosa, chr(141), ''),'') ::varchar(80) as cglosa,
         coalesce(nperdenre,0.00) as nperdenre,
         coalesce(nbaseres,0.00) as nbaseres,
         coalesce(replace(cigvxacre, chr(141), ''),'') as cigvxacre, 
@@ -277,7 +277,7 @@ begin
         ffecre2 text, --date,
         ccodpresu character(10),
         nigv numeric(5,2),
-        cglosa character(50),
+        cglosa Text,
         nperdenre numeric(15,2),
         nbaseres numeric(15,2),
         cigvxacre character(1),
@@ -385,7 +385,7 @@ begin
 		case when ffecre='' then null else ffecre::date end ffecre,
 		coalesce(replace(ccodpresu, chr(141), ''),'') as ccodpresu,
 		coalesce(nigv,0.00) as nigv, 
-		coalesce(replace(cglosa, chr(141), ''), '') as cglosa,
+		coalesce(replace(cglosa, chr(141), ''), '') ::varchar(80) as cglosa,
 		coalesce(replace(ccodpago, chr(141), ''),'') as ccodpago,
 		coalesce(nperdenre,0) as nperdenre,
 		coalesce(nbaseres,0.00) as nbaseres,
@@ -455,7 +455,7 @@ begin
         ffecre character(10),
         ccodpresu character(10),
         nigv numeric(5,2),
-        cglosa character(80),
+        cglosa Text,
         ccodpago character(3),
         nperdenre numeric(1,0),
         nbaseres numeric(15,2),
@@ -7231,7 +7231,11 @@ $BODY$
 </value>
   </data>
   <data name="txtasientoventas1.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION public.fin_compras_integracion_principal(
+    <value>-- FUNCTION: public.fin_ventas_integracion_principal()
+
+-- DROP FUNCTION IF EXISTS public.fin_ventas_integracion_principal();
+
+CREATE OR REPLACE FUNCTION public.fin_ventas_integracion_principal(
 	)
     RETURNS void
 AS $BODY$
@@ -7241,7 +7245,7 @@ DECLARE
 	    RW RECORD;
 	    rwperproceso record; 
 	    rwemp record; 
-	    rw2 record; 
+	    rw2 record;  
 	    rwnumerado  record;
 	    rwctualizasubdiario record;
 	    rwanuladoc  record;
@@ -7272,90 +7276,40 @@ DECLARE
 	    vctipdoc character(1);
 	    vccodruc character(15);
 	    vxcctatot character(10);
+	    varsoloventas integer;
+	    VARRESUMIR integer;
 	    varcentro2 integer;
 	    varpresupuestos integer;
             nreturn integer=0;
             vcPerproceso char(4); 
 			varccodenti char(4);
 			varcdesenti char(100);
+			varBeneficio Integer;
 	
 BEGIN
+
 	varcentro2=0;
-	-- Validaciones fin_compras
-	-- Insetandoi entidades 
-	
-/*****************************************validad empresa ****************************************/
-Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Codigo no corresponde a la empresa Emisor.'), 
-		resultado_migracion = 2  
-		where  FIN_COMPRAS.idcompras in (
-select idcompras from FIN_COMPRAS where ccod_empresa not in (select substr(current_database(),10,3))
-);
-	
-/******************************** entidades validaciones *************************************************/	
-	
-	/***** 05/12/2024 actualizacion de funcion para evitar ruc duplicados con diferente razon social*******************/
-	Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Ruc duplicado con descripcion o tipo de doc.diferente'), 
-		resultado_migracion = 2  
-		where  FIN_COMPRAS.ccodruc in(
-		select ccodruc  from (
-		select ccodruc,crazsoc, ctipdoc,CNATJUR,count(*) as cnt  from (
-		select DISTINCT ccodruc,crazsoc, ctipdoc,case 
-			when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
-			when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)in('10','15') then '1'
-			when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
-			when trim(ctipdoc)='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
-			when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
-			when ctipdoc='7' then '1'		
-			when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
-			when ctipdoc='4' and Length(ltrim(ccodruc))&lt;11  then '3' else '0'
-			 END ::CHAR(1) AS CNATJUR  FROM FIN_COMPRAS
-			 WHERE crazsoc NOT LIKE('%ANULAD%') 
-		) as data where data.ccodruc not in (select ccodruc from cg_entitrib) group by ccodruc,crazsoc, ctipdoc,CNATJUR ) 
-			as cliente where cnt&gt;1); 
-	
-	
-	
+	-- Validaciones fin_ventas
+	-- Insetandoi entidades 	
+	insert into cg_entidad (ccodenti, cdesenti, ccodtipent) 
+	select distinct ccodenti, cdesenti, ccodtipent from fin_ventas where ccodenti not in (select ccodenti from cg_entidad); 
+	-- insertando entidades tributarias 
+	insert into cg_entitrib (ccodruc,crazsoc,ctipdoc,CNATJUR,ccodtipent) 
+	select DISTINCT ccodruc,crazsoc,ctipdoc,case 
+	when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
+	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='10' then '1'
+	when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
+	when ctipdoc='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
+	when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
+	when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
+	 END ::CHAR(1) AS CNATJUR,ccodtipent   FROM FIN_VENTAS
+	 WHERE crazsoc NOT LIKE('%ANULAD%') AND    ccodruc not in (select ccodruc from cg_entitrib); 
 
-	Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Razon social(crazoc) no puede estar vacio'), 
-		resultado_migracion = 2  
-		where  FIN_COMPRAS.crazsoc='';
-	
-	Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Ruc o codigo de Identidad(ccodruc) no puede estar vacio'), 
-		resultado_migracion = 2  
-		where  FIN_COMPRAS.ccodruc='';
+	for rwperproceso in select distinct cper as cperproceso from fin_ventas loop 	
 
-	Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Tipos de Identidad(ctipdoc) no puede estar vacio'), 
-		resultado_migracion = 2  
-		where  FIN_COMPRAS.ctipdoc='';
-
-
-
-	/***** 05/12/2024 actualizacion de funcion para evitar ruc duplicados con diferente razon social*******************/
-	Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-','Ruc duplicado con descripcion o tipo de doc.diferente'), 
-		resultado_migracion = 2  
-		where  FIN_COMPRAS.ccodruc in(
-		select ccodruc  from (
-		select ccodruc,crazsoc, ctipdoc,CNATJUR,count(*) as cnt  from (
-		select DISTINCT ccodruc,crazsoc, ctipdoc,case 
-			when ctipdoc='1' and Length(ltrim(ccodruc))=8 then '1'
-			when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)in('10','15') then '1'
-			when ctipdoc='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
-			when trim(ctipdoc)='0' and Length(ltrim(ccodruc))&lt;=15  then '3'
-			when ctipdoc='7' and Length(ltrim(ccodruc))=12  then '1'
-			when ctipdoc='7' then '1'		
-			when ctipdoc='4' and Length(ltrim(ccodruc))=12  then '1'
-			when ctipdoc='4' and Length(ltrim(ccodruc))&lt;11  then '3' else '0'
-			 END ::CHAR(1) AS CNATJUR  FROM FIN_COMPRAS
-			 WHERE crazsoc NOT LIKE('%ANULAD%') 
-		) as data where data.ccodruc not in (select ccodruc from cg_entitrib) group by ccodruc,crazsoc, ctipdoc,CNATJUR ) 
-			as cliente where cnt&gt;1); 
-	
-
-	for rwperproceso in select distinct cper as cperproceso from fin_compras loop 	
-		
-		-- propiedades de empresa por periodos 
-		---cg_emppro.ccodenti
-		for rwemp in select cper, cctaigv, ccueimp2c, ccueimp3c, cctaigvxacre, cctaper, cctagan,cctaisc,ncencosalt,cg_emppro.ccodenti ,cdesenti
+	-- propiedades de empresa por periodos 
+		for rwemp in select cper, cctaigv, ccueimp2c, ccueimp3c, cctaigvxacre, cctaper, cctagan,cctaisc,ncencosalt,
+		cg_emppro.ccodenti ,cdesenti,nflgBene
 			from cg_emppro  inner join cg_entidad on   cg_emppro.ccodenti =cg_entidad.ccodenti where cper = rwperproceso.cperproceso loop
 		
 		    varigv = rwemp.cctaigv ;
@@ -7370,145 +7324,149 @@ select idcompras from FIN_COMPRAS where ccod_empresa not in (select substr(curre
 		    varctaisc =  rwemp.cctaisc;    
 		    varcentro2 =  rwemp.ncencosalt;   
 		    varpresupuestos  =  0; 
-			varccodenti	= rwemp.ccodenti;
-			varcdesenti	= rwemp.cdesenti;				
-	  	end loop; 
-		update fin_compras set ccodenti=varccodenti,cdesenti=varcdesenti;
-		
-			
+			varccodenti	= rwemp.ccodenti;	
+			varcdesenti	= rwemp.cdesenti;	
+			varBeneficio=  rwemp.nflgBene;
+		end loop; 
+		update fin_ventas set ccodenti=varccodenti,cdesenti=varcdesenti;
 
-		if rwemp.ncencosalt=1  then	
-			update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CTRO DE COSTO2 NO PUEDE ESTA VACIO&lt;REV.PROP.EMPRESA&gt;') ,  resultado_migracion = 2 
-		where  ltrim(fin_compras.ccodcos2) ='' ;
-		END IF ;
-
-
-		-- Validar serie no vacia
-		Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-',' Serie no puede estar vacia, valor obligatorio'), 
-		resultado_migracion = 2  
-		where  FIN_COMPRAS.cserie='';
-
-		-- Validar Numero no vacia
-		Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-',' Numero de serie no puede estar vacia, valor obligatorio'), 
-		resultado_migracion = 2  
-		where  FIN_COMPRAS.cnumero='';
-
-		Update  FIN_COMPRAS set obserror=CONCAT(ltrim(obserror),'-',' Tipo de doc.(ccoddoc) estar vacia, valor obligatorio'), 
-		resultado_migracion = 2  
-		where  FIN_COMPRAS.cnumero='';
-
-
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' Tipo de documento(ccoddoc) NO EXISTE ') ,  resultado_migracion = 2 
-		where  fin_compras.cper=rwperproceso.cperproceso and   fin_compras.es_con_migracion=0 and  fin_compras.ccoddoc&lt;&gt;' ' AND idcompras not in(
-		Select idcompras From fin_compras inner join cg_doc on
-		fin_compras.ccoddoc=cg_doc.ccoddoc  WHERE  fin_compras.cper=rwperproceso.cperproceso); 
-
-
--------select *  from fin_compras where   ltrim(fin_compras.cctabase) in (select rtrim(ccodcue)  from cf_plan where cf_plan.cper='2024' and cf_plan.nafepre=1 );
----select * from cf_plan where cf_plan.cper='2024' and cf_plan.nafepre=2  
 		
 		-- Validar cctabase,cctaicbper cctaotrib, cctatot, ccodcos, ccodcos2,	
-		Update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' Codigo de Presupuesto esta vacío'), resultado_migracion = 2  
-		where  fin_compras.ccodpresu='' and fin_compras.cctabase in (select ccodcue  from cf_plan where cf_plan.cper=rwperproceso.cperproceso and cf_plan.nafepre=2);
+		Update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Codigo de Presupuesto no debe estar vacio, la cuenta obliga'), 
+		resultado_migracion = 2  
+		where  fin_ventas.ccodpresu='' and fin_ventas.cctabase in 
+		(select ccodcue  from cf_plan where cf_plan.cper=rwperproceso.cperproceso and cf_plan.nafepre=2 );
+
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE IMPONIBLE NO EXISTE '), 
+		resultado_migracion = 2  
+		where fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.es_con_migracion=0 and  
+		concat(ccoddoc,cserie,cnumero,ccodruc) not in(
+		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc) From fin_ventas inner join cf_plan on
+			fin_ventas.cper=cf_plan.cper and 
+			fin_ventas.cctabase=cf_plan.ccodcue where fin_ventas.cper=rwperproceso.cperproceso group by concat(ccoddoc,cserie,cnumero,ccodruc)); 
+
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE ICBPER NO EXISTE '),  resultado_migracion = 2 
+		where  fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.es_con_migracion=0  and  fin_ventas.cctaicbper&lt;&gt;' '  
+		AND concat(ccoddoc,cserie,cnumero,ccodruc)  not in(
+		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc)  From fin_ventas inner join cf_plan on
+		fin_ventas.cper=cf_plan.cper and 
+		fin_ventas.cctaicbper=cf_plan.ccodcue  WHERE  fin_ventas.cper=rwperproceso.cperproceso and fin_ventas.cctaicbper&lt;&gt;' ' group by concat(ccoddoc,cserie,cnumero,ccodruc) );
+
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE OTROS TRIBUTOS Y CARGOS NO EXISTE ') ,  
+		resultado_migracion = 2 
+		where fin_ventas.cper=rwperproceso.cperproceso and  es_con_migracion=0 and fin_ventas.cctaotrib&lt;&gt;' ' 
+		AND concat(ccoddoc,cserie,cnumero,ccodruc) not in(
+		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc) From fin_ventas inner join cf_plan on
+			fin_ventas.cper=cf_plan.cper and 
+			fin_ventas.cctaotrib=cf_plan.ccodcue  WHERE  fin_ventas.cper=rwperproceso.cperproceso  and fin_ventas.cctaotrib&lt;&gt;' ' group by concat(ccoddoc,cserie,cnumero,ccodruc));
+
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE TOTAL NO EXISTE '),  resultado_migracion = 2 
+		where fin_ventas.cper=rwperproceso.cperproceso and  es_con_migracion=0 and  concat(ccoddoc,cserie,cnumero,ccodruc) 
+		not in(
+		Select distinct concat(ccoddoc,cserie,cnumero,ccodruc)  From fin_ventas inner join cf_plan on
+			fin_ventas.cper=cf_plan.cper and 
+			fin_ventas.cctatot=cf_plan.ccodcue 
+			WHERE  fin_ventas.cper=rwperproceso.cperproceso
+			group by concat(ccoddoc,cserie,cnumero,ccodruc)); 
+
+		if varBeneficio=1 then
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Ctro DE COSTO Benef.NO EXISTE ') ,  resultado_migracion = 2 
+		where  fin_ventas.cper=rwperproceso.cperproceso and  fin_ventas.es_con_migracion=0
+		and concat(ccoddoc,cserie,cnumero,ccodruc)  in(
+		SELECT DISTINCT concat(ccoddoc,cserie,cnumero,ccodruc) 
+		FROM FIN_VENTAS V LEFT JOIN CG_COSTOS_beneficiosl C ON
+		LTRIM(V.ccodcos)=LTRIM(C.ccodcos)
+		where v.cper=rwperproceso.cperproceso and TRIM(coalesce(V.ccodcos,''))='' AND coalesce(C.ccodcos,'ERROR')='ERROR');
+			
+		else	
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTRO DE COSTO NO EXISTE ') ,  resultado_migracion = 2 
+		where  fin_ventas.cper=rwperproceso.cperproceso and  fin_ventas.es_con_migracion=0
+		and concat(ccoddoc,cserie,cnumero,ccodruc)  in(
+		SELECT DISTINCT concat(ccoddoc,cserie,cnumero,ccodruc) 
+		FROM FIN_VENTAS V LEFT JOIN CG_COSTOS C ON
+		LTRIM(V.ccodcos)=LTRIM(C.ccodcos)
+		where v.cper=rwperproceso.cperproceso and  V.ccodcos&lt;&gt;'' AND coalesce(C.ccodcos,'ERROR')='ERROR'); 
+
+		end if;
+
+		if varcentro2=0  then	
+			update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 ES NECESARIO POR SU CONFIGURACION') ,  es_con_migracion = 2 
+			where  fin_ventas.ccodcos2&lt;&gt;'' ;
+		END IF ;
+
+		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 NO EXISTE ') ,  resultado_migracion = 2 
+		where  fin_ventas.cper=rwperproceso.cperproceso and  fin_ventas.es_con_migracion=0
+		and concat(ccoddoc,cserie,cnumero,ccodruc)  in(
+		SELECT DISTINCT concat(ccoddoc,cserie,cnumero,ccodruc) 
+		FROM FIN_VENTAS V LEFT JOIN CG_COSTOS2 C ON
+		LTRIM(V.ccodcos2)=LTRIM(C.ccodcos2)
+		where cper=rwperproceso.cperproceso and  V.ccodcos2&lt;&gt;'' AND coalesce(C.ccodcos2,'ERROR')='ERROR'); 
+
 		
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE IMPONIBLE NO EXISTE '), resultado_migracion = 2  
-		where fin_compras.cper=rwperproceso.cperproceso and fin_compras.es_con_migracion=0 and  idcompras not in(
-		Select idcompras From fin_compras inner join cf_plan on
-			fin_compras.cper=cf_plan.cper and 
-			fin_compras.cctabase=cf_plan.ccodcue where fin_compras.cper=rwperproceso.cperproceso); 
-
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE BASE ICBPER NO EXISTE '),  resultado_migracion = 2 
-		where  fin_compras.cper=rwperproceso.cperproceso and fin_compras.es_con_migracion=0  and  fin_compras.cctaicbper&lt;&gt;' '  AND idcompras not in(
-		Select idcompras From fin_compras inner join cf_plan on
-		fin_compras.cper=cf_plan.cper and 
-		fin_compras.cctaicbper=cf_plan.ccodcue  WHERE  fin_compras.cper=rwperproceso.cperproceso and fin_compras.cctaicbper&lt;&gt;' '  );
-
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE OTROS TRIBUTOS Y CARGOS NO EXISTE ') ,  resultado_migracion = 2 
-		where fin_compras.cper=rwperproceso.cperproceso and  es_con_migracion=0 and fin_compras.cctaotrib&lt;&gt;' ' AND idcompras not in(
-		Select idcompras From fin_compras inner join cf_plan on
-			fin_compras.cper=cf_plan.cper and 
-			fin_compras.cctaotrib=cf_plan.ccodcue  WHERE  fin_compras.cper=rwperproceso.cperproceso  and fin_compras.cctaotrib&lt;&gt;' ');
-
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-','CAMPO NEXO ESTA CON IMP. PERO SU  CUENTA OTROS TRIBUTOS Y CARGOS ESTA VACIO ') ,  resultado_migracion = 2 
-		where fin_compras.cper=rwperproceso.cperproceso  and  es_con_migracion=0 AND fin_compras.NEXO &gt;0 AND fin_compras.cctaotrib='';
-
-
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CUENTA CONTABLE TOTAL NO EXISTE '),  resultado_migracion = 2 
-		where fin_compras.cper=rwperproceso.cperproceso and  es_con_migracion=0 and  idcompras not in(
-		Select idcompras From fin_compras inner join cf_plan on
-			fin_compras.cper=cf_plan.cper and 
-			fin_compras.cctatot=cf_plan.ccodcue WHERE  fin_compras.cper=rwperproceso.cperproceso); 
-
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CENTRO DE COSTO NO EXISTE ') ,  resultado_migracion = 2 
-		where  fin_compras.cper=rwperproceso.cperproceso and   fin_compras.es_con_migracion=0 and  fin_compras.ccodcos&lt;&gt;' ' AND idcompras not in(
-		Select idcompras From fin_compras inner join CG_COSTOS on
-		fin_compras.ccodcos=CG_COSTOS.ccodcos  WHERE  fin_compras.cper=rwperproceso.cperproceso); 
-
-		update  fin_compras set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 NO EXISTE ') ,  resultado_migracion = 2 
-		where  fin_compras.cper=rwperproceso.cperproceso and   fin_compras.es_con_migracion=0 and  fin_compras.ccodcos2&lt;&gt;' ' and idcompras not in(
-		Select idcompras From fin_compras inner join CG_COSTOS2 on
-		fin_compras.ccodcos2=CG_COSTOS2.ccodcos2  WHERE  fin_compras.cper=rwperproceso.cperproceso); 
-
-		
-		
-
 		
 
 		-- Cursor vucara documentos existentes drop table documentoexistentes 
 		
 		DROP TABLE IF EXISTS documentoexistentes;
 		create temp table documentoexistentes as 
-		select cper, cmes, ccodori, nasiento, ncomp,ccoddoc, cserie, cnumero, ccodruc 
-		--from cf_diariol where cper = '2024' and ncomp = 1;
+		select cper, cmes, ccodori, nasiento, ncomp,ccoddoc, cserie, cnumero    ----, ccodruc 
+		---from cf_diariol where cper = '2024' and cmes='08' and ncomp = 1;
 		from cf_diariol where cper = rwperproceso.cperproceso and ncomp = 1; 
 		
 
 		---- para evitar duplicados	
-		update fin_compras set obserror=CONCAT(ltrim(obserror),'-','ya registrado'),  resultado_migracion = 1  
-		where cper=rwperproceso.cperproceso and concat(ccoddoc,cserie,cnumero,ccodruc)  
-			in( select concat(ccoddoc,cserie,cnumero,ccodruc) from documentoexistentes 
-				where concat(ccoddoc,cserie,cnumero,ccodruc) in(select concat(ccoddoc,cserie,cnumero,ccodruc) from fin_compras where cper=rwperproceso.cperproceso and  es_con_migracion=0 ) );
+		update fin_ventas set obserror=CONCAT(ltrim(obserror),'-','ya registrado'),  resultado_migracion = 1  
+		where cper=rwperproceso.cperproceso and concat(ccoddoc,cserie,cnumero)  
+			in( select concat(ccoddoc,cserie,cnumero) from documentoexistentes 
+				where concat(ccoddoc,cserie,cnumero) in(select concat(ccoddoc,cserie,cnumero) from fin_ventas where cper=rwperproceso.cperproceso and  es_con_migracion=0 ) );
 
 		---- para evitar duplicados	 
-		/*update fin_compras set  nflgexisteanular  =  1 
+		/*update fin_ventas set  nflgexisteanular  =  1 
 		where cper=rwperproceso.cperproceso and concat(ccoddoc,cserie,cnumero,ccodruc)  
 			in( select concat(ccoddoc,cserie,cnumero,ccodruc) from documentoexistentes 
-				where concat(ccoddoc,cserie,cnumero,ccodruc) in(select concat(ccoddoc,cserie,cnumero,ccodruc) from fin_compras where cper=rwperproceso.cperproceso and  es_con_migracion=3 ) );
+				where concat(ccoddoc,cserie,cnumero,ccodruc) in(select concat(ccoddoc,cserie,cnumero,ccodruc) from fin_ventas where cper=rwperproceso.cperproceso and  resultado_migracion=3 ) );
 		*/
 		
-		update fin_compras 
+		update fin_ventas 
 		set nflgexisteanular  =  1 
-		from (select a.ccoddoc, a.cserie, a.cnumero, a.ccodruc from documentoexistentes a
-				inner join fin_compras b on a.ccoddoc = b.ccoddoc  and a.cserie = b.cserie and a.cnumero = b.cnumero and a.ccodruc = b.ccodruc and  es_con_migracion=3 
+		from (select a.ccoddoc, a.cserie, a.cnumero  from documentoexistentes a
+				inner join fin_ventas b on a.ccoddoc = b.ccoddoc  and a.cserie = b.cserie and a.cnumero = b.cnumero  and  es_con_migracion=3 
 		) anu 
-		where fin_compras.ccoddoc = anu.ccoddoc  and fin_compras.cserie = anu.cserie and fin_compras.cnumero = anu.cnumero and fin_compras.ccodruc = anu.ccodruc; 
+		where fin_ventas.ccoddoc = anu.ccoddoc  and fin_ventas.cserie = anu.cserie and fin_ventas.cnumero = anu.cnumero ; 
 
 		/*
 		--- para evitar anulados
-		update fin_compras set obserror=CONCAT(ltrim(obserror),'-','ya anulado') ,  resultado_migracion = 4 
+		update fin_ventas set obserror=CONCAT(ltrim(obserror),'-','ya anulado') ,  resultado_migracion = 4 
 		where cper=rwperproceso.cperproceso and concat(ccoddoc,cserie,cnumero,ccodruc)  in(
 		 select concat(ccoddoc,cserie,cnumero,ccodruc) from cf_diariol 
 			where cper=rwperproceso.cperproceso and ccodruc IN(select ccodruc from cg_entitrib where nutianu=1) and concat(ccoddoc,cserie,cnumero,ccodruc) 
-		  in(select concat(ccoddoc,cserie,cnumero,ccodruc) from fin_compras where cper=rwperproceso.cperproceso and  es_con_migracion in(0,4) ));
+		  in(select concat(ccoddoc,cserie,cnumero,ccodruc) from fin_ventas where cper=rwperproceso.cperproceso and  resultado_migracion in(0,4) ));
 		  */
 
+		-- Validar si todo el documento esta sin error en sus registros 26/03/2025
+	    update fin_ventas
+		set resultado_migracion = 2,obserror=case when coalesce(obserror,'')='' then 'Se encontro incosintencia en alguno de los Item del documento.'  else obserror end
+		from(select ccoddoc, cserie, cnumero, ccodruc 
+			from fin_ventas 
+			where   trim(coalesce(obserror,'')) &lt;&gt; '' and     resultado_migracion = 2 ----es_con_migracion in(0,3) 
+			group by ccoddoc, cserie, cnumero, ccodruc
+		) derror 
+		where fin_ventas.ccoddoc = derror.ccoddoc  and fin_ventas.cserie = derror.cserie and 
+			fin_ventas.cnumero = derror.cnumero and  fin_ventas.ccodruc = derror.ccodruc; ---- and derror.obserror not like '%"ya registrado"%';
 
-	
-
-		
-		
-		
+		--select * from fin_ventas where resultado_migracion = 3
 		for rw in select distinct cper, cmes, ccodori, ccodori_p, ccodsu, ccodsu_p,ccodflu,flgctares,flgctaimp ,flgctaact,flggencomp  
-						FROM fin_compras  where cper =  rwperproceso.cperproceso and  trim(coalesce(obserror,'')) = ''  loop -- esten OK 
+						FROM fin_ventas  where cper =  rwperproceso.cperproceso and  trim(coalesce(obserror,'')) = ''  loop -- esten OK 
 
 						
-			varlreg = rw.ccodsu; --ccodsu,
+			varlreg     = rw.ccodsu; --ccodsu,
 			varlregcont = rw.ccodsu_p; --ccoddu_p,
 			varccodflu  = rw.ccodflu;
-			varpresua  = rw.flgctares;
-			varpresui  = rw.flgctaimp;
-			varpresur  = rw.flgctaact;
-			varsolocompra = rw.flggencomp;
+			varpresua   = rw.flgctares;
+			varpresui   = rw.flgctaimp;
+			varpresur   = rw.flgctaact;
+			varsoloventas = rw.flggencomp;
+			varresumir = 0; ----case when rw.ccond='CON' then  1 ELSE 0 END;
 
 			VCMAXASIENTO = 'SELECT NORIMES' || cast(rw.cmes as integer)::char(2) || ' AS NORIGEN FROM CF_ORIGENL WHERE CPER = ''' || rw.cper || ''' AND CCODORI = ''' || rw.ccodori ||'''' ;
 			for rw2 in EXECUTE VCMAXASIENTO	loop
@@ -7516,60 +7474,45 @@ select idcompras from FIN_COMPRAS where ccod_empresa not in (select substr(curre
 			end loop;
 
 			VCMAXASIENTO_p = 'SELECT NORIMES' || cast(rw.cmes as integer)::char(2) || ' AS NORIGEN FROM CF_ORIGENL WHERE CPER = ''' || rw.cper || ''' AND CCODORI = ''' || rw.ccodori_p ||'''' ;
-			for rw2 in EXECUTE VCMAXASIENTO_p loop
+			for rw2 in EXECUTE VCMAXASIENTO_p  loop
 				varmaxcob  = coalesce(RW2.NORIGEN,0);---- + 1; -- RW2.NORIGEN + 1;
 			end loop;
 
 			
 			
 			-- Truncar tabla Cada vez carga data por cada subdiario 		
-			truncate table cf_regcom_integra; 
+			truncate table cf_regven_integra; 
 
-			insert into cf_regcom_integra (idcompras,cper, cmes, ccodori, ccodsu, ccodori_p, ccodsu_p, ccodcue_ps, 
-			       ccodcue_pd, ccodflu, flgctares, flgctaimp, flgctaact, flggencomp, 
-			       ccodtipent, nasiento, ffechadoc, ffechaven, ccoddoc, ccoddas, 
-			       cyeardas, cserie, cnumero, 
-				   ccodenti, cdesenti, 
-				   ctipdoc, ccodruc, 
-			       crazsoc, ccodclas, nbase1, nigv1, nbase2, nigv2, nbase3, nigv3, 
-			       nina, nisc, nexo, ntots, cdocnodom, cnumdere, ffecre, ntc, freffec, 
-			       crefdoc, crefser, crefnum, cmreg, ndolar, ffechaven2, ccond, 
-			       cctabase, cctaotrib, cctatot, ccodcos, ccodcos2, nresp, nporre, 
-			       nimpres, cserre, cnumre, ffecre2, ccodpresu, nigv, cglosa, nperdenre, 
-			       nbaseres, incomp, 
-			       flaganalb, flaganalo, flaganalt, 
-			       flagccosb, flagccoso, flagccost, 
-			       flagpresub, flagpresuo, flagpresut, 
-			       nicbper, cctaicbper, cigvxacre,cctacobra)   ---79 campos
-
-			SELECT a.idcompras,a.cper, a.cmes, ccodori, ccodsu, ccodori_p, ccodsu_p, ccodcue_ps, 
-			       ccodcue_pd, ccodflu, flgctares, flgctaimp, flgctaact, flggencomp, 
-			       ccodtipent, 0 as nasiento, 
-			       ffechadoc, ffechadoc AS ffechaven, ccoddoc, ccoddas, 
-			       cyeardas, cserie, cnumero, 
-				   ccodenti, cdesenti, 
-				   ctipdoc, ccodruc, 
-			       crazsoc, ccodclas, nbase1, nigv1, nbase2, nigv2, nbase3, nigv3, 
-			       nina, nisc, nexo, ntots, cdocnodom, cnumdere, ffecre, ntc, freffec, 
-			       crefdoc, crefser, crefnum, cmreg, ndolar, ffechaven2,upper(ccond) as ccond, 
-			       cctabase, cctaotrib, cctatot, ccodcos, ccodcos2, nresp, nporre, 
-			       nimpres, cserre, cnumre, ffecre2, ccodpresu, nigv, cglosa, nperdenre, 
-			       nbaseres, 1 as incomp,		       
-			       b.NANACUE as flaganalb, 0 as flaganalo, d.NANACUE as flaganalt, 
-			       b.NAFECOS as flagccosb, 0 as flagccoso, d.NAFECOS as flagccost, 
-			       b.NAFEPRE  as flagpresub, 0  as flagpresuo, d.NAFEPRE  as flagpresut, 
-			       nicbper, cctaicbper, cigvxacre, 
-			       case when cmreg = 'S' then ccodcue_ps else  ccodcue_pd end as cctacobra
-			  FROM fin_compras a 
-			  inner join cf_plan b on b.cper = a.cper and a.cctabase = b.ccodcue    --ctabase
-			  left join cf_plan c on c.cper = a.cper and a.cctaotrib = c.ccodcue    --ctaotrib
-			  inner join cf_plan d on d.cper = a.cper and a.cctatot = d.ccodcue     --ctatotal
-			  where a.cper=rw.cper and a.ccodori = rw.ccodori and  
-			  trim(coalesce(a.obserror,'')) = ''
-				and es_con_migracion in(0,3) 
-				and nflgexisteanular = 0 
-			  order by a.ccoddoc,a.cserie,a.cnumero,a.ccodruc asc; 		   
-
+			INSERT INTO cf_regven_integra(cper,cmes,
+				    ffechadoc, ffechaven, ccoddoc, cserie, cnumero, ccodenti, cdesenti, 
+				    ctipdoc, ccodruc, crazsoc, nbase2, nbase1, nexo, nina, nisc, 
+				    nigv1, nbase3, ntots, ntc, freffec, crefdoc, crefser, crefnum, 
+				    cmreg, ndolar, ffechaven2, ccond, ccodcos, ccodcos2, cctabase, 
+				    cctaotrib, cctatot, nresp, nporre, nimpres, cserre, cnumre, ffecre, 
+				    ccodpresu, nigv, cglosa, ccodpago, nperdenre, nbaseres, cctaperc, 
+				    cctacobra, flaganalb, 
+				    flaganalo, flaganalt, flagccosb, flagccoso, flagccost, flagpresub, 
+				    flagpresuo, flagpresut, nasiento, 
+				    nicbpers, cctaicbper)
+			SELECT  a.cper,a.cmes,ffechadoc, ffechaven, ccoddoc,cserie, cnumero, ccodenti, cdesenti, 
+				    ctipdoc, ccodruc,crazsoc,  nbase2,nbase1, nexo,nina, nisc,
+				    nigv1,nbase3,ntots,ntc,freffec, crefdoc, crefser, crefnum, 
+				    cmreg, ndolar, ffechaven2,upper(ccond)  as ccond,  ccodcos, ccodcos2, cctabase, 
+				    cctaotrib,cctatot,nresp,nporre,nimpres,cserre,cnumre,ffecre,
+			        ccodpresu, nigv,cglosa,ccodpago,nperdenre,nbaseres,cctaperc,
+                    case when cmreg = 'S' then ccodcue_ps else  ccodcue_pd end as cctacobra,b.NANACUE as flaganalb,    
+			        0 as flaganalo, d.NANACUE as flaganalt,b.NAFECOS as flagccosb, 0 as flagccoso, d.NAFECOS as flagccost, 
+			        b.NAFEPRE  as flagpresub, 0  as flagpresuo, d.NAFEPRE  as flagpresut,0 as nasiento,
+			        nicbpers,cctaicbper
+			        FROM fin_ventas a 
+			        inner join cf_plan b on b.cper = a.cper and a.cctabase = b.ccodcue    --ctabase
+			        left join cf_plan c on c.cper = a.cper and a.cctaotrib = c.ccodcue    --ctaotrib
+			        inner join cf_plan d on d.cper = a.cper and a.cctatot = d.ccodcue     --ctatotal
+			        where a.cper=rw.cper and a.ccodori = rw.ccodori and  
+			        trim(coalesce(a.obserror,'')) = ''
+					and a.es_con_migracion in(0,3) and coalesce(a.resultado_migracion,0)=0 
+					and nflgexisteanular = 0 
+			        order by a.ccoddoc,a.cserie,a.cnumero,a.ccodruc asc; 		   
 
 			-- generar asiento 
 			vnumasiento=0;
@@ -7580,7 +7523,7 @@ select idcompras from FIN_COMPRAS where ccod_empresa not in (select substr(curre
 			vccodruc ='';
 			vxcctatot ='';
 
-			for rwnumerado in Select distinct ccoddoc,cserie,cnumero,ctipdoc,  ccodruc,cctatot from cf_regcom_integra 
+			for rwnumerado in Select distinct ccoddoc,cserie,cnumero,ctipdoc,  ccodruc,cctatot from cf_regven_integra 
 				group by ccoddoc,cserie,cnumero,ctipdoc,  ccodruc,cctatot  
 				order by ccoddoc,cserie,cnumero,ccodruc loop
 				
@@ -7598,53 +7541,54 @@ select idcompras from FIN_COMPRAS where ccod_empresa not in (select substr(curre
 					vccodruc =rwnumerado.ccodruc;
 					vxcctatot =rwnumerado.cctatot;
 					
-					update cf_regcom_integra set nasiento=vnumasiento where ccoddoc=vccoddoc and 
+					update cf_regven_integra set nasiento=vnumasiento where ccoddoc=vccoddoc and 
 					       cserie=vcserie and cnumero=vcnumero and ctipdoc=vctipdoc and ccodruc=vccodruc and
 					       cctatot=vxcctatot;
 					
 				END IF ;
 
 			end loop;
-			nreturn = ( select  * from fin_registro_compras_integracion_estandar( rw.cper,
-												    rw.cmes,
-												    rw.ccodori,
-												    varccodflu,
-												    varpresua,
-												    varpresui,
-												    varpresur,
-												    varsolocompra,
-												    varmax, -- nro Asiento Ultimo 
-												    varigv,
-												    varigv2,
-												    varigv3,
-												    varigvspot,
-												    varlreg,
-												    vardifp ,
-												    vardifpd,
-												    vardifph,
-												    vardifg,								
-												    varlregcont,
-												    rw.ccodori_p,
-												    varmaxcob,
-												    varctaisc))   ; 
+	
+
+ 			
+				nreturn = (SELECT * FROM fin_registro_ventas_integracion_estandar(rw.cper,
+												  rw.cmes,
+												  rw.ccodori,
+												  varccodflu,
+												  varpresua,
+												  varpresui,
+												  varpresur,
+												  varsoloventas, 
+												  varigv,
+												  varlreg,
+												  vardifp,
+												  vardifpd,
+												  vardifph,
+												  vardifg,				
+												  varmax,
+												  rw.ccodori_p,
+												  rw.ccodsu_p,
+												  varresumir,
+												  varmaxcob,
+												  varctaisc));	
 
 			end loop; 
 
 			
 
 			-- Actualiza registro procesado correctamente 
-			update fin_compras set resultado_migracion = 1 where es_con_migracion = 0 and idcompras in (select idcompras from cf_regcom_integra); 
+			update fin_ventas set resultado_migracion = 1 where es_con_migracion = 0 and coalesce(resultado_migracion,0)=0  and idventas in (select idventas from cf_regven_integra); 
 			
 			-- Actualizar los anulados a 4 
-			update fin_compras set resultado_migracion = 4 where es_con_migracion = 3 and trim(coalesce(obserror,'')) = '' ;  
+			update fin_ventas set resultado_migracion = 4 where es_con_migracion = 3 and trim(coalesce(obserror,'')) = '' ;  
 
 			-- anular Los registros 
-			--for rwanuladoc in select cper, ccoddoc, cserie, cnumero, ccodruc, ccodrucanula from fin_compras where es_con_migracion = 3 loop 
+			--for rwanuladoc in select cper, ccoddoc, cserie, cnumero, ccodruc, ccodrucanula from fin_ventas where resultado_migracion = 3 loop 
 			DROP TABLE IF EXISTS documentosAnula;
 			create temp table documentosAnula as 
 			select a.cper, a.cmes, a.ccodori, a.nasiento, a.ncomp,a.ccoddoc, a.cserie, a.cnumero, a.ccodruc, b.ccodrucanula 
 			from cf_diariol a
-			inner join fin_compras b  on a.ccoddoc = b.ccoddoc  and a.cserie = b.cserie and a.cnumero = b.cnumero and a.ccodruc = b.ccodruc 
+			inner join fin_ventas b  on a.ccoddoc = b.ccoddoc  and a.cserie = b.cserie and a.cnumero = b.cnumero and a.ccodruc = b.ccodruc 
 							and trim(coalesce(obserror,'')) = ''
 							and es_con_migracion = 3 
 			where a.cper = rwperproceso.cperproceso ; --and a.ncomp = 1; 
@@ -7652,31 +7596,27 @@ select idcompras from FIN_COMPRAS where ccod_empresa not in (select substr(curre
 			
 			for rwanuladoc in select cper, cmes, ccodori, nasiento, ncomp,ccoddoc, cserie, cnumero, ccodruc, ccodrucanula from documentosAnula  loop 
 				
-			---	update cf_diariol
-			---	set ccodruc = rwanuladoc.ccodrucanula,
-			---	       ndebe=0.00, nhaber=0.00, ndebes=0.00, nhabers=0.00, ndebed=0.00, 
-			---	       nhaberd=0.00, nbase1=0.00, nigv1=0.00, nbase2=0.00, nigv2=0.00, 
-			---	       nbase3=0.00, nigv3=0.00, nina=0.00, nexo=0.00, nisc=0.00, nivabase=0.00, nivaimp=0.00, 
-			---	       ntot=0.00, nbase1s=0.00, nigv1s=0.00, nbase2s=0.00, nigv2s=0.00, nbase3s=0.00, 
-			---	       nigv3s=0.00, ninas=0.00, nexos=0.00, niscs=0.00, nivabases=0.00, nivaimps=0.00, 
-			---	       ntots=0.00, nbase1d=0.00, nigv1d=0.00, nbase2d=0.00, nigv2d=0.00, nbase3d=0.00, 
-			---	       nigv3d=0.00, ninad=0.00, nexod=0.00, niscd=0.00, nivabased=0.00, nivaimpd=0.00, 
-			---	       ntotd=0.00
-				DELETE FROM cf_diariol
+				update cf_diariol
+				set ccodruc = rwanuladoc.ccodrucanula,
+				       ndebe=0.00, nhaber=0.00, ndebes=0.00, nhabers=0.00, ndebed=0.00, 
+				       nhaberd=0.00, nbase1=0.00, nigv1=0.00, nbase2=0.00, nigv2=0.00, 
+				       nbase3=0.00, nigv3=0.00, nina=0.00, nexo=0.00, nisc=0.00, nivabase=0.00, nivaimp=0.00, 
+				       ntot=0.00, nbase1s=0.00, nigv1s=0.00, nbase2s=0.00, nigv2s=0.00, nbase3s=0.00, 
+				       nigv3s=0.00, ninas=0.00, nexos=0.00, niscs=0.00, nivabases=0.00, nivaimps=0.00, 
+				       ntots=0.00, nbase1d=0.00, nigv1d=0.00, nbase2d=0.00, nigv2d=0.00, nbase3d=0.00, 
+				       nigv3d=0.00, ninad=0.00, nexod=0.00, niscd=0.00, nivabased=0.00, nivaimpd=0.00, 
+				       ntotd=0.00,cmesc=''
 				where cper = rwanuladoc.cper and cmes = rwanuladoc.cmes and  ccodori = rwanuladoc.ccodori and nasiento = rwanuladoc.nasiento  ; 
-
-				
 			end loop; 
 
 			--raise exception 'ccod sub %', rw.cper; 
 
 			-- Actualiza subdiartio y Flujos 
-			for rwctualizasubdiario  in select distinct cper,cmes  from cf_regcom_integra loop
+			for rwctualizasubdiario  in select distinct cper,cmes  from cf_regven_integra loop
 
 				nreturn = (select * from func_regenerar_correlativo_subdiario(rwctualizasubdiario.cper, rwctualizasubdiario.cmes) as infograba1); 
-				
 				nreturn = (select * from func_regenerar_saldos_plan_flujo(rwctualizasubdiario.cper, rwctualizasubdiario.cmes) as infograba2); 
-                
+
 			end loop;
 		
 	end loop; -- Periodo 
@@ -7721,7 +7661,7 @@ begin
 	    ntipocobpag, ffechacan, cdoccan, csercan, cnumcan, ccuecan, cmoncan, 
 	    nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, ffechadoc, 
 	    ffechaven, ccodenti, ccodruc, crazsoc, nimportes, nimported, 
-	    ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, nperdenre, 
+	    ccodcue, cglosa::varchar(80) as cglosa, ccodcos, ccodcos2, nporre, nimpperc, nperdenre, 
 	    cserre, cnumre, ffecre, es_con_migracion, es_anticipo_automatico
     from json_to_recordset(a_json)
     as t(
@@ -7753,7 +7693,7 @@ begin
 	nimportes numeric(15,2),
 	nimported numeric(15,2),
 	ccodcue character(20),
-	cglosa character varying(80),
+	cglosa Text,
 	ccodcos character(9),
 	ccodcos2 character(9),
 	nporre numeric(5,2),
@@ -7847,7 +7787,9 @@ $BODY$
     <value>CREATE OR REPLACE FUNCTION fin_importar_cobranzapago_integrador_principal()
   RETURNS void AS
 $BODY$
+
 ---- Fecha Modificacion : 24/02/2025  pdi-278
+---- Fecha Modificacion cancelacion : 27/03/2028 PDI-342	
 DECLARE 
 	RW RECORD;
 	rwperproceso record; 
@@ -7921,7 +7863,6 @@ BEGIN
 		SELECT A.CCUECAN  FROM fin_cobranzapago A left join cf_plan b on a.CCUECAN=b.ccodcue and b.cper=rwperproceso.cperproceso
 		where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCUECAN='') ;
 
-
 		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' RUC NO EXISTE ') ,  resultado_migracion = 2 
 		WHERE ccodruc IN(
 		select C.ccodruc  from fin_cobranzapago c  left join cg_entitrib e on e.ccodruc=c.ccodruc
@@ -7931,7 +7872,6 @@ BEGIN
 		where  fin_cobranzapago.cper=rwperproceso.cperproceso and   fin_cobranzapago.es_con_migracion=0 and  fin_cobranzapago.ccodcos&lt;&gt;' ' AND idcobranzapago not in(
 		Select idcobranzapago From fin_cobranzapago inner join CG_COSTOS on
 		fin_cobranzapago.ccodcos=CG_COSTOS.ccodcos  WHERE  fin_cobranzapago.cper=rwperproceso.cperproceso); 
-
 
 		update  fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 NO EXISTE ') ,  resultado_migracion = 2 
 		where  fin_cobranzapago.cper=rwperproceso.cperproceso and   fin_cobranzapago.es_con_migracion=0 and  fin_cobranzapago.ccodcos2&lt;&gt;' ' and idcobranzapago not in(
@@ -7975,12 +7915,53 @@ BEGIN
 		group by  rc.ccodcue, rc.ccodruc, rc.ccoddoc, rc.cserie, rc.cnumero
 		having count(dl.ccodcue) &gt; 1 ; 
 		
-		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' Documento con Doble provisión...'),  resultado_migracion = 1  
+		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' Documento con Doble provisión...'),  resultado_migracion = 2 
 		where cper=rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag  and concat(ccoddoc,cserie,cnumero,ccodruc) 
 			in ( select concat(ccoddoc,cserie,cnumero,ccodruc) from documentobobleprovision );
 		-- Fin Validar doble provision 
 
+----------------------------cancelaciones -------------------------------------------------------------------------------------
+		DROP TABLE IF EXISTS tmpDocCancelados;
+		create temp table tmpDocCancelados as			
+		select DISTINCT dl.ccodcue, dl.ccodruc, dl.ccoddoc, dl.cserie, dl.cnumero,cmreg, 
+			sum(case when dl.cmreg ='S' then case when dl.ncomp=1 then ndebes-nhabers else 0 end else case when dl.ncomp=1 then ndebed-nhaberd else 0 end end) provision, 
+			sum(case when dl.cmreg ='S' then case when dl.ncomp=0 then nhabers-ndebes else 0 end else case when dl.ncomp=0 then nhaberd-ndebed else 0 end end) amortizacion
+		from cf_diariol dl
+		inner join cf_diario d on dl.cper = d.cper and dl.cmes = d.cmes and dl.ccodori = d.ccodori and dl.nasiento = d.nasiento 
+		inner join cg_doc doc on dl.ccoddoc = doc.ccoddoc 
+		inner join cf_plan pl on pl.cper = rwperproceso.cperproceso and dl.ccodcue = pl.ccodcue and pl.nanacue = 2 
+		inner join (select ccodcue, ccodruc, ccoddoc, cserie, cnumero 
+					from fin_cobranzapago where cper = rwperproceso.cperproceso and coalesce(es_con_migracion,0) = 0
+					group by ccodcue, ccodruc, ccoddoc, cserie, cnumero) porpag
+					 on dl.ccodcue = porpag.ccodcue and dl.ccodruc = porpag.ccodruc and dl.ccoddoc = porpag.ccoddoc and  dl.cserie = porpag.cserie and  dl.cnumero = porpag.cnumero 
+		where dl.cper = rwperproceso.cperproceso
+			  -- and dl.ccodruc = '10440669081'	
+		group by  dl.ccodcue, dl.ccodruc, dl.ccoddoc, dl.cserie, dl.cnumero,cmreg; 
+
+		DROP TABLE IF EXISTS tmpDocPagoexceso;
+		create temp table tmpDocPagoexceso as
+		select dl.ccodcue, dl.ccodruc, dl.ccoddoc, dl.cserie, dl.cnumero 
+		from (select dl.ccodcue, dl.ccodruc, dl.ccoddoc, dl.cserie, dl.cnumero, dl.cmreg, dl.provision, dl.amortizacion, porpag.nimporcan,
+						(abs(dl.provision) - abs(dl.amortizacion)) saldo ,
+					    case when (abs(dl.provision) - abs(dl.amortizacion)) &gt;= abs(porpag.nimporcan) then 0 else 1 end as flgprocesa
+				from tmpDocCancelados dl
+				inner join (select a.ccodcue, a.ccodruc, a.ccoddoc, a.cserie, a.cnumero,
+								sum(case when b.cmreg = 'S' then (case when a.cmoncan = 'S' then a.nimporcan else a.nimporcan * a.ntipcam end) 
+									else (case when a.cmoncan = 'D' then a.nimporcan else a.nimporcan / a.ntipcam end) end) as nimporcan
+							from fin_cobranzapago a
+							inner join tmpDocCancelados b on a.ccodcue = b.ccodcue and a.ccodruc = b.ccodruc and a.ccoddoc = b.ccoddoc and  a.cserie = b.cserie and  a.cnumero = b.cnumero 
+							where a.cper = rwperproceso.cperproceso and coalesce(es_con_migracion,0) = 0
+							group by a.ccodcue, a.ccodruc, a.ccoddoc, a.cserie, a.cnumero 
+				) porpag on dl.ccodcue = porpag.ccodcue and dl.ccodruc = porpag.ccodruc and dl.ccoddoc = porpag.ccoddoc and  dl.cserie = porpag.cserie and  dl.cnumero = porpag.cnumero 
+		) dl where  flgprocesa =  1;  
+
+		-- Actulaizar las cobranzas en exceso 
+		update fin_cobranzapago set obserror=CONCAT(ltrim(obserror),'-',' El Importe de cancelación excede el Saldo...'),  resultado_migracion = 2 
+		where cper=rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag  and concat(ccoddoc,cserie,cnumero,ccodruc) 
+			in ( select concat(ccoddoc,cserie,cnumero,ccodruc) from tmpDocPagoexceso );
+----------------------------cancelaciones -------------------------------------------------------------------------------------
 		
+			
 		for rw in select distinct cper, cmes, ccodori, ccodsu, ccodflu
 			  FROM fin_cobranzapago  
 			  where cper =  rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag and  trim(coalesce(obserror,'')) = ''  loop -- esten OK 
@@ -8008,7 +7989,7 @@ BEGIN
 			 where fin_cobranzapago.cper=rw.cper and 
 				ntipocobpag = rwperproceso.ntipocobpag and 
 				ccodori = rw.ccodori and  
-				trim(coalesce(obserror,'')) = ''
+				trim(coalesce(obserror,'')) = '' and coalesce(resultado_migracion,0) = 0
 				and es_con_migracion in(0) 
 				order by ccoddoc,cserie,cnumero,ccodruc asc; 			
 
@@ -8053,8 +8034,6 @@ BEGIN
 		-- Actualiza registro procesado correctamente 
 			
 
-
-
 		-- Actualizar los anulados a 4 
 		update fin_cobranzapago set resultado_migracion = 4 where es_con_migracion = 3 and trim(coalesce(obserror,'')) = '' ;  
 		-- anular Los registros 
@@ -8077,7 +8056,6 @@ BEGIN
 				where cper = rwanuladoc.cper and cmes = rwanuladoc.cmes and  ccodori = rwanuladoc.ccodori and nasiento = rwanuladoc.nasiento  ; 
 			end loop; 
 
-
 		--raise exception 'ccod sub %', rw.cper; 
 		-- Actualiza subdiartio y Flujos 
 		for rwctualizasubdiario  in select distinct cper,cmes  from fin_cobranzapago  loop
@@ -8094,7 +8072,8 @@ BEGIN
 
 END; 
 $BODY$
-LANGUAGE plpgsql VOLATILE</value>
+LANGUAGE plpgsql VOLATILE
+</value>
   </data>
   <data name="txt_cobra04.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION fin_importar_cobranzapago_integrador(
@@ -12277,8 +12256,9 @@ $BODY$
     varperc character)
   RETURNS integer AS
 $BODY$
+	
 DECLARE  
-RW RECORD;	
+	RW RECORD;	
 BEGIN
 
 DROP TABLE IF EXISTS resultado;
@@ -12384,6 +12364,7 @@ create temporary table resultado(
   FFECHACAN date
   ) on commit drop;
 
+/*
 -- CPE-3321  ANR 15/08/2023
 DROP TABLE IF EXISTS Diariol;
 
@@ -12407,58 +12388,41 @@ select 	dl.cper,dl.cmes,
 	dl.ncomp
  from cf_diariol dl where cper = varper and NCOMP = 1;
  -- CPE-3321  ANR 15/08/2023
-
+*/
 VARMAX = VARMAX-1;
 
 /*  ESTE SELECT NOS DA COMO RESULTADO LA CANCELACIÓN DE TODOS LOS DOCUMENTOS QUE ESTAN EN EL EXCEL -- HABER */
 INSERT INTO RESULTADO (cper,cmes,ccodori,nasiento,nidlin,ntc,ccodcue,ndebe,nhaber,cglosa,ndebes,nhabers,ndebed,nhaberd,ncomp,
 ccoddoc,cserie,cnumero,cnumfin,ffechadoc,ccodruc,ccodenti,ffechaven,ccodflu,ccodpago,ccodcos,ccodcos2,
 cmreg,ffec_dc,cdoc_dc,cser_dc,cnum_dc,cmoneda,FFECHACAN,NRESP,CCODPPS,NPERDENRE,NPORRE,FFECRE,CSERRE,CNUMRE,NTCRE,
-NBASERES,NBASERED,NIMPRES,NIMPRED
-)
+NBASERES,NBASERED,NIMPRES,NIMPRED)
+	
 SELECT  VARPER as cper,    -- VARPER
-VARMES as cmes ,   -- VARMES
-VARORI AS ccodori,  -- VARORI
-VARMAX + R.NASIENTO AS NASIENTO,
-R.NIDLIN, 
-DL.NTC,
-DL.CCODCUE,
+	VARMES as cmes ,   -- VARMES
+	VARORI AS ccodori,  -- VARORI
+	VARMAX + R.NASIENTO AS NASIENTO,
+	R.NIDLIN, 
+	DL.NTIPCAM as NTC,
+	DL.CCODCUE,
 (CASE WHEN indicador = 1 THEN
-	(CASE WHEN R.CMONCAN = 'S' THEN 
-		(case when R.es_anticipo_automatico = 1 then 
-			(CASE WHEN R.NIMPORTES &lt; 0 THEN 0.00 ELSE ABS(R.NIMPORTES) END)
-		else 
+	(CASE WHEN R.CMONCAN = 'S' THEN 		
 			(CASE WHEN R.NIMPORTES &lt; 0 THEN ABS(R.NIMPORTES) ELSE 0.00 END)
-		end)
-	ELSE 
-		(case when R.es_anticipo_automatico = 1 then
-			(CASE WHEN R.NIMPORTED &lt; 0 THEN 0.00  ELSE ABS(R.NIMPORTED) END)	
-		else 
+	ELSE 	
 			(CASE WHEN R.NIMPORTED &lt; 0 THEN ABS(R.NIMPORTED) ELSE 0.00 END)		
-		end)
 	END)
 ELSE 
 	(CASE WHEN R.CMONCAN = 'S' THEN 
 		(CASE WHEN R.NIMPORTES &lt; 0 THEN 0.00 ELSE ABS(R.NIMPORTES) END)
 	ELSE 
 		(CASE WHEN R.NIMPORTED &lt; 0 THEN 0.00 ELSE ABS(R.NIMPORTED) END)
-	END)
-	
+	END)	
 END ) AS NDEBE,
 
 (CASE WHEN indicador = 1  THEN
-	(CASE WHEN R.CMONCAN = 'S'  THEN 
-	   (case when R.es_anticipo_automatico = 1  then
-		(CASE WHEN R.NIMPORTES &gt;= 0 THEN  0.00 ELSE ABS(R.NIMPORTES) END)
-	    else 
-		(CASE WHEN R.NIMPORTES &gt;= 0 THEN  ABS(R.NIMPORTES) ELSE 0.00 END)
-	    end)
-	ELSE 
-	  (case when R.es_anticipo_automatico = 1 then
-		(CASE WHEN R.NIMPORTED &gt;= 0 THEN 0.00 ELSE ABS(R.NIMPORTED) END)
-	   else 
+	(CASE WHEN R.CMONCAN = 'S'  THEN 	   
+		(CASE WHEN R.NIMPORTES &gt;= 0 THEN  ABS(R.NIMPORTES) ELSE 0.00 END)	    
+	ELSE 	  
 		(CASE WHEN R.NIMPORTED &gt;= 0 THEN ABS(R.NIMPORTED) ELSE 0.00 END)
-	   end)
 	END)
 ELSE 
 	(CASE WHEN R.CMONCAN = 'S' THEN 
@@ -12470,97 +12434,65 @@ ELSE
    
 R.CGLOSA,
 (CASE WHEN indicador = 1  THEN    ------ fecha : 24/02/2025 tema anticipos para colegio de contadores
-		(CASE 	WHEN R.CMONCAN = 'S'  THEN 
-			(case when R.es_anticipo_automatico = 1  then 
-				(CASE WHEN R.NIMPORTES &lt; 0 THEN 0.00 ELSE ABS(R.NIMPORTES) END)
-			else 
+		(CASE 	WHEN R.CMONCAN = 'S'  THEN			
 				(CASE WHEN R.NIMPORTES &lt; 0 THEN ABS(R.NIMPORTES) ELSE 0.00 END)
-			end)
-		ELSE 
-			(case when R.es_anticipo_automatico = 1  then 
-				(CASE WHEN R.NIMPORTED &lt; 0 THEN 0.00 ELSE ABS(ROUND(R.NIMPORTED*DL.NTC,2)) END) 
-			else 
-				(CASE WHEN R.NIMPORTED &lt; 0 THEN ABS(ROUND(R.NIMPORTED*DL.NTC,2)) ELSE 0.00 END) 
-			end)
+		ELSE 			
+				(CASE WHEN R.NIMPORTED &lt; 0 THEN ABS(ROUND(R.NIMPORTED*DL.NTIPCAM,2)) ELSE 0.00 END) 
 		END) 
-	   ELSE 
+ELSE 
 		(CASE 	WHEN R.CMONCAN = 'S' THEN 
 			(CASE WHEN R.NIMPORTES &lt; 0 THEN 0.00 ELSE ABS(R.NIMPORTES) END)
 		ELSE 
-			(CASE WHEN R.NIMPORTED &lt; 0 THEN 0.00 ELSE ABS(ROUND(R.NIMPORTED*DL.NTC,2)) END) 
+			(CASE WHEN R.NIMPORTED &lt; 0 THEN 0.00 ELSE ABS(ROUND(R.NIMPORTED*DL.NTIPCAM,2)) END) 
 		END) 	   
 END ) AS NDEBES,
 	   
 (CASE WHEN indicador = 1 THEN
 	(CASE 	WHEN R.CMONCAN = 'S' THEN 
-		(case when R.es_anticipo_automatico = 1  then 
-			(CASE WHEN R.NIMPORTES &gt;= 0 THEN 0.00 ELSE ABS(R.NIMPORTES) END)
-		else 
-			(CASE WHEN R.NIMPORTES &gt;= 0 THEN ABS(R.NIMPORTES) ELSE 0.00 END)
-		end)
+		(CASE WHEN R.NIMPORTES &gt;= 0 THEN ABS(R.NIMPORTES) ELSE 0.00 END)
 	ELSE 
-		(case when R.es_anticipo_automatico = 1  then
-			(CASE WHEN R.NIMPORTED &gt;= 0 THEN 0.00 ELSE ABS(ROUND(R.NIMPORTED*DL.NTC,2)) END)
-		else 
-			(CASE WHEN R.NIMPORTED &gt;= 0 THEN ABS(ROUND(R.NIMPORTED*DL.NTC,2)) ELSE 0.00 END)
-		end)  
+		(CASE WHEN R.NIMPORTED &gt;= 0 THEN ABS(ROUND(R.NIMPORTED*DL.NTIPCAM,2)) ELSE 0.00 END)  
 	END) 
-   ELSE 
+ ELSE 
 	(CASE 	WHEN R.CMONCAN = 'S'  THEN 
 		(CASE WHEN R.NIMPORTES &gt;= 0 THEN 0.00 ELSE ABS(R.NIMPORTES)  END)
 	ELSE 
-		(CASE WHEN R.NIMPORTED &gt;= 0 THEN 0.00 ELSE ABS(ROUND(R.NIMPORTED*DL.NTC,2)) END) 
+		(CASE WHEN R.NIMPORTED &gt;= 0 THEN 0.00 ELSE ABS(ROUND(R.NIMPORTED*DL.NTIPCAM,2)) END) 
 	END) 
    END) AS NHABERS,
 (CASE WHEN indicador = 1  THEN
-	(CASE 	WHEN R.CMONCAN = 'D' THEN 
-		(case when R.es_anticipo_automatico = 1  then
-			(CASE WHEN R.NIMPORTED &lt; 0 THEN 0.00 ELSE ABS(R.NIMPORTED) END)
-		else 
+	(CASE 	WHEN R.CMONCAN = 'D' THEN 		
 			(CASE WHEN R.NIMPORTED &lt; 0 THEN ABS(R.NIMPORTED) ELSE 0.00 END)
-		end) 
-	ELSE 
-		(case when R.es_anticipo_automatico = 1  then
-			(CASE WHEN R.NIMPORTES &lt; 0 THEN  0.00 ELSE CASE WHEN DL.NTC &gt; 0 THEN ABS(ROUND(R.NIMPORTES/ DL.NTC,2)) ELSE 0.00 END END) 
-		else 
-			(CASE WHEN R.NIMPORTES &lt; 0 THEN  CASE WHEN DL.NTC &gt; 0 THEN ABS(ROUND(R.NIMPORTES/ DL.NTC,2)) ELSE 0.00 END ELSE 0.00 END) 
-		end)
+	ELSE 		
+			(CASE WHEN R.NIMPORTES &lt; 0 THEN  CASE WHEN DL.NTIPCAM &gt; 0 THEN ABS(ROUND(R.NIMPORTES/ DL.NTIPCAM,2)) ELSE 0.00 END ELSE 0.00 END) 
 	END)
 ELSE 
 	(CASE 	WHEN R.CMONCAN = 'D' THEN 
 		(CASE WHEN R.NIMPORTED &lt; 0 THEN 0.00 ELSE ABS(R.NIMPORTED) END)
 	ELSE 
-		(CASE WHEN R.NIMPORTES &lt; 0 THEN 0.00 ELSE CASE WHEN DL.NTC &gt; 0 THEN ABS(ROUND(R.NIMPORTES/DL.NTC,2)) ELSE 0.00 END   END) END)
+		(CASE WHEN R.NIMPORTES &lt; 0 THEN 0.00 ELSE CASE WHEN DL.NTIPCAM &gt; 0 THEN ABS(ROUND(R.NIMPORTES/DL.NTIPCAM,2)) ELSE 0.00 END   END) END)
 END) AS NDEBED,
 
 (CASE WHEN indicador = 1 THEN
-	(CASE 	WHEN R.CMONCAN = 'D' THEN 
-		(case when R.es_anticipo_automatico = 1  then
-			(CASE WHEN R.NIMPORTED &gt;= 0 THEN 0.00 ELSE ABS(R.NIMPORTED) END)
-		else 
+	(CASE 	WHEN R.CMONCAN = 'D' THEN 		
 			(CASE WHEN R.NIMPORTED &gt;= 0 THEN ABS(R.NIMPORTED) ELSE 0.00 END)
-		end) 
-	ELSE 
-		(case when R.es_anticipo_automatico = 1  then
-			(CASE WHEN R.NIMPORTES &gt; 0 THEN 0.00 ELSE CASE WHEN DL.NTC &gt; 0 THEN ABS(ROUND(R.NIMPORTES/DL.NTC,2)) ELSE 0.00 END END) 
-		else 
-			(CASE WHEN R.NIMPORTES &gt; 0 THEN CASE WHEN DL.NTC &gt; 0 THEN ABS(ROUND(R.NIMPORTES/DL.NTC,2)) ELSE 0.00 END ELSE 0.00 END) 
-		end) 
+	ELSE 		
+			(CASE WHEN R.NIMPORTES &gt; 0 THEN CASE WHEN DL.NTIPCAM &gt; 0 THEN ABS(ROUND(R.NIMPORTES/DL.NTIPCAM,2)) ELSE 0.00 END ELSE 0.00 END) 
 	END) 
 ELSE 
 	(CASE 	WHEN R.CMONCAN = 'D' THEN 
 		(CASE WHEN R.NIMPORTED &gt;= 0 THEN 0.00 ELSE ABS(R.NIMPORTED) END)
 	ELSE 
-		(CASE WHEN R.NIMPORTES &gt;= 0 THEN 0.00 ELSE CASE WHEN DL.NTC &gt; 0 THEN ABS(ROUND(R.NIMPORTES/DL.NTC,2)) ELSE 0.00 END END) 
+		(CASE WHEN R.NIMPORTES &gt;= 0 THEN 0.00 ELSE CASE WHEN DL.NTIPCAM &gt; 0 THEN ABS(ROUND(R.NIMPORTES/DL.NTIPCAM,2)) ELSE 0.00 END END) 
 	END) 
 	   
 END ) AS NHABERD,
 
-	0 AS NCOMP,
+	case when pl.nanacue = 2 then 1 else 0 end AS NCOMP,
 	DL.CCODDOC,
 	DL.CSERIE,
 	DL.CNUMERO,
-	DL.CNUMFIN,
+	'' as CNUMFIN,
 	DL.FFECHADOC,
 	DL.CCODRUC,
 	DL.CCODENTI,
@@ -12569,15 +12501,15 @@ END ) AS NHABERD,
 	R.CCODPAGO,
 	R.CCODCOS,
 	R.CCODCOS2,
-	DL.CMREG,
+	dl.cmoncan as CMREG,
 	R.FFECHACAN AS FFEC_DC,
 	R.CDOCCAN AS CDOC_DC,
 	R.CSERCAN AS CSER_DC,
 	R.CNUMCAN AS CNUM_DC,
 	R.CMONCAN as CMONEDA,
 	R.FFECHACAN,
-	DL.NRESP,
-	DL.CCODPPS,
+	0 as NRESP,
+	'' as CCODPPS,
 	DL.NPERDENRE,
 	DL.NPORRE,
 	R.FFECRE,
@@ -12602,26 +12534,20 @@ END ) AS NHABERD,
 	WHEN R.NIMPORTED &lt;&gt; 0 AND R.NIMPPERC &lt;&gt; 0 THEN R.NIMPPERC
 	ELSE 0
 	END) AS NIMPRED
-FROM DIARIOL DL 
-INNER JOIN 
-(
-select 
-	X.NASIENTO, --- HAY QUE SACAR EL TIPO DE CAMBIO SEGUN LA CUENTA ******* ESTO DEBE VENIR DESDE EL FOX
-	ROW_NUMBER () OVER (PARTITION BY I.FFECHACAN,I.CDOCCAN,I.CSERCAN,I.CNUMCAN,I.CCUECAN,I.CMONCAN,I.NIMPORCAN ORDER BY I.FFECHACAN) AS NIDLIN,
-	I.*,  LPAD(I.CSERIE,20,'0') AS CSERIEA, LPAD(I.CNUMERO,20,'0') AS CNUMEROA
-	from fin_cobranzafondo_integra I
-	INNER JOIN 
-	(SELECT *,ROW_NUMBER () OVER (ORDER BY  FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN) AS NASIENTO FROM
-		(SELECT DISTINCT 
-		FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN
-		from fin_cobranzafondo_integra
-		) U
-	) X
-	ON I.FFECHACAN = X.FFECHACAN AND I.CDOCCAN = X.CDOCCAN AND I.CSERCAN = X.CSERCAN AND I.CNUMCAN = X.CNUMCAN 
-	AND I.CCUECAN = X.CCUECAN AND I.CMONCAN = X.CMONCAN AND I.NIMPORCAN = X.NIMPORCAN
-) AS R
-ON DL.CCODCUE = R.CCODCUE AND DL.CCODRUC = R.CCODRUC AND DL.CCODDOC = R.CCODDOC AND DL.CSERIE = R.CSERIEA AND DL.CNUMERO = R.CNUMEROA --AND DL.NCOMP = 1
-WHERE CPER = VARPER -----VARPER
+FROM fin_cobranza_integra_fn DL 
+INNER JOIN ( select X.NASIENTO, --- HAY QUE SACAR EL TIPO DE CAMBIO SEGUN LA CUENTA ******* ESTO DEBE VENIR DESDE EL FOX
+				ROW_NUMBER () OVER (PARTITION BY I.FFECHACAN,I.CDOCCAN,I.CSERCAN,I.CNUMCAN,I.CCUECAN,I.CMONCAN,I.NIMPORCAN ORDER BY I.FFECHACAN) AS NIDLIN,
+				I.*,  LPAD(I.CSERIE,20,'0') AS CSERIEA, LPAD(I.CNUMERO,20,'0') AS CNUMEROA
+			from fin_cobranza_integra_fn I
+			INNER JOIN (SELECT *,ROW_NUMBER () OVER (ORDER BY  FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN) AS NASIENTO 
+							FROM (SELECT DISTINCT FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN
+									from fin_cobranza_integra_fn) U
+			) X
+			ON I.FFECHACAN = X.FFECHACAN AND I.CDOCCAN = X.CDOCCAN AND I.CSERCAN = X.CSERCAN AND I.CNUMCAN = X.CNUMCAN 
+				AND I.CCUECAN = X.CCUECAN AND I.CMONCAN = X.CMONCAN AND I.NIMPORCAN = X.NIMPORCAN
+) AS R ON DL.CCODCUE = R.CCODCUE AND DL.CCODRUC = R.CCODRUC AND DL.CCODDOC = R.CCODDOC AND DL.CSERIE = R.CSERIEA AND DL.CNUMERO = R.CNUMEROA --AND DL.NCOMP = 1
+inner join cf_plan pl on pl.cper = VARPER and dl.ccodcue = pl.ccodcue 
+--WHERE CPER = VARPER -----VARPER
 ORDER BY CPER, CMES, CCODORI, NASIENTO, NIDLIN ;
 
 
@@ -12634,178 +12560,133 @@ NBASERES,NBASERED,NIMPRES,NIMPRED
 )
 
 SELECT DISTINCT ON (I.FFECHACAN,I.CDOCCAN,I.CSERCAN,I.CNUMCAN,I.CCUECAN,I.CMONCAN,I.NIMPORCAN)
-VARPER 	AS CPER,  --- VARPER
-VARMES 	AS CMES,  --- VARMES
-VARORI 	AS CCODORI, --VARORI
-VARMAX + U.NASIENTO AS NASIENTO,
-U.NIDLIN,
-I.NTIPCAM AS NTC,
-I.CCUECAN AS CCODCUE,
-(CASE WHEN indicador = 1 THEN
-	(case when I.es_anticipo_automatico = 1  then
+	VARPER 	AS CPER,  --- VARPER
+	VARMES 	AS CMES,  --- VARMES
+	VARORI 	AS CCODORI, --VARORI
+	VARMAX + U.NASIENTO AS NASIENTO,
+	U.NIDLIN,
+	I.NTIPCAM AS NTC,
+	I.CCUECAN AS CCODCUE,
+	(CASE WHEN indicador = 1 THEN		
+			(CASE WHEN I.NIMPORCAN &gt;= 0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END) 
+	ELSE 
 		(CASE WHEN I.NIMPORCAN &gt;= 0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END) 
-	else	
-		(CASE WHEN I.NIMPORCAN &gt;= 0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END) 
-	end) 
-ELSE 
-	(CASE WHEN I.NIMPORCAN &gt;= 0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END) 
+		
+	END) AS NDEBE,
+	   
+	(CASE WHEN indicador = 1 THEN	
+			(CASE WHEN I.NIMPORCAN &lt;  0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END) 
+	ELSE 
+		(CASE WHEN I.NIMPORCAN &lt;  0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END) 	
+	END) AS NHABER,
+	   
+	I.CGLOSA,
 	
-END) AS NDEBE,
-   
-(CASE WHEN indicador = 1 THEN	
-	(case when I.es_anticipo_automatico = 1  then
-		(CASE WHEN I.NIMPORCAN &lt;  0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END) 
-	else 
-		(CASE WHEN I.NIMPORCAN &lt;  0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END) 
-	end)
-ELSE 
-	(CASE WHEN I.NIMPORCAN &lt;  0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END) 
-	
-END) AS NHABER,
-   
-I.CGLOSA,
-
-(CASE WHEN indicador = 1  THEN	
-	(CASE 	WHEN U.CMONCAN = 'S' THEN 
-		(case when I.es_anticipo_automatico = 1  then
+	(CASE WHEN indicador = 1  THEN	
+		(CASE 	WHEN U.CMONCAN = 'S' THEN 
+				(CASE WHEN I.NIMPORCAN &gt;= 0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END)
+		ELSE 
+				(CASE WHEN I.NIMPORCAN &gt;= 0 THEN ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2)) ELSE 0.00 END) 
+		END) 
+	ELSE 
+		(CASE 	WHEN U.CMONCAN = 'S' THEN 
 			(CASE WHEN I.NIMPORCAN &gt;= 0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END)
-		else
-			(CASE WHEN I.NIMPORCAN &gt;= 0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END)
-		end)
+		ELSE 
+			(CASE WHEN I.NIMPORCAN &gt;= 0 THEN 0.00 ELSE ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2))END) 
+		END) 
+	END ) AS NDEBES,
+	
+	(CASE WHEN indicador = 1  THEN	
+		(CASE 	WHEN U.CMONCAN = 'S' THEN 
+				(CASE WHEN I.NIMPORCAN &lt; 0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END)
+		ELSE 
+				(CASE WHEN I.NIMPORCAN &lt; 0 THEN ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2)) ELSE 0.00 END) 
+		END) 
 	ELSE 
-		(case when I.es_anticipo_automatico = 1  then
-			(CASE WHEN I.NIMPORCAN &gt;= 0 THEN 0.00 ELSE ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2)) END) 
-		else 
-			(CASE WHEN I.NIMPORCAN &gt;= 0 THEN ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2)) ELSE 0.00 END) 
-		end)
-	END) 
-ELSE 
-	(CASE 	WHEN U.CMONCAN = 'S' THEN 
-		(CASE WHEN I.NIMPORCAN &gt;= 0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END)
-	ELSE 
-		(CASE WHEN I.NIMPORCAN &gt;= 0 THEN 0.00 ELSE ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2))END) 
-	END) 
-END ) AS NDEBES,
-
-(CASE WHEN indicador = 1  THEN	
-	(CASE 	WHEN U.CMONCAN = 'S' THEN 
-		(case when I.es_anticipo_automatico = 1  then 
+		(CASE 	WHEN U.CMONCAN = 'S' THEN 
 			(CASE WHEN I.NIMPORCAN &lt; 0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END)
-		else 
-			(CASE WHEN I.NIMPORCAN &lt; 0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END)
-		end)
+		ELSE 
+			(CASE WHEN I.NIMPORCAN &lt; 0 THEN 0.00 ELSE ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2)) END) 
+		END) 
+	END) AS NHABERS,
+	
+	(CASE WHEN indicador = 1 THEN	
+		(CASE 	WHEN U.CMONCAN = 'D' THEN 
+				(CASE WHEN I.NIMPORCAN &gt;= 0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END)
+		ELSE 
+				(CASE WHEN I.NIMPORCAN &gt;= 0 THEN ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2)) ELSE 0.00 END) 
+		END) 
 	ELSE 
-		(case when I.es_anticipo_automatico = 1  then 
-			(CASE WHEN I.NIMPORCAN &lt; 0 THEN 0.00 ELSE ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2))  END) 
-		else 
-			(CASE WHEN I.NIMPORCAN &lt; 0 THEN ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2)) ELSE 0.00 END) 
-		end)
-	END) 
-ELSE 
-	(CASE 	WHEN U.CMONCAN = 'S' THEN 
-		(CASE WHEN I.NIMPORCAN &lt; 0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END)
-	ELSE 
-		(CASE WHEN I.NIMPORCAN &lt; 0 THEN 0.00 ELSE ABS(ROUND(I.NIMPORCAN * I.NTIPCAM,2)) END) 
-	END) 
-END) AS NHABERS,
-
-(CASE WHEN indicador = 1 THEN	
-	(CASE 	WHEN U.CMONCAN = 'D' THEN 
-		(case when I.es_anticipo_automatico = 1  then 
+		(CASE WHEN U.CMONCAN = 'D' THEN 
 			(CASE WHEN I.NIMPORCAN &gt;= 0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END)
-		else 
-			(CASE WHEN I.NIMPORCAN &gt;= 0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END)
-		end)
-	ELSE 
-		(case when I.es_anticipo_automatico = 1  then
+		ELSE 
 			(CASE WHEN I.NIMPORCAN &gt;= 0 THEN 0.00 ELSE ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2)) END) 
-		else 
-			(CASE WHEN I.NIMPORCAN &gt;= 0 THEN ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2)) ELSE 0.00 END) 
-		end)
-	END) 
-ELSE 
-	(CASE WHEN U.CMONCAN = 'D' THEN 
-		(CASE WHEN I.NIMPORCAN &gt;= 0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END)
-	ELSE 
-		(CASE WHEN I.NIMPORCAN &gt;= 0 THEN 0.00 ELSE ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2)) END) 
-	END) 	   
-END) AS NDEBED,
+		END) 	   
+	END) AS NDEBED,
+	
+	(CASE WHEN indicador = 1 THEN	
+		(CASE 	WHEN U.CMONCAN = 'D' THEN 
+				(CASE WHEN I.NIMPORCAN &lt; 0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END)
+		ELSE 
+				(CASE WHEN I.NIMPORCAN &lt; 0 THEN ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2)) ELSE 0.00 END) 
+		END) 
+	   ELSE 
+		(CASE 	WHEN U.CMONCAN = 'D' THEN 
+			(CASE WHEN I.NIMPORCAN &lt; 0 THEN 0.00 ELSE ABS(I.NIMPORCAN)  END)
+		ELSE 
+			(CASE WHEN I.NIMPORCAN &lt; 0 THEN 0.00 ELSE ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2))  END)
+		END) 	   
+	END) AS NHABERD,
+	   
+	case when pl.nanacue = 2 then 1 else 0 end AS NCOMP, 
+	I.CDOCCAN AS CCODDOC,
+	LPAD(I.CSERCAN,20,'0') AS CSERIE , 
+	LPAD(I.CNUMCAN,20,'0') AS CNUMERO,
+	'' AS CNUMFIN,
+	I.FFECHACAN AS FFECHADOC,
+	I.CCODRUC,
+	I.CCODENTI,
+	CAST(NULL AS DATE) AS FFECHAVEN,
+	varccodflu AS CCODFLU, ---------------- CODIGO DE FLUJO DEL FORMULARIO 
+	I.CCODPAGO,  
+	I.CCODCOS, 
+	I.CCODCOS2,
+	' ' AS CMREG,
+	CAST(NULL AS DATE) AS FFEC_DC,
+	''::VARCHAR(2) AS CDOC_DC,
+	''::VARCHAR(20) AS CSER_DC,
+	''::VARCHAR(20) AS CNUM_DC,
+	U.CMONCAN AS CMONEDA,
+	U.FFECHACAN,
+	0 AS NRESP,
+	' ' AS CCODPPS,
+	0 AS NPERDENRE,
+	0 AS NPORRE,
+	CAST(NULL AS DATE) AS FFECRE,
+	' ' AS CSERRE,
+	' ' AS CNUMRE,
+	0 AS NTCRE,
+	0 AS NBASERES,
+	0 AS NBASERED,
+	0 AS NIMPRES,
+	0 AS NIMPRED
+FROM fin_cobranza_integra_fn I
+INNER JOIN ( SELECT DISTINCT ON(FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN) 
+				ROW_NUMBER () OVER (ORDER BY  FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN) AS NASIENTO,
+				count(FFECHACAN)+1 NIDLIN, FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN
+				from fin_cobranza_integra_fn
+				GROUP BY FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN
+			) U ON I.FFECHACAN=U.FFECHACAN AND I.CDOCCAN=U.CDOCCAN AND I.CSERCAN=U.CSERCAN AND I.CNUMCAN = U.CNUMCAN 
+		   			AND I.CCUECAN=U.CCUECAN AND I.CMONCAN=U.CMONCAN AND I.NIMPORCAN=U.NIMPORCAN
+inner join cf_plan pl on pl.cper = VARPER and I.CCUECAN = pl.ccodcue 
 
-(CASE WHEN indicador = 1 THEN	
-	(CASE 	WHEN U.CMONCAN = 'D' THEN 
-		(case when I.es_anticipo_automatico = 1  then
-			(CASE WHEN I.NIMPORCAN &lt; 0 THEN 0.00 ELSE ABS(I.NIMPORCAN) END)
-		else 
-			(CASE WHEN I.NIMPORCAN &lt; 0 THEN ABS(I.NIMPORCAN) ELSE 0.00 END)
-		end)
-	ELSE 
-		(case when I.es_anticipo_automatico = 1  then
-			(CASE WHEN I.NIMPORCAN &lt; 0 THEN 0.00 ELSE  ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2)) END) 
-		else
-			(CASE WHEN I.NIMPORCAN &lt; 0 THEN ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2)) ELSE 0.00 END) 
-		end)
-	END) 
-   ELSE 
-	(CASE 	WHEN U.CMONCAN = 'D' THEN 
-		(CASE WHEN I.NIMPORCAN &lt; 0 THEN 0.00 ELSE ABS(I.NIMPORCAN)  END)
-	ELSE 
-		(CASE WHEN I.NIMPORCAN &lt; 0 THEN 0.00 ELSE ABS(ROUND(I.NIMPORCAN / I.NTIPCAM,2))  END)
-	END) 	   
-END) AS NHABERD,
-   
-0 AS NCOMP,
-I.CDOCCAN AS CCODDOC,
-LPAD(I.CSERCAN,20,'0') AS CSERIE , 
-LPAD(I.CNUMCAN,20,'0') AS CNUMERO,
-'' AS CNUMFIN,
-I.FFECHACAN AS FFECHADOC,
-I.CCODRUC,
-I.CCODENTI,
-CAST(NULL AS DATE) AS FFECHAVEN,
-varccodflu AS CCODFLU, ---------------- CODIGO DE FLUJO DEL FORMULARIO 
-I.CCODPAGO,  
-I.CCODCOS, 
-I.CCODCOS2,
-' ' AS CMREG,
-CAST(NULL AS DATE) AS FFEC_DC,
-''::VARCHAR(2) AS CDOC_DC,
-''::VARCHAR(20) AS CSER_DC,
-''::VARCHAR(20) AS CNUM_DC,
-U.CMONCAN AS CMONEDA,
-U.FFECHACAN,
-0 AS NRESP,
-' ' AS CCODPPS,
-0 AS NPERDENRE,
-0 AS NPORRE,
-CAST(NULL AS DATE) AS FFECRE,
-' ' AS CSERRE,
-' ' AS CNUMRE,
-0 AS NTCRE,
-0 AS NBASERES,
-0 AS NBASERED,
-0 AS NIMPRES,
-0 AS NIMPRED
-FROM fin_cobranzafondo_integra I
-INNER JOIN 
-(
-SELECT DISTINCT ON(FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN) 
-ROW_NUMBER () OVER (ORDER BY  FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN) AS NASIENTO,
-count(FFECHACAN)+1 NIDLIN, FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN
-from fin_cobranzafondo_integra
-GROUP BY FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN
-) U
-ON I.FFECHACAN=U.FFECHACAN AND I.CDOCCAN=U.CDOCCAN AND I.CSERCAN=U.CSERCAN AND I.CNUMCAN = U.CNUMCAN 
-   AND I.CCUECAN=U.CCUECAN AND I.CMONCAN=U.CMONCAN AND I.NIMPORCAN=U.NIMPORCAN
 ORDER BY I.FFECHACAN,I.CDOCCAN, I.CSERCAN, I.CNUMCAN, I.CCUECAN, I.CMONCAN, I.NIMPORCAN ;
 
-
-
 INSERT INTO RESULTADO (cper,cmes,ccodori,nasiento,nidlin,ntc,ccodcue,ndebe,nhaber,cglosa,ndebes,nhabers,ndebed,nhaberd,ncomp,
-ccoddoc,cserie,cnumero,cnumfin,ffechadoc,ccodruc,ccodenti,ffechaven,ccodflu,ccodpago,ccodcos,ccodcos2,
-cmreg,ffec_dc,cdoc_dc,cser_dc,cnum_dc,cmoneda,FFECHACAN,NRESP,CCODPPS,NPERDENRE,NPORRE,FFECRE,CSERRE,CNUMRE,NTCRE,
-NBASERES,NBASERED,NIMPRES,NIMPRED
-)
-
+						ccoddoc,cserie,cnumero,cnumfin,ffechadoc,ccodruc,ccodenti,ffechaven,ccodflu,ccodpago,ccodcos,ccodcos2,
+						cmreg,ffec_dc,cdoc_dc,cser_dc,cnum_dc,cmoneda,FFECHACAN,NRESP,CCODPPS,NPERDENRE,NPORRE,FFECRE,CSERRE,CNUMRE,NTCRE,
+						NBASERES,NBASERED,NIMPRES,NIMPRED
+						)
 SELECT  VARPER as cper,    -- VARPER
 VARMES as cmes ,   -- VARMES
 VARORI AS ccodori,  -- VARORI
@@ -12956,12 +12837,12 @@ select
 X.NASIENTO, --- HAY QUE SACAR EL TIPO DE CAMBIO SEGUN LA CUENTA ******* ESTO DEBE VENIR DESDE EL FOX
 ROW_NUMBER () OVER (PARTITION BY I.FFECHACAN,I.CDOCCAN,I.CSERCAN,I.CNUMCAN,I.CCUECAN,I.CMONCAN,I.NIMPORCAN ORDER BY I.FFECHACAN)  + W.NIDLIN AS NIDLIN,
 I.*,  LPAD(I.CSERIE,20,'0') AS CSERIEA, LPAD(I.CNUMERO,20,'0') AS CNUMEROA
-from fin_cobranzafondo_integra I
+from fin_cobranza_integra_fn I
 INNER JOIN 
 (SELECT *,ROW_NUMBER () OVER (ORDER BY  FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN) AS NASIENTO FROM
 (SELECT DISTINCT 
 FFECHACAN,CDOCCAN,CSERCAN,CNUMCAN,CCUECAN,CMONCAN,NIMPORCAN
-from fin_cobranzafondo_integra) U
+from fin_cobranza_integra_fn) U
 ) X
 ON I.FFECHACAN = X.FFECHACAN AND I.CDOCCAN = X.CDOCCAN AND I.CSERCAN = X.CSERCAN AND I.CNUMCAN = X.CNUMCAN 
 AND I.CCUECAN = X.CCUECAN AND I.CMONCAN = X.CMONCAN AND I.NIMPORCAN = X.NIMPORCAN 
@@ -13183,14 +13064,13 @@ order by cper, cmes, ccodori, nasiento, nidlin ;
 return 1;
 END; 
 $BODY$
-  LANGUAGE plpgsql VOLATILE
-</value>
+LANGUAGE 'plpgsql' VOLATILE  </value>
   </data>
   <data name="txt_cobra03fm.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION fin_importar_cobranzafondo_integrador_principal()
   RETURNS void AS
 $BODY$
-
+	
 DECLARE 
 	RW RECORD;
 	rwperproceso record; 
@@ -13217,13 +13097,34 @@ BEGIN
 	-- Validaciones fin_cobranzafm
 	vflag_dp := (select flag_dp from registro_dp where codigo_dp = 'DP008'); 
 	vflag_dp := coalesce(vflag_dp,0); 
-		
+
+	Insert into cg_entitrib (ccodruc,crazsoc, ctipdoc,CNATJUR) 
+	select DISTINCT ccodruc,crazsoc, case 
+		when Length(ltrim(ccodruc))=8 then '1'
+		when Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)in('10','15') then '6'
+		when Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '6'
+		when Length(ltrim(ccodruc))&lt;=15  then '4'
+		when Length(ltrim(ccodruc))=12  then '1'
+			 else '0'
+		 END ::CHAR(1) ctipdoc,
+		case 
+		when Length(ltrim(ccodruc))=8 then '1'
+		when Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)in('10','15') then '1'
+		when Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='20' then '2'
+		when Length(ltrim(ccodruc))&gt;11 and Length(ltrim(ccodruc))&lt;=15  then '3'
+		when Length(ltrim(ccodruc))=12  then '1'
+			 else '0'
+		 END ::CHAR(1) AS CNATJUR   
+	 FROM fin_cobranzafm
+	 WHERE fin_cobranzafm.es_con_migracion=0 and ------fin_ventas.resultado_migracion not in(2)  and
+		crazsoc NOT LIKE('%ANULAD%') AND    ccodruc not in (select ccodruc from cg_entitrib)  ; 
+
 
 	for rwperproceso in select distinct cper as cperproceso, ntipocobpag from fin_cobranzafm order by ntipocobpag loop 	
 		-- propiedades de empresa por periodos 
 		for rwemp in select cper, cctaper, cctagan, cregper,cregperc,ccodenti
-			     from cg_emppro  
-			     where cper =rwperproceso.cperproceso loop		
+			     	 from cg_emppro  
+			         where cper =rwperproceso.cperproceso loop		
 		   
 			    vcregper = rwemp.cregper; 
 			    vcregperc = rwemp.cregperc;		    
@@ -13233,27 +13134,21 @@ BEGIN
 			    vardifg = rwemp.cctagan ;	
 			    vccodenti =	 rwemp.ccodenti;   							
 			    if rwperproceso.ntipocobpag = 1 then -- Cobranzas 
-				varperc = vcregper; 
+					varperc = vcregper; 
 			    else 
-				varperc = vcregperc;  -- Pagos 
+					varperc = vcregperc;  -- Pagos 
 			    end if; 
 		end loop; 
 
-		
-		
-
 		update fin_cobranzafm set obserror=CONCAT(ltrim(obserror),'-',' CAMPO CCODCUE NO EXISTE EN PCGE') ,  resultado_migracion = 2 
-		WHERE CCODCUE IN(
-		SELECT A.CCODCUE  FROM fin_cobranzafm A left join cf_plan b on a.CCODCUE=b.ccodcue and b.cper=rwperproceso.cperproceso
-		where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCODCUE&lt;&gt;'');
+		WHERE CCODCUE IN( SELECT A.CCODCUE  FROM fin_cobranzafm A left join cf_plan b on a.CCODCUE=b.ccodcue and b.cper=rwperproceso.cperproceso
+							where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCODCUE&lt;&gt;'');
 		
-
 		update fin_cobranzafm set obserror=CONCAT(ltrim(obserror),'-',' CAMPO CCODCUE ESTA VACIO ') ,  resultado_migracion = 2 
 		WHERE CCODCUE IN(
 		SELECT A.CCODCUE  FROM fin_cobranzafm A left join cf_plan b on a.CCODCUE=b.ccodcue and b.cper=rwperproceso.cperproceso
 		where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCODCUE='');
-
-			
+	
 		update fin_cobranzafm set obserror=CONCAT(ltrim(obserror),'-',' CAMPO CCUECAN  NO EXISTE EN PCGE') ,  resultado_migracion = 2 
 		WHERE CCUECAN IN(
 		SELECT A.CCUECAN  FROM fin_cobranzafm A left join cf_plan b on a.CCUECAN=b.ccodcue and b.cper=rwperproceso.cperproceso
@@ -13264,29 +13159,24 @@ BEGIN
 		SELECT A.CCUECAN  FROM fin_cobranzafm A left join cf_plan b on a.CCUECAN=b.ccodcue and b.cper=rwperproceso.cperproceso
 		where coalesce(b.ccodcue ,'ERROR')='ERROR' and A.CCUECAN='') ;
 
-
 		update fin_cobranzafm set obserror=CONCAT(ltrim(obserror),'-',' RUC NO EXISTE ') ,  resultado_migracion = 2 
 		WHERE ccodruc IN(
 		select C.ccodruc  from fin_cobranzafm c  left join cg_entitrib e on e.ccodruc=c.ccodruc
 			where coalesce(e.ccodruc,'ERROR')='ERROR');
 		
-		update  fin_cobranzafm set obserror=CONCAT(ltrim(obserror),'-',' CENTRO DE COSTO NO EXISTE ') ,  resultado_migracion = 2 
+		/*update  fin_cobranzafm set obserror=CONCAT(ltrim(obserror),'-',' CENTRO DE COSTO NO EXISTE ') ,  resultado_migracion = 2 
 		where  fin_cobranzafm.cper=rwperproceso.cperproceso and   fin_cobranzafm.es_con_migracion=0 and  fin_cobranzafm.ccodcos&lt;&gt;' ' AND idcobranzapago not in(
 		Select idcobranzapago From fin_cobranzafm inner join CG_COSTOS on
-		fin_cobranzafm.ccodcos=CG_COSTOS.ccodcos  WHERE  fin_cobranzafm.cper=rwperproceso.cperproceso); 
+		fin_cobranzafm.ccodcos=CG_COSTOS.ccodcos  WHERE  fin_cobranzafm.cper=rwperproceso.cperproceso); */
 
-
-		update  fin_cobranzafm set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 NO EXISTE ') ,  resultado_migracion = 2 
+		/*update  fin_cobranzafm set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 NO EXISTE ') ,  resultado_migracion = 2 
 		where  fin_cobranzafm.cper=rwperproceso.cperproceso and   fin_cobranzafm.es_con_migracion=0 and  fin_cobranzafm.ccodcos2&lt;&gt;' ' and idcobranzapago not in(
 		Select idcobranzapago From fin_cobranzafm inner join CG_COSTOS2 on
-		fin_cobranzafm.ccodcos2=CG_COSTOS2.ccodcos2  WHERE  fin_cobranzafm.cper=rwperproceso.cperproceso); 
+		fin_cobranzafm.ccodcos2=CG_COSTOS2.ccodcos2  WHERE  fin_cobranzafm.cper=rwperproceso.cperproceso);*/ 
 
 		update  fin_cobranzafm set ccodenti=vccodenti where trim(coalesce(ccodenti,''))='';
 
-		
-		-- Falta Validar si la cuenta no existe 
-		---
-		-- Cursor no existe provision 
+	/*	-- Cursor no existe provision 
 		DROP TABLE IF EXISTS documentonoprovisionados;
 		create temp table documentonoprovisionados as		
 		select idcobranzapago, rc.ccodcue, rc.ccodruc, rc.ccoddoc, rc.cserie, rc.cnumero,dl.ccodcue as d_ccodcue,  dl.ccodruc as d_ccodruc, 
@@ -13299,12 +13189,13 @@ BEGIN
 	       							  rc.cnumero = dl.cnumero and 
 	       							  dl.ncomp = 1 and rc.cper =rwperproceso.cperproceso
 		where  dl.ccodcue is null; 
+		*/
 			
-		update fin_cobranzafm set obserror=CONCAT(ltrim(obserror),'-',' Documento no Provisionado...'),  resultado_migracion = 2  
+		/*update fin_cobranzafm set obserror=CONCAT(ltrim(obserror),'-',' Documento no Provisionado...'),  resultado_migracion = 2  
 		where cper=rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag  and concat(ccoddoc,cserie,cnumero,ccodruc)  in ( select concat(ccoddoc,cserie,cnumero,ccodruc) from documentonoprovisionados );
-		-- Fin - Cursor no existe provision 
+		-- Fin - Cursor no existe provision */
 
-		-- Validar doble provision 
+		/*-- Validar doble provision 
 		DROP TABLE IF EXISTS documentobobleprovision;
 		create temp table documentobobleprovision as
 		select rc.ccodcue, rc.ccodruc, rc.ccoddoc, rc.cserie, rc.cnumero, count(dl.ccodcue) contar
@@ -13321,7 +13212,7 @@ BEGIN
 		update fin_cobranzafm set obserror=CONCAT(ltrim(obserror),'-',' Documento con Doble provisión...'),  resultado_migracion = 1  
 		where cper=rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag  and concat(ccoddoc,cserie,cnumero,ccodruc) 
 			in ( select concat(ccoddoc,cserie,cnumero,ccodruc) from documentobobleprovision );
-		-- Fin Validar doble provision 
+		-- Fin Validar doble provision */
 
 		
 		for rw in select distinct cper, cmes, ccodori, ccodsu, ccodflu
@@ -13335,20 +13226,21 @@ BEGIN
 
 		
 			  -- Truncar tabla Cada vez carga data por cada subdiario 		
-			  truncate table fin_cobranzafondo_integra; 
+			 truncate table fin_cobranza_integra_fn; 
 
-			 INSERT INTO fin_cobranzafondo_integra(idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
+			 INSERT INTO fin_cobranza_integra_fn(idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
 							    cmoncan, nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, 
 							    ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, 
 							    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
-							    nperdenre, cserre, cnumre, ffecre,es_anticipo_automatico)
+							    nperdenre, cserre, cnumre, ffecre)
 			 SELECT  idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
-				    cmoncan, nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, 
-				    ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, 
-				    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
-				    nperdenre, cserre, cnumre, ffecre, es_anticipo_automatico
+				    	cmoncan, nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, 
+				    	ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, 
+				    	nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
+				    	nperdenre, cserre, cnumre, ffecre
 			 FROM fin_cobranzafm			        
 			 where fin_cobranzafm.cper=rw.cper and 
+				 	fin_cobranzafm.cmes = rw.cmes and 
 				ntipocobpag = rwperproceso.ntipocobpag and 
 				ccodori = rw.ccodori and  
 				trim(coalesce(obserror,'')) = ''
@@ -13356,7 +13248,7 @@ BEGIN
 				order by ccoddoc,cserie,cnumero,ccodruc asc; 			
 
 			-- Integra las cobranzas 
-			nreturn = (SELECT * FROM fin_importar_cobranzapago_integrador(rw.cper,
+			nreturn = (SELECT * FROM fin_importar_cobranzafondo_integrador(rw.cper,
 											  rw.cmes,
 											  rw.ccodori,
 											  rw.ccodflu,
@@ -13370,55 +13262,49 @@ BEGIN
 											  varperc));
 		
 
-		update fin_cobranzafm set resultado_migracion = 1 where es_con_migracion = 0 and idcobranzapago in (select idcobranzapago from fin_cobranzafondo_integra); 
+		update fin_cobranzafm set resultado_migracion = 1 where es_con_migracion = 0 and idcobranzapago in (select idcobranzapago from fin_cobranza_integra_fn); 
 
-		--truncate table fin_cobranzafondo_integra; 
-		INSERT INTO fin_cobranzafondo_integra(idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
+	
+		INSERT INTO fin_cobranza_integra_fn(idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
 							    cmoncan, nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, 
 							    ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, 
 							    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
-							    nperdenre, cserre, cnumre, ffecre,es_anticipo_automatico)
+							    nperdenre, cserre, cnumre, ffecre)
 			 SELECT  idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
 				    cmoncan, nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, 
 				    ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, 
 				    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
-				    nperdenre, cserre, cnumre, ffecre,es_anticipo_automatico
+				    nperdenre, cserre, cnumre, ffecre
 			 FROM fin_cobranzafm			        
 			 where fin_cobranzafm.cper=rw.cper and 
+				fin_cobranzafm.cmes = rw.cmes and 
 				ntipocobpag = rwperproceso.ntipocobpag and 
 				ccodori = rw.ccodori and  
 				trim(coalesce(obserror,'')) = ''
 				and es_con_migracion in(3) 
-				order by ccoddoc,cserie,cnumero,ccodruc asc; 
-			
+				order by ccoddoc,cserie,cnumero,ccodruc asc; 			
 		end loop; 
-
-		-- Actualiza registro procesado correctamente 
-			
-
-
-
 		-- Actualizar los anulados a 4 
 		update fin_cobranzafm set resultado_migracion = 4 where es_con_migracion = 3 and trim(coalesce(obserror,'')) = '' ;  
 		-- anular Los registros 
 			
 		
-		    DROP TABLE IF EXISTS documentosAnula;
-			create temp table documentosAnula as 
-			select a.cper, a.cmes, a.ccodori, a.nasiento, a.ncomp,a.ccoddoc, a.cserie, a.cnumero, a.ccodruc
-			from cf_diariol a
-			inner join fin_cobranzafm b  on a.ccoddoc = b.cdoccan  and a.cserie = b.csercan and a.cnumero = b.cnumcan and a.ccodcue = b.ccuecan 
-							and trim(coalesce(obserror,'')) = ''
-							and es_con_migracion = 3 
-			where a.cper = rwperproceso.cperproceso and a.ncomp =0    ;
+		DROP TABLE IF EXISTS documentosAnula;
+		create temp table documentosAnula as 
+		select a.cper, a.cmes, a.ccodori, a.nasiento, a.ncomp,a.ccoddoc, a.cserie, a.cnumero, a.ccodruc
+		from cf_diariol a
+		inner join fin_cobranzafm b  on a.ccoddoc = b.ccoddoc  and a.cserie = b.cserie and a.cnumero = b.cnumero and a.ccodcue = b.ccodcue --on a.ccoddoc = b.cdoccan  and a.cserie = b.csercan and a.cnumero = b.cnumcan and a.ccodcue = b.ccuecan 
+						and trim(coalesce(obserror,'')) = ''
+						and es_con_migracion = 3 
+		where a.cper = rwperproceso.cperproceso ; --and a.ncomp = 0;
 
-			for rwanuladoc in select cper, cmes, ccodori, nasiento, ncomp,ccoddoc, cserie, cnumero, ccodruc from documentosAnula  loop 
-				DELETE FROM cf_diariol
-				where cper = rwanuladoc.cper and cmes = rwanuladoc.cmes and  ccodori = rwanuladoc.ccodori and nasiento = rwanuladoc.nasiento  ; 
-				
-				DELETE FROM cf_diario
-				where cper = rwanuladoc.cper and cmes = rwanuladoc.cmes and  ccodori = rwanuladoc.ccodori and nasiento = rwanuladoc.nasiento  ; 
-			end loop; 
+		for rwanuladoc in select cper, cmes, ccodori, nasiento, ncomp,ccoddoc, cserie, cnumero, ccodruc from documentosAnula  loop 
+			DELETE FROM cf_diariol
+			where cper = rwanuladoc.cper and cmes = rwanuladoc.cmes and  ccodori = rwanuladoc.ccodori and nasiento = rwanuladoc.nasiento  ; 
+			
+			DELETE FROM cf_diario
+			where cper = rwanuladoc.cper and cmes = rwanuladoc.cmes and  ccodori = rwanuladoc.ccodori and nasiento = rwanuladoc.nasiento  ; 
+		end loop; 
 
 
 		--raise exception 'ccod sub %', rw.cper; 
@@ -13431,14 +13317,13 @@ BEGIN
 		end loop;
 		
 		-- Cancelacion de documentos 
-		nreturn = (select * from fin_importar_cobranzafondo_integrador_cancelacion_impcobpag(rwperproceso.cperproceso) as infograba2);
+		-- nreturn = (select * from fin_importar_cobranzafondo_integrador_cancelacion_impcobpag(rwperproceso.cperproceso) as infograba2);
 		
 	end loop; -- Periodo 
 
 END; 
 $BODY$
-LANGUAGE plpgsql VOLATILE
-</value>
+LANGUAGE 'plpgsql' VOLATILE</value>
   </data>
   <data name="txt_cobra02fm.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION public.fin_importar_cobranzafondo_integrador_cancelacion_impcobpag(vper character)
@@ -13501,13 +13386,12 @@ $BODY$
 </value>
   </data>
   <data name="txt_cobra01fm.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION fin_guardar_cobranzafondo_integrador(
-    OUT resultado text,
-    IN pjson text)
-  RETURNS text AS
-$BODY$
-
-
+    <value>CREATE OR REPLACE FUNCTION public.fin_guardar_cobranzafondo_integrador(
+	OUT resultado text,
+	pjson text)
+    RETURNS text
+AS $BODY$
+	
 declare 
 	a_json json;
 begin
@@ -13524,55 +13408,54 @@ begin
 	    nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, ffechadoc, 
 	    ffechaven, ccodenti, ccodruc, crazsoc, nimportes, nimported, 
 	    ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, nperdenre, 
-	    cserre, cnumre, ffecre, es_con_migracion, es_anticipo_automatico
+	    cserre, cnumre, ffecre, es_con_migracion
     )    
     select idcobranzapago, ccod_empresa, cper, cmes, ccodori, ccodsu, ccodflu, 
 	    ntipocobpag, ffechacan, cdoccan, csercan, cnumcan, ccuecan, cmoncan, 
 	    nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, ffechadoc, 
 	    ffechaven, ccodenti, ccodruc, crazsoc, nimportes, nimported, 
-	    ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, nperdenre, 
-	    cserre, cnumre, ffecre, es_con_migracion, es_anticipo_automatico
+	    ccodcue, cglosa::varchar(80) as cglosa, ccodcos, ccodcos2, nporre, nimpperc, nperdenre, 
+	    cserre, cnumre, ffecre, es_con_migracion
     from json_to_recordset(a_json)
     as t(
         idcobranzapago numeric(20,0),  
-	ccod_empresa character(3),
-	cper character(4),
-	cmes character(2),
-	ccodori character(3),
-	ccodsu character(2),
-	ccodflu character(4),
-	ntipocobpag integer,  -- 1 = Cobranzas, 2 = pagos 
-	ffechacan date,
-	cdoccan character(2),
-	csercan character(20),
-	cnumcan character(20),
-	ccuecan character(20),
-	cmoncan character(1),
-	nimporcan numeric(15,2),
-	ntipcam numeric(10,6),
-	ccodpago character(3),
-	ccoddoc character(2),
-	cserie character(20),
-	cnumero character(20),
-	ffechadoc date,
-	ffechaven date,
-	ccodenti character(11),
-	ccodruc character(15),
-	crazsoc character(150),
-	nimportes numeric(15,2),
-	nimported numeric(15,2),
-	ccodcue character(20),
-	cglosa character varying(80),
-	ccodcos character(9),
-	ccodcos2 character(9),
-	nporre numeric(5,2),
-	nimpperc numeric(15,2),
-	nperdenre numeric(1,0),
-	cserre character(6),
-	cnumre character(13),
-	ffecre date,
-	es_con_migracion numeric(1,0),
-	es_anticipo_automatico numeric(1,0)
+		ccod_empresa character(3),
+		cper character(4),
+		cmes character(2),
+		ccodori character(3),
+		ccodsu character(2),
+		ccodflu character(4),
+		ntipocobpag integer,  -- 1 = Cobranzas, 2 = pagos 
+		ffechacan date,
+		cdoccan character(2),
+		csercan character(20),
+		cnumcan character(20),
+		ccuecan character(20),
+		cmoncan character(1),
+		nimporcan numeric(15,2),
+		ntipcam numeric(10,6),
+		ccodpago character(3),
+		ccoddoc character(2),
+		cserie character(20),
+		cnumero character(20),
+		ffechadoc date,
+		ffechaven date,
+		ccodenti character(11),
+		ccodruc character(15),
+		crazsoc character(150),
+		nimportes numeric(15,2),
+		nimported numeric(15,2),
+		ccodcue character(20),
+		cglosa Text,
+		ccodcos character(9),
+		ccodcos2 character(9),
+		nporre numeric(5,2),
+		nimpperc numeric(15,2),
+		nperdenre numeric(1,0),
+		cserre character(6),
+		cnumre character(13),
+		ffecre date,
+		es_con_migracion numeric(1,0)
     );
 
     --2. llamar funcion de validar/generar asientos..., debe actualizar campo: resultado_migracion
@@ -13589,9 +13472,11 @@ begin
     from fin_cobranzafm fc
     into resultado;
     
-end; 
+end;
 $BODY$
-  LANGUAGE plpgsql VOLATILE</value>
+LANGUAGE 'plpgsql'
+  
+</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

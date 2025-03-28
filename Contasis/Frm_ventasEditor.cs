@@ -142,12 +142,12 @@ namespace Contasis
             obe.Idventas = txtidventas.Text;
             obe.Ffechadoc = txtffechadoc.Text;
             obe.Ffechaven = txtffechaven.Text;
-            obe.Ccoddoc = txtctipdoc.Text.Trim();
+            obe.Ccoddoc = txtccoddoc.Text.Trim();
             obe.Cserie = txtcserie.Text.Trim();
             obe.Cnumero = txtcnumero.Text.Trim();
             obe.Ctipdoc = txtctipdoc.Text.Trim();
             obe.Crazsoc = txtcrazsoc.Text.Trim();
-            obe.Cruc = txtcrazsoc.Text.Trim();
+            obe.Cruc = txtruc.Text.Trim();
             obe.Base1 = txtbase1.Text;
             obe.Nigv1 = txtnigv1.Text;
             obe.Ntots = txtntots.Text;

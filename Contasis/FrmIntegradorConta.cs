@@ -347,8 +347,8 @@ namespace Contasis
                     obj.CSUB2_vta = txtCSUB2.Text.Trim();
                     obj.CLREG2_vta = txtCLREG2.Text.Trim();
                     obj.CCONTS_vta = txtCCONTS.Text.Trim();
-                    obj.CCONTD_vta = txtCCONTD.Text;
-                    obj.CFEFEC_vta = txtCFEFEC.Text;
+                    obj.CCONTD_vta = txtCCONTD.Text.Trim(); ;
+                    obj.CFEFEC_vta = txtCFEFEC.Text.Trim(); ;
                     obj.CENT_ANULA = cmbanuladosventas.Text.Substring(0, 15);
 
                     if (checkctaresu.Checked == true)
@@ -470,17 +470,17 @@ namespace Contasis
                     this.Crear_ventas_asientos();
 
                     obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
-                    obj.PERIODO = txtperiodo.Text;
-                    obj.RAZONSOCIAL = txtrazon.Text;
+                    obj.PERIODO = txtperiodo.Text.Trim(); ;
+                    obj.RAZONSOCIAL = txtrazon.Text.Trim(); ;
                     obj.RUC = txtruc.Text;
                     obj.ENTIDAD = cmbentidadvta.Text.Substring(0, 3);
-                    obj.CSUB1_vta = txtCSUB1.Text;
-                    obj.CLREG1_vta = txtCLREG1.Text;
-                    obj.CSUB2_vta = txtCSUB2.Text;
-                    obj.CLREG2_vta = txtCLREG2.Text;
-                    obj.CCONTS_vta = txtCCONTS.Text;
-                    obj.CCONTD_vta = txtCCONTD.Text;
-                    obj.CFEFEC_vta = txtCFEFEC.Text;
+                    obj.CSUB1_vta = txtCSUB1.Text.Trim(); ;
+                    obj.CLREG1_vta = txtCLREG1.Text.Trim(); ;
+                    obj.CSUB2_vta = txtCSUB2.Text.Trim(); ;
+                    obj.CLREG2_vta = txtCLREG2.Text.Trim(); ;
+                    obj.CCONTS_vta = txtCCONTS.Text.Trim(); ;
+                    obj.CCONTD_vta = txtCCONTD.Text.Trim(); ;
+                    obj.CFEFEC_vta = txtCFEFEC.Text.Trim(); ;
                     obj.CENT_ANULA = cmbanuladosventas.Text.Substring(0, 15);
 
                     if (checkctaresu.Checked == true)
@@ -944,6 +944,25 @@ namespace Contasis
                     this.Crear_fin_cobranzapago_asientos();
                     this.Crear_fin_cobranzapago_integra_asientos();
 
+
+                    // para crear el campo anticipo //
+                    //fecha: 26/03/2025
+                    string NombreTable, Nombrecampo, Query;
+                    Clase.Estructura_postgres     objpos = new Clase.Estructura_postgres();
+                    
+                    NombreTable = "fin_cobranzapago";
+                    Nombrecampo = "es_anticipo_automatico";
+                    Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " numeric(1,0) not null default 0;";
+                    respuesta = objpos.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                    //------------------------------------------------------------------------------------//
+                    //-fin_cobranzapago_integra--//
+                    NombreTable = "fin_cobranzapago_integra";
+                    Nombrecampo = "es_anticipo_automatico";
+                    Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " numeric(1,0) not null default 0;";
+                    respuesta = objpos.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+
+
+
                     obj.EMPRESA = cmbempresas.Text.Substring(0, 3);
                     obj.PERIODO = txtperiodo.Text;
                     obj.RAZONSOCIAL = txtrazon.Text;
@@ -969,7 +988,7 @@ namespace Contasis
                     respuesta = ds.Insertar_postgres(obj);
                     if (respuesta.Equals("Grabado"))
                     {
-                        MessageBox.Show("Registro grabado en configuracion para cuentas de ventas", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Registro grabado en configuracion para cuentas de Cobranzas General", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         Grabar_Fecha_inicio();
                         /*this.limpiarcasilla();*/
                     }
@@ -977,7 +996,7 @@ namespace Contasis
                     {
                         if (respuesta.Equals("Actualizado"))
                         {
-                            MessageBox.Show("Registro actualizado en configuracion para cuentas de ventas", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Registro actualizado en configuracion para cuentas de Cobranzas General", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             Grabar_Fecha_inicio();
                             /*this.limpiarcasilla();*/
                         }
@@ -3010,6 +3029,7 @@ namespace Contasis
                       " cnumre character(13) NOT NULL DEFAULT ''::bpchar, " +
                       " ffecre date, " +
                       " es_con_migracion numeric(1, 0), " +
+                      " es_anticipo_automatico numeric(1, 0), " +
                       " obserror text, " +
                       " resultado_migracion numeric(1, 0) )";
 
@@ -3114,7 +3134,7 @@ namespace Contasis
                         " nperdenre numeric(1, 0) NOT NULL DEFAULT 0, " +
                         " cserre character(6) NOT NULL DEFAULT ''::bpchar, " +
                         " cnumre character(13) NOT NULL DEFAULT ''::bpchar, " +
-                        " ffecre date)  ";
+                        " ffecre date,es_anticipo_automatico numeric(1) NOT NULL DEFAULT 0  )  ";
 
 
                     cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
