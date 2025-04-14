@@ -16,7 +16,7 @@ namespace Contasis
     public partial class FrmRuceditor : Form
     {
         int tipo;
-     public FrmRuceditor(int ntipo, string ruc, string nombre, string frase,int venta,int compras,int cobranza,int pago, int productos, int comcompras, int conventas,int fondom)
+     public FrmRuceditor(int ntipo, string ruc, string nombre, string frase,int venta,int compras,int cobranza,int pago, int productos, int comcompras, int conventas,int fondom, int ncobranzacomercial)
         {
             InitializeComponent();
             tipo = ntipo;
@@ -90,6 +90,16 @@ namespace Contasis
                     {
                         checkBoxFondom.Checked = false;
                     }
+                    if (ncobranzacomercial == 1)
+                    {
+                        check_cobranzacomercial.Checked = true;
+                    }
+                    else
+                    {
+                        check_cobranzacomercial.Checked = false;
+                    }
+
+
                 }
 
 
@@ -121,8 +131,16 @@ namespace Contasis
                     {
                         checkventascom.Checked = false;
                     }
+                    if (ncobranzacomercial == 1)
+                    {
+                        check_cobranzacomercial.Checked = true;
+                    }
+                    else
+                    {
+                        check_cobranzacomercial.Checked = false;
+                    }
 
-                  
+
                 }
 
                 /*****/
@@ -148,6 +166,7 @@ namespace Contasis
                 this.checkPRODUCTO.Visible = false;
                 this.checkcomprascom.Visible = false;
                 this.checkventascom.Visible = false;
+                this.check_cobranzacomercial.Visible = false;
             }
 
             if (Properties.Settings.Default.TipModulo == "2")
@@ -157,9 +176,11 @@ namespace Contasis
                 this.checkCobranza.Visible = false;
                 this.checkCompras.Visible = false;
                 this.checkPagos.Visible = false;
+                this.checkBoxFondom.Visible = false;
                 this.checkPRODUCTO.Visible = true;
                 this.checkcomprascom.Visible = true;
                 this.checkventascom.Visible = true;
+                this.check_cobranzacomercial.Visible = true;
             }
           
             txtempresa.CharacterCasing = CharacterCasing.Upper;
@@ -281,6 +302,15 @@ namespace Contasis
                         {
                             obj.nfondoM = 0;
                         }
+                        if (check_cobranzacomercial.Checked == true)
+                        {
+                            obj.check_cobranzacomercial = 1;
+                            
+                        }
+                        else
+                        {
+                            obj.check_cobranzacomercial = 0;
+                        }
 
 
 
@@ -315,14 +345,17 @@ namespace Contasis
                                 obj.ncomventaflg = 0;
                             }
 
-                            if (checkBoxFondom.Checked == true)
+                            if (check_cobranzacomercial.Checked == true)
                             {
-                                obj.nfondoM = 1;
+                                obj.check_cobranzacomercial = 1;
                             }
                             else
                             {
-                                obj.nfondoM = 0;
+                                obj.check_cobranzacomercial = 0;
                             }
+
+                            
+
 
 
                         }
@@ -437,6 +470,15 @@ namespace Contasis
                             else
                             {
                                 obj.ncomventaflg = 0;
+                            }
+
+                            if (check_cobranzacomercial.Checked == true)
+                            {
+                                obj.check_cobranzacomercial = 1;
+                            }
+                            else
+                            {
+                                obj.check_cobranzacomercial = 0;
                             }
 
 
@@ -566,6 +608,14 @@ namespace Contasis
                         else
                         {
                             obj.nfondoM = 0;
+                        }
+                        if (check_cobranzacomercial.Checked == true)
+                        {
+                            obj.check_cobranzacomercial = 1;
+                        }
+                        else
+                        {
+                            obj.check_cobranzacomercial = 0;
                         }
 
 

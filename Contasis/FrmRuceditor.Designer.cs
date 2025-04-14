@@ -44,10 +44,11 @@ namespace Contasis
             this.checkCobranza = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.check_cobranzacomercial = new System.Windows.Forms.CheckBox();
+            this.checkBoxFondom = new System.Windows.Forms.CheckBox();
             this.checkventascom = new System.Windows.Forms.CheckBox();
             this.checkcomprascom = new System.Windows.Forms.CheckBox();
             this.checkPRODUCTO = new System.Windows.Forms.CheckBox();
-            this.checkBoxFondom = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -190,6 +191,7 @@ namespace Contasis
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panel1.Controls.Add(this.check_cobranzacomercial);
             this.panel1.Controls.Add(this.checkBoxFondom);
             this.panel1.Controls.Add(this.checkventascom);
             this.panel1.Controls.Add(this.checkcomprascom);
@@ -207,6 +209,27 @@ namespace Contasis
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(406, 156);
             this.panel1.TabIndex = 14;
+            // 
+            // check_cobranzacomercial
+            // 
+            this.check_cobranzacomercial.AutoSize = true;
+            this.check_cobranzacomercial.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.check_cobranzacomercial.Location = new System.Drawing.Point(269, 128);
+            this.check_cobranzacomercial.Name = "check_cobranzacomercial";
+            this.check_cobranzacomercial.Size = new System.Drawing.Size(120, 17);
+            this.check_cobranzacomercial.TabIndex = 22;
+            this.check_cobranzacomercial.Text = "Activar Cobranza C.";
+            this.check_cobranzacomercial.UseVisualStyleBackColor = false;
+            // 
+            // checkBoxFondom
+            // 
+            this.checkBoxFondom.AutoSize = true;
+            this.checkBoxFondom.Location = new System.Drawing.Point(11, 128);
+            this.checkBoxFondom.Name = "checkBoxFondom";
+            this.checkBoxFondom.Size = new System.Drawing.Size(103, 17);
+            this.checkBoxFondom.TabIndex = 21;
+            this.checkBoxFondom.Text = "Fondo Mortuorio";
+            this.checkBoxFondom.UseVisualStyleBackColor = true;
             // 
             // checkventascom
             // 
@@ -241,16 +264,6 @@ namespace Contasis
             this.checkPRODUCTO.Text = "Activar Productos ";
             this.checkPRODUCTO.UseVisualStyleBackColor = true;
             this.checkPRODUCTO.Visible = false;
-            // 
-            // checkBoxFondom
-            // 
-            this.checkBoxFondom.AutoSize = true;
-            this.checkBoxFondom.Location = new System.Drawing.Point(11, 128);
-            this.checkBoxFondom.Name = "checkBoxFondom";
-            this.checkBoxFondom.Size = new System.Drawing.Size(103, 17);
-            this.checkBoxFondom.TabIndex = 21;
-            this.checkBoxFondom.Text = "Fondo Mortuorio";
-            this.checkBoxFondom.UseVisualStyleBackColor = true;
             // 
             // FrmRuceditor
             // 
@@ -298,5 +311,6 @@ namespace Contasis
         private System.Windows.Forms.CheckBox checkcomprascom;
         private System.Windows.Forms.CheckBox checkPRODUCTO;
         private System.Windows.Forms.CheckBox checkBoxFondom;
+        private System.Windows.Forms.CheckBox check_cobranzacomercial;
     }
 }

@@ -56,7 +56,7 @@ namespace Contasis.Clase
             try
             {
                 string query = "INSERT INTO configuracion2(ccod_empresa " +
-                ", cper, crazemp, crucemp, Entidad, Tipo, codtipdocu, cserie, ccodmov, ccodpag, ccodvend, " +
+                ", cper, crazemp, crucemp, Entidad, Tipo, codtipdocu, Cserie, ccodmov, ccodpag, ccodvend, " +
                 "ccodalma, Ent_anula, Prodanula) " +
                 "VALUES('" + Objet.Ccod_empresa + "', " +
                     "'" + Objet.Cper + "','" + Objet.Crazemp + "','" + Objet.Crucemp + "','" + Objet.Entidad + "','" + Objet.Tipo + "','" + Objet.Codtipdocu + "'," +

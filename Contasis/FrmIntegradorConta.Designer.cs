@@ -548,6 +548,7 @@ namespace Contasis
             this.txtCSUB1.Name = "txtCSUB1";
             this.txtCSUB1.Size = new System.Drawing.Size(75, 18);
             this.txtCSUB1.TabIndex = 4;
+            this.txtCSUB1.TextChanged += new System.EventHandler(this.txtCSUB1_TextChanged);
             this.txtCSUB1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtCSUB1_KeyDown);
             this.txtCSUB1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtCSUB1_KeyPress);
             this.txtCSUB1.Validated += new System.EventHandler(this.TxtCSUB1_Validated);
@@ -1600,7 +1601,7 @@ namespace Contasis
             // 
             // txtquery2
             // 
-            this.txtquery2.Location = new System.Drawing.Point(51, 684);
+            this.txtquery2.Location = new System.Drawing.Point(51, 669);
             this.txtquery2.Name = "txtquery2";
             this.txtquery2.Size = new System.Drawing.Size(186, 20);
             this.txtquery2.TabIndex = 13;
@@ -1839,7 +1840,7 @@ namespace Contasis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 564);
+            this.ClientSize = new System.Drawing.Size(641, 556);
             this.Controls.Add(this.txt_cobra04fm);
             this.Controls.Add(this.txt_cobra03fm);
             this.Controls.Add(this.txt_cobra02fm);

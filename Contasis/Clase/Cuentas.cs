@@ -23,8 +23,8 @@ namespace Contasis.Clase
 
             try
             {
-                
-                string query0 = "SELECT CPER FROM CONFIGURACION WHERE CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='"+ Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
+
+                string query0 = "SELECT CPER FROM CONFIGURACION WHERE CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
                 cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query0, cone);
                 DataTable dt = new DataTable();
@@ -85,7 +85,7 @@ namespace Contasis.Clase
                            "" + Objet.CTAIMP_vta + "," +
                            "" + Objet.CTAACT_Vta + "," +
                            "" + Objet.ASIENTOS_vta + "," +
-                           "'" + Objet.CTIPO + "',"+
+                           "'" + Objet.CTIPO + "'," +
                            "'" + Objet.CENT_ANULA + "')";
                         cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando1 = new SqlCommand(query, cone);
@@ -149,7 +149,7 @@ namespace Contasis.Clase
                            "" + Objet.ASIENTOS_com + "," +
                            "'" + Objet.CTIPO + "'," +
                            "'" + Objet.CENT_ANULA + "')";
-                           cone = ConexionSql.Instancial().Establecerconexion();
+                        cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando1 = new SqlCommand(query, cone);
                         cone.Open();
                         cadena = commando1.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
@@ -171,7 +171,7 @@ namespace Contasis.Clase
                         " clreg1_vta =' " + Objet.CLREG1_vta + "', " +
                         " cfefec_vta ='" + Objet.CFEFEC_vta + "'," +
                         " csub1_vta ='" + Objet.Csub_anticipo + "', " +
-                        " nactiva_anticipo="+ Objet.Nactiva_anticipo +" "+
+                        " nactiva_anticipo=" + Objet.Nactiva_anticipo + " " +
                         " where CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' and CTIPO='" + Objet.CTIPO + "'";
                         cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando2 = new SqlCommand(query1, cone);
@@ -204,8 +204,8 @@ namespace Contasis.Clase
                            "" + Objet.ASIENTOS_vta + "," +
                            "'" + Objet.CTIPO + "'," +
                            "'" + Objet.CENT_ANULA + "'," +
-                           "'" + Objet.Csub_anticipo+ "', " +
-                           "" + Objet.Nactiva_anticipo  +")";
+                           "'" + Objet.Csub_anticipo + "', " +
+                           "" + Objet.Nactiva_anticipo + ")";
                         cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando1 = new SqlCommand(query, cone);
                         cone.Open();
@@ -231,7 +231,7 @@ namespace Contasis.Clase
                           " cconts_com ='" + Objet.CCONTS_com.Trim() + "', " +
                           " ccontd_com ='" + Objet.CCONTD_com.Trim() + "', " +
                           " cfefec_com ='" + Objet.CFEFEC_com.Trim() + "', " +
-                          " ctares_com =" + Objet.CTARES_com+ "," +
+                          " ctares_com =" + Objet.CTARES_com + "," +
                           " ctaimp_com =" + Objet.CTAIMP_com + "," +
                           " Ctapas_com =" + Objet.CTAPAS_com + "," +
                           " asientos_com =" + Objet.ASIENTOS_com + "," +
@@ -303,10 +303,10 @@ namespace Contasis.Clase
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "SELECT CCOD_EMPRESA as EMPRESA,cper AS PERIODO,crazemp AS RAZON,crucemp AS RUC,"+
-                "cEntidad AS ENTIDAD_VENTA ,csub1_vta,clreg1_vta,csub2_vta,clreg2_vta,cconts_vta,ccontd_vta,cfefec_vta"+
+                string query = "SELECT CCOD_EMPRESA as EMPRESA,cper AS PERIODO,crazemp AS RAZON,crucemp AS RUC," +
+                "cEntidad AS ENTIDAD_VENTA ,csub1_vta,clreg1_vta,csub2_vta,clreg2_vta,cconts_vta,ccontd_vta,cfefec_vta" +
                 ",ctares_vta AS RESULTADO,ctaimp_vta AS IMPUESTOS,Ctaact_vta ACTIVO_VTA, asientos_vta AS ASIENTO_VTA, cTipo AS TIPO,cEnt_anula as ENT_ANULADO " +
-                "FROM CONFIGURACION where CCOD_EMPRESA='"+xempresa+"' and cper='"+xPeriodo+"' and   ctipo = '01' order by cper desc";
+                "FROM CONFIGURACION where CCOD_EMPRESA='" + xempresa + "' and cper='" + xPeriodo + "' and   ctipo = '01' order by cper desc";
                 cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
@@ -338,9 +338,9 @@ namespace Contasis.Clase
             SqlConnection cone = new SqlConnection();
             try
             {
-                string query = "SELECT CCOD_EMPRESA as EMPRESA,cper AS PERIODO,crazemp AS RAZON,crucemp AS RUC,"+
-                "cEntidad AS ENTIDAD_COMPRA,csub1_com,clreg1_com,csub2_com ,clreg2_com,cconts_com,ccontd_com"+
-                ",cfefec_com,ctares_com AS RESULTADO_COM,ctaimp_com AS IMPUESTOS_COM ,Ctapas_com AS ACTIVO_COM ,asientos_com as ASIENTO_COM,"+
+                string query = "SELECT CCOD_EMPRESA as EMPRESA,cper AS PERIODO,crazemp AS RAZON,crucemp AS RUC," +
+                "cEntidad AS ENTIDAD_COMPRA,csub1_com,clreg1_com,csub2_com ,clreg2_com,cconts_com,ccontd_com" +
+                ",cfefec_com,ctares_com AS RESULTADO_COM,ctaimp_com AS IMPUESTOS_COM ,Ctapas_com AS ACTIVO_COM ,asientos_com as ASIENTO_COM," +
                 "cTipo AS TIPO,cEnt_anula as ENT_ANULADO  FROM CONFIGURACION where  CCOD_EMPRESA='" + xempresa + "' and cper='" + xPeriodo + "' and    ctipo = '02' order by cper desc";
                 cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
@@ -976,5 +976,101 @@ namespace Contasis.Clase
             }
         }
 
+
+
+
+        public string Insertar_postgres_comercial(Clase.CuentasPropiedad Objet)
+        {
+            string cadena = "";
+
+            DataTable Tabla = new DataTable();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+
+            try
+            {
+
+                string query0 = "SELECT distinct CPER FROM CONFIGURACION2 WHERE crucemp='" + Objet.RUC.Trim() + "' and  CPER='" + Objet.PERIODO + "' AND CCOD_EMPRESA='" + Objet.EMPRESA + "' ";
+                NpgsqlCommand cmdp = new NpgsqlCommand(query0, conexion);
+                DataTable dt = new DataTable();
+                NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
+
+                data.Fill(dt);
+
+                if (Objet.CTIPO == "03")
+                {
+                    /**solo cobranzas**/
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        string query1 = "UPDATE CONFIGURACION2  " +
+                        "SET ccodoripago ='" + Objet.CSUB1_vta.Trim().Replace(" ", "") + "', " +
+                        " clibropago ='" + Objet.CLREG1_vta.Trim().Replace(" ", "") + "', " +
+                        " ccodflupago ='" + Objet.CFEFEC_vta.Trim().Replace(" ", "") + "', " +
+                        " ctipo='" + Objet.CTIPO.Trim().Replace(" ", "") + "'" +
+                        " where crucemp='" + Objet.RUC.Trim() + "' and CPER='" + Objet.PERIODO.Trim() + "' AND CCOD_EMPRESA='" + Objet.EMPRESA.Trim() + "'";
+                        NpgsqlCommand cmdp1 = new NpgsqlCommand(query1, conexion);
+                        cadena = cmdp1.ExecuteNonQuery() >= 1 ? "Actualizado" : "No se actualizo";
+                    }
+                    else
+                    {
+                        cadena = "No existe movimientos para actualizar.";
+                    }
+                }
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+                cadena = ex1.Message;
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+
+            }
+            return cadena;
+
+
+
+
+        }
+        public DataTable Cargar_cobranzas_postgres_comercial(string mEmpresa, string mPeriodo)
+        {
+            string xempresa = mEmpresa;
+            string xPeriodo = mPeriodo;
+            NpgsqlDataReader carga;
+            DataTable Grilla = new DataTable();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+
+            try
+            {
+                string query = "SELECT CCOD_EMPRESA as EMPRESA,cper AS PERIODO,crazemp AS RAZON,crucemp AS RUC," +
+                   "Entidad AS ENTIDAD_COBRANZA ,ccodoripago AS SUBDIARIO_COBRANZA ,trim(clibropago) as REGISTRO_COBRANZA ,ccodflupago as FLUJO_COBRANZA," +
+                   "cTipo AS TIPO,Ent_anula as ENT_ANULADO " +
+               "FROM CONFIGURACION2 where CCOD_EMPRESA='" + xempresa + "' and cper='" + xPeriodo + "' and   ctipo = '03' order by cper desc";
+                NpgsqlCommand cmdp1 = new NpgsqlCommand(query, conexion);
+                carga = cmdp1.ExecuteReader();
+                Grilla.Load(carga);
+                return Grilla;
+            }
+            catch (Exception ex1)
+            {
+                throw ex1;
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+
+            }
+        }
     }
 }

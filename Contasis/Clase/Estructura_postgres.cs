@@ -280,6 +280,75 @@ namespace Contasis.Clase
             return cadena;
         }
 
+
+
+
+        public string crear_Campos_nuevos_en_tablas_empresa(string NombreTable, string Nombrecampo, string campolargo,string CadenaConexion)
+        {
+            string cadena = "";
+            int cadena1 = 0;
+
+            DataTable Tabla = new DataTable();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(CadenaConexion);
+
+
+
+            ////Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+
+
+            try
+            {
+                string query = "select *  from information_schema.columns where table_schema='public' and table_name='" + NombreTable.Trim().ToLower() + "' and column_name='" + Nombrecampo.Trim().ToLower() + "';";
+                NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
+                DataTable dt = new DataTable();
+                NpgsqlDataAdapter data = new NpgsqlDataAdapter(commando);
+                data.Fill(dt);
+                if (dt.Rows.Count > 0)
+                { }
+                else
+                {
+                    NpgsqlCommand myCommand = new NpgsqlCommand(campolargo, conexion);
+                    try
+                    {
+                        cadena1 = myCommand.ExecuteNonQuery();
+                        if (cadena1 < 0)
+                        {
+                            cadena = "se adicional en la tabla " + NombreTable + " el campo " + Nombrecampo;
+
+                        }
+                        else
+                        {
+                            cadena = "No se puedo adicional el campo";
+                        }
+                        //// FrmCrearTablas.instance.timer1.Enabled = true;
+                        conexion.Close();
+                    }
+                    catch
+                    {
+                        ////(System.Exception ex) MessageBox.Show(ex.ToString(), "Contasis Corp.en Ventas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    }
+                }
+
+
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+                cadena = ex1.Message;
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+
+            }
+            return cadena;
+        }
         public void Insertar_datos_fijos()
         {
             DataTable Tabla = new DataTable();

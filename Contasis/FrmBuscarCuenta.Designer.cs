@@ -41,6 +41,7 @@ namespace Contasis
             this.txtcadenas = new System.Windows.Forms.TextBox();
             this.lblTotales = new System.Windows.Forms.Label();
             this.txtperiodo = new System.Windows.Forms.TextBox();
+            this.txtModulo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -141,7 +142,7 @@ namespace Contasis
             this.lblTotales.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotales.Location = new System.Drawing.Point(10, 267);
             this.lblTotales.Name = "lblTotales";
-            this.lblTotales.Size = new System.Drawing.Size(112, 13);
+            this.lblTotales.Size = new System.Drawing.Size(98, 12);
             this.lblTotales.TabIndex = 34;
             this.lblTotales.Text = "Total Registros : 0";
             // 
@@ -152,11 +153,20 @@ namespace Contasis
             this.txtperiodo.Size = new System.Drawing.Size(91, 20);
             this.txtperiodo.TabIndex = 35;
             // 
+            // txtModulo
+            // 
+            this.txtModulo.Location = new System.Drawing.Point(12, 329);
+            this.txtModulo.MaxLength = 1;
+            this.txtModulo.Name = "txtModulo";
+            this.txtModulo.Size = new System.Drawing.Size(49, 20);
+            this.txtModulo.TabIndex = 36;
+            // 
             // FrmBuscarCuenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(415, 298);
+            this.ClientSize = new System.Drawing.Size(418, 299);
+            this.Controls.Add(this.txtModulo);
             this.Controls.Add(this.txtperiodo);
             this.Controls.Add(this.lblTotales);
             this.Controls.Add(this.txtcadenas);
@@ -194,5 +204,6 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtperiodo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.TextBox txtModulo;
     }
 }

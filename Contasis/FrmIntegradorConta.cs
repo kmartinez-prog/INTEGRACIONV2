@@ -384,20 +384,22 @@ namespace Contasis
                         obj.ASIENTOS_vta = 0;
                     }
                     obj.CTIPO = "01";
+                    Grabar_Fecha_inicio();
                     Clase.Cuentas ds = new Clase.Cuentas();
                     respuesta = ds.Insertar(obj);
                     if (respuesta.Equals("Grabado"))
                     {
                         MessageBox.Show("Registro grabado en configuracion para cuentas de ventas", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Grabar_Fecha_inicio();
+                        
                         /*this.limpiarcasilla();*/
                     }
                     else
                     {
+                        Grabar_Fecha_inicio();
                         if (respuesta.Equals("Actualizado"))
                         {
                             MessageBox.Show("Registro actualizado en configuracion para cuentas de ventas", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            Grabar_Fecha_inicio();
+                            
                             /*this.limpiarcasilla();*/
                         }
                         else
@@ -953,13 +955,13 @@ namespace Contasis
                     NombreTable = "fin_cobranzapago";
                     Nombrecampo = "es_anticipo_automatico";
                     Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " numeric(1,0) not null default 0;";
-                    respuesta = objpos.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                    respuesta = objpos.crear_Campos_nuevos_en_tablas_empresa(NombreTable, Nombrecampo, Query, txtcadena.Text);
                     //------------------------------------------------------------------------------------//
                     //-fin_cobranzapago_integra--//
                     NombreTable = "fin_cobranzapago_integra";
                     Nombrecampo = "es_anticipo_automatico";
                     Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " numeric(1,0) not null default 0;";
-                    respuesta = objpos.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                    respuesta = objpos.crear_Campos_nuevos_en_tablas_empresa(NombreTable, Nombrecampo, Query, txtcadena.Text);
 
 
 
@@ -1584,7 +1586,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(1, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(1, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
 
@@ -1601,7 +1603,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(2, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(2, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -1616,7 +1618,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(3, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(3, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -1631,7 +1633,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(4, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(4, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -1645,7 +1647,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(5, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(5, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -1659,7 +1661,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(6, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(6, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -1672,7 +1674,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(7, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(7, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -1689,7 +1691,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(8, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(8, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -1702,7 +1704,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(9, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(9, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -1715,7 +1717,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(10, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(10, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -1728,7 +1730,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(11, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(11, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -1741,7 +1743,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(12, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(12, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -1754,7 +1756,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(13, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(13, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -1767,7 +1769,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(14, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(14, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
             if (e.KeyCode == Keys.Enter)
@@ -3963,9 +3965,9 @@ namespace Contasis
         }
         private void Button3_Click(object sender, EventArgs e)
         {/*** PDI-148 06/12/2024**/
-            if (txtsubdiario_cobra.Text == "" && txtanticipo.Text == "")
+            if (txtsubdiario_cobra.Text == "" || txtanticipo.Text == "")
             {
-                MessageBox.Show("Favor ingrese uno de los 2 Subdiarios.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               // MessageBox.Show("Favor ingrese uno de los 2 Subdiarios.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtsubdiario_cobra.Focus();
 
                 return;
@@ -3994,7 +3996,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(15, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(15, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
 
@@ -4017,7 +4019,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(16, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(16, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
 
@@ -4039,7 +4041,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(17, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(17, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
 
@@ -4093,7 +4095,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(18, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(18, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
 
@@ -4107,7 +4109,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(19, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(19, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
 
@@ -4121,7 +4123,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(20, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(20, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
 
@@ -4423,7 +4425,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(21, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(21, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
 
@@ -4551,7 +4553,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(22, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(22, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
 
@@ -4584,7 +4586,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(23, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(23, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
 
@@ -4605,7 +4607,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(24, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(24, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
 
@@ -4633,7 +4635,7 @@ namespace Contasis
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
-                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(25, txtcadena.Text, cmbperiodo.Text);
+                FrmBuscarCuenta frmcuenta = new FrmBuscarCuenta(25, txtcadena.Text, cmbperiodo.Text, "F");
                 frmcuenta.ShowDialog();
             }
 
@@ -4738,6 +4740,11 @@ namespace Contasis
         }
 
         private void txt_cobra01fm_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCSUB1_TextChanged(object sender, EventArgs e)
         {
 
         }

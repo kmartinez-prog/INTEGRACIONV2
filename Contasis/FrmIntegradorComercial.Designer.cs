@@ -78,6 +78,20 @@ namespace Contasis
             this.label36 = new System.Windows.Forms.Label();
             this.dataGrid = new System.Windows.Forms.DataGridView();
             this.btngrabar = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lvalida3 = new System.Windows.Forms.Label();
+            this.lvalida2 = new System.Windows.Forms.Label();
+            this.lvalida1 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.dataGridView_cobranza = new System.Windows.Forms.DataGridView();
+            this.txtflujocobra = new System.Windows.Forms.TextBox();
+            this.txtregistro_cobra = new System.Windows.Forms.TextBox();
+            this.txtsubdiario_cobra = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.BtnGrabarCobranza = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbempresas = new System.Windows.Forms.ComboBox();
             this.txtdocumento = new System.Windows.Forms.TextBox();
@@ -87,7 +101,6 @@ namespace Contasis
             this.txtguardarproducto = new System.Windows.Forms.TextBox();
             this.txtproductoprincipal = new System.Windows.Forms.TextBox();
             this.txtcompras_comercial = new System.Windows.Forms.TextBox();
-            this.txtventascomercial = new System.Windows.Forms.TextBox();
             this.txtasientoscompras = new System.Windows.Forms.TextBox();
             this.txtventasasientos = new System.Windows.Forms.TextBox();
             this.txtActualizastock = new System.Windows.Forms.TextBox();
@@ -95,11 +108,21 @@ namespace Contasis
             this.txtanulasventas = new System.Windows.Forms.TextBox();
             this.txtActualizarstocanular = new System.Windows.Forms.TextBox();
             this.txtubigeo = new System.Windows.Forms.TextBox();
+            this.txtquery2 = new System.Windows.Forms.TextBox();
+            this.txtcom_cobranzas = new System.Windows.Forms.TextBox();
+            this.txtubigeo2 = new System.Windows.Forms.TextBox();
+            this.txtCancelacion_comercial2025 = new System.Windows.Forms.TextBox();
+            this.txtasientos_ventascomercial = new System.Windows.Forms.TextBox();
+            this.txtventascobranzasprincipal = new System.Windows.Forms.TextBox();
+            this.txtasientoscobranzasprincipalventascom = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_cobranza)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -273,6 +296,7 @@ namespace Contasis
             // Tablero
             // 
             this.Tablero.Controls.Add(this.tabPage3);
+            this.Tablero.Controls.Add(this.tabPage1);
             this.Tablero.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Tablero.ItemSize = new System.Drawing.Size(200, 20);
             this.Tablero.Location = new System.Drawing.Point(15, 50);
@@ -618,6 +642,160 @@ namespace Contasis
             this.btngrabar.UseVisualStyleBackColor = true;
             this.btngrabar.Click += new System.EventHandler(this.Btngrabar_Click);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.panel2);
+            this.tabPage1.Controls.Add(this.BtnGrabarCobranza);
+            this.tabPage1.ForeColor = System.Drawing.Color.Black;
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(576, 463);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Configuracion Cobranzas";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.lvalida3);
+            this.panel2.Controls.Add(this.lvalida2);
+            this.panel2.Controls.Add(this.lvalida1);
+            this.panel2.Controls.Add(this.textBox2);
+            this.panel2.Controls.Add(this.dataGridView_cobranza);
+            this.panel2.Controls.Add(this.txtflujocobra);
+            this.panel2.Controls.Add(this.txtregistro_cobra);
+            this.panel2.Controls.Add(this.txtsubdiario_cobra);
+            this.panel2.Controls.Add(this.label28);
+            this.panel2.Controls.Add(this.label29);
+            this.panel2.Controls.Add(this.label30);
+            this.panel2.Location = new System.Drawing.Point(10, 40);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(553, 320);
+            this.panel2.TabIndex = 67;
+            // 
+            // lvalida3
+            // 
+            this.lvalida3.AutoSize = true;
+            this.lvalida3.ForeColor = System.Drawing.Color.Red;
+            this.lvalida3.Location = new System.Drawing.Point(209, 148);
+            this.lvalida3.Name = "lvalida3";
+            this.lvalida3.Size = new System.Drawing.Size(10, 13);
+            this.lvalida3.TabIndex = 66;
+            this.lvalida3.Text = ".";
+            // 
+            // lvalida2
+            // 
+            this.lvalida2.AutoSize = true;
+            this.lvalida2.ForeColor = System.Drawing.Color.Red;
+            this.lvalida2.Location = new System.Drawing.Point(209, 123);
+            this.lvalida2.Name = "lvalida2";
+            this.lvalida2.Size = new System.Drawing.Size(10, 13);
+            this.lvalida2.TabIndex = 65;
+            this.lvalida2.Text = ".";
+            // 
+            // lvalida1
+            // 
+            this.lvalida1.AutoSize = true;
+            this.lvalida1.ForeColor = System.Drawing.Color.Red;
+            this.lvalida1.Location = new System.Drawing.Point(209, 93);
+            this.lvalida1.Name = "lvalida1";
+            this.lvalida1.Size = new System.Drawing.Size(10, 13);
+            this.lvalida1.TabIndex = 64;
+            this.lvalida1.Text = ".";
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(21, 43);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(510, 21);
+            this.textBox2.TabIndex = 63;
+            this.textBox2.Text = "Cuentas de Cobranzas para Comercial";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // dataGridView_cobranza
+            // 
+            this.dataGridView_cobranza.AllowUserToDeleteRows = false;
+            this.dataGridView_cobranza.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_cobranza.Location = new System.Drawing.Point(6, 194);
+            this.dataGridView_cobranza.Name = "dataGridView_cobranza";
+            this.dataGridView_cobranza.ReadOnly = true;
+            this.dataGridView_cobranza.RowHeadersWidth = 51;
+            this.dataGridView_cobranza.Size = new System.Drawing.Size(543, 118);
+            this.dataGridView_cobranza.TabIndex = 62;
+            // 
+            // txtflujocobra
+            // 
+            this.txtflujocobra.Location = new System.Drawing.Point(138, 148);
+            this.txtflujocobra.MaxLength = 10;
+            this.txtflujocobra.Name = "txtflujocobra";
+            this.txtflujocobra.Size = new System.Drawing.Size(65, 18);
+            this.txtflujocobra.TabIndex = 60;
+            this.txtflujocobra.TextChanged += new System.EventHandler(this.txtflujocobra_TextChanged);
+            this.txtflujocobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtflujocobra_KeyDown);
+            // 
+            // txtregistro_cobra
+            // 
+            this.txtregistro_cobra.Location = new System.Drawing.Point(138, 120);
+            this.txtregistro_cobra.MaxLength = 2;
+            this.txtregistro_cobra.Name = "txtregistro_cobra";
+            this.txtregistro_cobra.Size = new System.Drawing.Size(33, 18);
+            this.txtregistro_cobra.TabIndex = 58;
+            this.txtregistro_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtregistro_cobra_KeyDown);
+            // 
+            // txtsubdiario_cobra
+            // 
+            this.txtsubdiario_cobra.Location = new System.Drawing.Point(138, 93);
+            this.txtsubdiario_cobra.MaxLength = 3;
+            this.txtsubdiario_cobra.Name = "txtsubdiario_cobra";
+            this.txtsubdiario_cobra.Size = new System.Drawing.Size(34, 18);
+            this.txtsubdiario_cobra.TabIndex = 57;
+            this.txtsubdiario_cobra.TextChanged += new System.EventHandler(this.txtsubdiario_cobra_TextChanged);
+            this.txtsubdiario_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_cobra_KeyDown);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(49, 151);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(69, 13);
+            this.label28.TabIndex = 59;
+            this.label28.Text = "Flujo efectivo";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(61, 122);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(57, 13);
+            this.label29.TabIndex = 56;
+            this.label29.Text = "L/ Registro";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(27, 95);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(88, 13);
+            this.label30.TabIndex = 55;
+            this.label30.Text = "Sub Diario R. Vta";
+            // 
+            // BtnGrabarCobranza
+            // 
+            this.BtnGrabarCobranza.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnGrabarCobranza.Image = global::Contasis.Properties.Resources._93;
+            this.BtnGrabarCobranza.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnGrabarCobranza.Location = new System.Drawing.Point(461, 366);
+            this.BtnGrabarCobranza.Name = "BtnGrabarCobranza";
+            this.BtnGrabarCobranza.Size = new System.Drawing.Size(100, 32);
+            this.BtnGrabarCobranza.TabIndex = 61;
+            this.BtnGrabarCobranza.Text = "Grabar";
+            this.BtnGrabarCobranza.UseVisualStyleBackColor = true;
+            this.BtnGrabarCobranza.Click += new System.EventHandler(this.BtnGrabarCobranza_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -642,16 +820,16 @@ namespace Contasis
             this.txtdocumento.Location = new System.Drawing.Point(658, 9);
             this.txtdocumento.Multiline = true;
             this.txtdocumento.Name = "txtdocumento";
-            this.txtdocumento.Size = new System.Drawing.Size(274, 257);
+            this.txtdocumento.Size = new System.Drawing.Size(274, 55);
             this.txtdocumento.TabIndex = 2;
             this.txtdocumento.Text = resources.GetString("txtdocumento.Text");
             // 
             // txtdetalledocu
             // 
-            this.txtdetalledocu.Location = new System.Drawing.Point(658, 276);
+            this.txtdetalledocu.Location = new System.Drawing.Point(658, 68);
             this.txtdetalledocu.Multiline = true;
             this.txtdetalledocu.Name = "txtdetalledocu";
-            this.txtdetalledocu.Size = new System.Drawing.Size(274, 257);
+            this.txtdetalledocu.Size = new System.Drawing.Size(274, 70);
             this.txtdetalledocu.TabIndex = 3;
             this.txtdetalledocu.Text = resources.GetString("txtdetalledocu.Text");
             // 
@@ -660,7 +838,7 @@ namespace Contasis
             this.txtproducto.Location = new System.Drawing.Point(938, 9);
             this.txtproducto.Multiline = true;
             this.txtproducto.Name = "txtproducto";
-            this.txtproducto.Size = new System.Drawing.Size(274, 257);
+            this.txtproducto.Size = new System.Drawing.Size(274, 55);
             this.txtproducto.TabIndex = 4;
             this.txtproducto.Text = resources.GetString("txtproducto.Text");
             // 
@@ -682,7 +860,6 @@ namespace Contasis
             this.txtguardarproducto.Name = "txtguardarproducto";
             this.txtguardarproducto.Size = new System.Drawing.Size(273, 108);
             this.txtguardarproducto.TabIndex = 6;
-            this.txtguardarproducto.Text = resources.GetString("txtguardarproducto.Text");
             // 
             // txtproductoprincipal
             // 
@@ -703,16 +880,6 @@ namespace Contasis
             this.txtcompras_comercial.Size = new System.Drawing.Size(274, 118);
             this.txtcompras_comercial.TabIndex = 8;
             this.txtcompras_comercial.Text = resources.GetString("txtcompras_comercial.Text");
-            // 
-            // txtventascomercial
-            // 
-            this.txtventascomercial.BackColor = System.Drawing.Color.PapayaWhip;
-            this.txtventascomercial.Location = new System.Drawing.Point(1218, 129);
-            this.txtventascomercial.Multiline = true;
-            this.txtventascomercial.Name = "txtventascomercial";
-            this.txtventascomercial.Size = new System.Drawing.Size(274, 118);
-            this.txtventascomercial.TabIndex = 9;
-            this.txtventascomercial.Text = resources.GetString("txtventascomercial.Text");
             // 
             // txtasientoscompras
             // 
@@ -737,7 +904,7 @@ namespace Contasis
             // txtActualizastock
             // 
             this.txtActualizastock.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.txtActualizastock.Location = new System.Drawing.Point(939, 539);
+            this.txtActualizastock.Location = new System.Drawing.Point(939, 550);
             this.txtActualizastock.Multiline = true;
             this.txtActualizastock.Name = "txtActualizastock";
             this.txtActualizastock.Size = new System.Drawing.Size(273, 118);
@@ -747,7 +914,7 @@ namespace Contasis
             // txtAnularcompras
             // 
             this.txtAnularcompras.BackColor = System.Drawing.Color.DarkOrange;
-            this.txtAnularcompras.Location = new System.Drawing.Point(658, 539);
+            this.txtAnularcompras.Location = new System.Drawing.Point(658, 578);
             this.txtAnularcompras.Multiline = true;
             this.txtAnularcompras.Name = "txtAnularcompras";
             this.txtAnularcompras.Size = new System.Drawing.Size(274, 118);
@@ -784,11 +951,84 @@ namespace Contasis
             this.txtubigeo.TabIndex = 16;
             this.txtubigeo.Text = resources.GetString("txtubigeo.Text");
             // 
+            // txtquery2
+            // 
+            this.txtquery2.Location = new System.Drawing.Point(7, 679);
+            this.txtquery2.Name = "txtquery2";
+            this.txtquery2.Size = new System.Drawing.Size(623, 20);
+            this.txtquery2.TabIndex = 17;
+            // 
+            // txtcom_cobranzas
+            // 
+            this.txtcom_cobranzas.Location = new System.Drawing.Point(658, 140);
+            this.txtcom_cobranzas.Multiline = true;
+            this.txtcom_cobranzas.Name = "txtcom_cobranzas";
+            this.txtcom_cobranzas.Size = new System.Drawing.Size(274, 70);
+            this.txtcom_cobranzas.TabIndex = 18;
+            this.txtcom_cobranzas.Text = resources.GetString("txtcom_cobranzas.Text");
+            // 
+            // txtubigeo2
+            // 
+            this.txtubigeo2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.txtubigeo2.Location = new System.Drawing.Point(939, 68);
+            this.txtubigeo2.Multiline = true;
+            this.txtubigeo2.Name = "txtubigeo2";
+            this.txtubigeo2.Size = new System.Drawing.Size(273, 69);
+            this.txtubigeo2.TabIndex = 19;
+            this.txtubigeo2.Text = resources.GetString("txtubigeo2.Text");
+            // 
+            // txtCancelacion_comercial2025
+            // 
+            this.txtCancelacion_comercial2025.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.txtCancelacion_comercial2025.Location = new System.Drawing.Point(658, 285);
+            this.txtCancelacion_comercial2025.Multiline = true;
+            this.txtCancelacion_comercial2025.Name = "txtCancelacion_comercial2025";
+            this.txtCancelacion_comercial2025.Size = new System.Drawing.Size(273, 69);
+            this.txtCancelacion_comercial2025.TabIndex = 20;
+            this.txtCancelacion_comercial2025.Text = resources.GetString("txtCancelacion_comercial2025.Text");
+            // 
+            // txtasientos_ventascomercial
+            // 
+            this.txtasientos_ventascomercial.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.txtasientos_ventascomercial.Location = new System.Drawing.Point(658, 357);
+            this.txtasientos_ventascomercial.Multiline = true;
+            this.txtasientos_ventascomercial.Name = "txtasientos_ventascomercial";
+            this.txtasientos_ventascomercial.Size = new System.Drawing.Size(273, 69);
+            this.txtasientos_ventascomercial.TabIndex = 21;
+            this.txtasientos_ventascomercial.Text = resources.GetString("txtasientos_ventascomercial.Text");
+            // 
+            // txtventascobranzasprincipal
+            // 
+            this.txtventascobranzasprincipal.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.txtventascobranzasprincipal.Location = new System.Drawing.Point(658, 428);
+            this.txtventascobranzasprincipal.Multiline = true;
+            this.txtventascobranzasprincipal.Name = "txtventascobranzasprincipal";
+            this.txtventascobranzasprincipal.Size = new System.Drawing.Size(273, 69);
+            this.txtventascobranzasprincipal.TabIndex = 22;
+            this.txtventascobranzasprincipal.Text = resources.GetString("txtventascobranzasprincipal.Text");
+            // 
+            // txtasientoscobranzasprincipalventascom
+            // 
+            this.txtasientoscobranzasprincipalventascom.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.txtasientoscobranzasprincipalventascom.Location = new System.Drawing.Point(658, 500);
+            this.txtasientoscobranzasprincipalventascom.Multiline = true;
+            this.txtasientoscobranzasprincipalventascom.Name = "txtasientoscobranzasprincipalventascom";
+            this.txtasientoscobranzasprincipalventascom.Size = new System.Drawing.Size(273, 69);
+            this.txtasientoscobranzasprincipalventascom.TabIndex = 23;
+            this.txtasientoscobranzasprincipalventascom.Text = resources.GetString("txtasientoscobranzasprincipalventascom.Text");
+            // 
             // FrmIntegradorComercial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(635, 563);
+            this.ClientSize = new System.Drawing.Size(1490, 563);
+            this.Controls.Add(this.txtasientoscobranzasprincipalventascom);
+            this.Controls.Add(this.txtventascobranzasprincipal);
+            this.Controls.Add(this.txtasientos_ventascomercial);
+            this.Controls.Add(this.txtCancelacion_comercial2025);
+            this.Controls.Add(this.txtubigeo2);
+            this.Controls.Add(this.txtcom_cobranzas);
+            this.Controls.Add(this.txtquery2);
             this.Controls.Add(this.txtubigeo);
             this.Controls.Add(this.txtActualizarstocanular);
             this.Controls.Add(this.txtanulasventas);
@@ -796,7 +1036,6 @@ namespace Contasis
             this.Controls.Add(this.txtActualizastock);
             this.Controls.Add(this.txtventasasientos);
             this.Controls.Add(this.txtasientoscompras);
-            this.Controls.Add(this.txtventascomercial);
             this.Controls.Add(this.txtcompras_comercial);
             this.Controls.Add(this.txtproductoprincipal);
             this.Controls.Add(this.txtguardarproducto);
@@ -821,6 +1060,10 @@ namespace Contasis
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_cobranza)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -882,7 +1125,6 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtproductoprincipal;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtcompras_comercial;
-        private System.Windows.Forms.TextBox txtventascomercial;
         private System.Windows.Forms.TextBox txtasientoscompras;
         private System.Windows.Forms.TextBox txtventasasientos;
         private System.Windows.Forms.TextBox txtActualizastock;
@@ -893,5 +1135,26 @@ namespace Contasis
         public System.Windows.Forms.TextBox txtFechaInicio;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.DateTimePicker FechaInicio;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataGridView dataGridView_cobranza;
+        private System.Windows.Forms.TextBox txtquery2;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lvalida3;
+        private System.Windows.Forms.Label lvalida2;
+        private System.Windows.Forms.Label lvalida1;
+        private System.Windows.Forms.TextBox textBox2;
+        public System.Windows.Forms.TextBox txtflujocobra;
+        public System.Windows.Forms.TextBox txtregistro_cobra;
+        public System.Windows.Forms.TextBox txtsubdiario_cobra;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button BtnGrabarCobranza;
+        private System.Windows.Forms.TextBox txtcom_cobranzas;
+        private System.Windows.Forms.TextBox txtubigeo2;
+        private System.Windows.Forms.TextBox txtCancelacion_comercial2025;
+        private System.Windows.Forms.TextBox txtasientos_ventascomercial;
+        private System.Windows.Forms.TextBox txtventascobranzasprincipal;
+        private System.Windows.Forms.TextBox txtasientoscobranzasprincipalventascom;
     }
 }

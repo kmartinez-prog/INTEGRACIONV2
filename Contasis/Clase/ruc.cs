@@ -43,10 +43,10 @@ namespace Contasis.Clase
 
                     if (Properties.Settings.Default.TipModulo == "2")
                     {
-                        query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,ncomproductoflg,ncomcompraflg,ncomventaflg,nventaflg,ncompraflg,ncobranzaflg,npagoflg,ncomfondom) values(" +
+                        query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,ncomproductoflg,ncomcompraflg,ncomventaflg,nventaflg,ncompraflg,ncobranzaflg,npagoflg,ncomfondom,ncobranzacomercial) values(" +
                            "'" + Objet.ruc + "', " +
                            "'" + Objet.empresa + "', " +
-                           "'" + Objet.estado + "'," + Objet.ncomproductoflg + "," + Objet.ncomcompraflg + "," + Objet.ncomventaflg + ",0,0,0,0" + "," + Objet.nfondoM + ")";
+                           "'" + Objet.estado + "'," + Objet.ncomproductoflg + "," + Objet.ncomcompraflg + "," + Objet.ncomventaflg + ",0,0,0,0" + "," + Objet.nfondoM + ","+Objet.check_cobranzacomercial +")";
                     }
                     cone = ConexionSql.Instancial().Establecerconexion();
                         SqlCommand commando1 = new SqlCommand(query, cone);
@@ -80,12 +80,12 @@ namespace Contasis.Clase
                 if (Properties.Settings.Default.TipModulo == "1")
                 {
                  query = "update  cg_empemisor SET cdesrucemisor='" + Objet.empresa + "'," +
-                "flgactivo='" + Objet.estado + "',nventaflg=" + Objet.checkventas + ",ncompraflg=" + Objet.checkcompras + ", ncobranzaflg=" + Objet.checkcobranzas + ", npagoflg=" + Objet.checkpagos + ", ncomfondom=" + Objet.nfondoM + " where ccodrucemisor='" + Objet.ruc + "'";
+                "flgactivo='" + Objet.estado + "',nventaflg=" + Objet.checkventas + ",ncompraflg=" + Objet.checkcompras + ", ncobranzaflg=" + Objet.checkcobranzas + ", npagoflg=" + Objet.checkpagos + ", ncomfondom=" + Objet.nfondoM  + ", ncobranzacomercial="+Objet.check_cobranzacomercial+ " where ccodrucemisor='" + Objet.ruc + "'";
                 }
                 if (Properties.Settings.Default.TipModulo == "2")
                 {
                     query = "update  cg_empemisor SET cdesrucemisor='" + Objet.empresa + "'," +
-                   "flgactivo='" + Objet.estado + "',ncomproductoflg=" + Objet.ncomproductoflg + ",ncomcompraflg=" + Objet.ncomcompraflg + ", ncomventaflg=" + Objet.ncomventaflg + ", ncomfondom=" + Objet.nfondoM +  " where ccodrucemisor='" + Objet.ruc + "'";
+                   "flgactivo='" + Objet.estado + "',ncomproductoflg=" + Objet.ncomproductoflg + ",ncomcompraflg=" + Objet.ncomcompraflg + ", ncomventaflg=" + Objet.ncomventaflg + ", ncomfondom=" + Objet.nfondoM+ ", ncobranzacomercial=" + Objet.check_cobranzacomercial+  " where ccodrucemisor='" + Objet.ruc + "'";
                 }
 
                 

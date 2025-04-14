@@ -20,6 +20,6 @@ namespace Contasis.Clase
         public int ncomcompraflg { get; set; }
         public int ncomventaflg { get; set; }
         public int nfondoM { get; set; }
-
+        public int check_cobranzacomercial { get; set; }
     }
 }

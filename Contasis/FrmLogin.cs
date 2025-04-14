@@ -936,7 +936,7 @@ namespace Contasis
                 ///
 
 
-                string query = "SELECT * FROM INFORMATION_SCHEMA.columns where TABLE_NAME = 'com_documento'";
+                string query = "SELECT * FROM INFORMATION_SCHEMA.columns where TABLE_NAME = 'com_detalledocumento'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexionNew);
 
 

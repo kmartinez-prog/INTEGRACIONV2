@@ -125,6 +125,11 @@ namespace Contasis
                     dataGrid1.Columns[5].MinimumWidth = 50;
                     dataGrid1.Columns[5].Width = 100;
 
+
+                    dataGrid1.Columns[6].HeaderText = "COM_COBRANZA";
+                    dataGrid1.Columns[6].MinimumWidth = 50;
+                    dataGrid1.Columns[6].Width = 100;
+
                 }
                 dataGrid1.AllowUserToAddRows = false;
 
@@ -274,7 +279,7 @@ namespace Contasis
         }
         private void Btnnuevo_Click_1(object sender, EventArgs e)
         {
-            FrmRuceditor Frnuevo = new FrmRuceditor(1, "", "", "", 0, 0, 0, 0, 0, 0, 0,0);
+            FrmRuceditor Frnuevo = new FrmRuceditor(1, "", "", "", 0, 0, 0, 0, 0, 0, 0,0,0);
             Frnuevo.Text = "Registrar Ruc Nuevo";
             Frnuevo.ShowDialog();
             this.Grilla1();
@@ -285,7 +290,8 @@ namespace Contasis
 
         private void Btnmodificar_Click_1(object sender, EventArgs e) 
         {
-            FrmRuceditor Fredit = new FrmRuceditor(2, obj.ruc, obj.empresa, obj.estado, obj.checkventas, obj.checkcompras, obj.checkcobranzas, obj.nfondoM, obj.ncomproductoflg, obj.ncomcompraflg, obj.ncomventaflg,obj.nfondoM);
+            FrmRuceditor Fredit = new FrmRuceditor(2, obj.ruc, obj.empresa, obj.estado, obj.checkventas, obj.checkcompras, obj.checkcobranzas, obj.nfondoM, 
+                obj.ncomproductoflg, obj.ncomcompraflg, obj.ncomventaflg,obj.nfondoM,obj.check_cobranzacomercial);
             Fredit.Text = "Actualizar datos del Ruc";
             Fredit.ShowDialog();
             this.limpiarcontrol();
@@ -430,14 +436,15 @@ namespace Contasis
                         {
                             obj.ncomventaflg = 0;
                         }
-                        if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[7].Value).Trim() == "1")
+                        if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[6].Value).Trim() == "1")
                         {
-                            obj.nfondoM = 1;
+                            obj.check_cobranzacomercial = 1;
                         }
                         else
                         {
-                            obj.nfondoM = 0;
+                            obj.check_cobranzacomercial = 0;
                         }
+
 
 
                     }

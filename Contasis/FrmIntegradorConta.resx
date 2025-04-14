@@ -7239,7 +7239,7 @@ CREATE OR REPLACE FUNCTION public.fin_ventas_integracion_principal(
 	)
     RETURNS void
 AS $BODY$
-
+-----Ultimo cambio: 01/04/2025 equipo de Luis Nuñez x Kim tema de Lizet x cobranzas y ventas
 DECLARE 
 
 	    RW RECORD;
@@ -7369,7 +7369,7 @@ BEGIN
 			WHERE  fin_ventas.cper=rwperproceso.cperproceso
 			group by concat(ccoddoc,cserie,cnumero,ccodruc)); 
 
-		if varBeneficio=1 then
+		/*f varBeneficio=1 then
 		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' Ctro DE COSTO Benef.NO EXISTE ') ,  resultado_migracion = 2 
 		where  fin_ventas.cper=rwperproceso.cperproceso and  fin_ventas.es_con_migracion=0
 		and concat(ccoddoc,cserie,cnumero,ccodruc)  in(
@@ -7378,7 +7378,7 @@ BEGIN
 		LTRIM(V.ccodcos)=LTRIM(C.ccodcos)
 		where v.cper=rwperproceso.cperproceso and TRIM(coalesce(V.ccodcos,''))='' AND coalesce(C.ccodcos,'ERROR')='ERROR');
 			
-		else	
+		else	*/
 		update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTRO DE COSTO NO EXISTE ') ,  resultado_migracion = 2 
 		where  fin_ventas.cper=rwperproceso.cperproceso and  fin_ventas.es_con_migracion=0
 		and concat(ccoddoc,cserie,cnumero,ccodruc)  in(
@@ -7387,7 +7387,7 @@ BEGIN
 		LTRIM(V.ccodcos)=LTRIM(C.ccodcos)
 		where v.cper=rwperproceso.cperproceso and  V.ccodcos&lt;&gt;'' AND coalesce(C.ccodcos,'ERROR')='ERROR'); 
 
-		end if;
+		--end if;------
 
 		if varcentro2=0  then	
 			update  fin_ventas set obserror=CONCAT(ltrim(obserror),'-',' CENTROS DE COSTO 2 ES NECESARIO POR SU CONFIGURACION') ,  es_con_migracion = 2 
@@ -7509,6 +7509,7 @@ BEGIN
 			        left join cf_plan c on c.cper = a.cper and a.cctaotrib = c.ccodcue    --ctaotrib
 			        inner join cf_plan d on d.cper = a.cper and a.cctatot = d.ccodcue     --ctatotal
 			        where a.cper=rw.cper and a.ccodori = rw.ccodori and  
+						  a.cmes = rw.cmes and a.ccodsu = rw.ccodsu and a.ccodflu = rw.ccodflu and   -- KMM - 01-04-2025 - 
 			        trim(coalesce(a.obserror,'')) = ''
 					and a.es_con_migracion in(0,3) and coalesce(a.resultado_migracion,0)=0 
 					and nflgexisteanular = 0 
@@ -7622,9 +7623,8 @@ BEGIN
 	end loop; -- Periodo 
 
 end; 
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;</value>
+$BODY$ 
+LANGUAGE 'plpgsql' VOLATILE</value>
   </data>
   <data name="txt_cobra01.Text" xml:space="preserve">
     <value>
@@ -7725,8 +7725,14 @@ $BODY$
   LANGUAGE plpgsql VOLATILE</value>
   </data>
   <data name="txt_cobra02.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION public.fin_importar_cobranzapago_integrador_cancelacion_impcobpag(vper character)
+    <value>-- FUNCTION: public.fin_importar_cobranzapago_integrador_cancelacion_impcobpag(character)
+
+-- DROP FUNCTION IF EXISTS public.fin_importar_cobranzapago_integrador_cancelacion_impcobpag(character);
+--select * from fin_importar_cobranzapago_integrador_cancelacion_impcobpag('2025')
+CREATE OR REPLACE FUNCTION public.fin_importar_cobranzapago_integrador_cancelacion_impcobpag(
+	vper character)
     RETURNS integer
+     
 AS $BODY$
 
 DECLARE
@@ -7735,7 +7741,7 @@ DECLARE
 	vruc character(15);
 	/*
 		Autor: Kim martinez
-		select fin_importar_cobranzapago_integrador_cancelacion_impcobpag('2023'::character(4)) as infograba; 
+		select fin_importar_cobranzapago_integrador_cancelacion_impcobpag('2025'::character(4)) as infograba; 
 	*/
 BEGIN
 	raise notice 'Borrando'; 
@@ -7743,7 +7749,10 @@ BEGIN
 	drop table if exists tempDocmentos;
 	
 	create temp table tempDocmentos as 
-	select ccoddoc, cserie, cnumero, ccodruc from fin_cobranzapago_integra group by ccoddoc, cserie, cnumero, ccodruc; 
+	select ccoddoc, cserie, cnumero, ccodruc from fin_cobranzapago group by ccoddoc, cserie, cnumero, ccodruc; 
+
+	--select ccoddoc, cserie, cnumero, ccodruc from fin_cobranzapago_integra group by ccoddoc, cserie, cnumero, ccodruc; 
+
 
 	--update cf_diariol set cmesc = '' where cper = vper; 
 	
@@ -7751,7 +7760,6 @@ BEGIN
 	set cmesc = '' 
 	from (select ccoddoc, cserie, cnumero, ccodruc from tempDocmentos) p
 	where cf_diariol.ccoddoc = p.ccoddoc and cf_diariol.cserie = p.cserie and cf_diariol.cnumero = p.cnumero and cf_diariol.ccodruc = p.ccodruc and cf_diariol.cper = vper and cf_diariol.cmesc &lt;&gt; '';
-
 
 	raise notice 'termino borrar'; 
 	
@@ -7779,17 +7787,23 @@ BEGIN
 
 	return 1;
 end; 
-$BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;</value>
+$BODY$ 
+	LANGUAGE 'plpgsql' VOLATILE</value>
   </data>
   <data name="txt_cobra03.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION fin_importar_cobranzapago_integrador_principal()
-  RETURNS void AS
-$BODY$
+    <value>-- FUNCTION: public.fin_importar_cobranzapago_integrador_principal()
+-- select * from cf_diariol where cper = '2025' and cmes = '03' and  ccodori = '003' and nasiento = 6
+-- DROP FUNCTION IF EXISTS public.fin_importar_cobranzapago_integrador_principal();
+-- select * from fin_importar_cobranzapago_integrador_principal()  
+CREATE OR REPLACE FUNCTION public.fin_importar_cobranzapago_integrador_principal(
+	)
+    RETURNS void
+AS $BODY$
+
 
 ---- Fecha Modificacion : 24/02/2025  pdi-278
----- Fecha Modificacion cancelacion : 27/03/2028 PDI-342	
+---- Fecha Modificacion cancelacion : 27/03/2028 PDI-342
+---- Fecha Modifcacion : 01/04/2024 en maquina de Luis Nuñez x Kim caso de Lizet	
 DECLARE 
 	RW RECORD;
 	rwperproceso record; 
@@ -7964,14 +7978,15 @@ BEGIN
 			
 		for rw in select distinct cper, cmes, ccodori, ccodsu, ccodflu
 			  FROM fin_cobranzapago  
-			  where cper =  rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag and  trim(coalesce(obserror,'')) = ''  loop -- esten OK 
+			  where cper =  rwperproceso.cperproceso and ntipocobpag = rwperproceso.ntipocobpag and  trim(coalesce(obserror,'')) = ''   loop -- esten OK 
 
 			  VCMAXASIENTO = 'SELECT NORIMES' || cast(rw.cmes as integer)::char(2) || ' AS NORIGEN FROM CF_ORIGENL WHERE CPER = ''' || rw.cper || ''' AND CCODORI = ''' || rw.ccodori ||'''' ;
 			  for rw2 in EXECUTE VCMAXASIENTO	loop
 				varmax  = coalesce(RW2.NORIGEN,0)+1; ---+ 1; -- RW2.NORIGEN + 1;
 			  end loop;
 
-		
+			raise notice 'asiento % ',VCMAXASIENTO;  
+				
 			  -- Truncar tabla Cada vez carga data por cada subdiario 		
 			  truncate table fin_cobranzapago_integra; 
 
@@ -7986,9 +8001,9 @@ BEGIN
 				    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
 				    nperdenre, cserre, cnumre, ffecre, es_anticipo_automatico
 			 FROM fin_cobranzapago			        
-			 where fin_cobranzapago.cper=rw.cper and 
+			 where fin_cobranzapago.cper=rw.cper and  fin_cobranzapago.cmes = rw.cmes and  -- KMM - 01-04-2025 - 
 				ntipocobpag = rwperproceso.ntipocobpag and 
-				ccodori = rw.ccodori and  
+				ccodori = rw.ccodori and  fin_cobranzapago.ccodsu = rw.ccodsu  and  fin_cobranzapago.ccodflu = rw.ccodflu and  -- KMM - 01-04-2025 - 
 				trim(coalesce(obserror,'')) = '' and coalesce(resultado_migracion,0) = 0
 				and es_con_migracion in(0) 
 				order by ccoddoc,cserie,cnumero,ccodruc asc; 			
@@ -8006,12 +8021,13 @@ BEGIN
 											  varmax,											  
 											  rwperproceso.ntipocobpag,
 											  varperc));
-		
+			
+			raise notice 'Mando asiento % ,%,%',rw.cmes, rw.ccodori, varmax;  
 
-		update fin_cobranzapago set resultado_migracion = 1 where es_con_migracion = 0 and idcobranzapago in (select idcobranzapago from fin_cobranzapago_integra); 
+			update fin_cobranzapago set resultado_migracion = 1 where es_con_migracion = 0 and idcobranzapago in (select idcobranzapago from fin_cobranzapago_integra); 
 
-		--truncate table fin_cobranzapago_integra; 
-		INSERT INTO fin_cobranzapago_integra(idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
+			--truncate table fin_cobranzapago_integra; 
+			INSERT INTO fin_cobranzapago_integra(idcobranzapago, ffechacan, cdoccan, csercan, cnumcan, ccuecan, 
 							    cmoncan, nimporcan, ntipcam, ccodpago, ccoddoc, cserie, cnumero, 
 							    ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, 
 							    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
@@ -8022,9 +8038,9 @@ BEGIN
 				    nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, 
 				    nperdenre, cserre, cnumre, ffecre,es_anticipo_automatico
 			 FROM fin_cobranzapago			        
-			 where fin_cobranzapago.cper=rw.cper and 
+			 where fin_cobranzapago.cper=rw.cper and fin_cobranzapago.cmes = rw.cmes and -- KMM - 01-04-2025 - 
 				ntipocobpag = rwperproceso.ntipocobpag and 
-				ccodori = rw.ccodori and  
+				ccodori = rw.ccodori and  fin_cobranzapago.ccodsu = rw.ccodsu  and  fin_cobranzapago.ccodflu = rw.ccodflu and  -- KMM - 01-04-2025 - 
 				trim(coalesce(obserror,'')) = ''
 				and es_con_migracion in(3) 
 				order by ccoddoc,cserie,cnumero,ccodruc asc; 
@@ -8071,9 +8087,8 @@ BEGIN
 	end loop; -- Periodo 
 
 END; 
-$BODY$
-LANGUAGE plpgsql VOLATILE
-</value>
+$BODY$ 
+LANGUAGE 'plpgsql' VOLATILE</value>
   </data>
   <data name="txt_cobra04.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION fin_importar_cobranzapago_integrador(
@@ -13093,6 +13108,7 @@ DECLARE
 	
 BEGIN
 
+	--- Fecha: 03/04/2025 actualizacion desde el cobranzanpago		
 	--varcentro2=0;
 	-- Validaciones fin_cobranzafm
 	vflag_dp := (select flag_dp from registro_dp where codigo_dp = 'DP008'); 
@@ -13242,7 +13258,7 @@ BEGIN
 			 where fin_cobranzafm.cper=rw.cper and 
 				 	fin_cobranzafm.cmes = rw.cmes and 
 				ntipocobpag = rwperproceso.ntipocobpag and 
-				ccodori = rw.ccodori and  
+				ccodori = rw.ccodori and   ccodsu= rw.ccodsu and ccodflu= rw.ccodflu and
 				trim(coalesce(obserror,'')) = ''
 				and es_con_migracion in(0) 
 				order by ccoddoc,cserie,cnumero,ccodruc asc; 			
@@ -13279,7 +13295,7 @@ BEGIN
 			 where fin_cobranzafm.cper=rw.cper and 
 				fin_cobranzafm.cmes = rw.cmes and 
 				ntipocobpag = rwperproceso.ntipocobpag and 
-				ccodori = rw.ccodori and  
+				ccodori = rw.ccodori and  ccodsu= rw.ccodsu and ccodflu= rw.ccodflu and
 				trim(coalesce(obserror,'')) = ''
 				and es_con_migracion in(3) 
 				order by ccoddoc,cserie,cnumero,ccodruc asc; 			
@@ -13344,7 +13360,11 @@ BEGIN
 	drop table if exists tempDocmentos;
 	
 	create temp table tempDocmentos as 
-	select ccoddoc, cserie, cnumero, ccodruc from fin_cobranza_integra_fn group by ccoddoc, cserie, cnumero, ccodruc; 
+	----select ccoddoc, cserie, cnumero, ccodruc from fin_cobranza_integra_fn group by ccoddoc, cserie, cnumero, ccodruc; 
+
+	select ccoddoc, cserie, cnumero, ccodruc from fin_cobranzafm group by ccoddoc, cserie, cnumero, ccodruc; 
+
+
 
 	--update cf_diariol set cmesc = '' where cper = vper; 
 	
@@ -13382,8 +13402,7 @@ BEGIN
 end; 
 $BODY$
   LANGUAGE plpgsql VOLATILE
-  COST 100;
-</value>
+  COST 100;</value>
   </data>
   <data name="txt_cobra01fm.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION public.fin_guardar_cobranzafondo_integrador(

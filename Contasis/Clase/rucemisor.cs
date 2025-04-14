@@ -23,7 +23,7 @@ namespace Contasis.Clase
                 }
                 if (Properties.Settings.Default.TipModulo == "2")
                 {
-                    query = "select ccodrucemisor,cdesrucemisor,flgactivo,ncomproductoflg,ncomcompraflg,ncomventaflg,ncomfondom  from cg_empemisor ";
+                    query = "select ccodrucemisor,cdesrucemisor,flgactivo,ncomproductoflg,ncomcompraflg,ncomventaflg,ncobranzacomercial  from cg_empemisor ";
                 }
 
 
@@ -63,7 +63,7 @@ namespace Contasis.Clase
                 }
                 if (Properties.Settings.Default.TipModulo == "2")
                 {
-                    query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo,ncomproductoflg::char(1) as ncomproductoflg,ncomcompraflg::char(1) as ncomcompraflg ,ncomventaflg::char(1) as ncomventaflg,ncomfondom  from cg_empemisor ";
+                    query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo,ncomproductoflg::char(1) as ncomproductoflg,ncomcompraflg::char(1) as ncomcompraflg ,ncomventaflg::char(1) as ncomventaflg,ncobranzacomercial as cobranza  from cg_empemisor "; //,ncomfondom//
                 }
 
 

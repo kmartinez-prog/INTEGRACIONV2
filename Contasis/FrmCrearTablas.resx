@@ -405,6 +405,7 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
 
+
 </value>
   </data>
   <metadata name="timer5.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -1035,6 +1036,8 @@ CREATE TABLE com_documento (
 	obserror text,
 	resultado_migracion numeric(1, 0),
 	nflgexisteanular integer NOT NULL DEFAULT 0,
+	ccond character(3) NULL, 
+	ccuecan character(20) NULL,
 	constraint pk_documento PRIMARY KEY (iddocumento)
 );
 create sequence sec_iddetalledocumento minvalue 1 maxvalue 99999999999 increment by 1 ;
