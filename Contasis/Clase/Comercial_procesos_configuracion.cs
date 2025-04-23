@@ -17,6 +17,7 @@ namespace Contasis.Clase
         public string Comer_insert(Clase.Configuracion_comercial Objet)
         {
             string cadena = "";
+            
             SqlConnection cone = new SqlConnection();
             
             try
@@ -50,19 +51,23 @@ namespace Contasis.Clase
         public string Comer_insert_postgres(Clase.Configuracion_comercial Objet)
         {
             string cadena = "";
+            
             NpgsqlConnection conexion = new NpgsqlConnection();
             conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
             conexion.Open();
             try
             {
-                string query = "INSERT INTO configuracion2(ccod_empresa " +
+                
+
+
+                string query = "INSERT INTO configuracion2(id,ccod_empresa " +
                 ", cper, crazemp, crucemp, Entidad, Tipo, codtipdocu, Cserie, ccodmov, ccodpag, ccodvend, " +
                 "ccodalma, Ent_anula, Prodanula) " +
-                "VALUES('" + Objet.Ccod_empresa + "', " +
+                "VALUES(" +Objet.Id+",'"+ Objet.Ccod_empresa + "', " +
                     "'" + Objet.Cper + "','" + Objet.Crazemp + "','" + Objet.Crucemp + "','" + Objet.Entidad + "','" + Objet.Tipo + "','" + Objet.Codtipdocu + "'," +
                     "'" + Objet.Cserie + "','" + Objet.Ccodmov + "','" + Objet.Ccodpag + "','" + Objet.Ccodvend + "','" + Objet.Ccodalma + "','" + Objet.Ent_anula + "'," +
                     "'" + Objet.Prodanula + "')";
-                NpgsqlCommand cmdp = new NpgsqlCommand(query, conexion);
+                    NpgsqlCommand cmdp = new NpgsqlCommand(query, conexion);
                 cadena = cmdp.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
             }
             catch (Exception ex1)

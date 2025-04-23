@@ -76,7 +76,7 @@ namespace Contasis.Clase
                               "nstockmin AS STOCK_MINIMO,nstockmax AS STOCK_MAXIMO,nrango1 AS LIMITE_INFERIOR_PRECIO,nrango2 AS LIMITE_SUPERIOR_PRECIO," +
                               "nresp AS REGIMEN_ESPECIAL,ccodpps AS CODIGO_PERCEPCION,ccodpds AS CODIGO_DETRACCION,nagemonmin AS MONTO_MINIMO,ccodlabora AS CODIGO_LABORATORIO," +
                               "cdeslabora AS DESCRIPCION_LABORATORIO,es_con_migracion AS ESTADO,obserror AS OBSERVACION" +
-                              "FROM com_producto  " +
+                              " FROM com_producto  " +
                               "where es_con_migracion = 2  and ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();

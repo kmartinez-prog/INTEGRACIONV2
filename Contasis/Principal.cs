@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Npgsql;
 
 namespace Contasis
 {
@@ -29,13 +30,15 @@ namespace Contasis
         FrmIntegradorComercial master16;
         FrmInconsistencias_comercial master17;
         FrmInconsistencia_productos_comercial master18;
-        
+        FrmVerificacionEstrcutura mVerificacdor;
+        string FechaValida = "";
 
         public static Principal instance = null;
         public Principal(string valor)
         {
             InitializeComponent();
             txtcontrol.Text = valor;
+            FechaValida = "2025-12-31";
             instance = this;
         }
 
@@ -147,6 +150,8 @@ namespace Contasis
             }
             else
             {
+               
+
                 toolStripStatusLabel5.Text = "| Conexion origen : PostgresSQL ";
             }
             if (Properties.Settings.Default.cadenaSql == "")
@@ -154,6 +159,8 @@ namespace Contasis
             }
             else
             {
+               
+
                 toolStripStatusLabel5.Text = "| Conexion origen : SQL SERVER ";
             }
             toolStripStatusLabel6.Text = "| Version del sistema :  " + Properties.Settings.Default.version;
@@ -163,14 +170,23 @@ namespace Contasis
             if (Properties.Settings.Default.TipModulo == "1")
             {
                 toolStripStatusLabel7.Text = "|Modulo Financiero|";
+                this.Text = "Configuración del Integrador Contasis 2025 - Contable Financiero SQL 2025 - PERIODO ACTUAL "+DateTime.Now.ToString("yyyy");
 
-                this.Text = "Configuración del Integrador Contasis 2024 - Contable Financiero SQL 2024 - PERIODO ACTUAL "+DateTime.Now.ToString("yyyy");
+
+                EjecutaVerificacion();
+                             
             }
             if (Properties.Settings.Default.TipModulo == "2")
             {
+               
+
                 toolStripStatusLabel7.Text = "|Modulo Comercial|";
-                this.Text = "Configuración del Integrador Contasis 2024 - Comercial SQL 2024 - PERIODO ACTUAL " + DateTime.Now.ToString("yyyy");
+                this.Text = "Configuración del Integrador Contasis 2025 - Comercial SQL 2025 - PERIODO ACTUAL " + DateTime.Now.ToString("yyyy");
+                EjecutaVerificacion();
+                
+
             }
+            
 
             if (Properties.Settings.Default.TipModulo == "")
             {
@@ -178,10 +194,9 @@ namespace Contasis
                 toolStripStatusLabel7.Text = "";
             }
 
-            ///*Properties.Settings.Default.version*/
+            
 
-
-
+            
             /*************************************************************************************************
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
@@ -214,7 +229,45 @@ namespace Contasis
 
 
 
+        }
+
+        private void EjecutaVerificacion()
+        {
+            NpgsqlConnection conexionNew = new NpgsqlConnection();
+            conexionNew.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexionNew.Open();
+            try
+            {  var command3 = new NpgsqlCommand();
+                command3.Connection = conexionNew;
+                command3.CommandType = CommandType.Text;
+                command3.CommandText = "SELECT cactiva_estructura FROM public.cg_version";
+                var adapter3 = new NpgsqlDataAdapter(command3);
+                var dataset3 = new DataSet();
+                adapter3.Fill(dataset3);
+
+                for (int i = 0; i < dataset3.Tables[0].Rows.Count; i++)
+
+                {
+                    FechaValida = dataset3.Tables[0].Rows[i][0].ToString();
+                }
+
+                if (FechaValida == "")
+                {
+                    mVerificacdor = new FrmVerificacionEstrcutura();
+                    mVerificacdor.ShowDialog();
+
+                    string nuevafecha = DateTime.Now.ToString("yyyy-MM-dd");  
+                    string query2 = "Update cg_version set cactiva_estructura='"+nuevafecha+"';";
+                    NpgsqlCommand commando = new NpgsqlCommand(query2, conexionNew);
+                    commando.ExecuteNonQuery();
+                }
+                conexionNew.Close();
+            }
+            catch 
+            {}
+           
 }
+
 private void SalirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit(); 

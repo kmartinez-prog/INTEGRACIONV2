@@ -211,6 +211,12 @@
     <Compile Include="ConexionComercial.cs" />
     <Compile Include="ConexionConta.cs" />
     <Compile Include="ConexionPostgrelSql.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmConfigurarServicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -438,6 +444,9 @@
     <Compile Include="Servidor.cs" />
     <Compile Include="ServidorUni.cs" />
     <Compile Include="usuario_postgres.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmConfigurarServicio.resx">
       <DependentUpon>FrmConfigurarServicio.cs</DependentUpon>
     </EmbeddedResource>

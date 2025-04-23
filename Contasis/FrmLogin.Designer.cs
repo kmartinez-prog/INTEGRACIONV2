@@ -42,6 +42,10 @@ namespace Contasis
             this.button1 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.cmdModulos = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtbox5 = new System.Windows.Forms.TextBox();
+            this.txtbox6 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -80,7 +84,7 @@ namespace Contasis
             this.cmbusuario.FormattingEnabled = true;
             this.cmbusuario.Items.AddRange(new object[] {
             "ADMIN"});
-            this.cmbusuario.Location = new System.Drawing.Point(387, 174);
+            this.cmbusuario.Location = new System.Drawing.Point(387, 147);
             this.cmbusuario.Name = "cmbusuario";
             this.cmbusuario.Size = new System.Drawing.Size(264, 21);
             this.cmbusuario.TabIndex = 6;
@@ -94,7 +98,7 @@ namespace Contasis
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(387, 208);
+            this.label3.Location = new System.Drawing.Point(387, 177);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 20);
             this.label3.TabIndex = 11;
@@ -107,7 +111,7 @@ namespace Contasis
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(387, 148);
+            this.label2.Location = new System.Drawing.Point(387, 121);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 20);
             this.label2.TabIndex = 10;
@@ -115,11 +119,11 @@ namespace Contasis
             // 
             // txtclave
             // 
-            this.txtclave.Location = new System.Drawing.Point(387, 234);
+            this.txtclave.Location = new System.Drawing.Point(387, 203);
             this.txtclave.Name = "txtclave";
             this.txtclave.PasswordChar = '*';
             this.txtclave.Size = new System.Drawing.Size(264, 20);
-            this.txtclave.TabIndex = 8;
+            this.txtclave.TabIndex = 7;
             this.txtclave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtclave_KeyDown);
             this.txtclave.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtclave_KeyPress);
             // 
@@ -134,6 +138,7 @@ namespace Contasis
             this.label1.TabIndex = 7;
             this.label1.Text = "Sistema Integración Contasis";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
@@ -143,7 +148,7 @@ namespace Contasis
             this.button1.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuBar;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(387, 280);
+            this.button1.Location = new System.Drawing.Point(387, 302);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(264, 40);
             this.button1.TabIndex = 9;
@@ -169,6 +174,46 @@ namespace Contasis
             this.textBox4.TabIndex = 13;
             this.textBox4.Visible = false;
             // 
+            // cmdModulos
+            // 
+            this.cmdModulos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmdModulos.FormattingEnabled = true;
+            this.cmdModulos.Items.AddRange(new object[] {
+            "ADMIN"});
+            this.cmdModulos.Location = new System.Drawing.Point(387, 262);
+            this.cmdModulos.Name = "cmdModulos";
+            this.cmdModulos.Size = new System.Drawing.Size(264, 21);
+            this.cmdModulos.TabIndex = 8;
+            this.cmdModulos.SelectedIndexChanged += new System.EventHandler(this.cmdModulos_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(387, 236);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(61, 20);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Modulo";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // txtbox5
+            // 
+            this.txtbox5.Location = new System.Drawing.Point(317, -57);
+            this.txtbox5.Name = "txtbox5";
+            this.txtbox5.Size = new System.Drawing.Size(100, 20);
+            this.txtbox5.TabIndex = 16;
+            // 
+            // txtbox6
+            // 
+            this.txtbox6.Location = new System.Drawing.Point(317, -31);
+            this.txtbox6.Name = "txtbox6";
+            this.txtbox6.Size = new System.Drawing.Size(100, 20);
+            this.txtbox6.TabIndex = 17;
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -176,6 +221,10 @@ namespace Contasis
             this.BackColor = System.Drawing.Color.Aqua;
             this.BackgroundImage = global::Contasis.Properties.Resources.LOGIN;
             this.ClientSize = new System.Drawing.Size(704, 376);
+            this.Controls.Add(this.txtbox6);
+            this.Controls.Add(this.txtbox5);
+            this.Controls.Add(this.cmdModulos);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.cmbusuario);
@@ -216,5 +265,9 @@ namespace Contasis
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.ComboBox cmdModulos;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtbox5;
+        private System.Windows.Forms.TextBox txtbox6;
     }
 }

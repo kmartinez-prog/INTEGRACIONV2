@@ -258,12 +258,11 @@ namespace Contasis
                 cone1.Open();
 
                 NpgsqlDataReader grilla = cmdp.ExecuteReader();
-               //// dataGridView1.Rows.Clear();
                 grilla.Read();
 
                 txtrazon.Text = grilla[0].ToString().Replace("'", " ");
                 txtruc.Text = grilla[1].ToString();
-               //// this.seleccion();
+                //// this.seleccion();
 
                 //  if (rucemisor.Trim() == txtruc.Text.Trim())
                 //{
@@ -348,8 +347,10 @@ namespace Contasis
         {
             this.Limpiar();
             txtperiodo.Text = cmbperiodo.Text.Trim();
+            this.llena_modulo_comercial();
             this.Carga3();
             this.Modulos();
+            Mostrar_registros_cobranzas();
             this.button1.Enabled = true;
             /*Cargar_Fecha_inicio();*/
         }
@@ -741,6 +742,24 @@ namespace Contasis
 
         {
             Clase.Configuracion_comercial obj = new Clase.Configuracion_comercial();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+
+
+            string text01 = "Select coalesce(id,1)+1 as Id  From configuracion2 order by id desc limit 1 ;";
+            var cmd = new NpgsqlCommand(text01, conexion);
+            var reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                obj.Id = Convert.ToInt32(reader["Id"].ToString());
+            }
+            else
+            {
+                obj.Id = 1;
+            }
+
             obj.Ccod_empresa = cmbempresas.Text.Substring(0, 3);
             obj.Cper = txtperiodo.Text.Trim();
             obj.Crazemp = txtrazon.Text.Trim();
@@ -1139,60 +1158,82 @@ namespace Contasis
                 cone01 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
                 cone01.Open();
 
-                NpgsqlCommand commando1 = new NpgsqlCommand(txtubigeo.Text, cone01);
+                NpgsqlCommand commando1 = new NpgsqlCommand(txtCancelacion_comercial2025.Text, cone01);
                 commando1.ExecuteNonQuery();
 
-                NpgsqlCommand commando2 = new NpgsqlCommand(txtguardardocu.Text, cone01);
+                NpgsqlCommand commando2 = new NpgsqlCommand(txtasientos_ventascomercial.Text, cone01);
                 commando2.ExecuteNonQuery();
 
-                NpgsqlCommand commando23 = new NpgsqlCommand(txtguardarproducto.Text, cone01);
+                NpgsqlCommand commando23 = new NpgsqlCommand(txtventascobranzasprincipal.Text, cone01);
                 commando23.ExecuteNonQuery();
 
-                NpgsqlCommand commando33 = new NpgsqlCommand(txtproductoprincipal.Text, cone01);
+                NpgsqlCommand commando33 = new NpgsqlCommand(txtasientoscobranzasprincipalventascom.Text, cone01);
                 commando33.ExecuteNonQuery();
 
-                NpgsqlCommand commando43 = new NpgsqlCommand(txtcompras_comercial.Text, cone01);
+                NpgsqlCommand commando43 = new NpgsqlCommand(txtAnularcompras.Text, cone01);
                 commando43.ExecuteNonQuery();
 
 
-                /*NpgsqlCommand commando53 = new NpgsqlCommand(txtventascomercial.Text, cone01);
-                commando53.ExecuteNonQuery();*/
+                NpgsqlCommand commando53 = new NpgsqlCommand(txtanulasventas.Text, cone01);
+                commando53.ExecuteNonQuery();
 
 
-                NpgsqlCommand commando63 = new NpgsqlCommand(txtasientoscompras.Text, cone01);
+                NpgsqlCommand commando63 = new NpgsqlCommand(txtcompras_comercial.Text, cone01);
                 commando63.ExecuteNonQuery();
 
 
-                NpgsqlCommand commando73 = new NpgsqlCommand(txtventasasientos.Text, cone01);
+                NpgsqlCommand commando73 = new NpgsqlCommand(txtasientoscompras.Text, cone01);
                 commando73.ExecuteNonQuery();
 
-                NpgsqlCommand commando82 = new NpgsqlCommand(txtActualizarstocanular.Text, cone01);
+                NpgsqlCommand commando82 = new NpgsqlCommand(txtventasasientos.Text, cone01);
                 commando82.ExecuteNonQuery();
 
-                NpgsqlCommand commando83 = new NpgsqlCommand(txtActualizastock.Text, cone01);
+                NpgsqlCommand commando83 = new NpgsqlCommand(txtubigeo.Text, cone01);
                 commando83.ExecuteNonQuery();
 
-                NpgsqlCommand commando84 = new NpgsqlCommand(txtanulasventas.Text, cone01);
+                NpgsqlCommand commando84 = new NpgsqlCommand(txtguardardocu.Text, cone01);
                 commando84.ExecuteNonQuery();
 
-                NpgsqlCommand commando85 = new NpgsqlCommand(txtAnularcompras.Text, cone01);
+                NpgsqlCommand commando85 = new NpgsqlCommand(txtActualizarstocanular.Text, cone01);
                 commando85.ExecuteNonQuery();
 
-                NpgsqlCommand commando86 = new NpgsqlCommand(txtubigeo2.Text, cone01);
-                commando85.ExecuteNonQuery();
+                NpgsqlCommand commando86 = new NpgsqlCommand(txtActualizastock.Text, cone01);
+                commando86.ExecuteNonQuery();
 
 
-                NpgsqlCommand commando87 = new NpgsqlCommand(txtCancelacion_comercial2025.Text, cone01);
-                commando85.ExecuteNonQuery();
+                ///-darwin comercial 
 
-                NpgsqlCommand commando88 = new NpgsqlCommand(txtasientos_ventascomercial.Text, cone01);
-                commando85.ExecuteNonQuery();
+                NpgsqlCommand commando87 = new NpgsqlCommand(txtubigeo2.Text, cone01);
+                commando87.ExecuteNonQuery();
 
-                NpgsqlCommand commando89 = new NpgsqlCommand(txtventascobranzasprincipal.Text, cone01);
-                commando85.ExecuteNonQuery();
+                NpgsqlCommand commando88 = new NpgsqlCommand(txtguardarproducto_2025.Text, cone01);
+                commando88.ExecuteNonQuery();
 
-                NpgsqlCommand commando90 = new NpgsqlCommand(txtasientoscobranzasprincipalventascom.Text, cone01);
-                commando85.ExecuteNonQuery();
+                NpgsqlCommand commando89 = new NpgsqlCommand(txtproductoprincipal2025.Text, cone01);
+                commando89.ExecuteNonQuery();
+
+                NpgsqlCommand commando90 = new NpgsqlCommand(txtdetalledocumento_2025.Text, cone01);
+                commando90.ExecuteNonQuery();
+                NpgsqlCommand commando91 = new NpgsqlCommand(txtcom_documento_2025.Text, cone01);
+                commando91.ExecuteNonQuery();
+
+                NpgsqlCommand commando92 = new NpgsqlCommand(txtcomercial_proceso_2025darwin.Text, cone01);
+                commando92.ExecuteNonQuery();
+
+                NpgsqlCommand commando93 = new NpgsqlCommand(txt_com_importar_ventas_principal2025.Text, cone01);
+                commando93.ExecuteNonQuery();
+
+                NpgsqlCommand commando94 = new NpgsqlCommand(txtcom_importar_ventas_generaasiento_2025.Text, cone01);
+                commando94.ExecuteNonQuery();
+
+                NpgsqlCommand commando95 = new NpgsqlCommand(txtcom_importar_compras_ventas_principal_actualiza_stock_anula.Text, cone01);
+                commando95.ExecuteNonQuery();
+                                                                    
+                NpgsqlCommand commando96 = new NpgsqlCommand(txtcom_importar_ventas_generaasiento_cobranza_principal_2025.Text, cone01);
+                commando96.ExecuteNonQuery();
+                
+                NpgsqlCommand commando97 = new NpgsqlCommand(txtcom_importar_ventas_principal_anular2025.Text, cone01);
+                commando97.ExecuteNonQuery();
 
 
             }
@@ -1444,19 +1485,19 @@ namespace Contasis
                    
                     if (xvalor == "1")
                     {
-                        this.lvalida1.Text = "No existe este sub diario.";      
+                     ///   this.lvalida1.Text = "No existe este sub diario.";      
                         txtsubdiario_cobra.Text = "";
                         txtsubdiario_cobra.Focus();
                     }
                     if (xvalor == "2")
                     {
-                        this.lvalida2.Text = "No existe este libro de registro.";
+                        ////this.lvalida2.Text = "No existe este libro de registro.";
                         txtregistro_cobra.Text = "";
                         txtregistro_cobra.Focus();
                     }
                     if (xvalor == "7")
                     {
-                        this.lvalida3.Text = "No existe el codigo de flujo";
+                        ////this.lvalida3.Text = "No existe el codigo de flujo";
                         txtflujocobra.Text = "";
                         txtflujocobra.Focus();
                     }
@@ -1717,5 +1758,55 @@ namespace Contasis
         }
 
         /***************************************************************************************************************/
+
+
+        public void llena_modulo_comercial()
+        {
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            try
+            {
+
+                conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                conexion.Open();
+                string query0 = "SELECT *  FROM modulo_comercial";
+                NpgsqlCommand commando = new NpgsqlCommand(query0, conexion);
+                NpgsqlDataAdapter datos = new NpgsqlDataAdapter(commando);
+                DataTable tablas = new DataTable();
+                datos.Fill(tablas);
+
+
+                string query00 = "alter table configuracion2 alter column tipo type character(5); ";
+                NpgsqlCommand command33 = new NpgsqlCommand(query00, conexion);
+                command33.ExecuteNonQuery();
+
+
+
+                if (tablas.Rows.Count == 0)
+                {
+                    string query = "Insert into modulo_comercial(ccodmudulo, cdesmodulo) values("+"'COMPR'"+","+"'COMPRA'"+");";
+                    NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
+                    command3.ExecuteNonQuery();
+
+                    string query1 = "Insert into modulo_comercial(ccodmudulo, cdesmodulo) values(" + "'VENTA'" + "," + "'VENTA'" + ");";
+                    NpgsqlCommand command4 = new NpgsqlCommand(query1, conexion);
+                    command4.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+
+            }
+
+        }
+
     }
 }

@@ -356,7 +356,7 @@ namespace Contasis
             this.Tablero.Controls.Add(this.tabPage5);
             this.Tablero.Enabled = false;
             this.Tablero.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Tablero.Location = new System.Drawing.Point(15, 50);
+            this.Tablero.Location = new System.Drawing.Point(16, 50);
             this.Tablero.Name = "Tablero";
             this.Tablero.SelectedIndex = 0;
             this.Tablero.Size = new System.Drawing.Size(584, 442);
@@ -1840,7 +1840,7 @@ namespace Contasis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 556);
+            this.ClientSize = new System.Drawing.Size(635, 556);
             this.Controls.Add(this.txt_cobra04fm);
             this.Controls.Add(this.txt_cobra03fm);
             this.Controls.Add(this.txt_cobra02fm);

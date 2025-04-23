@@ -16,9 +16,10 @@ namespace Contasis
         string NombreSP;
         string Query;
         string Nombrecampo;
-        string Fechaejecucion;
+        /////string Fechaejecucion;
         int progreso = 0;
         string respuesta = "";
+        
         public FrmVerificacionEstrcutura()
         {
             InitializeComponent();
@@ -29,8 +30,7 @@ namespace Contasis
         {
             ////MessageBox.Show(Properties.Settings.Default.TipModulo.ToString());
 
-
-
+            
 
 
             if (Properties.Settings.Default.TipModulo == "")
@@ -166,8 +166,21 @@ namespace Contasis
             respuesta = obj.Crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
             this.Barraprogreso(respuesta);
             #endregion
-            #region configuracion2
 
+            #region cg_moduloconfigura
+            NombreTable = "cg_moduloconfigura";
+            Query = "CREATE TABLE IF NOT EXISTS public.cg_moduloconfigura  \n" +
+                    "(  \n" +
+                    "id bigint default 0 ),\n" +
+                    "cmodulo character(20)  \n" +
+                    ");";
+            respuesta = obj.Crear_tablas(NombreTable, Query);
+            this.Barraprogreso(respuesta);
+            #endregion
+
+
+
+            #region configuracion2
             NombreTable = "configuracion2";
             Query = "CREATE TABLE configuracion2( " +
                     "id int IDENTITY(1,1) NOT NULL, " +
@@ -1254,6 +1267,9 @@ namespace Contasis
                 respuesta = obj.Crear_tablas(NombreTable, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
+
+
+
                 #region configuracion2
 
                 NombreTable = "configuracion2";
@@ -1380,23 +1396,28 @@ namespace Contasis
                         "	tipo_isc numeric(1, 0) NULL, \n" +
                         "	mdscl text NULL, \n" +
                         "	iddocumento int NOT NULL \n" +
-                        "   constraint fk_detalle_documento FOREIGN KEY (iddocumento) references com_documento(iddocumento) ) ";
+                        "   ) ";
                 respuesta = obj.Crear_tablas(NombreTable, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-                #region index_1_com_detalledocumento
+
+             /*   #region index_1_com_detalledocumento
                 NombreTable = "com_detalledocumento";
                 Query = "ALTER TABLE com_detalledocumento  WITH CHECK ADD  CONSTRAINT [fk_detalle_documento] FOREIGN KEY([iddocumento]) \n" +
                         " REFERENCES.com_documento(iddocumento)";
                 respuesta = obj.Crear_tablas_index(NombreTable, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
+             
                 #region index_2_com_detalledocumento
                 NombreTable = "com_detalledocumento";
                 Query = "ALTER TABLE com_detalledocumento CHECK CONSTRAINT fk_detalle_documento";
                 respuesta = obj.Crear_tablas_index(NombreTable, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
+
+                */
+
                 #region com_producto
                 NombreTable = "com_producto";
                 Query = "CREATE TABLE com_producto( \n" +
@@ -1724,7 +1745,6 @@ namespace Contasis
             Clase.Estructura_postgres obj = new Clase.Estructura_postgres();
             
             #region ruc_emisor
-            
             NombreTable = "cg_empemisor";
             Query = "CREATE TABLE cg_empemisor(" +
             " ccodrucemisor char(15) NOT NULL, " +
@@ -1759,7 +1779,6 @@ namespace Contasis
             respuesta = obj.crear_tablas(NombreTable, Query);
             this.Barraprogreso(respuesta);
             #endregion
-            
             #region modulos
             
             NombreTable = "cg_modulos";
@@ -1788,7 +1807,6 @@ namespace Contasis
             #endregion*/
 
             #region log
-            
             NombreTable = "cg_log";
             Query = "create sequence sec_id_log minvalue 1 maxvalue 9999999999 increment by 1 ;" +
             " CREATE TABLE cg_log( " +
@@ -1879,9 +1897,6 @@ namespace Contasis
             Query = "alter table " + NombreTable.Trim().ToLower() + " add column " + Nombrecampo.Trim().ToLower() + "   Numeric(1,0) default 0;";
             respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
             this.Barraprogreso(respuesta);
-
-
-
             #region fn_actualizar_version
 
             NombreSP = "fn_actualizar_version";
@@ -1902,7 +1917,7 @@ namespace Contasis
             respuesta = obj.crear_funcion(NombreSP, Query);
             this.Barraprogreso(respuesta);
             #endregion
-            if (Properties.Settings.Default.TipModulo == "1")
+            if (Properties.Settings.Default.TipModulo == "1") //// Modulo Financiero
             {
                 #region configuracion
 
@@ -2198,8 +2213,6 @@ namespace Contasis
                 this.Barraprogreso(respuesta);
 
                 #endregion
-
-
                 //Area para Agregar Nuevos Campos a la tabla////
                 #region campos_para_ventas
 
@@ -2467,11 +2480,7 @@ namespace Contasis
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-
-
-
                 #region fn_cobranzaspago_envio_resultado
-
                 NombreSP = "fn_cobranzaspago_envio_resultado";
                 Query = "CREATE OR REPLACE FUNCTION public.fn_cobranzaspago_envio_resultado(   \n" +
                     "   \n" +
@@ -2499,7 +2508,6 @@ namespace Contasis
                 this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_cobranzasFM_envio_resultado
-
                 NombreSP = "fn_cobranzasFM_envio_resultado";
                 Query = "CREATE OR REPLACE FUNCTION public.fn_cobranzasFM_envio_resultado(   \n" +
                     "   \n" +
@@ -2527,7 +2535,6 @@ namespace Contasis
                 this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_compras_envio
-
                 NombreSP = "fn_compras_envio";
                 Query = "CREATE OR REPLACE FUNCTION fn_compras_envio( \n" +
                         " OUT resultado text,   \n" +
@@ -2632,7 +2639,6 @@ namespace Contasis
                 this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_compras_envio_resultado
-
                 NombreSP = "fn_compras_envio_resultado";
                 Query = "CREATE OR REPLACE FUNCTION fn_compras_envio_resultado(p_datos text)  \n" +
                         " RETURNS void AS  \n" +
@@ -2815,7 +2821,6 @@ namespace Contasis
                 this.Barraprogreso(respuesta);
                 #endregion
                 #region fn_integracion_cobranza_importar
-
                 NombreSP = "fn_integracion_cobranza_importar";
                 Query = "CREATE OR REPLACE FUNCTION public.fn_integracion_cobranza_importar( \n" +
                         " \n" +
@@ -2825,7 +2830,7 @@ namespace Contasis
                         " RETURNS text  \n" +
                         " AS $BODY$  \n" +
                         " \n" +
-                        " \n" + 
+                        "-----Fecha: 16/04/2025 \n" + 
                         " DECLARE  \n" +
                         " v_data json;  \n" +
                         " BEGIN \n" +
@@ -2930,138 +2935,12 @@ namespace Contasis
     "   end;    \n" +
     " \n" +
     " $BODY$  \n" +
-    " LANGUAGE 'plpgsql'; \n" +
-    " ALTER FUNCTION public.fn_integracion_cobranza_importar(text, text)  \n" +
-    " OWNER TO postgres; ";
+    " LANGUAGE 'plpgsql'; ";
 
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-                #region fn_integracion_cobranza_importar
-
-                NombreSP = "fn_integracion_cobranzafm_importar";
-                Query = "CREATE OR REPLACE FUNCTION public.fn_integracion_cobranzafm_importar( \n" +
-                        " \n" +
-                        " OUT resultado text, \n" +
-                        " p_datos text, \n" +
-                        " p_cod_emp text) \n" +
-                        " RETURNS text  \n" +
-                        " AS $BODY$  \n" +
-                        " \n" +
-                        " \n" +
-                        " DECLARE  \n" +
-                        " v_data json;  \n" +
-                        " BEGIN \n" +
-                        " v_data:= p_datos::json; \n" +
-                        " p_datos = null; \n" +
-                        " \n" +
-                        " INSERT INTO fin_cobranzafm( \n" +
-       " idcobranzasfm, ccodrucemisor, ccod_empresa, cper, cmes, ntipocobpag, ffechacan, \n" +
-       " cdoccan, csercan, cnumcan, ccuecan, cmoncan, \n" +
-       " nimporcan, ntipcam, ccodpago, \n" +
-       " ccoddoc, cserie, cnumero, ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, \n" +
-       " nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, nperdenre, \n" +
-       " cserre, cnumre, ffecre,  created_at, updated_at, estado, en_ambiente_de,  \n" +
-       " es_con_migracion, ccodcos3, comprobante_item_id, es_anticipo_automatico) \n" +
-    " SELECT \n" +
-    " t.id, t.numero_documento_emisor, p_cod_emp, extract(year from to_date(t.ffechadoccobra, 'DD/MM/YYYY'))::text,    \n" +
-    " lpad(extract(month from to_date(t.ffechadoccobra, 'DD/MM/YYYY'))::text, 2, '0'), 1,   \n" +
-    " case when coalesce(t.ffechadoccobra, '')= '' then null else to_date(t.ffechadoccobra, 'DD/MM/YYYY') end, --1 \n" +
-    " trim(coalesce(t.cdoccan, '')) as cdoccan,    \n" +
-           " trim(coalesce(t.csercan, '')) as csercan,    \n" +
-    " trim(coalesce(t.cnumcan, '')) as cnumcan,    \n" +
-    " trim(coalesce(t.ccuecan, '')) as ccuecan,    \n" +
-    " trim(coalesce(t.cmoncan, '')) as cmoncan, --2 \n" +
-    " case when trim(coalesce(t.nimporcan, '')) = '' then 0 else t.nimporcan::numeric end as nimporcan,    \n" +
-    " case when trim(coalesce(t.ntipcam, '')) = '' then 0 else t.ntipcam::numeric end as ntipcam,    \n" +
-    " coalesce(trim(t.ccodpago), '') as ccodpago, --3 \n" +
-    " coalesce(trim(t.ccoddoc), '') as ccoddoc,    \n" +
-    " coalesce(trim(t.cserie), '') as cserie,    \n" +
-    " coalesce(trim(t.cnumero), '') as cnumero,    \n" +
-    " case when coalesce(t.ffechadoc, '')= '' then null else to_date(t.ffechadoc, 'DD/MM/YYYY') end as ffechadoc,    \n" +
-    " case when coalesce(t.ffechaven, '')= '' then null else to_date(t.ffechaven, 'DD/MM/YYYY') end as ffechaven,    \n" +
-    " '' as ccodenti , trim(coalesce(t.ccodruc, '')) as ccodruc, trim(coalesce(t.crazsoc, '')),  \n" +
-    " case when trim(coalesce(t.nimportes, '')) = '' then 0 else t.nimportes::numeric end as nimportes, --4 \n" +
-    " case when trim(coalesce(t.nimported, '')) = '' then 0 else t.nimported::numeric end as nimported,    \n" +
-    " trim(coalesce(t.ccodcue, '')) as ccodcue,    \n" +
-    " trim(coalesce(t.cglosa, '')) as cglosa,     \n" +
-    " trim(coalesce(t.ccodcos, '')) as ccodcos,    \n" +
-    " trim(coalesce(t.ccodcos2, '')) as ccodcos2,    \n" +
-    " case when trim(coalesce(t.nporre, '')) = '' then 0 else t.nporre::numeric end as nporre,    \n" +
-    " case when trim(coalesce(t.nimpperc, '')) = '' then 0 else t.nimpperc::numeric end as nimpperc,    \n" +
-    " case when trim(coalesce(t.nperdenre, '')) = '' then 0 else t.nperdenre::numeric end as nperdenre, --5 \n" +
-    " coalesce(trim(t.cserre), '') as cserre, coalesce(trim(t.cnumre), '') as cnumre,    \n" +
-    " case when coalesce(t.ffecre, '')= '' then null else to_date(t.ffecre, 'DD/MM/YYYY') end as ffecre,    \n" +
-    " t.created_at::date, t.updated_at::date,    \n" +
-    " coalesce(trim(t.estado), '') as estado,    \n" +
-    " coalesce(trim(t.en_ambiente_de), '') as en_ambiente_de,  \n" +
-    " case when trim(t.estado) = 'CANCELADO' then 0 else 3 end as es_con_migracion, '' as ccodcos3,  \n" +
-    " coalesce(t.comprobante_item_id,'') as comprobante_item_id, \n" +
-    " coalesce(cast(t.es_anticipo_automatico as integer) ,0) as es_anticipo_automatico \n" +
-    " FROM json_to_recordset(v_data)  \n" +
-    " as t( \n" +
-    " id integer, \n" +
-    " numero_documento_emisor character varying(20),    \n" +
-    " ffechadoccobra character varying(20),    \n" +
-    " cdoccan character varying(5),    \n" +
-    " csercan character varying(50),    \n" +
-    " cnumcan character varying(50),    \n" +
-    " ccuecan character varying(50),    \n" +
-    " cmoncan character varying(50),    \n" +
-    " nimporcan character varying(50),    \n" +
-    " ntipcam character varying(50),    \n" +
-    " ccodpago character varying(50),    \n" +
-    " ccoddoc character varying(20),    \n" +
-    " cserie character varying(50),    \n" +
-    " cnumero character varying(50),    \n" +
-    " ffechadoc character varying(50),    \n" +
-    " ffechaven character varying(50),  \n" +
-    " ccodenti character varying(50),  \n" +
-    " ccodruc character varying(50),  \n" +
-    " crazsoc text, \n" +
-    " nimportes character varying(50),    \n" +
-    "  nimported character varying(50),    \n" +
-    "  ccodcue character varying(50),    \n" +
-    "  cglosa text, \n" +
-    "  ccodcos character varying(50),    \n" +
-    "  ccodcos2 character varying(50),    \n" +
-    "  nporre character varying(50),    \n" +
-    "  nimpperc character varying(50),    \n" +
-    "  nperdenre character varying(50),    \n" +
-    "  cserre character varying(50),    \n" +
-    "  cnumre character varying(50),    \n" +
-    "  ffecre character varying(50),    \n" +
-    "  created_at timestamp without time zone,    \n" +
-    "  updated_at timestamp without time zone,    \n" +
-    "  estado character varying(50),    \n" +
-    "  en_ambiente_de character varying(255),    \n" +
-    "  es_con_migracion boolean, \n" +
-    "  comprobante_item_id character varying(40), \n" +
-    "  es_anticipo_automatico boolean   )\n" +
-    "     left join fin_cobranzafm v on t.id = v.idcobranzasfm \n" +
-    "     where v.idcobranzasfm is null; \n" +
-    "                 --Modificados \n" +
-    "     update fin_cobranzafm v \n" +
-    "     set es_con_migracion =case when trim(t.estado) = 'CANCELADO' then 0 else 3 end,    \n" +
-    "     estado = trim(t.estado) \n" +
-    "     from json_to_recordset(v_data) \n" +
-    " as t (id integer, estado character varying(255), es_con_migracion boolean )        \n" +
-    " where v.idcobranzasfm = t.id; \n" +
-    "                 --resultado de confirmacion.    \n" +
-    " select json_agg(json_build_object('idcobranzasfm', id, 'es_con_migracion', es_con_migracion))::text \n" +
-    " from json_to_recordset(v_data) \n" +
-    " as t (id integer, es_con_migracion boolean) \n" +
-    " into resultado; \n" +
-    "   end;    \n" +
-    " \n" +
-    " $BODY$  \n" +
-    " LANGUAGE 'plpgsql'; \n" +
-    " ALTER FUNCTION public.fn_integracion_cobranza_importar(text, text)  \n" +
-    " OWNER TO postgres; ";
-
-                respuesta = obj.crear_funcion(NombreSP, Query);
-                this.Barraprogreso(respuesta);
-                #endregion
+               
                 #region fn_ventas_envio
                 NombreSP = "fn_ventas_envio";
                 Query = " CREATE OR REPLACE FUNCTION public.fn_ventas_envio( \n" +
@@ -3151,17 +3030,30 @@ namespace Contasis
                         "    ) t \n" +
                         "     into resultado; \n" +
                         " END; \n" +
-                        " $BODY$   \n" +
-                        " LANGUAGE plpgsql VOLATILE  \n" +
-                        " COST 100; ";
+                        " $BODY$  \n" +
+                        " LANGUAGE 'plpgsql'; ";
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
 
+                #region cg_moduloconfigura
+                NombreTable = "cg_moduloconfigura";
+                Query = "CREATE TABLE IF NOT EXISTS public.cg_moduloconfigura  \n" +
+                        "(  \n" +
+                        "id bigint default 0 ),\n" +
+                        "cmodulo character(20)  \n" +
+                        ");";
+                respuesta = obj.crear_tablas(NombreTable, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
+
+
+
+
 
             }
 
-            if (Properties.Settings.Default.TipModulo == "2")
+            if (Properties.Settings.Default.TipModulo == "2")   /// comercial en Postgres
             {
                 // Area para tablas comerciales //
                 NombreTable = "cg_empemisor";
@@ -3211,13 +3103,13 @@ namespace Contasis
                 respuesta = obj.crear_tablas(NombreTable, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-                #region configuracion2
 
+                #region configuracion2
                 NombreTable = "configuracion2";
-                Query = "drop sequence if exists sec_id;"+
-                "create sequence sec_id minvalue 1 maxvalue 99999999999 increment by 1; " +
-                "CREATE TABLE configuracion2( " +
-                 "   id numeric(20, 0), " +
+                Query = "drop sequence if exists sec_id;" +
+                " create sequence sec_id minvalue 1 maxvalue 99999999999 increment by 1; " +
+                " CREATE TABLE configuracion2( " +
+                 "    id bigint not null, " +
                  "   ccod_empresa char(3) NULL, " +
                  "   cper char(4) NULL, " +
                  "   crazemp char(100) NULL, " +
@@ -3232,10 +3124,16 @@ namespace Contasis
                  "   ccodvend char(10) NULL, " +
                  "   ccodalma char(10) NULL, " +
                  "   Ent_anula char(15) NULL, " +
-                 "   Prodanula char(15) NULL); ";
+                 "   Prodanula char(15) NULL, " +
+                 "   ffecha_inicioproceso date, " +
+                 "   ccodoripago character(3), " +
+                 "   clibropago character(2), " +
+                 "   ccodflupago character(4), " +
+                 "   constraint uk_configuracion2 UNIQUE(cper,crucemp,tipo,codtipdocu,cserie));";
                 respuesta = obj.crear_tablas(NombreTable, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
+
                 #region campos_para_configuracion2
                 NombreTable = "configuracion2";
                 Nombrecampo = "ffecha_inicioproceso";
@@ -3243,7 +3141,6 @@ namespace Contasis
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-
                 #region campos_para_configuracion2_ctipo
                 NombreTable = "configuracion2";
                 Nombrecampo = "ctipo";
@@ -3251,169 +3148,185 @@ namespace Contasis
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
+
+                #region campos_para_configuracion2_ctipo
+                NombreTable = "configuracion2";
+                Nombrecampo = "cserie";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  char(20) null ";
+                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+                this.Barraprogreso(respuesta);
+
+
+                #endregion
                 #region com_producto
                 NombreTable = "com_producto";
-                Query = "drop sequence if exists sec_idproducto; \n" +
-                "   create sequence sec_idproducto minvalue 1 maxvalue 9999999999 increment by 1; \n" +
-                "   CREATE TABLE com_producto( \n" +
-                "	idproducto integer   NOT NULL DEFAULT nextval('sec_idproducto'::regclass),\n" +
-                "   ccodrucemisor character(15) NOT NULL, \n" +
-                "   ccod_empresa character(3)  NOT NULL, \n" +
-                "	ccodfamg character(20) NULL,\n" +
-                "	cdesfamg character(50) NULL,\n" +
-                "	ccodfamf character(20) NULL,\n" +
-                "	cdesfamf character(50) NULL,\n" +
-                "	ccodprod character(20) NULL,\n" +
-                "	cdesprod character(150) NULL,\n" +
-                "	cdesprodGen character(500) NULL,\n" +
-                "	ccodtes character(2) NULL,\n" +
-                "	cdesmar character(80) NULL,\n" +
-                "	ccodmed character(15) NULL,\n" +
-                "	ccodcatbs character(16) NULL,\n" +
-                "	cdescatbs character(250) NULL,\n" +
-                "	ntipoprod character(8) NULL,\n" +
-                "	nunidsec character(2) NULL,\n" +
-                "	npesoprod numeric(10, 4) NULL,\n" +
-                "	ccodbarras character(15) NULL,\n" +
-                "	ninprod character(2) NULL,\n" +
-                "	nanuprod character(2) NULL,\n" +
-                "	nlote character(2) NULL,\n" +
-                "	nseruni character(2) NULL,\n" +
-                "	nicbper character(2) NULL,\n" +
-                "	nprodanti character(2) NULL,\n" +
-                "	ngasrela character(2) NULL,\n" +
-                "	nprodsafniif character(2) NULL,\n" +
-                "	ccomcue character(20) NULL,\n" +
-                "	cvencue character(20) NULL,\n" +
-                "	cdebicue character(20) NULL,\n" +
-                "	ccredcue character(20) NULL,\n" +
-                "	cdebicuei character(20) NULL,\n" +
-                "	ccredcuei character(20) NULL,\n" +
-                "	ccodcos character(9) NULL,\n" +
-                "	ccodcos2 character(9) NULL,\n" +
-                "	ccodpresu character(10) NULL,\n" +
-                "	ccomprod character(1) NULL,\n" +
-                "	cvenprod character(1) NULL,\n" +
-                "	ccodisc character(5) NULL,\n" +
-                "	cmoneda character(1) NULL,\n" +
-                "	npreunit1 numeric(15, 4) NULL,\n" +
-                "	npreunit2 numeric(15, 4) NULL,\n" +
-                "	npreunit3 numeric(15, 4) NULL,\n" +
-                "	npreunit4 numeric(15, 4) NULL,\n" +
-                "	npreunit5 numeric(15, 4) NULL,\n" +
-                "	npreunit6 numeric(15, 4) NULL,\n" +
-                "	npreunit7 numeric(15, 4) NULL,\n" +
-                "	npreunit8 numeric(15, 4) NULL,\n" +
-                "	npreunit9 numeric(15, 4) NULL,\n" +
-                "	npreunit10 numeric(15, 4) NULL,\n" +
-                "	npreunit11 numeric(15, 4) NULL,\n" +
-                "	npreunit12 numeric(15, 4) NULL,\n" +
-                "	npreunit13 numeric(15, 4) NULL,\n" +
-                "	npreunit14 numeric(15, 4) NULL,\n" +
-                "	npreunit15 numeric(15, 4) NULL,\n" +
-                "	nstockmin numeric(15, 4) NULL,\n" +
-                "	nstockmax numeric(15, 4) NULL,\n" +
-                "	nrango1 numeric(15, 0) NULL,\n" +
-                "	nrango2 numeric(15, 0) NULL,\n" +
-                "	nresp numeric(1, 0) NULL,\n" +
-                "	ccodpps character(2) NULL,\n" +
-                "	ccodpds character(5) NULL,\n" +
-                "	nagemonmin numeric(15, 2) NULL,\n" +
-                "	ccodlabora character(4) NULL,\n" +
-                "	cdeslabora character(60) NULL,\n" +
-                "	created_at date NULL,\n" +
-                "	updated_at date NULL,\n" +
-                "	estado character(255) NULL,\n" +
-                "	en_ambiente_de character(255) NULL,\n" +
-                "	es_con_migracion numeric(1, 0) NULL,\n" +
-                "	ccodcos3 character(15) NULL,\n" +
-                "	obserror text NULL,CONSTRAINT com_producto_pkey PRIMARY KEY (idproducto));";
+                Query = "CREATE TABLE IF NOT EXISTS public.com_producto\n" +
+                "(\n" +
+                "    idproducto numeric(20,0) NOT NULL,\n" +
+                "    ccodrucemisor character(15)  NULL,\n" +
+                "    ccod_empresa character(3)  NULL,\n" +
+                "    ccodfamg character(20) NULL,\n" +
+                "    cdesfamg character(50) NULL,\n" +
+                "    ccodfamf character(20) NULL,\n" +
+                "    cdesfamf character(50) NULL,\n" +
+                "    ccodprod character(20)  NULL,\n" +
+                "    cdesprod character(150) NULL,\n" +
+                "    cdesprodgen character varying(500) NULL,\n" +
+                "    ccodtes character(2) COLLATE NULL,\n" +
+                "    ccodmar character(4) NULL,\n" +
+                "    cdesmar character(80) NULL,\n" +
+                "    ccodmed character(15) NULL,\n" +
+                "    ccodums character(3) NULL,\n" +
+                "    ccodcatbs character(16) NULL,\n" +
+                "    cdescatbs character(250) NULL,\n" +
+                "    ntipoprod character(8) NULL,\n" +
+                "    nunidsec character(2) NULL,\n" +
+                "    npesoprod numeric(10,4),\n" +
+                "    ccodbarras character(15) NULL,\n" +
+                "    ninprod character(2) NULL,\n" +
+                "    nanuprod character(2) NULL,\n" +
+                "    nlote character(2) NULL,\n" +
+                "    nseruni character(2) NULL,\n" +
+                "    nicbper character(2) NULL,\n" +
+                "    nprodanti character(2) NULL,\n" +
+                "    ngasrela character(2) NULL,\n" +
+                "    nprodsafniif character(2) NULL,\n" +
+                "    ccomcue character(20) NULL,\n" +
+                "    cvencue character(20) NULL,\n" +
+                "    cdebicue character(20) NULL,\n" +
+                "    ccredcue character(20) NULL,\n" +
+                "    cdebicuei character(20) NULL,\n" +
+                "    ccredcuei character(20) NULL,\n" +
+                "    ccodcos character(9) NULL,\n" +
+                "    ccodcos2 character(9) NULL,\n" +
+                "    ccodpresu character(10) NULL,\n" +
+                "    ccomprod character(1) NULL,\n" +
+                "    cvenprod character(1) NULL,\n" +
+                "    ccodisc character(5) NULL,\n" +
+                "    cmoneda character(1) NULL,\n" +
+                "    npreunit1 numeric(15,4),\n" +
+                "    npreunit2 numeric(15,4),\n" +
+                "    npreunit3 numeric(15,4),\n" +
+                "    npreunit4 numeric(15,4),\n" +
+                "    npreunit5 numeric(15,4),\n" +
+                "    npreunit6 numeric(15,4),\n" +
+                "    npreunit7 numeric(15,4),\n" +
+                "    npreunit8 numeric(15,4),\n" +
+                "    npreunit9 numeric(15,4),\n" +
+                "    npreunit10 numeric(15,4),\n" +
+                "    npreunit11 numeric(15,4),\n" +
+                "    npreunit12 numeric(15,4),\n" +
+                "    npreunit13 numeric(15,4),\n" +
+                "    npreunit14 numeric(15,4),\n" +
+                "    npreunit15 numeric(15,4),\n" +
+                "    nstockmin numeric(15,4),\n" +
+                "    nstockmax numeric(15,4),\n" +
+                "    nrango1 numeric(15,0),\n" +
+                "    nrango2 numeric(15,0),\n" +
+                "    nresp numeric(1,0),\n" +
+                "    ccodpps character(2) ,\n" +
+                "    ccodpds character(5) ,\n" +
+                "    nagemonmin numeric(15,2),\n" +
+                "    ccodlabora character(4) ,\n" +
+                "    cdeslabora character(60) NULL,\n" +
+                "    estado character varying(255) NULL,\n" +
+                "    en_ambiente_de character varying(255) NULL,\n" +
+                "    es_con_migracion numeric(1,0),\n" +
+                "    ccodcos3 character(15) NULL,\n" +
+                "    obserror text NULL,\n" +
+                "    resultado_migracion numeric(1,0),\n" +
+                "    CONSTRAINT pk_prducto PRIMARY KEY (ccodrucemisor, ccod_empresa, ccodprod));";
                 respuesta = obj.crear_tablas(NombreTable, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
                 #region com_documento
                 NombreTable = "com_documento";
-                Query = "CREATE TABLE com_documento( \n" +
-                "   iddocumento integer  NOT NULL, \n" +
-                "   ccodrucemisor character(15) NULL, \n" +
-                "   ccod_empresa character(3) NULL, \n" +
-                "   cper character(4) NULL, \n" +
-                "      cmes character(2) NULL, \n" +
-                "      ccodmodulo character(6) NULL, \n" +
-                "      ccodmov character(5) NULL, \n" +
-                "      ccoddoc character(2) NULL, \n" +
-                "      cserie character(20) NULL, \n" +
-                "      cnumero character(20) NULL, \n" +
-                "      ccodenti character(11) NULL, \n" +
-                "      cdesenti character(100) NULL, \n" +
-                "      ccodtipent character(3) NULL, \n" +
-                "      ccodruc character(15) NULL, \n" +
-                "      crazsoc character(150) NULL, \n" +
-                "      cdirecc character(250) NULL, \n" +
-                "      ccodubi character(6) NULL, \n" +
-                "      ccodcontac character(3) NULL, \n" +
-                "      cdescontacto character(150) NULL, \n" +
-                "      ffecha date NULL, \n" +
-                "      ffechaven date NULL, \n" +
-                "      ffechaalm date NULL, \n" +
-                "      ccodpag character(2) NULL, \n" +
-                "      ccuencan character(20) NULL, \n" +
-                "      cmoneda character(1) NULL, \n" +
-                "      ntcigv numeric(10, 6) NULL, \n" +
-                "      cguiaser character(7) NULL, \n" +
-                "      cguianum character(13) NULL, \n" +
-                "      mdsc text NULL, \n" +
-                "      ccodvend character(4) NULL, \n" +
-                "      ccodclas character(1) NULL, \n" +
-                "      ccodocon character(4) NULL, \n" +
-                "      cnumordc character(20) NULL, \n" +
-                "      crefdoc character(2) NULL, \n" +
-                "      freffec date NULL, \n" +
-                 "     crefser character(10) NULL, \n" +
-                "      crefnum character(13) NULL, \n" +
-                "      ccat09 character(2) NULL, \n" +
-                "      cmotinc character(50) NULL, \n" +
-                "      nresp numeric(1, 0) NULL, \n" +
-                "      ccodpds character(5) NULL, \n" +
-                "      nporre numeric(5, 2) NULL, \n" +
-                "      ffecre date NULL, \n" +
-                "      cnumdere character(15) NULL, \n" +
-                "      ccodpps character(2) NULL, \n" +
-                "      nporre2 numeric(5, 2) NULL, \n" +
-                "      nperdenre numeric(1, 0) NULL, \n" +
-                "      nbase1 numeric(15, 2) NULL, \n" +
-                "      nigv1 numeric(15, 2) NULL, \n" +
-                "      nbase2 numeric(15, 2) NULL, \n" +
-                    "  nigv2 numeric(15, 2) NULL, \n" +
-                    "  nbase3 numeric(15, 2) NULL, \n" +
-                    "  nigv3 numeric(15, 2) NULL, \n" +
-                    "  nimpicbper numeric(15, 2) NULL, \n" +
-                    "  nina numeric(15, 2) NULL, \n" +
-                    "  nexo numeric(15, 2) NULL, \n" +
-                    "  nisc numeric(15, 2) NULL, \n" +
-                    "  nivabase numeric(15, 2) NULL, \n" +
-                    "  nivaimp numeric(15, 2) NULL, \n" +
-                    "  nimpant numeric(15, 2) NULL, \n" +
-                    "  ntot numeric(15, 2) NULL, \n" +
-                    "  created_at date NULL, \n" +
-                    "  updated_at date NULL, \n" +
-                    "  estado character(255) NULL, \n" +
-                    "  en_ambiente_de character(255) NULL, \n" +
-                    "  es_con_migracion numeric(1, 0) default '0', \n" +
-                    "  ccodcos3 character(15) NULL, \n" +
-                    "  obserror text NULL, ccond character(3) NULL, ccuecan character(20) NULL, \n" +
-                    "  cdoccan  character(2) NULL, \n" +
-                    "  csercan  character(20) NULL, \n" +
-                    "  cnumcan  character(20) NULL, \n" +
-                    "  CONSTRAINT com_documento_pkey PRIMARY KEY(iddocumento));";
+                Query = "CREATE TABLE IF NOT EXISTS public.com_documento \n" +
+                        "(  iddocumento integer NOT NULL,\n" +
+                        "    ccodrucemisor character(15) Null,\n" +
+                        "    ccod_empresa character(3) Null,\n" +
+                        "    cper character(4) Null,\n" +
+                        "    cmes character(2) Null,\n" +
+                        "    ccodmodulo character(6) Null,\n" +
+                        "    ccodmov character(5) Null,\n" +
+                        "    ccoddoc character(2) Null,\n" +
+                        "    cserie character(20) Null,\n" +
+                        "    cnumero character(20) Null,\n" +
+                        "    ccodenti character(11) Null,\n" +
+                        "    cdesenti character(100) Null,\n" +
+                        "    ccodtipent character(3) Null,\n" +
+                        "    ccodruc character(15) Null,\n" +
+                        "    crazsoc character(150) Null,\n" +
+                        "    cdirecc character(250) Null,\n" +
+                        "    ccodubi character(6) Null,\n" +
+                        "    ccodcontac character(3) Null,\n" +
+                        "    cdescontacto character(150) Null,\n" +
+                        "    ffecha date,\n" +
+                        "    ffechaven date,\n" +
+                        "    ffechaalm date,\n" +
+                        "    ccodpag character(2) Null,\n" +
+                        "    cmoneda character(1) Null,\n" +
+                        "    ntcigv numeric(10,6),\n" +
+                        "    cguiaser character(7) Null,\n" +
+                        "    cguianum character(13) Null,\n" +
+                        "    mdsc text Null,\n" +
+                        "    ccodvend character(4) Null,\n" +
+                        "    ccodclas character(1) Null,\n" +
+                        "    ccodocon character(4) Null,\n" +
+                        "    cnumordc character(20) Null,\n" +
+                        "    crefdoc character(2) Null,\n" +
+                        "    freffec date,\n" +
+                        "    crefser character(10) Null,\n" +
+                        "    crefnum character(13) Null,\n" +
+                        "    ccat09 character(2) Null,\n" +
+                        "    cmotinc character(50) Null,\n" +
+                        "    nresp numeric(1,0),\n" +
+                        "    ccodpds character(5) Null,\n" +
+                        "    nporre numeric(5,2),\n" +
+                        "    ffecre date,\n" +
+                        "    cnumdere character(15) Null,\n" +
+                        "    ccodpps character(2) Null,\n" +
+                        "    nporre2 numeric(5,2),\n" +
+                        "    nperdenre numeric(1,0),\n" +
+                        "    nbase1 numeric(15,2),\n" +
+                        "    nigv1 numeric(15,2),\n" +
+                        "    nbase2 numeric(15,2),\n" +
+                        "    nigv2 numeric(15,2),\n" +
+                        "    nbase3 numeric(15,2),\n" +
+                        "    nigv3 numeric(15,2),\n" +
+                        "    nimpicbper numeric(15,2),\n" +
+                        "    nina numeric(15,2),\n" +
+                        "    nexo numeric(15,2),\n" +
+                        "    nisc numeric(15,2),\n" +
+                        "    nivabase numeric(15,2),\n" +
+                        "    nivaimp numeric(15,2),\n" +
+                        "    nimpant numeric(15,2),\n" +
+                        "    ntot numeric(15,2),\n" +
+                        "    created_at date,\n" +
+                        "    updated_at date,\n" +
+                        "    estado character(255) Null,\n" +
+                        "    en_ambiente_de character(255) Null,\n" +
+                        "    es_con_migracion numeric(1,0) DEFAULT '0'::numeric,\n" +
+                        "    ccodcos3 character(15) Null,\n" +
+                        "    obserror text Null,\n" +
+                        "    ccond character(3) Null,\n" +
+                        "    ccuecan character(20) Null,\n" +
+                        "    cdoccan character(2) Null,\n" +
+                        "    csercan character(20) Null,\n" +
+                        "    cnumcan character(20) Null,\n" +
+                        "    cnumcam character(20) Null,\n" +
+                        "    obserrorcan text Null,\n" +
+                        "    resultadocan_migracion numeric(1,0) DEFAULT 0,\n" +
+                        "    ccodpago character(3) Null,\n" +
+                        "    resultado_migracion text Null,\n" +
+                        "    CONSTRAINT com_documento_pkey PRIMARY KEY (iddocumento),\n" +
+                        "    CONSTRAINT uk_documento UNIQUE (ccodrucemisor, ccod_empresa, ccoddoc, cserie, cnumero, ccodruc));";
                 respuesta = obj.crear_tablas(NombreTable, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
                 #region com_detalledocumento
-                NombreTable = "com_detalledocumento";
-                Query = " drop sequence if exists sec_iddetalledocumento;  \n" +
-                        "   create sequence sec_iddetalledocumento minvalue 1 maxvalue 9999999999 increment by 1;  \n" +
-                        "   CREATE TABLE com_detalledocumento( \n" +
+                NombreTable ="com_detalledocumento";
+                Query = "   CREATE TABLE com_detalledocumento( \n" +
                         " 	iddetalledocumento int NOT NULL, \n" +
                         " 	iddocumento int NOT NULL, \n" +
                         " 	ccodalma char(3) NULL, \n" +
@@ -3429,9 +3342,9 @@ namespace Contasis
                         " 	nigvtot numeric(15, 2) NULL, \n" +
                         " 	ntotori numeric(15, 2) NULL, \n" +
                         " 	npigv numeric(5, 2) NULL, \n" +
-                        "   nconvnum numeric(9,2) NULL, \n"+
+                        "   nconvnum numeric(9,2) NULL, \n" +
                         "   nconvden numeric(9,2) NULL, \n" +
-                        "   clibprod char(1) null,\n"+
+                        "   clibprod char(1) null,\n" +
                         " 	ccodcos char(9) NULL, \n" +
                         "   ccodcos2 char(9) NULL, \n" +
                         "   ccodpresu char(10) NULL, \n" +
@@ -3446,6 +3359,55 @@ namespace Contasis
                 respuesta = obj.crear_tablas(NombreTable, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
+
+                #region cg_moduloconfigura
+                NombreTable = "cg_moduloconfigura";
+                Query = "CREATE TABLE IF NOT EXISTS public.cg_moduloconfigura  \n" +
+                        "(  \n" +
+                        "id bigint default 0 ),\n" +
+                        "cmodulo character(20)  \n" +
+                        ");";
+                respuesta = obj.crear_tablas(NombreTable, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
+
+                #region cg_moduloconfigura
+                NombreSP = "cg_moduloconfigura";
+                Query = "delete from  cg_moduloconfigura;";
+                respuesta = obj.ejecutar_comando("", NombreSP, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
+
+
+
+                #region cg_moduloconfigura
+                NombreSP = "cg_moduloconfigura";
+                Query = "INSERT INTO cg_moduloconfigura(id,cmodulo) values(1,'Modulo Contable');";
+                respuesta = obj.ejecutar_comando("", NombreSP, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
+
+                #region cg_moduloconfigura2
+                NombreSP = "cg_moduloconfigura";
+                Query = "INSERT INTO cg_moduloconfigura(id,cmodulo) values(2,'Modulo Comercial');";
+                respuesta = obj.ejecutar_comando("", NombreSP, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 #region com_detalledocumento2
                 NombreTable = "com_detalledocumento";
                 Nombrecampo = "nconvnum";
@@ -3458,14 +3420,17 @@ namespace Contasis
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  numeric(9,2) default 0 ";
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
                 this.Barraprogreso(respuesta);
-
-                
+               
 
                 NombreTable = "com_detalledocumento";
                 Nombrecampo = "clibprod";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  character(1) default '' ";
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
                 this.Barraprogreso(respuesta);
+
+
+
+
 
                 NombreTable = "com_documento";
                 Nombrecampo = "cdoccan";
@@ -3486,20 +3451,6 @@ namespace Contasis
                 this.Barraprogreso(respuesta);
 
                 NombreTable = "com_documento";
-                Nombrecampo = "ccuencan";
-                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  character(20) default '' ";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.Barraprogreso(respuesta);
-
-                NombreTable = "com_documento";
-                Nombrecampo = "ccodcon";
-                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + "  character(20) default '' ";
-                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
-                this.Barraprogreso(respuesta);
-
-
-
-                NombreTable = "com_documento";
                 Nombrecampo = "obserrorcan";
                 Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " text default '';";
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
@@ -3510,7 +3461,41 @@ namespace Contasis
                 respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
 
 
+                NombreTable = "configuracion2";
+                Nombrecampo = "cserie";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add " + Nombrecampo.Trim().ToLower() + " character(20) default '';";
+                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+
+                NombreTable = "com_documento";
+                Nombrecampo = "ccodrucemisor";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add  " + Nombrecampo.Trim().ToLower() + "  character(15);";
+                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+
+
+
+                NombreTable = "com_documento";
+                Nombrecampo = "ccodpago";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add  " + Nombrecampo.Trim().ToLower() + "  character(3);";
+                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
+
+
+                NombreTable = "com_detalledocumento";
+                Nombrecampo = "es_con_migracion";
+                Query = "alter table " + NombreTable.Trim().ToLower() + " add  " + Nombrecampo.Trim().ToLower() + "  Numeric(1) default 0;";
+                respuesta = obj.crear_Campos_nuevos_en_tablas(NombreTable, Nombrecampo, Query);
                 #endregion
+
+                /**NombreTable = "com_detalledocumento";
+                Nombrecampo = "es_con_migracion";
+                Query = "drop sequence if exists sec_id;" +
+                " create sequence sec_id minvalue 1 maxvalue 99999999999 increment by 1; "; 
+                 respuesta = obj.ejecutar_comando(NombreTable, Nombrecampo, Query);**/
+
+
+
+
+                //// FUNCIONES MODIFICADAS PARA COMERCIAL DARWIN ////
+
                 #region fn_integracion_productos_importar
 
                 NombreSP = "fn_integracion_productos_importar";
@@ -3686,6 +3671,15 @@ namespace Contasis
                         "	 where v.idproducto is null;   \n" +
                         "	  \n" +
                         "     \n" +
+                        "update com_producto set ccomcue=b.ccomcue,cvencue=b.cvencue,es_con_migracion=0  \n" +
+                        " from(SELECT t.idproducto, t.ccodrucemisor,t.ccod_empresa,trim(t.ccomcue) as ccomcue, \n" +
+                        " trim(t.cvencue) as cvencue  FROM json_to_recordset(v_data) \n" +
+                        " as t(idproducto integer,  ccodrucemisor character(15),  ccod_empresa character(3),\n" +
+                        " ccomcue character(20),cvencue character(20)) \n" +
+                        " inner join com_producto v on t.idproducto = v.idproducto \n" +
+                        " where v.idproducto is not null) as b where com_producto.idproducto = b.idproducto and  \n" +
+                        " com_producto.ccodrucemisor = b.ccodrucemisor and com_producto.ccod_empresa = b.ccod_empresa; \n" +
+                        "   \n" +
                         "	 update com_producto v   \n" +
                         "	 set es_con_migracion = 0   \n" +
                         "	 from json_to_recordset(v_data)   \n" +
@@ -3723,155 +3717,162 @@ namespace Contasis
                         " 	p_datos = null; \n" +
                         "\n" +
                         "	--nuevos \n" +
-                        "	 INSERT INTO com_documento ( \n" +
-                        "	 iddocumento,ccodrucemisor,ccod_empresa,cper,cmes,ccodmodulo,ccodmov,ccoddoc,cserie,cnumero,ccodenti,cdesenti,ccodtipent,ccodruc,\n" +
-                        "	 crazsoc,cdirecc,ccodubi,ccodcontac,cdescontacto,ffecha,ffechaven,ffechaalm,ccodpag,ccond,ccuencan,cmoneda,ntcigv,cguiaser,cguianum,\n" +
-                        "	 mdsc,ccodvend,ccodclas,ccodcon,cnumordc,crefdoc,freffec,crefser,crefnum,ccat09,cmotinc,nresp,ccodpds,nporre,ffecre,cnumdere,ccodpps,\n" +
-                        "	 nporre2,nperdenre,nbase1,nigv1,nbase2,nigv2,nbase3,nigv3,nina,nexo,nisc,nivabase,nivaimp,nimpant,ntot,nimpicbper,estado)\n" +
-                        "	SELECT  \n" +
-                        "			t.iddocumento, \n" +
-                        "			t.ccodrucemisor,\n" +
-                        "			p_cod_emp,\n" +
-                        "			trim(t.cper) as cper, \n" +
-                        "			trim(t.cmes) as cmes, \n" +
-                        "			trim(t.ccodmodulo) as ccodmodulo,\n" +
-                        "			trim(t.ccodmov) as ccodmov,\n" +
-                        "			trim(t.ccoddoc) as ccoddoc,\n" +
-                        "			trim(t.cserie) as cserie,\n" +
-                        "			trim(t.cnumero) as cnumero,\n" +
-                        "			trim(t.ccodenti) as ccodenti,\n" +
-                        "			trim(t.cdesenti) as cdesenti,\n" +
-                        "			trim(t.ccodtipent) as ccodtipent,\n" +
-                        "			trim(t.ccodruc) as ccodruc,\n" +
-                        "			trim(t.crazsoc) as crazsoc,\n" +
-                        "			trim(t.cdirecc) as cdirecc,\n" +
-                        "			trim(t.ccodubi) as ccodubi,\n" +
-                        "			trim(t.ccodcontac) as ccodcontac,\n" +
-                        "			trim(t.cdescontacto) as cdescontacto,\n" +
-                        "			t.ffecha as ffecha ,\n" +
-                        "			t.ffechaven as ffechaven,\n" +
-                        "			t.ffechaalm as ffechaalm,\n" +
-                        "			trim(t.ccodpag) as ccodpag,\n" +
-                        "			trim(t.ccond) as ccond,\n" +
-                        "			trim(t.ccuencan) as ccuencan,\n" +
-                        "			trim(t.cmoneda) as cmoneda,\n" +
-                        "			t.ntcigv,\n" +
-                        "			trim(t.cguiaser) as cguiaser,\n" +
-                        "			trim(t.cguianum) as cguianum,\n" +
-                        "			trim(t.mdsc) as mdsc,\n" +
-                        "			trim(t.ccodvend) as ccodvend,\n" +
-                        "			trim(t.ccodclas) as ccodclas,\n" +
-                        "			trim(t.ccodcon) as ccodcon,\n" +
-                        "			trim(t.cnumordc) as cnumordc,\n" +
-                        "			trim(t.crefdoc) as crefdoc,\n" +
-                        "			t.freffec,\n" +
-                        "			trim(t.crefser) as crefser,\n" +
-                        "			trim(t.crefnum) as crefnum,\n" +
-                        "			trim(t.ccat09) as ccat09,\n" +
-                        "			trim(t.cmotinc) as cmotinc,\n" +
-                        "			t.nresp,\n" +
-                        "			trim(t.ccodpds) as ccodpds,\n" +
-                        "			t.nporre,\n" +
-                        "			t.ffecre,\n" +
-                        "			trim(t.cnumdere) as cnumdere,\n" +
-                        "			trim(t.ccodpps) as ccodpps,\n" +
-                        "			t.nporre2,\n" +
-                        "			t.nperdenre as nperdenre,\n" +
-                        "			t.nbase1,\n" +
-                        "			t.nigv1,\n" +
-                        "			t.nbase2,\n" +
-                        "			t.nigv2,\n" +
-                        "			t.nbase3,\n" +
-                        "			t.nigv3,\n" +
-                        "			t.nina,\n" +
-                        "			t.nexo,\n" +
-                        "			t.nisc,\n" +
-                        "			t.nivabase,\n" +
-                        "			t.nivaimp,\n" +
-                        "			t.nimpant,\n" +
-                        "			t.ntot,\n" +
-                        "			t.nimpicbper,\n" +
-                        "			trim(t.estado) as estado\n" +
-                        "		 \n" +
-                        "	 FROM json_to_recordset(v_data)\n" +
-                        "	 as t( iddocumento integer,\n" +
-                        "		    ccodrucemisor character(15),\n" +
-                        "		    ccod_empresa character(3),\n" +
-                        "		    cper character(4),\n" +
-                        "		    cmes character(2),\n" +
-                        "		    ccodmodulo character(6),\n" +
-                        "		    ccodmov character(5),\n" +
-                        "		    ccoddoc character(2),\n" +
-                        "		    cserie character(20),\n" +
-                        "		    cnumero character(20),\n" +
-                        "		    ccodenti character(11),\n" +
-                        "		    cdesenti character varying(100),\n" +
-                        "		    ccodtipent character(3),\n" +
-                        "		    ccodruc character(15),\n" +
-                        "		    crazsoc character(150),\n" +
-                        "		    cdirecc character(250),\n" +
-                        "		    ccodubi character(6),\n" +
-                        "		    ccodcontac character(3),\n" +
-                        "		    cdescontacto character(150),\n" +
-                        "		    ffecha date,\n" +
-                        "		    ffechaven date,\n" +
-                        "		    ffechaalm date,\n" +
-                        "		    ccodpag character(2),\n" +
-                        "		    ccond character(3),\n" +
-                        "		    ccuencan character(20),\n" +
-                        "		    cmoneda character(1),\n" +
-                        "		    ntcigv numeric(10,6),\n" +
-                        "		    cguiaser character(4),\n" +
-                        "		    cguianum character(13),\n" +
-                        "		    mdsc text,\n" +
-                        "		    ccodvend character(4),\n" +
-                        "		    ccodclas character(1),\n" +
-                        "		    ccodcon character(4),\n" +
-                        "		    cnumordc character(20),\n" +
-                        "		    crefdoc character(2),\n" +
-                        "		    freffec date,\n" +
-                        "		    crefser character(10),\n" +
-                        "		    crefnum character(13),\n" +
-                        "		    ccat09 character(2),\n" +
-                        "		    cmotinc character(50),\n" +
-                        "		    nresp numeric(1,0),\n" +
-                        "		    ccodpds character(5),\n" +
-                        "		    nporre numeric(5,2),\n" +
-                        "		    ffecre date,\n" +
-                        "		    cnumdere character(15),\n" +
-                        "		    ccodpps character(5),\n" +
-                        "		    nporre2 numeric(5,2),\n" +
-                        "           nperdenre numeric(15,2),\n" +
-                        "		    nbase1 numeric(15,2),\n" +
-                        "		    nigv1 numeric(15,2),\n" +
-                        "		    nbase2 numeric(15,2),\n" +
-                        "		    nigv2 numeric(15,2),\n" +
-                        "		    nbase3 numeric(15,2),\n" +
-                        "		    nigv3 numeric(15,2),\n" +
-                        "		    nina numeric(15,2),\n" +
-                        "		    nexo numeric(15,2),\n" +
-                        "		    nisc numeric(15,2),\n" +
-                        "		    nivabase numeric(15,2),\n" +
-                        "		    nivaimp numeric(15,2),\n" +
-                        "		    nimpant numeric(15,2),\n" +
-                        "		    ntot numeric(15,2),\n" +
-                        "		    nimpicbper numeric(15,2),\n" +
-                        "		    estado character varying(255)\n" +
+                        "   INSERT INTO com_documento (  \n" +
+                        "   iddocumento,ccodrucemisor,ccod_empresa,cper,cmes,ccodmodulo,ccodmov,ccoddoc,cserie,cnumero,ccodenti,cdesenti,ccodtipent,ccodruc, \n" +
+                        "   crazsoc,cdirecc,ccodubi,ccodcontac,cdescontacto,ffecha,ffechaven,ffechaalm,ccodpag,ccond, \n" +
+                        "   ccuecan,cmoneda,ntcigv,cguiaser,cguianum, \n" +
+                        "   mdsc,ccodvend,ccodclas,cnumordc,crefdoc,freffec,crefser,crefnum,ccat09,cmotinc,nresp,ccodpds,nporre,ffecre,cnumdere,ccodpps, \n" +
+                        "   nporre2,nperdenre,nbase1,nigv1,nbase2,nigv2,nbase3,nigv3,nina,nexo,nisc,nivabase,nivaimp,nimpant,ntot, \n" +
+                        "   nimpicbper,estado,cdoccan,csercan,cnumcan,ccodpago) \n" +
+                        "   SELECT  \n" +
+                        "   t.iddocumento,  \n" +
+                        "           t.ccodrucemisor, \n" +
+                        "           p_cod_emp,  \n" +
+                        "			trim(t.cper) as cper,   \n" +
+                        "			trim(t.cmes) as cmes,   \n" +
+                        "			trim(t.ccodmodulo) as ccodmodulo,  \n" +
+                        "			trim(t.ccodmov) as ccodmov,  \n" +
+                        "			trim(t.ccoddoc) as ccoddoc,  \n" +
+                        "			trim(t.cserie) as cserie,  \n" +
+                        "			trim(t.cnumero) as cnumero,  \n" +
+                        "			trim(t.ccodenti) as ccodenti,  \n" +
+                        "			trim(t.cdesenti) as cdesenti,  \n" +
+                        "			trim(t.ccodtipent) as ccodtipent,  \n" +
+                        "			trim(t.ccodruc) as ccodruc,  \n" +
+                        "			trim(t.crazsoc) as crazsoc,  \n" +
+                        "			trim(t.cdirecc) as cdirecc,  \n" +
+                        "			trim(t.ccodubi) as ccodubi,  \n" +
+                        "			trim(t.ccodcontac) as ccodcontac,  \n" +
+                        "			trim(t.cdescontacto) as cdescontacto,  \n" +
+                        "			t.ffecha as ffecha ,  \n" +
+                        "			t.ffechaven as ffechaven,  \n" +
+                        "			t.ffechaalm as ffechaalm,  \n" +
+                        "			trim(t.ccodpag) as ccodpag,  \n" +
+                        "			trim(t.ccond) as ccond,  \n" +
+                        "			trim(t.ccuencan) as ccuencan,  \n" +
+                        "			trim(t.cmoneda) as cmoneda,  \n" +
+                        "			t.ntcigv,  \n" +
+                        "			trim(t.cguiaser) as cguiaser,  \n" +
+                        "			trim(t.cguianum) as cguianum,  \n" +
+                        "			trim(t.mdsc) as mdsc,  \n" +
+                        "			trim(t.ccodvend) as ccodvend,  \n" +
+                        "			trim(t.ccodclas) as ccodclas,  \n" +
+                        "			trim(t.cnumordc) as cnumordc,  \n" +
+                        "			trim(t.crefdoc) as crefdoc,  \n" +
+                        "			t.freffec,  \n" +
+                        "			trim(t.crefser) as crefser,  \n" +
+                        "			trim(t.crefnum) as crefnum,  \n" +
+                        "			trim(t.ccat09) as ccat09,  \n" +
+                        "			trim(t.cmotinc) as cmotinc,  \n" +
+                        "			t.nresp,  \n" +
+                        "			trim(t.ccodpds) as ccodpds,  \n" +
+                        "			t.nporre,  \n" +
+                        "			t.ffecre,  \n" +
+                        "			trim(t.cnumdere) as cnumdere,  \n" +
+                        "			trim(t.ccodpps) as ccodpps,  \n" +
+                        "			t.nporre2,  \n" +
+                        "			t.nperdenre as nperdenre,  \n" +
+                        "			t.nbase1,  \n" +
+                        "			t.nigv1,  \n" +
+                        "			t.nbase2,  \n" +
+                        "			t.nigv2,  \n" +
+                        "			t.nbase3,  \n" +
+                        "			t.nigv3,  \n" +
+                        "			t.nina,  \n" +
+                        "			t.nexo,  \n" +
+                        "			t.nisc,  \n" +
+                        "			t.nivabase,  \n" +
+                        "			t.nivaimp,  \n" +
+                        "			t.nimpant,  \n" +
+                        "			t.ntot,  \n" +
+                        "			t.nimpicbper,  \n" +
+                        "			trim(t.estado) as estado,  \n" +
+                        "		 	t.cdoccan,  \n" +
+                        "		    t.csercan,  \n" +
+                        "		    t.cnumcan,  \n" +
+                        "		    t.ccodpago  \n" +
+                        "     FROM json_to_recordset(v_data)  \n" +
+                        "   as t(iddocumento integer,  \n" +
+                        "           ccodrucemisor character(15),  \n" +
+                        "		    ccod_empresa character(3),  \n" +
+                        "		    cper character(4),  \n" +
+                        "		    cmes character(2),  \n" +
+                        "		    ccodmodulo character(6),  \n" +
+                        "		    ccodmov character(5),  \n" +
+                        "		    ccoddoc character(2),  \n" +
+                        "		    cserie character(20),  \n" +
+                        "		    cnumero character(20),  \n" +
+                        "		    ccodenti character(11),  \n" +
+                        "		    cdesenti character varying(100),  \n" +
+                        "		    ccodtipent character(3),  \n" +
+                        "		    ccodruc character(15),  \n" +
+                        "		    crazsoc character(150),  \n" +
+                        "		    cdirecc character(250),  \n" +
+                        "		    ccodubi character(6),  \n" +
+                        "		    ccodcontac character(3),  \n" +
+                        "		    cdescontacto character(150),  \n" +
+                        "		    ffecha date,  \n" +
+                        "           ffechaven date,  \n" +
+                        "		    ffechaalm date,  \n" +
+                        "           ccodpag character(2),  \n" +
+                        "		    ccond character(3),  \n" +
+                        "		    ccuencan character(20),  \n" +
+                        "		    cmoneda character(1),  \n" +
+                        "		    ntcigv numeric(10,6),  \n" +
+                        "		    cguiaser character(4),  \n" +
+                        "		    cguianum character(13),  \n" +
+                        "		    mdsc text,  \n" +
+                        "           ccodvend character(4),  \n" +
+                        "		    ccodclas character(1),  \n" +
+                        "		    cnumordc character(20),  \n" +
+                        "		    crefdoc character(2),  \n" +
+                        "		    freffec date,  \n" +
+                        "           crefser character(10),  \n" +
+                        "		    crefnum character(13),  \n" +
+                        "		    ccat09 character(2),  \n" +
+                        "		    cmotinc character(50),  \n" +
+                        "		    nresp numeric(1,0),  \n" +
+                        "		    ccodpds character(5),  \n" +
+                        "		    nporre numeric(5,2),  \n" +
+                        "		    ffecre date,  \n" +
+                        "           cnumdere character(15),  \n" +
+                        "		    ccodpps character(5),  \n" +
+                        "		    nporre2 numeric(5,2),  \n" +
+                        "          nperdenre numeric(15,2),  \n" +
+                        "		    nbase1 numeric(15,2),  \n" +
+                        "		    nigv1 numeric(15,2),  \n" +
+                        "		    nbase2 numeric(15,2),  \n" +
+                        "		    nigv2 numeric(15,2),  \n" +
+                        "		    nbase3 numeric(15,2),  \n" +
+                        "		    nigv3 numeric(15,2),  \n" +
+                        "		    nina numeric(15,2),  \n" +
+                        "		    nexo numeric(15,2),  \n" +
+                        "		    nisc numeric(15,2),  \n" +
+                        "		    nivabase numeric(15,2),  \n" +
+                        "		    nivaimp numeric(15,2),  \n" +
+                        "		    nimpant numeric(15,2),  \n" +
+                        "		    ntot numeric(15,2),  \n" +
+                        "		    nimpicbper numeric(15,2),  \n" +
+                        "		    estado character varying(255),  \n" +
+                        "		 	cdoccan character varying(255),  \n" +
+                        "		    csercan character varying(255),  \n" +
+                        "		     cnumcan character varying(255),  \n" +
+                        "		    ccodpago character(3)   \n" +
                         "	 )\n" +
                         "	 left join com_documento v on t.iddocumento = v.iddocumento \n" +
                         "	 where v.iddocumento is null;  \n" +
                         "	 \n" +
                         "\n" +
-                        "	 update com_documento v  \n" +
-                        "	 set es_con_migracion = 0  \n" +
-                        "	 from json_to_recordset(v_data) \n" +
-                        "	 as t (iddocumento integer, estado character varying(255), es_con_migracion boolean )      \n" +
-                        "	 where v.iddocumento = t.iddocumento;  \n" +
+                        "	 update com_documento v    \n" +
+                        "	 set es_con_migracion = case when  trim(t.estado)= 'ANULADO' then 3 else 0 end, estado = trim(t.estado)    \n" +
+                        "	 from json_to_recordset(v_data)  \n" +
+                        "	 as t (iddocumento integer, estado character varying(255), es_con_migracion boolean )     \n" +
+                        "	 where v.iddocumento = t.iddocumento;    \n" +
                         "\n" +
                         "	 --resultado de confirmacion.  \n" +
-                        "	 select json_agg(json_build_object('iddocumento', iddocumento, 'es_con_migracion', es_con_migracion))::text  \n" +
+                        "	 select json_agg(json_build_object('iddocumento', iddocumento, 'es_con_migracion', es_con_migracion))::text    \n" +
                         "	 from json_to_recordset(v_data)  \n" +
-                        "	 	as t (iddocumento integer, es_con_migracion boolean)  \n" +
+                        "	 as t (iddocumento integer, es_con_migracion boolean)    \n" +
                         "	 	into resultado;  \n" +
                         " end;  \n" +
                         " \n" +
@@ -3888,7 +3889,7 @@ namespace Contasis
                         "	OUT resultado text,\n" +
                         "	p_datos text,\n" +
                         "	p_cod_emp text)\n" +
-                        "    RETURNS text     \n" +
+                        "   RETURNS text     \n" +
                         "AS \n" +
                         "$BODY$ \n" +
                         "   ---fecha: 01/04/2025\n" +
@@ -3964,10 +3965,10 @@ namespace Contasis
                         "	 where v.iddetalledocumento is null;  \n" +
                         "	 \n" +
                         "	 /*\n" +
-                        "	 update com_detalledocumento v  \n" +
+                        "	 update com_detalledocumento v    \n" +
                         "	 set es_con_migracion = 0  \n" +
                         "	 from json_to_recordset(v_data) \n" +
-                        "	 as t (iddocumento integer, estado character varying(255), es_con_migracion boolean )      \n" +
+                        "	 as t (iddocumento integer, es_con_migracion boolean )     \n" +
                         "	 where v.iddocumento = t.iddocumento;  \n" +
                         "	*/\n" +
                         "	 --resultado de confirmacion.  \n" +
@@ -3998,51 +3999,51 @@ namespace Contasis
                     "   BEGIN  \n" +
                     "   select json_agg(to_json(t))::text  \n" +
                     "   from(  \n" +
-                    "SELECT com_producto.idproducto, \n" +
-                    "trim(coalesce(com_producto.ccodrucemisor, '')) as ccodrucemisor, \n" +
-                    "trim(coalesce(com_producto.ccod_empresa, '')) as ccod_empresa, \n" +
-                    "trim(coalesce(ccodfamg, '')) as ccodfamg,trim(coalesce(cdesfamg, '')) as cdesfamg, 	\n" +
-                    "trim(coalesce(ccodfamf, '')) as ccodfamf,trim(coalesce(cdesfamf, '')) as cdesfamf, 	\n" +
-                    "trim(coalesce(ccodprod, '')) as ccodprod,trim(coalesce(cdesprod, '')) as cdesprod, 	\n" +
-                    "trim(coalesce(cdesprodgen, '')) as cdesprodgen,trim(coalesce(ccodtes, '')) as ccodtes, 	\n" +
-                    "trim(coalesce(ccodmar, '')) as ccodmar,trim(coalesce(cdesmar, '')) as cdesmar, 	\n" +
-                    "trim(coalesce(ccodmed, '')) as ccodmed,trim(coalesce(ccodums, '')) as ccodums,	\n" +
-                    "trim(coalesce(ccodcatbs, '')) as ccodcatbs,trim(coalesce(cdescatbs, '')) as cdescatbs,		\n" +
-                    "coalesce(ntipoprod, '') as ntipoprod,coalesce(nunidsec, '') as nunidsec,		\n" +
-                    "coalesce(npesoprod, 0) as npesoprod,trim(coalesce(ccodbarras, '')) as ccodbarras,	\n" +
-                    "coalesce(ninprod, '') as ninprod,coalesce(nanuprod,'') as nanuprod,		\n" +
-                    "coalesce(nlote, '') as nlote,coalesce(nseruni, '') as nseruni,coalesce(nicbper, '') as nicbper,\n" +
-                    "coalesce(nprodanti, '') as nprodanti,coalesce(ngasrela, '') as ngasrela,coalesce(nprodsafniif, '') as nprodsafniif,\n" +
-                    "trim(coalesce(cdescatbs, '')) as cdescatbs,trim(coalesce(ccomcue, '')) as ccomcue,trim(coalesce(cdescatbs, '')) as cdescatbs,\n" +
-                    "trim(coalesce(cvencue, '')) as cvencue,trim(coalesce(cdebicue, '')) as cdebicue,trim(coalesce(ccredcue, '')) as ccredcue,\n" +
-                    "trim(coalesce(cdescatbs, '')) as cdescatbs,trim(coalesce(cdebicuei, '')) as cdebicuei,		\n" +
-                    "trim(coalesce(ccodcos, '')) as ccodcos,trim(coalesce(ccodcos2, '')) as ccodcos2,trim(coalesce(ccodpresu, '')) as ccodpresu,\n" +
-                    "trim(coalesce(ccomprod, '')) as ccomprod,trim(coalesce(cvenprod, '')) as cvenprod,trim(coalesce(ccodisc, '')) as ccodisc,	\n" +
-                    "trim(coalesce(cmoneda, '')) as cmoneda,coalesce(npreunit1, 00000.00) as npreunit1,coalesce(npreunit2, 00000.00) as npreunit2,\n" +
-                    "coalesce(npreunit3, 00000.00) as npreunit3,coalesce(npreunit4, 00000.00) as npreunit4,coalesce(npreunit5, 00000.00) as npreunit5,\n" +
-                    "coalesce(npreunit6, 00000.00) as npreunit6,coalesce(npreunit7, 00000.00) as npreunit7,coalesce(npreunit8, 00000.00) as npreunit8,\n" +
-                    "coalesce(npreunit9, 00000.00) as npreunit9,coalesce(npreunit10, 00000.00) as npreunit10,coalesce(npreunit11, 00000.00) as npreunit11,\n" +
-                    "coalesce(npreunit12, 00000.00) as npreunit12,coalesce(npreunit13, 00000.00) as npreunit13,coalesce(npreunit14, 00000.00) as npreunit14,\n" +
-                    "coalesce(npreunit15, 00000.00) as npreunit15,coalesce(nstockmin, 00000.00) as nstockmin,coalesce(nstockmax, 00000.00) as nstockmax,coalesce(nrango1, 00000.00) as nrango1,\n" +
-                    "coalesce(nrango2, 0) as nrango2,coalesce(nresp, 0) as nresp,	\n" +
-                    "trim(coalesce(ccodpps, '')) as ccodpps,	\n" +
-                    "trim(coalesce(ccodpds, '')) as ccodpds,\n" +
-                    "coalesce(nagemonmin, 0) as nagemonmin,	\n" +
-                    "trim(coalesce(ccodlabora, '')) as ccodlabora,\n" +
-                    "trim(coalesce(cdeslabora, '')) as cdeslabora,	\n" +
-                    "trim(coalesce(cdeslabora, '')) as cdeslabora,	\n" +
-                    "trim(coalesce(estado, '')) as estado,\n" +
-                    "es_con_migracion, \n" +
-                    "ccodcos3	FROM com_producto \n" +
-                    "inner join configuracion2 ON com_producto.CCOD_EMPRESA = configuracion2.CCOD_EMPRESA and com_producto.CPER = configuracion2.CPER  \n" +
-                    " join CG_EMPRESA emp on com_producto.ccodrucemisor = emp.ccodrucemisor and com_producto.ccod_empresa = emp.CCOD_EMPRESA  \n" +
-                    " join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1::bit  \n" +
-                    " where com_producto.ccodrucemisor = p_ruc_emisor::character(15)  \n" +
-                    " and com_producto.ccod_empresa = p_empresa::character(3)  \n" +
-                    " and es_con_migracion in (0, 3)   )   \n" +
-                    " as t  \n" +
-                    " into resultado;      \n" +
-                    " end;   \n" +
+                    "SELECT com_producto.idproducto,   \n" +
+                    "trim(coalesce(com_producto.ccodrucemisor, '')) as ccodrucemisor,   \n" +
+                    "trim(coalesce(com_producto.ccod_empresa, '')) as ccod_empresa,   \n" +
+                    "trim(coalesce(ccodfamg, '')) as ccodfamg,trim(coalesce(cdesfamg, '')) as cdesfamg, 	  \n" +
+                    "trim(coalesce(ccodfamf, '')) as ccodfamf,trim(coalesce(cdesfamf, '')) as cdesfamf, 	  \n" +
+                    "trim(coalesce(ccodprod, '')) as ccodprod,trim(coalesce(cdesprod, '')) as cdesprod, 	  \n" +
+                    "trim(coalesce(cdesprodgen, '')) as cdesprodgen,trim(coalesce(ccodtes, '')) as ccodtes, 	  \n" +
+                    "trim(coalesce(ccodmar, '')) as ccodmar,trim(coalesce(cdesmar, '')) as cdesmar, 	  \n" +
+                    "trim(coalesce(ccodmed, '')) as ccodmed,trim(coalesce(ccodums, '')) as ccodums,	  \n" +
+                    "trim(coalesce(ccodcatbs, '')) as ccodcatbs,trim(coalesce(cdescatbs, '')) as cdescatbs,  \n" +
+                    "coalesce(ntipoprod, '') as ntipoprod,coalesce(nunidsec, '') as nunidsec,		  \n" +
+                    "coalesce(npesoprod, 0) as npesoprod,trim(coalesce(ccodbarras, '')) as ccodbarras,	  \n" +
+                    "coalesce(ninprod, '') as ninprod,coalesce(nanuprod,'') as nanuprod,		  \n" +
+                    "coalesce(nlote, '') as nlote,coalesce(nseruni, '') as nseruni,coalesce(nicbper, '') as nicbper,  \n" +
+                    "coalesce(nprodanti, '') as nprodanti,coalesce(ngasrela, '') as ngasrela,coalesce(nprodsafniif, '') as nprodsafniif,  \n" +
+                    "trim(coalesce(cdescatbs, '')) as cdescatbs,trim(coalesce(ccomcue, '')) as ccomcue,trim(coalesce(cdescatbs, '')) as cdescatbs,  \n" +
+                    "trim(coalesce(cvencue, '')) as cvencue,trim(coalesce(cdebicue, '')) as cdebicue,trim(coalesce(ccredcue, '')) as ccredcue,  \n" +
+                    "trim(coalesce(cdescatbs, '')) as cdescatbs,trim(coalesce(cdebicuei, '')) as cdebicuei,		  \n" +
+                    "trim(coalesce(ccodcos, '')) as ccodcos,trim(coalesce(ccodcos2, '')) as ccodcos2,trim(coalesce(ccodpresu, '')) as ccodpresu,  \n" +
+                    "trim(coalesce(ccomprod, '')) as ccomprod,trim(coalesce(cvenprod, '')) as cvenprod,trim(coalesce(ccodisc, '')) as ccodisc,	  \n" +
+                    "trim(coalesce(cmoneda, '')) as cmoneda,coalesce(npreunit1, 00000.00) as npreunit1,coalesce(npreunit2, 00000.00) as npreunit2,  \n" +
+                    "coalesce(npreunit3, 00000.00) as npreunit3,coalesce(npreunit4, 00000.00) as npreunit4,coalesce(npreunit5, 00000.00) as npreunit5,  \n" +
+                    "coalesce(npreunit6, 00000.00) as npreunit6,coalesce(npreunit7, 00000.00) as npreunit7,coalesce(npreunit8, 00000.00) as npreunit8,  \n" +
+                    "coalesce(npreunit9, 00000.00) as npreunit9,coalesce(npreunit10, 00000.00) as npreunit10,coalesce(npreunit11, 00000.00) as npreunit11,  \n" +
+                    "coalesce(npreunit12, 00000.00) as npreunit12,coalesce(npreunit13, 00000.00) as npreunit13,coalesce(npreunit14, 00000.00) as npreunit14,  \n" +
+                    "coalesce(npreunit15, 00000.00) as npreunit15,coalesce(nstockmin, 00000.00) as nstockmin,coalesce(nstockmax, 00000.00) as nstockmax,coalesce(nrango1, 00000.00) as nrango1,  \n" +
+                    "coalesce(nrango2, 0) as nrango2,coalesce(nresp, 0) as nresp,	  \n" +
+                    "trim(coalesce(ccodpps, '')) as ccodpps,	  \n" +
+                    "trim(coalesce(ccodpds, '')) as ccodpds,  \n" +
+                    "coalesce(nagemonmin, 0) as nagemonmin,	  \n" +
+                    "trim(coalesce(ccodlabora, '')) as ccodlabora,  \n" +
+                    "trim(coalesce(cdeslabora, '')) as cdeslabora,	  \n" +
+                    "trim(coalesce(cdeslabora, '')) as cdeslabora,	  \n" +
+                    "trim(coalesce(estado, '')) as estado,  \n" +
+                    "es_con_migracion,   \n" +
+                    "ccodcos3	FROM com_producto   \n" +
+                    "-----inner join configuracion2 ON com_producto.CCOD_EMPRESA = configuracion2.CCOD_EMPRESA ----and com_producto.CPER = configuracion2.CPER    \n" +
+                    " join CG_EMPRESA emp on com_producto.ccodrucemisor = emp.ccodrucemisor and com_producto.ccod_empresa = emp.CCOD_EMPRESA    \n" +
+                    " join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1::bit    \n" +
+                    " where com_producto.ccodrucemisor = p_ruc_emisor::character(15)    \n" +
+                    " and com_producto.ccod_empresa = p_empresa::character(3)    \n" +
+                    " and es_con_migracion in (0, 3)   )     \n" +
+                    " as t    \n" +
+                    " into resultado;    \n" +
+                    " end;     \n" +
                     " \n" +
                     "$BODY$\n" +
                     "LANGUAGE 'plpgsql' VOLATILE ";
@@ -4058,15 +4059,14 @@ namespace Contasis
                         " \n" +
                         "DECLARE  \n" +
                         "v_data json;  \n" +
-                        "        BEGIN  \n" +
+                        "  BEGIN  \n" +
                         "   \n" +
                         "  v_data:= p_datos::json;    \n" +
-                        "  UPDATE com_producto t \n" +
-                        "  SET es_con_migracion =  coalesce(r.resultado_migracion,0),\n" +
-                        "  obserror = r.obserror   \n" +
-                        "  \n" +
-                        " from json_to_recordset(v_data) as r (idproducto integer, obserror text, es_con_migracion integer, resultado_migracion integer)  \n" +
-                        " where t.idproducto = r.idproducto and t.es_con_migracion = r.es_con_migracion;  \n" +
+                        "  UPDATE com_producto t  \n" +
+                        "  SET es_con_migracion =  r.resultado_migracion,\n" +
+                        "  obserror = r.obserror    \n" +
+                        "  from json_to_recordset(v_data) as r (id integer, obserror text, es_con_migracion integer, resultado_migracion integer)    \n" +
+                        "  where t.idproducto = r.id;    \n" +
                         "    \n" +
                         " END;    \n" +
                         "$BODY$\n" +
@@ -4074,8 +4074,8 @@ namespace Contasis
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-                #region fn_documento_envio_comercial
-                NombreSP = "fn_documento_envio_comercial";
+                #region fn_documento_envio_resultado
+                NombreSP = "fn_documento_envio_resultado";
                 Query = "CREATE OR REPLACE FUNCTION public.fn_documento_envio_resultado(\n" +
                         "	p_datos text)\n" +
                         "    RETURNS void\n" +
@@ -4088,7 +4088,7 @@ namespace Contasis
                         "  SET es_con_migracion =  coalesce(r.resultado_migracion,0),\n" +
                         "   obserror = r.obserror   \n" +
                         "   from json_to_recordset(v_data) as r (iddocumento integer, obserror text, es_con_migracion integer, resultado_migracion integer)  \n" +
-                        " where t.iddocumento = r.iddocumento and coalesce(t.es_con_migracion,0) = coalesce(r.es_con_migracion,0);  \n" +
+                        "   where t.iddocumento = r.iddocumento and coalesce(t.es_con_migracion,0) = coalesce(r.es_con_migracion,0);   \n" +
                         "   \n" +
                         " END;   \n" +
                         " $BODY$\n" +
@@ -4096,14 +4096,351 @@ namespace Contasis
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
-                #region fn_documento_envio_resultado
-                NombreSP = "fn_documento_envio_resultado";
-                Query =
+                #region fn_documento_envio_comercial
+                NombreSP = "fn_documento_envio_comercial";
+                Query = "CREATE OR REPLACE FUNCTION public.fn_documento_envio_comercial(\n" +
+                        "	OUT resultado text,\n" +
+                        "	p_ruc_emisor character,\n" +
+                        "	p_empresa character)\n" +
+                        "   RETURNS text\n" +
+                        "AS $BODY$\n" +
+                        "BEGIN  \n" +
+                        "	\n" +
+                        "Select json_agg(to_json(t))::text  \n" +
+                        "   From(  \n" +
+                        "		SELECT  com_documento.iddocumento, \n" +
+                        "		trim(configuracion2.ccod_empresa) as ccod_empresa, \n" +
+                        "		com_documento.cper, \n" +
+                        "		com_documento.cmes, \n" +
+                        "		com_documento.ccodmodulo, \n" +
+                        "		configuracion2.ccodmov, \n" +
+                        "		com_documento.ccoddoc, \n" +
+                        "		lpad(trim(com_documento.cserie),20,'0')::character(20) as cserie, \n" +
+                        "		lpad(trim(com_documento.cnumero),20,'0')::character(20) as cnumero, \n" +
+                        "		com_documento.ccodenti, \n" +
+                        "		com_documento.cdesenti, \n" +
+                        "		com_documento.ccodtipent, \n" +
+                        "		trim(com_documento.ccodruc) as ccodruc, \n" +
+                        "		trim(com_documento.crazsoc) as crazsoc, \n" +
+                        "		trim(com_documento.cdirecc) as cdirecc, \n" +
+                        "		trim(com_documento.ccodubi) as ccodubi, \n" +
+                        "		trim(com_documento.ccodcontac) as ccodcontac,\n" +
+                        "		trim(com_documento.cdescontacto) as cdescontacto, \n" +
+                        "		com_documento.ffecha, \n" +
+                        "		com_documento.ffechaven, \n" +
+                        "		com_documento.ffechaalm, \n" +
+                        "		com_documento.ccodpag, \n" +
+                        "		com_documento.cmoneda, \n" +
+                        "		com_documento.ntcigv, \n" +
+                        "		com_documento.cguiaser, \n" +
+                        "		com_documento.cguianum, \n" +
+                        "		com_documento.mdsc, \n" +
+                        "		com_documento.ccodvend, \n" +
+                        "		com_documento.ccodclas, ccodocon, cnumordc, crefdoc, \n" +
+                        "		com_documento.freffec, crefser, crefnum, ccat09, cmotinc, nresp, ccodpds, nporre, ffecre, cnumdere, ccodpps, nporre2, \n" +
+                        "		nperdenre, nbase1, nigv1, nbase2, nigv2, nbase3, nigv3, nimpicbper, nina, nexo, nisc, nivabase, nivaimp, nimpant, ntot, \n" +
+                        "		trim(com_documento.estado) as estado, \n" +
+                        "		es_con_migracion,\n" +
+                        "		configuracion2.ent_anula as ccodrucanula, 0 as nflgexisteanular, 	\n" +
+                        "	    configuracion2.prodanula as prodanula,\n" +
+                        "		trim(com_documento.ccond)  as ccond, \n" +
+                        "		trim(com_documento.ccuecan) as ccuecan,\n" +
+                        "		trim(com_documento.cdoccan) as cdoccan, \n" +
+                        "		trim(com_documento.csercan) as csercan, \n" +
+                        "		trim(com_documento.cnumcan) as cnumcan, \n" +
+                        "		trim(configuracion2.ccodoripago) as ccodorican,\n" +
+                        "		trim(configuracion2.clibropago) as ccodsucan,\n" +
+                        "		trim(configuracion2.ccodflupago) as ccodflucan,\n" +
+                        "		com_documento.ccodpago	\n" +
+                        "FROM com_documento	\n" +
+                        "inner join configuracion2 ON com_documento.ccodrucemisor=configuracion2.crucemp and com_documento.CPER = configuracion2.CPER    \n" +
+                        "	and  configuracion2.codtipdocu=com_documento.ccoddoc and lpad(trim(com_documento.cserie),20,'0')::character(20)=trim(configuracion2.cserie)\n" +
+                        " join CG_EMPRESA emp on com_documento.ccodrucemisor = emp.ccodrucemisor and com_documento.ccod_empresa = emp.CCOD_EMPRESA  \n" +
+                        " join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1::bit  \n" +
+                        " where com_documento.ccodrucemisor = p_ruc_emisor::character(15)\n" +
+                        " and com_documento.ccod_empresa = p_empresa::character(3)  \n" +
+                        " and es_con_migracion in (0, 3)   )   \n" +
+                        " as t  \n" +
+                        " into resultado;      \n" +
+                        "end;\n" +
+                        "$BODY$ \n" +
+                        "    LANGUAGE 'plpgsql';";
+
+                respuesta = obj.crear_funcion(NombreSP, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
+                #region fn_detalledocumento_envio_comercial
+                NombreSP = "fn_detalledocumento_envio_comercial";
+                Query = "CREATE OR REPLACE FUNCTION public.fn_detalledocumento_envio_comercial(\n" +
+                        "	OUT resultado text,\n" +
+                        "	p_ruc_emisor character,\n" +
+                        "	p_empresa character)\n" +
+                        "    RETURNS text\n" +
+                        "AS $BODY$\n" +
+                        "BEGIN  \n" +
+                        "Select json_agg(to_json(t))::text  \n" +
+                        "	From(	\n" +
+                        " SELECT  com_detalledocumento.iddetalledocumento, \n" +
+                        "	com_detalledocumento.ccodalma, \n" +
+                        "	com_detalledocumento.ccodprod, \n" +
+                        "	com_detalledocumento.ccodmed, \n" +
+                        "	com_detalledocumento.ccodlote, \n" +
+                        "	com_detalledocumento.nuniori, \n" +
+                        "	com_detalledocumento.nvvori,\n" +
+                        "	com_detalledocumento.npvori, \n" +
+                        "	com_detalledocumento.nvalor, \n" +
+                        "   com_detalledocumento.nigvtot, \n" +
+                        "	com_detalledocumento.ntotori, \n" +
+                        "	com_detalledocumento.npigv, \n" +
+                        "	com_detalledocumento.ccodcos, \n" +
+                        "	com_detalledocumento.ccodcos2, \n" +
+                        "	com_detalledocumento.ccodpresu, \n" +
+                        "	com_detalledocumento.cctaprod, \n" +
+                        "	com_detalledocumento.npordscu, \n" +
+                        "	com_detalledocumento.ndsctos, \n" +
+                        "	com_detalledocumento.ccodisc, \n" +
+                        "	com_detalledocumento.nporisc, \n" +
+                        "	com_detalledocumento.nisc, \n" +
+                        "	com_detalledocumento.tipo_isc, \n" +
+                        "	com_detalledocumento.mdscl, \n" +
+                        "	com_detalledocumento.iddocumento,\n" +
+                        "	com_detalledocumento.ffecfablote, com_detalledocumento.ffecvenlote \n" +
+                        "	FROM com_detalledocumento inner join com_documento on\n" +
+                        "	com_detalledocumento.iddocumento=com_documento.iddocumento\n" +
+                        "	inner join configuracion2 ON com_documento.ccodrucemisor=configuracion2.crucemp and com_documento.CPER = configuracion2.CPER    \n" +
+                        "	and configuracion2.tipo=com_documento.ccodmodulo AND configuracion2.codtipdocu=com_documento.ccoddoc\n" +
+                        "	and lpad(trim(com_documento.cserie),20,'0')::character(20)=trim(configuracion2.cserie)\n" +
+                        " join CG_EMPRESA emp on com_documento.ccodrucemisor = emp.ccodrucemisor and com_documento.ccod_empresa = emp.CCOD_EMPRESA  \n" +
+                        " join CG_EMPEMISOR empemi on emp.ccodrucemisor = empemi.ccodrucemisor and flgactivo = 1::bit  \n" +
+                        " where com_documento.ccodrucemisor = p_ruc_emisor::character(15)  \n" +
+                        " and com_documento.ccod_empresa = p_empresa::character(3)  \n" +
+                        " and com_documento.es_con_migracion in (0, 3)   )   \n" +
+                        " as t  \n" +
+                        " into resultado;      \n" +
+                        " end;   \n" +
+                        "$BODY$\n" +
+                        "LANGUAGE 'plpgsql'";
+
+                respuesta = obj.crear_funcion(NombreSP, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
+                #region fn_detalledocumento_envio_resultado
+                NombreSP = "fn_detalledocumento_envio_resultado";
+                Query = "CREATE OR REPLACE FUNCTION public.fn_detalledocumento_envio_resultado(\n" +
+                        "	p_datos text)\n" +
+                        "    RETURNS void\n" +
+                        "AS $BODY$\n" +
+                        "DECLARE  \n" +
+                        "v_data json;  \n" +
+                        "        BEGIN  \n" +
+                        "  v_data:= p_datos::json;  \n" +
+                        "  ---UPDATE com_documento t \n" +
+                        "  ---SET es_con_migracion =  coalesce(r.resultado_migracion,0),\n" +
+                        "   ----obserror = r.obserror   \n" +
+                        "   ---from json_to_recordset(v_data) as r (iddocumento integer, obserror text, es_con_migracion integer, resultado_migracion integer)  \n" +
+                        " -----where t.iddocumento = r.iddocumento and coalesce(t.es_con_migracion,0) = coalesce(r.es_con_migracion,0);  \n" +
+                        " END;   \n" +
+                        "$BODY$\n" +
+                        "    LANGUAGE 'plpgsql' ";
+                respuesta = obj.crear_funcion(NombreSP, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
+                #region fn_documento_envio_resultadofinal
+                NombreSP = "fn_documento_envio_resultadofinal";
+                Query = "CREATE OR REPLACE FUNCTION public.fn_documento_envio_resultadofinal(\n" +
+                        "	p_datos text)\n" +
+                        "    RETURNS void\n" +
+                        "AS $BODY$\n" +
+                        "DECLARE  \n" +
+                        "v_data json;  \n" +
+                        "        BEGIN  \n" +
+                        "  v_data:= p_datos::json;  \n" +
+                        "  UPDATE com_documento \n" +
+                        "  SET es_con_migracion =  r.resultado_migracion,\n" +
+                        "    	obserror = r.obserror,    \n" +
+                        "		obserrorcan = r.obserrorcan,  \n" +
+                        "	  	resultado_migracion = r.resultado_migracion,\n" +
+                        "		resultadocan_migracion=r.resultadocan_migracion  \n" +
+                        "   from json_to_recordset(v_data) as r (id integer, \n" +
+                        "	  										obserror text,\n" +
+                        "	  										es_con_migracion integer, \n" +
+                        "	  										resultado_migracion integer,\n" +
+                        "	  										obserrorcan text, \n" +
+                        "	  										resultadocan_migracion integer)  \n" +
+                        " where com_documento.iddocumento = r.id;\n" +
+                        " END;   \n" +
+                        " \n" +
+                        "$BODY$\n" +
+                        "LANGUAGE 'plpgsql';";
+                respuesta = obj.crear_funcion(NombreSP, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
+                #region fn_productos_envio_resultado
+                NombreSP = "fn_productos_envio_resultado";
+                Query = "CREATE OR REPLACE FUNCTION public.fn_productos_envio_resultado(\n" +
+                        "	p_datos text)\n" +
+                        "    RETURNS void\n" +
+                        "AS $BODY$\n" +
+                        " \n" +
+                        "DECLARE  \n" +
+                        "v_data json;  \n" +
+                        "  BEGIN  \n" +
+                        "   \n" +
+                        "  v_data:= p_datos::json;    \n" +
+                        "  UPDATE com_producto t  \n" +
+                        "  SET es_con_migracion =  r.resultado_migracion,\n" +
+                        "  obserror = r.obserror    \n" +
+                        "  from json_to_recordset(v_data) as r (id integer, obserror text, es_con_migracion integer, resultado_migracion integer)    \n" +
+                        "  where t.idproducto = r.id;    \n" +
+                        "    \n" +
+                        " END;    \n" +
+                        "$BODY$\n" +
+                        "LANGUAGE 'plpgsql' VOLATILE ";
+                respuesta = obj.crear_funcion(NombreSP, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
+                #region fn_integracion_cobranza_importar
+                NombreSP = "fn_integracion_cobranza_importar";
+                Query = "CREATE OR REPLACE FUNCTION public.fn_integracion_cobranza_importar( \n" +
+                        " \n" +
+                        " OUT resultado text, \n" +
+                        " p_datos text, \n" +
+                        " p_cod_emp text) \n" +
+                        " RETURNS text  \n" +
+                        " AS $BODY$  \n" +
+                        " \n" +
+                        "-----Fecha: 16/04/2025 \n" +
+                        " DECLARE  \n" +
+                        " v_data json;  \n" +
+                        " BEGIN \n" +
+                        " v_data:= p_datos::json; \n" +
+                        " p_datos = null; \n" +
+                        " \n" +
+                        " INSERT INTO fin_cobranzapago( \n" +
+       " idcobranzas, ccodrucemisor, ccod_empresa, cper, cmes, ntipocobpag, ffechacan, \n" +
+       " cdoccan, csercan, cnumcan, ccuecan, cmoncan, \n" +
+       " nimporcan, ntipcam, ccodpago, \n" +
+       " ccoddoc, cserie, cnumero, ffechadoc, ffechaven, ccodenti, ccodruc, crazsoc, nimportes, \n" +
+       " nimported, ccodcue, cglosa, ccodcos, ccodcos2, nporre, nimpperc, nperdenre, \n" +
+       " cserre, cnumre, ffecre, created_at, updated_at, estado, en_ambiente_de, \n" +
+       " es_con_migracion, ccodcos3,es_anticipo_automatico) \n" +
+    " SELECT \n" +
+    " t.id, t.numero_documento_emisor, p_cod_emp, extract(year from to_date(t.ffechadoccobra, 'DD/MM/YYYY'))::text,    \n" +
+    " lpad(extract(month from to_date(t.ffechadoccobra, 'DD/MM/YYYY'))::text, 2, '0'), 1,   \n" +
+    " case when coalesce(t.ffechadoccobra, '')= '' then null else to_date(t.ffechadoccobra, 'DD/MM/YYYY') end, --1 \n" +
+    " trim(coalesce(t.cdoccan, '')) as cdoccan,    \n" +
+           " trim(coalesce(t.csercan, '')) as csercan,    \n" +
+    " trim(coalesce(t.cnumcan, '')) as cnumcan,    \n" +
+    " trim(coalesce(t.ccuecan, '')) as ccuecan,    \n" +
+    " trim(coalesce(t.cmoncan, '')) as cmoncan, --2 \n" +
+    " case when trim(coalesce(t.nimporcan, '')) = '' then 0 else t.nimporcan::numeric end as nimporcan,    \n" +
+    " case when trim(coalesce(t.ntipcam, '')) = '' then 0 else t.ntipcam::numeric end as ntipcam,    \n" +
+    " coalesce(trim(t.ccodpago), '') as ccodpago, --3 \n" +
+    " coalesce(trim(t.ccoddoc), '') as ccoddoc,    \n" +
+    " coalesce(trim(t.cserie), '') as cserie,    \n" +
+    " coalesce(trim(t.cnumero), '') as cnumero,    \n" +
+    " case when coalesce(t.ffechadoc, '')= '' then null else to_date(t.ffechadoc, 'DD/MM/YYYY') end as ffechadoc,    \n" +
+    " case when coalesce(t.ffechaven, '')= '' then null else to_date(t.ffechaven, 'DD/MM/YYYY') end as ffechaven,    \n" +
+    " '' as ccodenti , trim(coalesce(t.ccodruc, '')) as ccodruc, trim(coalesce(t.crazsoc, '')),  \n" +
+    " case when trim(coalesce(t.nimportes, '')) = '' then 0 else t.nimportes::numeric end as nimportes, --4 \n" +
+    " case when trim(coalesce(t.nimported, '')) = '' then 0 else t.nimported::numeric end as nimported,    \n" +
+    " trim(coalesce(t.ccodcue, '')) as ccodcue,    \n" +
+    " trim(coalesce(t.cglosa, '')) as cglosa,     \n" +
+    " trim(coalesce(t.ccodcos, '')) as ccodcos,    \n" +
+    " trim(coalesce(t.ccodcos2, '')) as ccodcos2,    \n" +
+    " case when trim(coalesce(t.nporre, '')) = '' then 0 else t.nporre::numeric end as nporre,    \n" +
+    " case when trim(coalesce(t.nimpperc, '')) = '' then 0 else t.nimpperc::numeric end as nimpperc,    \n" +
+    " case when trim(coalesce(t.nperdenre, '')) = '' then 0 else t.nperdenre::numeric end as nperdenre, --5 \n" +
+    " coalesce(trim(t.cserre), '') as cserre, coalesce(trim(t.cnumre), '') as cnumre,    \n" +
+    " case when coalesce(t.ffecre, '')= '' then null else to_date(t.ffecre, 'DD/MM/YYYY') end as ffecre,    \n" +
+    " t.created_at::date, t.updated_at::date,    \n" +
+    " coalesce(trim(t.estado), ''),    \n" +
+    " coalesce(trim(t.en_ambiente_de), ''),  \n" +
+    " case when  trim(t.estado) = 'CANCELADO' then 0 else 3 end, '', \n" +
+    " coalesce(cast(t.es_anticipo_automatico as integer) ,0) as es_anticipo_automatico \n" +
+    " FROM json_to_recordset(v_data)  \n" +
+    " as t( \n" +
+    " id integer, \n" +
+    " numero_documento_emisor character varying(20),    \n" +
+    " ffechadoccobra character varying(20),    \n" +
+    " cdoccan character varying(5),    \n" +
+    " csercan character varying(50),    \n" +
+    " cnumcan character varying(50),    \n" +
+    " ccuecan character varying(50),    \n" +
+    " cmoncan character varying(50),    \n" +
+    " nimporcan character varying(50),    \n" +
+    " ntipcam character varying(50),    \n" +
+    " ccodpago character varying(50),    \n" +
+    " ccoddoc character varying(20),    \n" +
+    " cserie character varying(50),    \n" +
+    " cnumero character varying(50),    \n" +
+    " ffechadoc character varying(50),    \n" +
+    " ffechaven character varying(50),  \n" +
+    " ccodenti character varying(50),  \n" +
+    " ccodruc character varying(50),  \n" +
+    " crazsoc text, \n" +
+    " nimportes character varying(50),    \n" +
+    "  nimported character varying(50),    \n" +
+    "  ccodcue character varying(50),    \n" +
+    "  cglosa text, \n" +
+    "  ccodcos character varying(50),    \n" +
+    "  ccodcos2 character varying(50),    \n" +
+    "  nporre character varying(50),    \n" +
+    "  nimpperc character varying(50),    \n" +
+    "  nperdenre character varying(50),    \n" +
+    "  cserre character varying(50),    \n" +
+    " cnumre character varying(50),    \n" +
+    " ffecre character varying(50),    \n" +
+    "  created_at timestamp without time zone,    \n" +
+    "   updated_at timestamp without time zone,    \n" +
+    "   estado character varying(50),    \n" +
+    "     en_ambiente_de character varying(255),    \n" +
+    "         es_con_migracion boolean, \n" +
+    "         es_anticipo_automatico boolean   )\n" +
+    "     left join fin_cobranzapago v on t.id = v.idcobranzas \n" +
+    "     where v.idcobranzas is null; \n" +
+    "                 --Modificados \n" +
+    "     update fin_cobranzapago v \n" +
+    "     set es_con_migracion =case when trim(t.estado) = 'CANCELADO' then 0 else 3 end,    \n" +
+    "     estado = trim(t.estado) \n" +
+    "     from json_to_recordset(v_data) \n" +
+    " as t (id integer, estado character varying(255), es_con_migracion boolean )        \n" +
+    " where v.idcobranzas = t.id; \n" +
+    "                 --resultado de confirmacion.    \n" +
+    " select json_agg(json_build_object('idcobranzas', id, 'es_con_migracion', es_con_migracion))::text \n" +
+    " from json_to_recordset(v_data) \n" +
+    " as t (id integer, es_con_migracion boolean) \n" +
+    " into resultado; \n" +
+    "   end;    \n" +
+    " \n" +
+    " $BODY$  \n" +
+    " LANGUAGE 'plpgsql'; ";
                 respuesta = obj.crear_funcion(NombreSP, Query);
                 this.Barraprogreso(respuesta);
                 #endregion
 
+                #region cg_moduloconfigura
+                NombreSP = "cg_moduloconfigura";
+                Query = "delete from  cg_moduloconfigura;";
+                respuesta = obj.ejecutar_comando("",NombreSP, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
 
+
+
+                #region cg_moduloconfigura
+                NombreSP = "cg_moduloconfigura";
+                Query = "INSERT INTO cg_moduloconfigura(id,cmodulo) values(1,'Modulo Contable');";
+                respuesta = obj.ejecutar_comando("",NombreSP, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
+
+                #region cg_moduloconfigura2
+                NombreSP = "cg_moduloconfigura";
+                Query = "INSERT INTO cg_moduloconfigura(id,cmodulo) values(2,'Modulo Comercial');";
+                respuesta = obj.ejecutar_comando("",NombreSP, Query);
+                this.Barraprogreso(respuesta);
+                #endregion
             }
         }
         /*********************************************************************************************************************/

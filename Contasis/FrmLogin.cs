@@ -178,10 +178,61 @@ namespace Contasis
 
 
 
+                var command3 = new NpgsqlCommand();
+                command3.Connection = conexionNew;
+                command3.CommandType = CommandType.Text;
+                command3.CommandText = "SELECT cmodulo,id FROM public.cg_moduloconfigura";
+                var adapter3 = new NpgsqlDataAdapter(command3);
+                var dataset3 = new DataSet();
+                adapter3.Fill(dataset3);
+                cmdModulos.Items.Clear();
+                for (int i = 0; i < dataset3.Tables[0].Rows.Count; i++)
 
+                {
+                    cmdModulos.Items.Add(dataset3.Tables[0].Rows[i][0].ToString());
+                    cmdModulos.Refresh();
+
+                }
                 conexionNew.Close();
             }
             catch 
+            {
+               /// MessageBox.Show("Error no Existe Informacion en la tabla usuario, use clave inicial.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+            }
+
+
+
+        }
+        public void LlenarModulopostgres()
+        {
+            try
+            {
+                NpgsqlConnection conexionNew = new NpgsqlConnection();
+                conexionNew.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                conexionNew.Open();
+                var command = new NpgsqlCommand();
+                command.Connection = conexionNew;
+                command.CommandType = CommandType.Text;
+                command.CommandText = "select cmodulo,id from cg_moduloconfigura";
+                var adapter = new NpgsqlDataAdapter(command);
+                var dataset = new DataSet();
+                adapter.Fill(dataset);
+                cmdModulos.Items.Clear();
+                for (int i = 0; i < dataset.Tables[0].Rows.Count; i++)
+
+                {
+                    cmdModulos.Items.Add(dataset.Tables[0].Rows[i][0].ToString());
+                    cmdModulos.Refresh();
+
+                }
+
+               
+
+
+                conexionNew.Close();
+            }
+            catch
             {
                 MessageBox.Show("Error no Existe Informacion en la tabla usuario, use clave inicial.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
@@ -190,6 +241,8 @@ namespace Contasis
 
 
         }
+
+
         public void Version2()
         {
             try
@@ -376,6 +429,8 @@ namespace Contasis
                 }
                 else
                 {
+                    cmdModulos.Visible = false;
+                    label4.Visible = false; 
                     MessageBox.Show("Bienvenido al Sistema de Integración por primera vez.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 control = "0";
@@ -410,14 +465,28 @@ namespace Contasis
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
-         /*   Clase.esconder Mostrar = new Clase.esconder();
-            textBox3.Text = Mostrar.Mostrar("cwBlAHIAdgBlAHIAPQBsAG8AYwBhAGwAaABvAHMAdAA7ACAAcABvAHIAdAA9ADUANAAzADIAOwB1AHMAZQByACAAaQBkAD0AcABvAHMAdABnAHIAZQBzADsAcABhAHMAcwB3AG8AcgBkAD0AcABvAHMAdABnAHIAZQBzADsAZABhAHQAYQBiAGEAcwBlAD0AYwBvAG4AdABhAHMAaQBzADsA");
-            textBox4.Text = Mostrar.Mostrar("cwBlAHIAdgBlAHIAPQBkAGEAdABhAGIAYQBzAGUALQBzAHEAbABjAG8AbgB0AGEAcwBpAHMALQBkAGEAcgB3AGkAbgAuAGMAbwBhADAAbgB1AGgANwA3AHcAbQBwAC4AdQBzAC0AZQBhAHMAdAAtADIALgByAGQAcwAuAGEAbQBhAHoAbwBuAGEAdwBzAC4AYwBvAG0AOwAgAHAAbwByAHQAPQA1ADQAMwAyADsAdQBzAGUAcgAgAGkAZAA9AHAAbwBzAHQAZwByAGUAcwA7AHAAYQBzAHMAdwBvAHIAZAA9AFMAUQBMAGMAMABuAHQANABzADEAcwAqADIAMgA7AGQAYQB0AGEAYgBhAHMAZQA9AG8AbgBwAHIAZQBtAGkAcwBzAGUAZABiADsA");
-         */
 
+
+            string nombreFolder = @"C:\Log_errores_integrador";
+
+            /// string rutaNuevoFolder = System.IO.Path.Combine(
+            /// Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+            ////nombreFolder);
+            //verificamos que no exista y entonces se crea
+            if (!Directory.Exists(nombreFolder))
+            {
+                Directory.CreateDirectory(nombreFolder);
+            }
+
+            /*   Clase.esconder Mostrar = new Clase.esconder();
+               textBox3.Text = Mostrar.Mostrar("cwBlAHIAdgBlAHIAPQBsAG8AYwBhAGwAaABvAHMAdAA7ACAAcABvAHIAdAA9ADUANAAzADIAOwB1AHMAZQByACAAaQBkAD0AcABvAHMAdABnAHIAZQBzADsAcABhAHMAcwB3AG8AcgBkAD0AcABvAHMAdABnAHIAZQBzADsAZABhAHQAYQBiAGEAcwBlAD0AYwBvAG4AdABhAHMAaQBzADsA");
+               textBox4.Text = Mostrar.Mostrar("cwBlAHIAdgBlAHIAPQBkAGEAdABhAGIAYQBzAGUALQBzAHEAbABjAG8AbgB0AGEAcwBpAHMALQBkAGEAcgB3AGkAbgAuAGMAbwBhADAAbgB1AGgANwA3AHcAbQBwAC4AdQBzAC0AZQBhAHMAdAAtADIALgByAGQAcwAuAGEAbQBhAHoAbwBuAGEAdwBzAC4AYwBvAG0AOwAgAHAAbwByAHQAPQA1ADQAMwAyADsAdQBzAGUAcgAgAGkAZAA9AHAAbwBzAHQAZwByAGUAcwA7AHAAYQBzAHMAdwBvAHIAZAA9AFMAUQBMAGMAMABuAHQANABzADEAcwAqADIAMgA7AGQAYQB0AGEAYgBhAHMAZQA9AG8AbgBwAHIAZQBtAGkAcwBzAGUAZABiADsA");
+            */
+            
             this.Revisar();
             if (control == "0" || control=="")
             {
+                
                 this.Revisar2();
                 if (control=="0" || control=="")
                         {
@@ -429,7 +498,7 @@ namespace Contasis
 
             }
             await new Clase.ValidarVersion().Validar();
-
+            
         }
         private void Cmbusuario_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -514,6 +583,8 @@ namespace Contasis
                 }
 
 
+
+
                 connection.Close();
             }
             catch (Exception ex)
@@ -526,7 +597,27 @@ namespace Contasis
 
         }
         private void Button1_Click_1(object sender, EventArgs e)
+
         {
+            if (control == "0")
+            { }
+            else
+            {
+
+                if (cmdModulos.Visible == true)
+                {
+
+                    if (cmdModulos.Text == "")
+                    {
+                        MessageBox.Show("Debe de Seleccionar el Modulo que desea Ingresar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        cmdModulos.Focus();
+                        return;
+                    }
+
+                }
+            }
+
+
             if (cmbusuario.Text == "")
             {
                 MessageBox.Show("Debe de Seleccionar un usuario", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -817,8 +908,19 @@ namespace Contasis
                     outputfile.WriteLine(textBox2.Text);
                 }
 
+                string text03 = "select distinct table_name FROM information_schema.columns where table_name='cg_moduloconfigura'";
+                NpgsqlCommand cmdp3 = new NpgsqlCommand(text03, conexionNew);
+                DataTable dt1 = new DataTable();
+                NpgsqlDataAdapter data1 = new NpgsqlDataAdapter(cmdp3);
+                data1.Fill(dt1);
+                if (dt1.Rows.Count == 0)
+                {
+                    cmdModulos.Visible = false;
+                    label4.Visible = false;
+                }
 
-                conexionNew.Close();
+
+                    conexionNew.Close();
             }
             catch (Exception ex)
             {
@@ -859,6 +961,90 @@ namespace Contasis
             }
         }
 
+
+        public void ActualizacionModuloPostgres()
+        {
+            try
+            {
+                NpgsqlConnection conexionNew = new NpgsqlConnection();
+                conexionNew.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                conexionNew.Open();
+
+                string query2 = "Update cg_version set cactiva_estructura = '" + "2025-12-31" + "'  where cactiva_estructura = null";
+                NpgsqlCommand commando = new NpgsqlCommand(query2, conexionNew);
+                commando.ExecuteNonQuery();
+
+
+
+                string text03 = "select distinct table_name FROM information_schema.columns where table_name='cg_moduloconfigura'";
+                NpgsqlCommand cmdp3 = new NpgsqlCommand(text03, conexionNew);
+                DataTable dt1 = new DataTable();
+                NpgsqlDataAdapter data1 = new NpgsqlDataAdapter(cmdp3);
+                data1.Fill(dt1);
+                if (dt1.Rows.Count == 0)
+                {
+                     cmdModulos.Visible = false;
+                     label4.Visible = false;
+                    
+                   
+                /**
+
+                    string Query = "CREATE TABLE IF NOT EXISTS cg_moduloconfigura  \n" +
+                            "(  \n" +
+                            "id bigint default 0 ),\n" +
+                            "cmodulo character(20)  \n" +
+                            ");";
+                    NpgsqlCommand commando10 = new NpgsqlCommand(Query, conexionNew);
+                    commando10.ExecuteNonQuery();
+                    
+                    
+                    string Query10 = "delete from  cg_moduloconfigura;";
+                    NpgsqlCommand commando11 = new NpgsqlCommand(Query10, conexionNew);
+                    commando11.ExecuteNonQuery();
+
+                    string  Query11 = "INSERT INTO cg_moduloconfigura(id,cmodulo) values(1,'Modulo Contable');";
+                    NpgsqlCommand commando12 = new NpgsqlCommand(Query11, conexionNew);
+                    commando12.ExecuteNonQuery();
+
+                    
+                    string Query12 = "INSERT INTO cg_moduloconfigura(id,cmodulo) values(2,'Modulo Comercial');";
+                    NpgsqlCommand commando13 = new NpgsqlCommand(Query12, conexionNew);
+                    commando13.ExecuteNonQuery();
+
+                    */
+
+                }
+                else
+                {
+                    var command = new NpgsqlCommand();
+                    command.Connection = conexionNew;
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "select  id  from cg_moduloconfigura where cmodulo like '" + txtbox5.Text.Trim().ToString() + "%'";
+                    var adapter = new NpgsqlDataAdapter(command);
+                    var dataset = new DataSet();
+                    adapter.Fill(dataset);
+                    txtbox6.Text = dataset.Tables[0].Rows[0][0].ToString();
+
+
+
+                    string actualizar = "Update conexiones set nmodulo=" + txtbox6.Text;
+                    NpgsqlCommand comando2 = new NpgsqlCommand(actualizar, conexionNew);
+                    comando2.ExecuteReader();
+                    Properties.Settings.Default.TipModulo = txtbox6.Text.Trim(); ToString();
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+
+
+                    conexionNew.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error no Existe Informacion de conexion a empresa " + ex, "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+            }
+        }
+
         private void txtclave_KeyPress(object sender, KeyPressEventArgs e)
         {
             
@@ -870,6 +1056,17 @@ namespace Contasis
             {
                 button1.Focus();
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmdModulos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtbox5.Text = cmdModulos.Text.Trim().ToString();
+            ActualizacionModuloPostgres();
         }
 
         public void Modulo_Sql()
@@ -935,7 +1132,16 @@ namespace Contasis
                 //// MessageBox.Show(respuesta);
                 ///
 
+                string NombreTable1 = "cg_version";
+                string Nombrecampo1 = "cactiva_estructura";
+                string Query1 = "alter table " + NombreTable1.Trim().ToLower() + " add column " + Nombrecampo1.Trim().ToLower() + " character(10);";
+                string respuesta1 = obj.crear_Campos_nuevos_en_tablas(NombreTable1, Nombrecampo1, Query1);
 
+                string query2="Update cg_version set cactiva_estructura = '"+"2025-12-31"+ "'  where cactiva_estructura = null" ;
+                NpgsqlCommand commando = new NpgsqlCommand(query2, conexionNew);
+                commando.ExecuteNonQuery(); 
+
+                /***
                 string query = "SELECT * FROM INFORMATION_SCHEMA.columns where TABLE_NAME = 'com_detalledocumento'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexionNew);
 
@@ -962,9 +1168,12 @@ namespace Contasis
                     Properties.Settings.Default.Save();
                     Properties.Settings.Default.Reload();
                 }
+
+                **///
+
                 conexionNew.Close();
             }
-            catch 
+            catch (Exception ex)
             {
                /* string fileName = @"C:\\Users\\Public\\Documents\\PostgreSQL.txt";
 
@@ -985,7 +1194,7 @@ namespace Contasis
                 }
                */
 
-                MessageBox.Show("Error no Existe Información de conexión a empresa.","Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("Error "+ex+".","Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
             }
         }

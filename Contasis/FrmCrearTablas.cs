@@ -234,9 +234,9 @@ namespace Contasis
 
 
 
-                        string ejecutar18 = txtversion1.Text;
+                        /**string ejecutar18 = txtversion1.Text;
                         NpgsqlCommand command18 = new NpgsqlCommand(ejecutar18, conexion);
-                        command18.ExecuteNonQuery();
+                        command18.ExecuteNonQuery();**/
 
                         timer4.Enabled = true;
                         string ejecutar19 = txtversion2.Text;

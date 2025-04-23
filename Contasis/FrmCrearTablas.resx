@@ -170,6 +170,18 @@ CREATE TABLE cg_modulos(
 ) ;
 
 
+CREATE TABLE IF NOT EXISTS public.cg_moduloconfigura
+(
+    id bigint default 0 ,
+    cmodulo character(20) NOT NULL
+);
+
+INSERT INTO cg_moduloconfigura(id,cmodulo) values(1,'Modulo Contable');
+INSERT INTO cg_moduloconfigura(id,cmodulo) values(2,'Modulo Comercial');
+
+
+
+
 CREATE TABLE cg_usuario(
 	ccodusu char(10) NOT NULL,
 	cdesusu char(60) NOT NULL,
@@ -403,10 +415,7 @@ CREATE TABLE fin_cobranzapago
 
 END;
 $BODY$
-  LANGUAGE plpgsql VOLATILE
-
-
-</value>
+  LANGUAGE plpgsql VOLATILE</value>
   </data>
   <metadata name="timer5.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>421, 17</value>
@@ -814,7 +823,8 @@ BEGIN
     
 end;
 $function$
-;</value>
+;
+</value>
   </data>
   <data name="txtversion2.Text" xml:space="preserve">
     <value>CREATE OR REPLACE FUNCTION fn_select_version()
@@ -867,6 +877,8 @@ CREATE TABLE cg_empemisor(
 	ncomproductoflg numeric(1,0)   NULL,
     ncomcompraflg numeric(1,0)   NULL,
     ncomventaflg numeric(1,0)   NULL,
+	ncobranzacomercial numeric(1,0)   NULL,
+	ncomFondom numeric(1,0)   NULL,
 PRIMARY KEY  (ccodrucemisor) );
 
 
@@ -898,6 +910,15 @@ CREATE TABLE cg_usuario(
 	password char(250) NOT NULL,
 	fec_ultacceso date NULL,
 PRIMARY KEY(ccodusu));
+
+CREATE TABLE IF NOT EXISTS public.cg_moduloconfigura
+(
+    id bigint default 0 ,
+    cmodulo character(20) NOT NULL
+);
+
+INSERT INTO cg_moduloconfigura(id,cmodulo) values(1,'Modulo Contable');
+INSERT INTO cg_moduloconfigura(id,cmodulo) values(2,'Modulo Comercial');
 
 
 CREATE TABLE cg_usuario_acceso(
@@ -954,9 +975,9 @@ CREATE TABLE configuracion2(
     crazemp char(100) NULL,
     crucemp char(15) NULL, 
     Entidad char(3) NULL,
-    Tipo char(2) NULL,
+    Tipo char(5) NULL,
     codtipdocu char(4) NULL,
-	serie char(20) NULL,
+	cserie char(20) NULL,
     ccodmov char(10) NULL,
     ccodpag char(5) NULL,
     ccodvend char(10) NULL,
@@ -1068,8 +1089,7 @@ CREATE TABLE com_detalledocumento (
 	tipo_isc numeric(1,0),
 	mdscl text,
 	iddocumento int not null,
-	constraint pk_detalle_documento PRIMARY KEY (iddetalledocumento),
-	constraint fk_detalle_documento FOREIGN KEY (iddocumento) references com_documento(iddocumento)
+	constraint pk_detalle_documento PRIMARY KEY (iddetalledocumento)
 );
 
 create sequence sec_idproducto minvalue 1 maxvalue 99999999999 increment by 1 ;
@@ -1631,7 +1651,7 @@ $BODY$
   COST 100;</value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>51</value>
+    <value>54</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

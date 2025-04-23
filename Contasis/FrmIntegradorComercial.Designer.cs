@@ -98,8 +98,8 @@ namespace Contasis
             this.txtdetalledocu = new System.Windows.Forms.TextBox();
             this.txtproducto = new System.Windows.Forms.TextBox();
             this.txtguardardocu = new System.Windows.Forms.TextBox();
-            this.txtguardarproducto = new System.Windows.Forms.TextBox();
-            this.txtproductoprincipal = new System.Windows.Forms.TextBox();
+            this.txtguardarproducto_2025 = new System.Windows.Forms.TextBox();
+            this.txtproductoprincipal2025 = new System.Windows.Forms.TextBox();
             this.txtcompras_comercial = new System.Windows.Forms.TextBox();
             this.txtasientoscompras = new System.Windows.Forms.TextBox();
             this.txtventasasientos = new System.Windows.Forms.TextBox();
@@ -115,6 +115,14 @@ namespace Contasis
             this.txtasientos_ventascomercial = new System.Windows.Forms.TextBox();
             this.txtventascobranzasprincipal = new System.Windows.Forms.TextBox();
             this.txtasientoscobranzasprincipalventascom = new System.Windows.Forms.TextBox();
+            this.txtdetalledocumento_2025 = new System.Windows.Forms.TextBox();
+            this.txtcom_documento_2025 = new System.Windows.Forms.TextBox();
+            this.txtcomercial_proceso_2025darwin = new System.Windows.Forms.TextBox();
+            this.txt_com_importar_ventas_principal2025 = new System.Windows.Forms.TextBox();
+            this.txtcom_importar_ventas_generaasiento_2025 = new System.Windows.Forms.TextBox();
+            this.txtcom_importar_compras_ventas_principal_actualiza_stock_anula = new System.Windows.Forms.TextBox();
+            this.txtcom_importar_ventas_principal_anular2025 = new System.Windows.Forms.TextBox();
+            this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -169,7 +177,7 @@ namespace Contasis
             this.label38.AutoSize = true;
             this.label38.Location = new System.Drawing.Point(373, 6);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(151, 13);
+            this.label38.Size = new System.Drawing.Size(171, 15);
             this.label38.TabIndex = 19;
             this.label38.Text = "Fecha de Inicio de Integración";
             this.label38.Visible = false;
@@ -232,7 +240,7 @@ namespace Contasis
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(16, -72);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(112, 13);
+            this.label25.Size = new System.Drawing.Size(130, 15);
             this.label25.TabIndex = 10;
             this.label25.Text = "Seleccione ruc Emisor";
             // 
@@ -279,7 +287,7 @@ namespace Contasis
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(248, 6);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(99, 13);
+            this.label22.Size = new System.Drawing.Size(114, 15);
             this.label22.TabIndex = 5;
             this.label22.Text = "Seleccione Periodo";
             // 
@@ -325,7 +333,7 @@ namespace Contasis
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label34.Location = new System.Drawing.Point(17, 5);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(174, 12);
+            this.label34.Size = new System.Drawing.Size(195, 13);
             this.label34.TabIndex = 42;
             this.label34.Text = "Datos de Importación Automatica";
             // 
@@ -385,7 +393,7 @@ namespace Contasis
             this.lblTotales.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotales.Location = new System.Drawing.Point(7, 412);
             this.lblTotales.Name = "lblTotales";
-            this.lblTotales.Size = new System.Drawing.Size(131, 13);
+            this.lblTotales.Size = new System.Drawing.Size(148, 15);
             this.lblTotales.TabIndex = 65;
             this.lblTotales.Text = "Total de Registros :  0";
             // 
@@ -395,7 +403,7 @@ namespace Contasis
             this.cboanulacionproducto.FormattingEnabled = true;
             this.cboanulacionproducto.Location = new System.Drawing.Point(23, 222);
             this.cboanulacionproducto.Name = "cboanulacionproducto";
-            this.cboanulacionproducto.Size = new System.Drawing.Size(331, 20);
+            this.cboanulacionproducto.Size = new System.Drawing.Size(331, 23);
             this.cboanulacionproducto.TabIndex = 10;
             this.cboanulacionproducto.SelectedIndexChanged += new System.EventHandler(this.Cboanulacionproducto_SelectedIndexChanged);
             // 
@@ -404,7 +412,7 @@ namespace Contasis
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(20, 204);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(164, 13);
+            this.label11.Size = new System.Drawing.Size(189, 15);
             this.label11.TabIndex = 64;
             this.label11.Text = "Codigo de Anulacion de Producto";
             // 
@@ -441,7 +449,7 @@ namespace Contasis
             this.cmbanulados.FormattingEnabled = true;
             this.cmbanulados.Location = new System.Drawing.Point(385, 39);
             this.cmbanulados.Name = "cmbanulados";
-            this.cmbanulados.Size = new System.Drawing.Size(134, 20);
+            this.cmbanulados.Size = new System.Drawing.Size(134, 23);
             this.cmbanulados.TabIndex = 3;
             this.cmbanulados.SelectedIndexChanged += new System.EventHandler(this.Cmbanulados_SelectedIndexChanged);
             // 
@@ -450,7 +458,7 @@ namespace Contasis
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(382, 21);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(107, 13);
+            this.label10.Size = new System.Drawing.Size(123, 15);
             this.label10.TabIndex = 61;
             this.label10.Text = "Codigo de Anulacion:";
             // 
@@ -460,7 +468,7 @@ namespace Contasis
             this.cmbalmacen.FormattingEnabled = true;
             this.cmbalmacen.Location = new System.Drawing.Point(311, 178);
             this.cmbalmacen.Name = "cmbalmacen";
-            this.cmbalmacen.Size = new System.Drawing.Size(215, 20);
+            this.cmbalmacen.Size = new System.Drawing.Size(215, 23);
             this.cmbalmacen.TabIndex = 9;
             this.cmbalmacen.SelectedIndexChanged += new System.EventHandler(this.Cmbalmacen_SelectedIndexChanged);
             // 
@@ -469,7 +477,7 @@ namespace Contasis
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(308, 160);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(100, 13);
+            this.label9.Size = new System.Drawing.Size(117, 15);
             this.label9.TabIndex = 59;
             this.label9.Text = "Codigo de almacen:";
             // 
@@ -479,7 +487,7 @@ namespace Contasis
             this.cmbvendedor.FormattingEnabled = true;
             this.cmbvendedor.Location = new System.Drawing.Point(23, 178);
             this.cmbvendedor.Name = "cmbvendedor";
-            this.cmbvendedor.Size = new System.Drawing.Size(279, 20);
+            this.cmbvendedor.Size = new System.Drawing.Size(279, 23);
             this.cmbvendedor.TabIndex = 8;
             this.cmbvendedor.SelectedIndexChanged += new System.EventHandler(this.Cmbvendedor_SelectedIndexChanged);
             // 
@@ -488,7 +496,7 @@ namespace Contasis
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(20, 160);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(104, 13);
+            this.label8.Size = new System.Drawing.Size(119, 15);
             this.label8.TabIndex = 57;
             this.label8.Text = "Codigo de Vendedor";
             // 
@@ -498,7 +506,7 @@ namespace Contasis
             this.cmbpagos.FormattingEnabled = true;
             this.cmbpagos.Location = new System.Drawing.Point(385, 83);
             this.cmbpagos.Name = "cmbpagos";
-            this.cmbpagos.Size = new System.Drawing.Size(134, 20);
+            this.cmbpagos.Size = new System.Drawing.Size(134, 23);
             this.cmbpagos.TabIndex = 6;
             this.cmbpagos.SelectedIndexChanged += new System.EventHandler(this.Cmbpagos_SelectedIndexChanged);
             // 
@@ -507,7 +515,7 @@ namespace Contasis
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(382, 65);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(85, 13);
+            this.label7.Size = new System.Drawing.Size(97, 15);
             this.label7.TabIndex = 55;
             this.label7.Text = "Codigo de pago:";
             // 
@@ -517,7 +525,7 @@ namespace Contasis
             this.cmbentidad.FormattingEnabled = true;
             this.cmbentidad.Location = new System.Drawing.Point(241, 39);
             this.cmbentidad.Name = "cmbentidad";
-            this.cmbentidad.Size = new System.Drawing.Size(135, 20);
+            this.cmbentidad.Size = new System.Drawing.Size(135, 23);
             this.cmbentidad.TabIndex = 2;
             this.cmbentidad.SelectedIndexChanged += new System.EventHandler(this.Cmbentidad_SelectedIndexChanged);
             // 
@@ -526,7 +534,7 @@ namespace Contasis
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(238, 21);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(81, 13);
+            this.label6.Size = new System.Drawing.Size(93, 15);
             this.label6.TabIndex = 53;
             this.label6.Text = "Codigo entidad:";
             // 
@@ -536,7 +544,7 @@ namespace Contasis
             this.cmbmovimiento.FormattingEnabled = true;
             this.cmbmovimiento.Location = new System.Drawing.Point(23, 130);
             this.cmbmovimiento.Name = "cmbmovimiento";
-            this.cmbmovimiento.Size = new System.Drawing.Size(505, 20);
+            this.cmbmovimiento.Size = new System.Drawing.Size(505, 23);
             this.cmbmovimiento.TabIndex = 7;
             this.cmbmovimiento.SelectedIndexChanged += new System.EventHandler(this.cmbmovimiento_SelectedIndexChanged);
             // 
@@ -545,7 +553,7 @@ namespace Contasis
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(20, 112);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 13);
+            this.label5.Size = new System.Drawing.Size(118, 15);
             this.label5.TabIndex = 51;
             this.label5.Text = "Tipo de movimiento:";
             // 
@@ -555,7 +563,7 @@ namespace Contasis
             this.cmbseries.FormattingEnabled = true;
             this.cmbseries.Location = new System.Drawing.Point(241, 83);
             this.cmbseries.Name = "cmbseries";
-            this.cmbseries.Size = new System.Drawing.Size(135, 20);
+            this.cmbseries.Size = new System.Drawing.Size(135, 23);
             this.cmbseries.TabIndex = 5;
             this.cmbseries.SelectedIndexChanged += new System.EventHandler(this.Cmbseries_SelectedIndexChanged);
             // 
@@ -564,7 +572,7 @@ namespace Contasis
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(238, 65);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(36, 13);
+            this.label4.Size = new System.Drawing.Size(42, 15);
             this.label4.TabIndex = 49;
             this.label4.Text = "Series";
             // 
@@ -574,7 +582,7 @@ namespace Contasis
             this.cmbdocumento.FormattingEnabled = true;
             this.cmbdocumento.Location = new System.Drawing.Point(23, 83);
             this.cmbdocumento.Name = "cmbdocumento";
-            this.cmbdocumento.Size = new System.Drawing.Size(212, 20);
+            this.cmbdocumento.Size = new System.Drawing.Size(212, 23);
             this.cmbdocumento.TabIndex = 4;
             this.cmbdocumento.SelectedIndexChanged += new System.EventHandler(this.Cmbdocumento_SelectedIndexChanged);
             // 
@@ -583,7 +591,7 @@ namespace Contasis
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(20, 65);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(101, 13);
+            this.label3.Size = new System.Drawing.Size(118, 15);
             this.label3.TabIndex = 47;
             this.label3.Text = "Tipo de Documento:";
             // 
@@ -593,7 +601,7 @@ namespace Contasis
             this.cmbtipo.FormattingEnabled = true;
             this.cmbtipo.Location = new System.Drawing.Point(23, 39);
             this.cmbtipo.Name = "cmbtipo";
-            this.cmbtipo.Size = new System.Drawing.Size(212, 20);
+            this.cmbtipo.Size = new System.Drawing.Size(212, 23);
             this.cmbtipo.TabIndex = 1;
             this.cmbtipo.SelectedIndexChanged += new System.EventHandler(this.Cmbtipo_SelectedIndexChanged);
             // 
@@ -602,7 +610,7 @@ namespace Contasis
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(20, 21);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 13);
+            this.label2.Size = new System.Drawing.Size(111, 15);
             this.label2.TabIndex = 45;
             this.label2.Text = "Tipo de Operacion:";
             // 
@@ -612,7 +620,7 @@ namespace Contasis
             this.label36.ForeColor = System.Drawing.Color.Blue;
             this.label36.Location = new System.Drawing.Point(364, 4);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(65, 13);
+            this.label36.Size = new System.Drawing.Size(77, 15);
             this.label36.TabIndex = 43;
             this.label36.Text = "Ruc Emisor :";
             // 
@@ -680,7 +688,7 @@ namespace Contasis
             this.lvalida3.ForeColor = System.Drawing.Color.Red;
             this.lvalida3.Location = new System.Drawing.Point(209, 148);
             this.lvalida3.Name = "lvalida3";
-            this.lvalida3.Size = new System.Drawing.Size(10, 13);
+            this.lvalida3.Size = new System.Drawing.Size(10, 15);
             this.lvalida3.TabIndex = 66;
             this.lvalida3.Text = ".";
             // 
@@ -690,7 +698,7 @@ namespace Contasis
             this.lvalida2.ForeColor = System.Drawing.Color.Red;
             this.lvalida2.Location = new System.Drawing.Point(209, 123);
             this.lvalida2.Name = "lvalida2";
-            this.lvalida2.Size = new System.Drawing.Size(10, 13);
+            this.lvalida2.Size = new System.Drawing.Size(10, 15);
             this.lvalida2.TabIndex = 65;
             this.lvalida2.Text = ".";
             // 
@@ -700,7 +708,7 @@ namespace Contasis
             this.lvalida1.ForeColor = System.Drawing.Color.Red;
             this.lvalida1.Location = new System.Drawing.Point(209, 93);
             this.lvalida1.Name = "lvalida1";
-            this.lvalida1.Size = new System.Drawing.Size(10, 13);
+            this.lvalida1.Size = new System.Drawing.Size(10, 15);
             this.lvalida1.TabIndex = 64;
             this.lvalida1.Text = ".";
             // 
@@ -711,7 +719,7 @@ namespace Contasis
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.Location = new System.Drawing.Point(21, 43);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(510, 21);
+            this.textBox2.Size = new System.Drawing.Size(510, 24);
             this.textBox2.TabIndex = 63;
             this.textBox2.Text = "Cuentas de Cobranzas para Comercial";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -732,7 +740,7 @@ namespace Contasis
             this.txtflujocobra.Location = new System.Drawing.Point(138, 148);
             this.txtflujocobra.MaxLength = 10;
             this.txtflujocobra.Name = "txtflujocobra";
-            this.txtflujocobra.Size = new System.Drawing.Size(65, 18);
+            this.txtflujocobra.Size = new System.Drawing.Size(65, 21);
             this.txtflujocobra.TabIndex = 60;
             this.txtflujocobra.TextChanged += new System.EventHandler(this.txtflujocobra_TextChanged);
             this.txtflujocobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtflujocobra_KeyDown);
@@ -742,7 +750,7 @@ namespace Contasis
             this.txtregistro_cobra.Location = new System.Drawing.Point(138, 120);
             this.txtregistro_cobra.MaxLength = 2;
             this.txtregistro_cobra.Name = "txtregistro_cobra";
-            this.txtregistro_cobra.Size = new System.Drawing.Size(33, 18);
+            this.txtregistro_cobra.Size = new System.Drawing.Size(33, 21);
             this.txtregistro_cobra.TabIndex = 58;
             this.txtregistro_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtregistro_cobra_KeyDown);
             // 
@@ -751,7 +759,7 @@ namespace Contasis
             this.txtsubdiario_cobra.Location = new System.Drawing.Point(138, 93);
             this.txtsubdiario_cobra.MaxLength = 3;
             this.txtsubdiario_cobra.Name = "txtsubdiario_cobra";
-            this.txtsubdiario_cobra.Size = new System.Drawing.Size(34, 18);
+            this.txtsubdiario_cobra.Size = new System.Drawing.Size(34, 21);
             this.txtsubdiario_cobra.TabIndex = 57;
             this.txtsubdiario_cobra.TextChanged += new System.EventHandler(this.txtsubdiario_cobra_TextChanged);
             this.txtsubdiario_cobra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtsubdiario_cobra_KeyDown);
@@ -761,7 +769,7 @@ namespace Contasis
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(49, 151);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(69, 13);
+            this.label28.Size = new System.Drawing.Size(78, 15);
             this.label28.TabIndex = 59;
             this.label28.Text = "Flujo efectivo";
             // 
@@ -770,7 +778,7 @@ namespace Contasis
             this.label29.AutoSize = true;
             this.label29.Location = new System.Drawing.Point(61, 122);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(57, 13);
+            this.label29.Size = new System.Drawing.Size(66, 15);
             this.label29.TabIndex = 56;
             this.label29.Text = "L/ Registro";
             // 
@@ -779,7 +787,7 @@ namespace Contasis
             this.label30.AutoSize = true;
             this.label30.Location = new System.Drawing.Point(27, 95);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(88, 13);
+            this.label30.Size = new System.Drawing.Size(100, 15);
             this.label30.TabIndex = 55;
             this.label30.Text = "Sub Diario R. Vta";
             // 
@@ -801,7 +809,7 @@ namespace Contasis
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(16, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 13);
+            this.label1.Size = new System.Drawing.Size(121, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "Seleccione Empresa";
             // 
@@ -845,66 +853,67 @@ namespace Contasis
             // txtguardardocu
             // 
             this.txtguardardocu.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.txtguardardocu.Location = new System.Drawing.Point(939, 276);
+            this.txtguardardocu.Location = new System.Drawing.Point(1219, 306);
             this.txtguardardocu.Multiline = true;
             this.txtguardardocu.Name = "txtguardardocu";
             this.txtguardardocu.Size = new System.Drawing.Size(273, 69);
             this.txtguardardocu.TabIndex = 5;
             this.txtguardardocu.Text = resources.GetString("txtguardardocu.Text");
             // 
-            // txtguardarproducto
+            // txtguardarproducto_2025
             // 
-            this.txtguardarproducto.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.txtguardarproducto.Location = new System.Drawing.Point(939, 348);
-            this.txtguardarproducto.Multiline = true;
-            this.txtguardarproducto.Name = "txtguardarproducto";
-            this.txtguardarproducto.Size = new System.Drawing.Size(273, 108);
-            this.txtguardarproducto.TabIndex = 6;
+            this.txtguardarproducto_2025.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txtguardarproducto_2025.Location = new System.Drawing.Point(939, 140);
+            this.txtguardarproducto_2025.Multiline = true;
+            this.txtguardarproducto_2025.Name = "txtguardarproducto_2025";
+            this.txtguardarproducto_2025.Size = new System.Drawing.Size(273, 68);
+            this.txtguardarproducto_2025.TabIndex = 6;
+            this.txtguardarproducto_2025.Text = resources.GetString("txtguardarproducto_2025.Text");
             // 
-            // txtproductoprincipal
+            // txtproductoprincipal2025
             // 
-            this.txtproductoprincipal.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.txtproductoprincipal.Location = new System.Drawing.Point(939, 462);
-            this.txtproductoprincipal.Multiline = true;
-            this.txtproductoprincipal.Name = "txtproductoprincipal";
-            this.txtproductoprincipal.Size = new System.Drawing.Size(273, 67);
-            this.txtproductoprincipal.TabIndex = 7;
-            this.txtproductoprincipal.Text = resources.GetString("txtproductoprincipal.Text");
+            this.txtproductoprincipal2025.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txtproductoprincipal2025.Location = new System.Drawing.Point(939, 212);
+            this.txtproductoprincipal2025.Multiline = true;
+            this.txtproductoprincipal2025.Name = "txtproductoprincipal2025";
+            this.txtproductoprincipal2025.Size = new System.Drawing.Size(273, 67);
+            this.txtproductoprincipal2025.TabIndex = 7;
+            this.txtproductoprincipal2025.Text = resources.GetString("txtproductoprincipal2025.Text");
             // 
             // txtcompras_comercial
             // 
             this.txtcompras_comercial.BackColor = System.Drawing.Color.PapayaWhip;
-            this.txtcompras_comercial.Location = new System.Drawing.Point(1218, 9);
+            this.txtcompras_comercial.Location = new System.Drawing.Point(1218, 8);
             this.txtcompras_comercial.Multiline = true;
             this.txtcompras_comercial.Name = "txtcompras_comercial";
-            this.txtcompras_comercial.Size = new System.Drawing.Size(274, 118);
+            this.txtcompras_comercial.Size = new System.Drawing.Size(274, 55);
             this.txtcompras_comercial.TabIndex = 8;
             this.txtcompras_comercial.Text = resources.GetString("txtcompras_comercial.Text");
             // 
             // txtasientoscompras
             // 
             this.txtasientoscompras.BackColor = System.Drawing.Color.PapayaWhip;
-            this.txtasientoscompras.Location = new System.Drawing.Point(1218, 253);
+            this.txtasientoscompras.Location = new System.Drawing.Point(1218, 65);
             this.txtasientoscompras.Multiline = true;
             this.txtasientoscompras.Name = "txtasientoscompras";
-            this.txtasientoscompras.Size = new System.Drawing.Size(274, 118);
+            this.txtasientoscompras.Size = new System.Drawing.Size(274, 72);
             this.txtasientoscompras.TabIndex = 10;
             this.txtasientoscompras.Text = resources.GetString("txtasientoscompras.Text");
             // 
             // txtventasasientos
             // 
             this.txtventasasientos.BackColor = System.Drawing.Color.PapayaWhip;
-            this.txtventasasientos.Location = new System.Drawing.Point(1218, 384);
+            this.txtventasasientos.Location = new System.Drawing.Point(1218, 140);
             this.txtventasasientos.Multiline = true;
             this.txtventasasientos.Name = "txtventasasientos";
-            this.txtventasasientos.Size = new System.Drawing.Size(274, 118);
+            this.txtventasasientos.Size = new System.Drawing.Size(274, 76);
             this.txtventasasientos.TabIndex = 11;
             this.txtventasasientos.Text = resources.GetString("txtventasasientos.Text");
             // 
             // txtActualizastock
             // 
             this.txtActualizastock.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.txtActualizastock.Location = new System.Drawing.Point(939, 550);
+            this.txtActualizastock.Location = new System.Drawing.Point(1218, 490);
             this.txtActualizastock.Multiline = true;
             this.txtActualizastock.Name = "txtActualizastock";
             this.txtActualizastock.Size = new System.Drawing.Size(273, 118);
@@ -934,7 +943,7 @@ namespace Contasis
             // txtActualizarstocanular
             // 
             this.txtActualizarstocanular.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.txtActualizarstocanular.Location = new System.Drawing.Point(939, 663);
+            this.txtActualizarstocanular.Location = new System.Drawing.Point(1219, 381);
             this.txtActualizarstocanular.Multiline = true;
             this.txtActualizarstocanular.Name = "txtActualizarstocanular";
             this.txtActualizarstocanular.Size = new System.Drawing.Size(274, 118);
@@ -944,10 +953,10 @@ namespace Contasis
             // txtubigeo
             // 
             this.txtubigeo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.txtubigeo.Location = new System.Drawing.Point(1218, 504);
+            this.txtubigeo.Location = new System.Drawing.Point(1218, 223);
             this.txtubigeo.Multiline = true;
             this.txtubigeo.Name = "txtubigeo";
-            this.txtubigeo.Size = new System.Drawing.Size(274, 118);
+            this.txtubigeo.Size = new System.Drawing.Size(274, 79);
             this.txtubigeo.TabIndex = 16;
             this.txtubigeo.Text = resources.GetString("txtubigeo.Text");
             // 
@@ -969,7 +978,7 @@ namespace Contasis
             // 
             // txtubigeo2
             // 
-            this.txtubigeo2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.txtubigeo2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.txtubigeo2.Location = new System.Drawing.Point(939, 68);
             this.txtubigeo2.Multiline = true;
             this.txtubigeo2.Name = "txtubigeo2";
@@ -1013,15 +1022,103 @@ namespace Contasis
             this.txtasientoscobranzasprincipalventascom.Location = new System.Drawing.Point(658, 500);
             this.txtasientoscobranzasprincipalventascom.Multiline = true;
             this.txtasientoscobranzasprincipalventascom.Name = "txtasientoscobranzasprincipalventascom";
-            this.txtasientoscobranzasprincipalventascom.Size = new System.Drawing.Size(273, 69);
+            this.txtasientoscobranzasprincipalventascom.Size = new System.Drawing.Size(273, 164);
             this.txtasientoscobranzasprincipalventascom.TabIndex = 23;
             this.txtasientoscobranzasprincipalventascom.Text = resources.GetString("txtasientoscobranzasprincipalventascom.Text");
+            // 
+            // txtdetalledocumento_2025
+            // 
+            this.txtdetalledocumento_2025.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txtdetalledocumento_2025.Location = new System.Drawing.Point(940, 285);
+            this.txtdetalledocumento_2025.Multiline = true;
+            this.txtdetalledocumento_2025.Name = "txtdetalledocumento_2025";
+            this.txtdetalledocumento_2025.Size = new System.Drawing.Size(273, 67);
+            this.txtdetalledocumento_2025.TabIndex = 24;
+            this.txtdetalledocumento_2025.Text = resources.GetString("txtdetalledocumento_2025.Text");
+            // 
+            // txtcom_documento_2025
+            // 
+            this.txtcom_documento_2025.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txtcom_documento_2025.Location = new System.Drawing.Point(940, 359);
+            this.txtcom_documento_2025.Multiline = true;
+            this.txtcom_documento_2025.Name = "txtcom_documento_2025";
+            this.txtcom_documento_2025.Size = new System.Drawing.Size(273, 67);
+            this.txtcom_documento_2025.TabIndex = 25;
+            this.txtcom_documento_2025.Text = resources.GetString("txtcom_documento_2025.Text");
+            // 
+            // txtcomercial_proceso_2025darwin
+            // 
+            this.txtcomercial_proceso_2025darwin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txtcomercial_proceso_2025darwin.Location = new System.Drawing.Point(940, 432);
+            this.txtcomercial_proceso_2025darwin.Multiline = true;
+            this.txtcomercial_proceso_2025darwin.Name = "txtcomercial_proceso_2025darwin";
+            this.txtcomercial_proceso_2025darwin.Size = new System.Drawing.Size(273, 67);
+            this.txtcomercial_proceso_2025darwin.TabIndex = 26;
+            this.txtcomercial_proceso_2025darwin.Text = resources.GetString("txtcomercial_proceso_2025darwin.Text");
+            // 
+            // txt_com_importar_ventas_principal2025
+            // 
+            this.txt_com_importar_ventas_principal2025.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txt_com_importar_ventas_principal2025.Location = new System.Drawing.Point(938, 503);
+            this.txt_com_importar_ventas_principal2025.Multiline = true;
+            this.txt_com_importar_ventas_principal2025.Name = "txt_com_importar_ventas_principal2025";
+            this.txt_com_importar_ventas_principal2025.Size = new System.Drawing.Size(273, 67);
+            this.txt_com_importar_ventas_principal2025.TabIndex = 27;
+            this.txt_com_importar_ventas_principal2025.Text = resources.GetString("txt_com_importar_ventas_principal2025.Text");
+            // 
+            // txtcom_importar_ventas_generaasiento_2025
+            // 
+            this.txtcom_importar_ventas_generaasiento_2025.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txtcom_importar_ventas_generaasiento_2025.Location = new System.Drawing.Point(938, 576);
+            this.txtcom_importar_ventas_generaasiento_2025.Multiline = true;
+            this.txtcom_importar_ventas_generaasiento_2025.Name = "txtcom_importar_ventas_generaasiento_2025";
+            this.txtcom_importar_ventas_generaasiento_2025.Size = new System.Drawing.Size(273, 82);
+            this.txtcom_importar_ventas_generaasiento_2025.TabIndex = 28;
+            this.txtcom_importar_ventas_generaasiento_2025.Text = resources.GetString("txtcom_importar_ventas_generaasiento_2025.Text");
+            // 
+            // txtcom_importar_compras_ventas_principal_actualiza_stock_anula
+            // 
+            this.txtcom_importar_compras_ventas_principal_actualiza_stock_anula.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txtcom_importar_compras_ventas_principal_actualiza_stock_anula.Location = new System.Drawing.Point(939, 663);
+            this.txtcom_importar_compras_ventas_principal_actualiza_stock_anula.Multiline = true;
+            this.txtcom_importar_compras_ventas_principal_actualiza_stock_anula.Name = "txtcom_importar_compras_ventas_principal_actualiza_stock_anula";
+            this.txtcom_importar_compras_ventas_principal_actualiza_stock_anula.Size = new System.Drawing.Size(274, 171);
+            this.txtcom_importar_compras_ventas_principal_actualiza_stock_anula.TabIndex = 29;
+            this.txtcom_importar_compras_ventas_principal_actualiza_stock_anula.Text = resources.GetString("txtcom_importar_compras_ventas_principal_actualiza_stock_anula.Text");
+            // 
+            // txtcom_importar_ventas_principal_anular2025
+            // 
+            this.txtcom_importar_ventas_principal_anular2025.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txtcom_importar_ventas_principal_anular2025.Location = new System.Drawing.Point(1218, 614);
+            this.txtcom_importar_ventas_principal_anular2025.Multiline = true;
+            this.txtcom_importar_ventas_principal_anular2025.Name = "txtcom_importar_ventas_principal_anular2025";
+            this.txtcom_importar_ventas_principal_anular2025.Size = new System.Drawing.Size(273, 82);
+            this.txtcom_importar_ventas_principal_anular2025.TabIndex = 30;
+            this.txtcom_importar_ventas_principal_anular2025.Text = resources.GetString("txtcom_importar_ventas_principal_anular2025.Text");
+            // 
+            // txtcom_importar_ventas_generaasiento_cobranza_principal_2025
+            // 
+            this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025.Location = new System.Drawing.Point(1218, 699);
+            this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025.Multiline = true;
+            this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025.Name = "txtcom_importar_ventas_generaasiento_cobranza_principal_2025";
+            this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025.Size = new System.Drawing.Size(273, 82);
+            this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025.TabIndex = 31;
+            this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025.Text = resources.GetString("txtcom_importar_ventas_generaasiento_cobranza_principal_2025.Text");
             // 
             // FrmIntegradorComercial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1490, 563);
+            this.ClientSize = new System.Drawing.Size(640, 564);
+            this.Controls.Add(this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025);
+            this.Controls.Add(this.txtcom_importar_ventas_principal_anular2025);
+            this.Controls.Add(this.txtcom_importar_compras_ventas_principal_actualiza_stock_anula);
+            this.Controls.Add(this.txtcom_importar_ventas_generaasiento_2025);
+            this.Controls.Add(this.txt_com_importar_ventas_principal2025);
+            this.Controls.Add(this.txtcomercial_proceso_2025darwin);
+            this.Controls.Add(this.txtcom_documento_2025);
+            this.Controls.Add(this.txtdetalledocumento_2025);
             this.Controls.Add(this.txtasientoscobranzasprincipalventascom);
             this.Controls.Add(this.txtventascobranzasprincipal);
             this.Controls.Add(this.txtasientos_ventascomercial);
@@ -1037,8 +1134,8 @@ namespace Contasis
             this.Controls.Add(this.txtventasasientos);
             this.Controls.Add(this.txtasientoscompras);
             this.Controls.Add(this.txtcompras_comercial);
-            this.Controls.Add(this.txtproductoprincipal);
-            this.Controls.Add(this.txtguardarproducto);
+            this.Controls.Add(this.txtproductoprincipal2025);
+            this.Controls.Add(this.txtguardarproducto_2025);
             this.Controls.Add(this.txtguardardocu);
             this.Controls.Add(this.txtproducto);
             this.Controls.Add(this.txtdetalledocu);
@@ -1121,8 +1218,8 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtdetalledocu;
         private System.Windows.Forms.TextBox txtproducto;
         private System.Windows.Forms.TextBox txtguardardocu;
-        private System.Windows.Forms.TextBox txtguardarproducto;
-        private System.Windows.Forms.TextBox txtproductoprincipal;
+        private System.Windows.Forms.TextBox txtguardarproducto_2025;
+        private System.Windows.Forms.TextBox txtproductoprincipal2025;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtcompras_comercial;
         private System.Windows.Forms.TextBox txtasientoscompras;
@@ -1156,5 +1253,13 @@ namespace Contasis
         private System.Windows.Forms.TextBox txtasientos_ventascomercial;
         private System.Windows.Forms.TextBox txtventascobranzasprincipal;
         private System.Windows.Forms.TextBox txtasientoscobranzasprincipalventascom;
+        private System.Windows.Forms.TextBox txtdetalledocumento_2025;
+        private System.Windows.Forms.TextBox txtcom_documento_2025;
+        private System.Windows.Forms.TextBox txtcomercial_proceso_2025darwin;
+        private System.Windows.Forms.TextBox txt_com_importar_ventas_principal2025;
+        private System.Windows.Forms.TextBox txtcom_importar_ventas_generaasiento_2025;
+        private System.Windows.Forms.TextBox txtcom_importar_compras_ventas_principal_actualiza_stock_anula;
+        private System.Windows.Forms.TextBox txtcom_importar_ventas_principal_anular2025;
+        private System.Windows.Forms.TextBox txtcom_importar_ventas_generaasiento_cobranza_principal_2025;
     }
 }

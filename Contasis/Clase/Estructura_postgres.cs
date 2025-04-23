@@ -280,9 +280,49 @@ namespace Contasis.Clase
             return cadena;
         }
 
+        /***** 17/04/2025****/
+         public string ejecutar_comando(string NombreTable, string Nombrecampo, string campolargo)
+        {
+            string cadena = "";
+            int cadena1 = 0;
+
+            DataTable Tabla = new DataTable();
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
 
 
+            try
+            {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                
+                    NpgsqlCommand myCommand = new NpgsqlCommand(campolargo, conexion);
+                    try
+                    {
+                        cadena1 = myCommand.ExecuteNonQuery();
+                        conexion.Close();
+                    }
+                    catch
+                    {
+                        ////(System.Exception ex) MessageBox.Show(ex.ToString(), "Contasis Corp.en Ventas", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
+                    }
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+                cadena = ex1.Message;
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+
+            }
+            return cadena;
+        } 
+  
         public string crear_Campos_nuevos_en_tablas_empresa(string NombreTable, string Nombrecampo, string campolargo,string CadenaConexion)
         {
             string cadena = "";
@@ -386,7 +426,7 @@ namespace Contasis.Clase
                 NpgsqlCommand myCommand6 = new NpgsqlCommand(valor7, conexion);
                 myCommand6.ExecuteNonQuery();
                 */
-            }
+    }
 
             catch (Exception ex1)
             {

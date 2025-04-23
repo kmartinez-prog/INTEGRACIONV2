@@ -85,7 +85,7 @@ namespace Contasis.Clase
                 ", a.cdescontacto AS NOMB_CONTACTO, "+
                 "to_char(a.ffecha, 'yyyymmdd') AS FEC_DOCUMENTO, "+
                 "to_char(a.ffechaven, 'yyyymmdd')  AS FEC_VENCIMIENTO, "+
-                "to_char(a.ffechaalm, 'yyyymmdd')  AS FEC_ALMACEN, coalesce(a.ccodpag, b.ccodpag) AS CONDICION_PAGO, coalesce(a.cmoneda, '') AS MONEDA "+
+                "to_char(a.ffechaalm, 'yyyymmdd')  AS FEC_ALMACEN, coalesce(a.ccodpag, b.ccodpag) AS CONDICION_PAGO, coalesce(a.cmoneda, '') AS MONEDA, "+
                 " a.ntcigv AS TIPO_CAMBIO,a.cguiaser AS SERIE_GUIA,a.cguianum AS NUMERO_GUIA,a.mdsc AS INF_ADICIONAL_DOC,b.ccodvend AS COD_VENDEDOR,a.ccodclas AS COD_CLASI_BBSS "+
                 ",coalesce(a.ccodocon, '') AS OTROS_CONCEPTOS, coalesce(a.cnumordc, '') AS ORDEN_COMPRA, coalesce(a.crefdoc, '') AS TIP_REFERENCIA, " +
                 "to_char(a.freffec, 'yyyymmdd') AS FEC_DOC_REFERENCIA, coalesce(a.crefser, '') AS SERIE_DOC_REFERENCIA, coalesce(a.crefnum, '') AS NUMERO_REFERENCIA, "+
@@ -104,7 +104,7 @@ namespace Contasis.Clase
                 " ltrim(a.ccodmodulo) = ltrim(b.Tipo) and  " +
                 " ltrim(a.ccoddoc) = ltrim(b.codtipdocu) and  " +
                 " ltrim(a.cserie) = ltrim(b.cserie)  "+
-                " where es_con_migracion = 2  and ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "'";
+                " where a.es_con_migracion = 2  and a.ccodrucemisor='" + Objet.Ruc.Trim() + "' and a.ccod_empresa='" + Objet.Empresa.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();
                 grilla.Load(carga);

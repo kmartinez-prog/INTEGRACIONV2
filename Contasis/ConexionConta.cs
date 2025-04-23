@@ -364,6 +364,34 @@ namespace Contasis
                         }
 
                         /*********************************************************************************************/
+                        /**
+                        sconfigura = "create table cg_moduloconfigura(" +
+                       "id int , " +
+                       "cdesrucemisor char(200) NULL," +
+                       "flgActivo bit NULL, nventaflg  int NOT NULL,ncompraflg int NOT NULL, " +
+                       "ncobranzaflg int NOT NULL,npagoflg int NOT NULL," +
+                       "ncomproductoflg int NOT NULL," +
+                       "ncomcompraflg int NOT NULL," +
+                       "ncomventaflg int NOT NULL," +
+                       "PRIMARY KEY CLUSTERED " +
+                       " (ccodrucemisor  ASC))";
+
+                        SqlCommand myCommand104 = new SqlCommand(sconfigura, conex2);
+                        try
+                        {
+                            myCommand104.ExecuteNonQuery();
+
+                        }
+                        catch (System.Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString(), "Contasis Corp. configuracion  .", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                        }
+                        */
+                        /*********************************************************************************************/
+
+
+
 
                         stmodulo = "INSERT INTO cg_modulos(CCODMOD,CDESMOD) VALUES('00001','EMPRESAS');" +
                         "INSERT INTO CG_MODULOS(CCODMOD, CDESMOD) VALUES('00002', 'ACCESO A USUARIOS');" +
