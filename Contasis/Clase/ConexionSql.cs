@@ -14,7 +14,7 @@ namespace Contasis.Clase
 
     {
         private static ConexionSql cone = null;
-        public SqlConnection establecerconexion()
+        public SqlConnection Establecerconexion()
         {
         SqlConnection cadena = new SqlConnection();
         try

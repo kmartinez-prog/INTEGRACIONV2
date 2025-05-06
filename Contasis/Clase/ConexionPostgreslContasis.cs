@@ -21,12 +21,15 @@ namespace Contasis.Clase
             try
             {
                 cadena.ConnectionString = "" + Properties.Settings.Default.cadenaPost;
+              /*  MessageBox.Show(Properties.Settings.Default.cadenaPost);*/
             }
-         
-            catch (Exception ex)
+            /*(Exception ex)*/
+
+
+            catch 
             {
                 cadena = null;
-                MessageBox.Show("No se establec la conexion " + ex.ToString(), "Contasis Corp. final de conexion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se establec la conexión a la base de datos del Contasis Corp. ", "Contasis Corp. final de conexión", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
             return cadena;

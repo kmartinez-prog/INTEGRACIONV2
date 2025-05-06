@@ -19,7 +19,7 @@ namespace Contasis.Clase
             try
             {
                 string query = "SELECT CCOD_EMPRESA,NOMEMPRESA AS NOMBRE_DE_EMPRESAS FROM CG_EMPRESA WHERE ccodrucemisor='"+Objet.ruc.Trim()+"'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -47,7 +47,7 @@ namespace Contasis.Clase
             try
             {
                 string query = "SELECT CCOD_EMPRESA,NOMEMPRESA AS NOMBRE_DE_EMPRESAS FROM CG_EMPRESA where CCOD_EMPRESA like'%"+codigo+"%'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -75,7 +75,7 @@ namespace Contasis.Clase
             try
             {
                 string query = "SELECT CCOD_EMPRESA,NOMEMPRESA AS NOMBRE_DE_EMPRESAS FROM CG_EMPRESA where NOMEMPRESA like '%"+empresa+"'%";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -108,7 +108,7 @@ namespace Contasis.Clase
                     "'" + Objet.ruc + "', " +
                     "'" + Objet.codempresa + "', " +
                     "'" + Objet.empresa + "')";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 cadena = commando1.ExecuteNonQuery() == 1 ? "Grabado" : "No se grabo";
@@ -139,7 +139,7 @@ namespace Contasis.Clase
             try
             {
                 string cadena1 = "update cg_empresa set nomempresa='" + Objet.empresa + "' where ccod_empresa='" + Objet.codempresa + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(cadena1, cone);
                 cone.Open();
                 cadena = commando.ExecuteNonQuery() == 1 ? "Actualizado" : "No se pudo actualizar";
@@ -169,7 +169,7 @@ namespace Contasis.Clase
             try
             {
                 string cadena1 = "Delete from cg_empresa  where ccod_empresa='" + Objet.codempresa + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(cadena1, cone);
                 cone.Open();
                 cadena = commando.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";

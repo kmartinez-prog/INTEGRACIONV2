@@ -12,7 +12,7 @@ namespace Contasis.Clase
 {
     class Compras_inconsistencia
     {  /*******************************************************************************************************/
-        public DataTable listassql(Clase.ventas_propiedades Objet)
+        public DataTable listassql(Clase.VENTAS_PROPIEDADES Objet)
         {
             SqlDataReader carga;
             DataTable grilla = new DataTable();
@@ -30,8 +30,8 @@ namespace Contasis.Clase
                 ", nporre, nimpres, cserre, cnumre, convert(varchar,ffecre,103) as ffecre, ccodpresu " +
                 ", nigv,  ccodpago, nperdenre, nbaseres, cctaperc, " +
                 " obserror " +
-                "  FROM fin_compras where es_con_migracion not in(0,1,4)";
-                cone = ConexionSql.Instancial().establecerconexion();
+                "  FROM fin_compras where es_con_migracion = 2  and ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "'";
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -51,7 +51,7 @@ namespace Contasis.Clase
 
             }
         }
-        public DataTable listaspos(Clase.ventas_propiedades Objet)
+        public DataTable listaspos(Clase.VENTAS_PROPIEDADES Objet)
         {
             NpgsqlConnection conexion = new NpgsqlConnection();
             conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
@@ -73,7 +73,7 @@ namespace Contasis.Clase
                 ", nporre, nimpres, cserre, cnumre, to_char(ffecre,'dd/mm/yyyy')::char(10) as ffecre, ccodpresu " +
                 ", nigv, cglosa, ccodpago, nperdenre, nbaseres, cctaperc, " +
                 " obserror " +
-                "  FROM fin_compras where resultado_migracion not in(0,1,4)";
+                "  FROM fin_compras where resultado_migracion =2  and ccodrucemisor='" + Objet.Ruc.Trim() + "' and ccod_empresa='" + Objet.Empresa.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();
                 grilla.Load(carga);

@@ -34,6 +34,7 @@ namespace Contasis
 
         private void FrmAyuda_Load(object sender, EventArgs e)
         {
+            label2.Text = " Version del sistema :  " + Properties.Settings.Default.version;
 
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -81,6 +82,11 @@ namespace Contasis
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
         }

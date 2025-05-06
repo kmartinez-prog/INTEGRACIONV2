@@ -16,13 +16,14 @@ namespace Contasis
 
         public static FrmBuscarCuenta  instance = null;
 
-        public FrmBuscarCuenta(int codigo,string cadena,string periodo)
+        public FrmBuscarCuenta(int codigo,string cadena,string periodo,string modulo)
         {
             InitializeComponent();
 
             txtcodigo.Text = codigo.ToString();
             txtcadenas.Text = cadena;
             txtperiodo.Text = periodo;
+            txtModulo.Text = modulo; 
         }
 
         private void FrmBuscarCuenta_KeyDown(object sender, KeyEventArgs e)
@@ -48,6 +49,10 @@ namespace Contasis
         }
         private void cargar()
         {
+
+
+
+
             NpgsqlConnection cone = new NpgsqlConnection();
             /** para ventas **/
             if (txtcodigo.Text == "1")
@@ -107,6 +112,54 @@ namespace Contasis
             {
                 txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
             }
+            if (txtcodigo.Text == "15")
+            {
+                txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN ORDER BY CCODORI ASC";
+            }
+            if (txtcodigo.Text == "16")
+            {
+                    txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU ORDER BY CCODSU ASC";
+            }
+            if (txtcodigo.Text == "17")
+            {
+                txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+            }
+            if (txtcodigo.Text == "18")
+            {
+                txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN ORDER BY CCODORI ASC";
+            }
+            if (txtcodigo.Text == "19")
+            {
+                txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU ORDER BY CCODSU ASC";
+            }
+            if (txtcodigo.Text == "20")
+            {
+                txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+            }
+            if (txtcodigo.Text == "21")
+            {
+                txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN ORDER BY CCODORI ASC";
+            }
+            if (txtcodigo.Text == "22")
+            {
+                txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU ORDER BY CCODSU ASC";
+            }
+
+            if (txtcodigo.Text == "23")
+            {
+                txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN ORDER BY CCODORI ASC";
+            }
+            if (txtcodigo.Text == "24")
+            {
+                txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU ORDER BY CCODSU ASC";
+            }
+            if (txtcodigo.Text == "25")
+            {
+                txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+            }
+
+
+
             cone = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadenas.Text);
             NpgsqlCommand cmdp = new NpgsqlCommand(txtquery.Text, cone);
             cone.Open();
@@ -139,79 +192,165 @@ namespace Contasis
         }
         private void seleccionar()
         {
-            /*** LINEAS PARA VENTAS **/
+            if (this.txtModulo.Text == "F")
+            {
+                /*** LINEAS PARA VENTAS **/
                 if (txtcodigo.Text == "1")
                 {
-                FrmIntegradorConta.instance.txtCSUB1.Text=Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick(); 
+                    FrmIntegradorConta.instance.txtCSUB1.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
                 }
                 if (txtcodigo.Text == "2")
                 {
-                FrmIntegradorConta.instance.txtCLREG1.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
+                    FrmIntegradorConta.instance.txtCLREG1.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
                 }
                 if (txtcodigo.Text == "3")
                 {
-                FrmIntegradorConta.instance.txtCSUB2.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
-            }
+                    FrmIntegradorConta.instance.txtCSUB2.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
                 if (txtcodigo.Text == "4")
                 {
-                FrmIntegradorConta.instance.txtCLREG2.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
-            }
+                    FrmIntegradorConta.instance.txtCLREG2.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
                 if (txtcodigo.Text == "5")
                 {
-                FrmIntegradorConta.instance.txtCCONTS.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
-            }
+                    FrmIntegradorConta.instance.txtCCONTS.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
                 if (txtcodigo.Text == "6")
                 {
-                FrmIntegradorConta.instance.txtCCONTD.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
-            }
+                    FrmIntegradorConta.instance.txtCCONTD.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
                 if (txtcodigo.Text == "7")
                 {
-                FrmIntegradorConta.instance.txtCFEFEC.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
+                    FrmIntegradorConta.instance.txtCFEFEC.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
                 }
-            /*** LINEAS PARA COMPRAS **/
-            if (txtcodigo.Text == "8")
-            {
-                FrmIntegradorConta.instance.txtCSUB1_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
-            }
-            if (txtcodigo.Text == "9")
-            {
-                FrmIntegradorConta.instance.txtCLREG1_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
-            }
-            if (txtcodigo.Text == "10")
-            {
-                FrmIntegradorConta.instance.txtCSUB2_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
-            }
-            if (txtcodigo.Text == "11")
-            {
-                FrmIntegradorConta.instance.txtCLREG2_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
-            }
-            if (txtcodigo.Text == "12")
-            {
-                FrmIntegradorConta.instance.txtCCONTS_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
-            }
-            if (txtcodigo.Text == "13")
-            {
-                FrmIntegradorConta.instance.txtCCONTD_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
-            }
-            if (txtcodigo.Text == "14")
-            {
-                FrmIntegradorConta.instance.txtCFEFEC_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
-                BtnSalir.PerformClick();
+                /*** LINEAS PARA COMPRAS **/
+                if (txtcodigo.Text == "8")
+                {
+                    FrmIntegradorConta.instance.txtCSUB1_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "9")
+                {
+                    FrmIntegradorConta.instance.txtCLREG1_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "10")
+                {
+                    FrmIntegradorConta.instance.txtCSUB2_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "11")
+                {
+                    FrmIntegradorConta.instance.txtCLREG2_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "12")
+                {
+                    FrmIntegradorConta.instance.txtCCONTS_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "13")
+                {
+                    FrmIntegradorConta.instance.txtCCONTD_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "14")
+                {
+                    FrmIntegradorConta.instance.txtCFEFEC_com.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "15")
+                {
+                    FrmIntegradorConta.instance.txtsubdiario_cobra.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "16")
+                {
+                    FrmIntegradorConta.instance.txtregistro_cobra.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "17")
+                {
+                    FrmIntegradorConta.instance.txtflujocobra.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "18")
+                {
+                    FrmIntegradorConta.instance.txtsubdiario_pago.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "19")
+                {
+                    FrmIntegradorConta.instance.txtregistro_pago.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "20")
+                {
+                    FrmIntegradorConta.instance.txtflujopago.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "21")
+                {
+                    FrmIntegradorConta.instance.txtanticipo.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "22")
+                {
+                    FrmIntegradorConta.instance.txtregistro_cobra_alternativo.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+
+
+                if (txtcodigo.Text == "23")
+                {
+                    FrmIntegradorConta.instance.txtsubdiario_fondo.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+
+                if (txtcodigo.Text == "24")
+                {
+                    FrmIntegradorConta.instance.txtregistro_fondo.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "25")
+                {
+                    FrmIntegradorConta.instance.txtflujofondo.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+
             }
 
+            if (this.txtModulo.Text == "C")
+            {
+                /*** LINEAS PARA VENTAS **/
+                if (txtcodigo.Text == "1")
+                {
+                    FrmIntegradorComercial.instance.txtsubdiario_cobra.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    ////FrmIntegradorComercial.instance.l   .Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "2")
+                {
+                    FrmIntegradorComercial.instance.txtregistro_cobra.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                if (txtcodigo.Text == "7")
+                {
+                    FrmIntegradorComercial.instance.txtflujocobra.Text = Convert.ToString(dataGridView1.SelectedRows[0].Cells[0].Value.ToString().Trim());
+                    BtnSalir.PerformClick();
+                }
+                
+
+            }
 
 
 
@@ -329,6 +468,56 @@ namespace Contasis
                     {
                         txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  ccodflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
                     }
+                    if (txtcodigo.Text == "15")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "16")
+                    {
+                        txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU   where CCODSU like '%" + txtbuscar.Text + "%'  ORDER BY CCODSU ASC";
+                    }
+                    if (txtcodigo.Text == "17")
+                    {
+                        txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  ccodflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+                    }
+
+                    if (txtcodigo.Text == "18")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "19")
+                    {
+                        txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU   where CCODSU like '%" + txtbuscar.Text + "%'  ORDER BY CCODSU ASC";
+                    }
+                    if (txtcodigo.Text == "20")
+                    {
+                        txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  ccodflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+                    }
+                    if (txtcodigo.Text == "21")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "22")
+                    {
+                        txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU   where CCODSU like '%" + txtbuscar.Text + "%'  ORDER BY CCODSU ASC";
+                    }
+                    if (txtcodigo.Text == "23")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "24")
+                    {
+
+                        txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU   where CCODSU like '%" + txtbuscar.Text + "%'  ORDER BY CCODSU ASC";
+                    }
+                    if (txtcodigo.Text == "25")
+                    {
+                        txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  ccodflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+                    }
+
+
+
+
                     this.cargar_codigo(txtquery.Text);
                     dataGridView1.Focus();
                 }
@@ -392,7 +581,56 @@ namespace Contasis
                     {
                         txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  cdesflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
                     }
-                    
+                    if (txtcodigo.Text == "15")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "15")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "16")
+                    {
+                        txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU   where CCODSU like '%" + txtbuscar.Text + "%'  ORDER BY CCODSU ASC";
+                    }
+                    if (txtcodigo.Text == "17")
+                    {
+                        txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  ccodflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+                    }
+
+                    if (txtcodigo.Text == "18")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "19")
+                    {
+                        txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU   where CCODSU like '%" + txtbuscar.Text + "%'  ORDER BY CCODSU ASC";
+                    }
+                    if (txtcodigo.Text == "20")
+                    {
+                        txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and  ccodflu  like '%" + txtbuscar.Text + "%' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+                    }
+                    if (txtcodigo.Text == "21")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "22")
+                    {
+                        txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU   where CCODSU like '%" + txtbuscar.Text + "%'  ORDER BY CCODSU ASC";
+                    }
+                    if (txtcodigo.Text == "23")
+                    {
+                        txtquery.Text = "SELECT CCODORI as COD,CDESORI AS DESCRIPCION FROM CF_ORIGEN  where CCODORI like '%" + txtbuscar.Text + "%'  ORDER BY CCODORI ASC";
+                    }
+                    if (txtcodigo.Text == "24")
+                    {
+                        txtquery.Text = "SELECT CCODSU as COD,CDESSU AS DESCRIPCION FROM CF_ORIGENSU   where CCODSU like '%" + txtbuscar.Text + "%'  ORDER BY CCODSU ASC";
+                    }
+                    if (txtcodigo.Text == "25")
+                    {
+                        txtquery.Text = "Select ccodflu AS COD, cdesflu AS DESCRIPCION From cf_flujo  Where cper='" + txtperiodo.Text + "' and mformula = '' and right(ccodflu,3) <> '000' and right(ccodflu,2) <> '00'  order by ccodflu asc";
+                    }
+
                     this.cargar_codigo(txtquery.Text);
                     dataGridView1.Focus();
                 }

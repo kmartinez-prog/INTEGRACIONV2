@@ -38,19 +38,10 @@ namespace Contasis.Clase
         public int ASIENTOS_com { get; set; } /*[asientos_com]*/
         public string CTIPO { get; set; } /*[cTipo])*/
         public string CENT_ANULA { get; set; }/*  [cEnt_anula] */
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public string Csub_anticipo { get; set; } /*[Csub_anticipo]*/
+        public int Nactiva_anticipo { get; set; } /*[Nactiva_anticipo]*/
+        public string CLREG1_vta_anticipo { get; set; } /*[clreg1_vta]*/
+        
 
 
     }

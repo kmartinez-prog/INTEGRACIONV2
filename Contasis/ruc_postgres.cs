@@ -16,7 +16,7 @@ namespace Contasis
         {
             string cadena = "";
 
-            DataTable Tabla = new DataTable();
+            DataTable tabla = new DataTable();
             NpgsqlConnection conexion = new NpgsqlConnection();
             conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
             conexion.Open();
@@ -29,17 +29,18 @@ namespace Contasis
                 NpgsqlDataAdapter data = new NpgsqlDataAdapter(cmdp);
                 data.Fill(dt);
                 if (dt.Rows.Count > 0)
-                {                }
+                { }
                 else
-                { string query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo) values(" +
-                            "'" + Objet.ruc + "', " +
-                            "'" + Objet.empresa + "', " +
-                            "'" + Objet.estado + "')";
-                        NpgsqlCommand ejecutor = new NpgsqlCommand(query, conexion);
-                        cadena = ejecutor.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
+                {
+                    string query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg,ncomfondom,ncobranzacomercial,ncomproductoflg) values(" +
+                                  "'" + Objet.ruc + "', " +
+                                  "'" + Objet.empresa + "', " +
+                                  "'" + Objet.estado + "'," + Objet.checkventas + "," + Objet.checkcompras + "," + 
+                                  Objet.checkcobranzas + "," + Objet.checkpagos + "," + Objet.nfondoM + "," + Objet.check_cobranzacomercial + "," + Objet.ncomproductoflg+ ")";
+                    NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
+                    cadena = command3.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
+                    
                 }
-                
-
             }
             catch (Exception ex1)
             {
@@ -64,8 +65,14 @@ namespace Contasis
             conexion.Open();
             try
             {
-                string query = "update  cg_empemisor SET cdesrucemisor='" + Objet.empresa + "'," +
-                "flgactivo='" + Objet.estado + "' where ccodrucemisor='" + Objet.ruc + "'";
+               string query = "update  cg_empemisor SET cdesrucemisor='" + Objet.empresa + "'," +
+               "flgactivo='" + Objet.estado + "',nventaflg=" + Objet.checkventas + ",ncompraflg=" + Objet.checkcompras +
+               ", ncobranzaflg=" + Objet.checkcobranzas + ", npagoflg=" + Objet.checkpagos + ", ncomfondom=" + Objet.nfondoM +
+               ", ncomproductoflg=" + Objet.ncomproductoflg +
+               ", ncomventaflg=" + Objet.ncomventaflg +
+               ", ncomcompraflg=" + Objet.ncomcompraflg +
+               ", ncobranzacomercial=" + Objet.check_cobranzacomercial +
+               " where ccodrucemisor='" + Objet.ruc + "'";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
                 

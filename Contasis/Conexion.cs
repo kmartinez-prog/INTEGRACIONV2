@@ -15,7 +15,7 @@ namespace Contasis
     {
         private string cadena;
         public string Cadena { get => cadena; set => cadena = value; }
-        public void crearCadena(string _cadena)
+        public void CrearCadena(string _cadena)
         {
             cadena = _cadena;
             String str;
@@ -26,7 +26,7 @@ namespace Contasis
                 conex.Open();
                 
 
-                MessageBox.Show("Validando Conexión para Crear Base de Datos y guardar las credenciales.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+             ////   MessageBox.Show("Validando Conexión para Crear Base de Datos y guardar las credenciales.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 /**** ***/
                 string rutas = "SELECT top 1 replace(filename,NAME+'.mdf','') as ruta  FROM SYSDATABASES";
@@ -49,15 +49,15 @@ namespace Contasis
                         da.Fill(dt);
                         if (dt.Rows.Count > 0)
                         {
-                            MessageBox.Show("Ya Existe la base de datos <<bdintegradorContasis>>", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                           //// MessageBox.Show("Ya Existe la base de datos <<bdintegradorContasis>>", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             return;
 
                         }
                         else
                         {
-                            MessageBox.Show("base de datos <<bdintegradorContasis>> sera creada", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ////MessageBox.Show("base de datos <<bdintegradorContasis>> sera creada", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             {
-                                str = "CREATE DATABASE [bdintegradorContasis] ON PRIMARY " +
+                                str = "CREATE DATABASE bdintegradorContasis ON PRIMARY " +
                                       " (NAME = N'bdintegradorContasis', " +
                                       " FILENAME = N'" + ruta + "bdintegradorContasisDATA.mdf'," +
                                       "  SIZE = 8192KB, MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB) " +
@@ -69,7 +69,7 @@ namespace Contasis
                                 try
                                 {
                                     myCommand.ExecuteNonQuery();
-                                    MessageBox.Show("Base de datos ha sido creado <<bdintegradorContasis>>", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                 ////   MessageBox.Show("Base de datos ha sido creado <<bdintegradorContasis>>", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                     conex.Close();
                                 }
                                 catch 

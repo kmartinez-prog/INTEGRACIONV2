@@ -147,15 +147,20 @@ namespace Contasis
 
 
 
-                string pathBase = Application.StartupPath + "/service";
+                // string pathBase = Application.StartupPath + "/service";//
+                string pathBase = "C:\\Users\\Public\\Documents";
+
+
                 if (!Directory.Exists(pathBase))
                 {
                     Directory.CreateDirectory(pathBase);
                 }
-                string pathFile = Path.Combine(pathBase, "initservice.bat");
+                string pathFile = Path.Combine(pathBase, "service.txt");
 
                 string generar = chkGenerarDatos.Checked ? "S" : "N";
-                string command = $"sc start {serviceName} \"{ocultarsql}\" \"{tipoBD}\" \"{generar}\"";
+                /*string command = $"sc start {serviceName} \"{ocultarsql}\" \"{tipoBD}\" \"{generar}\"";*/
+
+                string command = $"{ocultarsql} {tipoBD} {generar}";
                 File.WriteAllText(pathFile, command);
 
                 Process.Start(pathBase);

@@ -21,22 +21,23 @@ namespace Actualizador
         private HttpClient httpClient;
         private MaterialSkinManager msk;
 
-        //private readonly string UrlVersion = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/version.txt";
-        //private readonly string UrlApp = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/Integrador_{0}.zip";
+      private readonly string UrlVersion = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/version.txt?v=" + DateTime.Now.ToString("ddMMyyyyHHmmss");
+        private readonly string UrlApp = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/Setup_{0}.zip";
 
-        private readonly string UrlVersion = "https://mediacomunica.com/apis/version.txt";
-        private readonly string UrlApp = "https://mediacomunica.com/apis/Setup_{0}.zip";
+      ///private readonly string UrlVersion = "https://contasiscorpfab.s3.amazonaws.com/version.txt";
+       ///private readonly string UrlApp = "https://contasiscorpfab.s3.amazonaws.com/Setup_{0}.zip";
 
         private readonly string UbicacionInstalador = Application.StartupPath + "\\version"; //@"C:\\Users\\Public\\Documents\\integrador\\version";
-        private readonly string NombreInstalador = "SetupTest.exe";
+        private readonly string NombreInstalador = "Integracion Online.exe";
 
         private readonly List<string> ArchivosExcluidos = new List<string>()
         {
             "actualizador.config",
             "actualizador.exe",
             "setup.exe",
-            "setup.msi",
-            "SetupTest.zip" // igual que NombreInstalador
+            "setup_1.msi",
+            "Integracion Online.zip", // igual que NombreInstalador
+            "MaterialSkin.dll"
         };
 
         public FrmPrincipal()

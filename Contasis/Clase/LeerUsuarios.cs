@@ -27,7 +27,7 @@ namespace Contasis.Clase
             {
 
                 string query0 = "SELECT  * FROM SYSDATABASES WHERE NAME='bdintegradorContasis'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query0, cone);
                 DataTable dt = new DataTable();
                 cone.Open();
@@ -82,7 +82,7 @@ namespace Contasis.Clase
             {
 
                 string query0 = "SELECT  * FROM CG_USUARIO";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query0, cone);
                 DataTable dt = new DataTable();
                 cone.Open();

@@ -38,8 +38,8 @@ namespace Contasis.Clase
                 "convert(varchar, ffecre2, 103) as ffecre2, " +
                 "ccodpresu, nigv,  nperdenre,  " +
                 "nbaseres, cigvxacre, obserror " +
-                "  FROM fin_compras where es_con_migracion not in(0,1,4) and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                "  FROM fin_compras where es_con_migracion=2 and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -85,7 +85,7 @@ namespace Contasis.Clase
                 "to_char(ffecre2, 'dd/mm/yyyy')::char(10) as ffecre2, " +
                 "ccodpresu, nigv,  nperdenre,  " +
                 "nbaseres, cigvxacre, obserror  " +
-                "  FROM fin_compras where es_con_migracion not in(0,1,4) and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
+                "  FROM fin_compras where es_con_migracion=2 and ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();
                 grilla.Load(carga);
@@ -108,14 +108,12 @@ namespace Contasis.Clase
         public string eliminarsql(Clase.Compras_propiedadescs Objet)
         {
             string cadena = "";
-
-            DataTable Tabla = new DataTable();
             SqlConnection cone = new SqlConnection();
 
             try
             {
                 string cadena1 = "Delete from FIN_COMPRAS  where idcompras=" + Objet.idcompras + "";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(cadena1, cone);
                 cone.Open();
                 cadena = commando.ExecuteNonQuery() == 1 ? "Eliminar" : "No se pudo eliminar";
@@ -172,9 +170,10 @@ namespace Contasis.Clase
             try
             {
                 string query = "update  fin_compras  SET cmreg='" + Objet.cmreg.Trim() + "',ccond='" + Objet.ccond.ToUpper().Trim() + "'," +
-                                   "cctabase='" + Objet.cctabase.Trim() + "',cctatot='" + Objet.cctatot.Trim() + "',ccodcos='" + Objet.ccodcos.Trim() + "'," +
-                                   "ccodcos2='" + Objet.ccodcos2.Trim() + "',obserror='',es_con_migracion=0  where idcompras=" + Objet.idcompras + "";
-                cone = ConexionSql.Instancial().establecerconexion();
+                                   "cctabase='"   + Objet.cctabase.Trim() + "',cctatot ='" + Objet.cctatot.Trim() +
+                                   "',ccodcos='"  + Objet.ccodcos.Trim() + "',ccodcos2='" + Objet.ccodcos2.Trim() + 
+                                   "',ccodpresu='" + Objet.ccodpresu.Trim() + "',obserror='', es_con_migracion = 0  where idcompras=" + Objet.idcompras + "";
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 cadena = commando1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -203,8 +202,9 @@ namespace Contasis.Clase
             try
             {
                 string query = "update  fin_compras  SET cmreg='" + Objet.cmreg.Trim() + "',ccond='" + Objet.ccond.ToUpper().Trim() + "'," +
-                                  "cctabase='" + Objet.cctabase.Trim() + "',cctatot='" + Objet.cctatot.Trim() + "',ccodcos='" + Objet.ccodcos.Trim() + "'," +
-                                  "ccodcos2='" + Objet.ccodcos2.Trim() + "',obserror='',es_con_migracion=0 where idcompras=" + Objet.idcompras + "";
+                                   "cctabase='" + Objet.cctabase.Trim() + "',cctatot ='" + Objet.cctatot.Trim() +
+                                   "',ccodcos='" + Objet.ccodcos.Trim() + "',ccodcos2='" + Objet.ccodcos2.Trim() +
+                                   "',ccodpresu='" + Objet.ccodpresu.Trim() + "',obserror='', es_con_migracion = 0  where idcompras=" + Objet.idcompras + "";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
 
@@ -250,9 +250,9 @@ namespace Contasis.Clase
                  "ccodpresu, nigv,  nperdenre,  " +
                  "nbaseres, cigvxacre, obserror " +
                  "FROM fin_compras  " +
-                 " Where es_con_migracion not in(0,1,4) and " +
+                 " Where es_con_migracion=2 and " +
                  "  ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "' and obserror='" + Objet.estado.Trim() + "'";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -299,7 +299,7 @@ namespace Contasis.Clase
                 "ccodpresu, nigv,  nperdenre, " +
                 "nbaseres, cigvxacre, obserror" +
                 " FROM fin_compras "+
-                " where es_con_migracion not in(0,1,4) and " +
+                " where es_con_migracion=2 and " +
                 "  ccodrucemisor='" + Objet.ruc.Trim() + "' and ccod_empresa='" + Objet.empresa.Trim() + "' and obserror='" + Objet.estado.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();
@@ -327,7 +327,7 @@ namespace Contasis.Clase
             try
             {
                 string query = "update  fin_compras  SET obserror='',es_con_migracion=0 where idcompras=" + Objet.vidcompras + "";
-                cone = ConexionSql.Instancial().establecerconexion();
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando1 = new SqlCommand(query, cone);
                 cone.Open();
                 cadena = commando1.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
@@ -375,5 +375,61 @@ namespace Contasis.Clase
             }
             return cadena;
         }
+        /*******************************************************************************************************/
+        public void ActualizaEstadoSQL(Clase.Compras_propiedadescs Objet)
+        {
+
+            SqlConnection cone = new SqlConnection();
+            try
+            {
+                string query = "update fin_compras  SET es_con_migracion=2  where  obserror like '%-error-%' and  convert(char(900),obserror)<>''  and  ccodrucemisor = '" + Objet.ruc.Trim() + "' and ccod_empresa = '" + Objet.empresa.Trim() + "'";
+                cone = ConexionSql.Instancial().Establecerconexion();
+                SqlCommand commando1 = new SqlCommand(query, cone);
+                cone.Open();
+                commando1.ExecuteNonQuery();
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+            }
+            finally
+            {
+                if (cone.State == ConnectionState.Open)
+                {
+                    cone.Close();
+                }
+
+            }
+
+        }
+        public void ActualizaEstadoPOS(Clase.Compras_propiedadescs Objet)
+        {
+
+            NpgsqlConnection conexion = new NpgsqlConnection();
+            conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+            conexion.Open();
+            try
+            {
+                string query = "update  fin_compras  SET es_con_migracion=2  where  obserror like '%-error-%' and  obserror<>''  and  ccodrucemisor = '" + Objet.ruc.Trim() + "' and ccod_empresa = '" + Objet.empresa.Trim() + "'";
+                NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
+                command3.ExecuteNonQuery();
+
+            }
+            catch (Exception ex1)
+            {
+                MessageBox.Show(ex1.ToString());
+            }
+            finally
+            {
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+
+            }
+        }
+
+
+
     }
 }

@@ -18,43 +18,61 @@ namespace Contasis
     public partial class FrmRucemisor : Form
     {
         public static FrmRucemisor instance = null;
-        string control;
-       
+
 
         public FrmRucemisor()
         {
             InitializeComponent();
             instance = this;
-            control = "0";
+
         }
+        readonly Clase.rucpropiedades obj = new Clase.rucpropiedades();
         private void FrmRucemisor_Load(object sender, EventArgs e)
         {
-            control = "1";
-            grilla1();
+
+            Grilla1();
         }
-        public void grilla1()
+        public void limpiarcontrol()
+        {
+            obj.ruc = "";
+            obj.empresa = "";
+            obj.estado = "";
+            obj.checkventas = 0;
+            obj.checkcompras = 0;
+            obj.checkcobranzas = 0;
+            obj.checkpagos = 0;
+            obj.ncomproductoflg = 0;
+            obj.ncomcompraflg = 0;
+            obj.ncomventaflg = 0;
+            obj.nfondoM = 0;
+
+            this.btneliminar.Enabled = false;
+            this.btnmodificar.Enabled = false;
+        }
+        public void Grilla1()
         {
             try
             {
                 if (Properties.Settings.Default.cadenaPostPrincipal == "")
                 {
                     Clase.rucemisor regis = new Clase.rucemisor();
-                    
                     dataGrid1.DataSource = regis.Cargar();
-              
+                    lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count);
+                    dataGrid1.AllowUserToAddRows = false;
+                    lblTotales.Refresh();
                 }
                 else
                 {
                     Clase.rucemisor regis = new Clase.rucemisor();
-                    
                     dataGrid1.DataSource = regis.Cargarpostgres();
+                    lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count);
                     dataGrid1.AllowUserToAddRows = false;
-                 
+                    lblTotales.Refresh();
                 }
-               
 
-                lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count - 1);
-                dataGrid1.AllowUserToAddRows = false;
+
+
+
                 dataGrid1.Columns[0].HeaderText = "RUC";
                 dataGrid1.Columns[0].MinimumWidth = 50;
                 dataGrid1.Columns[0].Width = 100;
@@ -64,29 +82,83 @@ namespace Contasis
                 dataGrid1.Columns[2].HeaderText = "ACTIVO";
                 dataGrid1.Columns[2].MinimumWidth = 50;
                 dataGrid1.Columns[2].Width = 100;
+
+                if (Properties.Settings.Default.TipModulo == "1")
+                {
+                    dataGrid1.Columns[3].HeaderText = "EST_VENTAS";
+                    dataGrid1.Columns[3].MinimumWidth = 50;
+                    dataGrid1.Columns[3].Width = 100;
+
+
+                    dataGrid1.Columns[4].HeaderText = "EST_COMPRAS";
+                    dataGrid1.Columns[4].MinimumWidth = 50;
+                    dataGrid1.Columns[4].Width = 100;
+
+                    dataGrid1.Columns[5].HeaderText = "EST_COBRANZA";
+                    dataGrid1.Columns[5].MinimumWidth = 50;
+                    dataGrid1.Columns[5].Width = 100;
+
+
+                    dataGrid1.Columns[6].HeaderText = "EST_PAGO";
+                    dataGrid1.Columns[6].MinimumWidth = 50;
+                    dataGrid1.Columns[6].Width = 100;
+
+
+                    dataGrid1.Columns[7].HeaderText = "FONDO_M";
+                    dataGrid1.Columns[7].MinimumWidth = 50;
+                    dataGrid1.Columns[7].Width = 100;
+
+                }
+
+                if (Properties.Settings.Default.TipModulo == "2")
+                {
+                    dataGrid1.Columns[3].HeaderText = "COM_PRODUCTOS";
+                    dataGrid1.Columns[3].MinimumWidth = 50;
+                    dataGrid1.Columns[3].Width = 100;
+
+
+                    dataGrid1.Columns[4].HeaderText = "COM_COMPRAS";
+                    dataGrid1.Columns[4].MinimumWidth = 50;
+                    dataGrid1.Columns[4].Width = 100;
+
+                    dataGrid1.Columns[5].HeaderText = "COM_VENTAS";
+                    dataGrid1.Columns[5].MinimumWidth = 50;
+                    dataGrid1.Columns[5].Width = 100;
+
+
+                    dataGrid1.Columns[6].HeaderText = "COM_COBRANZA";
+                    dataGrid1.Columns[6].MinimumWidth = 50;
+                    dataGrid1.Columns[6].Width = 100;
+
+                }
                 dataGrid1.AllowUserToAddRows = false;
 
 
                 dataGrid1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 dataGrid1.ReadOnly = true;
 
-                if (dataGrid1.Rows.Count - 1 > 0)
+                if (dataGrid1.Rows.Count > 0)
                 {
                     this.dataGrid1.CurrentCell = this.dataGrid1.Rows[0].Cells[1];
                     this.dataGrid1.Refresh();
                 }
                 this.dataGrid1.Refresh();
-                control = "1";
+                lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid1.Rows.Count);
+                dataGrid1.AllowUserToAddRows = false;
+                lblTotales.Refresh();
+
             }
-            catch 
+            catch
             {
                 MessageBox.Show("No existe información para Mostrar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                control = "0";
+
             }
+            this.btneliminar.Enabled = false;
+            this.btnmodificar.Enabled = false;
         }
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
-            grilla1();
+         //   Grilla1();
         }
         private void BtnExcel_Click(object sender, EventArgs e)
         {
@@ -177,10 +249,12 @@ namespace Contasis
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        private void btnAccesso_Click(object sender, EventArgs e)
+        private void BtnAccesso_Click(object sender, EventArgs e)
         {
             if (dataGrid1.Rows.Count > 0)
             {
+
+
                 Clase.usuarioPropiedad obj = new Clase.usuarioPropiedad();
                 obj.codigo = Convert.ToString(dataGrid1.SelectedRows[0].Cells[0].Value).Trim();
                 obj.nombre = Convert.ToString(dataGrid1.SelectedRows[0].Cells[1].Value).Trim();
@@ -198,47 +272,40 @@ namespace Contasis
             }
 
         }
-        private void btncerrar_Click_1(object sender, EventArgs e)
+        private void Btncerrar_Click_1(object sender, EventArgs e)
         {
             this.Hide();
             this.Close();
         }
-        private void btnnuevo_Click_1(object sender, EventArgs e)
+        private void Btnnuevo_Click_1(object sender, EventArgs e)
         {
-            FrmRuceditor Frnuevo = new FrmRuceditor(1, "", "", "");
+            FrmRuceditor Frnuevo = new FrmRuceditor(1, "", "", "", 0, 0, 0, 0, 0, 0, 0,0,0);
             Frnuevo.Text = "Registrar Ruc Nuevo";
             Frnuevo.ShowDialog();
+            this.Grilla1();
 
         }
-        private void btnmodificar_Click_1(object sender, EventArgs e)
+
+
+
+        private void Btnmodificar_Click_1(object sender, EventArgs e) 
         {
-            if (dataGrid1.Rows.Count > 0)
-            {
-                Clase.rucpropiedades obj = new Clase.rucpropiedades();
-                obj.ruc = Convert.ToString(dataGrid1.SelectedRows[0].Cells[0].Value).Trim();
-                obj.empresa = Convert.ToString(dataGrid1.SelectedRows[0].Cells[1].Value).Trim();
-                if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[2].Value).Trim() == "True")
-                {
-                    obj.estado = "1";
-                }
-                else
-                {
-                    obj.estado = "0";
-                }
-                  
-
-                FrmRuceditor Fredit = new FrmRuceditor(2, obj.ruc, obj.empresa, obj.estado);
-                Fredit.Text = "Actualizar datos del Ruc";
-                Fredit.ShowDialog();
-
-            }
-            else
-            {
-                MessageBox.Show("No Existe registros a modificar", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+            FrmRuceditor Fredit = new FrmRuceditor(2, obj.ruc, obj.empresa, obj.estado, obj.checkventas, obj.checkcompras, obj.checkcobranzas, obj.nfondoM, 
+                obj.ncomproductoflg, obj.ncomcompraflg, obj.ncomventaflg,obj.nfondoM,obj.check_cobranzacomercial);
+            Fredit.Text = "Actualizar datos del Ruc";
+            Fredit.ShowDialog();
+            this.limpiarcontrol();
+            this.Grilla1();
+            this.btneliminar.Enabled = false;
+            this.btnmodificar.Enabled = false;
         }
-        private void btneliminar_Click_1(object sender, EventArgs e)
+
+        private void dataGrid1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.btneliminar.Enabled = true;
+            this.btnmodificar.Enabled = true;
+        }
+        private void Btneliminar_Click_1(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("Deseas eliminar el ruc seleccionado.?", "Contasis Corp.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
@@ -248,18 +315,168 @@ namespace Contasis
                     Clase.rucpropiedades obj = new Clase.rucpropiedades();
                     obj.ruc = Convert.ToString(dataGrid1.SelectedRows[0].Cells[0].Value).Trim();
                     obj.empresa = Convert.ToString(dataGrid1.SelectedRows[0].Cells[1].Value).Trim();
-                        FrmEliminarruc Frmeliruc = new FrmEliminarruc(obj.ruc, obj.empresa);
-                        Frmeliruc.ShowDialog();
+                    FrmEliminarruc Frmeliruc = new FrmEliminarruc(obj.ruc, obj.empresa);
+                    Frmeliruc.ShowDialog();
+                    this.Grilla1();
 
                 }
             }
             else if (dialogResult == DialogResult.No)
             {
+                this.Grilla1();
+                this.dataGrid1.Refresh();  
+                this.limpiarcontrol();
+                this.btneliminar.Enabled = false;
+                this.btnmodificar.Enabled = false;
                 return;
             }
 
         }
+        private void dataGrid1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+            this.limpiarcontrol();
+            if (dataGrid1.Rows.Count > 0)
+            {
+                this.btneliminar.Enabled = false;
+                this.btnmodificar.Enabled = false;
 
+                int n = e.RowIndex;
+                if (n != -1)
+                {
+                    obj.ruc = (string)dataGrid1.Rows[n].Cells[0].Value;
+                    obj.empresa = (string)dataGrid1.Rows[n].Cells[1].Value;
+                    //////////MessageBox.Show((string)dataGrid1.Rows[n].Cells[0].Value);
+                    
+
+
+                    if (Convert.ToString(dataGrid1.Rows[n].Cells[2].Value) == "1")
+                    {
+                        obj.estado = "1";
+                    }
+                    else
+                    {
+                        obj.estado = "0";
+                    }
+                    if (Properties.Settings.Default.TipModulo == "1")
+                    {
+
+                        if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[3].Value).Trim() == "1")
+                        {
+                            obj.checkventas = 1;
+                        }
+                        else
+                        {
+                            obj.checkventas = 0;
+                        }
+
+                        if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[4].Value).Trim() == "1")
+                        {
+                            obj.checkcompras = 1;
+                        }
+                        else
+                        {
+                            obj.checkcompras = 0;
+                        }
+
+                        if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[5].Value).Trim() == "1")
+                        {
+                            obj.checkcobranzas = 1;
+                        }
+                        else
+                        {
+                            obj.checkcobranzas = 0;
+                        }
+
+                        if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[6].Value).Trim() == "1")
+                        {
+                            obj.checkpagos = 1;
+                        }
+                        else
+                        {
+                            obj.checkpagos = 0;
+                        }
+                        if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[7].Value).Trim() == "1")
+                        {
+                            obj.nfondoM = 1;
+                        }
+                        else
+                        {
+                            obj.nfondoM = 0;
+                        }
+
+                    }
+
+                    if (Properties.Settings.Default.TipModulo == "2")
+                    {
+
+                        if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[3].Value).Trim() == "1")
+                        {
+                            obj.ncomproductoflg = 1;
+                        }
+                        else
+                        {
+                            obj.ncomproductoflg = 0;
+                        }
+
+                        if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[4].Value).Trim() == "1")
+                        {
+                            obj.ncomcompraflg = 1;
+                        }
+                        else
+                        {
+                            obj.ncomcompraflg = 0;
+                        }
+
+                        if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[5].Value).Trim() == "1")
+                        {
+                            obj.ncomventaflg = 1;
+                        }
+                        else
+                        {
+                            obj.ncomventaflg = 0;
+                        }
+                        if (Convert.ToString(dataGrid1.SelectedRows[0].Cells[6].Value).Trim() == "1")
+                        {
+                            obj.check_cobranzacomercial = 1;
+                        }
+                        else
+                        {
+                            obj.check_cobranzacomercial = 0;
+                        }
+
+
+
+                    }
+
+
+                    /***********************/
+                }
+
+                else
+                {
+                    MessageBox.Show("No Existe registros a modificar", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+
+
+            }
+
+            }
+
+        private void dataGrid1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.btneliminar.Enabled = true;
+            this.btnmodificar.Enabled = true;
+        }
+
+        private void dataGrid1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.btneliminar.Enabled = true;
+            this.btnmodificar.Enabled = true;
+        }
     }
+ 
 }
 

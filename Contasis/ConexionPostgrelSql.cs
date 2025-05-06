@@ -15,7 +15,7 @@ namespace Contasis
 
         public string Cadena { get => cadena; set => cadena = value; }
 
-        public string  crearCadena(string _cadena)
+        public string  CrearCadena(string _cadena)
         {
             cadena = _cadena;
             string resultado;
@@ -23,7 +23,7 @@ namespace Contasis
             try {
                 conex.ConnectionString = cadenaconexion;
                 conex.Open();
-                 MessageBox.Show("Conexión valida para el Postgresql", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+              /*   MessageBox.Show("Conexión valida para el Postgresql", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);*/
 
                 resultado = "1";
                 Properties.Settings.Default.cadenaPost =cadena;
@@ -38,6 +38,9 @@ namespace Contasis
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
                 MessageBox.Show("No se pudo conectar al postgresql, revise por favor sus credenciales y si esta configurado con el Contasis.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                
+                
+
             }
 
             return resultado;

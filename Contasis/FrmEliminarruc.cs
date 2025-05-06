@@ -47,7 +47,7 @@ namespace Contasis
                     respuesta = ds.Eliminar(obe);
                     if (respuesta.Equals("Eliminar"))
                     {
-                        FrmRucemisor.instance.grilla1();
+                        FrmRucemisor.instance.Grilla1();
                         MessageBox.Show("ruc fue eliminado", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Hide();
                         this.Close();
@@ -63,7 +63,7 @@ namespace Contasis
                     respuesta = ds.Eliminar(obe);
                     if (respuesta.Equals("Eliminar"))
                     {
-                        FrmRucemisor.instance.grilla1();
+                        FrmRucemisor.instance.Grilla1();
                         MessageBox.Show("ruc fue eliminado", "Contasis Corp", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Hide();
                         this.Close();

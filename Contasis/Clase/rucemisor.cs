@@ -8,15 +8,26 @@ namespace Contasis.Clase
 {
     class rucemisor
     {
+        string query;
         public DataTable Cargar()
         {
             SqlDataReader carga;
             DataTable Grilla = new DataTable();
             SqlConnection cone = new SqlConnection();
+            
             try
             {
-                string query = "select ccodrucemisor,cdesrucemisor,flgactivo  from cg_empemisor ";
-                cone = ConexionSql.Instancial().establecerconexion();
+                if (Properties.Settings.Default.TipModulo == "1")
+                {
+                     query = "select ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg,ncomfondom  from cg_empemisor ";
+                }
+                if (Properties.Settings.Default.TipModulo == "2")
+                {
+                    query = "select ccodrucemisor,cdesrucemisor,flgactivo,ncomproductoflg,ncomcompraflg,ncomventaflg,ncobranzacomercial  from cg_empemisor ";
+                }
+
+
+                cone = ConexionSql.Instancial().Establecerconexion();
                 SqlCommand commando = new SqlCommand(query, cone);
                 cone.Open();
                 carga = commando.ExecuteReader();
@@ -45,7 +56,18 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo  from cg_empemisor ";
+
+                if (Properties.Settings.Default.TipModulo == "1")
+                {
+                    query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg,ncomfondom  from cg_empemisor;";
+                }
+                if (Properties.Settings.Default.TipModulo == "2")
+                {
+                    query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo,ncomproductoflg::char(1) as ncomproductoflg,ncompraflg::char(1) as ncomcompraflg,nventaflg::char(1) as ncomventaflg,ncobranzacomercial as cobranza from cg_empemisor;";
+                   /// query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo,ncomproductoflg::char(1) as ncomproductoflg,ncomcompraflg::char(1) as ncomcompraflg ,ncomventaflg::char(1) as ncomventaflg,ncobranzacomercial as cobranza  from cg_empemisor "; //,ncomfondom//
+                }
+
+
                 NpgsqlCommand cmdp = new NpgsqlCommand(query, conexion);
 
                 carga = cmdp.ExecuteReader();

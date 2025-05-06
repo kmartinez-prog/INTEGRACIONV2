@@ -17,15 +17,12 @@ namespace Contasis
 {
     public partial class FrmUsuarios : Form
     {
-        
         public static FrmUsuarios instance = null;
-        string control;
-
         public FrmUsuarios()
         {
             InitializeComponent();
             instance = this;
-            control = "0";
+          
         }
 
         private void FrmUsuarios_Load(object sender, EventArgs e)
@@ -102,12 +99,12 @@ namespace Contasis
                     this.dataGrid1.Refresh();
                 }
                 this.dataGrid1.Refresh();
-                control = "1";
+               
             }
             catch 
             {
                 MessageBox.Show("No existe información para Mostrar.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                control = "0";
+              
             }
         }
         private void timer1_Tick(object sender, EventArgs e)

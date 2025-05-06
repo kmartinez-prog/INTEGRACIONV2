@@ -17,13 +17,13 @@ namespace Contasis.Clase
     public class ValidarVersion
     {
         private readonly HttpClient httpClient;
+        private readonly string VersionApp = "25.0.03";
 
-        private readonly string VersionApp = "1.0.10";
-        private readonly string UrlVersion = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/version.txt";
-        private readonly string UrlApp = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/Integrador_{0}.zip";
-        private readonly string UbicacionInstalador = @"C:\\Users\\Public\\Documents\\integrador\\version";
-        private readonly string NombreInstalador = "Setup1.msi";
-        private readonly string NombreServicio = "IntegradorOnline";
+        private readonly string UrlVersion = "https://videocontasis.com/Contasiscorp_2023/SQL_2023/Update_Integrador/version.txt?v=" + DateTime.Now.ToString("ddMMyyyyHHmmss");
+        
+
+      /// private readonly string UrlVersion = "https://contasiscorpfab.s3.amazonaws.com/version.txt";
+      /// private readonly string UrlVersion = "https://contasiscorpfab.s3.amazonaws.com/version.txt";
 
         private string CadenaSql;
         private string MotorBD;
@@ -31,10 +31,12 @@ namespace Contasis.Clase
         private readonly string MOTOR_POSTGRES = "POSTGRES";
         private readonly string MOTOR_SQLSERVER = "SQLSERVER";
 
-        public  ValidarVersion()
+        public ValidarVersion()
         {
+
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
             httpClient = new HttpClient();
+
             if (File.Exists(@"C:\Users\Public\Documents\SQL.txt"))
             {
                 CadenaSql = Mostrar(File.ReadAllText(@"C:\Users\Public\Documents\SQL.txt"));
@@ -46,35 +48,68 @@ namespace Contasis.Clase
                 MotorBD = MOTOR_POSTGRES;
             }
         }
-        
+
         private string Mostrar(string _cadena)
         {
             byte[] descrcriptar = Convert.FromBase64String(_cadena);
             return Encoding.Unicode.GetString(descrcriptar);
         }
+        public void CopyFilesActualizador()
+        {
+            try
+            {
+                string versionFolderPath = Path.Combine(Application.StartupPath, "version");
+                if (!Directory.Exists(versionFolderPath)) { return; }
+                string[] files = { "Actualizador.exe", "Actualizador.exe.config", "MaterialSkin.dll" };
+
+
+                foreach (string file in files)
+                {
+                    string sourceFile = Path.Combine(versionFolderPath, file);
+                    if (File.Exists(sourceFile))
+                    {
+                        string destinationFile = Path.Combine(Application.StartupPath, file);
+                        File.Copy(sourceFile, destinationFile, overwrite: true);
+                    }
+                    
+                }
+
+                Directory.Delete(versionFolderPath, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al reemplazar el actualizador " + ex.Message);
+            }
+        }
 
         public async Task Validar()
-        {            
-            if(CadenaSql == null)
+        {
+            if (CadenaSql == null)
             {
                 return;
             }
 
             try
             {
-                string versionURL = await ConsultarVersionAsync(UrlVersion);
+                CopyFilesActualizador();
+                string versionURL = await ConsultarVersionAsync();
+                if (versionURL == null)
+                {
+                    return;
+                }
                 // si version de bd es diferente a version de app actualizar bd.
                 bool requiereActualizacion = false;
                 // sql o postgres?
-                if(MotorBD == MOTOR_POSTGRES)
+                if (MotorBD == MOTOR_POSTGRES)
                 {
                     requiereActualizacion = SincronizarVersionPostgres(versionURL);
-                } else
+                }
+                else
                 {
                     requiereActualizacion = SincronizarVersionSqlServer(versionURL);
                 }
                 //requiereActualizacion = await SincronizarVersionSqlServerAsync();
-                
+
                 if (!requiereActualizacion)
                 {
                     return;
@@ -84,12 +119,15 @@ namespace Contasis.Clase
 
                 if (result == DialogResult.Yes)
                 {
-                    await DowloadInstalador(versionURL);
+                    string appActualizador = Path.Combine(Application.StartupPath, "actualizador.exe");
+                    Process.Start(appActualizador);
+                    Environment.Exit(0);
+                    //await DowloadInstalador(versionURL);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al validar version del integrador: "+ex.Message);
+                MessageBox.Show($"Error al validar version del integrador: " + ex.Message);
             }
         }
 
@@ -108,8 +146,8 @@ namespace Contasis.Clase
                 }
                 else if (versionBD != VersionApp)
                 {
-                    ExecScriptUpdatePostgres(conexion);
-                    ExecUpdateVersionPostgres(conexion, VersionApp);                    
+                    /*ExecScriptUpdatePostgres(conexion);*/
+                    ExecUpdateVersionPostgres(conexion, VersionApp);
                 }
                 versionBD = VersionApp;
                 //
@@ -117,10 +155,10 @@ namespace Contasis.Clase
             }
             return requiereActualizacion;
         }
-        
+
         private string ExecSelectVersionPostgres(NpgsqlConnection conexion)
         {
-            string version = null;            
+            string version = null;
             using (NpgsqlCommand cmdp1 = new NpgsqlCommand("select cversion from public.fn_select_version();", conexion))
             {
                 using (NpgsqlDataReader reader = cmdp1.ExecuteReader())
@@ -143,16 +181,17 @@ namespace Contasis.Clase
             }
         }
 
-        private void ExecScriptUpdatePostgres(NpgsqlConnection conexion)
+     /*   private void ExecScriptUpdatePostgres(NpgsqlConnection conexion)
         {
             /*string sql = Properties.Resources.ScriptActualizacionPostgres;
             using (NpgsqlCommand cmdp1 = new NpgsqlCommand(sql, conexion))
             {                
                 cmdp1.ExecuteNonQuery();
-            }*/
-        }
-
+            }
+        } 
+    
         // sql server
+    */    
         private bool SincronizarVersionSqlServer(string newVersion)
         {
             bool requiereActualizacion = false;
@@ -166,10 +205,10 @@ namespace Contasis.Clase
                 }
                 else if (versionBD != VersionApp)
                 {
-                    ExecScriptUpdateSqlServer(conexion);
-                    ExecUpdateVersionSqlServer(conexion, VersionApp);                    
+                    /*ExecScriptUpdateSqlServer(conexion);*/
+                    ExecUpdateVersionSqlServer(conexion, VersionApp);
                 }
-                versionBD = VersionApp;                
+                versionBD = VersionApp;
                 requiereActualizacion = (versionBD != newVersion);
             }
             return requiereActualizacion;
@@ -206,125 +245,49 @@ namespace Contasis.Clase
                 cmd.ExecuteNonQuery();
             }
         }
-        
+        /*
         private void ExecScriptUpdateSqlServer(SqlConnection conexion)
         {
-           /* string sql = Properties.Resources.ScriptActualizacionSQLServer;
+            /*string sql = Properties.Resources.ScriptActualizacionSQLServer;
             using (SqlCommand command = new SqlCommand(sql, conexion))
             {
                 command.CommandTimeout = 5000;
                 command.ExecuteNonQuery();
             }*/
-        }
-
+      
+    
         // General
-        private async Task<string> ConsultarVersionAsync(string url)
+        private async Task<string> ConsultarVersionAsync()
         {
             string content = null;
             try
             {
-                using (HttpResponseMessage response = await httpClient.GetAsync(url))
+                using (HttpResponseMessage response = await httpClient.GetAsync(UrlVersion))
                 {
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return null;
+                    }
                     response.EnsureSuccessStatusCode();
-                    content = await response.Content.ReadAsStringAsync();
+                    if (response.Content != null)
+                    {
+                        content = await response.Content.ReadAsStringAsync();
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                string pathLog = Path.Combine(Application.StartupPath, "logs");
+                if (!Directory.Exists(pathLog))
+                {
+                    Directory.CreateDirectory(pathLog);
+                }
+                string logFile = Path.Combine(pathLog, ("error-" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt"));
+                File.WriteAllText(logFile, ex.ToString());
+                MessageBox.Show("No fue posible buscar nuevas actualizaciones");
             }
             return content;
         }
 
-        private async Task DowloadInstalador(string newVersion)
-        {
-
-            if (Directory.Exists(UbicacionInstalador))
-            {
-                Directory.Delete(UbicacionInstalador, true);
-            }
-            Directory.CreateDirectory(UbicacionInstalador);
-            string pathInstalador = UbicacionInstalador + NombreInstalador.Replace(".msi", ".zip");
-            await DownloadFileAsync(pathInstalador, newVersion);
-            ExtractZipFile(pathInstalador, UbicacionInstalador);
-        }
-
-        private async Task DownloadFileAsync(string filePath, string newVersion)
-        {
-            string url = String.Format(UrlApp, newVersion);
-            using (HttpResponseMessage response = await httpClient.GetAsync(url))
-            {
-                response.EnsureSuccessStatusCode();
-                byte[] fileBytes = await response.Content.ReadAsByteArrayAsync();
-                File.WriteAllBytes(filePath, fileBytes);
-            }
-        }
-
-        private void ExtractZipFile(string zipPath, string extractPath)
-        {
-            if (!Directory.Exists(extractPath))
-            {
-                Directory.CreateDirectory(extractPath);
-            }
-            ZipFile.ExtractToDirectory(zipPath, extractPath);
-            string file = Path.Combine(extractPath, NombreInstalador);
-
-            if (File.Exists(file))
-            {
-                IniciarInstalacion(extractPath, file);
-            }
-        }
-
-        private void IniciarInstalacion(string pathmsi, string msi)
-        {
-            try
-            {
-                //DetenerServicio();
-                Process.Start(pathmsi);
-                Process.Start(msi);
-                /*var processInfo = new Process();
-                processInfo.StartInfo.FileName = NombreInstalador;
-                processInfo.StartInfo.Arguments = $"/i \"{msi}\" /qn";
-                processInfo.StartInfo.UseShellExecute = false;
-
-                processInfo.Start();*/
-                Environment.Exit(0);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("No fue posible iniciar el instalador, por favor realice esta accion manualmente");
-            }
-        }
-
-        private ProcessStartInfo GetProcessStartInfo(string arguments)
-        {
-            return new ProcessStartInfo
-            {
-                FileName = "sc.exe",
-                Arguments = arguments,
-                Verb = "runas", // Solicitar permiso de administrador
-                UseShellExecute = true,
-                CreateNoWindow = true
-            };
-        }
-
-        private void DetenerServicio()
-        {
-            string arguments = $"stop {NombreServicio}";
-            var processInfo = GetProcessStartInfo(arguments);
-
-            try
-            {
-                using (var process = Process.Start(processInfo))
-                {
-                    process.WaitForExit();
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al detener servico de integrador online");
-            }
-        }
     }
 }

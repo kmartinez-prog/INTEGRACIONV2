@@ -58,7 +58,7 @@ namespace Contasis
                                 txtcadena.Text = "Data Source=" + txtServidor.Text + ";Initial Catalog=Master;user id=" + Txtusuario.Text + ";password=" + txtClave.Text + "";
 
                                 Establecerconexion objetconexion = new Establecerconexion();
-                                objetconexion.crearCadena(txtcadena.Text);
+                                objetconexion.CrearCadena(txtcadena.Text);
                                 SqlConnection c = new SqlConnection(txtcadena.Text);
                                 try
                                 {
@@ -101,7 +101,7 @@ namespace Contasis
                                     connection.Close();
 
                                     Establecerconexion objetconexion1 = new Establecerconexion();
-                                    objetconexion1.crearCadena(txtcadena.Text);
+                                    objetconexion1.CrearCadena(txtcadena.Text);
                                     SqlConnection connection1 = new SqlConnection(txtcadena.Text);
                                     connection1.Open();
                                     String verifica = "SELECT * FROM SYSDATABASES WHERE NAME='bdintegradorContasis'";
@@ -141,7 +141,7 @@ namespace Contasis
                                                            "cTipoBase Char(250),cubicacion Char(250),cServidor text,cUsuario Char(250)," +
                                                            "cClave text,cPuerto char(50),cBase char(250)," +
                                                            "cEsquema Varchar(250),cCadena text, fFechaCreacion DateTime Default Getdate()," +
-                                                           "fFechaModificacion Datetime, cUsuarioCre char(35),cUsuarioModi char(35))";
+                                                           "fFechaModificacion Datetime, cUsuarioCre char(35),cUsuarioModi char(35),nModulo int default 0)";
 
                                                 SqlCommand myCommand1 = new SqlCommand(str1, connection1);
                                                     try
@@ -187,8 +187,8 @@ namespace Contasis
                                                             txtcadena.Enabled = false;
                                                             btnGrabar.Enabled = true;
                                                             btnGrabar.Focus();
-
-                                                        }
+                                                            Botonsiguiente();
+                                                    }
                                                         catch 
                                                         {
                                                             MessageBox.Show("Error, favor revise.", "Contasis Corp. No se grabo las Credenciales", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -211,7 +211,8 @@ namespace Contasis
                                     MessageBox.Show("Revise las credenciales.", "Contasis Corp. - Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                                 }
                                 c.Close();
-                                lblEstado.Text = "Registro de Credenciales Sql Server grabadas";
+                            MessageBox.Show("Ya existe las Credenciales del Sql Server.", "Contasis Corp. - Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            lblEstado.Text = "Registro de Credenciales Sql Server ya registradas";
                                 Principal.instance.txtcontrol.Text = "1";
                                 this.captura1();
                             
@@ -226,7 +227,7 @@ namespace Contasis
                             string estadoconepos;
                             txtcadena.Text = "server=" + txtServidor.Text + "; port=" + txtpuerto.Text + ";user id=" + Txtusuario.Text + ";password=" + txtClave.Text + ";database=contasis;";
                             ConexionPostgrelSql objetconexionPls = new ConexionPostgrelSql();
-                            estadoconepos = objetconexionPls.crearCadena(txtcadena.Text);
+                            estadoconepos = objetconexionPls.CrearCadena(txtcadena.Text);
                             Clase.esconder esconde1 = new Clase.esconder();
                        
                             try
@@ -272,7 +273,7 @@ namespace Contasis
                                     "ctipobase Char(250), cubicacion Char(250),cservidor text, cusuario Char(250)," +
                                     "cclave text, cpuerto char(50), cbase char(250)," +
                                     "cesquema Varchar(250), ccadena text, fFechacreacion timestamp," +
-                                    "ffechamodificacion timestamp, cusuarioCre char(35), cusuariomodi char(35));";
+                                    "ffechamodificacion timestamp, cusuarioCre char(35), cusuariomodi char(35),nModulo int default 0);";
                                     NpgsqlCommand cmdp4 = new NpgsqlCommand(text04, conexionNew);
                                     cmdp4.ExecuteNonQuery();
 
@@ -313,15 +314,18 @@ namespace Contasis
                                         txtcadena.Text = conexionnewpos;
                                         btnGrabar.Enabled = true;
                                         btnGrabar.Focus();
+                                        Botonsiguiente();
+
+
                                         conexionNew.Close();
                                         this.captura2();
                                         Principal.instance.txtcontrol.Text = "1";
                                 }
                                 
                             }
-                            catch (System.Exception ex1)
+                            catch 
                             {
-                                MessageBox.Show(ex1.ToString(), "Contasis Corp. no se ha creado la base de datos en Postgrel", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                MessageBox.Show("Error en los datos ingresados.Debe de revisar el puerto , usuario o Clave.", "Contasis Corp. no se ha creado la base de datos en Postgrel", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             }
 
 
@@ -371,15 +375,7 @@ namespace Contasis
         }
         private void btnGrabar_Click_1(object sender, EventArgs e)
         {
-            int opcion = cmbOrigen.SelectedIndex;
-            
-            
-                String parametercadena = txtcadena.Text;
-                FrmCrearTablas frm = new FrmCrearTablas(parametercadena,opcion, 0);
-                frm.Show();
-            this.btnGrabar.Enabled = false;
-            
-
+            Botonsiguiente();
         }
         private void cmbOrigen_SelectedIndexChanged_1(object sender, EventArgs e)
         {
@@ -467,9 +463,20 @@ namespace Contasis
             }
             catch 
             {
-                MessageBox.Show("Error no existe información de conexión a empresa " , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
+               /// MessageBox.Show("Error no existe información de conexión a empresa " , "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+        }
+        public void Botonsiguiente()
+        {
+            int opcion = cmbOrigen.SelectedIndex;
+
+
+            String parametercadena = txtcadena.Text;
+            FrmCrearTablas frm = new FrmCrearTablas(parametercadena, opcion, 0);
+            frm.Show();
+            this.btnGrabar.Enabled = false;
+
+
         }
         public void captura2()
         {
@@ -504,13 +511,16 @@ namespace Contasis
 
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void txtpuerto_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 
+ }
+    
 
-
-    }
 

@@ -45,6 +45,7 @@ namespace Contasis
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.btnverclave);
             this.panel1.Controls.Add(this.txtpassword);
@@ -114,6 +115,7 @@ namespace Contasis
             this.txtcodigo.Name = "txtcodigo";
             this.txtcodigo.Size = new System.Drawing.Size(66, 20);
             this.txtcodigo.TabIndex = 1;
+            this.txtcodigo.TextChanged += new System.EventHandler(this.txtcodigo_TextChanged);
             // 
             // lblcodigo
             // 

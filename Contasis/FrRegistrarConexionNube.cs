@@ -394,5 +394,13 @@ namespace Contasis
                 }
             }
         }
+
+        private void txtpuerto_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
