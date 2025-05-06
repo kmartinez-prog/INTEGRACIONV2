@@ -182,6 +182,7 @@ namespace Contasis
             // label38
             // 
             this.label38.AutoSize = true;
+            this.label38.ForeColor = System.Drawing.SystemColors.Info;
             this.label38.Location = new System.Drawing.Point(373, 6);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(151, 13);
@@ -1184,7 +1185,7 @@ namespace Contasis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(654, 561);
+            this.ClientSize = new System.Drawing.Size(632, 561);
             this.Controls.Add(this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025);
             this.Controls.Add(this.txtcom_importar_ventas_principal_anular2025);
             this.Controls.Add(this.txtcom_importar_compras_ventas_principal_actualiza_stock_anula);
