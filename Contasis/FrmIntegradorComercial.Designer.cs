@@ -77,20 +77,26 @@ namespace Contasis
             this.label2 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.dataGrid = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btngrabar = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
             this.lvalida3 = new System.Windows.Forms.Label();
             this.lvalida2 = new System.Windows.Forms.Label();
             this.lvalida1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.dataGridView_cobranza = new System.Windows.Forms.DataGridView();
+            this.nEmpresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtflujocobra = new System.Windows.Forms.TextBox();
             this.txtregistro_cobra = new System.Windows.Forms.TextBox();
             this.txtsubdiario_cobra = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.BtnGrabarCobranza = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbempresas = new System.Windows.Forms.ComboBox();
@@ -123,21 +129,15 @@ namespace Contasis
             this.txtcom_importar_compras_ventas_principal_actualiza_stock_anula = new System.Windows.Forms.TextBox();
             this.txtcom_importar_ventas_principal_anular2025 = new System.Windows.Forms.TextBox();
             this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025 = new System.Windows.Forms.TextBox();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nEmpresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label14 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.Tablero.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_cobranza)).BeginInit();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -646,6 +646,12 @@ namespace Contasis
             this.dataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellContentClick);
             this.dataGrid.Click += new System.EventHandler(this.DataGrid_Click);
             // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            // 
             // btngrabar
             // 
             this.btngrabar.Enabled = false;
@@ -674,6 +680,38 @@ namespace Contasis
             this.tabPage1.Text = "Configuracion Cobranzas";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.label14);
+            this.panel3.Controls.Add(this.label13);
+            this.panel3.Location = new System.Drawing.Point(14, 371);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(376, 73);
+            this.panel3.TabIndex = 68;
+            // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(8, 17);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(355, 41);
+            this.label14.TabIndex = 1;
+            this.label14.Text = "Debe de grabar cada cuenta cuando  el usuario registre un nuevo movimiento en Con" +
+    "figuración de documentos ya que estan relacionas para el proceso de los Asientos" +
+    " Contables";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(149, 4);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(67, 13);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Importante";
+            // 
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -693,6 +731,18 @@ namespace Contasis
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(553, 320);
             this.panel2.TabIndex = 67;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.SystemColors.Highlight;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.label12.Location = new System.Drawing.Point(151, 16);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(265, 18);
+            this.label12.TabIndex = 68;
+            this.label12.Text = "Cuentas de Cobranzas para Comercial";
             // 
             // lvalida3
             // 
@@ -724,19 +774,6 @@ namespace Contasis
             this.lvalida1.TabIndex = 64;
             this.lvalida1.Text = ".";
             // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Enabled = false;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(21, 16);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(510, 21);
-            this.textBox2.TabIndex = 63;
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // dataGridView_cobranza
             // 
             this.dataGridView_cobranza.AllowUserToDeleteRows = false;
@@ -751,6 +788,12 @@ namespace Contasis
             this.dataGridView_cobranza.TabIndex = 62;
             this.dataGridView_cobranza.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_cobranza_CellClick);
             this.dataGridView_cobranza.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_cobranza_CellContentClick);
+            // 
+            // nEmpresa
+            // 
+            this.nEmpresa.HeaderText = "Empresa";
+            this.nEmpresa.Name = "nEmpresa";
+            this.nEmpresa.ReadOnly = true;
             // 
             // txtflujocobra
             // 
@@ -808,6 +851,19 @@ namespace Contasis
             this.label30.Size = new System.Drawing.Size(88, 13);
             this.label30.TabIndex = 55;
             this.label30.Text = "Sub Diario R. Vta";
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox2.Enabled = false;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.ForeColor = System.Drawing.Color.White;
+            this.textBox2.Location = new System.Drawing.Point(21, 16);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(510, 21);
+            this.textBox2.TabIndex = 63;
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // BtnGrabarCobranza
             // 
@@ -1124,67 +1180,11 @@ namespace Contasis
             this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025.TabIndex = 31;
             this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025.Text = resources.GetString("txtcom_importar_ventas_generaasiento_cobranza_principal_2025.Text");
             // 
-            // Id
-            // 
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            // 
-            // nEmpresa
-            // 
-            this.nEmpresa.HeaderText = "Empresa";
-            this.nEmpresa.Name = "nEmpresa";
-            this.nEmpresa.ReadOnly = true;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.SystemColors.Highlight;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.label12.Location = new System.Drawing.Point(151, 16);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(265, 18);
-            this.label12.TabIndex = 68;
-            this.label12.Text = "Cuentas de Cobranzas para Comercial";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(149, 4);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(67, 13);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "Importante";
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.Transparent;
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.label14);
-            this.panel3.Controls.Add(this.label13);
-            this.panel3.Location = new System.Drawing.Point(14, 371);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(376, 73);
-            this.panel3.TabIndex = 68;
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(8, 17);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(355, 41);
-            this.label14.TabIndex = 1;
-            this.label14.Text = "Debe de grabar cada cuenta cuando  el usuario registre un nuevo movimiento en Con" +
-    "figuración de documentos ya que estan relacionas para el proceso de los Asientos" +
-    " Contables";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // FrmIntegradorComercial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(635, 561);
+            this.ClientSize = new System.Drawing.Size(654, 561);
             this.Controls.Add(this.txtcom_importar_ventas_generaasiento_cobranza_principal_2025);
             this.Controls.Add(this.txtcom_importar_ventas_principal_anular2025);
             this.Controls.Add(this.txtcom_importar_compras_ventas_principal_actualiza_stock_anula);
@@ -1232,11 +1232,11 @@ namespace Contasis
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_cobranza)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
