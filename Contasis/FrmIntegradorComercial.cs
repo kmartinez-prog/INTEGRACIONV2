@@ -232,12 +232,11 @@ namespace Contasis
                 conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
                 conexion.Open();
 
+                string nEmpresa = this.cmbempresas.Text.Substring(0, 3);
 
-                string text01 = "select ncobranzacomercial as cobranzac from cg_empresa inner join cg_empemisor on " +
-                " cg_empresa.ccodrucemisor = cg_empemisor.ccodrucemisor " +
-                " where cg_empresa.ccod_empresa = '" + this.cmbempresas.Text.Substring(0, 3) + "'";
-                var cmd = new NpgsqlCommand(text01, conexion);0
-                    .
+                string text01 = "select ncobranzacomercial as cobranzac from cg_empresa inner join cg_empemisor on cg_empresa.ccodrucemisor = cg_empemisor.ccodrucemisor " +
+                " where cg_empresa.ccod_empresa = '" + nEmpresa + "'";
+                var cmd = new NpgsqlCommand(text01, conexion);
                 var reader = cmd.ExecuteReader();
 
                 if (reader.Read())
@@ -262,7 +261,7 @@ namespace Contasis
         private void FrmIntegradorComercial_Load(object sender, EventArgs e)
         {
             this.button1.Enabled = false;
-            this.ActivaCobranza();
+            
             txtcadena.Text = Properties.Settings.Default.cadenaPost;
             ////// MessageBox.Show("" + Properties.Settings.Default.cadenaPost);
 
@@ -286,6 +285,7 @@ namespace Contasis
                 txtcadena.Text = Properties.Settings.Default.cadenaPost;
                 xCodempresa = "contasis_" + cmbempresas.Text.Substring(0, 3).ToLower() ;
                 txtcadena.Text = txtcadena.Text.Replace("contasis", xCodempresa.Trim());
+                this.ActivaCobranza();
                 this.cargar();
                 
                 ///Tablero.Enabled = false;
