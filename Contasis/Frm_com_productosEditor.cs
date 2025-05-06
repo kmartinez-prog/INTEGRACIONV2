@@ -54,7 +54,7 @@ namespace Contasis
             txtReg_ventas.Text = ojbtexto.Reg_ventas;
             txtAfecto_isc.Text = ojbtexto.Afecto_isc;
             txtMoneda.Text = ojbtexto.Moneda;
-            txtPrecio1.Text = ojbtexto.Precio1;
+            txtPrecio1.Text = ojbtexto.Precio1; 
             txtPrecio2.Text = ojbtexto.Precio2;
             txtPrecio3.Text = ojbtexto.Precio3;
             txtPrecio4.Text = ojbtexto.Precio4;
@@ -194,21 +194,131 @@ namespace Contasis
             obe.Reg_ventas = txtReg_ventas.Text.Trim();
             obe.Afecto_isc = txtAfecto_isc.Text.Trim();
             obe.Moneda= txtMoneda.Text.Trim();
+            if (txtPrecio1.Text.Trim() == "")
+            {
+                obe.Precio1 = txtPrecio1.Text = "0.0000";
+            }
+            else
+            { 
             obe.Precio1= txtPrecio1.Text.Trim();
-            obe.Precio2 = txtPrecio2.Text.Trim();
-            obe.Precio3 = txtPrecio3.Text.Trim();
-            obe.Precio4 = txtPrecio4.Text.Trim();
-            obe.Precio5 = txtPrecio5.Text.Trim();
-            obe.Precio6 = txtPrecio6.Text.Trim();
-            obe.Precio7 = txtPrecio7.Text.Trim();
-            obe.Precio8 = txtPrecio8.Text.Trim();
-            obe.Precio9 = txtPrecio9.Text.Trim();
-            obe.Precio10 = txtPrecio10.Text.Trim();
-            obe.Precio11 = txtPrecio11.Text.Trim();
-            obe.Precio12 = txtPrecio12.Text.Trim();
-            obe.Precio13 = txtPrecio13.Text.Trim();
-            obe.Precio14 = txtPrecio14.Text.Trim();
-            obe.Precio15 = txtPrecio15.Text.Trim();
+            }
+
+            if (txtPrecio2.Text.Trim() == "")
+            {
+                obe.Precio2 = txtPrecio2.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio2 = txtPrecio2.Text.Trim();
+            }
+            if (txtPrecio3.Text.Trim() == "")
+            {
+                obe.Precio3 = txtPrecio3.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio3 = txtPrecio3.Text.Trim();
+            }
+            if (txtPrecio4.Text.Trim() == "")
+            {
+                obe.Precio4 = txtPrecio4.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio4 = txtPrecio4.Text.Trim();
+            }
+            if (txtPrecio5.Text.Trim() == "")
+            {
+                obe.Precio5 = txtPrecio5.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio5 = txtPrecio5.Text.Trim();
+            }
+            if (txtPrecio6.Text.Trim() == "")
+            {
+                obe.Precio6 = txtPrecio6.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio6 = txtPrecio6.Text.Trim();
+            }
+            if (txtPrecio7.Text.Trim() == "")
+            {
+                obe.Precio7 = txtPrecio7.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio7 = txtPrecio7.Text.Trim();
+            }
+            if (txtPrecio8.Text.Trim() == "")
+            {
+                obe.Precio8 = txtPrecio8.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio8 = txtPrecio8.Text.Trim();
+            }
+            
+            if (txtPrecio9.Text.Trim() == "")
+            {
+                obe.Precio9 = txtPrecio9.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio9 = txtPrecio9.Text.Trim();
+            }
+
+            if (txtPrecio10.Text.Trim() == "")
+            {
+                obe.Precio10 = txtPrecio10.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio10 = txtPrecio10.Text.Trim();
+            }
+            if (txtPrecio11.Text.Trim() == "")
+            {
+                obe.Precio11 = txtPrecio11.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio11 = txtPrecio11.Text.Trim();
+            }
+
+            if (txtPrecio12.Text.Trim() == "")
+            {
+                obe.Precio12 = txtPrecio12.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio12 = txtPrecio12.Text.Trim();
+            }
+
+            if (txtPrecio13.Text.Trim() == "")
+            {
+                obe.Precio13 = txtPrecio13.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio13 = txtPrecio13.Text.Trim();
+            }
+            if (txtPrecio14.Text.Trim() == "")
+            {
+                obe.Precio14 = txtPrecio14.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio14 = txtPrecio14.Text.Trim();
+            }
+            if (txtPrecio15.Text.Trim() == "")
+            {
+                obe.Precio15 = txtPrecio15.Text = "0.0000";
+            }
+            else
+            {
+                obe.Precio15 = txtPrecio15.Text.Trim();
+            }
             obe.Stock_minimo = txtStock_minimo.Text.Trim();
             obe.Stock_maximo= txtStock_maximo.Text.Trim();
             obe.Limite_inferior_precio = txtLimite_inferior_precio.Text.Trim();

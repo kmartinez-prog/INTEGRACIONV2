@@ -75,6 +75,7 @@ namespace Contasis.Clase
                     conexion.Close();
                 }
 
+            
             }
             return cadena;
         }

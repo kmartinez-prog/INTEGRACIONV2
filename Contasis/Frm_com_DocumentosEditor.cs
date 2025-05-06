@@ -250,8 +250,8 @@ namespace Contasis
                     this.dataGridView2.Refresh();
                     this.dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     this.dataGridView2.CurrentCell = this.dataGridView2.Rows[0].Cells[1];
-                    dataGridView2.FirstDisplayedScrollingRowIndex = 1;
-                    dataGridView2.HorizontalScrollingOffset = 1;
+                   // dataGridView2.FirstDisplayedScrollingRowIndex = 1;
+                   // dataGridView2.HorizontalScrollingOffset = 1;
 
                     
                 }

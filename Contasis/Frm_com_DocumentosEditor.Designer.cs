@@ -37,6 +37,28 @@ namespace Contasis
             this.txtFec_deposito = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtBase_ivap = new System.Windows.Forms.TextBox();
             this.label56 = new System.Windows.Forms.Label();
             this.txtTotal = new System.Windows.Forms.TextBox();
@@ -152,28 +174,6 @@ namespace Contasis
             this.btnGrabar = new System.Windows.Forms.Button();
             this.btneliminar = new System.Windows.Forms.Button();
             this.btncerrar = new System.Windows.Forms.Button();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -316,9 +316,9 @@ namespace Contasis
             this.panel2.Controls.Add(this.label21);
             this.panel2.Controls.Add(this.txtCod_movimiento);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(8, 80);
+            this.panel2.Location = new System.Drawing.Point(5, 61);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(856, 656);
+            this.panel2.Size = new System.Drawing.Size(856, 629);
             this.panel2.TabIndex = 88;
             // 
             // label58
@@ -326,9 +326,9 @@ namespace Contasis
             this.label58.AutoSize = true;
             this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label58.ForeColor = System.Drawing.Color.Blue;
-            this.label58.Location = new System.Drawing.Point(-1, 631);
+            this.label58.Location = new System.Drawing.Point(-1, 604);
             this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(762, 17);
+            this.label58.Size = new System.Drawing.Size(566, 13);
             this.label58.TabIndex = 269;
             this.label58.Text = "Seleccionar la Fila para modificar y luego Enter para grabar cambios., Luego Puls" +
     "ar Modificar para enviar el documento";
@@ -347,7 +347,7 @@ namespace Contasis
             this.label57.AutoSize = true;
             this.label57.Location = new System.Drawing.Point(586, 285);
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(84, 15);
+            this.label57.Size = new System.Drawing.Size(74, 13);
             this.label57.TabIndex = 268;
             this.label57.Text = "Fec_deposito:";
             // 
@@ -378,16 +378,216 @@ namespace Contasis
             this.Column21,
             this.Column22,
             this.Column23});
-            this.dataGridView2.Location = new System.Drawing.Point(2, 484);
+            this.dataGridView2.Location = new System.Drawing.Point(2, 481);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.Size = new System.Drawing.Size(849, 145);
+            this.dataGridView2.Size = new System.Drawing.Size(849, 122);
             this.dataGridView2.TabIndex = 266;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentDoubleClick);
             this.dataGridView2.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellEnter);
             this.dataGridView2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView2_KeyPress);
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column2.DataPropertyName = "COD_ALMACEN";
+            this.Column2.HeaderText = "COD_ALMACEN";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 112;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column3.DataPropertyName = "COD_PROD";
+            this.Column3.HeaderText = "COD_PROD";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 92;
+            // 
+            // Column4
+            // 
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column4.DataPropertyName = "COD_MEDIDA";
+            this.Column4.HeaderText = "COD_MEDIDA";
+            this.Column4.MinimumWidth = 6;
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 103;
+            // 
+            // Column5
+            // 
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column5.DataPropertyName = "COD_LOTE";
+            this.Column5.HeaderText = "COD_LOTE";
+            this.Column5.MinimumWidth = 6;
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 89;
+            // 
+            // Column6
+            // 
+            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column6.DataPropertyName = "CANTIDAD";
+            this.Column6.HeaderText = "CANTIDAD";
+            this.Column6.MinimumWidth = 6;
+            this.Column6.Name = "Column6";
+            this.Column6.Width = 87;
+            // 
+            // Column7
+            // 
+            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column7.DataPropertyName = "VALOR_IMPUESTO";
+            this.Column7.HeaderText = "VALOR_IMPUESTO";
+            this.Column7.MinimumWidth = 6;
+            this.Column7.Name = "Column7";
+            this.Column7.Width = 130;
+            // 
+            // Column8
+            // 
+            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column8.DataPropertyName = "TOTAL";
+            this.Column8.HeaderText = "TOTAL";
+            this.Column8.MinimumWidth = 6;
+            this.Column8.Name = "Column8";
+            this.Column8.Width = 67;
+            // 
+            // Column9
+            // 
+            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column9.DataPropertyName = "IGV";
+            this.Column9.HeaderText = "IGV";
+            this.Column9.MinimumWidth = 6;
+            this.Column9.Name = "Column9";
+            this.Column9.Width = 50;
+            // 
+            // Column10
+            // 
+            this.Column10.DataPropertyName = "COD_CENTROCOSTO";
+            this.Column10.HeaderText = "COD_CENTROCOSTO";
+            this.Column10.MinimumWidth = 6;
+            this.Column10.Name = "Column10";
+            this.Column10.Width = 125;
+            // 
+            // Column11
+            // 
+            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column11.DataPropertyName = "COD_CENTROCOSTO2";
+            this.Column11.HeaderText = "COD_CENTROCOSTO2";
+            this.Column11.MinimumWidth = 6;
+            this.Column11.Name = "Column11";
+            this.Column11.Width = 149;
+            // 
+            // Column12
+            // 
+            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column12.DataPropertyName = "COD_PRESUPUESTO";
+            this.Column12.HeaderText = "COD_PRESUPUESTO";
+            this.Column12.MinimumWidth = 6;
+            this.Column12.Name = "Column12";
+            this.Column12.Width = 142;
+            // 
+            // Column13
+            // 
+            this.Column13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column13.DataPropertyName = "CUENTA_PRODUCTO";
+            this.Column13.HeaderText = "CUENTA_PRODUCTO";
+            this.Column13.MinimumWidth = 6;
+            this.Column13.Name = "Column13";
+            this.Column13.Width = 143;
+            // 
+            // Column14
+            // 
+            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column14.DataPropertyName = "PORS_DESCUENTO";
+            this.Column14.HeaderText = "PORS_DESCUENTO";
+            this.Column14.MinimumWidth = 6;
+            this.Column14.Name = "Column14";
+            this.Column14.Width = 135;
+            // 
+            // Column15
+            // 
+            this.Column15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column15.DataPropertyName = "MONTO_DESCUENTO";
+            this.Column15.HeaderText = "MONTO_DESCUENTO";
+            this.Column15.MinimumWidth = 6;
+            this.Column15.Name = "Column15";
+            this.Column15.Width = 145;
+            // 
+            // Column16
+            // 
+            this.Column16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column16.DataPropertyName = "COD_ISC";
+            this.Column16.HeaderText = "COD_ISC";
+            this.Column16.MinimumWidth = 6;
+            this.Column16.Name = "Column16";
+            this.Column16.Width = 78;
+            // 
+            // Column17
+            // 
+            this.Column17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column17.DataPropertyName = "PORCISC";
+            this.Column17.HeaderText = "PORCISC";
+            this.Column17.MinimumWidth = 6;
+            this.Column17.Name = "Column17";
+            this.Column17.Width = 79;
+            // 
+            // Column18
+            // 
+            this.Column18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column18.DataPropertyName = "MONTO_ISC";
+            this.Column18.HeaderText = "MONTO_ISC";
+            this.Column18.MinimumWidth = 6;
+            this.Column18.Name = "Column18";
+            this.Column18.Width = 95;
+            // 
+            // Column19
+            // 
+            this.Column19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column19.DataPropertyName = "TIPO_ISC";
+            this.Column19.HeaderText = "TIPO_ISC";
+            this.Column19.MinimumWidth = 6;
+            this.Column19.Name = "Column19";
+            this.Column19.Width = 80;
+            // 
+            // Column20
+            // 
+            this.Column20.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column20.DataPropertyName = "DESCRIP_ADICIONAL";
+            this.Column20.HeaderText = "DESCRIP_ADICIONAL";
+            this.Column20.MaxInputLength = 100;
+            this.Column20.MinimumWidth = 6;
+            this.Column20.Name = "Column20";
+            this.Column20.Width = 142;
+            // 
+            // Column21
+            // 
+            this.Column21.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column21.DataPropertyName = "FECHA_FABLOTE";
+            this.Column21.HeaderText = "FECHA_FABLOTE";
+            this.Column21.MaxInputLength = 10;
+            this.Column21.MinimumWidth = 6;
+            this.Column21.Name = "Column21";
+            this.Column21.Width = 121;
+            // 
+            // Column22
+            // 
+            this.Column22.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column22.DataPropertyName = "FECHA_VENLOTE";
+            this.Column22.HeaderText = "FECHA_VENLOTE";
+            this.Column22.MaxInputLength = 10;
+            this.Column22.MinimumWidth = 6;
+            this.Column22.Name = "Column22";
+            this.Column22.Width = 123;
+            // 
+            // Column23
+            // 
+            this.Column23.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column23.DataPropertyName = "IDUNICO";
+            this.Column23.HeaderText = "IDUNICO";
+            this.Column23.MinimumWidth = 6;
+            this.Column23.Name = "Column23";
+            this.Column23.Width = 77;
             // 
             // txtBase_ivap
             // 
@@ -403,7 +603,7 @@ namespace Contasis
             this.label56.AutoSize = true;
             this.label56.Location = new System.Drawing.Point(583, 383);
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(67, 15);
+            this.label56.Size = new System.Drawing.Size(60, 13);
             this.label56.TabIndex = 265;
             this.label56.Text = "Base_ivap:";
             this.label56.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -422,7 +622,7 @@ namespace Contasis
             this.label55.AutoSize = true;
             this.label55.Location = new System.Drawing.Point(586, 460);
             this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(37, 15);
+            this.label55.Size = new System.Drawing.Size(34, 13);
             this.label55.TabIndex = 263;
             this.label55.Text = "Total:";
             // 
@@ -440,7 +640,7 @@ namespace Contasis
             this.label51.AutoSize = true;
             this.label51.Location = new System.Drawing.Point(586, 434);
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(81, 15);
+            this.label51.Size = new System.Drawing.Size(70, 13);
             this.label51.TabIndex = 261;
             this.label51.Text = "Imp_anticipo:";
             // 
@@ -458,7 +658,7 @@ namespace Contasis
             this.label52.AutoSize = true;
             this.label52.Location = new System.Drawing.Point(586, 409);
             this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(54, 15);
+            this.label52.Size = new System.Drawing.Size(51, 13);
             this.label52.TabIndex = 259;
             this.label52.Text = "Igv_ivap:";
             // 
@@ -476,7 +676,7 @@ namespace Contasis
             this.label53.AutoSize = true;
             this.label53.Location = new System.Drawing.Point(586, 358);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(53, 15);
+            this.label53.Size = new System.Drawing.Size(46, 13);
             this.label53.TabIndex = 257;
             this.label53.Text = "Imp_isc:";
             // 
@@ -494,7 +694,7 @@ namespace Contasis
             this.label54.AutoSize = true;
             this.label54.Location = new System.Drawing.Point(292, 435);
             this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(97, 15);
+            this.label54.Size = new System.Drawing.Size(83, 13);
             this.label54.TabIndex = 255;
             this.label54.Text = "Imp_exonerado:";
             this.label54.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -513,7 +713,7 @@ namespace Contasis
             this.label47.AutoSize = true;
             this.label47.Location = new System.Drawing.Point(292, 411);
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(81, 15);
+            this.label47.Size = new System.Drawing.Size(71, 13);
             this.label47.TabIndex = 253;
             this.label47.Text = "Imp_inafecto:";
             // 
@@ -531,7 +731,7 @@ namespace Contasis
             this.label48.AutoSize = true;
             this.label48.Location = new System.Drawing.Point(292, 386);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(72, 15);
+            this.label48.Size = new System.Drawing.Size(62, 13);
             this.label48.TabIndex = 251;
             this.label48.Text = "Imp_icbper:";
             // 
@@ -549,7 +749,7 @@ namespace Contasis
             this.label49.AutoSize = true;
             this.label49.Location = new System.Drawing.Point(292, 361);
             this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(32, 15);
+            this.label49.Size = new System.Drawing.Size(31, 13);
             this.label49.TabIndex = 249;
             this.label49.Text = "Igv3:";
             // 
@@ -567,7 +767,7 @@ namespace Contasis
             this.label50.AutoSize = true;
             this.label50.Location = new System.Drawing.Point(292, 336);
             this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(73, 15);
+            this.label50.Size = new System.Drawing.Size(62, 13);
             this.label50.TabIndex = 247;
             this.label50.Text = "Base_imp3:";
             this.label50.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -586,7 +786,7 @@ namespace Contasis
             this.label46.AutoSize = true;
             this.label46.Location = new System.Drawing.Point(7, 433);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(32, 15);
+            this.label46.Size = new System.Drawing.Size(31, 13);
             this.label46.TabIndex = 245;
             this.label46.Text = "Igv2:";
             // 
@@ -604,7 +804,7 @@ namespace Contasis
             this.label43.AutoSize = true;
             this.label43.Location = new System.Drawing.Point(7, 408);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(73, 15);
+            this.label43.Size = new System.Drawing.Size(62, 13);
             this.label43.TabIndex = 243;
             this.label43.Text = "Base_imp2:";
             // 
@@ -622,7 +822,7 @@ namespace Contasis
             this.label44.AutoSize = true;
             this.label44.Location = new System.Drawing.Point(7, 383);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(32, 15);
+            this.label44.Size = new System.Drawing.Size(31, 13);
             this.label44.TabIndex = 241;
             this.label44.Text = "Igv1:";
             // 
@@ -640,7 +840,7 @@ namespace Contasis
             this.label45.AutoSize = true;
             this.label45.Location = new System.Drawing.Point(7, 358);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(73, 15);
+            this.label45.Size = new System.Drawing.Size(62, 13);
             this.label45.TabIndex = 239;
             this.label45.Text = "Base_imp1:";
             this.label45.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -659,7 +859,7 @@ namespace Contasis
             this.label38.AutoSize = true;
             this.label38.Location = new System.Drawing.Point(586, 334);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(95, 15);
+            this.label38.Size = new System.Drawing.Size(84, 13);
             this.label38.TabIndex = 237;
             this.label38.Text = "Doc.dentrofuera";
             // 
@@ -676,7 +876,7 @@ namespace Contasis
             this.label39.AutoSize = true;
             this.label39.Location = new System.Drawing.Point(586, 309);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(96, 15);
+            this.label39.Size = new System.Drawing.Size(85, 13);
             this.label39.TabIndex = 235;
             this.label39.Text = "Contancia_dep.:";
             // 
@@ -693,7 +893,7 @@ namespace Contasis
             this.label40.AutoSize = true;
             this.label40.Location = new System.Drawing.Point(586, 261);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(86, 15);
+            this.label40.Size = new System.Drawing.Size(75, 13);
             this.label40.TabIndex = 233;
             this.label40.Text = "Reg_especial:";
             // 
@@ -710,7 +910,7 @@ namespace Contasis
             this.label41.AutoSize = true;
             this.label41.Location = new System.Drawing.Point(586, 236);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(76, 15);
+            this.label41.Size = new System.Drawing.Size(65, 13);
             this.label41.TabIndex = 231;
             this.label41.Text = "Numero_ref.";
             this.label41.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -728,7 +928,7 @@ namespace Contasis
             this.label42.AutoSize = true;
             this.label42.Location = new System.Drawing.Point(586, 211);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(89, 15);
+            this.label42.Size = new System.Drawing.Size(78, 13);
             this.label42.TabIndex = 229;
             this.label42.Text = "Tip_referencia:";
             // 
@@ -746,7 +946,7 @@ namespace Contasis
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(292, 311);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(99, 15);
+            this.label28.Size = new System.Drawing.Size(88, 13);
             this.label28.TabIndex = 227;
             this.label28.Text = "Porc.percepcion:";
             // 
@@ -763,7 +963,7 @@ namespace Contasis
             this.label29.AutoSize = true;
             this.label29.Location = new System.Drawing.Point(292, 286);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(95, 15);
+            this.label29.Size = new System.Drawing.Size(85, 13);
             this.label29.TabIndex = 225;
             this.label29.Text = "Porc.detraccion:";
             // 
@@ -780,7 +980,7 @@ namespace Contasis
             this.label35.AutoSize = true;
             this.label35.Location = new System.Drawing.Point(292, 261);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(96, 15);
+            this.label35.Size = new System.Drawing.Size(85, 13);
             this.label35.TabIndex = 223;
             this.label35.Text = "Motivo_n.Crred.:";
             // 
@@ -797,7 +997,7 @@ namespace Contasis
             this.label36.AutoSize = true;
             this.label36.Location = new System.Drawing.Point(292, 236);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(90, 15);
+            this.label36.Size = new System.Drawing.Size(79, 13);
             this.label36.TabIndex = 221;
             this.label36.Text = "Serie_doc_ref.:";
             this.label36.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -815,7 +1015,7 @@ namespace Contasis
             this.label37.AutoSize = true;
             this.label37.Location = new System.Drawing.Point(292, 211);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(93, 15);
+            this.label37.Size = new System.Drawing.Size(80, 13);
             this.label37.TabIndex = 219;
             this.label37.Text = "Orden_compra:";
             // 
@@ -833,7 +1033,7 @@ namespace Contasis
             this.label30.AutoSize = true;
             this.label30.Location = new System.Drawing.Point(7, 333);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(100, 15);
+            this.label30.Size = new System.Drawing.Size(88, 13);
             this.label30.TabIndex = 217;
             this.label30.Text = "Cod_percepcion:";
             // 
@@ -851,7 +1051,7 @@ namespace Contasis
             this.label31.AutoSize = true;
             this.label31.Location = new System.Drawing.Point(7, 308);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(96, 15);
+            this.label31.Size = new System.Drawing.Size(85, 13);
             this.label31.TabIndex = 215;
             this.label31.Text = "Cod_detraccion:";
             // 
@@ -868,7 +1068,7 @@ namespace Contasis
             this.label32.AutoSize = true;
             this.label32.Location = new System.Drawing.Point(7, 283);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(118, 15);
+            this.label32.Size = new System.Drawing.Size(103, 13);
             this.label32.TabIndex = 213;
             this.label32.Text = "Cod_motivo_nCred.:";
             // 
@@ -885,7 +1085,7 @@ namespace Contasis
             this.label33.AutoSize = true;
             this.label33.Location = new System.Drawing.Point(7, 258);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(92, 15);
+            this.label33.Size = new System.Drawing.Size(82, 13);
             this.label33.TabIndex = 211;
             this.label33.Text = "Fec_doc_refer.:";
             this.label33.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -903,7 +1103,7 @@ namespace Contasis
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(7, 233);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(102, 15);
+            this.label34.Size = new System.Drawing.Size(91, 13);
             this.label34.TabIndex = 209;
             this.label34.Text = "Otros_conceptos:";
             // 
@@ -921,7 +1121,7 @@ namespace Contasis
             this.label27.AutoSize = true;
             this.label27.Location = new System.Drawing.Point(226, 10);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(37, 15);
+            this.label27.Size = new System.Drawing.Size(34, 13);
             this.label27.TabIndex = 206;
             this.label27.Text = "Tipo :";
             // 
@@ -938,7 +1138,7 @@ namespace Contasis
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(586, 186);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(97, 15);
+            this.label17.Size = new System.Drawing.Size(84, 13);
             this.label17.TabIndex = 205;
             this.label17.Text = "Cod_clasi_bbss:";
             // 
@@ -955,7 +1155,7 @@ namespace Contasis
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(586, 161);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(86, 15);
+            this.label18.Size = new System.Drawing.Size(73, 13);
             this.label18.TabIndex = 203;
             this.label18.Text = "Numero_guia:";
             // 
@@ -972,7 +1172,7 @@ namespace Contasis
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(586, 136);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(56, 15);
+            this.label19.Size = new System.Drawing.Size(49, 13);
             this.label19.TabIndex = 201;
             this.label19.Text = "Moneda:";
             // 
@@ -989,7 +1189,7 @@ namespace Contasis
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(586, 111);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(65, 15);
+            this.label20.Size = new System.Drawing.Size(61, 13);
             this.label20.TabIndex = 199;
             this.label20.Text = "Fec_venc.:";
             // 
@@ -1006,7 +1206,7 @@ namespace Contasis
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(586, 86);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(58, 15);
+            this.label22.Size = new System.Drawing.Size(53, 13);
             this.label22.TabIndex = 197;
             this.label22.Text = "Contacto:";
             // 
@@ -1023,7 +1223,7 @@ namespace Contasis
             this.label23.AutoSize = true;
             this.label23.Location = new System.Drawing.Point(586, 61);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(85, 15);
+            this.label23.Size = new System.Drawing.Size(74, 13);
             this.label23.TabIndex = 195;
             this.label23.Text = "Razon_social:";
             // 
@@ -1040,7 +1240,7 @@ namespace Contasis
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(586, 36);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(103, 15);
+            this.label24.Size = new System.Drawing.Size(88, 13);
             this.label24.TabIndex = 193;
             this.label24.Text = "Nombre_entidad:";
             // 
@@ -1057,7 +1257,7 @@ namespace Contasis
             this.label26.AutoSize = true;
             this.label26.Location = new System.Drawing.Point(586, 11);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(37, 15);
+            this.label26.Size = new System.Drawing.Size(32, 13);
             this.label26.TabIndex = 191;
             this.label26.Text = "serie:";
             // 
@@ -1074,7 +1274,7 @@ namespace Contasis
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(292, 186);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(90, 15);
+            this.label9.Size = new System.Drawing.Size(80, 13);
             this.label9.TabIndex = 189;
             this.label9.Text = "Cod_vendedor:";
             // 
@@ -1091,7 +1291,7 @@ namespace Contasis
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(292, 161);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(70, 15);
+            this.label10.Size = new System.Drawing.Size(60, 13);
             this.label10.TabIndex = 187;
             this.label10.Text = "Serie_guia:";
             // 
@@ -1108,7 +1308,7 @@ namespace Contasis
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(292, 136);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(100, 15);
+            this.label11.Size = new System.Drawing.Size(87, 13);
             this.label11.TabIndex = 185;
             this.label11.Text = "Condicion_pago:";
             // 
@@ -1125,7 +1325,7 @@ namespace Contasis
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(292, 111);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(99, 15);
+            this.label12.Size = new System.Drawing.Size(87, 13);
             this.label12.TabIndex = 183;
             this.label12.Text = "Fec_documento:";
             // 
@@ -1142,7 +1342,7 @@ namespace Contasis
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(292, 86);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(50, 15);
+            this.label13.Size = new System.Drawing.Size(44, 13);
             this.label13.TabIndex = 181;
             this.label13.Text = "Ubigeo:";
             // 
@@ -1159,7 +1359,7 @@ namespace Contasis
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(292, 61);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(49, 15);
+            this.label14.Size = new System.Drawing.Size(44, 13);
             this.label14.TabIndex = 179;
             this.label14.Text = "Ruc_rz:";
             // 
@@ -1176,7 +1376,7 @@ namespace Contasis
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(292, 36);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(87, 15);
+            this.label15.Size = new System.Drawing.Size(76, 13);
             this.label15.TabIndex = 177;
             this.label15.Text = "Cod_entiedad:";
             // 
@@ -1193,7 +1393,7 @@ namespace Contasis
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(443, 11);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(97, 15);
+            this.label16.Size = new System.Drawing.Size(85, 13);
             this.label16.TabIndex = 175;
             this.label16.Text = "Cod.documento:";
             // 
@@ -1210,7 +1410,7 @@ namespace Contasis
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(7, 208);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(104, 15);
+            this.label5.Size = new System.Drawing.Size(91, 13);
             this.label5.TabIndex = 173;
             this.label5.Text = "Inf_adicional_doc";
             // 
@@ -1227,7 +1427,7 @@ namespace Contasis
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(7, 183);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(82, 15);
+            this.label6.Size = new System.Drawing.Size(71, 13);
             this.label6.TabIndex = 171;
             this.label6.Text = "Tipo_cambio:";
             // 
@@ -1244,7 +1444,7 @@ namespace Contasis
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(7, 158);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(85, 15);
+            this.label7.Size = new System.Drawing.Size(74, 13);
             this.label7.TabIndex = 169;
             this.label7.Text = "Fec_almacen:";
             // 
@@ -1261,7 +1461,7 @@ namespace Contasis
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(7, 133);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(97, 15);
+            this.label8.Size = new System.Drawing.Size(86, 13);
             this.label8.TabIndex = 167;
             this.label8.Text = "Nomb_contacto:";
             // 
@@ -1278,7 +1478,7 @@ namespace Contasis
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(7, 108);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 15);
+            this.label3.Size = new System.Drawing.Size(72, 13);
             this.label3.TabIndex = 165;
             this.label3.Text = "Direc_cliente:";
             // 
@@ -1295,7 +1495,7 @@ namespace Contasis
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(7, 83);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(109, 15);
+            this.label4.Size = new System.Drawing.Size(96, 13);
             this.label4.TabIndex = 163;
             this.label4.Text = "Tipo_doc_entidad:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1313,7 +1513,7 @@ namespace Contasis
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(7, 58);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 15);
+            this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 161;
             this.label2.Text = "Numero:";
             // 
@@ -1331,7 +1531,7 @@ namespace Contasis
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(7, 8);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(26, 15);
+            this.label21.Size = new System.Drawing.Size(25, 13);
             this.label21.TabIndex = 157;
             this.label21.Text = "Id  :";
             // 
@@ -1348,7 +1548,7 @@ namespace Contasis
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(7, 33);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 15);
+            this.label1.Size = new System.Drawing.Size(86, 13);
             this.label1.TabIndex = 158;
             this.label1.Text = "Cod Movimiento:";
             // 
@@ -1356,20 +1556,20 @@ namespace Contasis
             // 
             this.txtObservacion.BackColor = System.Drawing.SystemColors.Info;
             this.txtObservacion.Enabled = false;
-            this.txtObservacion.Location = new System.Drawing.Point(102, 739);
+            this.txtObservacion.Location = new System.Drawing.Point(103, 695);
             this.txtObservacion.MaxLength = 3;
             this.txtObservacion.Multiline = true;
             this.txtObservacion.Name = "txtObservacion";
-            this.txtObservacion.Size = new System.Drawing.Size(428, 74);
+            this.txtObservacion.Size = new System.Drawing.Size(758, 41);
             this.txtObservacion.TabIndex = 163;
             // 
             // label25
             // 
             this.label25.AccessibleRole = System.Windows.Forms.AccessibleRole.Clock;
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(9, 745);
+            this.label25.Location = new System.Drawing.Point(9, 701);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(78, 15);
+            this.label25.Size = new System.Drawing.Size(70, 13);
             this.label25.TabIndex = 167;
             this.label25.Text = "Observacion:";
             // 
@@ -1379,7 +1579,7 @@ namespace Contasis
             this.btnGrabar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGrabar.Image = global::Contasis.Properties.Resources._9__Icono_Boton___Grabar;
             this.btnGrabar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGrabar.Location = new System.Drawing.Point(538, 773);
+            this.btnGrabar.Location = new System.Drawing.Point(868, 566);
             this.btnGrabar.Name = "btnGrabar";
             this.btnGrabar.Size = new System.Drawing.Size(100, 32);
             this.btnGrabar.TabIndex = 164;
@@ -1393,7 +1593,7 @@ namespace Contasis
             this.btneliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btneliminar.Image = global::Contasis.Properties.Resources._2__Icono_Boton___Eliminar;
             this.btneliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btneliminar.Location = new System.Drawing.Point(646, 773);
+            this.btneliminar.Location = new System.Drawing.Point(868, 604);
             this.btneliminar.Name = "btneliminar";
             this.btneliminar.Size = new System.Drawing.Size(100, 32);
             this.btneliminar.TabIndex = 166;
@@ -1407,7 +1607,7 @@ namespace Contasis
             this.btncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btncerrar.Image = global::Contasis.Properties.Resources._1__Icono_Boton___Salir;
             this.btncerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btncerrar.Location = new System.Drawing.Point(756, 773);
+            this.btncerrar.Location = new System.Drawing.Point(867, 640);
             this.btncerrar.Name = "btncerrar";
             this.btncerrar.Size = new System.Drawing.Size(100, 32);
             this.btncerrar.TabIndex = 165;
@@ -1415,210 +1615,11 @@ namespace Contasis
             this.btncerrar.UseVisualStyleBackColor = false;
             this.btncerrar.Click += new System.EventHandler(this.btncerrar_Click);
             // 
-            // Column2
-            // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column2.DataPropertyName = "COD_ALMACEN";
-            this.Column2.HeaderText = "COD_ALMACEN";
-            this.Column2.MinimumWidth = 6;
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 126;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column3.DataPropertyName = "COD_PROD";
-            this.Column3.HeaderText = "COD_PROD";
-            this.Column3.MinimumWidth = 6;
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 104;
-            // 
-            // Column4
-            // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column4.DataPropertyName = "COD_MEDIDA";
-            this.Column4.HeaderText = "COD_MEDIDA";
-            this.Column4.MinimumWidth = 6;
-            this.Column4.Name = "Column4";
-            this.Column4.Width = 116;
-            // 
-            // Column5
-            // 
-            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column5.DataPropertyName = "COD_LOTE";
-            this.Column5.HeaderText = "COD_LOTE";
-            this.Column5.MinimumWidth = 6;
-            this.Column5.Name = "Column5";
-            // 
-            // Column6
-            // 
-            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column6.DataPropertyName = "CANTIDAD";
-            this.Column6.HeaderText = "CANTIDAD";
-            this.Column6.MinimumWidth = 6;
-            this.Column6.Name = "Column6";
-            this.Column6.Width = 95;
-            // 
-            // Column7
-            // 
-            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column7.DataPropertyName = "VALOR_IMPUESTO";
-            this.Column7.HeaderText = "VALOR_IMPUESTO";
-            this.Column7.MinimumWidth = 6;
-            this.Column7.Name = "Column7";
-            this.Column7.Width = 145;
-            // 
-            // Column8
-            // 
-            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column8.DataPropertyName = "TOTAL";
-            this.Column8.HeaderText = "TOTAL";
-            this.Column8.MinimumWidth = 6;
-            this.Column8.Name = "Column8";
-            this.Column8.Width = 73;
-            // 
-            // Column9
-            // 
-            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column9.DataPropertyName = "IGV";
-            this.Column9.HeaderText = "IGV";
-            this.Column9.MinimumWidth = 6;
-            this.Column9.Name = "Column9";
-            this.Column9.Width = 55;
-            // 
-            // Column10
-            // 
-            this.Column10.DataPropertyName = "COD_CENTROCOSTO";
-            this.Column10.HeaderText = "COD_CENTROCOSTO";
-            this.Column10.MinimumWidth = 6;
-            this.Column10.Name = "Column10";
-            this.Column10.Width = 125;
-            // 
-            // Column11
-            // 
-            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column11.DataPropertyName = "COD_CENTROCOSTO2";
-            this.Column11.HeaderText = "COD_CENTROCOSTO2";
-            this.Column11.MinimumWidth = 6;
-            this.Column11.Name = "Column11";
-            this.Column11.Width = 167;
-            // 
-            // Column12
-            // 
-            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column12.DataPropertyName = "COD_PRESUPUESTO";
-            this.Column12.HeaderText = "COD_PRESUPUESTO";
-            this.Column12.MinimumWidth = 6;
-            this.Column12.Name = "Column12";
-            this.Column12.Width = 160;
-            // 
-            // Column13
-            // 
-            this.Column13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column13.DataPropertyName = "CUENTA_PRODUCTO";
-            this.Column13.HeaderText = "CUENTA_PRODUCTO";
-            this.Column13.MinimumWidth = 6;
-            this.Column13.Name = "Column13";
-            this.Column13.Width = 159;
-            // 
-            // Column14
-            // 
-            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column14.DataPropertyName = "PORS_DESCUENTO";
-            this.Column14.HeaderText = "PORS_DESCUENTO";
-            this.Column14.MinimumWidth = 6;
-            this.Column14.Name = "Column14";
-            this.Column14.Width = 152;
-            // 
-            // Column15
-            // 
-            this.Column15.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column15.DataPropertyName = "MONTO_DESCUENTO";
-            this.Column15.HeaderText = "MONTO_DESCUENTO";
-            this.Column15.MinimumWidth = 6;
-            this.Column15.Name = "Column15";
-            this.Column15.Width = 163;
-            // 
-            // Column16
-            // 
-            this.Column16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column16.DataPropertyName = "COD_ISC";
-            this.Column16.HeaderText = "COD_ISC";
-            this.Column16.MinimumWidth = 6;
-            this.Column16.Name = "Column16";
-            this.Column16.Width = 88;
-            // 
-            // Column17
-            // 
-            this.Column17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column17.DataPropertyName = "PORCISC";
-            this.Column17.HeaderText = "PORCISC";
-            this.Column17.MinimumWidth = 6;
-            this.Column17.Name = "Column17";
-            this.Column17.Width = 89;
-            // 
-            // Column18
-            // 
-            this.Column18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column18.DataPropertyName = "MONTO_ISC";
-            this.Column18.HeaderText = "MONTO_ISC";
-            this.Column18.MinimumWidth = 6;
-            this.Column18.Name = "Column18";
-            this.Column18.Width = 107;
-            // 
-            // Column19
-            // 
-            this.Column19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column19.DataPropertyName = "TIPO_ISC";
-            this.Column19.HeaderText = "TIPO_ISC";
-            this.Column19.MinimumWidth = 6;
-            this.Column19.Name = "Column19";
-            this.Column19.Width = 89;
-            // 
-            // Column20
-            // 
-            this.Column20.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column20.DataPropertyName = "DESCRIP_ADICIONAL";
-            this.Column20.HeaderText = "DESCRIP_ADICIONAL";
-            this.Column20.MaxInputLength = 100;
-            this.Column20.MinimumWidth = 6;
-            this.Column20.Name = "Column20";
-            this.Column20.Width = 158;
-            // 
-            // Column21
-            // 
-            this.Column21.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column21.DataPropertyName = "FECHA_FABLOTE";
-            this.Column21.HeaderText = "FECHA_FABLOTE";
-            this.Column21.MaxInputLength = 10;
-            this.Column21.MinimumWidth = 6;
-            this.Column21.Name = "Column21";
-            this.Column21.Width = 135;
-            // 
-            // Column22
-            // 
-            this.Column22.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column22.DataPropertyName = "FECHA_VENLOTE";
-            this.Column22.HeaderText = "FECHA_VENLOTE";
-            this.Column22.MaxInputLength = 10;
-            this.Column22.MinimumWidth = 6;
-            this.Column22.Name = "Column22";
-            this.Column22.Width = 137;
-            // 
-            // Column23
-            // 
-            this.Column23.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column23.DataPropertyName = "IDUNICO";
-            this.Column23.HeaderText = "IDUNICO";
-            this.Column23.MinimumWidth = 6;
-            this.Column23.Name = "Column23";
-            this.Column23.Width = 86;
-            // 
             // Frm_com_DocumentosEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(871, 815);
+            this.ClientSize = new System.Drawing.Size(971, 758);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.txtObservacion);
             this.Controls.Add(this.label25);

@@ -1329,6 +1329,7 @@ namespace Contasis
             this.dataGridView_pago.Size = new System.Drawing.Size(543, 118);
             this.dataGridView_pago.TabIndex = 51;
             this.dataGridView_pago.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_pago_CellClick);
+            this.dataGridView_pago.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_pago_CellContentClick);
             this.dataGridView_pago.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_pago_CellDoubleClick);
             // 
             // button4
@@ -1840,7 +1841,7 @@ namespace Contasis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(635, 556);
+            this.ClientSize = new System.Drawing.Size(636, 556);
             this.Controls.Add(this.txt_cobra04fm);
             this.Controls.Add(this.txt_cobra03fm);
             this.Controls.Add(this.txt_cobra02fm);

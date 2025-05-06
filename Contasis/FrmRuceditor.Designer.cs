@@ -58,7 +58,7 @@ namespace Contasis
             this.BtnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnActualizar.Image = global::Contasis.Properties.Resources._9__Icono_Boton___Grabar;
             this.BtnActualizar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnActualizar.Location = new System.Drawing.Point(208, 168);
+            this.BtnActualizar.Location = new System.Drawing.Point(208, 175);
             this.BtnActualizar.Name = "BtnActualizar";
             this.BtnActualizar.Size = new System.Drawing.Size(100, 32);
             this.BtnActualizar.TabIndex = 11;
@@ -72,7 +72,7 @@ namespace Contasis
             this.btncerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btncerrar.Image = global::Contasis.Properties.Resources._11;
             this.btncerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btncerrar.Location = new System.Drawing.Point(315, 168);
+            this.btncerrar.Location = new System.Drawing.Point(315, 175);
             this.btncerrar.Name = "btncerrar";
             this.btncerrar.Size = new System.Drawing.Size(100, 32);
             this.btncerrar.TabIndex = 12;
@@ -83,7 +83,7 @@ namespace Contasis
             // checkBoxestado
             // 
             this.checkBoxestado.AutoSize = true;
-            this.checkBoxestado.Location = new System.Drawing.Point(11, 104);
+            this.checkBoxestado.Location = new System.Drawing.Point(11, 103);
             this.checkBoxestado.Name = "checkBoxestado";
             this.checkBoxestado.Size = new System.Drawing.Size(116, 17);
             this.checkBoxestado.TabIndex = 6;
@@ -161,7 +161,7 @@ namespace Contasis
             // checkPagos
             // 
             this.checkPagos.AutoSize = true;
-            this.checkPagos.Location = new System.Drawing.Point(284, 130);
+            this.checkPagos.Location = new System.Drawing.Point(282, 103);
             this.checkPagos.Name = "checkPagos";
             this.checkPagos.Size = new System.Drawing.Size(92, 17);
             this.checkPagos.TabIndex = 10;
@@ -172,7 +172,7 @@ namespace Contasis
             // 
             this.checkCobranza.AutoSize = true;
             this.checkCobranza.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.checkCobranza.Location = new System.Drawing.Point(290, 108);
+            this.checkCobranza.Location = new System.Drawing.Point(301, 131);
             this.checkCobranza.Name = "checkCobranza";
             this.checkCobranza.Size = new System.Drawing.Size(107, 17);
             this.checkCobranza.TabIndex = 9;
@@ -207,24 +207,25 @@ namespace Contasis
             this.panel1.Controls.Add(this.lblcodigo);
             this.panel1.Location = new System.Drawing.Point(6, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(406, 156);
+            this.panel1.Size = new System.Drawing.Size(409, 161);
             this.panel1.TabIndex = 14;
             // 
             // check_cobranzacomercial
             // 
             this.check_cobranzacomercial.AutoSize = true;
             this.check_cobranzacomercial.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.check_cobranzacomercial.Location = new System.Drawing.Point(269, 128);
+            this.check_cobranzacomercial.Location = new System.Drawing.Point(281, 128);
             this.check_cobranzacomercial.Name = "check_cobranzacomercial";
             this.check_cobranzacomercial.Size = new System.Drawing.Size(120, 17);
             this.check_cobranzacomercial.TabIndex = 22;
             this.check_cobranzacomercial.Text = "Activar Cobranza C.";
             this.check_cobranzacomercial.UseVisualStyleBackColor = false;
+            this.check_cobranzacomercial.CheckedChanged += new System.EventHandler(this.check_cobranzacomercial_CheckedChanged);
             // 
             // checkBoxFondom
             // 
             this.checkBoxFondom.AutoSize = true;
-            this.checkBoxFondom.Location = new System.Drawing.Point(11, 128);
+            this.checkBoxFondom.Location = new System.Drawing.Point(11, 123);
             this.checkBoxFondom.Name = "checkBoxFondom";
             this.checkBoxFondom.Size = new System.Drawing.Size(103, 17);
             this.checkBoxFondom.TabIndex = 21;
@@ -234,43 +235,48 @@ namespace Contasis
             // checkventascom
             // 
             this.checkventascom.AutoSize = true;
-            this.checkventascom.Location = new System.Drawing.Point(143, 128);
+            this.checkventascom.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.checkventascom.Location = new System.Drawing.Point(165, 127);
             this.checkventascom.Name = "checkventascom";
             this.checkventascom.Size = new System.Drawing.Size(95, 17);
             this.checkventascom.TabIndex = 19;
             this.checkventascom.Text = "Activar Ventas";
-            this.checkventascom.UseVisualStyleBackColor = true;
+            this.checkventascom.UseVisualStyleBackColor = false;
             this.checkventascom.Visible = false;
+            this.checkventascom.CheckedChanged += new System.EventHandler(this.checkventascom_CheckedChanged);
             // 
             // checkcomprascom
             // 
             this.checkcomprascom.AutoSize = true;
             this.checkcomprascom.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.checkcomprascom.Location = new System.Drawing.Point(268, 103);
+            this.checkcomprascom.Location = new System.Drawing.Point(281, 106);
             this.checkcomprascom.Name = "checkcomprascom";
             this.checkcomprascom.Size = new System.Drawing.Size(103, 17);
             this.checkcomprascom.TabIndex = 20;
             this.checkcomprascom.Text = "Activar Compras";
             this.checkcomprascom.UseVisualStyleBackColor = false;
             this.checkcomprascom.Visible = false;
+            this.checkcomprascom.CheckedChanged += new System.EventHandler(this.checkcomprascom_CheckedChanged);
             // 
             // checkPRODUCTO
             // 
             this.checkPRODUCTO.AutoSize = true;
-            this.checkPRODUCTO.Location = new System.Drawing.Point(143, 103);
+            this.checkPRODUCTO.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.checkPRODUCTO.Location = new System.Drawing.Point(165, 105);
             this.checkPRODUCTO.Name = "checkPRODUCTO";
             this.checkPRODUCTO.Size = new System.Drawing.Size(113, 17);
             this.checkPRODUCTO.TabIndex = 18;
             this.checkPRODUCTO.Text = "Activar Productos ";
-            this.checkPRODUCTO.UseVisualStyleBackColor = true;
+            this.checkPRODUCTO.UseVisualStyleBackColor = false;
             this.checkPRODUCTO.Visible = false;
+            this.checkPRODUCTO.CheckedChanged += new System.EventHandler(this.checkPRODUCTO_CheckedChanged);
             // 
             // FrmRuceditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(420, 210);
+            this.ClientSize = new System.Drawing.Size(423, 214);
             this.Controls.Add(this.checkCobranza);
             this.Controls.Add(this.txtempresa);
             this.Controls.Add(this.BtnActualizar);

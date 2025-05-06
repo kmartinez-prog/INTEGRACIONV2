@@ -109,6 +109,7 @@ namespace Contasis
         {
             if (Properties.Settings.Default.TipModulo == "2")
             {
+                this.integradorContableToolStripMenuItem.Enabled = false;
                 integradorContableToolStripMenuItem.Enabled = false;
                 ventasContableToolStripMenuItem.Enabled = false;
                 comprasContableToolStripMenuItem.Enabled = false;
@@ -118,11 +119,11 @@ namespace Contasis
                 documentosComercialToolStripMenuItem.Enabled = true;
                 productosToolStripMenuItem.Enabled = true;
                 integradorComercialSQLToolStripMenuItem.Enabled = true;
-                
+               this.integradorComercialSQLToolStripMenuItem.Enabled = true;
             }
             else
             {
-                integradorContableToolStripMenuItem.Enabled = true;
+                this.integradorContableToolStripMenuItem.Enabled = true;
               ///  integradorComercialSQLToolStripMenuItem.Enabled = false;
 
                 ventasContableToolStripMenuItem.Enabled =true;
@@ -132,7 +133,7 @@ namespace Contasis
 
                 documentosComercialToolStripMenuItem.Enabled = false;
                 productosToolStripMenuItem.Enabled = false;
-
+                this.integradorComercialSQLToolStripMenuItem.Enabled = false;
 
 
             }
@@ -301,6 +302,9 @@ private void SalirToolStripMenuItem_Click(object sender, EventArgs e)
             if (Properties.Settings.Default.TipModulo == "1")
             {
                 this.integradorContableToolStripMenuItem.Enabled = true;
+                this.integradorComercialSQLToolStripMenuItem.Enabled = false;
+                    
+
                 if (txtcontrol.Text == "1")
                 {
                     foreach (Form OpenForm in Application.OpenForms)
@@ -750,6 +754,7 @@ private void SalirToolStripMenuItem_Click(object sender, EventArgs e)
             if (Properties.Settings.Default.TipModulo == "2")
             {
                 this.integradorComercialSQLToolStripMenuItem.Enabled = true;
+                this.integradorContableToolStripMenuItem.Enabled = false;
                 if (txtcontrol.Text == "1")
                 {
                     foreach (Form OpenForm in Application.OpenForms)

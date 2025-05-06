@@ -41,7 +41,7 @@ namespace Contasis
             // 
             // pBarra
             // 
-            this.pBarra.Location = new System.Drawing.Point(7, 33);
+            this.pBarra.Location = new System.Drawing.Point(9, 24);
             this.pBarra.Name = "pBarra";
             this.pBarra.Size = new System.Drawing.Size(393, 19);
             this.pBarra.Step = 20;

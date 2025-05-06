@@ -66,7 +66,7 @@ namespace Contasis
             this.panel1.Controls.Add(this.btneliminar);
             this.panel1.Controls.Add(this.btncerrar);
             this.panel1.Controls.Add(this.dataGridView1);
-            this.panel1.Location = new System.Drawing.Point(14, 96);
+            this.panel1.Location = new System.Drawing.Point(14, 90);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(554, 345);
             this.panel1.TabIndex = 1;

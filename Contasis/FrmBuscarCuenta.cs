@@ -49,6 +49,10 @@ namespace Contasis
         }
         private void cargar()
         {
+
+
+
+
             NpgsqlConnection cone = new NpgsqlConnection();
             /** para ventas **/
             if (txtcodigo.Text == "1")

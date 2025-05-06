@@ -27,6 +27,9 @@ namespace Contasis
             instance = this;
         }
 
+        int posicion;
+
+
         private void BtnSalir_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -135,8 +138,8 @@ namespace Contasis
                     var command = new System.Data.SqlClient.SqlCommand();
                     command.Connection = connection;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "Select CCOD_EMPRESA+'-'+NOMEMPRESA AS EMPRESA,NCOMVENTAFLG as venta," +
-                    "NCOMCOMPRAFLG as compra,NCOBRANZACOMERCIAL as cobranza,npagoflg as pago  from cg_empresa inner join cg_empemisor on," +
+                    command.CommandText = "Select distinct CCOD_EMPRESA+'-'+NOMEMPRESA AS EMPRESA " +
+                    " From cg_empresa inner join cg_empemisor on," +
                     " cg_empresa.ccodrucemisor = cg_empemisor.ccodrucemisor " +
                     "  where cast(cg_empemisor.flgActivo as integer) = 1";
                     var adapter = new System.Data.SqlClient.SqlDataAdapter(command);
@@ -173,8 +176,8 @@ namespace Contasis
                     var command = new NpgsqlCommand();
                     command.Connection = conexion;
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT ltrim(CCOD_EMPRESA)||'-'||ltrim(NOMEMPRESA)::character(50) AS EMPRESA,NCOMVENTAFLG as venta," +
-                    "NCOMCOMPRAFLG as compra,NCOBRANZACOMERCIAL as cobranza,npagoflg as pago  from cg_empresa inner join cg_empemisor on " +
+                    command.CommandText = "SELECT distinct ltrim(CCOD_EMPRESA)||'-'||ltrim(NOMEMPRESA)::character(50) AS EMPRESA" +
+                    " From cg_empresa inner join cg_empemisor on " +
                     " cg_empresa.ccodrucemisor = cg_empemisor.ccodrucemisor " +
                     "  where cast(cg_empemisor.flgActivo as integer) = 1";
                     var adapter = new NpgsqlDataAdapter(command);
@@ -215,9 +218,51 @@ namespace Contasis
 
 
         }
+        private void ActivaCobranza()
+        {
+            if (Properties.Settings.Default.cadenaPostPrincipal == "")
+            {
+            }
+
+            else
+            {
+
+                Clase.Configuracion_comercial obj = new Clase.Configuracion_comercial();
+                NpgsqlConnection conexion = new NpgsqlConnection();
+                conexion.ConnectionString = Properties.Settings.Default.cadenaPostPrincipal;
+                conexion.Open();
+
+
+                string text01 = "select ncobranzacomercial as cobranzac from cg_empresa inner join cg_empemisor on " +
+                " cg_empresa.ccodrucemisor = cg_empemisor.ccodrucemisor " +
+                " where cg_empresa.ccod_empresa = '" + this.cmbempresas.Text.Substring(0, 3) + "'";
+                var cmd = new NpgsqlCommand(text01, conexion);0
+                    .
+                var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    obj.PermisoCobranzaComercial = Convert.ToInt32(reader["cobranzac"].ToString());
+                }
+                if (obj.PermisoCobranzaComercial == 0)
+                {
+                    this.tabPage1.Parent = null;
+                } 
+
+
+
+            }
+            
+
+
+        }
+
+
+
         private void FrmIntegradorComercial_Load(object sender, EventArgs e)
         {
             this.button1.Enabled = false;
+            this.ActivaCobranza();
             txtcadena.Text = Properties.Settings.Default.cadenaPost;
             ////// MessageBox.Show("" + Properties.Settings.Default.cadenaPost);
 
@@ -423,7 +468,7 @@ namespace Contasis
             try
             {
                 NpgsqlConnection cone2 = new NpgsqlConnection();
-                string text02 = "select ccodpag,cdespag  from cc_pago where cdespag LIKE '%CONT%' OR  cdespag LIKE '%CRED%' ORDER BY ccodpag";
+                string text02 = "select ccodpag,cdespag  from cc_pago where upper(cdespag) LIKE '%CONT%' OR  cdespag LIKE '%CRED%' ORDER BY ccodpag";
                 cone2 = Clase.ConexionPostgreslContasis.Instancial().establecerconexion2(txtcadena.Text);
                 NpgsqlCommand cmd = new NpgsqlCommand(text02, cone2);
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
@@ -451,6 +496,7 @@ namespace Contasis
         }
         private void Vendedor()
         {
+            this.Validar_datos();
             try
             {
                 NpgsqlConnection cone2 = new NpgsqlConnection();
@@ -621,7 +667,9 @@ namespace Contasis
             dataGrid.DataSource = "";
         }
         public void Modulos()
+
         {
+            this.Validar_datos();
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
                 label5.Text = "Tipo de movimiento:";
@@ -704,7 +752,7 @@ namespace Contasis
             FechaInicio.Enabled = true;
             this.Movimiento(cmbdocumento.SelectedValue.ToString(), cmbseries.SelectedValue.ToString(), xtipomovi);
         }
-         private void Cmbtipo_SelectedIndexChanged(object sender, EventArgs e)
+        private void Cmbtipo_SelectedIndexChanged(object sender, EventArgs e)
         {
             FechaInicio.Enabled = true;
             label5.Text = "Tipo de movimiento:";
@@ -878,6 +926,8 @@ namespace Contasis
         }
         public void Mostrar_grilla()
         {
+            dataGrid.Columns.Clear();
+            this.Validar_datos();
             try
             {
                 if (Properties.Settings.Default.cadenaPostPrincipal == "")
@@ -892,8 +942,8 @@ namespace Contasis
                 }
 
 
-                
-               /// dataGrid.AllowUserToAddRows = false;
+
+                /// dataGrid.AllowUserToAddRows = false;
                 ////dataGrid.Columns[0].HeaderText = "CODIGO";
                 ///dataGrid.Columns[0].MinimumWidth = 50;
                 /////dataGrid.Columns[0].Width = 100;
@@ -901,6 +951,9 @@ namespace Contasis
                 ////dataGrid.Columns[1].MinimumWidth = 50;
                 ////dataGrid.Columns[1].Width = 474;
                 /////dataGrid.Columns[2].Visible = false;
+
+                
+
                 dataGrid.AllowUserToAddRows = false;
                 lblTotales.Text = "Total de Registros : " + Convert.ToString(dataGrid.Rows.Count);
                 dataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -924,27 +977,21 @@ namespace Contasis
         }
         private void Btngrabar_Click(object sender, EventArgs e)
         {
+            this.Validar_datos();
+            /*  if (txtFechaInicio.Text == "")
+              {
+                  MessageBox.Show("Debe de grabar la fecha de Inicio.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                  return;
+              }
+              else
+              {*/
 
-          /*  if (txtFechaInicio.Text == "")
-            {
-                MessageBox.Show("Debe de grabar la fecha de Inicio.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            else
-            {*/
-
-                this.grabar();
+            this.grabar();
                /* Grabar_Fecha_inicio();*/
                 btngrabar.Enabled = false;
                 this.Com_documento();
                 this.Com_detalledocumento();
                 this.Com_producto();
-
-
-
-
-
-
                 this.funciones();
            /* }*/
 
@@ -958,33 +1005,43 @@ namespace Contasis
         private void Btneliminar_Click(object sender, EventArgs e)
         {
 
-            DialogResult dialogResult = MessageBox.Show("Deseas eliminar movimiento seleccionado.?", "Contasis Corpor.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes)
+            if (cmbempresas.Text == "")
             {
-                if (dataGrid.Rows.Count > 0)
+                this.Validar_datos();
+            }
+            else
+            {
+                DialogResult dialogResult = MessageBox.Show("Deseas eliminar movimiento seleccionado.?", "Contasis Corpor.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Yes)
                 {
-                    string codigo = Convert.ToString(dataGrid.SelectedRows[0].Cells[0].Value);
-                    if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                    if (dataGrid.Rows.Count > 0)
                     {
-                        Clase.Comercial_procesos_configuracion regis = new Clase.Comercial_procesos_configuracion();
-                        dataGrid.DataSource = regis.Eliminar_movimientosql(codigo);
+                        string codigo = Convert.ToString(dataGrid.SelectedRows[0].Cells[0].Value);
+                        if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                        {
+                            Clase.Comercial_procesos_configuracion regis = new Clase.Comercial_procesos_configuracion();
+                            dataGrid.DataSource = regis.Eliminar_movimientosql(codigo);
+                        }
+                        else
+                        {
+                            Clase.Comercial_procesos_configuracion regis = new Clase.Comercial_procesos_configuracion();
+                            dataGrid.DataSource = regis.Eliminar_movimientopossql(codigo);
+                        }
+                        this.Mostrar_grilla();
                     }
                     else
                     {
-                        Clase.Comercial_procesos_configuracion regis = new Clase.Comercial_procesos_configuracion();
-                        dataGrid.DataSource = regis.Eliminar_movimientopossql(codigo);
+                        return;
                     }
-                    this.Mostrar_grilla();
                 }
-                else     {                  
+                else if (dialogResult == DialogResult.No)
+                {
                     return;
                 }
-            }
-            else if (dialogResult == DialogResult.No)
-            {
-                return;
-            }
-            btneliminar.Enabled = false;
+
+                btneliminar.Enabled = false;
+            }   
+
         }
         private void DataGrid_Click(object sender, EventArgs e)
         {
@@ -1107,7 +1164,6 @@ namespace Contasis
             }
 
         }
-
         public void com_cobranzapago_integra()
         {
             NpgsqlConnection cone01 = new NpgsqlConnection();
@@ -1147,8 +1203,6 @@ namespace Contasis
             }
 
         }
-
-
         public void funciones()
         {
                 NpgsqlConnection cone01 = new NpgsqlConnection();
@@ -1317,7 +1371,6 @@ namespace Contasis
             respuesta = objpos.crear_Campos_nuevos_en_tablas_empresa(NombreTable, Nombrecampo, Query, txtcadena.Text);
 
         }
-
         private void FechaInicio_ValueChanged(object sender, EventArgs e)
         {
             txtFechaInicio.Text = FechaInicio.Value.ToString("dd/MM/yyyy");
@@ -1443,7 +1496,22 @@ namespace Contasis
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
+        }
 
+        private void Validar_datos()
+        {
+            if (this.cmbempresas.Text=="")
+            {
+                MessageBox.Show("Favor de seleccionar una empresa.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                cmbempresas.Focus();
+                return;
+            }
+            if (this.cmbperiodo.Text == "")
+            {
+                MessageBox.Show("Favor de seleccionar el periodo.", "Contasis Corp.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                cmbperiodo.Focus();
+                return;
+            }
         }
         private void Validar_cuentas(string valor, string valor2)
         {
@@ -1634,6 +1702,7 @@ namespace Contasis
 
         private void txtsubdiario_cobra_KeyDown(object sender, KeyEventArgs e)
         {
+            this.Validar_datos();
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
@@ -1651,6 +1720,7 @@ namespace Contasis
 
         private void txtregistro_cobra_KeyDown(object sender, KeyEventArgs e)
         {
+            this.Validar_datos();
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
@@ -1668,11 +1738,12 @@ namespace Contasis
 
         private void txtflujocobra_TextChanged(object sender, EventArgs e)
         {
-
+            this.Validar_datos();
         }
 
         private void txtflujocobra_KeyDown(object sender, KeyEventArgs e)
         {
+            this.Validar_datos();
             if (((Control.ModifierKeys & Keys.Control) == Keys.Control) && e.KeyValue == 'L')
 
             {
@@ -1691,11 +1762,13 @@ namespace Contasis
 
         private void txtsubdiario_cobra_TextChanged(object sender, EventArgs e)
         {
-            
+            this.Validar_datos();
         }
         public void Mostrar_registros_cobranzas()
         {
-            
+
+            this.Validar_datos();
+            dataGridView_cobranza.Columns.Clear();
             if (Properties.Settings.Default.cadenaPostPrincipal == "")
             {
                 try
@@ -1717,6 +1790,7 @@ namespace Contasis
                         this.dataGridView_cobranza.Refresh();
                         FechaInicio.Enabled = true;
                     }
+
 
                 }
                 catch (Exception ex)
@@ -1758,8 +1832,6 @@ namespace Contasis
         }
 
         /***************************************************************************************************************/
-
-
         public void llena_modulo_comercial()
         {
             NpgsqlConnection conexion = new NpgsqlConnection();
@@ -1808,5 +1880,30 @@ namespace Contasis
 
         }
 
+        private void dataGridView_cobranza_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView_cobranza.Rows.Count > 0)
+            {
+                txtsubdiario_cobra.Text = dataGridView_cobranza.Rows[posicion].Cells["subdiario_cobranza"].Value.ToString();
+                txtregistro_cobra.Text = dataGridView_cobranza.Rows[posicion].Cells["registro_cobranza"].Value.ToString();
+                txtflujocobra.Text = dataGridView_cobranza.Rows[posicion].Cells["flujo_cobranza"].Value.ToString();
+            }
+
+        }
+
+        private void dataGridView_cobranza_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            posicion = e.RowIndex;
+        }
+
+        private void txtregistro_cobra_TextChanged(object sender, EventArgs e)
+        {
+            this.Validar_datos();
+        }
+
+        private void dataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.Validar_datos();
+        }
     }
 }

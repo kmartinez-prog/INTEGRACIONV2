@@ -230,15 +230,12 @@ namespace Contasis
                     Clase.Comercial_productos_propiedades obj = new Clase.Comercial_productos_propiedades();
                     Clase.Productos_comercial_Inconsistencia verlista = new Clase.Productos_comercial_Inconsistencia();
                     Clase.Productos_comercial_Inconsistencia actuasql = new Clase.Productos_comercial_Inconsistencia();
-                    
                     obj.Ruc = cmbrucemisor.Text.Trim().Substring(0, 11);
                     obj.Empresa = cmbempresas.Text.Trim().Substring(0, 3);
                     obj.Estado = "";
                     actuasql.ActualizaEstadoSQL(obj);
                     this.dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                    
                     this.dataGridView2.Refresh();
-
                     dataGridView2.DataSource = verlista.listarsql(obj);
                     dataGridView2.AllowUserToAddRows = false;
                     label2.Text = "Total de Registros : " + Convert.ToString(dataGridView2.Rows.Count);

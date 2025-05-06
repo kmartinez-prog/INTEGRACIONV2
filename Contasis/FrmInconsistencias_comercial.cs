@@ -330,9 +330,9 @@ namespace Contasis
                     }
                     this.dataGridView2.Refresh();
                     this.dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                    this.dataGridView2.CurrentCell = this.dataGridView2.Rows[0].Cells[1];
-                    dataGridView2.FirstDisplayedScrollingRowIndex = 1;
-                    dataGridView2.HorizontalScrollingOffset = 1;
+                   // this.dataGridView2.CurrentCell = this.dataGridView2.Rows[0].Cells[1];
+                  //  dataGridView2.FirstDisplayedScrollingRowIndex = 1;
+                 //   dataGridView2.HorizontalScrollingOffset = 1;
 
                     this.motivo();
                 }
@@ -814,9 +814,9 @@ namespace Contasis
                 obj.Imp_anticipo = dataGridView2.CurrentRow.Cells[55].Value.ToString();
                 obj.Total = dataGridView2.CurrentRow.Cells[56].Value.ToString();
                 obj.Observacion = dataGridView2.CurrentRow.Cells[57].Value.ToString();
+                obj.Unidad = dataGridView2.CurrentRow.Cells[57].Value.ToString();
 
 
-                
                 Frm_com_DocumentosEditor editdocumento = new Frm_com_DocumentosEditor(obj.Id,obj.Modulo,obj.Cod_movimiento,
                 obj.Cod_documento,obj.Serie,obj.Numero,obj.Cod_entiedad,obj.Nombre_entidad,obj.Tipo_doc_entidad,
                 obj.Ruc_rz,obj.Razon_social, obj.Direc_cliente, obj.Ubigeo, obj.Contacto, obj.Nomb_contacto,

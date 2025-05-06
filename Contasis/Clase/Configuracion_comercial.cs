@@ -23,6 +23,7 @@ namespace Contasis.Clase
         public string Ent_anula { get; set; }
         public string Prodanula { get; set; }
         public int Id { get; set; }
+        public int PermisoCobranzaComercial { get; set; }
     
 
 

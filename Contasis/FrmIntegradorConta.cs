@@ -4749,6 +4749,11 @@ namespace Contasis
 
         }
 
+        private void dataGridView_pago_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
 
         /****************************************************************************************************************/
     }

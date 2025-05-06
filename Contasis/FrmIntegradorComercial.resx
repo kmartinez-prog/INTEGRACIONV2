@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="nEmpresa.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Id.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="txtdocumento.Text" xml:space="preserve">
     <value>CREATE TABLE IF NOT EXISTS public.com_documento
 (
@@ -8374,12 +8380,17 @@ $BODY$
 LANGUAGE 'plpgsql';</value>
   </data>
   <data name="txt_com_importar_ventas_principal2025.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION com_importar_ventas_principal()
-  RETURNS integer AS
-$BODY$
+    <value>CREATE OR REPLACE FUNCTION public.com_importar_ventas_principal(
+	)
+    RETURNS integer
+AS $BODY$
+
 	/* 
 		Autor: Kim martinez
 		select * from com_importar_ventas_principal(); 
+		Modificacion: 24/04/2025
+		Bloqueo de ubigeo y colocacion de Activo en ruc :: 25/04/2025
+		glosa para cobranzas 30/04/2025
 	*/
 DECLARE 
 	vnIdreg integer; 
@@ -8403,10 +8414,10 @@ BEGIN
 	Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' error ccodtipent no puede estar vacio es para el tipo de doc.de identidad'), resultado_migracion = 2  
     where  coalesce(ccodtipent,'')='' and es_con_migracion=0; 
 
-	Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' Codigo de ubigeo no existe'), resultado_migracion = 2  
-    where ccodtipent = '6' and es_con_migracion=0 and  com_documento.ccodubi not in (select ccodubi from cc_ubigeo);
+------	Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' Codigo de ubigeo no existe'), resultado_migracion = 2  
+    -----------where ccodtipent = '6' and es_con_migracion=0 and  com_documento.ccodubi not in (select ccodubi from cc_ubigeo);
 
-	Insert into cg_entitrib (ccodruc,crazsoc, ctipdoc,CNATJUR,cdirec,ccodubi,cdepfin,cprovfin,cdistfin ) 
+	Insert into cg_entitrib (ccodruc,crazsoc, ctipdoc,CNATJUR,cdirec,ccodubi,cdepfin,cprovfin,cdistfin,cestadoruc ) 
 	select DISTINCT ccodruc,crazsoc,ccodtipent as ctipdoc,case 
 	when ccodtipent='1' and Length(ltrim(ccodruc))=8 then '1'
 	when ccodtipent='6' and Length(ltrim(ccodruc))=11 AND  SUBSTRING(ltrim(ccodruc),1,2)='10' then '1'
@@ -8416,12 +8427,11 @@ BEGIN
 	when ccodtipent='4' and Length(ltrim(ccodruc))=12  then '1'
 	when ccodtipent='4' and Length(ltrim(ccodruc))&lt;11  then '3'
 	END ::CHAR(1) AS CNATJUR,cdirecc,com_documento.ccodubi,cc_ubigeo.cdesubi as  cdepfin,b.cdesubi as  cprovfin,
-	c.cdesubi as  cdistfin FROM com_documento 
+	c.cdesubi as  cdistfin,'ACTIVO' FROM com_documento 
 	inner join cc_ubigeo on concat(substr(com_documento.ccodubi,1,2),'0000')=cc_ubigeo.ccodubi
 	inner join cc_ubigeo b on concat(substr(com_documento.ccodubi,1,4),'00')=b.ccodubi
 	inner join cc_ubigeo c on com_documento.ccodubi=c.ccodubi
 	WHERE ccodruc not in (select ccodruc from cg_entitrib); 
-
 
 	-- 1. validar que compra tenga detalles	
 	update com_documento x
@@ -8490,10 +8500,10 @@ BEGIN
     where coalesce(ccodruc,'')='' and es_con_migracion=0; 
 
   
-   Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' Codigo de ubigeo no debe estar vacio'), resultado_migracion = 2  
-   where  es_con_migracion=0 and coalesce(com_documento.ccodubi,'')='';
+ ----  Update  com_documento set obserror=CONCAT(ltrim(obserror),'-',' Codigo de ubigeo no debe estar vacio'), resultado_migracion = 2  
+   -------where  es_con_migracion=0 and coalesce(com_documento.ccodubi,'')='';
 
-	   -- Validar si el documento ya existe  22/04/2025  Kim martinez
+	   -- Validar si el documento ya existe 
 	Update com_documento set obserror=CONCAT(ltrim(obserror),'-',' Documento ya fue procesado anteriormente'), resultado_migracion = 2  
 	where es_con_migracion=0 and iddocumento 	in (select a.iddocumento
 	From com_documento a inner join cc_registro c on 
@@ -8550,10 +8560,21 @@ BEGIN
 	left join cf_plan plbas on z.cuenta = plbas.ccodcue and z.cper = plbas.cper 
 	where plbas.ccodcue is null ;
 
-	update com_documento 
-			set obserror=CONCAT(ltrim(obserror),'-','EL DOCUMENTO UNOS DE SUS ITEMS DEL PRODUCTO SU CUENTA CONTABLE NO ESISTE EN PCGE') ,  resultado_migracion = 2 
+	update com_documento set obserror=CONCAT(ltrim(obserror),'-','EL DOCUMENTO UNOS DE SUS ITEMS DEL PRODUCTO SU CUENTA CONTABLE NO ESISTE EN PCGE') ,  resultado_migracion = 2 
 	 where iddocumento in ( select distinct iddocumento from tmpItemConCuentasErradas);
 	-- KMM - 21-04-2024  
+
+	-- KMM - 25-04-2025 - 
+	DROP TABLE IF EXISTS tmpItemIncompletos;
+	create temp table tmpItemIncompletos as 
+	select a.iddocumento, a.ntot, b.ntotori
+	from com_documento a 
+	inner join (select iddocumento, sum(ntotori) as ntotori from com_detalledocumento group by iddocumento ) b on a.iddocumento = b.iddocumento
+	where a.es_con_migracion = 0 and coalesce(a.ntot,0) &lt;&gt; coalesce(b.ntotori,0);
+	
+	update com_documento set obserror=CONCAT(ltrim(obserror),'-','LOS ITEMS DIFIEREN DEL DETALLE TOTAL ') ,  resultado_migracion = 2 
+	 where iddocumento in ( select distinct iddocumento from tmpItemIncompletos);
+	-- KMM - 25-04-2025 - 
 
 	-- Validaciones cobranzas --------------------------------------------------------
 	update com_documento set obserror=CONCAT(ltrim(obserror),'-','EL DOCUMENTO ESTA AL CONTADO Y LA CCUECAN  NO EXISTE EN PCGE') ,  resultado_migracion = 2 
@@ -8616,7 +8637,7 @@ BEGIN
 		    nigv2d, 
 		    nbase3d, nigv3d,  ninad, nexod, niscd, 
 			nivabased, nivaimpd,nimpantd, ntotd,
-			ntipafec,nafestock,ctiptrans,nimpmon,ccodusu) 
+			ntipafec,nafestock,ctiptrans,nimpmon,ccodusu,cglosa) 
 	select idr.nidreg, a.cper, a.cmes, a.ccodmov, idr.ctipmov, a.ccoddoc, a.cserie, a.cnumero, a.ccodenti,
 		    a.ccodruc, 	a.ccodcontac, a.ffecha, a.ffechaven, a.ffechaalm, a.ccodpag, a.cmoneda, a.ntcigv, 
 			a.ntcigv as ntcbas,	a.ntcigv as ntctot,	a.cguiaser, a.cguianum, a.mdsc, a.ccodvend, 
@@ -8650,7 +8671,8 @@ BEGIN
 			Case when a.cmoneda='D' then a.nivaimp   else round(a.nivaimp/a.ntcigv,2)   END as nivaimpd,
 			Case when a.cmoneda='D' then a.nimpant   else round(a.nimpant/a.ntcigv,2)   END as nimpantd,
 		    Case when a.cmoneda='D' then a.ntot      else round(a.ntot/a.ntcigv,2)      END as ntotd,
-			idr.ntipafec,idr.nafestock,mm.ctipmov,idr.nimpmon,'ADMIN'	
+			idr.ntipafec,idr.nafestock,mm.ctipmov,idr.nimpmon,'ADMIN',
+			concat(CASE WHEN a.ccoddoc='07' then 'NOTA DE CREDITO ' ELSE  a.ccodmodulo  END,' - ',right(trim(a.cserie),4),'-',right(trim(a.cnumero),8)) :: character(80) as cglosa
 			from com_documento a
 			inner join tmpNumnIdreg idr on a.iddocumento = idr.iddocumento 
 			inner join cc_movimiento mm on a.ccodmov=mm.ccodmov AND a.ccoddoc=mm.ccoddoc and a.cserie=mm.cserie and mm.ctipmov='S'
@@ -8741,7 +8763,6 @@ BEGIN
 
 	end loop; 
 
-
 	-- Actualizar correlativo en documento  	
 	for vrcorre in select max(cnumero::integer) as nnumdoc,ccoddoc,cserie  
 							  from com_documento  group by ccoddoc,cserie  loop 
@@ -8767,10 +8788,7 @@ BEGIN
 
 END; 
 $BODY$
-  LANGUAGE plpgsql VOLATILE
-  COST 100;
-ALTER FUNCTION com_importar_ventas_principal()
-  OWNER TO postgres;</value>
+    LANGUAGE 'plpgsql';</value>
   </data>
   <data name="txtcom_importar_ventas_generaasiento_2025.Text" xml:space="preserve">
     <value>-- FUNCTION: public.com_importar_ventas_generaasiento(character, integer)
@@ -9016,9 +9034,10 @@ $BODY$
  LANGUAGE 'plpgsql';	</value>
   </data>
   <data name="txtcom_importar_ventas_principal_anular2025.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION com_importar_ventas_principal_anular()
-  RETURNS integer AS
-$BODY$
+    <value>CREATE OR REPLACE FUNCTION public.com_importar_ventas_principal_anular(
+	)
+    RETURNS integer
+AS $BODY$
  
 DECLARE 
 	vnIdreg integer; 
@@ -9041,7 +9060,8 @@ BEGIN
 		DROP TABLE IF EXISTS tmpDocumentosExistentes;
 		DROP TABLE IF EXISTS tmpDocumentosNoExistentes;
 		create temp table tmpDocumentosExistentes as 
-		select a.iddocumento, a.cper, a.cmes, a.ccodruc, a.ccoddoc, a.cserie, a.cnumero,a.ccodrucanula, b.nidreg  
+		select a.iddocumento, a.cper, a.cmes, a.ccodruc, a.ccoddoc, a.cserie, a.cnumero,a.ccodrucanula, b.nidreg, 
+				a.ccuecan, a.cdoccan,lpad(trim(a.csercan),20,'0') as csercan,lpad(trim(a.cnumcan),20,'0') as  cnumcan -- KMM - 25-04-2025 - LSQL-51
 		from com_documento a
 		left join cc_registro b on a.cper = b.cper and a.ccodruc = b.ccodruc and a.ccoddoc = b.ccoddoc and a.cserie = b.cserie and a.cnumero = b.cnumero 
 		where a.es_con_migracion = 3 and coalesce(b.ccoddoc,'') &lt;&gt; ''; 
@@ -9066,13 +9086,33 @@ BEGIN
 					   nigv3d=0.00, ninad=0.00, nexod=0.00, niscd=0.00, nivabased=0.00, nivaimpd=0.00, 
 					   ntotd=0.00,cmesc='' 
 			where cper = rw.cper and  ccodruc = rw.ccodruc and  ccoddoc = rw.ccoddoc and cserie  = rw.cserie and  cnumero = rw.cnumero; 
+
+
+			select a.cper, a.cmes, a.ccodori, a.nasiento from cf_diariol a 
+							inner join tmpDocumentosExistentes b on a.cper = b.cper and  a.ccodruc = b.ccodruc and  a.ccoddoc = b.cdoccan and a.cserie  = b.csercan and  a.cnumero = b.cnumcan 
+							where a.cper = '2025'
+							group by a.cper, a.cmes, a.ccodori, a.nasiento
+			select * from tmpDocumentosExistentes
+
+			
 */
+			-- KMM - 25-04-2025 - LSQL-51
+			for rwAsi in select a.cper, a.cmes, a.ccodori, a.nasiento from cf_diariol a 
+							inner join tmpDocumentosExistentes b on a.cper = b.cper and  a.ccodruc = b.ccodruc and  a.ccoddoc = b.cdoccan and a.cserie  = b.csercan and  a.cnumero = b.cnumcan 
+							where a.cper =  rw.cper  
+							group by a.cper, a.cmes, a.ccodori, a.nasiento loop 
+			
+					delete from cf_diariol where cper = rwAsi.cper and cmes = rwAsi.cmes and  ccodori = rwAsi.ccodori and nasiento = rwAsi.nasiento  ;
+					delete from cf_diario where cper = rwAsi.cper and cmes = rwAsi.cmes and  ccodori = rwAsi.ccodori and nasiento = rwAsi.nasiento  ;
+			end loop; 
+			-- KMM - 25-04-2025 - LSQL-51
+		
+
 			-- KMM - 14-04-2025 	
 			for rwAsi in select a.cper, a.cmes, a.ccodori, a.nasiento from cf_diariol a 
 							inner join tmpDocumentosExistentes b on a.cper = b.cper and  a.ccodruc = b.ccodruc and  a.ccoddoc = b.ccoddoc and a.cserie  = b.cserie and  a.cnumero = b.cnumero 
 							where a.cper =  rw.cper 
 							group by a.cper, a.cmes, a.ccodori, a.nasiento loop 
-			--for rwAsi in select cper, cmes, ccodori, nasiento   from cf_diario where nidreg = rw.nidreg loop 
 				update cf_diariol
 				set ccodruc = rw.ccodrucanula,
 					   ndebe=0.00, nhaber=0.00, ndebes=0.00, nhabers=0.00, ndebed=0.00, 
@@ -9082,7 +9122,7 @@ BEGIN
 					   nigv3s=0.00, ninas=0.00, nexos=0.00, niscs=0.00, nivabases=0.00, nivaimps=0.00, 
 					   ntots=0.00, nbase1d=0.00, nigv1d=0.00, nbase2d=0.00, nigv2d=0.00, nbase3d=0.00, 
 					   nigv3d=0.00, ninad=0.00, nexod=0.00, niscd=0.00, nivabased=0.00, nivaimpd=0.00, 
-					   ntotd=0.00,cmesc=''
+					   ntotd=0.00, cmesc=''
 				where cper = rwAsi.cper and cmes = rwAsi.cmes and  ccodori = rwAsi.ccodori and nasiento = rwAsi.nasiento  ;
 
 			end loop; 
@@ -9149,12 +9189,15 @@ ALTER FUNCTION com_importar_ventas_principal_anular()
   OWNER TO postgres;</value>
   </data>
   <data name="txtcom_importar_ventas_generaasiento_cobranza_principal_2025.Text" xml:space="preserve">
-    <value>CREATE OR REPLACE FUNCTION com_importar_ventas_generaasiento_cobranza_principal()
+    <value>CREATE OR REPLACE FUNCTION public.com_importar_ventas_generaasiento_cobranza_principal(
+	)
     RETURNS void
 AS $BODY$
+
 	/*
 		Autor: Kim martinez
 		select * from com_importar_ventas_generaasiento_cobranza_principal() 
+		Modificacion: cglosa 24/04/2025
 	*/ 
 DECLARE  
 	RW RECORD;
@@ -9260,7 +9303,8 @@ BEGIN
 				    a.ffecha as ffechadoc, a.ffechaven, a.ccodenti, a.ccodruc, a.crazsoc, 
 				 	case when a.cmoneda = 'S' then a.ntot else 0.00 end as nimportes, 
 				    case when a.cmoneda = 'D' then a.ntot else 0.00 end nimported, 
-				 	pgl.cctaven as  ccodcue, a.mdsc as  cglosa, '' as ccodcos, '' as ccodcos2, a.nporre, .00 as nimpperc, 
+				 	pgl.cctaven as  ccodcue, 
+				 concat('COBRANZA - ',right(trim(a.cserie),4),'-',right(trim(a.cnumero),8))  :: character(80) as cglosa, '' as ccodcos, '' as ccodcos2, a.nporre, .00 as nimpperc, 
 				    a.nperdenre, '' as cserre, '' as cnumre, null  as ffecre 
 			 FROM com_documento	a 	
 			 inner join cc_movimiento m on a.ccodmov = m.ccodmov and m.ctipmov = 'S'
@@ -9330,9 +9374,15 @@ BEGIN
 	end loop; 
 
 END; 
-$BODY$ 
-LANGUAGE 'plpgsql' VOLATILE</value>
+$BODY$
+LANGUAGE 'plpgsql';</value>
   </data>
+  <metadata name="Id.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="nEmpresa.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

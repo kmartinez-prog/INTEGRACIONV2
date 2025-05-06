@@ -160,9 +160,12 @@ namespace Contasis.Clase
             SqlConnection cone = new SqlConnection();
             try
             {
+
+                /////",cdesprod = '" + Objet.Descripcion_producto.Trim().Replace("'", "″") + "',cdesprodGen =  '" + Objet.Descripcion_general.Trim() + "',
+
                 string query = "UPDATE com_producto SET ccodfamg ='" + Objet.Cod_grupo.Trim() + "',cdesfamg = '" + Objet.Descripcion_grupo.Trim() + "'" +
                 ",ccodfamf = '" + Objet.Cod_familia.Trim() + "',cdesfamf = '" + Objet.Desc_familia.Trim() + "',ccodprod = '" + Objet.Cod_producto.Trim() + "'" +
-                ",cdesprod = '" + Objet.Descripcion_producto.Trim() + "',cdesprodGen =  '" + Objet.Descripcion_general.Trim() + "',ccodtes =  '" + Objet.Existencia.Trim() + "'" +
+                ",ccodtes =  '" + Objet.Existencia.Trim() + "'" +
                 ",cdesmar =  '" + Objet.Marca.Trim() + "',ccodmed =  '" + Objet.Unidad_medida.Trim() + "',ccodcatbs =  '" + Objet.Cod_osce.Trim() + "'" +
                 ",cdescatbs ='" + Objet.Descrip_osce.Trim() + "',ntipoprod ='" + Objet.Tipo.Trim() + "',nunidsec ='" + Objet.Unid_secundaria.Trim() + "',npesoprod =  '" + Objet.Peso.Trim() + "'" +
                 ",ccodbarras ='" + Objet.Cod_barra.Trim() + "',ninprod =  '" + Objet.Inhabilitar_prod.Trim() + "',nanuprod ='" + Objet.Para_anular.Trim() + "',nlote =  '" + Objet.Lote.Trim() + "'" +
@@ -212,11 +215,12 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                
 
+                ////",cdesprod = '" + Objet.Descripcion_producto + "',cdesprodGen =  '" + Objet.Descripcion_general +
+                
                 string query =  "UPDATE com_producto SET ccodfamg ='" + Objet.Cod_grupo + "',cdesfamg = '" + Objet.Descripcion_grupo + "'" +
                 ",ccodfamf = '" + Objet.Cod_familia + "',cdesfamf = '" + Objet.Desc_familia + "',ccodprod = '" + Objet.Cod_producto + "'" +
-                ",cdesprod = '" + Objet.Descripcion_producto + "',cdesprodGen =  '" + Objet.Descripcion_general + "',ccodtes =  '" + Objet.Existencia + "'" +
+                ",ccodtes =  '" + Objet.Existencia + "'" +
                 ",cdesmar =  '" + Objet.Marca + "',ccodmed =  '" + Objet.Unidad_medida + "',ccodcatbs =  '" + Objet.Cod_osce + "'" +
                 ",cdescatbs ='" + Objet.Descrip_osce + "',ntipoprod ='" + Objet.Tipo + "',nunidsec ='" + Objet.Unid_secundaria + "',npesoprod =  '" + Objet.Peso + "'" +
                 ",ccodbarras ='" + Objet.Cod_barra + "',ninprod =  '" + Objet.Inhabilitar_prod + "',nanuprod ='" + Objet.Para_anular + "',nlote =  '" + Objet.Lote + "'" +

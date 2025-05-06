@@ -102,8 +102,7 @@ namespace Contasis.Clase
                 "  coalesce(a.obserror, '') as OBSERVACION  "+
                 " FROM com_documento a inner join configuracion2 b on  " +
                 " ltrim(a.ccodmodulo) = ltrim(b.Tipo) and  " +
-                " ltrim(a.ccoddoc) = ltrim(b.codtipdocu) and  " +
-                " ltrim(a.cserie) = ltrim(b.cserie)  "+
+                " ltrim(a.ccoddoc) = ltrim(b.codtipdocu) "+  ////  -------and  ltrim(a.cserie) = ltrim(b.cserie) 
                 " where a.es_con_migracion = 2  and a.ccodrucemisor='" + Objet.Ruc.Trim() + "' and a.ccod_empresa='" + Objet.Empresa.Trim() + "'";
                 NpgsqlCommand commando = new NpgsqlCommand(query, conexion);
                 carga = commando.ExecuteReader();
@@ -364,9 +363,10 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "UPDATE com_documento SET ccodmov ='" + Objet.Cod_movimiento.Trim() + "'" +
+                ////",cserie ='" + Objet.Serie.Trim() + "'" +
+
+               string query = "UPDATE com_documento SET ccodmov ='" + Objet.Cod_movimiento.Trim() + "'" +
                ", ccoddoc ='" + Objet.Cod_documento.Trim() + "'" +
-               ",cserie ='" + Objet.Serie.Trim() + "'" +
                ", cnumero = '" + Objet.Numero.Trim() + "'" +
                ",ccodenti ='" + Objet.Cod_entiedad.Trim() + "'" +
                ",cdesenti ='" + Objet.Nombre_entidad.Trim() + "'" +
@@ -391,7 +391,6 @@ namespace Contasis.Clase
                ",ccodocon =  '" + Objet.Otros_conceptos.Trim() + "'" +
                ",cnumordc =  '" + Objet.Orden_compra.Trim() + "'" +
                ",crefdoc =  '" + Objet.Tip_referencia.Trim() + "'" +
-               ",freffec =  '" + Objet.Fec_doc_referencia.Trim() + "'" +
                ",crefser =  '" + Objet.Serie_doc_referencia.Trim() + "'" +
                ",crefnum =  '" + Objet.Numero_referencia.Trim() + "'" +
                ",ccat09 =  '" + Objet.Cod_motivo_notacredito.Trim() + "'" +
@@ -399,7 +398,6 @@ namespace Contasis.Clase
                ",nresp =  '" + Objet.Reg_especial.Trim() + "'" +
                ",ccodpds =  '" + Objet.Cod_detraccion.Trim() + "'" +
                ",nporre =  '" + Objet.Porcentaje_detraccion.Trim() + "'" +
-               ",ffecre =  '" + Objet.Fec_deposito.Trim() + "'" +
                ",cnumdere =  '" + Objet.Contancia_deposito.Trim() + "'" +
                ",ccodpps =  '" + Objet.Cod_percepcion.Trim() + "'" +
                ",nporre2 =  '" + Objet.Porcentaje_percepcion.Trim() + "'" +
@@ -421,6 +419,9 @@ namespace Contasis.Clase
                ", es_con_migracion = 0,obserror = '' WHERE iddocumento ='" + Objet.Id.Trim() + "'";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 cadena = command3.ExecuteNonQuery() == 1 ? "Actualizado" : "No se actualizo";
+
+                ///",ffecre =  '" + Objet.Fec_deposito.Trim() + "'" +   ",freffec =  '" + Objet.Fec_doc_referencia.Trim() + "'" +
+
 
             }
             catch (Exception ex1)
@@ -642,7 +643,7 @@ namespace Contasis.Clase
             conexion.Open();
             try
             {
-                string query = "update  com_documento  SET es_con_migracion=2  where es_con_migracion=0 and obserror<>''  and  ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim() + "'";
+                string query = "update  com_documento  SET es_con_migracion=2  where es_con_migracion not in(1,3,4,0) and obserror<>''  and  ccodrucemisor = '" + Objet.Ruc.Trim() + "' and ccod_empresa = '" + Objet.Empresa.Trim() + "'";
                 NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                 command3.ExecuteNonQuery();
 

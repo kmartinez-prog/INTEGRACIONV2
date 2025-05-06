@@ -32,10 +32,11 @@ namespace Contasis
                 { }
                 else
                 {
-                    string query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg,ncomfondom,ncobranzacomercial) values(" +
+                    string query = "Insert into cg_empemisor(ccodrucemisor,cdesrucemisor,flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg,ncomfondom,ncobranzacomercial,ncomproductoflg) values(" +
                                   "'" + Objet.ruc + "', " +
                                   "'" + Objet.empresa + "', " +
-                                  "'" + Objet.estado + "'," + Objet.checkventas + "," + Objet.checkcompras + "," + Objet.checkcobranzas + "," + Objet.checkpagos + "," + Objet.nfondoM + "," + Objet.check_cobranzacomercial + ")";
+                                  "'" + Objet.estado + "'," + Objet.checkventas + "," + Objet.checkcompras + "," + 
+                                  Objet.checkcobranzas + "," + Objet.checkpagos + "," + Objet.nfondoM + "," + Objet.check_cobranzacomercial + "," + Objet.ncomproductoflg+ ")";
                     NpgsqlCommand command3 = new NpgsqlCommand(query, conexion);
                     cadena = command3.ExecuteNonQuery() > 0 ? "Grabado" : "No se grabo";
                     

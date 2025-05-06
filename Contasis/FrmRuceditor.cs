@@ -21,7 +21,7 @@ namespace Contasis
             InitializeComponent();
             tipo = ntipo;
 
-            if (ntipo == 1)
+            if (ntipo == 1)  /// Nuevo 
             {
                 txtruc.Visible = true;
                 lblcodigo.Visible = true;
@@ -44,7 +44,7 @@ namespace Contasis
                     checkBoxestado.Checked =false;
                 }
                 /******/
-                if (Properties.Settings.Default.TipModulo == "1")
+                if (Properties.Settings.Default.TipModulo == "1") ///// 1 para financiero
                 {
                     if (venta == 1)
                     {
@@ -103,7 +103,7 @@ namespace Contasis
                 }
 
 
-                if (Properties.Settings.Default.TipModulo == "2")
+                if (Properties.Settings.Default.TipModulo == "2") //// comercial
                 {
                     if (productos == 1)
                     {
@@ -239,7 +239,7 @@ namespace Contasis
                         return;
                     }
                   
-                    if (Properties.Settings.Default.cadenaPostPrincipal == "")
+                    if (Properties.Settings.Default.cadenaPostPrincipal == "")  /// sql server
                     {
                         string respuesta = "";
 
@@ -258,60 +258,63 @@ namespace Contasis
                         }
                         /*********/
 
-                        if (checkventa.Checked == true)
-                        {
-                            obj.checkventas = 1;
-                        }
-                        else
-                        {
-                            obj.checkventas = 0;
-                        }
 
-                        if (checkCompras.Checked == true)
+                        if (Properties.Settings.Default.TipModulo == "1")
                         {
-                            obj.checkcompras = 1;
-                        }
-                        else
-                        {
-                            obj.checkcompras = 0;
-                        }
+                            if (checkventa.Checked == true)
+                            {
+                                obj.checkventas = 1;
+                            }
+                            else
+                            {
+                                obj.checkventas = 0;
+                            }
 
-                        if (checkCobranza.Checked == true)
-                        {
-                            obj.checkcobranzas = 1;
-                        }
-                        else
-                        {
-                            obj.checkcobranzas = 0;
-                        }
+                            if (checkCompras.Checked == true)
+                            {
+                                obj.checkcompras = 1;
+                            }
+                            else
+                            {
+                                obj.checkcompras = 0;
+                            }
 
-                        if (checkPagos.Checked == true)
-                        {
-                            obj.checkpagos = 1;
-                        }
-                        else
-                        {
-                            obj.checkpagos = 0;
-                        }
+                            if (checkCobranza.Checked == true)
+                            {
+                                obj.checkcobranzas = 1;
+                            }
+                            else
+                            {
+                                obj.checkcobranzas = 0;
+                            }
 
-                        if (checkBoxFondom.Checked == true)
-                        {
-                            obj.nfondoM  = 1;
-                        }
-                        else
-                        {
-                            obj.nfondoM = 0;
-                        }
-                        if (check_cobranzacomercial.Checked == true)
-                        {
-                            obj.check_cobranzacomercial = 1;
-                            
-                        }
-                        else
-                        {
-                            obj.check_cobranzacomercial = 0;
-                        }
+                            if (checkPagos.Checked == true)
+                            {
+                                obj.checkpagos = 1;
+                            }
+                            else
+                            {
+                                obj.checkpagos = 0;
+                            }
 
+                            if (checkBoxFondom.Checked == true)
+                            {
+                                obj.nfondoM = 1;
+                            }
+                            else
+                            {
+                                obj.nfondoM = 0;
+                            }
+                            if (check_cobranzacomercial.Checked == true)
+                            {
+                                obj.check_cobranzacomercial = 1;
+
+                            }
+                            else
+                            {
+                                obj.check_cobranzacomercial = 0;
+                            }
+                        }
 
 
 
@@ -378,6 +381,9 @@ namespace Contasis
                         }
                         FrmRucemisor.instance.Grilla1();
                     }
+                   
+                    
+                    
                     else
                     {
                         string respuesta = "";
@@ -394,53 +400,57 @@ namespace Contasis
                         {
                             obj.estado = "0";
                         }
-                        if (checkventa.Checked == true)
-                        {
-                            obj.checkventas = 1;
-                        }
-                        else
-                        {
-                            obj.checkventas = 0;
-                        }
 
-                        if (checkCompras.Checked == true)
+                        if (Properties.Settings.Default.TipModulo == "1")
                         {
-                            obj.checkcompras = 1;
-                        }
-                        else
-                        {
-                            obj.checkcompras = 0;
-                        }
 
-                        if (checkCobranza.Checked == true)
-                        {
-                            obj.checkcobranzas = 1;
-                        }
-                        else
-                        {
-                            obj.checkcobranzas = 0;
-                        }
+                            if (checkventa.Checked == true)
+                            {
+                                obj.checkventas = 1;
+                            }
+                            else
+                            {
+                                obj.checkventas = 0;
+                            }
 
-                        if (checkPagos.Checked == true)
-                        {
-                            obj.checkpagos = 1;
-                        }
-                        else
-                        {
-                            obj.checkpagos = 0;
-                        }
+                            if (checkCompras.Checked == true)
+                            {
+                                obj.checkcompras = 1;
+                            }
+                            else
+                            {
+                                obj.checkcompras = 0;
+                            }
 
+                            if (checkCobranza.Checked == true)
+                            {
+                                obj.checkcobranzas = 1;
+                            }
+                            else
+                            {
+                                obj.checkcobranzas = 0;
+                            }
 
-                        if (checkBoxFondom.Checked == true)
-                        {
-                            obj.nfondoM = 1;
-                        }
-                        else
-                        {
-                            obj.nfondoM = 0;
-                        }
+                            if (checkPagos.Checked == true)
+                            {
+                                obj.checkpagos = 1;
+                            }
+                            else
+                            {
+                                obj.checkpagos = 0;
+                            }
 
 
+                            if (checkBoxFondom.Checked == true)
+                            {
+                                obj.nfondoM = 1;
+                            }
+                            else
+                            {
+                                obj.nfondoM = 0;
+                            }
+
+                        }
 
 
                         if (Properties.Settings.Default.TipModulo == "2")
@@ -453,24 +463,23 @@ namespace Contasis
                             {
                                 obj.ncomproductoflg = 0;
                             }
-
-                            if (checkcomprascom.Checked == true)
-                            {
-                                obj.ncomcompraflg = 1;
-                            }
-                            else
-                            {
-                                obj.ncomcompraflg = 0;
-                            }
-
                             if (checkventascom.Checked == true)
                             {
-                                obj.ncomventaflg = 1;
+                                obj.checkventas = 1;
                             }
                             else
                             {
-                                obj.ncomventaflg = 0;
+                                obj.checkventas = 0;
                             }
+                            if (checkcomprascom.Checked == true)
+                            {
+                                obj.checkcompras = 1;
+                            }
+                            else
+                            {
+                                obj.checkcompras = 0;
+                            }
+                            
 
                             if (check_cobranzacomercial.Checked == true)
                             {
@@ -526,7 +535,7 @@ namespace Contasis
                     {
                         obj.estado = "0";
                     }
-                    if (checkventa.Checked == true)
+                    if (checkventascom.Checked == true)
                     {
                         obj.checkventas = 1;
                     }
@@ -585,11 +594,11 @@ namespace Contasis
 
                         if (checkcomprascom.Checked == true)
                         {
-                            obj.ncomcompraflg = 1;
+                            obj.checkcompras = 1;
                         }
                         else
                         {
-                            obj.ncomcompraflg = 0;
+                            obj.checkcompras = 0;
                         }
 
                         if (checkventascom.Checked == true)
@@ -719,6 +728,26 @@ namespace Contasis
         }
 
         private void Txtempresa_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkPRODUCTO_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkventascom_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkcomprascom_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void check_cobranzacomercial_CheckedChanged(object sender, EventArgs e)
         {
 
         }

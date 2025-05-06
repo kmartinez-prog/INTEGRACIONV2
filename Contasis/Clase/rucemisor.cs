@@ -59,11 +59,12 @@ namespace Contasis.Clase
 
                 if (Properties.Settings.Default.TipModulo == "1")
                 {
-                    query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg,ncomfondom  from cg_empemisor ";
+                    query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo,nventaflg,ncompraflg,ncobranzaflg,npagoflg,ncomfondom  from cg_empemisor;";
                 }
                 if (Properties.Settings.Default.TipModulo == "2")
                 {
-                    query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo,ncomproductoflg::char(1) as ncomproductoflg,ncomcompraflg::char(1) as ncomcompraflg ,ncomventaflg::char(1) as ncomventaflg,ncobranzacomercial as cobranza  from cg_empemisor "; //,ncomfondom//
+                    query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo,ncomproductoflg::char(1) as ncomproductoflg,ncompraflg::char(1) as ncomcompraflg,nventaflg::char(1) as ncomventaflg,ncobranzacomercial as cobranza from cg_empemisor;";
+                   /// query = "select ccodrucemisor,cdesrucemisor,flgactivo::char(1) as flgactivo,ncomproductoflg::char(1) as ncomproductoflg,ncomcompraflg::char(1) as ncomcompraflg ,ncomventaflg::char(1) as ncomventaflg,ncobranzacomercial as cobranza  from cg_empemisor "; //,ncomfondom//
                 }
 
 

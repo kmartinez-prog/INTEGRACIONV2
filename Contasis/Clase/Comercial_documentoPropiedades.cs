@@ -70,6 +70,6 @@ namespace Contasis.Clase
         public string Imp_anticipo { get; set; }
         public string Total { get; set; }
         public string Observacion { get; set; }
-
+        public string Unidad { get; set; }
     }
 }
